@@ -1,0 +1,128 @@
+#!groovy
+@Library('Reform')
+import uk.gov.hmcts.Ansible
+import uk.gov.hmcts.Packager
+import uk.gov.hmcts.RPMTagger
+@Library('CMC')
+import uk.gov.hmcts.cmc.integrationtests.IntegrationTests
+import uk.gov.hmcts.cmc.smoketests.SmokeTests
+
+Ansible ansible = new Ansible(this, 'cmc')
+Packager packager = new Packager(this, 'cmc')
+
+SmokeTests smokeTests = new SmokeTests(this)
+IntegrationTests integrationTests = new IntegrationTests(env, this)
+
+timestamps {
+  milestone()
+  lock(resource: "legal-rep-frontend-${env.BRANCH_NAME}", inversePrecedence: true) {
+    node('slave') {
+      try {
+        def version
+        def citizenFrontendRPMVersion
+        def citizenFrontendVersion
+        def ansibleCommitId
+
+        stage('Checkout') {
+          deleteDir()
+          checkout scm
+        }
+
+        stage('Setup') {
+          sh '''
+            yarn install
+            yarn setup
+          '''
+        }
+
+        stage('Lint') {
+          sh "yarn run lint"
+        }
+
+        stage('Node security check') {
+          try {
+            sh "yarn test:nsp 2> nsp-report.txt"
+          } catch (ignore) {
+            sh "cat nsp-report.txt"
+            archiveArtifacts 'nsp-report.txt'
+            error "Node security check failed see the report for the errors"
+          }
+          sh "rm nsp-report.txt"
+        }
+
+        stage('Test') {
+          try {
+            sh "yarn test"
+          } finally {
+            archiveArtifacts 'mochawesome-report/unit.html'
+          }
+        }
+
+        stage('Test a11y') {
+          try {
+            sh "yarn test:a11y"
+          } finally {
+            archiveArtifacts 'mochawesome-report/a11y.html'
+          }
+        }
+
+        stage('Package application (RPM)') {
+          citizenFrontendRPMVersion = packager.nodeRPM('legal-rep-frontend')
+          version = "{citizen_frontend_buildnumber: ${citizenFrontendRPMVersion}}"
+
+          if ("master" == BRANCH_NAME) {
+            packager.publishNodeRPM('legal-rep-frontend')
+          }
+        }
+
+        stage('Package application (Docker)') {
+          citizenFrontendVersion = dockerImage imageName: 'cmc/legal-rep-frontend'
+        }
+
+        stage('Integration Tests') {
+          integrationTests.execute([
+            'CITIZEN_FRONTEND_VERSION': citizenFrontendVersion
+          ])
+        }
+
+        //noinspection GroovyVariableNotAssigned It is guaranteed to be assigned
+        RPMTagger rpmTagger = new RPMTagger(this,
+          'legal-rep-frontend',
+          packager.rpmName('legal-rep-frontend', citizenFrontendRPMVersion),
+          'cmc-local'
+        )
+
+        if ("master" == BRANCH_NAME) {
+          milestone()
+          lock(resource: "CMC-deploy-dev", inversePrecedence: true) {
+            stage('Deploy (Dev)') {
+              ansibleCommitId = ansible.runDeployPlaybook(version, 'dev')
+              rpmTagger.tagDeploymentSuccessfulOn('dev')
+              rpmTagger.tagAnsibleCommit(ansibleCommitId)
+            }
+            stage('Smoke test (Dev)') {
+              smokeTests.executeAgainst(env.CMC_DEV_APPLICATION_URL)
+              rpmTagger.tagTestingPassedOn('dev')
+            }
+          }
+          milestone()
+          lock(resource: "CMC-deploy-test", inversePrecedence: true) {
+            stage('Deploy (Test)') {
+              ansibleCommitId = ansible.runDeployPlaybook(version, 'test', ansibleCommitId)
+              rpmTagger.tagDeploymentSuccessfulOn('test')
+            }
+            stage('Smoke test (Test)') {
+              // Fee's register isn't working in test currently
+              //smokeTests.executeAgainst(env.CMC_TEST_APPLICATION_URL)
+              rpmTagger.tagTestingPassedOn('test')
+            }
+          }
+        }
+      } catch (Throwable err) {
+        notifyBuildFailure channel: '#cmc-tech-notification'
+        throw err
+      }
+    }
+    milestone()
+  }
+}

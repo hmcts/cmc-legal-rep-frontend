@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "es6",
+      "es2017.object",
+      "dom"
+    ],
+    "target": "es5",
+    "baseUrl": "src/main/app"
+  }
+}

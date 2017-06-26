@@ -1,0 +1,10 @@
+{% from "includes/macros/form.njk" import textInput, saveAndContinueButton %}
+
+{% macro nameForm(form) %}
+  <form method="post">
+    {{ textInput(t('First name(s)'), 'first', form) }}
+    {{ textInput(t('Middle name(s) (if any)'), 'middle', form) }}
+    {{ textInput(t('Last name(s)'), 'last', form) }}
+    {{ saveAndContinueButton() }}
+  </form>
+{% endmacro %}

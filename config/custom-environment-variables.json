@@ -1,0 +1,39 @@
+{
+  "idam": {
+    "authentication-web": {
+      "url": "IDAM_AUTHENTICATION_WEB_URL"
+    },
+    "api": {
+      "url": "IDAM_API_URL"
+    },
+    "service-2-service-auth": {
+      "url": "IDAM_S2S_AUTH",
+      "totpSecret": "IDAM_S2S_TOTP_SECRET"
+    }
+  },
+  "claim-store": {
+    "url": "CLAIM_STORE_URL",
+    "healthCheckUrl": "CLAIM_STORE_HEALTH_CHECK_URL"
+  },
+  "draft-store": {
+    "url": "DRAFT_STORE_URL",
+    "apiVersion": "DRAFT_STORE_API_VERSION"
+  },
+  "citizen-frontend": {
+    "gaTrackingId": "GA_TRACKING_ID",
+    "piwikTrackingId": "PIWIK_TRACKING_ID",
+    "piwikTrackingSite": "PIWIK_TRACKING_SITE"
+  },
+  "session": {
+    "cookieName": "JWT_COOKIE_NAME"
+  },
+  "fees": {
+    "url": "FEES_URL"
+  },
+  "pay": {
+    "url": "PAY_URL"
+  },
+  "pdf-service": {
+    "url": "PDF_SERVICE_URL"
+  }
+}

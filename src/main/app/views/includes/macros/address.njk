@@ -1,0 +1,11 @@
+{% from "includes/macros/form.njk" import textInput, saveAndContinueButton %}
+
+{% macro addressForm(form) %}
+  <form method="post">
+    {{ textInput(t('Address line 1'), 'line1', form) }}
+    {{ textInput(t('Address line 2 (optional)'), 'line2', form) }}
+    {{ textInput(t('Town or city'), 'city', form) }}
+    {{ textInput(t('Postcode'), 'postcode', form, '', 'postcode') }}
+    {{ saveAndContinueButton() }}
+  </form>
+{% endmacro %}
