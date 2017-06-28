@@ -38,6 +38,10 @@
     "@types/express-serve-static-core" "*"
     "@types/serve-static" "*"
 
+"@types/left-pad@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@types/left-pad/-/left-pad-1.1.1.tgz#29ab68a1a10e849140c9ba3e71a412534dfa0c7b"
+
 "@types/mime@*":
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-1.3.1.tgz#2cf42972d0931c1060c7d5fa6627fce6bd876f2f"
@@ -597,6 +601,12 @@ ci-info@^1.0.0:
 circular-json@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/circular-json/-/circular-json-0.3.1.tgz#be8b36aefccde8b3ca7aa2d6afc07a37242c0d2d"
+
+class-validator@^0.7.0:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/class-validator/-/class-validator-0.7.2.tgz#35ed86f0590bbb60161a8c8ef9c813cb38572ffe"
+  dependencies:
+    validator "^7.0.0"
 
 cli-cursor@^1.0.1:
   version "1.0.2"
@@ -2600,6 +2610,10 @@ lcid@^1.0.0:
   resolved "https://registry.yarnpkg.com/lcid/-/lcid-1.0.0.tgz#308accafa0bc483a3867b4b6f2b9506251d1b835"
   dependencies:
     invert-kv "^1.0.0"
+
+left-pad@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/left-pad/-/left-pad-1.1.3.tgz#612f61c033f3a9e08e939f1caebeea41b6f3199a"
 
 levn@^0.3.0, levn@~0.3.0:
   version "0.3.0"
