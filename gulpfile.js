@@ -36,6 +36,11 @@ gulp.task('copy-files', () => {
   .pipe(gulp.dest(`${assetsDirectory}/js/lib/`))
 
   gulp.src([
+    './node_modules/@hmcts/cmc-common-frontend/macros/*.njk'
+  ])
+  .pipe(gulp.dest(`${assetsDirectory}/macros`))
+
+  gulp.src([
     './node_modules/HTML_CodeSniffer/HTMLCS.js'
   ])
   .pipe(gulp.dest(`${assetsDirectory}/js/lib/htmlcs`))

@@ -1,0 +1,49 @@
+{% extends "layout.njk" %}
+
+{% set title = t('Money claim') %}
+{% set heading = t('Choose claimant type') %}
+
+{% from "form.njk" import saveAndContinueButton, textArea, textInput, errorSummary  %}
+
+{% block content %}
+
+<div class="grid-row">
+  <div class="column-two-thirds">
+    <form novalidate method="post">
+      {% set error = form.errorFor('claimant_type') %}
+      <fieldset id="type[label]" class="form-group">
+        <legend class="visuallyhidden">
+          {{ t("Choose claimant type") }}
+          {% if error %}<span class="error-message">{{ t(error) }}</span>{% endif %}
+        </legend>
+
+        <div class="multiple-choice" data-target="claimant-company">
+          <input id="claimant_type_company" type="radio" name="type" value="organisation" {% if form.valueFor('type') == 'organisation' %} checked {% endif %}>
+          <label for="claimant_type_company">{{ t('An organisation') }}</label>
+        </div>
+
+        <div class="panel panel-border-narrow js-hidden" id="claimant-company" aria-hidden="false">
+          {{ textInput("Organisation name", 'claimant_company_name', form) }}
+          {{ textInput("Companies House number (optional)", 'claimant_company_number', form) }}
+        </div>
+
+        <div class="multiple-choice" data-target="claimant-individual">
+          <input id="claimant_type_individual" type="radio" name="type" value="individual" {% if form.valueFor('claimant_type') == 'individual' %} checked {% endif %}>
+          <label for="claimant_type_individual">{{ t('An individual') }}</label>
+        </div>
+
+        <div class="panel panel-border-narrow js-hidden" id="claimant-individual" aria-hidden="false">
+          {{ textInput("Title", 'claimant_title', form) }}
+          {{ textArea("Full name", 'claimant_name', form) }}
+        </div>
+
+      </fieldset>
+
+      <div class="form-group">
+        {{ saveAndContinueButton() }}
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
