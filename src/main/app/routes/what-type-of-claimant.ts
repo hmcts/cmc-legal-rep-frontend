@@ -15,8 +15,8 @@ export default express.Router()
     const form: Form<ClaimantType> = req.body
 
     if (!form.hasErrors()) {
-      res.locals.user.claimDraft.interestDate = form.model
-
+      res.locals.user.claimDraft.claimantType = form.model
+      res.redirect('what-type-of-claimant')
     } else {
       res.render('claim/what-type-of-claimant', { form: form })
     }
