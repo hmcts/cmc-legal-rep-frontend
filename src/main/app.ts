@@ -7,12 +7,12 @@ import * as logging from '@hmcts/nodejs-logging'
 import { NotFoundError } from './errors'
 import { AccessLogger } from 'logging/accessLogger'
 import { ErrorLogger } from 'logging/errorLogger'
-import { RouterFinder } from 'common/router/routerFinder'
+import { RouterFinder } from 'app/common/router/routerFinder'
 import { AuthorizationMiddlewareFactory } from 'idam/authorizationMiddlewareFactory'
 import { ClaimDraftMiddleware } from 'drafts/claimDraftMiddleware'
-import Helmet from 'modules/helmet'
-import I18Next from 'modules/i18n'
-import Nunjucks from 'modules/nunjucks'
+import Helmet from 'app/modules/helmet'
+import I18Next from 'app/modules/i18n'
+import Nunjucks from 'app/modules/nunjucks'
 
 export const app: express.Express = express()
 

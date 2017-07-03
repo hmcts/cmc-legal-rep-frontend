@@ -1,6 +1,6 @@
 import * as express from 'express'
 
-import DraftStoreClient from 'common/draft/draftStoreClient'
+import DraftStoreClient from 'app/common/draft/draftStoreClient'
 
 export class DraftMiddleware<T> {
   client: DraftStoreClient<T>
