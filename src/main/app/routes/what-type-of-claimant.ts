@@ -21,7 +21,6 @@ export default express.Router()
         .then(() => {
           res.redirect('/claim/start')
         })
-      res.redirect('/claim/what-type-of-claimant')
     } else {
       res.render('claim/what-type-of-claimant', { form: form })
     }
