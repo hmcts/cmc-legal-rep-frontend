@@ -45,13 +45,13 @@
         "app/utils/*"
       ],
       "modules/*": [
-        "modules/*"
+        "app/modules/*"
       ],
       "routes/*": [
         "routes/*"
       ],
       "common/*": [
-        "common/*"
+        "app/common/*"
       ],
       "response/*": [
         "features/response/*"
