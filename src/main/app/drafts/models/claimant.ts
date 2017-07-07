@@ -1,4 +1,4 @@
-import { ClaimantType } from '../../forms/models/claimantType'
+import { ClaimantType } from 'forms/models/claimantType'
 
 export default class Claimant {
   claimantType: ClaimantType = new ClaimantType()
