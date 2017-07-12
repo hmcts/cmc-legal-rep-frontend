@@ -19,7 +19,7 @@ export default express.Router()
       res.locals.user.claimDraft.personalInjury = form.model
       ClaimDraftMiddleware.save(res, next)
         .then(() => {
-          res.redirect('/claim/start')
+          res.redirect('/claim/summarise-the-claim')
         })
     } else {
       res.render('claim/personal-injury', { form: form })
