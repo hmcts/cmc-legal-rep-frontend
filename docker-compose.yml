@@ -12,18 +12,19 @@ services:
         - no_proxy
     image: docker.artifactory.reform.hmcts.net/cmc/legal-frontend
     environment:
-        - IDAM_SECRET_KEY=cmc_it_test_secret_key
-        - IDAM_HEALTH_CHECK_URL=http://idam-api:8080/health
-        - IDAM_API_URL=http://idam-api:8080
-        - IDAM_REGISTRATION_WEB_URL=http://registration-web:9000
-        - IDAM_AUTHENTICATION_WEB_URL=http://authentication-web:8000
-        - IDAM_S2S_AUTH=http://service-auth-provider-api:8080
-        - PAY_URL=http://payments-api:8080
-        - CLAIM_STORE_URL=http://claim-store-api:4400
-        - CLAIM_STORE_HEALTH_CHECK_URL=http://claim-store-api:4401/health
-        - FEES_URL=http://fees-api:8080
-        - PDF_SERVICE_URL=http://pdf-service-api:5500
-        - DRAFT_STORE_URL=http://draft-store-api:8800
+        - PORT=3401
+        - IDAM_REGISTRATION_WEB_URL=https://registration-test.dev.ccidam.reform.hmcts.net
+        - IDAM_AUTHENTICATION_WEB_URL=https://idam-test.dev.ccidam.reform.hmcts.net
+        - IDAM_API_URL=http://betaDevBccidamAppLB.reform.hmcts.net:4551
+        - FEES_URL=https://dev.fees-register.reform.hmcts.net:4411
+        - DRAFT_STORE_URL=https://devdraftstorelb.moneyclaim.reform.hmcts.net:4301
+        - PAY_URL=http://betaDevBccpayAppLB.reform.hmcts.net:4421
+        - IDAM_S2S_AUTH=http://betaDevBccidamAppLB.reform.hmcts.net:4552
+        - IDAM_S2S_TOTP_SECRET=J7PBT37Y6C3SEFGX
+        - PDF_SERVICE_URL=https://devpdfservicelb.moneyclaim.reform.hmcts.net:4301
         - http_proxy=
         - https_proxy=
-        - no_proxy=                
+        - no_proxy=
+        - NODE_ENV=dev              
+    ports:
+        - 3401:3401
