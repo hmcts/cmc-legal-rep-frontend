@@ -2,7 +2,7 @@ import * as express from 'express'
 import * as config from 'config'
 
 import { AuthorizationMiddleware } from 'idam/authorizationMiddleware'
-import { buildURL } from 'utils/CallbackBuilder'
+import { buildURL } from 'utils/callbackBuilder'
 
 export class AuthorizationMiddlewareFactory {
 
