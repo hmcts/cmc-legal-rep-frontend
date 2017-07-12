@@ -14,13 +14,6 @@ export class ClaimantType implements Serializable<ClaimantType> {
     this.type = type
   }
 
-  deserialize (input?: any): ClaimantType {
-    if (input) {
-      this.type = input.type
-    }
-    return this
-  }
-
   static fromObject (value?: any): ClaimantType {
     if (value == null) {
       return value
@@ -29,5 +22,12 @@ export class ClaimantType implements Serializable<ClaimantType> {
     const instance = new ClaimantType(value.type)
 
     return instance
+  }
+
+  deserialize (input?: any): ClaimantType {
+    if (input) {
+      this.type = input.type
+    }
+    return this
   }
 }

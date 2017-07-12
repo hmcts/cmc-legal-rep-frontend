@@ -9,6 +9,53 @@
       "dom"
     ],
     "target": "es5",
-    "baseUrl": "src/main/app"
+    "baseUrl": "src/main",
+    "paths": {
+      "app/*": [
+        "app/*"
+      ],
+      "client/*": [
+        "app/client/*"
+      ],
+      "drafts/*": [
+        "app/drafts/*"
+      ],
+      "claims/*": [
+        "app/claims/*"
+      ],
+      "fees/*": [
+        "app/fees/*"
+      ],
+      "forms/*": [
+        "app/forms/*"
+      ],
+      "health/*": [
+        "app/health/*"
+      ],
+      "idam/*": [
+        "app/idam/*"
+      ],
+      "logging/*": [
+        "app/logging/*"
+      ],
+      "models/*": [
+        "app/models/*"
+      ],
+      "utils/*": [
+        "app/utils/*"
+      ],
+      "modules/*": [
+        "app/modules/*"
+      ],
+      "routes/*": [
+        "routes/*"
+      ],
+      "common/*": [
+        "app/common/*"
+      ],
+      "response/*": [
+        "features/response/*"
+      ]
+    }
   }
 }
