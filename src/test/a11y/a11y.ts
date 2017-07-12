@@ -31,5 +31,5 @@ function check (page: string, url: string): void {
 }
 
 describe('Accessibility', () => {
-  check('Hello world', '/')
+  check('Summarise the claim', '/claim/summarise-the-claim')
 })
