@@ -1,0 +1,18 @@
+{% extends "layout.njk" %}
+{% from "form.njk" import saveAndContinueButton, errorSummary, textArea %}
+{% set heading = t("Summarise the claim") %}
+
+{% set title = t('Money claim') %}
+
+{% block content %}
+  <div class="grid-row">
+    <div class="column-two-thirds">
+
+      <p>{{ t("Enter a short statement about the nature of the claim and the remedy you seek, for example payment of money.") }}</p>
+      <form novalidate method="post">
+        {{ textArea(label = '', name = 'summary', form = form, rows = 10) }}
+        {{ saveAndContinueButton() }}
+      </form>
+    </div>
+  </div>
+{% endblock %}
