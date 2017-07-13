@@ -3,14 +3,14 @@ import { Serializable } from 'models/serializable'
 import { IsNotBlank } from 'forms/validation/validators/isBlank'
 
 export class ValidationErrors {
-  static readonly REASON_REQUIRED: string = 'Please summarise the claim'
-  static readonly REASON_TOO_LONG: string = 'Enter reason no longer than $constraint1 characters'
+  static readonly SUMMARY_REQUIRED: string = 'Please summarise the claim'
+  static readonly SUMMARY_TOO_LONG: string = 'Please keep summary below $constraint1 characters'
 }
 
 export default class Summary implements Serializable<Summary> {
-  @IsDefined({ message: ValidationErrors.REASON_REQUIRED })
-  @IsNotBlank({ message: ValidationErrors.REASON_REQUIRED })
-  @MaxLength(99000, { message: ValidationErrors.REASON_TOO_LONG })
+  @IsDefined({ message: ValidationErrors.SUMMARY_REQUIRED })
+  @IsNotBlank({ message: ValidationErrors.SUMMARY_REQUIRED })
+  @MaxLength(700, { message: ValidationErrors.SUMMARY_TOO_LONG })
   summary?: string
 
   constructor (summary?: string) {
