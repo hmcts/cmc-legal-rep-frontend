@@ -1,4 +1,4 @@
-import { IsDefined, ValidateIf } from 'class-validator'
+import { IsDefined, ValidateIf, IsIn } from 'class-validator'
 import { Serializable } from 'models/serializable'
 import { YesNo } from 'forms/models/yesNo'
 
@@ -7,13 +7,27 @@ export class ValidationErrors {
   static readonly GENERAL_DAMAGES_REQUIRED: string = 'Please select more or less'
 }
 
+export class GeneralDamages {
+  static readonly LESS: string = 'less'
+  static readonly MORE: string = 'more'
+
+  static all (): string[] {
+    return [
+      GeneralDamages.LESS,
+      GeneralDamages.MORE
+    ]
+  }
+}
+
 export class PersonalInjury implements Serializable<PersonalInjury> {
 
   @IsDefined({ message: ValidationErrors.PERSONAL_INJURY_REQUIRED })
+  @IsIn(YesNo.all(), { message: ValidationErrors.PERSONAL_INJURY_REQUIRED })
   personalInjury?: string
 
   @ValidateIf(o => o.personalInjury === YesNo.YES)
   @IsDefined({ message: ValidationErrors.GENERAL_DAMAGES_REQUIRED })
+  @IsIn(GeneralDamages.all(), { message: ValidationErrors.GENERAL_DAMAGES_REQUIRED })
   generalDamages?: string
 
   constructor (personalInjury?: string, generalDamages?: string) {
@@ -34,6 +48,7 @@ export class PersonalInjury implements Serializable<PersonalInjury> {
   deserialize (input?: any): PersonalInjury {
     if (input) {
       this.personalInjury = input.personalInjury
+      this.generalDamages = input.generalDamages
     }
     return this
   }
