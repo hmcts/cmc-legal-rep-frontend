@@ -1,12 +1,12 @@
 /* tslint:disable:no-unused-expression */
 
 import { expect } from 'chai'
-// import * as _ from 'lodash'
 import { Validator } from 'class-validator'
 
 import { expectValidationError } from './validationUtils'
 
-import { PersonalInjury, GeneralDamages, ValidationErrors } from 'forms/models/personalInjury'
+import { PersonalInjury, ValidationErrors } from 'forms/models/personalInjury'
+import { GeneralDamages } from 'forms/models/generalDamages'
 import { YesNo } from 'app/forms/models/yesNo'
 
 describe('Personal Injury', () => {
@@ -26,8 +26,8 @@ describe('Personal Injury', () => {
     it('should deserialize all fields', () => {
       expect(PersonalInjury.fromObject({
         personalInjury: YesNo.YES,
-        generalDamages: 'less'
-      })).to.deep.equal(new PersonalInjury(YesNo.YES, 'less'))
+        generalDamages: GeneralDamages.LESS
+      })).to.deep.equal(new PersonalInjury(YesNo.YES, GeneralDamages.LESS))
     })
   })
   describe('deserialize', () => {

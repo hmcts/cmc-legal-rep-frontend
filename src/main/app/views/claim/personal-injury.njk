@@ -7,7 +7,7 @@
 
 {% block content %}
 
-  <div class="grid-row" xmlns="http://www.w3.org/1999/html">
+  <div class="grid-row">
     <div class="column-two-thirds">
       <form novalidate method="post">
         {% set errorInjury = form.errorFor('personalInjury') %}
@@ -22,9 +22,9 @@
               <label for="personal_injury_yes">{{ t('Yes') }}</label>
             </div>
 
-            <div class="multiple-choice" data-target="claimant-individual">
-              <input id="claimant_type_individual" type="radio" name="personalInjury" value="no" {% if form.valueFor('personalInjury') == 'no' %} checked {% endif %}>
-              <label for="claimant_type_individual">{{ t('No') }}</label>
+            <div class="multiple-choice">
+              <input id="personal_injury_no" type="radio" name="personalInjury" value="no" {% if form.valueFor('personalInjury') == 'no' %} checked {% endif %}>
+              <label for="personal_injury_no">{{ t('No') }}</label>
             </div>
           </div>
         </fieldset>
@@ -42,7 +42,7 @@
               <label for="general_damages_less">{{ t('£1,000 or less') }}</label>
             </div>
 
-            <div class="multiple-choice" data-target="claimant-individual">
+            <div class="multiple-choice">
               <input id="general_damages_more" type="radio" name="generalDamages" value="more" {% if form.valueFor('generalDamages') == 'more' %} checked {% endif %}>
               <label for="general_damages_more">{{ t('More than £1,000') }}</label>
             </div>

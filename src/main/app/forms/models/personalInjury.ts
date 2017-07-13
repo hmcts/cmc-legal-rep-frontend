@@ -1,22 +1,11 @@
 import { IsDefined, ValidateIf, IsIn } from 'class-validator'
 import { Serializable } from 'models/serializable'
 import { YesNo } from 'forms/models/yesNo'
+import { GeneralDamages } from 'forms/models/generalDamages'
 
 export class ValidationErrors {
   static readonly PERSONAL_INJURY_REQUIRED: string = 'Please select yes or no'
   static readonly GENERAL_DAMAGES_REQUIRED: string = 'Please select more or less'
-}
-
-export class GeneralDamages {
-  static readonly LESS: string = 'less'
-  static readonly MORE: string = 'more'
-
-  static all (): string[] {
-    return [
-      GeneralDamages.LESS,
-      GeneralDamages.MORE
-    ]
-  }
 }
 
 export class PersonalInjury implements Serializable<PersonalInjury> {
