@@ -1,11 +1,11 @@
-import { ClaimantType } from 'forms/models/claimantType'
+import Summary from 'forms/models/summary'
 
 export default class Claimant {
-  claimantType: ClaimantType = new ClaimantType()
+  summary: Summary = new Summary()
 
   deserialize (input: any): Claimant {
     if (input) {
-      this.claimantType = new ClaimantType().deserialize(input.claimantType)
+      this.summary = new Summary().deserialize(input.summary)
     }
     return this
   }

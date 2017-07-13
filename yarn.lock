@@ -27,11 +27,7 @@
   dependencies:
     "@types/chai" "*"
 
-"@types/chai@*":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@types/chai/-/chai-4.0.1.tgz#37fea779617cfec3fd2b19a0247e8bbdd5133bf6"
-
-"@types/chai@^3.4.34":
+"@types/chai@*", "@types/chai@^3.4.34":
   version "3.5.2"
   resolved "https://registry.yarnpkg.com/@types/chai/-/chai-3.5.2.tgz#c11cd2817d3a401b7ba0f5a420f35c56139b1c1e"
 
@@ -86,8 +82,8 @@
     "@types/node" "*"
 
 "@types/supertest@*":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@types/supertest/-/supertest-2.0.2.tgz#c81c797c185f5776a236a0884eddadc35280f6f7"
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@types/supertest/-/supertest-2.0.1.tgz#66e8d84a274ad4bbbeb97d77329e53d90b82f112"
   dependencies:
     "@types/superagent" "*"
 
