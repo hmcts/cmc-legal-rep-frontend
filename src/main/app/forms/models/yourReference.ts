@@ -7,7 +7,7 @@ export class ValidationErrors {
 
 export class YourReference implements Serializable<YourReference> {
 
-  @MaxLength(50, { message: ValidationErrors.YOUR_REFERENCE_TOO_LONG })
+  @MaxLength(25, { message: ValidationErrors.YOUR_REFERENCE_TOO_LONG })
   @IsOptional()
   yourReference?: string
 
