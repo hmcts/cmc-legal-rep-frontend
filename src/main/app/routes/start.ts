@@ -9,5 +9,5 @@ export default express.Router()
     res.render('claim/start')
   })
   .post(Paths.main, (req, res) => {
-    res.redirect('claim/personal-injury')
+    res.redirect('claim/your-reference')
   })
