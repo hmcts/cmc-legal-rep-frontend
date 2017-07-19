@@ -16,7 +16,7 @@ export default class DraftClaim implements Serializable<DraftClaim> {
     if (input) {
       this.claimant = new Claimant().deserialize(input.claimant)
       this.summary = new Summary().deserialize(input.summary)
-      this.yourReference = new YourReference().deserialize(input.yourReference)
+      this.yourReference = new YourReference().deserialize(input.reference)
       this.personalInjury = new PersonalInjury().deserialize(input.personalInjury)
       this.housingDisrepair = new HousingDisrepair().deserialize(input.housingDisrepair)
     }
