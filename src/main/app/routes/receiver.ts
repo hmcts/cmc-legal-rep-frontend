@@ -4,7 +4,7 @@ import * as config from 'config'
 import * as Cookies from 'cookies'
 
 export default express.Router()
-  .get('/receiver', (req, res) => {
+  .get('/receiver', (req: express.Request, res: express.Response) => {
     const sessionCookie = config.get<string>('session.cookieName')
     const cookies = new Cookies(req, res)
 
