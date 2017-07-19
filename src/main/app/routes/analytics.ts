@@ -6,7 +6,7 @@ class Paths {
 }
 
 export default express.Router()
-  .get(Paths.main, (req, res) => {
+  .get(Paths.main, (req: express.Request, res: express.Response) => {
     const site = config.get('citizen-frontend')
 
     res.json(site)

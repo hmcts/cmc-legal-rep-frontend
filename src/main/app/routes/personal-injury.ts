@@ -10,10 +10,10 @@ class Paths {
 }
 
 export default express.Router()
-  .get(Paths.main, (req, res) => {
+  .get(Paths.main, (req: express.Request, res: express.Response) => {
     res.render('claim/personal-injury', { form: new Form(res.locals.user.claimDraft.personalInjury) })
   })
-  .post(Paths.main, FormValidator.requestHandler(PersonalInjury, PersonalInjury.fromObject), (req, res, next) => {
+  .post(Paths.main, FormValidator.requestHandler(PersonalInjury, PersonalInjury.fromObject), (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const form: Form<PersonalInjury> = req.body
     if (form.model.personalInjury === YesNo.NO) {
       form.model.generalDamages = undefined
