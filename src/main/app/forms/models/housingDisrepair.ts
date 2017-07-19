@@ -5,9 +5,9 @@ import { GeneralDamages } from 'forms/models/generalDamages'
 import { OtherDamages } from 'forms/models/otherDamages'
 
 export class ValidationErrors {
-  static readonly HOUSING_DISREPAIR_REQUIRED: string = 'Please select yes or no'
-  static readonly GENERAL_DAMAGES_REQUIRED: string = 'Please select more or less'
-  static readonly OTHER_DAMAGES_REQUIRED: string = 'Please select how much you expect to recover'
+  static readonly HOUSING_DISREPAIR_REQUIRED: string = 'Choose yes if the claim is for housing disrepair'
+  static readonly GENERAL_DAMAGES_REQUIRED: string = 'Choose an amount for general damages'
+  static readonly OTHER_DAMAGES_REQUIRED: string = 'Choose an amount for other damages'
 }
 
 export class HousingDisrepair implements Serializable<HousingDisrepair> {
