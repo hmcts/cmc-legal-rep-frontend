@@ -32,5 +32,7 @@ function check (page: string, url: string): void {
 
 describe('Accessibility', () => {
   check('Issue civil court proceedings', '/claim/start'),
+  check('Is it a personal injury claim?', '/claim/personal-injury'),
+  check('Is it a claim for housing disrepair?', '/claim/housing-disrepair'),
   check('Summarise the claim', '/claim/summarise-the-claim')
 })
