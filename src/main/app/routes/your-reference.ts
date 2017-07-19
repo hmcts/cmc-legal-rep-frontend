@@ -9,10 +9,10 @@ class Paths {
 }
 
 export default express.Router()
-  .get(Paths.main, (req, res) => {
+  .get(Paths.main, (req: express.Request, res: express.Response) => {
     res.render('claim/your-reference', { form: new Form(res.locals.user.claimDraft.yourReference) })
   })
-  .post(Paths.main, FormValidator.requestHandler(YourReference, YourReference.fromObject), (req, res, next) => {
+  .post(Paths.main, FormValidator.requestHandler(YourReference, YourReference.fromObject), (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const form: Form<YourReference> = req.body
 
     if (!form.hasErrors()) {
