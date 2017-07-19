@@ -19,8 +19,8 @@ timestamps {
     node('slave') {
       try {
         def version
-        def citizenFrontendRPMVersion
-        def citizenFrontendVersion
+        def legalFrontendRPMVersion
+        def legalFrontendVersion
         def ansibleCommitId
 
         stage('Checkout') {
@@ -67,8 +67,8 @@ timestamps {
         }
 
         stage('Package application (RPM)') {
-          citizenFrontendRPMVersion = packager.nodeRPM('legal-rep-frontend')
-          version = "{citizen_frontend_buildnumber: ${citizenFrontendRPMVersion}}"
+          legalFrontendRPMVersion = packager.nodeRPM('cmc-legal-rep-frontend')
+          version = "{legal_frontend_buildnumber: ${legalFrontendRPMVersion}}"
 
           if ("master" == BRANCH_NAME) {
             packager.publishNodeRPM('legal-rep-frontend')
@@ -76,19 +76,19 @@ timestamps {
         }
 
         stage('Package application (Docker)') {
-          citizenFrontendVersion = dockerImage imageName: 'cmc/legal-rep-frontend'
+          legalFrontendVersion = dockerImage imageName: 'cmc/legal-rep-frontend'
         }
 
         stage('Integration Tests') {
           integrationTests.execute([
-            'CITIZEN_FRONTEND_VERSION': citizenFrontendVersion
+            'LEGAL_FRONTEND_VERSION': legalFrontendVersion
           ])
         }
 
         //noinspection GroovyVariableNotAssigned It is guaranteed to be assigned
         RPMTagger rpmTagger = new RPMTagger(this,
           'legal-rep-frontend',
-          packager.rpmName('legal-rep-frontend', citizenFrontendRPMVersion),
+          packager.rpmName('legal-rep-frontend', legalFrontendRPMVersion),
           'cmc-local'
         )
 
