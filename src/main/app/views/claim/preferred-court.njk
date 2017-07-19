@@ -1,0 +1,25 @@
+{% extends "layout.njk" %}
+
+{% set title = t('Money claim') %}
+{% set heading = t('Choose a county court') %}
+
+{% from "form.njk" import saveAndContinueButton, errorSummary, textInput %}
+
+{% block content %}
+
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <form novalidate method="post">
+        {{ textInput('', 'preferredCourt', form) }}
+        <a class="form-group" target="_blank"
+           href="https://courttribunalfinder.service.gov.uk/search/postcode?aol=Money+claims&spoe=nearest">
+          {{ t('Find a county court') }}
+        </a>
+        <div class="form-group">
+          {{ saveAndContinueButton() }}
+        </div>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}
