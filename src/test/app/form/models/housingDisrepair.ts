@@ -5,32 +5,12 @@ import { Validator } from 'class-validator'
 
 import { expectValidationError } from './validationUtils'
 
-import { HousingDisrepair, OtherDamages, ValidationErrors } from 'forms/models/housingDisrepair'
+import { HousingDisrepair, ValidationErrors } from 'forms/models/housingDisrepair'
 import { GeneralDamages } from 'forms/models/generalDamages'
+import { OtherDamages } from 'forms/models/otherDamages'
 import { YesNo } from 'app/forms/models/yesNo'
 
 describe('Housing Disrepair', () => {
-  describe('form object deserialization', () => {
-    it('should return undefined when value is undefined', () => {
-      expect(HousingDisrepair.fromObject(undefined)).to.be.equal(undefined)
-    })
-
-    it('should return null when value is null', () => {
-      expect(HousingDisrepair.fromObject(null)).to.be.equal(null)
-    })
-
-    it('should leave missing fields undefined', () => {
-      expect(HousingDisrepair.fromObject({})).to.deep.equal(new HousingDisrepair())
-    })
-
-    it('should deserialize all fields', () => {
-      expect(HousingDisrepair.fromObject({
-        housingDisrepair: YesNo.YES,
-        generalDamages: GeneralDamages.LESS,
-        otherDamages: OtherDamages.NONE
-      })).to.deep.equal(new HousingDisrepair(YesNo.YES, GeneralDamages.LESS, OtherDamages.NONE))
-    })
-  })
   describe('deserialize', () => {
     it('should return a HousingDisrepair instance', () => {
       let deserialized = new HousingDisrepair().deserialize({})
@@ -75,13 +55,6 @@ describe('Housing Disrepair', () => {
       expectValidationError(errors, ValidationErrors.HOUSING_DISREPAIR_REQUIRED)
     })
 
-    it('should reject housing disrepair with unrecognised type', () => {
-      const errors = validator.validateSync(new HousingDisrepair('unrecognised-type'))
-
-      expect(errors.length).to.equal(1)
-      expectValidationError(errors, ValidationErrors.HOUSING_DISREPAIR_REQUIRED)
-    })
-
     it('should accept housing disrepair with recognised type', () => {
       YesNo.all().forEach(type => {
         const errors = validator.validateSync(new HousingDisrepair(type, GeneralDamages.MORE, OtherDamages.NONE))
@@ -112,26 +85,12 @@ describe('Housing Disrepair', () => {
       expectValidationError(errors, ValidationErrors.OTHER_DAMAGES_REQUIRED)
     })
 
-    it('should reject housing disrepair with unrecognised general damages type', () => {
-      const errors = validator.validateSync(new HousingDisrepair(YesNo.YES, 'unrecognised-type', OtherDamages.NONE))
-
-      expect(errors.length).to.equal(1)
-      expectValidationError(errors, ValidationErrors.GENERAL_DAMAGES_REQUIRED)
-    })
-
     it('should accept housing disrepair with recognised general damages', () => {
       GeneralDamages.all().forEach(type => {
         const errors = validator.validateSync(new HousingDisrepair(YesNo.YES, type, OtherDamages.NONE))
 
         expect(errors.length).to.equal(0)
       })
-    })
-
-    it('should reject housing disrepair with unrecognised other damages type', () => {
-      const errors = validator.validateSync(new HousingDisrepair(YesNo.YES, GeneralDamages.LESS, 'unrecognised-type'))
-
-      expect(errors.length).to.equal(1)
-      expectValidationError(errors, ValidationErrors.OTHER_DAMAGES_REQUIRED)
     })
 
     it('should accept housing disrepair with recognised other damages', () => {

@@ -12,26 +12,41 @@ export class PersonalInjury implements Serializable<PersonalInjury> {
 
   @IsDefined({ message: ValidationErrors.PERSONAL_INJURY_REQUIRED })
   @IsIn(YesNo.all(), { message: ValidationErrors.PERSONAL_INJURY_REQUIRED })
-  personalInjury?: string
+  personalInjury?: YesNo
 
   @ValidateIf(o => o.personalInjury === YesNo.YES)
   @IsDefined({ message: ValidationErrors.GENERAL_DAMAGES_REQUIRED })
   @IsIn(GeneralDamages.all(), { message: ValidationErrors.GENERAL_DAMAGES_REQUIRED })
-  generalDamages?: string
+  generalDamages?: GeneralDamages
 
-  constructor (personalInjury?: string, generalDamages?: string) {
+  constructor (personalInjury?: YesNo, generalDamages?: GeneralDamages) {
     this.personalInjury = personalInjury
     this.generalDamages = generalDamages
   }
 
   static fromObject (value?: any): PersonalInjury {
-    if (value == null) {
-      return value
+    let generalDamagesValue = null
+    let personalInjuryValue = null
+
+    if (value && value.generalDamages) {
+      generalDamagesValue = GeneralDamages.all()
+        .filter(generalDamages => generalDamages.value === value.generalDamages.value)
+        .pop()
     }
-
-    const instance = new PersonalInjury(value.personalInjury, value.generalDamages)
-
-    return instance
+    if (value && value.personalInjury) {
+      personalInjuryValue = YesNo.all()
+        .filter(personalInjury => personalInjury.value === value.personalInjury)
+        .pop()
+    }
+    if (value && generalDamagesValue && personalInjuryValue) {
+      return new PersonalInjury(personalInjuryValue, generalDamagesValue)
+    } else if (value && personalInjuryValue) {
+      return new PersonalInjury(personalInjuryValue, undefined)
+    } else if (value && generalDamagesValue) {
+      return new PersonalInjury(undefined, generalDamagesValue)
+    } else {
+      return new PersonalInjury()
+    }
   }
 
   deserialize (input?: any): PersonalInjury {

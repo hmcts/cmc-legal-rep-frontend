@@ -3,7 +3,7 @@
 {% set title = t('Money claim') %}
 {% set heading = t('Is it a claim for housing disrepair?') %}
 
-{% from "form.njk" import saveAndContinueButton, errorSummary  %}
+{% from "form.njk" import saveAndContinueButton, errorSummary, radioOption  %}
 
 {% block content %}
 
@@ -18,12 +18,12 @@
           <div class="inline">
             {% if errorDisrepair %}<span class="error-message">{{ t(errorDisrepair) }}</span>{% endif %}
             <div class="multiple-choice" data-target="housing-disrepair-yes">
-              <input id="housing_disrepair_yes" type="radio" name="housingDisrepair" value="yes" {% if form.valueFor('housingDisrepair') == 'yes' %} checked {% endif %}>
+              <input id="housing_disrepair_yes" type="radio" name="housingDisrepair" value="YES" {% if form.valueFor('housingDisrepair.value') == 'YES' %} checked {% endif %}>
               <label for="housing_disrepair_yes">{{ t('Yes') }}</label>
             </div>
 
             <div class="multiple-choice">
-              <input id="housing_disrepair_no" type="radio" name="housingDisrepair" value="no" {% if form.valueFor('housingDisrepair') == 'no' %} checked {% endif %}>
+              <input id="housing_disrepair_no" type="radio" name="housingDisrepair" value="NO" {% if form.valueFor('housingDisrepair.value') == 'NO' %} checked {% endif %}>
               <label for="housing_disrepair_no">{{ t('No') }}</label>
             </div>
           </div>
@@ -31,45 +31,37 @@
 
         {% set errorDamages = form.errorFor('generalDamages') %}
         {% set errorOther = form.errorFor('otherDamages') %}
-        <fieldset class="form-group">
-          <legend class="visuallyhidden">
-            <p>{{ t("How much do you expect to recover as general damages for the cost of repairs or other work?") }}</p>
-            <p>{{ t("How much do you expect to recover for other damages besides the cost of repairs?") }}</p>
-          </legend>
-          <div class="panel panel-border-narrow js-hidden {% if errorDamages %} form-group-error {% endif %}" id="housing-disrepair-yes" aria-hidden="false">
-            <div class="form-group" id="generalDamages[label]">
-              <p>{{ t("How much do you expect to recover as general damages for the cost of repairs or other work?") }}</p>
-              {% if errorDamages %}<span class="error-message">{{ t(errorDamages) }}</span>{% endif %}
-              <div class="multiple-choice">
-                <input id="general_damages_less" type="radio" name="generalDamages" value="less" {% if form.valueFor('generalDamages') == 'less' %} checked {% endif %}>
-                <label for="general_damages_less">{{ t('£1,000 or less') }}</label>
-              </div>
+        <div class="form-group panel panel-border-narrow js-hidden {% if errorDamages %} form-group-error {% endif %}" id="housing-disrepair-yes" aria-hidden="false">
+          <fieldset id="generalDamages[label]" class="form-group">
+            <legend class="form-group-compound form-label-bold">
+                {{ t("How much do you expect to recover as general damages for the cost of repairs or other work?") }}
+            </legend>
+            {{ radioOption(form = form, name = 'generalDamages[value]', value = 'LESS',
+            label = t('£1,000 or less'), bold = false
+            )}}
 
-              <div class="multiple-choice">
-                <input id="general_damages_more" type="radio" name="generalDamages" value="more" {% if form.valueFor('generalDamages') == 'more' %} checked {% endif %}>
-                <label for="general_damages_more">{{ t('More than £1,000') }}</label>
-              </div>
-            </div>
-            <div class="form-group" id="otherDamages[label]">
-              <p>{{ t("How much do you expect to recover for other damages besides the cost of repairs?") }}</p>
-              {% if errorOther %}<span class="error-message">{{ t(errorOther) }}</span>{% endif %}
-              <div class="multiple-choice">
-                <input id="other_damages_none" type="radio" name="otherDamages" value="none" {% if form.valueFor('otherDamages') == 'none' %} checked {% endif %}>
-                <label for="other_damages_none">{{ t('£1,000 or less') }}</label>
-              </div>
+            {{ radioOption(form = form, name = 'generalDamages[value]', value = 'MORE',
+            label = t('More than £1,000'), bold = false
+            )}}
+          </fieldset>
 
-              <div class="multiple-choice">
-                <input id="other_damages_less" type="radio" name="otherDamages" value="less" {% if form.valueFor('otherDamages') == 'less' %} checked {% endif %}>
-                <label for="other_damages_less">{{ t('£1,000 or less') }}</label>
-              </div>
+          <fieldset id="otherDamages[label]" class="form-group">
+            <legend class="form-group-compound form-label-bold">
+                {{ t("How much do you expect to recover for other damages besides the cost of repairs?") }}
+            </legend>
+            {{ radioOption(form = form, name = 'otherDamages[value]', value = 'NONE',
+            label = t("I'm not claiming for other damages"), bold = false
+            )}}
 
-              <div class="multiple-choice">
-                <input id="other_damages_more" type="radio" name="otherDamages" value="more" {% if form.valueFor('otherDamages') == 'more' %} checked {% endif %}>
-                <label for="other_damages_more">{{ t('More than £1,000') }}</label>
-              </div>
-            </div>
-          </div>
-        </fieldset>
+            {{ radioOption(form = form, name = 'otherDamages[value]', value = 'LESS',
+            label = t('£1,000 or less'), bold = false
+            )}}
+
+            {{ radioOption(form = form, name = 'otherDamages[value]', value = 'MORE',
+            label = t('More than £1,000'), bold = false
+            )}}
+          </fieldset>
+        </div>
 
         <div class="form-group">
           {{ saveAndContinueButton() }}
