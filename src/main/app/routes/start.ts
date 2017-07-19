@@ -5,9 +5,9 @@ class Paths {
 }
 
 export default express.Router()
-  .get(Paths.main, (req, res) => {
+  .get(Paths.main, (req: express.Request, res: express.Response) => {
     res.render('claim/start')
   })
-  .post(Paths.main, (req, res) => {
-    res.redirect('claim/personal-injury')
+  .post(Paths.main, (req: express.Request, res: express.Response) => {
+    res.redirect('claim/your-reference')
   })
