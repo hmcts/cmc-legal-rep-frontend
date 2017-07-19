@@ -27,7 +27,7 @@ describe('Summary', () => {
     it('should return an instance from given object', () => {
       const description = 'I am owed money 300'
       const result = new Summary().deserialize({
-        summary: description
+        text: description
       })
       expect(result.text).to.be.equals(description)
     })
