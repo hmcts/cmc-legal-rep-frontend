@@ -1,7 +1,6 @@
 import { Serializable } from 'app/models/serializable'
 import Claimant from 'app/drafts/models/claimant'
 
-
 export default class ClaimData implements Serializable<ClaimData> {
   claimant: Claimant
   paidFeeAmount: number

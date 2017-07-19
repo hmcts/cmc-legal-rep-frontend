@@ -15,7 +15,6 @@ function mockedDraftClaim () {
   return draft
 }
 
-
 function mockedClaim () {
   let claim = new Claim()
   claim.claimData = new ClaimData()
@@ -75,7 +74,7 @@ mock('claims/claimStoreClient', {
     retrieveByClaimantId: (claimantId) => [mockedClaim()],
     retrieveByLetterHolderId: (letterHolderId) => mockedClaim(),
     retrieveByDefendantId: (defendantId) => mockedClaim(),
-    retrieveByExternalId: (externalId) => mockedClaim(),
+    retrieveByExternalId: (externalId) => mockedClaim()
   }
 })
 

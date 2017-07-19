@@ -16,7 +16,6 @@ import Nunjucks from 'modules/nunjucks'
 import { Feature as ClaimIssueFeature } from 'claim/index'
 import { CsrfProtection } from 'modules/csrf'
 
-
 export const app: express.Express = express()
 
 logging.config({
@@ -53,6 +52,7 @@ if (env !== 'mocha') {
 new ClaimIssueFeature().enableFor(app)
 
 app.use('/', RouterFinder.findAll(path.join(__dirname, 'routes')))
+
 // Below will match all routes not covered by the router, which effectively translates to a 404 response
 app.use((req, res, next) => {
   next(new NotFoundError(req.path))
@@ -62,7 +62,7 @@ app.use((req, res, next) => {
 const errorLogger = new ErrorLogger()
 app.use((err, req, res, next) => {
   errorLogger.log(err)
-  const view = (env === 'development' || env === 'dev') ? 'error_dev' : 'error'
+  const view = (env === 'mocha' || env === 'development' || env === 'dev' || env === 'demo') ? 'error_dev' : 'error'
   res.status(err.statusCode || 500)
   res.render(view, {
     error: err,
