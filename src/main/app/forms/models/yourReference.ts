@@ -2,7 +2,7 @@ import { MaxLength, IsOptional } from 'class-validator'
 import { Serializable } from 'models/serializable'
 
 export class ValidationErrors {
-  static readonly YOUR_REFERENCE_TOO_LONG: string = 'Enter a reference no longer than $constraint1 characters'
+  static readonly YOUR_REFERENCE_TOO_LONG: string = 'You’ve entered too many characters'
 }
 
 export class YourReference implements Serializable<YourReference> {
