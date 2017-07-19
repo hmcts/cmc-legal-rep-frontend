@@ -3,8 +3,8 @@ import { Serializable } from 'models/serializable'
 import { IsNotBlank } from 'forms/validation/validators/isBlank'
 
 export class ValidationErrors {
-  static readonly SUMMARY_REQUIRED: string = 'Please summarise the claim'
-  static readonly SUMMARY_TOO_LONG: string = 'Please keep summary below $constraint1 characters'
+  static readonly SUMMARY_REQUIRED: string = 'Enter a brief description of the claim'
+  static readonly SUMMARY_TOO_LONG: string = 'You’ve entered too many characters'
 }
 
 export default class Summary implements Serializable<Summary> {
