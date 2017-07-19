@@ -8,10 +8,12 @@ export class RoutablePath {
   get associatedView (): string {
     if (!this.feature) {
       return this.uri
+        .replace(/\/:[^\/]+/g, '') // remove path params
         .substring(1) // remove leading slash
     }
 
     const split: string[] = this.uri
+      .replace(/\/:[^\/]+/g, '') // remove path params
       .substring(1) // remove leading slash
       .split('/')
 

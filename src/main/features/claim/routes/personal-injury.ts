@@ -1,8 +1,8 @@
 import * as express from 'express'
-import { Form } from 'forms/form'
-import { FormValidator } from 'forms/validation/formValidator'
-import { PersonalInjury } from 'forms/models/personalInjury'
-import { ClaimDraftMiddleware } from 'drafts/claimDraftMiddleware'
+import { Form } from 'app/forms/form'
+import { FormValidator } from 'app/forms/validation/formValidator'
+import { PersonalInjury } from 'app/forms/models/personalInjury'
+import { ClaimDraftMiddleware } from '../draft/claimDraftMiddleware'
 
 class Paths {
   static main: string = '/claim/personal-injury'

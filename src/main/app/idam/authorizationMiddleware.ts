@@ -5,10 +5,11 @@ import * as HttpStatus from 'http-status-codes'
 import JwtExtractor from 'idam/jwtExtractor'
 
 import IdamClient from 'idam/idamClient'
+import User from 'app/idam/user'
 
 const sessionCookieName = config.get<string>('session.cookieName')
 
-const logger = require('@hmcts/nodejs-logging').getLogger('middleware/authorization')
+const logger = require('nodejs-logging').getLogger('middleware/authorization')
 
 /**
  * IDAM doesn't tell us what is wrong
@@ -16,13 +17,12 @@ const logger = require('@hmcts/nodejs-logging').getLogger('middleware/authorizat
  * So make them login again
  */
 function hasTokenExpired (err) {
-  return err.statusCode &&
-    (err.statusCode === HttpStatus.FORBIDDEN || err.statusCode === HttpStatus.UNAUTHORIZED)
+  return (err.statusCode === HttpStatus.FORBIDDEN || err.statusCode === HttpStatus.UNAUTHORIZED)
 }
 
 export class AuthorizationMiddleware {
 
-  static requestHandler (requiredRole: string, accessDeniedCallback: (req: express.Request, res: express.Response) => void, unprotectedPaths?: string[]): express.RequestHandler {
+  static requestHandler (requiredRoles: string[], accessDeniedCallback: (req: express.Request, res: express.Response) => void, unprotectedPaths?: string[]): express.RequestHandler {
     function isPathUnprotected (path: string): boolean {
       return unprotectedPaths.some((unprotectedPath: string) => unprotectedPath === path)
     }
@@ -41,9 +41,9 @@ export class AuthorizationMiddleware {
       } else {
         IdamClient
           .retrieveUserFor(jwt)
-          .then(user => {
-            if (!user.isInRole(requiredRole)) {
-              logger.error(`Protected path - valid JWT but user not in ${requiredRole} role - redirecting to access denied page`)
+          .then((user: User) => {
+            if (!user.isInRoles(...requiredRoles)) {
+              logger.error(`Protected path - valid JWT but user not in ${requiredRoles} roles - redirecting to access denied page`)
               return accessDeniedCallback(req, res)
             } else {
               res.locals.isLoggedIn = true

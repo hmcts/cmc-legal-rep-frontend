@@ -1,18 +1,21 @@
 import * as express from 'express'
+import * as config from 'config'
 import * as path from 'path'
 import * as favicon from 'serve-favicon'
 import * as cookieParser from 'cookie-parser'
 import * as bodyParser from 'body-parser'
-import * as logging from '@hmcts/nodejs-logging'
+import * as logging from 'nodejs-logging'
 import { NotFoundError } from './errors'
 import { AccessLogger } from 'logging/accessLogger'
 import { ErrorLogger } from 'logging/errorLogger'
 import { RouterFinder } from 'common/router/routerFinder'
-import { AuthorizationMiddlewareFactory } from 'idam/authorizationMiddlewareFactory'
-import { ClaimDraftMiddleware } from 'drafts/claimDraftMiddleware'
-import Helmet from 'modules/helmet'
+import { Config as HelmetConfig, Helmet } from 'modules/helmet'
 import I18Next from 'modules/i18n'
 import Nunjucks from 'modules/nunjucks'
+
+import { Feature as ClaimIssueFeature } from 'claim/index'
+import { CsrfProtection } from 'modules/csrf'
+
 
 export const app: express.Express = express()
 
@@ -31,7 +34,7 @@ const i18next = I18Next.enableFor(app)
 
 new Nunjucks(developmentMode, i18next)
   .enableFor(app)
-new Helmet(developmentMode)
+new Helmet(config.get<HelmetConfig>('security'), developmentMode)
   .enableFor(app)
 
 app.enable('trust proxy')
@@ -43,12 +46,13 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.all('/*', AuthorizationMiddlewareFactory.genericRequestHandler())
+if (env !== 'mocha') {
+  new CsrfProtection().enableFor(app)
+}
 
-app.all('/claim/*', ClaimDraftMiddleware.retrieve)
+new ClaimIssueFeature().enableFor(app)
 
-app.use('/', RouterFinder.findAll(path.join(__dirname, 'app', 'routes')))
-
+app.use('/', RouterFinder.findAll(path.join(__dirname, 'routes')))
 // Below will match all routes not covered by the router, which effectively translates to a 404 response
 app.use((req, res, next) => {
   next(new NotFoundError(req.path))

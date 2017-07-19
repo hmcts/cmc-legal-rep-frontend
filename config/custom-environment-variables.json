@@ -1,4 +1,11 @@
 {
+  "security": {
+    "referrerPolicy": "SECURITY_REFERRER_POLICY",
+    "hpkp": {
+      "maxAge": "SECURITY_HPKP_MAX_AGE",
+      "pins": "SECURITY_HPKP_PINS"
+    }
+  },
   "idam": {
     "authentication-web": {
       "url": "IDAM_AUTHENTICATION_WEB_URL"
@@ -19,7 +26,7 @@
     "url": "DRAFT_STORE_URL",
     "apiVersion": "DRAFT_STORE_API_VERSION"
   },
-  "citizen-frontend": {
+  "cmc-legal-rep-frontend": {
     "gaTrackingId": "GA_TRACKING_ID",
     "piwikTrackingId": "PIWIK_TRACKING_ID",
     "piwikTrackingSite": "PIWIK_TRACKING_SITE"

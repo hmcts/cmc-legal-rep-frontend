@@ -1,7 +1,7 @@
 import * as express from 'express'
 
 import { DraftMiddleware } from 'common/draft/draftMiddleware'
-import DraftClaim from 'drafts/models/draftClaim'
+import DraftClaim from 'app/drafts/models/draftClaim'
 
 const deserialize = (value: any): DraftClaim => {
   return new DraftClaim().deserialize(value)
