@@ -4,8 +4,8 @@ import { YesNo } from 'forms/models/yesNo'
 import { GeneralDamages } from 'forms/models/generalDamages'
 
 export class ValidationErrors {
-  static readonly PERSONAL_INJURY_REQUIRED: string = 'Please select yes or no'
-  static readonly GENERAL_DAMAGES_REQUIRED: string = 'Please select more or less'
+  static readonly PERSONAL_INJURY_REQUIRED: string = 'Choose yes if it’s a personal injury claim'
+  static readonly GENERAL_DAMAGES_REQUIRED: string = 'Choose an amount'
 }
 
 export class PersonalInjury implements Serializable<PersonalInjury> {
