@@ -15,7 +15,7 @@
 
       <p>{{ t("You don't need to include particulars of claim here - serve them on the defendant when you get your sealed claim form.") }}</p>
       <form novalidate method="post">
-        {{ textArea(label = '', name = 'summary', form = form, rows = 10) }}
+        {{ textArea(label = '', name = 'text', form = form, rows = 10) }}
         {{ saveAndContinueButton() }}
       </form>
     </div>

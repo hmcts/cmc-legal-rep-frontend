@@ -11,15 +11,15 @@ export default class Summary implements Serializable<Summary> {
   @IsDefined({ message: ValidationErrors.SUMMARY_REQUIRED })
   @IsNotBlank({ message: ValidationErrors.SUMMARY_REQUIRED })
   @MaxLength(700, { message: ValidationErrors.SUMMARY_TOO_LONG })
-  summary?: string
+  text?: string
 
-  constructor (summary?: string) {
-    this.summary = summary
+  constructor (text?: string) {
+    this.text = text
   }
 
   deserialize (input: any): Summary {
     if (input) {
-      this.summary = input.summary
+      this.text = input.text
     }
     return this
   }

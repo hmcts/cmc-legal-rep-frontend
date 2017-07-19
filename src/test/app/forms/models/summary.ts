@@ -7,11 +7,11 @@ import { expectValidationError } from './validationUtils'
 import Summary, { ValidationErrors } from 'forms/models/summary'
 import * as randomstring from 'randomstring'
 
-describe('Reason', () => {
+describe('Summary', () => {
   describe('constructor', () => {
     it('should set the primitive fields to undefined', () => {
-      const reason = new Summary()
-      expect(reason.summary).to.be.undefined
+      const summary = new Summary()
+      expect(summary.text).to.be.undefined
     })
   })
 
@@ -29,14 +29,14 @@ describe('Reason', () => {
       const result = new Summary().deserialize({
         summary: description
       })
-      expect(result.summary).to.be.equals(description)
+      expect(result.text).to.be.equals(description)
     })
   })
 
   describe('validation', () => {
     const validator: Validator = new Validator()
 
-    it('should reject claim summary with undefined reason', () => {
+    it('should reject claim text with undefined summary', () => {
       const errors = validator.validateSync(new Summary(undefined))
 
       expect(errors.length).to.equal(1)
@@ -75,7 +75,7 @@ describe('Reason', () => {
       expect(errors.length).to.equal(0)
     })
 
-    it('should accept valid claim reason', () => {
+    it('should accept valid claim summary', () => {
       const errors = validator.validateSync(new Summary('i am owed money £300'))
 
       expect(errors.length).to.equal(0)
