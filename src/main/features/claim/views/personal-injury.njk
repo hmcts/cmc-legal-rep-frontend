@@ -3,7 +3,7 @@
 {% set title = t('Money claim') %}
 {% set heading = t('Is it a personal injury claim?') %}
 
-{% from "form.njk" import saveAndContinueButton, errorSummary, radioGroup, radioOption  %}
+{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, radioGroup, radioOption  %}
 
 {% block content %}
 
@@ -11,6 +11,7 @@
     <div class="column-two-thirds">
 
       <form novalidate method="post">
+        {{ csrfProtection(csrf) }}
 
         {% set errorInjury = form.errorFor('personalInjury') %}
         <fieldset id="personalInjury[label]" class="form-group {% if errorInjury %} form-group-error {% endif %}">

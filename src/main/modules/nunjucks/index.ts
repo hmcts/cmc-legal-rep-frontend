@@ -7,9 +7,10 @@ import * as dateFilter from 'nunjucks-date-filter'
 import * as numeralFilter from 'nunjucks-numeral-filter'
 import * as numeral from 'numeral'
 
-const packageDotJson = require('../../../../package.json')
 import { LONG_DATE_FORMAT } from 'app/utils/momentFormatter'
 import { NUMBER_FORMAT } from 'app/utils/numberFormatter'
+
+const packageDotJson = require('../../../../package.json')
 
 const appAssetPaths = {
   js: '/js',
@@ -30,7 +31,7 @@ export default class Nunjucks {
     app.set('view engine', 'njk')
     const nunjucksEnv = nunjucks.configure([
       path.join(__dirname, '..', '..', 'views'),
-      path.join(__dirname, '..', '..', 'public', 'macros'),
+      path.join(__dirname,'..', '..', 'public', 'macros'),
       path.join(__dirname, '..', '..', 'features')
     ], {
       autoescape: true,

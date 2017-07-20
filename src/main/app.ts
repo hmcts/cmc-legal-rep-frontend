@@ -19,7 +19,7 @@ import { CsrfProtection } from 'modules/csrf'
 export const app: express.Express = express()
 
 logging.config({
-  microservice: 'citizen-frontend',
+  microservice: 'cmc-legal-rep-frontend',
   team: 'cmc',
   environment: process.env.NODE_ENV
 })

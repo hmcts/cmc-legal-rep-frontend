@@ -3,13 +3,15 @@
 {% set title = t('Money claim') %}
 {% set heading = t('Choose claimant type') %}
 
-{% from "form.njk" import saveAndContinueButton, textArea, textInput, errorSummary  %}
+{% from "form.njk" import csrfProtection, saveAndContinueButton, textArea, textInput, errorSummary  %}
 
 {% block content %}
 
 <div class="grid-row">
   <div class="column-two-thirds">
     <form novalidate method="post">
+      {{ csrfProtection(csrf) }}
+
       {% set error = form.errorFor('claimant_type') %}
       <fieldset id="type[label]" class="form-group">
         <legend class="visuallyhidden">
