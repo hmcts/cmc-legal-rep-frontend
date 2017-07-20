@@ -18,7 +18,7 @@
     "test:a11y": "mocha --compilers ts:ts-node/register -r tsconfig-paths/register src/test/a11y --timeout 60000 --reporter mochawesome --reporter-options reportFilename=a11y,inlineAssets=true,reportTitle=legal-rep-frontend-a11y",
     "test:nsp": "nsp check",
     "precommit": "yarn lint",
-    "prepush": "yarn test"
+    "prepush": "yarn test && yarn test:routes"
   },
   "dependencies": {
     "@hmcts/cmc-common-frontend": "^1.0.0",
