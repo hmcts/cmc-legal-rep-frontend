@@ -37,32 +37,16 @@ describe( 'PreferredCourt', () => {
   describe( 'validation', () => {
     const validator: Validator = new Validator()
 
-    it( 'should reject preferred court with undefined name', () => {
-      const errors = validator.validateSync( new PreferredCourt( undefined ) )
-
-      expect( errors.length ).to.equal( 1 )
-      expectValidationError( errors, ValidationErrors.PREFERRED_COURT_REQUIRED )
-    } )
-
-    it( 'should reject court name with null type', () => {
+    it( 'should accept court name with null type', () => {
       const errors = validator.validateSync( new PreferredCourt( null ) )
 
-      expect( errors.length ).to.equal( 1 )
-      expectValidationError( errors, ValidationErrors.PREFERRED_COURT_REQUIRED )
+      expect( errors.length ).to.equal( 0 )
     } )
 
-    it( 'should reject court name with empty string', () => {
+    it( 'should accept court name with empty string', () => {
       const errors = validator.validateSync( new PreferredCourt( '' ) )
 
-      expect( errors.length ).to.equal( 1 )
-      expectValidationError( errors, ValidationErrors.PREFERRED_COURT_REQUIRED )
-    } )
-
-    it( 'should reject court name with only white spaces string', () => {
-      const errors = validator.validateSync( new PreferredCourt( '   ' ) )
-
-      expect( errors.length ).to.equal( 1 )
-      expectValidationError( errors, ValidationErrors.PREFERRED_COURT_REQUIRED )
+      expect( errors.length ).to.equal( 0 )
     } )
 
     it( 'should reject court name with more than 80 characters', () => {

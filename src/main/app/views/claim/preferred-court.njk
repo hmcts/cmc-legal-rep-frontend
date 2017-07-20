@@ -9,12 +9,13 @@
 
   <div class="grid-row">
     <div class="column-two-thirds">
+      <p>{{ t('This should be your preferred court for a hearing.') }}</p>
       <form novalidate method="post">
-        {{ textInput('', 'name', form) }}
-        <a class="form-group" target="_blank"
+        {{ textInput('', 'name', form, t('Optional')) }}
+        <p><a class="form-group" target="_blank"
            href="https://courttribunalfinder.service.gov.uk/search/postcode?aol=Money+claims&spoe=nearest">
           {{ t('Find a county court') }}
-        </a>
+        </a></p>
         <div class="form-group">
           {{ saveAndContinueButton() }}
         </div>
