@@ -21,15 +21,9 @@ function claimIssueRequestHandler (): express.RequestHandler {
   return AuthorizationMiddleware.requestHandler(requiredRoles, accessDeniedCallback, unprotectedPaths)
 }
 
-function addClaimantLogoutFrom (req: express.Request, res: express.Response, next: express.NextFunction): void {
-  res.locals.logoutFrom = 'claim'
-  next()
-}
-
 export class Feature {
   enableFor (app: express.Express) {
     app.all('/claim/*', claimIssueRequestHandler())
-    app.all('/claim/*', addClaimantLogoutFrom)
     app.all(/^\/claim\/(?!start|amount-exceeded|.+\/confirmation|.+\/receipt).*$/, ClaimDraftMiddleware.retrieve)
 
     app.use('/', RouterFinder.findAll(path.join(__dirname, 'routes')))
