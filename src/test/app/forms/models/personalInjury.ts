@@ -10,8 +10,6 @@ import { PersonalInjury, ValidationErrors } from 'app/forms/models/personalInjur
 import { YesNo } from 'app/forms/models/yesNo'
 import { GeneralDamages } from 'app/forms/models/generalDamages'
 
-
-
 describe('Personal Injury', () => {
   describe('deserialize', () => {
     it('should return a PersonalInjury instance', () => {
@@ -38,7 +36,10 @@ describe('Personal Injury', () => {
     })
 
     it('should return a PersonalInjury instance with fields set when given an object with value', () => {
-      let deserialized = new PersonalInjury().deserialize({ personalInjury: YesNo.YES, generalDamages: GeneralDamages.MORE })
+      let deserialized = new PersonalInjury().deserialize({
+        personalInjury: YesNo.YES,
+        generalDamages: GeneralDamages.MORE
+      })
       expect(deserialized.personalInjury).to.be.eq(YesNo.YES)
       expect(deserialized.generalDamages).to.be.eq(GeneralDamages.MORE)
     })
