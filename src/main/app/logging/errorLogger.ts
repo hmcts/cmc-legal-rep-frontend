@@ -1,5 +1,5 @@
 export class ErrorLogger {
-  constructor (public logger = require('nodejs-logging').getLogger('errorLogger.js')) {
+  constructor (public logger = require('@hmcts/nodejs-logging').getLogger('errorLogger.js')) {
     this.logger = logger
   }
 

@@ -9,7 +9,7 @@ import User from 'app/idam/user'
 
 const sessionCookieName = config.get<string>('session.cookieName')
 
-const logger = require('nodejs-logging').getLogger('middleware/authorization')
+const logger = require('@hmcts/nodejs-logging').getLogger('middleware/authorization')
 
 /**
  * IDAM doesn't tell us what is wrong

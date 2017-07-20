@@ -5,22 +5,25 @@ import { FormValidator } from 'app/forms/validation/formValidator'
 import Summary from 'app/forms/models/summary'
 
 import { ClaimDraftMiddleware } from '../draft/claimDraftMiddleware'
+import { Paths } from 'claim/paths'
 
-class Paths {
-  static base: string = '/claim/summarise-the-claim'
+function renderView (form: Form<Summary>, res: express.Response) {
+  res.render(Paths.summariseTheClaimPage.associatedView, { form: form })
 }
 
 export default express.Router()
-  .get(Paths.base, ( req, res ) => {
-    res.render('claim/summarise-the-claim', {form: new Form(res.locals.user.claimDraft.summary)})
+  .get(Paths.summariseTheClaimPage.uri, (req: express.Request, res: express.Response) => {
+    renderView(new Form(res.locals.user.claimDraft.summary), res)
   })
-  .post(Paths.base, FormValidator.requestHandler(Summary), ( req, res, next ) => {
+  .post(Paths.summariseTheClaimPage.uri, FormValidator.requestHandler(Summary), async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const form: Form<Summary> = req.body
+
     if (form.hasErrors()) {
-      res.render('claim/summarise-the-claim', {form: form})
+      renderView(form, res)
     } else {
       res.locals.user.claimDraft.summary = form.model
+
       ClaimDraftMiddleware.save(res, next)
-        .then(() => res.redirect('/claim/summarise-the-claim'))
+        .then(() => res.redirect('/not-implemented-yet'))
     }
   })

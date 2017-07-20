@@ -2,25 +2,25 @@
 {% extends "govukTemplate.njk" %}
 
 {% block head %}
-  {% include "includes" %}
+{% include "includes/head.njk" %}
 {% endblock %}
 
 {% block cookie_message %}
-  <p>{{ cookieText | safe }}</p>
+<p>{{ cookieText | safe }}</p>
 {% endblock %}
 
 {% block proposition_header %}
-  {% include "includes" %}
+{% include "includes/propositional_navigation.njk" %}
 {% endblock %}
 
 {% block header_class %}
-  with-proposition
+with-proposition
 {% endblock %}
 
 {% block footer_support_links %}
-  {% include "includes" %}
+{% include "includes/support-links.njk" %}
 {% endblock %}
 
 {% block body_end %}
-  {% include "includes" %}
+{% include "includes/scripts.njk" %}
 {% endblock %}

@@ -3,13 +3,15 @@
 {% set title = t('Money claim') %}
 {% set heading = t('Is it a personal injury claim?') %}
 
-{% from "form.njk" import saveAndContinueButton, errorSummary  %}
+{% from "form.njk" import saveAndContinueButton, errorSummary, radioGroup, radioOption  %}
 
 {% block content %}
 
-  <div class="grid-row" xmlns="http://www.w3.org/1999/html">
+  <div class="grid-row">
     <div class="column-two-thirds">
+
       <form novalidate method="post">
+
         {% set errorInjury = form.errorFor('personalInjury') %}
         <fieldset id="personalInjury[label]" class="form-group {% if errorInjury %} form-group-error {% endif %}">
           <legend class="visuallyhidden">
@@ -17,37 +19,35 @@
           </legend>
           <div class="inline">
             {% if errorInjury %}<span class="error-message">{{ t(errorInjury) }}</span>{% endif %}
-            <div class="multiple-choice" data-target="personal-injury-yes">
-              <input id="personal_injury_yes" type="radio" name="personalInjury" value="yes" {% if form.valueFor('personalInjury') == 'yes' %} checked {% endif %}>
+            <div class="multiple-choice" data-target="personalInjury-yes">
+              <input id="personal_injury_yes" type="radio" name="personalInjury" value="YES" {% if form.valueFor('personalInjury.value') == 'YES' %} checked {% endif %}>
               <label for="personal_injury_yes">{{ t('Yes') }}</label>
             </div>
 
-            <div class="multiple-choice" data-target="claimant-individual">
-              <input id="claimant_type_individual" type="radio" name="personalInjury" value="no" {% if form.valueFor('personalInjury') == 'no' %} checked {% endif %}>
-              <label for="claimant_type_individual">{{ t('No') }}</label>
-            </div>
-          </div>
-        </fieldset>
-
-        {% set errorDamages = form.errorFor('generalDamages') %}
-        <fieldset class="form-group" id="generalDamages[label]">
-          <legend class="visuallyhidden">
-            {{ t("How much do you expect to recover as general damages for pain, suffering and amenity?") }}
-          </legend>
-          <div class="panel panel-border-narrow js-hidden {% if errorDamages %} form-group-error {% endif %}" id="personal-injury-yes" aria-hidden="false">
-            <p>{{ t("How much do you expect to recover as general damages for pain, suffering and amenity?") }}</p>
-            {% if errorDamages %}<span class="error-message">{{ t(errorDamages) }}</span>{% endif %}
             <div class="multiple-choice">
-              <input id="general_damages_less" type="radio" name="generalDamages" value="less" {% if form.valueFor('generalDamages') == 'less' %} checked {% endif %}>
-              <label for="general_damages_less">{{ t('£1,000 or less') }}</label>
-            </div>
-
-            <div class="multiple-choice" data-target="claimant-individual">
-              <input id="general_damages_more" type="radio" name="generalDamages" value="more" {% if form.valueFor('generalDamages') == 'more' %} checked {% endif %}>
-              <label for="general_damages_more">{{ t('More than £1,000') }}</label>
+              <input id="personal_injury_no" type="radio" name="personalInjury" value="NO" {% if form.valueFor('personalInjury.value') == 'NO' %} checked {% endif %}>
+              <label for="personal_injury_no">{{ t('No') }}</label>
             </div>
           </div>
         </fieldset>
+
+        <div class="panel panel-border-narrow js-hidden {% if errorDamages %} form-group-error {% endif %}" id="personalInjury-yes" aria-hidden="false">
+        <fieldset id="generalDamages[label]">
+          <legend class="form-group-compound">
+            <span class="form-label-bold">
+              {{ t('How much do you expect to recover as general damages for pain, suffering and amenity?') }}
+            </span>
+          </legend>
+          {{ radioOption(form = form, name = 'generalDamages[value]', value = 'LESS',
+          label = t('£1,000 or less'), bold = false
+          )}}
+
+          {{ radioOption(form = form, name = 'generalDamages[value]', value = 'MORE',
+          label = t('More than £1,000'), bold = false
+          )}}
+        </fieldset>
+
+        </div>
 
         <div class="form-group">
           {{ saveAndContinueButton() }}

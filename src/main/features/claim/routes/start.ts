@@ -1,13 +1,10 @@
 import * as express from 'express'
-
-class Paths {
-  static main: string = '/claim/start'
-}
+import { Paths } from 'claim/paths'
 
 export default express.Router()
-  .get(Paths.main, (req, res) => {
-    res.render('claim/start')
+  .get(Paths.startPage.uri, (req: express.Request, res: express.Response) => {
+    res.render(Paths.startPage.associatedView)
   })
-  .post(Paths.main, (req, res) => {
-    res.redirect('claim/personal-injury')
+  .post(Paths.startPage.uri, (req: express.Request, res: express.Response) => {
+    res.redirect(Paths.yourReferencePage.uri)
   })

@@ -1,27 +1,37 @@
 import * as express from 'express'
-import { Form } from 'app/forms/form'
-import { FormValidator } from 'app/forms/validation/formValidator'
-import { PersonalInjury } from 'app/forms/models/personalInjury'
-import { ClaimDraftMiddleware } from '../draft/claimDraftMiddleware'
 
-class Paths {
-  static main: string = '/claim/personal-injury'
+import { Paths } from 'claim/paths'
+
+import { Form } from 'forms/form'
+import { FormValidator } from 'forms/validation/formValidator'
+import { PersonalInjury } from 'forms/models/personalInjury'
+import { YesNo } from 'app/forms/models/yesNo'
+
+import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
+
+function renderView (form: Form<PersonalInjury>, res: express.Response) {
+  res.render(Paths.personalInjuryPage.associatedView, { form: form })
 }
 
 export default express.Router()
-  .get(Paths.main, (req, res) => {
-    res.render('claim/personal-injury', { form: new Form(res.locals.user.claimDraft.personalInjury) })
+  .get(Paths.personalInjuryPage.uri, (req: express.Request, res: express.Response) => {
+    renderView(new Form(res.locals.user.claimDraft.personalInjury), res)
   })
-  .post(Paths.main, FormValidator.requestHandler(PersonalInjury, PersonalInjury.fromObject), (req, res, next) => {
+  .post(Paths.personalInjuryPage.uri, FormValidator.requestHandler(PersonalInjury, PersonalInjury.fromObject), (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const form: Form<PersonalInjury> = req.body
 
-    if (!form.hasErrors()) {
+    if (form.model.personalInjury === YesNo.NO) {
+      form.model.generalDamages = undefined
+    }
+
+    if (form.hasErrors()) {
+      renderView(form, res)
+    } else {
       res.locals.user.claimDraft.personalInjury = form.model
+
       ClaimDraftMiddleware.save(res, next)
         .then(() => {
-          res.redirect('/claim/summarise-the-claim')
+          res.redirect(Paths.housingDisrepairPage.uri)
         })
-    } else {
-      res.render('claim/personal-injury', { form: form })
     }
   })
