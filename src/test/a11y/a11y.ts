@@ -35,4 +35,5 @@ describe('Accessibility', () => {
   check('Is it a personal injury claim?', '/claim/personal-injury'),
   check('Is it a claim for housing disrepair?', '/claim/housing-disrepair'),
   check('Summarise the claim', '/claim/summarise-the-claim')
+  check('Preferred Court', '/claim/preferred-court')
 })
