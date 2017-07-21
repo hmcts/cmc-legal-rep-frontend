@@ -39,7 +39,7 @@ export class HousingDisrepair implements Serializable<HousingDisrepair> {
 
     if (value && value.housingDisrepair) {
       housingDisrepairValue = YesNo.all()
-        .filter(housingDisrepair => housingDisrepair.value === value.housingDisrepair)
+        .filter(housingDisrepair => housingDisrepair.value === value.housingDisrepair.value)
         .pop()
     }
     if (value && value.generalDamages) {
