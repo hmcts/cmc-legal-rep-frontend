@@ -3,7 +3,7 @@
 {% set title = t('Money claim') %}
 {% set heading = t('Choose a county court') %}
 
-{% from "form.njk" import saveAndContinueButton, errorSummary, textInput %}
+{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, textInput %}
 
 {% block content %}
 
@@ -11,6 +11,8 @@
     <div class="column-two-thirds">
       <p>{{ t('This should be your preferred court for a hearing.') }}</p>
       <form novalidate method="post">
+        {{ csrfProtection(csrf) }}
+
         {{ textInput('', 'name', form, t('Optional')) }}
         <p><a class="form-group" target="_blank"
            href="https://courttribunalfinder.service.gov.uk/search/postcode?aol=Money+claims&spoe=nearest">
