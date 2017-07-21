@@ -21,7 +21,7 @@ export default express.Router()
     } else {
       res.locals.user.claimDraft.representative = form.model
       ClaimDraftMiddleware.save( res, next )
-        .then( () => res.redirect( Paths.preferredCourtPage.uri ) )
+        .then( () => res.redirect( Paths.representativeAddressPage.uri ) )
     }
 
   } )
