@@ -3,14 +3,12 @@ import * as request from 'supertest'
 import * as config from 'config'
 import * as mock from 'nock'
 
-import '../../../routes/expectations'
-import { checkAuthorizationGuards } from '../../../routes/authorization-check'
-
 import { Paths as ClaimPaths } from 'claim/paths'
 
 import { app } from '../../../../main/app'
 
 import * as idamServiceMock from '../../../http-mocks/idam'
+import { checkAuthorizationGuards } from '../../../routes/authorization-check'
 
 const cookieName: string = config.get<string>('session.cookieName')
 
