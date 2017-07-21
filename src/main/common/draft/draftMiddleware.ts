@@ -1,5 +1,4 @@
 import * as express from 'express'
-
 import DraftStoreClient from 'common/draft/draftStoreClient'
 
 export class DraftMiddleware<T> {
@@ -32,12 +31,10 @@ export class DraftMiddleware<T> {
   save (res: express.Response, next: express.NextFunction): Promise<void> {
     return this.client
       .save(res.locals.user.id, res.locals.user[`${this.draftType}Draft`])
-      .catch(next)
   }
 
   delete (res: express.Response, next: express.NextFunction): Promise<void> {
     return this.client
       .delete(res.locals.user.id)
-      .catch(next)
   }
 }

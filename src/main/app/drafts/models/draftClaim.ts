@@ -4,6 +4,7 @@ import Summary from 'forms/models/summary'
 import { YourReference } from 'app/forms/models/yourReference'
 import { HousingDisrepair } from 'app/forms/models/housingDisrepair'
 import { PersonalInjury } from 'app/forms/models/personalInjury'
+import PreferredCourt from 'app/forms/models/preferredCourt'
 
 export default class DraftClaim implements Serializable<DraftClaim> {
   claimant: Claimant = new Claimant()
@@ -11,14 +12,16 @@ export default class DraftClaim implements Serializable<DraftClaim> {
   yourReference: YourReference = new YourReference()
   personalInjury: PersonalInjury = new PersonalInjury()
   housingDisrepair: HousingDisrepair = new HousingDisrepair()
+  preferredCourt: PreferredCourt = new PreferredCourt()
 
   deserialize (input: any): DraftClaim {
     if (input) {
-      this.claimant = new Claimant().deserialize(input.claimant)
-      this.summary = new Summary().deserialize(input.summary)
-      this.yourReference = new YourReference().deserialize(input.reference)
-      this.personalInjury = new PersonalInjury().deserialize(input.personalInjury)
-      this.housingDisrepair = new HousingDisrepair().deserialize(input.housingDisrepair)
+      this.claimant = new Claimant().deserialize( input.claimant )
+      this.summary = new Summary().deserialize( input.summary )
+      this.yourReference = new YourReference().deserialize( input.yourReference )
+      this.personalInjury = new PersonalInjury().deserialize( input.personalInjury )
+      this.housingDisrepair = new HousingDisrepair().deserialize( input.housingDisrepair )
+      this.preferredCourt = new PreferredCourt().deserialize( input.preferredCourt )
     }
     return this
   }

@@ -45,17 +45,24 @@
         "app/utils/*"
       ],
       "modules/*": [
-        "app/modules/*"
+        "modules/*"
       ],
       "routes/*": [
         "routes/*"
       ],
       "common/*": [
-        "app/common/*"
+        "common/*"
       ],
-      "response/*": [
-        "features/response/*"
+      "claim/*": [
+        "features/claim/*"
+      ],
+      "first-contact/*": [
+        "features/first-contact/*"
       ]
-    }
+    },
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types"
+    ]
   }
 }
