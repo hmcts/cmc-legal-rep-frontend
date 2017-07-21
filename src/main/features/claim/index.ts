@@ -24,7 +24,7 @@ function claimIssueRequestHandler (): express.RequestHandler {
 export class Feature {
   enableFor (app: express.Express) {
     app.all('/claim/*', claimIssueRequestHandler())
-    app.all(/^\/claim\/(?!start|amount-exceeded|.+\/confirmation|.+\/receipt).*$/, ClaimDraftMiddleware.retrieve)
+    app.all(/^\/claim\/(?!start).*$/, ClaimDraftMiddleware.retrieve)
 
     app.use('/', RouterFinder.findAll(path.join(__dirname, 'routes')))
   }
