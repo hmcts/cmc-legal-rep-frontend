@@ -1,4 +1,4 @@
-import { MaxLength, IsOptional } from 'class-validator'
+import { IsOptional, MaxLength } from 'class-validator'
 import { Serializable } from 'models/serializable'
 
 export class ValidationErrors {

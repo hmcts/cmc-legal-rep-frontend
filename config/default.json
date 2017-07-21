@@ -1,4 +1,7 @@
 {
+  "security": {
+    "referrerPolicy": "origin"
+  },
   "idam": {
     "registration-web": {
       "url": "http://localhost:9000"
@@ -26,7 +29,7 @@
   "session": {
     "cookieName": "SESSION_ID"
   },
-  "citizen-frontend": {
+  "cmc-legal-rep-frontend": {
     "gaTrackingId": "",
     "piwikTrackingId": "2",
     "piwikTrackingSite": "https://hmctspiwik.useconnect.co.uk/"

@@ -1,4 +1,4 @@
-import { IsDefined, ValidateIf, IsIn } from 'class-validator'
+import { IsDefined, IsIn, ValidateIf } from 'class-validator'
 import { Serializable } from 'models/serializable'
 import { YesNo } from 'forms/models/yesNo'
 import { GeneralDamages } from 'forms/models/generalDamages'

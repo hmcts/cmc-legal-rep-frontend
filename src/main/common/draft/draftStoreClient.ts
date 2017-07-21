@@ -1,4 +1,5 @@
 import * as config from 'config'
+import * as moment from 'moment'
 import * as HttpStatus from 'http-status-codes'
 
 import request from 'client/request'
@@ -28,6 +29,7 @@ export default class DraftStoreClient<T> {
   }
 
   save (userId: number, draft: T): Promise<void> {
+    draft['lastUpdateTimestamp'] = moment().unix() // Workaround to track draft has been saved
     return request.post(this.endpointURL, withAuthHeader(userId, {
       body: draft
     }))

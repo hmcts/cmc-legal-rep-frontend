@@ -26,8 +26,8 @@ export default class User {
     this.bearerToken = bearerToken
   }
 
-  isInRole (role: string): boolean {
-    return this.roles && this.roles.indexOf(role) > -1
+  isInRoles (...requiredRoles: string[]): boolean {
+    return requiredRoles.every(requiredRole => this.roles.indexOf(requiredRole) > -1)
   }
 
 }
