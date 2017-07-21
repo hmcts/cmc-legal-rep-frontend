@@ -3,7 +3,7 @@
 {% set title = t('Money claim') %}
 {% set heading = t('Is it a personal injury claim?') %}
 
-{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, radioGroup, radioOption  %}
+{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, radioOption  %}
 
 {% block content %}
 
@@ -32,6 +32,7 @@
           </div>
         </fieldset>
 
+        {% set errorGeneral = form.errorFor('generalDamages') %}
         <div class="panel panel-border-narrow js-hidden {% if errorDamages %} form-group-error {% endif %}" id="personalInjury-yes" aria-hidden="false">
         <fieldset id="generalDamages[label]">
           <legend class="form-group-compound">
@@ -39,6 +40,7 @@
               {{ t('How much do you expect to recover as general damages for pain, suffering and amenity?') }}
             </span>
           </legend>
+          {% if errorGeneral %}<span class="error-message">{{ t(errorGeneral) }}</span>{% endif %}
           {{ radioOption(form = form, name = 'generalDamages[value]', value = 'LESS',
           label = t('£1,000 or less'), bold = false
           )}}
