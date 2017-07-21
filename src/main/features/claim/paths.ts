@@ -8,6 +8,7 @@ export class Paths {
   static readonly yourReferencePage = new RoutablePath('/claim/your-reference')
   static readonly summariseTheClaimPage = new RoutablePath('/claim/summarise-the-claim')
   static readonly preferredCourtPage = new RoutablePath('/claim/preferred-court')
+  static readonly representativeNamePage = new RoutablePath('/claim/representative-name')
 }
 
 export class ErrorPaths {
