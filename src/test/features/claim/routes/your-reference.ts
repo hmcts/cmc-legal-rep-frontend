@@ -3,15 +3,13 @@ import * as request from 'supertest'
 import * as config from 'config'
 import * as mock from 'nock'
 
-import '../../../../../../../hmcts/cmc-legal-rep-frontend/src/test/routes/expectations'
-import { checkAuthorizationGuards } from '../../../../../../../hmcts/cmc-legal-rep-frontend/src/test/routes/authorization-check'
-
 import { Paths as ClaimPaths } from 'claim/paths'
 
 import { app } from '../../../../main/app'
 
 import * as idamServiceMock from '../../../http-mocks/idam'
 import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
+import { checkAuthorizationGuards } from '../../../routes/authorization-check'
 
 const cookieName: string = config.get<string>('session.cookieName')
 
