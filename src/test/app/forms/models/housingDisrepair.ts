@@ -12,39 +12,30 @@ import { YesNo } from 'app/forms/models/yesNo'
 
 describe('Housing Disrepair', () => {
   describe('deserialize', () => {
-    it('should return a HousingDisrepair instance', () => {
+    it('should return an instance', () => {
       let deserialized = new HousingDisrepair().deserialize({})
       expect(deserialized).to.be.instanceof(HousingDisrepair)
     })
 
-    it('should return a HousingDisrepair instance with fields set to default values when given "undefined"', () => {
-      let deserialized = new HousingDisrepair().deserialize(undefined)
-      expect(deserialized.housingDisrepair).to.be.undefined
-      expect(deserialized.generalDamages).to.be.undefined
-      expect(deserialized.otherDamages).to.be.undefined
+    it('should return an instance initialised with defaults for "undefined"', () => {
+      expect(new HousingDisrepair().deserialize(undefined)).to.eql(new HousingDisrepair())
     })
 
-    it('should return a HousingDisrepair instance with fields set to default values when given "null"', () => {
-      let deserialized = new HousingDisrepair().deserialize(null)
-      expect(deserialized.housingDisrepair).to.be.undefined
-      expect(deserialized.generalDamages).to.be.undefined
-      expect(deserialized.otherDamages).to.be.undefined
+    it('should return an instance initialised with defaults for "null"', () => {
+      expect(new HousingDisrepair().deserialize(null)).to.eql(new HousingDisrepair())
     })
 
-    it('should return a HousingDisrepair instance with fields set to undefined when given an empty object', () => {
-      let deserialized = new HousingDisrepair().deserialize({})
-      expect(deserialized.housingDisrepair).to.be.undefined
-      expect(deserialized.generalDamages).to.be.undefined
-      expect(deserialized.otherDamages).to.be.undefined
-    })
+    it('should return am instance from given object', () => {
+      let deserialized = new HousingDisrepair().deserialize({
+        housingDisrepair: YesNo.YES,
+        generalDamages: GeneralDamages.MORE,
+        otherDamages: OtherDamages.NONE
+      })
 
-    it('should return a HousingDisrepair instance with fields set when given an object with value', () => {
-      let deserialized = new HousingDisrepair().deserialize({ housingDisrepair: YesNo.YES, generalDamages: GeneralDamages.MORE, otherDamages: OtherDamages.NONE })
-      expect(deserialized.housingDisrepair).to.be.eq(YesNo.YES)
-      expect(deserialized.generalDamages).to.be.eq(GeneralDamages.MORE)
-      expect(deserialized.otherDamages).to.be.eq(OtherDamages.NONE)
+      expect(deserialized).to.eql(new HousingDisrepair(YesNo.YES, GeneralDamages.MORE, OtherDamages.NONE))
     })
   })
+
   describe('validation', () => {
     const validator: Validator = new Validator()
 
@@ -113,7 +104,11 @@ describe('Housing Disrepair', () => {
     })
 
     it('should have housing disrepair elements undefined when input has invalid element value', () => {
-      const housingDisrepair = HousingDisrepair.fromObject({ housingDisrepair: {}, generalDamages: {}, otherDamages: {} })
+      const housingDisrepair = HousingDisrepair.fromObject({
+        housingDisrepair: {},
+        generalDamages: {},
+        otherDamages: {}
+      })
 
       expect(housingDisrepair.generalDamages).to.equal(undefined)
       expect(housingDisrepair.housingDisrepair).to.equal(undefined)
@@ -121,7 +116,11 @@ describe('Housing Disrepair', () => {
     })
 
     it('should have valid housing disrepair elements', () => {
-      const housingDisrepair = HousingDisrepair.fromObject({ housingDisrepair: YesNo.YES, generalDamages: GeneralDamages.MORE, otherDamages: OtherDamages.NONE })
+      const housingDisrepair = HousingDisrepair.fromObject({
+        housingDisrepair: YesNo.YES,
+        generalDamages: GeneralDamages.MORE,
+        otherDamages: OtherDamages.NONE
+      })
 
       expect(housingDisrepair.generalDamages).to.equal(GeneralDamages.MORE)
       expect(housingDisrepair.housingDisrepair).to.equal(YesNo.YES)

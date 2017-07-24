@@ -10,9 +10,25 @@ import * as randomstring from 'randomstring'
 
 describe('PreferredCourt', () => {
   describe('constructor', () => {
-    it('should set the primitive fields to undefined', () => {
-      const preferredCourt = new PreferredCourt()
-      expect(preferredCourt.name).to.be.undefined
+    it('should return an instance', () => {
+      let deserialized = new PreferredCourt().deserialize({})
+      expect(deserialized).to.be.instanceof(PreferredCourt)
+    })
+
+    it('should return an instance initialised with defaults for "undefined"', () => {
+      expect(new PreferredCourt().deserialize(undefined)).to.eql(new PreferredCourt())
+    })
+
+    it('should return an instance initialised with defaults for "null"', () => {
+      expect(new PreferredCourt().deserialize(null)).to.eql(new PreferredCourt())
+    })
+
+    it('should return am instance from given object', () => {
+      let deserialized = new PreferredCourt().deserialize({
+        name: 'name'
+      })
+
+      expect(deserialized).to.eql(new PreferredCourt('name'))
     })
   })
 

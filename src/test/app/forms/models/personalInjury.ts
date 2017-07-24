@@ -12,38 +12,28 @@ import { GeneralDamages } from 'app/forms/models/generalDamages'
 
 describe('Personal Injury', () => {
   describe('deserialize', () => {
-    it('should return a PersonalInjury instance', () => {
+    it('should return an instance', () => {
       let deserialized = new PersonalInjury().deserialize({})
       expect(deserialized).to.be.instanceof(PersonalInjury)
     })
 
-    it('should return a PersonalInjury instance with fields set to default values when given "undefined"', () => {
-      let deserialized = new PersonalInjury().deserialize(undefined)
-      expect(deserialized.personalInjury).to.be.undefined
-      expect(deserialized.generalDamages).to.be.undefined
+    it('should return an instance initialised with defaults for "undefined"', () => {
+      expect(new PersonalInjury().deserialize(undefined)).to.eql(new PersonalInjury())
     })
 
-    it('should return a PersonalInjury instance with fields set to default values when given "null"', () => {
-      let deserialized = new PersonalInjury().deserialize(null)
-      expect(deserialized.personalInjury).to.be.undefined
-      expect(deserialized.generalDamages).to.be.undefined
+    it('should return an instance initialised with defaults for "null"', () => {
+      expect(new PersonalInjury().deserialize(null)).to.eql(new PersonalInjury())
     })
 
-    it('should return a PersonalInjury instance with fields set to undefined when given an empty object', () => {
-      let deserialized = new PersonalInjury().deserialize({})
-      expect(deserialized.personalInjury).to.be.undefined
-      expect(deserialized.generalDamages).to.be.undefined
-    })
-
-    it('should return a PersonalInjury instance with fields set when given an object with value', () => {
+    it('should return am instance from given object', () => {
       let deserialized = new PersonalInjury().deserialize({
         personalInjury: YesNo.YES,
         generalDamages: GeneralDamages.MORE
       })
-      expect(deserialized.personalInjury).to.be.eq(YesNo.YES)
-      expect(deserialized.generalDamages).to.be.eq(GeneralDamages.MORE)
+      expect(deserialized).to.eql(new PersonalInjury(YesNo.YES, GeneralDamages.MORE))
     })
   })
+
   describe('validation', () => {
     const validator: Validator = new Validator()
 
