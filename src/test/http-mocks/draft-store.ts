@@ -8,6 +8,19 @@ const sampleClaimDraftObj = {
   externalId: '12345',
   readResolveDispute: true,
   readCompletingClaim: true,
+  representative:  {
+    company: {
+      companyName: {
+        name: 'My Company Name'
+      },
+      address: {
+        line1: 'Apt 99',
+        line2: 'Building A',
+        city: 'London',
+        postcode: 'E1'
+      }
+    }
+  },
   claimant: {
     name: {
       first: 'John',

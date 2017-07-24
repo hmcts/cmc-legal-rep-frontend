@@ -8,10 +8,15 @@ import Claimant from 'drafts/models/claimant'
 import ServiceAuthToken from 'app/idam/serviceAuthToken'
 
 import moment = require('moment')
+import Representative from 'drafts/models/representative'
+import Company from 'drafts/models/company'
 
 function mockedDraftClaim () {
   let draft = new DraftClaim()
   draft.claimant = new Claimant()
+  draft.representative = new Representative()
+  draft.representative.company = new Company()
+  
   return draft
 }
 

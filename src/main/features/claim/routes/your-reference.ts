@@ -24,7 +24,7 @@ export default express.Router()
       res.locals.user.claimDraft.yourReference = form.model
       ClaimDraftMiddleware.save(res, next)
         .then(() => {
-          res.redirect(Paths.personalInjuryPage.uri)
+          res.redirect(Paths.preferredCourtPage.uri)
         })
     }
   })

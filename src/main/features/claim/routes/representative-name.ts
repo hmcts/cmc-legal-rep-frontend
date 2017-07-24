@@ -4,22 +4,22 @@ import { Paths } from 'claim/paths'
 
 import { FormValidator } from 'app/forms/validation/formValidator'
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
-import Representative from 'forms/models/representative'
+import CompanyName from 'forms/models/companyName'
 
-function renderView (form: Form<Representative>, res: express.Response): void {
+function renderView (form: Form<CompanyName>, res: express.Response): void {
   res.render( Paths.representativeNamePage.associatedView, { form: form } )
 }
 
 export default express.Router()
   .get( Paths.representativeNamePage.uri, (req: express.Request, res: express.Response) => {
-    renderView( new Form( res.locals.user.claimDraft.representative ), res )
+    renderView( new Form( res.locals.user.claimDraft.representative.company.companyName ), res )
   } )
-  .post( Paths.representativeNamePage.uri, FormValidator.requestHandler( Representative, Representative.fromObject ), (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    const form: Form<Representative> = req.body
+  .post( Paths.representativeNamePage.uri, FormValidator.requestHandler( CompanyName, CompanyName.fromObject ), (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const form: Form<CompanyName> = req.body
     if (form.hasErrors()) {
       renderView( form, res )
     } else {
-      res.locals.user.claimDraft.representative = form.model
+      res.locals.user.claimDraft.representative.company.companyName = form.model
       ClaimDraftMiddleware.save( res, next )
         .then( () => res.redirect( Paths.representativeAddressPage.uri ) )
     }
