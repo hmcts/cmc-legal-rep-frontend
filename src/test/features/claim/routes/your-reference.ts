@@ -62,7 +62,7 @@ describe('Claim issue: your reference page', () => {
       await request(app)
         .post(ClaimPaths.yourReferencePage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .send({ yourReference: '1234567890123456789012345' })
+        .send({ reference: '1234567890123456789012345' })
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.personalInjuryPage.uri))
     })
   })

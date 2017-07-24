@@ -1,7 +1,7 @@
 {% extends "layout.njk" %}
 
 {% set title = t('Money claim') %}
-{% set heading = t('Your reference for this claim') %}
+{% set heading = t('Enter your details') %}
 
 {% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, textInput  %}
 
@@ -9,10 +9,11 @@
 
   <div class="grid-row">
     <div class="column-two-thirds">
+      <p>{{ t('Your company name') }}</p>
       <form novalidate method="post">
         {{ csrfProtection(csrf) }}
 
-        {{ textInput('', 'reference', form, t('Optional')) }}
+        {{ textInput('', 'name', form) }}
         <div class="form-group">
           {{ saveAndContinueButton() }}
         </div>
