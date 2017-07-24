@@ -25,25 +25,21 @@ export class PersonalInjury implements Serializable<PersonalInjury> {
   }
 
   static fromObject (value?: any): PersonalInjury {
-    let generalDamagesValue = null
-    let personalInjuryValue = null
+    let generalDamagesValue
+    let personalInjuryValue
 
-    if (value && value.generalDamages) {
-      generalDamagesValue = GeneralDamages.all()
-        .filter(generalDamages => generalDamages.value === value.generalDamages.value)
-        .pop()
-    }
-    if (value && value.personalInjury) {
-      personalInjuryValue = YesNo.all()
-        .filter(personalInjury => personalInjury.value === value.personalInjury)
-        .pop()
-    }
-    if (value && generalDamagesValue && personalInjuryValue) {
+    if (value) {
+      if (value.generalDamages) {
+        generalDamagesValue = GeneralDamages.all()
+          .filter(generalDamages => generalDamages.value === value.generalDamages.value)
+          .pop()
+      }
+      if (value.personalInjury) {
+        personalInjuryValue = YesNo.all()
+          .filter(personalInjury => personalInjury.value === value.personalInjury.value)
+          .pop()
+      }
       return new PersonalInjury(personalInjuryValue, generalDamagesValue)
-    } else if (value && personalInjuryValue) {
-      return new PersonalInjury(personalInjuryValue, undefined)
-    } else if (value && generalDamagesValue) {
-      return new PersonalInjury(undefined, generalDamagesValue)
     } else {
       return new PersonalInjury()
     }

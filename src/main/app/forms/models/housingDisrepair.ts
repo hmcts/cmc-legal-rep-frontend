@@ -33,33 +33,31 @@ export class HousingDisrepair implements Serializable<HousingDisrepair> {
   }
 
   static fromObject (value?: any): HousingDisrepair {
-    let housingDisrepairValue = null
-    let generalDamagesValue = null
-    let otherDamagesValue = null
+    let housingDisrepairValue
+    let generalDamagesValue
+    let otherDamagesValue
 
-    if (value && value.housingDisrepair) {
-      housingDisrepairValue = YesNo.all()
-        .filter(housingDisrepair => housingDisrepair.value === value.housingDisrepair)
-        .pop()
-    }
-    if (value && value.generalDamages) {
-      generalDamagesValue = GeneralDamages.all()
-        .filter(generalDamages => generalDamages.value === value.generalDamages.value)
-        .pop()
-    }
-    if (value && value.otherDamages) {
-      otherDamagesValue = OtherDamages.all()
-        .filter(otherDamages => otherDamages.value === value.otherDamages.value)
-        .pop()
-    }
-    if (value && generalDamagesValue && housingDisrepairValue && otherDamagesValue) {
+    if (value) {
+
+      if (value.housingDisrepair) {
+        housingDisrepairValue = YesNo.all()
+          .filter(housingDisrepair => housingDisrepair.value === value.housingDisrepair.value)
+          .pop()
+      }
+
+      if (value.generalDamages) {
+        generalDamagesValue = GeneralDamages.all()
+          .filter(generalDamages => generalDamages.value === value.generalDamages.value)
+          .pop()
+      }
+
+      if (value.otherDamages) {
+        otherDamagesValue = OtherDamages.all()
+          .filter(otherDamages => otherDamages.value === value.otherDamages.value)
+          .pop()
+      }
+
       return new HousingDisrepair(housingDisrepairValue, generalDamagesValue, otherDamagesValue)
-    } else if (value && housingDisrepairValue && !generalDamagesValue && !otherDamagesValue) {
-      return new HousingDisrepair(housingDisrepairValue, undefined, undefined)
-    } else if (value && housingDisrepairValue && generalDamagesValue && !otherDamagesValue) {
-      return new HousingDisrepair(housingDisrepairValue, generalDamagesValue, undefined)
-    } else if (value && housingDisrepairValue && !generalDamagesValue && otherDamagesValue) {
-      return new HousingDisrepair(housingDisrepairValue, undefined, otherDamagesValue)
     } else {
       return new HousingDisrepair()
     }

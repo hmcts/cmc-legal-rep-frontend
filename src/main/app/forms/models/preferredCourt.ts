@@ -7,7 +7,7 @@ export class ValidationErrors {
 
 export default class PreferredCourt implements Serializable<PreferredCourt> {
 
-  @MaxLength( 80, { message: ValidationErrors.PREFERRED_COURT_TOO_LONG } )
+  @MaxLength(80, { message: ValidationErrors.PREFERRED_COURT_TOO_LONG })
   @IsOptional()
   name?: string
 
@@ -16,12 +16,11 @@ export default class PreferredCourt implements Serializable<PreferredCourt> {
   }
 
   static fromObject (value?: any): PreferredCourt {
-    if (value == null) {
-      return value
+    if (value != null) {
+      return new PreferredCourt(value.name)
     }
 
-    return new PreferredCourt( value.name )
-
+    return new PreferredCourt()
   }
 
   deserialize (input: any): PreferredCourt {
