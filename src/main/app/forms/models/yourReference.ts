@@ -29,6 +29,7 @@ export class YourReference implements Serializable<YourReference> {
     if (input) {
       this.reference = input.reference
     }
+
     return this
   }
 }
