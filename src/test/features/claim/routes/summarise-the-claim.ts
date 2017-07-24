@@ -54,7 +54,7 @@ describe('Claim issue: housing disrepair page', () => {
         .post(ClaimPaths.summariseTheClaimPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({
-          summary: 'summary of claim'
+          text: 'summary of claim'
         })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
@@ -67,7 +67,7 @@ describe('Claim issue: housing disrepair page', () => {
         .post(ClaimPaths.summariseTheClaimPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({
-          summary: 'summary of claim'
+          text: 'summary of claim'
         })
         .expect(res => expect(res).to.be.redirect.toLocation('/not-implemented-yet'))
     })
