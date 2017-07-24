@@ -101,4 +101,31 @@ describe('Housing Disrepair', () => {
       })
     })
   })
+
+  describe('fromObject', () => {
+
+    it('should have housing disrepair elements undefined when input is undefined', () => {
+      const housingDisrepair = HousingDisrepair.fromObject(undefined)
+
+      expect(housingDisrepair.generalDamages).to.equal(undefined)
+      expect(housingDisrepair.housingDisrepair).to.equal(undefined)
+      expect(housingDisrepair.otherDamages).to.equal(undefined)
+    })
+
+    it('should have housing disrepair elements undefined when input has invalid element value', () => {
+      const housingDisrepair = HousingDisrepair.fromObject({ housingDisrepair: {}, generalDamages: {}, otherDamages: {} })
+
+      expect(housingDisrepair.generalDamages).to.equal(undefined)
+      expect(housingDisrepair.housingDisrepair).to.equal(undefined)
+      expect(housingDisrepair.otherDamages).to.equal(undefined)
+    })
+
+    it('should have valid housing disrepair elements', () => {
+      const housingDisrepair = HousingDisrepair.fromObject({ housingDisrepair: YesNo.YES, generalDamages: GeneralDamages.MORE, otherDamages: OtherDamages.NONE })
+
+      expect(housingDisrepair.generalDamages).to.equal(GeneralDamages.MORE)
+      expect(housingDisrepair.housingDisrepair).to.equal(YesNo.YES)
+      expect(housingDisrepair.otherDamages).to.equal(OtherDamages.NONE)
+    })
+  })
 })
