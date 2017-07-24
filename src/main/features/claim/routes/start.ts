@@ -6,5 +6,5 @@ export default express.Router()
     res.render(Paths.startPage.associatedView)
   })
   .post(Paths.startPage.uri, (req: express.Request, res: express.Response) => {
-    res.redirect(Paths.yourReferencePage.uri)
+    res.redirect(Paths.representativeNamePage.uri)
   })
