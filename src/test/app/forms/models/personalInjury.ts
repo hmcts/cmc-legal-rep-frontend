@@ -77,4 +77,31 @@ describe('Personal Injury', () => {
       })
     })
   })
+
+  describe('fromObject', () => {
+
+    it('should have personal injury elements undefined when input is undefined', () => {
+      const personalInjury = PersonalInjury.fromObject(undefined)
+
+      expect(personalInjury.generalDamages).to.equal(undefined)
+      expect(personalInjury.personalInjury).to.equal(undefined)
+    })
+
+    it('should have personal injury elements undefined when input has invalid element value', () => {
+      const personalInjury = PersonalInjury.fromObject({ personalInjury: {}, generalDamages: {} })
+
+      expect(personalInjury.generalDamages).to.equal(undefined)
+      expect(personalInjury.personalInjury).to.equal(undefined)
+    })
+
+    it('should have valid personal injury elements', () => {
+      const personalInjury = PersonalInjury.fromObject({
+        personalInjury: YesNo.YES,
+        generalDamages: GeneralDamages.MORE
+      })
+
+      expect(personalInjury.generalDamages).to.equal(GeneralDamages.MORE)
+      expect(personalInjury.personalInjury).to.equal(YesNo.YES)
+    })
+  })
 })
