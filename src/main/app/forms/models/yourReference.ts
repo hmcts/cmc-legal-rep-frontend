@@ -9,10 +9,10 @@ export class YourReference implements Serializable<YourReference> {
 
   @MaxLength(25, { message: ValidationErrors.YOUR_REFERENCE_TOO_LONG })
   @IsOptional()
-  yourReference?: string
+  reference?: string
 
-  constructor (yourReference?: string) {
-    this.yourReference = yourReference
+  constructor (reference?: string) {
+    this.reference = reference
   }
 
   static fromObject (value?: any): YourReference {
@@ -20,14 +20,14 @@ export class YourReference implements Serializable<YourReference> {
       return value
     }
 
-    const instance = new YourReference(value.yourReference)
+    const instance = new YourReference(value.reference)
 
     return instance
   }
 
   deserialize (input?: any): YourReference {
     if (input) {
-      this.yourReference = input.yourReference
+      this.reference = input.reference
     }
     return this
   }
