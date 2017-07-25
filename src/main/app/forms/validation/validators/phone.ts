@@ -6,10 +6,8 @@ import {
   ValidationArguments
 } from 'class-validator'
 
-import * as validator from 'validator'
-
 @ValidatorConstraint()
-export class IsPhoneConstraint implements ValidatorConstraintInterface {
+export class IsPhoneNumberConstraint implements ValidatorConstraintInterface {
 
   validate (value?: any, args?: ValidationArguments): boolean {
     if (value == null) {
@@ -21,13 +19,14 @@ export class IsPhoneConstraint implements ValidatorConstraintInterface {
     }
 
     value = value.replace(/\(|\)| |-|\+/g, '').replace(/^(00)?44/, '').replace(/^0/, '')
-    return validator.isMobilePhone(value, 'en-GB') || value.length === 10 || value.length === 9 || value.length === 7
+    let firstChar = value.charAt(0)
+    return firstChar <= '9' && firstChar > '0' && ( value.length === 10 || value.length === 9 || value.length === 7)
   }
 
 }
 
 /**
- * Verify a valid UK mobile number.
+ * Verify a valid UK phone number.
  *
  * The validation is aligned to match what GOV.UK Notify is accepting.
  */
@@ -38,7 +37,7 @@ export function IsPhone (validationOptions?: ValidationOptions) {
       propertyName: propertyName,
       options: validationOptions,
       constraints: [],
-      validator: IsPhoneConstraint
+      validator: IsPhoneNumberConstraint
     })
   }
 }
