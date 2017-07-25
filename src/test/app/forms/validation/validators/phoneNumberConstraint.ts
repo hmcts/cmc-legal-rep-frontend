@@ -65,6 +65,10 @@ describe('IsPhoneNumberConstraint', () => {
         expect(constraint.validate('#$%^&$%^&*')).to.equal(false)
       })
 
+      it('should return false if the string start with a number', () => {
+        expect(constraint.validate('7$%^&$%^&*')).to.equal(false)
+      })
+
       it('should return true if the string contains a valid number with valid characters in between', () => {
         expect(constraint.validate('0+7)8-7(3)7+3-8-5--4(7')).to.equal(true)
       })
