@@ -12,14 +12,14 @@ function renderView (form: Form<CompanyName>, res: express.Response): void {
 
 export default express.Router()
   .get( Paths.representativeNamePage.uri, (req: express.Request, res: express.Response) => {
-    renderView( new Form( res.locals.user.claimDraft.representative.company.companyName ), res )
+    renderView( new Form( res.locals.user.claimDraft.representative.companyName ), res )
   } )
   .post( Paths.representativeNamePage.uri, FormValidator.requestHandler( CompanyName, CompanyName.fromObject ), (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const form: Form<CompanyName> = req.body
     if (form.hasErrors()) {
       renderView( form, res )
     } else {
-      res.locals.user.claimDraft.representative.company.companyName = form.model
+      res.locals.user.claimDraft.representative.companyName = form.model
       ClaimDraftMiddleware.save( res, next )
         .then( () => res.redirect( Paths.representativeAddressPage.uri ) )
     }

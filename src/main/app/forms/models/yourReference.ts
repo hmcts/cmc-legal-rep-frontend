@@ -7,7 +7,7 @@ export class ValidationErrors {
 
 export class YourReference implements Serializable<YourReference> {
 
-  @MaxLength(25, { message: ValidationErrors.YOUR_REFERENCE_TOO_LONG })
+  @MaxLength( 25, { message: ValidationErrors.YOUR_REFERENCE_TOO_LONG } )
   @IsOptional()
   reference?: string
 
@@ -19,16 +19,14 @@ export class YourReference implements Serializable<YourReference> {
     if (value == null) {
       return value
     }
-
-    const instance = new YourReference(value.reference)
-
-    return instance
+    return new YourReference( value.reference )
   }
 
   deserialize (input?: any): YourReference {
     if (input) {
       this.reference = input.reference
     }
+
     return this
   }
 }

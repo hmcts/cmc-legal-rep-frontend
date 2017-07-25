@@ -37,6 +37,12 @@ describe('YourReference', () => {
   describe('validation', () => {
     const validator: Validator = new Validator()
 
+    it('should accept reference with null ', () => {
+      const errors = validator.validateSync(new YourReference(null))
+
+      expect(errors.length).to.equal(0)
+    })
+
     it('should accept empty string for reference', () => {
       const errors = validator.validateSync(new YourReference(''))
 

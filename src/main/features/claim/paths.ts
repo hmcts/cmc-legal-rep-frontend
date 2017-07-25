@@ -9,8 +9,8 @@ export class Paths {
   static readonly summariseTheClaimPage = new RoutablePath('/claim/summarise-the-claim')
   static readonly preferredCourtPage = new RoutablePath('/claim/preferred-court')
   static readonly representativeNamePage = new RoutablePath('/claim/representative-name')
+  static readonly representativeContactsPage = new RoutablePath('/claim/representative-contacts')
   static readonly representativeAddressPage = new RoutablePath('/claim/representative-address')
-  static readonly representativeContactPage = new RoutablePath('/claim/representative-contact')
 }
 
 export class ErrorPaths {

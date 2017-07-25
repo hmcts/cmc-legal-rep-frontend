@@ -1,14 +1,26 @@
 import { Serializable } from 'models/serializable'
-import Company from 'drafts/models/company'
+import { Address } from 'forms/models/address'
+import CompanyName from 'forms/models/companyName'
+import { ContactDetails } from 'forms/models/contactDetails'
 
 export default class Representative implements Serializable<Representative> {
-  company: Company
+
+  companyName?: CompanyName
+  address?: Address
+  contactDetails?: ContactDetails
+
+  constructor (companyName?: CompanyName, address?: Address, contactDetails?: ContactDetails) {
+    this.companyName = companyName
+    this.address = address
+    this.contactDetails = contactDetails
+  }
 
   deserialize (input: any): Representative {
     if (input) {
-      this.company = new Company().deserialize( input.company )
+      this.address = new Address().deserialize( input.address )
+      this.companyName = new CompanyName().deserialize( input.companyName )
+      this.contactDetails = new ContactDetails().deserialize( input.contactDetails )
     }
     return this
   }
-
 }
