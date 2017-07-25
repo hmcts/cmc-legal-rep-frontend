@@ -5,7 +5,7 @@ import { YourReference } from 'app/forms/models/yourReference'
 import { HousingDisrepair } from 'app/forms/models/housingDisrepair'
 import { PersonalInjury } from 'app/forms/models/personalInjury'
 import PreferredCourt from 'app/forms/models/preferredCourt'
-import Representative from 'forms/models/representative'
+import Representative from 'drafts/models/representative'
 
 export default class DraftClaim implements Serializable<DraftClaim> {
   claimant: Claimant = new Claimant()

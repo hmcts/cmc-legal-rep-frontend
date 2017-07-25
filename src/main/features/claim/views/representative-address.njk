@@ -1,0 +1,16 @@
+{% extends "layout.njk" %}
+{% from "form.njk" import errorSummary %}
+{% from "address.njk" import addressForm %}
+
+{% set title = t('Money claim') %}
+{% set heading = t('Your company address') %}
+
+{% block content %}
+  <div class="grid-row">
+    <div class="column-two-thirds">
+
+      {{ addressForm(form, csrf) }}
+
+    </div>
+  </div>
+{% endblock %}

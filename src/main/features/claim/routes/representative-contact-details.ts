@@ -4,10 +4,9 @@ import { Paths } from 'claim/paths'
 
 import { FormValidator } from 'app/forms/validation/formValidator'
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
-import Representative from 'forms/models/representative'
 import { ContactDetails } from 'app/forms/models/contactDetails'
 
-function renderView (form: Form<Representative>, res: express.Response): void {
+function renderView (form: Form<ContactDetails>, res: express.Response): void {
   res.render( Paths.representativeContactsPage.associatedView, { form: form } )
 }
 

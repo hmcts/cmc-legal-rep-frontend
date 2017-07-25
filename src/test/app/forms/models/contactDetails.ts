@@ -32,7 +32,7 @@ describe('ContactDetails', () => {
     it('should return an instance with set fields from given object', () => {
       let result = new ContactDetails().deserialize({
         email: 'email@example.com',
-        number: '+447123456789',
+        phoneNumber: '+447123456789',
         dxAddress: 'any address'
       })
       expect(result).to.deep.eq(new ContactDetails('+447123456789', 'email@example.com', 'any address'))
