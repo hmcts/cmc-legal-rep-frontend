@@ -1,4 +1,4 @@
-import { IsDefined, MaxLength } from 'class-validator'
+import { IsDefined, IsOptional, MaxLength } from 'class-validator'
 
 import { IsNotBlank } from 'forms/validation/validators/isBlank'
 
@@ -24,9 +24,11 @@ export class Address implements Serializable<Address> {
   line1?: string
 
   @MaxLength(100, { message: ValidationErrors.SECOND_LINE_TOO_LONG })
+  @IsOptional()
   line2?: string
 
   @MaxLength(60, { message: ValidationErrors.CITY_NOT_VALID })
+  @IsOptional()
   city?: string
 
   @IsDefined({ message: ValidationErrors.POSTCODE_REQUIRED })
