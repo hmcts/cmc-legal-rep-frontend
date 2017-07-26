@@ -138,7 +138,7 @@ describe('Defendant Details', () => {
       })
     })
 
-    it('should reject defendant details for organisation type when companyHouseNumber length is 8', () => {
+    it('should accept defendant details for organisation type when companyHouseNumber length is 8', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.ORGANISATION,
           undefined, undefined, 'organisation', randomstring.generate( 8 )))
