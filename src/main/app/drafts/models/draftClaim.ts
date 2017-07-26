@@ -6,6 +6,7 @@ import { HousingDisrepair } from 'app/forms/models/housingDisrepair'
 import { PersonalInjury } from 'app/forms/models/personalInjury'
 import PreferredCourt from 'app/forms/models/preferredCourt'
 import Representative from 'drafts/models/representative'
+import Defendant from 'drafts/models/defendant'
 
 export default class DraftClaim implements Serializable<DraftClaim> {
   claimant: Claimant = new Claimant()
@@ -15,6 +16,7 @@ export default class DraftClaim implements Serializable<DraftClaim> {
   housingDisrepair: HousingDisrepair = new HousingDisrepair()
   preferredCourt: PreferredCourt = new PreferredCourt()
   representative: Representative = new Representative()
+  defendant: Defendant = new Defendant()
 
   deserialize (input: any): DraftClaim {
     if (input) {
@@ -25,6 +27,7 @@ export default class DraftClaim implements Serializable<DraftClaim> {
       this.housingDisrepair = new HousingDisrepair().deserialize( input.housingDisrepair )
       this.preferredCourt = new PreferredCourt().deserialize( input.preferredCourt )
       this.representative = new Representative().deserialize( input.representative )
+      this.defendant = new Defendant().deserialize( input.defendant )
     }
     return this
   }
