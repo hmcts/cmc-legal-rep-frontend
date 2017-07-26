@@ -21,8 +21,8 @@
 
           {% if errorType %}<span class="error-message">{{ t(errorType) }}</span>{% endif %}
           <div class="multiple-choice" data-target="type-organisation">
-            <input id="organisation" type="radio" name="type" value="ORGANISATION" {% if form.valueFor('type.value')  == 'ORGANISATION'%} checked="checked" {% endif %}>
-            <label for="organisation">{{ t('Organisation name') }} </label>
+            <input id="organisationType" type="radio" name="type" value="ORGANISATION" {% if form.valueFor('type.value')  == 'ORGANISATION'%} checked="checked" {% endif %}>
+            <label for="organisationType">{{ t('Organisation name') }} </label>
           </div>
 
           <div
@@ -32,8 +32,8 @@
           </div>
 
           <div class="multiple-choice" data-target="type-individual">
-            <input id="individual" type="radio" name="type" value="INDIVIDUAL" {% if form.valueFor('type.value')  == 'INDIVIDUAL'%} checked="checked" {% endif %}>
-            <label for="individual">{{ t('An individual') }} </label>
+            <input id="individualType" type="radio" name="type" value="INDIVIDUAL" {% if form.valueFor('type.value')  == 'INDIVIDUAL'%} checked="checked" {% endif %}>
+            <label for="individualType">{{ t('An individual') }} </label>
           </div>
           <div
             class="form-group panel panel-border-narrow js-hidden" id="type-individual" aria-hidden="false">
