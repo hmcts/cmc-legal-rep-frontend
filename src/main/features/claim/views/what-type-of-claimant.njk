@@ -25,8 +25,8 @@
         </div>
 
         <div class="panel panel-border-narrow js-hidden" id="claimant-company" aria-hidden="false">
-          {{ textInput("Organisation name", 'claimant_company_name', form) }}
-          {{ textInput("Companies House number (optional)", 'claimant_company_number', form) }}
+          {{ textInput(t('Organisation name'), 'claimant_company_name', form) }}
+          {{ textInput(t('Companies House number (optional)'), 'claimant_company_number', form) }}
         </div>
 
         <div class="multiple-choice" data-target="claimant-individual">
@@ -35,8 +35,8 @@
         </div>
 
         <div class="panel panel-border-narrow js-hidden" id="claimant-individual" aria-hidden="false">
-          {{ textInput("Title", 'claimant_title', form) }}
-          {{ textArea("Full name", 'claimant_name', form) }}
+          {{ textInput(t('Title'), 'claimant_title', form) }}
+          {{ textArea(t('Full name'), 'claimant_name', form) }}
         </div>
 
       </fieldset>

@@ -27,8 +27,8 @@
 
           <div
             class="form-group panel panel-border-narrow js-hidden " id="type-organisation" aria-hidden="false">
-            {{ textInput('Organisation name', 'organisation', form) }}
-            {{ textInput('Companies House number (optional)', 'companyHouseNumber', form) }}
+            {{ textInput(t('Organisation name'), 'organisation', form) }}
+            {{ textInput(t('Companies House number (optional)'), 'companyHouseNumber', form) }}
           </div>
 
           <div class="multiple-choice" data-target="type-individual">
@@ -37,8 +37,8 @@
           </div>
           <div
             class="form-group panel panel-border-narrow js-hidden" id="type-individual" aria-hidden="false">
-            {{ textInput('Title (Optional)', 'title', form) }}
-            {{ textInput('Full name', 'fullName', form) }}
+            {{ textInput(t('Title (Optional)'), 'title', form) }}
+            {{ textInput(t('Full name'), 'fullName', form) }}
           </div>
         </fieldset>
 
