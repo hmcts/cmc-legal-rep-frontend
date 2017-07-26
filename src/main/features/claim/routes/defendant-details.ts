@@ -14,7 +14,7 @@ function renderView (form: Form<DefendantDetails>, res: express.Response) {
 
 export default express.Router()
   .get(Paths.defendantTypePage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.claimDraft.defendant.personalDetails), res)
+    renderView(new Form(res.locals.user.claimDraft.defendant.defendantDetails), res)
   })
   .post(Paths.defendantTypePage.uri, FormValidator.requestHandler(DefendantDetails, DefendantDetails.fromObject), (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const form: Form<DefendantDetails> = req.body
@@ -30,7 +30,7 @@ export default express.Router()
         form.model.fullName = null
       }
 
-      res.locals.user.claimDraft.defendant.personalDetails = form.model
+      res.locals.user.claimDraft.defendant.defendantDetails = form.model
 
       ClaimDraftMiddleware.save(res, next)
         .then(() => {

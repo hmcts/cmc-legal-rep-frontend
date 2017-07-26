@@ -132,9 +132,9 @@ describe('Defendant Details', () => {
     it('should reject defendant details for individual type when full name length is more than 70', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.INDIVIDUAL,
-          undefined, randomstring.generate( 71 ), undefined, undefined))
+          'title', randomstring.generate( 71 ), undefined, undefined))
 
-        expect(errors.length).to.equal(2)
+        expect(errors.length).to.equal(1)
         expectValidationError(errors, ValidationErrors.CONTENT_TOO_LONG)
       })
     })
@@ -157,6 +157,15 @@ describe('Defendant Details', () => {
         expect(errors.length).to.equal(0)
       })
     })
+
+    it('should accept defendant details for individual type when title length is 35', () => {
+      DefendantTypes.all().forEach(type => {
+        const errors = validator.validateSync(new DefendantDetails(DefendantTypes.INDIVIDUAL,
+          randomstring.generate( 35 ), 'fullName', undefined, undefined))
+
+        expect(errors.length).to.equal(0)
+      })
+    })
   })
 
   describe('fromObject', () => {
@@ -173,7 +182,7 @@ describe('Defendant Details', () => {
 
     it('should have defendant details elements undefined when input has undefined element value', () => {
       const defendantDetails = DefendantDetails.fromObject({
-        type: null,
+        type: undefined,
         title: undefined,
         fullName: undefined,
         organisation: undefined,
