@@ -119,6 +119,15 @@ describe('Defendant Details', () => {
       })
     })
 
+    it('should reject defendant details for organisation type when organisation name length is 255', () => {
+      DefendantTypes.all().forEach(type => {
+        const errors = validator.validateSync(new DefendantDetails(DefendantTypes.ORGANISATION,
+          undefined, undefined, randomstring.generate( 255 ), '12345678'))
+
+        expect(errors.length).to.equal(0)
+      })
+    })
+
     it('should reject defendant details for organisation type when companyHouseNumber length is more than 8', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.ORGANISATION,
@@ -126,6 +135,15 @@ describe('Defendant Details', () => {
 
         expect(errors.length).to.equal(1)
         expectValidationError(errors, ValidationErrors.CONTENT_TOO_LONG)
+      })
+    })
+
+    it('should reject defendant details for organisation type when companyHouseNumber length is 8', () => {
+      DefendantTypes.all().forEach(type => {
+        const errors = validator.validateSync(new DefendantDetails(DefendantTypes.ORGANISATION,
+          undefined, undefined, 'organisation', randomstring.generate( 8 )))
+
+        expect(errors.length).to.equal(0)
       })
     })
 
