@@ -29,9 +29,8 @@
   "session": {
     "cookieName": "SESSION_ID"
   },
-  "cmc-legal-rep-frontend": {
-    "gaTrackingId": "",
-    "piwikTrackingId": "2",
+  "legal_frontend_analytics": {
+    "piwikTrackingId": "7",
     "piwikTrackingSite": "https://hmctspiwik.useconnect.co.uk/"
   },
   "fees": {
