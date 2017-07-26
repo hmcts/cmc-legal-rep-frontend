@@ -13,9 +13,9 @@
       <form novalidate method="post">
         {{ csrfProtection(csrf) }}
 
-        {{ textInput('Phone number', 'phoneNumber', form) }}
-        {{ textInput('Email', 'email', form) }}
-        {{ textInput('DX address (optional)', 'dxAddress', form) }}
+        {{ textInput(t('Phone number'), 'phoneNumber', form) }}
+        {{ textInput(t('Email'), 'email', form) }}
+        {{ textInput(t('DX address (optional)'), 'dxAddress', form) }}
         <div class="form-group">
           {{ saveAndContinueButton() }}
         </div>

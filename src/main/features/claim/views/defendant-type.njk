@@ -1,0 +1,52 @@
+{% extends "layout.njk" %}
+
+{% set title = t('Money claim') %}
+{% set heading = t('Choose defendant type') %}
+
+{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, radioOption, textInput %}
+
+{% block content %}
+
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <p> {{ t("You'll have a chance to add more defendants later.") }} </p>
+      <form novalidate method="post">
+        {{ csrfProtection(csrf) }}
+
+        {% set errorType = form.errorFor('type') %}
+        <fieldset class="form-group {% if errorType %} form-group-error {% endif %}">
+          <legend class="visuallyhidden">
+            {{ t("Choose defendant type") }}
+          </legend>
+
+          {% if errorType %}<span class="error-message">{{ t(errorType) }}</span>{% endif %}
+          <div class="multiple-choice" data-target="type-organisation">
+            <input id="organisationType" type="radio" name="type" value="ORGANISATION" {% if form.valueFor('type.value')  == 'ORGANISATION'%} checked="checked" {% endif %}>
+            <label for="organisationType">{{ t('Organisation name') }} </label>
+          </div>
+
+          <div
+            class="form-group panel panel-border-narrow js-hidden " id="type-organisation" aria-hidden="false">
+            {{ textInput(t('Organisation name'), 'organisation', form) }}
+            {{ textInput(t('Companies House number (optional)'), 'companyHouseNumber', form) }}
+          </div>
+
+          <div class="multiple-choice" data-target="type-individual">
+            <input id="individualType" type="radio" name="type" value="INDIVIDUAL" {% if form.valueFor('type.value')  == 'INDIVIDUAL'%} checked="checked" {% endif %}>
+            <label for="individualType">{{ t('An individual') }} </label>
+          </div>
+          <div
+            class="form-group panel panel-border-narrow js-hidden" id="type-individual" aria-hidden="false">
+            {{ textInput(t('Title (Optional)'), 'title', form) }}
+            {{ textInput(t('Full name'), 'fullName', form) }}
+          </div>
+        </fieldset>
+
+        <div class="form-group">
+          {{ saveAndContinueButton() }}
+        </div>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}
