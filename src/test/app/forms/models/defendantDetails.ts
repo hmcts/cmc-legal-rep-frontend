@@ -61,10 +61,11 @@ describe('Defendant Details', () => {
 
         expect(errors.length).to.equal(2)
         expectValidationError(errors, ValidationErrors.FULLNAME_REQUIRED)
+        expectValidationError(errors, ValidationErrors.TITLE_REQUIRED)
       })
     })
 
-    it('should accept defendant details for individual type when individual details are null', () => {
+    it('should reject defendant details for individual type when individual details are null', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.INDIVIDUAL, null, null, undefined, undefined))
 
@@ -73,7 +74,7 @@ describe('Defendant Details', () => {
       })
     })
 
-    it('should accept defendant details for individual type when individual details are null', () => {
+    it('should reject defendant details for individual type when individual details are null', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.INDIVIDUAL, '', '', undefined, undefined))
 
@@ -151,7 +152,7 @@ describe('Defendant Details', () => {
     it('should accept defendant details for individual type when fullName length is 70', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.INDIVIDUAL,
-          randomstring.generate( 35 ), randomstring.generate( 70 ), undefined, undefined))
+          'title', randomstring.generate( 70 ), undefined, undefined))
 
         expect(errors.length).to.equal(0)
       })

@@ -23,11 +23,11 @@ export default express.Router()
       renderView(form, res)
     } else {
       if (form.model.type === DefendantTypes.INDIVIDUAL) {
-        form.model.organisation = undefined
-        form.model.companyHouseNumber = undefined
+        form.model.organisation = null
+        form.model.companyHouseNumber = null
       } else {
-        form.model.title = undefined
-        form.model.fullName = undefined
+        form.model.title = null
+        form.model.fullName = null
       }
 
       res.locals.user.claimDraft.defendant.personalDetails = form.model
