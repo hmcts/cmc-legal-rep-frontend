@@ -26,8 +26,7 @@
     "url": "DRAFT_STORE_URL",
     "apiVersion": "DRAFT_STORE_API_VERSION"
   },
-  "cmc-legal-rep-frontend": {
-    "gaTrackingId": "GA_TRACKING_ID",
+  "legal_frontend_analytics": {
     "piwikTrackingId": "PIWIK_TRACKING_ID",
     "piwikTrackingSite": "PIWIK_TRACKING_SITE"
   },
