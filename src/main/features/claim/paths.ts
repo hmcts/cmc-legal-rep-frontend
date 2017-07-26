@@ -15,6 +15,8 @@ export class Paths {
   static readonly defendantTypePage = new RoutablePath('/claim/defendant-type')
   static readonly defendantAddressPage = new RoutablePath('/claim/defendant-address')
   static readonly defendantRepresentedPage = new RoutablePath('/claim/defendant-represented')
+  static readonly defendantRepAddressPage = new RoutablePath('/claim/defendant-reps-address')
+
 }
 
 export class ErrorPaths {
