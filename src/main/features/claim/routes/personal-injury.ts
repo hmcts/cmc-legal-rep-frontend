@@ -15,8 +15,6 @@ function renderView (form: Form<PersonalInjury>, res: express.Response) {
 
 export default express.Router()
   .get(Paths.personalInjuryPage.uri, (req: express.Request, res: express.Response) => {
-    console.log(res.locals.user.claimDraft)
-
     renderView(new Form(res.locals.user.claimDraft.personalInjury), res)
   })
   .post(Paths.personalInjuryPage.uri, FormValidator.requestHandler(PersonalInjury, PersonalInjury.fromObject), (req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -27,10 +25,8 @@ export default express.Router()
     }
 
     if (form.hasErrors()) {
-      console.log('errors')
       renderView(form, res)
     } else {
-      console.log('no errors')
       res.locals.user.claimDraft.personalInjury = form.model
 
       ClaimDraftMiddleware.save(res, next)
