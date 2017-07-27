@@ -26,7 +26,6 @@
               <label for="defendant_represented_yes">{{ t('Yes') }} </label>
             </div>
 
-
             <div class="multiple-choice">
               <input id="defendant_represented_no" type="radio" name="isDefendantRepresented"
                      value="NO" {% if form.valueFor('isDefendantRepresented.value')  == 'NO' %} checked="checked" {% endif %}>
@@ -34,7 +33,6 @@
             </div>
           </div>
         </fieldset>
-
 
         <div
           class="form-group panel panel-border-narrow js-hidden " id="company-name" aria-hidden="false">
