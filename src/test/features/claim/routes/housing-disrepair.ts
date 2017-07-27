@@ -69,7 +69,7 @@ describe('Claim issue: housing disrepair page', () => {
         .post(ClaimPaths.housingDisrepairPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({
-          housingDisrepair: { value: 'YES', displayValue: 'yes' },
+          housingDisrepair: 'YES',
           generalDamages: { value: 'MORE', displayValue: 'more' },
           otherDamages: { value: 'NONE', displayValue: 'none' }
         })

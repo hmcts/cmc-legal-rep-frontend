@@ -117,7 +117,7 @@ describe('Housing Disrepair', () => {
 
     it('should have valid housing disrepair elements', () => {
       const housingDisrepair = HousingDisrepair.fromObject({
-        housingDisrepair: YesNo.YES,
+        housingDisrepair: YesNo.YES.value,
         generalDamages: GeneralDamages.MORE,
         otherDamages: OtherDamages.NONE
       })
