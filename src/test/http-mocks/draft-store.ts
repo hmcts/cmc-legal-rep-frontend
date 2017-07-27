@@ -44,16 +44,20 @@ const sampleClaimDraftObj = {
     }
   },
   defendant: {
-    name: {
-      first: 'Rose',
-      last: 'Smith'
-    },
     address: {
       line1: 'Apt 99',
       city: 'London',
       postcode: 'E1'
     },
-    email: {}
+    representative: {
+      companyName: 'Defendant Company Name',
+      address: {
+        line1: 'Apt 99',
+        line2: 'Building A',
+        city: 'London',
+        postcode: 'E1'
+      }
+    }
   },
   amount: {
     rows: [
