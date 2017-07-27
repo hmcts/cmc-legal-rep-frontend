@@ -73,31 +73,31 @@ describe('Defendant Represented', () => {
   describe('fromObject', () => {
 
     it('should have defendant represented elements undefined when input is undefined', () => {
-      const personalInjury = DefendantRepresented.fromObject(undefined)
+      const defendantRepresented = DefendantRepresented.fromObject(undefined)
 
-      expect(personalInjury.isDefendantRepresented).to.equal(undefined)
-      expect(personalInjury.companyName).to.equal(undefined)
+      expect(defendantRepresented.isDefendantRepresented).to.equal(undefined)
+      expect(defendantRepresented.companyName).to.equal(undefined)
     })
 
     it('should have defendant represented elements undefined when input has invalid element value', () => {
-      const personalInjury = DefendantRepresented.fromObject({
+      const defendantRepresented = DefendantRepresented.fromObject({
         isDefendantRepresented: undefined,
         companyName: undefined
       })
 
-      expect(personalInjury.isDefendantRepresented).to.equal(undefined)
-      expect(personalInjury.companyName).to.equal(undefined)
+      expect(defendantRepresented.isDefendantRepresented).to.equal(undefined)
+      expect(defendantRepresented.companyName).to.equal(undefined)
     })
 
-    it('should have valid personal injury elements', () => {
+    it('should have valid defendant respresented', () => {
       const companyName = new CompanyName('companyName')
-      const personalInjury = DefendantRepresented.fromObject({
+      const defendantRepresented = DefendantRepresented.fromObject({
         isDefendantRepresented: 'YES',
         companyName: companyName
       })
 
-      expect(personalInjury.isDefendantRepresented).to.equal(YesNo.YES)
-      expect(personalInjury.companyName).to.eql(companyName)
+      expect(defendantRepresented.isDefendantRepresented).to.equal(YesNo.YES)
+      expect(defendantRepresented.companyName).to.eql(companyName)
     })
   })
 })

@@ -15,7 +15,7 @@ import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
 
-describe('Claim issue: claimant defendant page', () => {
+describe('Claim issue: is defendant represented page', () => {
   beforeEach(() => {
     mock.cleanAll()
     draftStoreServiceMock.resolveRetrieve('claim')
