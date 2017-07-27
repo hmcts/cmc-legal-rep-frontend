@@ -27,8 +27,10 @@ export default express.Router()
     }
 
     if (form.hasErrors()) {
+      console.log('errors')
       renderView(form, res)
     } else {
+      console.log('no errors')
       res.locals.user.claimDraft.personalInjury = form.model
 
       ClaimDraftMiddleware.save(res, next)

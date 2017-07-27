@@ -68,7 +68,7 @@ describe('Claim issue: personal injury page', () => {
         .post(ClaimPaths.personalInjuryPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({
-          personalInjury: { value: 'YES', displayValue: 'yes' },
+          personalInjury: 'YES',
           generalDamages: { value: 'MORE', displayValue: 'more' }
         })
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.housingDisrepairPage.uri))

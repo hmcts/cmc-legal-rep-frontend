@@ -25,6 +25,7 @@ export class PersonalInjury implements Serializable<PersonalInjury> {
   }
 
   static fromObject (value?: any): PersonalInjury {
+    console.log(value)
     let generalDamagesValue
     let personalInjuryValue
 
