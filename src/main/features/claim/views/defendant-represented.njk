@@ -15,7 +15,7 @@
         {% set errorType = form.errorFor('isDefendantRepresented') %}
         <fieldset class="form-group {% if errorType %} form-group-error {% endif %}">
           <legend class="visuallyhidden">
-            {{ t("Choose defendant type") }}
+            {{ t('Is the defendant represented?') }}
           </legend>
 
           {% if errorType %}<span class="error-message">{{ t(errorType) }}</span>{% endif %}
