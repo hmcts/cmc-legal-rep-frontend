@@ -10,7 +10,8 @@ import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 
 function renderView (form: Form<Address>, res: express.Response): void {
   res.render(Paths.defendantRepAddressPage.associatedView, {
-    form: form
+    form: form,
+    name: res.locals.user.claimDraft.defendant.defendantRepresented.companyName
   })
 }
 

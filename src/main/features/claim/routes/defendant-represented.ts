@@ -17,7 +17,7 @@ export default express.Router()
   .get(Paths.defendantRepresentedPage.uri, (req: express.Request, res: express.Response) => {
     renderView(new Form(res.locals.user.claimDraft.defendant.defendantRepresented), res)
   })
-  .post(Paths.defendantRepresentedPage.uri, FormValidator.requestHandler(DefendantRepresented, DefendantRepresented.fromObject), (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  .post(Paths.defendantRepresentedPage.uri, FormValidator.requestHandler(DefendantRepresented, DefendantRepresented.fromObject), async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const form: Form<DefendantRepresented> = req.body
 
     if (form.model.isDefendantRepresented === YesNo.NO) {
@@ -29,9 +29,12 @@ export default express.Router()
     } else {
       res.locals.user.claimDraft.defendant.defendantRepresented = form.model
 
-      ClaimDraftMiddleware.save(res, next)
-        .then(() => {
-          res.redirect(Paths.defendantRepAddressPage.uri)
-        })
+      await ClaimDraftMiddleware.save(res, next)
+
+      if (res.locals.user.claimDraft.defendant.defendantRepresented.isDefendantRepresented === YesNo.NO) {
+        res.redirect(Paths.personalInjuryPage.uri)
+      } else {
+        res.redirect(Paths.defendantRepAddressPage.uri)
+      }
     }
   })

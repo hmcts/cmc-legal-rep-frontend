@@ -4,7 +4,7 @@ import { IndividualTypes } from 'app/forms/models/individualTypes'
 import { IsNotBlank } from 'app/forms/validation/validators/isBlank'
 
 export class ValidationErrors {
-  static readonly DEFENDANT_TYPE_REQUIRED: string = 'Choose defendant type'
+  static readonly CLAIMANT_TYPE_REQUIRED: string = 'Choose claimant type'
   static readonly TITLE_REQUIRED: string = 'Enter defendant title'
   static readonly FULLNAME_REQUIRED: string = 'Enter full name'
   static readonly ORGANISATION_NAME_REQUIRED: string = 'Enter organisation name'
@@ -12,10 +12,10 @@ export class ValidationErrors {
   static readonly CONTENT_TOO_LONG: string = 'You’ve entered too many characters'
 }
 
-export class DefendantDetails implements Serializable<DefendantDetails> {
+export class ClaimantDetails implements Serializable<ClaimantDetails> {
 
-  @IsDefined({ message: ValidationErrors.DEFENDANT_TYPE_REQUIRED })
-  @IsIn(IndividualTypes.all(), { message: ValidationErrors.DEFENDANT_TYPE_REQUIRED })
+  @IsDefined({ message: ValidationErrors.CLAIMANT_TYPE_REQUIRED })
+  @IsIn(IndividualTypes.all(), { message: ValidationErrors.CLAIMANT_TYPE_REQUIRED })
   type?: IndividualTypes
 
   @ValidateIf(o => o.type === IndividualTypes.INDIVIDUAL)
@@ -50,7 +50,7 @@ export class DefendantDetails implements Serializable<DefendantDetails> {
     this.companyHouseNumber = companyHouseNumber
   }
 
-  static fromObject (value?: any): DefendantDetails {
+  static fromObject (value?: any): ClaimantDetails {
     if (value != null) {
       let type
 
@@ -62,13 +62,13 @@ export class DefendantDetails implements Serializable<DefendantDetails> {
           .pop()
       }
 
-      return new DefendantDetails(type, value.title, value.fullName, value.organisation, value.companyHouseNumber)
+      return new ClaimantDetails(type, value.title, value.fullName, value.organisation, value.companyHouseNumber)
     }
 
-    return new DefendantDetails()
+    return new ClaimantDetails()
   }
 
-  deserialize (input?: any): DefendantDetails {
+  deserialize (input?: any): ClaimantDetails {
     if (input) {
       this.type = input.type
       this.title = input.title

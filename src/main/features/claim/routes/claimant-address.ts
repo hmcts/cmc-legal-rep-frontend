@@ -7,11 +7,17 @@ import { FormValidator } from 'forms/validation/formValidator'
 import { Address } from 'forms/models/address'
 
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
+import { IndividualTypes } from 'app/forms/models/individualTypes'
 
 function renderView (form: Form<Address>, res: express.Response): void {
+  const claimantDetails = res.locals.user.claimDraft.claimant.claimantDetails
+  const isIndividual = claimantDetails.type.value === IndividualTypes.INDIVIDUAL.value
+  const title = claimantDetails.title != null ? claimantDetails.title + ' ' : claimantDetails.title
+  const name = isIndividual ? title + claimantDetails.fullName : claimantDetails.organisation
+
   res.render(Paths.claimantAddressPage.associatedView, {
     form: form,
-    name: res.locals.user.claimDraft.claimant.name.text
+    name: name
   })
 }
 
