@@ -47,13 +47,13 @@ export class HousingDisrepair implements Serializable<HousingDisrepair> {
 
       if (value.generalDamages) {
         generalDamagesValue = GeneralDamages.all()
-          .filter(generalDamages => generalDamages.value === value.generalDamages.value)
+          .filter(generalDamages => generalDamages.value === value.generalDamages)
           .pop()
       }
 
       if (value.otherDamages) {
         otherDamagesValue = OtherDamages.all()
-          .filter(otherDamages => otherDamages.value === value.otherDamages.value)
+          .filter(otherDamages => otherDamages.value === value.otherDamages)
           .pop()
       }
 
