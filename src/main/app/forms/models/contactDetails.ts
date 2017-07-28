@@ -28,7 +28,7 @@ export class ContactDetails implements Serializable<ContactDetails> {
   @IsOptional()
   @IsDefined({ message: ValidationErrors.YOUR_DX_REQUIRED })
   @MaxLength(255, { message: ValidationErrors.YOUR_DX_ADDRESS_TOO_LONG })
-  dxAddress?: string = ''
+  dxAddress?: string
 
   constructor (phoneNumber?: string, email?: string, dxAddress?: string) {
     this.phoneNumber = phoneNumber
