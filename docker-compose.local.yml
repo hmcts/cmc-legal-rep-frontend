@@ -1,11 +1,11 @@
 version: '2'
 
 services:
-  citizen-frontend:
+  legal-rep-frontend:
     build:
       context: .
       args:
         - http_proxy
         - https_proxy
         - no_proxy
-    image: docker.artifactory.reform.hmcts.net/cmc/legal-frontend
+    image: docker.artifactory.reform.hmcts.net/cmc/legal-rep-frontend
