@@ -5,7 +5,7 @@ import { DefendantRepresented } from 'app/forms/models/defendantRepresented'
 
 export default class Defendant {
   address?: Address = new Address()
-  representative: Representative = new Representative()
+  representative?: Representative = new Representative()
   defendantDetails?: DefendantDetails = new DefendantDetails()
   defendantRepresented?: DefendantRepresented = new DefendantRepresented()
 
@@ -16,6 +16,7 @@ export default class Defendant {
       this.defendantDetails = new DefendantDetails().deserialize(input.defendantDetails)
       this.defendantRepresented = new DefendantRepresented().deserialize(input.defendantRepresented)
     }
+
     return this
   }
 }

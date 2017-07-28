@@ -26,7 +26,7 @@ describe('Defendant Represented', () => {
       expect(new DefendantRepresented().deserialize(null)).to.eql(new DefendantRepresented())
     })
 
-    it('should return am instance from given object', () => {
+    it('should return an instance from given object', () => {
       const companyName = 'companyName'
       let deserialized = new DefendantRepresented().deserialize({
         isDefendantRepresented: YesNo.YES,
