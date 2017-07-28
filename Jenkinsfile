@@ -15,7 +15,7 @@ IntegrationTests integrationTests = new IntegrationTests(env, this)
 
 timestamps {
   milestone()
-  lock(resource: "legal-rep-frontend-${env.BRANCH_NAME}", inversePrecedence: true) {
+  lock(resource: "legal-frontend-${env.BRANCH_NAME}", inversePrecedence: true) {
     node('slave') {
       try {
         def version
@@ -67,16 +67,16 @@ timestamps {
         }
 
         stage('Package application (RPM)') {
-          legalFrontendRPMVersion = packager.nodeRPM('cmc-legal-rep-frontend')
+          legalFrontendRPMVersion = packager.nodeRPM('cmc-legal-frontend')
           version = "{legal_frontend_buildnumber: ${legalFrontendRPMVersion}}"
 
           if ("master" == BRANCH_NAME) {
-            packager.publishNodeRPM('legal-rep-frontend')
+            packager.publishNodeRPM('legal-frontend')
           }
         }
 
         stage('Package application (Docker)') {
-          legalFrontendVersion = dockerImage imageName: 'cmc/legal-rep-frontend'
+          legalFrontendVersion = dockerImage imageName: 'cmc/legal-frontend'
         }
 
 //        stage('Integration Tests') {
@@ -87,8 +87,8 @@ timestamps {
 
         //noinspection GroovyVariableNotAssigned It is guaranteed to be assigned
         RPMTagger rpmTagger = new RPMTagger(this,
-          'legal-rep-frontend',
-          packager.rpmName('legal-rep-frontend', legalFrontendRPMVersion),
+          'legal-frontend',
+          packager.rpmName('legal-frontend', legalFrontendRPMVersion),
           'cmc-local'
         )
 
