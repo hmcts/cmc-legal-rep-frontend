@@ -1,0 +1,46 @@
+{% extends "layout.njk" %}
+
+{% set title = t('Money claim') %}
+{% set heading = t('Is the defendant represented?') %}
+
+{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, radioOption, textInput %}
+
+{% block content %}
+
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <form novalidate method="post">
+        {{ csrfProtection(csrf) }}
+
+        {% set errorType = form.errorFor('isDefendantRepresented') %}
+        <fieldset class="form-group {% if errorType %} form-group-error {% endif %}">
+          <legend class="visuallyhidden">
+            {{ t('Is the defendant represented?') }}
+          </legend>
+
+          {% if errorType %}<span class="error-message">{{ t(errorType) }}</span>{% endif %}
+          <div class="inline">
+            <div class="multiple-choice" data-target="company-name">
+              <input id="defendant_represented_yes" type="radio" name="isDefendantRepresented" value="YES" {% if form.valueFor('isDefendantRepresented.value')  == 'YES' %} checked="checked" {% endif %}>
+              <label for="defendant_represented_yes">{{ t('Yes') }} </label>
+            </div>
+
+            <div class="multiple-choice">
+              <input id="defendant_represented_no" type="radio" name="isDefendantRepresented" value="NO" {% if form.valueFor('isDefendantRepresented.value')  == 'NO' %} checked="checked" {% endif %}>
+              <label for="defendant_represented_no">{{ t('No') }} </label>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="form-group panel panel-border-narrow js-hidden" id="company-name" aria-hidden="false">
+          {{ textInput(t('Defendant representative company name'), 'companyName', form) }}
+        </div>
+
+        <div class="form-group">
+          {{ saveAndContinueButton() }}
+        </div>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

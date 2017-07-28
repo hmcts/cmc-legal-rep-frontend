@@ -26,6 +26,7 @@ export default express.Router()
       renderView(form, res)
     } else {
       res.locals.user.claimDraft.claimant.address = form.model
+
       ClaimDraftMiddleware.save(res, next)
         .then(() => res.redirect(Paths.defendantTypePage.uri))
     }
