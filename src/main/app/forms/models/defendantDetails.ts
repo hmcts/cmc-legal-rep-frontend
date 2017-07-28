@@ -4,11 +4,11 @@ import { IndividualTypes } from 'app/forms/models/individualTypes'
 import { IsNotBlank } from 'app/forms/validation/validators/isBlank'
 
 export class ValidationErrors {
-  static readonly DEFENDANT_TYPE_REQUIRED: string = 'Choose defendant type'
-  static readonly TITLE_REQUIRED: string = 'Enter defendant title'
-  static readonly FULLNAME_REQUIRED: string = 'Enter full name'
-  static readonly ORGANISATION_NAME_REQUIRED: string = 'Enter organisation name'
-  static readonly COMPANY_HOUSE_NUMBER_REQUIRED: string = 'Enter company house number'
+  static readonly DEFENDANT_TYPE_REQUIRED: string = 'Choose a type of defendant'
+  static readonly TITLE_REQUIRED: string = 'Enter a title'
+  static readonly FULLNAME_REQUIRED: string = 'Enter a full name'
+  static readonly ORGANISATION_NAME_REQUIRED: string = 'Enter an organisation name'
+  static readonly COMPANY_HOUSE_NUMBER_REQUIRED: string = 'Enter a valid Companies House number'
   static readonly CONTENT_TOO_LONG: string = 'You’ve entered too many characters'
 }
 

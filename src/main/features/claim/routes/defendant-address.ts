@@ -14,6 +14,7 @@ function renderView (form: Form<Address>, res: express.Response): void {
   const isIndividual = defendantDetails.type.value === IndividualTypes.INDIVIDUAL.value
   const title = defendantDetails.title != null ? defendantDetails.title + ' ' : defendantDetails.title
   const name = isIndividual ? title + defendantDetails.fullName : defendantDetails.organisation
+
   res.render(Paths.defendantAddressPage.associatedView, {
     form: form,
     name: name
