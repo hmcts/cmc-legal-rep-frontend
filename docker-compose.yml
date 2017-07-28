@@ -13,7 +13,6 @@ services:
     image: docker.artifactory.reform.hmcts.net/cmc/legal-rep-frontend
     environment:
         - PORT=3401
-        - IDAM_REGISTRATION_WEB_URL=https://registration-test.dev.ccidam.reform.hmcts.net
         - IDAM_AUTHENTICATION_WEB_URL=https://idam-test.dev.ccidam.reform.hmcts.net
         - IDAM_API_URL=http://betaDevBccidamAppLB.reform.hmcts.net:4551
         - FEES_URL=https://dev.fees-register.reform.hmcts.net:4411
