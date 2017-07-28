@@ -28,7 +28,7 @@ describe('Representative', () => {
       expect(new Representative().deserialize(null)).to.eql(new Representative())
     })
 
-    it('should return am instance from given object', () => {
+    it('should return an instance from given object', () => {
       const contactDetails = new ContactDetails('07555055505', 'email@example.com', 'any dx address')
       const companyName = new CompanyName( 'name' )
       const address = new Address('line1', 'line2', 'city', 'postcode')
