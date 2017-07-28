@@ -15,7 +15,7 @@ import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
 
-describe("Claim issue: Defendant's representative address page", () => {
+describe('Claim issue: Defendant\'s representative address page', () => {
   beforeEach(() => {
     mock.cleanAll()
     draftStoreServiceMock.resolveRetrieve('claim')
@@ -46,14 +46,14 @@ describe("Claim issue: Defendant's representative address page", () => {
         .expect(res => expect(res).to.be.successful.withText('Address for service', 'div class="error-summary"'))
     })
 
-    it.skip('should return 500 and render error page when form is valid and cannot save draft', async () => {
+    it('should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
       draftStoreServiceMock.rejectSave('claim', 'HTTP error')
 
       await request(app)
         .post(ClaimPaths.defendantRepAddressPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .send({line1: 'Apt 99', line2: '', city: 'London', postcode: 'E1'})
+        .send({ line1: 'Apt 99', line2: '', city: 'London', postcode: 'E1' })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
 
@@ -64,7 +64,7 @@ describe("Claim issue: Defendant's representative address page", () => {
       await request(app)
         .post(ClaimPaths.defendantRepAddressPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .send({line1: 'Apt 99', line2: '', city: 'London', postcode: 'E1'})
+        .send({ line1: 'Apt 99', line2: '', city: 'London', postcode: 'E1' })
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.personalInjuryPage.uri))
     })
   })
