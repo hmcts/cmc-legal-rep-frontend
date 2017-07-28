@@ -74,7 +74,7 @@ describe('Claimant Details', () => {
       })
     })
 
-    it('should reject claimant details for individual type when individual details are null', () => {
+    it('should reject claimant details for individual type when individual details are empty', () => {
       IndividualTypes.all().forEach(type => {
         const errors = validator.validateSync(new ClaimantDetails(IndividualTypes.INDIVIDUAL, '', '', undefined, undefined))
 
