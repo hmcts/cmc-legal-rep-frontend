@@ -2,7 +2,7 @@ import * as config from 'config'
 import * as mock from 'nock'
 import * as HttpStatus from 'http-status-codes'
 
-const serviceBaseURL: string = `${config.get( 'draft-store.url' )}/api/${config.get( 'draft-store.apiVersion' )}`
+const serviceBaseURL: string = `${config.get('draft-store.url')}/api/${config.get('draft-store.apiVersion')}`
 
 const sampleClaimDraftObj = {
   externalId: '12345',
@@ -18,9 +18,10 @@ const sampleClaimDraftObj = {
     }
   },
   claimant: {
-    name: {
-      first: 'John',
-      last: 'Smith'
+    claimantDetails: {
+      type: 'INDIVIDUAL',
+      title: 'title',
+      fullName: 'fullName'
     },
     address: {
       line1: 'Apt 99',
@@ -57,6 +58,11 @@ const sampleClaimDraftObj = {
         city: 'London',
         postcode: 'E1'
       }
+    },
+    defendantDetails: {
+      type: 'INDIVIDUAL',
+      title: 'title',
+      fullName: 'fullName'
     }
   },
   amount: {
@@ -112,46 +118,46 @@ export function resolveRetrieve (draftType: string, draftOverride?: object) {
       draft = { ...sampleResponseDraftObj, ...draftOverride }
       break
     default:
-      throw new Error( 'Unsupported draft type' )
+      throw new Error('Unsupported draft type')
   }
 
-  mock( serviceBaseURL )
-    .get( `/draft/${draftType}` )
-    .reply( HttpStatus.OK, draft )
+  mock(serviceBaseURL)
+    .get(`/draft/${draftType}`)
+    .reply(HttpStatus.OK, draft)
 }
 
 export function resolveRetrieveWithExternalId (draftType: string, externalId: any) {
-  mock( serviceBaseURL )
-    .get( `/draft/${draftType}` )
-    .reply( HttpStatus.OK, { ...sampleClaimDraftObj, externalId: externalId } )
+  mock(serviceBaseURL)
+    .get(`/draft/${draftType}`)
+    .reply(HttpStatus.OK, { ...sampleClaimDraftObj, externalId: externalId })
 }
 
 export function rejectRetrieve (draftType: string, reason: string) {
-  mock( serviceBaseURL )
-    .get( `/draft/${draftType}` )
-    .reply( HttpStatus.INTERNAL_SERVER_ERROR, reason )
+  mock(serviceBaseURL)
+    .get(`/draft/${draftType}`)
+    .reply(HttpStatus.INTERNAL_SERVER_ERROR, reason)
 }
 
 export function resolveSave (draftType: string) {
-  mock( serviceBaseURL )
-    .post( `/draft/${draftType}` )
-    .reply( HttpStatus.OK )
+  mock(serviceBaseURL)
+    .post(`/draft/${draftType}`)
+    .reply(HttpStatus.OK)
 }
 
 export function rejectSave (draftType: string, reason: string) {
-  mock( serviceBaseURL )
-    .post( `/draft/${draftType}` )
-    .reply( HttpStatus.INTERNAL_SERVER_ERROR, reason )
+  mock(serviceBaseURL)
+    .post(`/draft/${draftType}`)
+    .reply(HttpStatus.INTERNAL_SERVER_ERROR, reason)
 }
 
 export function resolveDelete (draftType: string) {
-  mock( serviceBaseURL )
-    .delete( `/draft/${draftType}` )
-    .reply( HttpStatus.OK )
+  mock(serviceBaseURL)
+    .delete(`/draft/${draftType}`)
+    .reply(HttpStatus.OK)
 }
 
 export function rejectDelete (draftType: string, reason: string) {
-  mock( serviceBaseURL )
-    .delete( `/draft/${draftType}` )
-    .reply( HttpStatus.INTERNAL_SERVER_ERROR, reason )
+  mock(serviceBaseURL)
+    .delete(`/draft/${draftType}`)
+    .reply(HttpStatus.INTERNAL_SERVER_ERROR, reason)
 }

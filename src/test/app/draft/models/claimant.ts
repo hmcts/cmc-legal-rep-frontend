@@ -1,7 +1,6 @@
 import { expect } from 'chai'
 import { Address } from 'forms/models/address'
 import Claimant from 'app/drafts/models/claimant'
-import Name from 'app/forms/models/name'
 import { ClaimantDetails } from 'app/forms/models/claimantDetails'
 import { IndividualTypes } from 'app/forms/models/individualTypes'
 
@@ -10,7 +9,6 @@ describe('Claimant', () => {
     it('should have instance fields initialised', () => {
       let claimant = new Claimant()
       expect(claimant.address).to.be.instanceof(Address)
-      expect(claimant.name).to.be.instanceof(Name)
       expect(claimant.claimantDetails).to.be.instanceof(ClaimantDetails)
     })
   })
@@ -25,13 +23,11 @@ describe('Claimant', () => {
     })
 
     it('should return an instance from given object', () => {
-      const name = new Name('individual name')
       const address = new Address('line1', 'line2', 'city', 'postcode')
       const claimantDetails = new ClaimantDetails(IndividualTypes.INDIVIDUAL, 'title', 'full name')
 
       const claimant = new Claimant().deserialize({
         address: { line1: 'line1', line2: 'line2', city: 'city', postcode: 'postcode' },
-        name: { text: 'individual name' },
         claimantDetails: {
           type: { value: 'INDIVIDUAL', displayValue: 'An individual' },
           title: 'title',
@@ -42,7 +38,6 @@ describe('Claimant', () => {
       })
 
       expect(claimant.address).to.deep.eq(address)
-      expect(claimant.name).to.deep.eq(name)
       expect(claimant.claimantDetails).to.deep.eq(claimantDetails)
     })
   })
