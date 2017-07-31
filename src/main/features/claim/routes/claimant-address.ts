@@ -1,13 +1,13 @@
 import * as express from 'express'
-
 import { Paths } from 'claim/paths'
 
 import { Form } from 'forms/form'
 import { FormValidator } from 'forms/validation/formValidator'
 import { Address } from 'forms/models/address'
+import { IndividualTypes } from 'app/forms/models/individualTypes'
 
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
-import { IndividualTypes } from 'app/forms/models/individualTypes'
+import ErrorHandling from 'common/errorHandling'
 
 function renderView (form: Form<Address>, res: express.Response): void {
   const claimantDetails = res.locals.user.claimDraft.claimant.claimantDetails
@@ -25,15 +25,16 @@ export default express.Router()
   .get(Paths.claimantAddressPage.uri, (req: express.Request, res: express.Response) => {
     renderView(new Form(res.locals.user.claimDraft.claimant.address), res)
   })
-  .post(Paths.claimantAddressPage.uri, FormValidator.requestHandler(Address), (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    const form: Form<Address> = req.body
+  .post(Paths.claimantAddressPage.uri, FormValidator.requestHandler(Address),
+    ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+      const form: Form<Address> = req.body
 
-    if (form.hasErrors()) {
-      renderView(form, res)
-    } else {
-      res.locals.user.claimDraft.claimant.address = form.model
-
-      ClaimDraftMiddleware.save(res, next)
-        .then(() => res.redirect(Paths.defendantTypePage.uri))
-    }
-  })
+      if (form.hasErrors()) {
+        renderView(form, res)
+      } else {
+        res.locals.user.claimDraft.claimant.address = form.model
+        await ClaimDraftMiddleware.save(res, next)
+        res.redirect(Paths.defendantTypePage.uri)
+      }
+    })
+  )

@@ -46,7 +46,7 @@ describe('Claim issue: claimant type page', () => {
         .expect(res => expect(res).to.be.successful.withText('Choose claimant type', 'div class="error-summary"'))
     })
 
-    it.skip('should return 500 and render error page when form is valid and cannot save draft', async () => {
+    it('should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
       draftStoreServiceMock.rejectSave('claim', 'HTTP error')
 
@@ -55,8 +55,8 @@ describe('Claim issue: claimant type page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .send({
           type: 'INDIVIDUAL',
-          title: 'title',
-          fullName: 'fullName'
+          title: 'Mr',
+          fullName: 'Peter Pan'
         })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
@@ -70,8 +70,8 @@ describe('Claim issue: claimant type page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .send({
           type: 'INDIVIDUAL',
-          title: 'title',
-          fullName: 'fullName'
+          title: 'Mr',
+          fullName: 'Peter Pan'
         })
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimantAddressPage.uri))
     })

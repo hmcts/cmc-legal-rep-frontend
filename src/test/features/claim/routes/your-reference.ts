@@ -44,14 +44,14 @@ describe('Claim issue: your reference page', () => {
         .expect(res => expect(res).to.be.successful.withText('Your reference for this claim', 'div class="error-summary"'))
     })
 
-    it.skip('should return 500 and render error page when form is valid and cannot save draft', async () => {
+    it('should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
       draftStoreServiceMock.rejectSave('claim', 'HTTP error')
 
       await request(app)
         .post(ClaimPaths.yourReferencePage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .send({ yourReference: '1234567890123456789012345' })
+        .send({ reference: '1234567890123456789012345' })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
 
