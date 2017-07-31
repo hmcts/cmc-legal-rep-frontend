@@ -20,3 +20,13 @@ ul {
   resize: none;
   width: 100%;
 }
+
+.postcode {
+  width: 100%;
+}
+
+@media (min-width: 641px) {
+  .postcode {
+    width: 25%;
+  }
+}
