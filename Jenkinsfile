@@ -101,20 +101,8 @@ timestamps {
               rpmTagger.tagAnsibleCommit(ansibleCommitId)
             }
             stage('Smoke test (Dev)') {
-              smokeTests.executeAgainst(env.CMC_DEV_APPLICATION_URL)
+              smokeTests.executeAgainst(env.CMC_LEGAL_DEV_APPLICATION_URL)
               rpmTagger.tagTestingPassedOn('dev')
-            }
-          }
-          milestone()
-          lock(resource: "CMC-deploy-test", inversePrecedence: true) {
-            stage('Deploy (Test)') {
-              ansibleCommitId = ansible.runDeployPlaybook(version, 'test', ansibleCommitId)
-              rpmTagger.tagDeploymentSuccessfulOn('test')
-            }
-            stage('Smoke test (Test)') {
-              // Fee's register isn't working in test currently
-              //smokeTests.executeAgainst(env.CMC_TEST_APPLICATION_URL)
-              rpmTagger.tagTestingPassedOn('test')
             }
           }
         }

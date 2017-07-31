@@ -12,10 +12,6 @@
     },
     "api": {
       "url": "IDAM_API_URL"
-    },
-    "service-2-service-auth": {
-      "url": "IDAM_S2S_AUTH",
-      "totpSecret": "IDAM_S2S_TOTP_SECRET"
     }
   },
   "claim-store": {
@@ -35,9 +31,6 @@
   },
   "fees": {
     "url": "FEES_URL"
-  },
-  "pay": {
-    "url": "PAY_URL"
   },
   "pdf-service": {
     "url": "PDF_SERVICE_URL"
