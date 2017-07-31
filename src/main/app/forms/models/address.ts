@@ -47,12 +47,8 @@ export class Address implements Serializable<Address> {
     return new Address()
   }
 
-  static toUpperCase (value?: any): string {
-    if (value) {
-      return value.toUpperCase()
-    } else {
-      return value
-    }
+  static toUpperCase (value: any): string {
+    return value ? value.toUpperCase() : value
   }
 
   deserialize (input?: any): Address {
