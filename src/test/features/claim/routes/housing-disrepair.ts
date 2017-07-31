@@ -55,8 +55,8 @@ describe('Claim issue: housing disrepair page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .send({
           housingDisrepair: 'YES',
-          generalDamages: 'MORE',
-          otherDamages: 'NONE'
+          generalDamages: { value: 'MORE', displayValue: 'more' },
+          otherDamages: { value: 'NONE', displayValue: 'none' }
         })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
@@ -70,8 +70,8 @@ describe('Claim issue: housing disrepair page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .send({
           housingDisrepair: 'YES',
-          generalDamages: 'MORE',
-          otherDamages: 'NONE'
+          generalDamages: { value: 'MORE', displayValue: 'more' },
+          otherDamages: { value: 'NONE', displayValue: 'none' }
         })
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.summariseTheClaimPage.uri))
     })
