@@ -46,7 +46,7 @@ describe( 'Claim : Your company contact details page', () => {
         .expect( res => expect( res ).to.be.successful.withText( 'Your company contact details', 'div class="error-summary"' ) )
     } )
 
-    it.skip( 'should return 500 and render error page when form is valid and cannot save draft', async () => {
+    it( 'should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor( 1, 'cmc-private-beta', 'claimant' )
       draftStoreServiceMock.rejectSave( 'claim', 'HTTP error' )
 

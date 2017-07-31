@@ -46,7 +46,7 @@ describe('Claim issue: personal injury page', () => {
         .expect(res => expect(res).to.be.successful.withText('Is it a personal injury claim?', 'div class="error-summary"'))
     })
 
-    it.skip('should return 500 and render error page when form is valid and cannot save draft', async () => {
+    it('should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
       draftStoreServiceMock.rejectSave('claim', 'HTTP error')
 
@@ -54,8 +54,8 @@ describe('Claim issue: personal injury page', () => {
         .post(ClaimPaths.personalInjuryPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({
-          personalInjury: { value: 'YES', displayValue: 'yes' },
-          generalDamages: { value: 'MORE', displayValue: 'more' }
+          personalInjury: 'YES',
+          generalDamages: 'MORE'
         })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
@@ -69,7 +69,7 @@ describe('Claim issue: personal injury page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .send({
           personalInjury: 'YES',
-          generalDamages: { value: 'MORE', displayValue: 'more' }
+          generalDamages: 'MORE'
         })
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.housingDisrepairPage.uri))
     })

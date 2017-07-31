@@ -46,7 +46,7 @@ describe('Claim issue: housing disrepair page', () => {
         .expect(res => expect(res).to.be.successful.withText('Is it a claim for housing disrepair?', 'div class="error-summary"'))
     })
 
-    it.skip('should return 500 and render error page when form is valid and cannot save draft', async () => {
+    it('should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
       draftStoreServiceMock.rejectSave('claim', 'HTTP error')
 
@@ -54,9 +54,9 @@ describe('Claim issue: housing disrepair page', () => {
         .post(ClaimPaths.housingDisrepairPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({
-          housingDisrepair: { value: 'YES', displayValue: 'yes' },
-          generalDamages: { value: 'MORE', displayValue: 'more' },
-          otherDamages: { value: 'NONE', displayValue: 'none' }
+          housingDisrepair: 'YES',
+          generalDamages: 'MORE',
+          otherDamages: 'NONE'
         })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
@@ -70,8 +70,8 @@ describe('Claim issue: housing disrepair page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .send({
           housingDisrepair: 'YES',
-          generalDamages: { value: 'MORE', displayValue: 'more' },
-          otherDamages: { value: 'NONE', displayValue: 'none' }
+          generalDamages: 'MORE',
+          otherDamages: 'NONE'
         })
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.summariseTheClaimPage.uri))
     })
