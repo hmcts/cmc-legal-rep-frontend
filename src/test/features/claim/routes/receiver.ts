@@ -10,7 +10,7 @@ import { Paths as ClaimPaths } from 'claim/paths'
 import { app } from '../../../../main/app'
 
 import * as idamServiceMock from '../../../http-mocks/idam'
-import { checkAuthorizationGuards } from '../../../routes/authorization-check'
+import { checkAuthorizationGuards } from './checks/authorization-check'
 import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
@@ -22,7 +22,7 @@ describe('Claim issue: post login receiver', () => {
   })
 
   describe('on GET', () => {
-    checkAuthorizationGuards(app, 'get', ClaimPaths.claimantLoginReceiver.uri, new RegExp('http://localhost:8000/login\\?continue-url=http://127.0.0.1:[0-9]{1,5}/claim/receiver'))
+    checkAuthorizationGuards(app, 'get', ClaimPaths.claimantLoginReceiver.uri)
     describe('for authorized user', () => {
       beforeEach(() => {
         idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
