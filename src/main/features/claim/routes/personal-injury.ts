@@ -6,6 +6,7 @@ import { Form } from 'forms/form'
 import { FormValidator } from 'forms/validation/formValidator'
 import { PersonalInjury } from 'forms/models/personalInjury'
 import { YesNo } from 'app/forms/models/yesNo'
+
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import ErrorHandling from 'common/errorHandling'
 
@@ -32,4 +33,5 @@ export default express.Router()
         await ClaimDraftMiddleware.save(res, next)
         res.redirect(Paths.housingDisrepairPage.uri)
       }
-    }))
+    })
+  )

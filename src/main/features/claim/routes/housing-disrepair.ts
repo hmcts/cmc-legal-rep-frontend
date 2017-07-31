@@ -5,6 +5,7 @@ import { Form } from 'app/forms/form'
 import { FormValidator } from 'app/forms/validation/formValidator'
 import { HousingDisrepair } from 'app/forms/models/housingDisrepair'
 import { YesNo } from 'app/forms/models/yesNo'
+
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import ErrorHandling from 'common/errorHandling'
 
@@ -32,4 +33,5 @@ export default express.Router()
         res.redirect(Paths.summariseTheClaimPage.uri)
 
       }
-    }))
+    })
+  )

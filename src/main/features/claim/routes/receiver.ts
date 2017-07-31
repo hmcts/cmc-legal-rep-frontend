@@ -1,6 +1,5 @@
 import * as express from 'express'
 import * as config from 'config'
-
 import { Paths } from 'claim/paths'
 
 import * as Cookies from 'cookies'

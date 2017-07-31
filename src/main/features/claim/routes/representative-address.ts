@@ -1,9 +1,10 @@
 import * as express from 'express'
-
 import { Paths } from 'claim/paths'
+
 import { Form } from 'forms/form'
 import { FormValidator } from 'forms/validation/formValidator'
 import { Address } from 'forms/models/address'
+
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import ErrorHandling from 'common/errorHandling'
 

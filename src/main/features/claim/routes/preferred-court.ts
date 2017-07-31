@@ -1,8 +1,10 @@
 import * as express from 'express'
-import { Form } from 'app/forms/form'
 import { Paths } from 'claim/paths'
+
+import { Form } from 'app/forms/form'
 import { FormValidator } from 'app/forms/validation/formValidator'
 import PreferredCourt from 'app/forms/models/preferredCourt'
+
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import ErrorHandling from 'common/errorHandling'
 
@@ -22,7 +24,8 @@ export default express.Router()
       } else {
         res.locals.user.claimDraft.preferredCourt = form.model
         await ClaimDraftMiddleware.save(res, next)
-        res.redirect(Paths.claimantAddressPage.uri)
+        res.redirect(Paths.claimantTypePage.uri)
       }
 
-    }))
+    })
+  )

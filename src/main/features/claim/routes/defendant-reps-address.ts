@@ -1,15 +1,17 @@
 import * as express from 'express'
-
 import { Paths } from 'claim/paths'
+
 import { Form } from 'forms/form'
 import { FormValidator } from 'forms/validation/formValidator'
 import { Address } from 'forms/models/address'
+
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import ErrorHandling from 'common/errorHandling'
 
 function renderView (form: Form<Address>, res: express.Response): void {
   res.render(Paths.defendantRepAddressPage.associatedView, {
-    form: form
+    form: form,
+    name: res.locals.user.claimDraft.defendant.defendantRepresented.companyName
   })
 }
 
@@ -28,4 +30,5 @@ export default express.Router()
         await ClaimDraftMiddleware.save(res, next)
         res.redirect(Paths.personalInjuryPage.uri)
       }
-    }))
+    })
+  )

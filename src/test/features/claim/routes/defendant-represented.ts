@@ -60,7 +60,7 @@ describe('Claim issue: is defendant represented page', () => {
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
 
-    it('should redirect to defendant rep address page when form is valid and everything is fine', async () => {
+    it('should redirect to defendant rep address page when form is valid and user has selected yes', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
       draftStoreServiceMock.resolveSave('claim')
 
@@ -72,6 +72,20 @@ describe('Claim issue: is defendant represented page', () => {
           companyName: 'companyName'
         })
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantRepAddressPage.uri))
+    })
+
+    it('should redirect to personal injury page when form is valid and user has selected no', async () => {
+      idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+      draftStoreServiceMock.resolveSave('claim')
+
+      await request(app)
+        .post(ClaimPaths.defendantRepresentedPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .send({
+          isDefendantRepresented: 'NO',
+          companyName: undefined
+        })
+        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.personalInjuryPage.uri))
     })
   })
 })

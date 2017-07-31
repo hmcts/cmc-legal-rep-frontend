@@ -1,9 +1,11 @@
 import * as express from 'express'
-import { Form } from 'app/forms/form'
 import { Paths } from 'claim/paths'
+
+import { Form } from 'app/forms/form'
 import { FormValidator } from 'app/forms/validation/formValidator'
-import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import CompanyName from 'forms/models/companyName'
+
+import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import ErrorHandling from 'common/errorHandling'
 
 function renderView (form: Form<CompanyName>, res: express.Response): void {

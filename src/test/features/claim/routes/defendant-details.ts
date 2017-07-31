@@ -61,7 +61,7 @@ describe('Claim issue: defendant type page', () => {
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
 
-    it('should redirect to summarise the claim page when form is valid and everything is fine', async () => {
+    it('should redirect to defendant address page when form is valid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
       draftStoreServiceMock.resolveSave('claim')
 

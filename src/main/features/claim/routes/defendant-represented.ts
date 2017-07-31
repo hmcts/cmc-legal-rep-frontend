@@ -1,10 +1,10 @@
 import * as express from 'express'
-
 import { Paths } from 'claim/paths'
 
 import { Form } from 'forms/form'
 import { FormValidator } from 'forms/validation/formValidator'
 import { YesNo } from 'app/forms/models/yesNo'
+
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import { DefendantRepresented } from 'app/forms/models/defendantRepresented'
 import ErrorHandling from 'common/errorHandling'
@@ -31,6 +31,12 @@ export default express.Router()
         res.locals.user.claimDraft.defendant.defendantRepresented = form.model
 
         await ClaimDraftMiddleware.save(res, next)
-        res.redirect(Paths.defendantRepAddressPage.uri)
+
+        if (res.locals.user.claimDraft.defendant.defendantRepresented.isDefendantRepresented === YesNo.NO) {
+          res.redirect(Paths.personalInjuryPage.uri)
+        } else {
+          res.redirect(Paths.defendantRepAddressPage.uri)
+        }
       }
-    }))
+    })
+  )

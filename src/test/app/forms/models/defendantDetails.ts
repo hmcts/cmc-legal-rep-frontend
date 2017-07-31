@@ -5,7 +5,7 @@ import { Validator } from 'class-validator'
 
 import { expectValidationError } from './validationUtils'
 
-import { DefendantTypes } from 'forms/models/defendantTypes'
+import { PartyTypes as DefendantTypes } from 'forms/models/partyTypes'
 import { DefendantDetails, ValidationErrors } from 'app/forms/models/defendantDetails'
 import * as randomstring from 'randomstring'
 
@@ -47,7 +47,7 @@ describe('Defendant Details', () => {
       expectValidationError(errors, ValidationErrors.DEFENDANT_TYPE_REQUIRED)
     })
 
-    it('should accept defendant details for individual type when individual details are valid', () => {
+    it('should accept defendant details for defendant type when individual details are valid', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.INDIVIDUAL, 'title', 'full name', undefined, undefined))
 
@@ -55,7 +55,7 @@ describe('Defendant Details', () => {
       })
     })
 
-    it('should reject defendant details for individual type when individual details are undefined', () => {
+    it('should reject defendant details for defendant type when individual details are undefined', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.INDIVIDUAL, undefined, undefined, undefined, undefined))
 
@@ -65,7 +65,7 @@ describe('Defendant Details', () => {
       })
     })
 
-    it('should reject defendant details for individual type when individual details are null', () => {
+    it('should reject defendant details for defendant type when individual details are null', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.INDIVIDUAL, null, null, undefined, undefined))
 
@@ -74,7 +74,7 @@ describe('Defendant Details', () => {
       })
     })
 
-    it('should reject defendant details for individual type when individual details are null', () => {
+    it('should reject defendant details for defendant type when individual details are null', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.INDIVIDUAL, '', '', undefined, undefined))
 
@@ -112,7 +112,7 @@ describe('Defendant Details', () => {
     it('should reject defendant details for organisation type when organisation name length is more than 255', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.ORGANISATION,
-          undefined, undefined, randomstring.generate( 256 ), '12345678'))
+          undefined, undefined, randomstring.generate(256), '12345678'))
 
         expect(errors.length).to.equal(1)
         expectValidationError(errors, ValidationErrors.CONTENT_TOO_LONG)
@@ -122,7 +122,7 @@ describe('Defendant Details', () => {
     it('should accept defendant details for organisation type when organisation name length is 255', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.ORGANISATION,
-          undefined, undefined, randomstring.generate( 255 ), '12345678'))
+          undefined, undefined, randomstring.generate(255), '12345678'))
 
         expect(errors.length).to.equal(0)
       })
@@ -131,7 +131,7 @@ describe('Defendant Details', () => {
     it('should reject defendant details for organisation type when companyHouseNumber length is more than 8', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.ORGANISATION,
-          undefined, undefined, 'organisation', randomstring.generate( 9 )))
+          undefined, undefined, 'organisation', randomstring.generate(9)))
 
         expect(errors.length).to.equal(1)
         expectValidationError(errors, ValidationErrors.CONTENT_TOO_LONG)
@@ -141,45 +141,45 @@ describe('Defendant Details', () => {
     it('should accept defendant details for organisation type when companyHouseNumber length is 8', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.ORGANISATION,
-          undefined, undefined, 'organisation', randomstring.generate( 8 )))
+          undefined, undefined, 'organisation', randomstring.generate(8)))
 
         expect(errors.length).to.equal(0)
       })
     })
 
-    it('should reject defendant details for individual type when full name length is more than 70', () => {
+    it('should reject defendant details for defendant type when full name length is more than 70', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.INDIVIDUAL,
-          'title', randomstring.generate( 71 ), undefined, undefined))
+          'title', randomstring.generate(71), undefined, undefined))
 
         expect(errors.length).to.equal(1)
         expectValidationError(errors, ValidationErrors.CONTENT_TOO_LONG)
       })
     })
 
-    it('should reject defendant details for individual type when title length is more than 35', () => {
+    it('should reject defendant details for defendant type when title length is more than 35', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.INDIVIDUAL,
-          randomstring.generate( 36 ), 'fullname', undefined, undefined))
+          randomstring.generate(36), 'fullname', undefined, undefined))
 
         expect(errors.length).to.equal(1)
         expectValidationError(errors, ValidationErrors.CONTENT_TOO_LONG)
       })
     })
 
-    it('should accept defendant details for individual type when fullName length is 70', () => {
+    it('should accept defendant details for defendant type when fullName length is 70', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.INDIVIDUAL,
-          'title', randomstring.generate( 70 ), undefined, undefined))
+          'title', randomstring.generate(70), undefined, undefined))
 
         expect(errors.length).to.equal(0)
       })
     })
 
-    it('should accept defendant details for individual type when title length is 35', () => {
+    it('should accept defendant details for defendant type when title length is 35', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.INDIVIDUAL,
-          randomstring.generate( 35 ), 'fullName', undefined, undefined))
+          randomstring.generate(35), 'fullName', undefined, undefined))
 
         expect(errors.length).to.equal(0)
       })

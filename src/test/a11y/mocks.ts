@@ -6,16 +6,22 @@ import ClaimData from 'claims/models/claimData'
 import Claimant from 'drafts/models/claimant'
 
 import ServiceAuthToken from 'app/idam/serviceAuthToken'
-
-import moment = require('moment')
 import Representative from 'drafts/models/representative'
 import Defendant from 'drafts/models/defendant'
+import { ClaimantDetails } from 'app/forms/models/claimantDetails'
+import { DefendantDetails } from 'app/forms/models/defendantDetails'
+import { PartyTypes } from 'app/forms/models/partyTypes'
+import moment = require('moment')
 
 function mockedDraftClaim () {
   let draft = new DraftClaim()
   draft.claimant = new Claimant()
+  draft.claimant.claimantDetails = new ClaimantDetails()
+  draft.claimant.claimantDetails.type = PartyTypes.INDIVIDUAL
   draft.representative = new Representative()
   draft.defendant = new Defendant()
+  draft.defendant.defendantDetails = new DefendantDetails()
+  draft.defendant.defendantDetails.type = PartyTypes.INDIVIDUAL
   return draft
 }
 

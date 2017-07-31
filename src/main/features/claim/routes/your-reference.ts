@@ -4,6 +4,7 @@ import { Paths } from 'claim/paths'
 import { Form } from 'app/forms/form'
 import { FormValidator } from 'app/forms/validation/formValidator'
 import { YourReference } from 'app/forms/models/yourReference'
+
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import ErrorHandling from 'common/errorHandling'
 
@@ -26,4 +27,5 @@ export default express.Router()
         await ClaimDraftMiddleware.save(res, next)
         res.redirect(Paths.preferredCourtPage.uri)
       }
-    }))
+    })
+  )

@@ -3,9 +3,10 @@ import { Paths } from 'claim/paths'
 
 import { Form } from 'app/forms/form'
 import { FormValidator } from 'app/forms/validation/formValidator'
-import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
+import { PartyTypes as DefendantTypes } from 'app/forms/models/partyTypes'
 import { DefendantDetails } from 'app/forms/models/defendantDetails'
-import { DefendantTypes } from 'app/forms/models/defendantTypes'
+
+import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import ErrorHandling from 'common/errorHandling'
 
 function renderView (form: Form<DefendantDetails>, res: express.Response) {
@@ -36,4 +37,5 @@ export default express.Router()
         res.redirect(Paths.defendantAddressPage.uri)
 
       }
-    }))
+    })
+  )

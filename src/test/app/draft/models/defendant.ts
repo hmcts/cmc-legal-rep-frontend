@@ -7,7 +7,7 @@ import { DefendantDetails } from 'forms/models/defendantDetails'
 import { DefendantRepresented } from 'app/forms/models/defendantRepresented'
 import { ContactDetails } from 'app/forms/models/contactDetails'
 import CompanyName from 'app/forms/models/companyName'
-import { DefendantTypes } from 'app/forms/models/defendantTypes'
+import { PartyTypes } from 'app/forms/models/partyTypes'
 import { YesNo } from 'app/forms/models/yesNo'
 
 describe('Defendant', () => {
@@ -35,7 +35,7 @@ describe('Defendant', () => {
       const companyName = new CompanyName('companyName')
       const address = new Address('line1', 'line2', 'city', 'postcode')
       const representative = new Representative(companyName, address, contactDetails)
-      const defendantDetails = new DefendantDetails(DefendantTypes.INDIVIDUAL, 'title', 'full name')
+      const defendantDetails = new DefendantDetails(PartyTypes.INDIVIDUAL, 'title', 'full name')
       const defendantRepresented = new DefendantRepresented(YesNo.YES, companyName.name)
 
       const defendant = new Defendant().deserialize({

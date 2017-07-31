@@ -1,17 +1,23 @@
 import * as express from 'express'
-
 import { Paths } from 'claim/paths'
 
 import { Form } from 'forms/form'
 import { FormValidator } from 'forms/validation/formValidator'
 import { Address } from 'forms/models/address'
+import { PartyTypes } from 'app/forms/models/partyTypes'
+
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import ErrorHandling from 'common/errorHandling'
 
 function renderView (form: Form<Address>, res: express.Response): void {
+  const claimantDetails = res.locals.user.claimDraft.claimant.claimantDetails
+  const isIndividual = claimantDetails.type.value === PartyTypes.INDIVIDUAL.value
+  const title = claimantDetails.title != null ? claimantDetails.title + ' ' : claimantDetails.title
+  const name = isIndividual ? title + claimantDetails.fullName : claimantDetails.organisation
+
   res.render(Paths.claimantAddressPage.associatedView, {
     form: form,
-    name: res.locals.user.claimDraft.claimant.name.text
+    name: name
   })
 }
 
@@ -30,4 +36,5 @@ export default express.Router()
         await ClaimDraftMiddleware.save(res, next)
         res.redirect(Paths.defendantTypePage.uri)
       }
-    }))
+    })
+  )
