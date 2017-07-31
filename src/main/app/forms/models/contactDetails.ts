@@ -1,33 +1,26 @@
 import { Serializable } from 'app/models/serializable'
-import { IsDefined, IsOptional, MaxLength } from 'class-validator'
+import { IsOptional, MaxLength } from 'class-validator'
 import { IsEmail } from 'app/forms/validation/validators/isEmail'
 import { IsPhone } from 'app/forms/validation/validators/phone'
-import { IsNotBlank } from 'app/forms/validation/validators/isBlank'
 
 export class ValidationErrors {
-  static readonly ADDRESS_NOT_VALID: string = 'Enter valid email address'
-  static readonly ADDRESS_REQUIRED: string = 'Enter email address'
-  static readonly NUMBER_REQUIRED: string = 'Enter UK mobile number'
-  static readonly YOUR_DX_ADDRESS_TOO_LONG: string = 'You’ve entered too many characters'
-  static readonly YOUR_DX_REQUIRED: string = 'Enter valid dx dddress'
-  static readonly NUMBER_NOT_VALID: string = 'Enter valid UK phone number'
+  static readonly EMAIL_NOT_VALID: string = 'Enter a valid email address'
+  static readonly DX_ADDRESS_TOO_LONG: string = 'You’ve entered too many characters'
+  static readonly PHONE_NUMBER_NOT_VALID: string = 'Enter a valid phone number'
 }
 
 export class ContactDetails implements Serializable<ContactDetails> {
 
-  @IsDefined({ message: ValidationErrors.NUMBER_REQUIRED })
-  @IsNotBlank({ message: ValidationErrors.NUMBER_REQUIRED })
-  @IsPhone({ message: ValidationErrors.NUMBER_NOT_VALID })
+  @IsOptional()
+  @IsPhone({ message: ValidationErrors.PHONE_NUMBER_NOT_VALID })
   phoneNumber?: string
 
-  @IsDefined({ message: ValidationErrors.ADDRESS_REQUIRED })
-  @IsNotBlank({ message: ValidationErrors.ADDRESS_REQUIRED })
-  @IsEmail({ message: ValidationErrors.ADDRESS_NOT_VALID })
+  @IsOptional()
+  @IsEmail({ message: ValidationErrors.EMAIL_NOT_VALID })
   email?: string
 
   @IsOptional()
-  @IsDefined({ message: ValidationErrors.YOUR_DX_REQUIRED })
-  @MaxLength(255, { message: ValidationErrors.YOUR_DX_ADDRESS_TOO_LONG })
+  @MaxLength(255, { message: ValidationErrors.DX_ADDRESS_TOO_LONG })
   dxAddress?: string
 
   constructor (phoneNumber?: string, email?: string, dxAddress?: string) {

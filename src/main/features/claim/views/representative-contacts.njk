@@ -9,12 +9,12 @@
 
   <div class="grid-row">
     <div class="column-two-thirds">
-      <p>{{ t('These will appear on the sealed claim form.') }}</p>
+      <p>{{ t('The defendant can use these to contact you.') }}</p>
       <form novalidate method="post">
         {{ csrfProtection(csrf) }}
 
-        {{ textInput(t('Phone number'), 'phoneNumber', form) }}
-        {{ textInput(t('Email'), 'email', form) }}
+        {{ textInput(t('Phone number (optional)'), 'phoneNumber', form) }}
+        {{ textInput(t('Email (optional)'), 'email', form) }}
         {{ textInput(t('DX address (optional)'), 'dxAddress', form) }}
         <div class="form-group">
           {{ saveAndContinueButton() }}

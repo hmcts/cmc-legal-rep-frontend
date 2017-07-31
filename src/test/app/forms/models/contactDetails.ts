@@ -42,24 +42,9 @@ describe('ContactDetails', () => {
   describe('validation', () => {
     const validator: Validator = new Validator()
 
-    it('should reject null mobile number and email', () => {
-      validator.validate(new ContactDetails())
-        .then((errors) => {
-
-          expect(errors.length).to.equal(2)
-          expectValidationError(errors, ValidationErrors.NUMBER_REQUIRED)
-          expectValidationError(errors, ValidationErrors.ADDRESS_REQUIRED)
-        })
-    })
-
-    it('should accept empty dx address', () => {
-      validator.validate(new ContactDetails('01269055505', 'email@example.com', ''))
-        .then((errors) => {
-
-          expect(errors.length).to.equal(2)
-          expectValidationError(errors, ValidationErrors.NUMBER_REQUIRED)
-          expectValidationError(errors, ValidationErrors.ADDRESS_REQUIRED)
-        })
+    it('should accepts empty phone number, email and dxAddress', () => {
+      const errors = validator.validateSync(new ContactDetails('', '', ''))
+      expect(errors.length).to.equal(0)
     })
 
     it('should accepts valid mobile number, email and dxAddress', () => {
@@ -91,14 +76,14 @@ describe('ContactDetails', () => {
       const errors = validator.validateSync(new ContactDetails('01269055505', 'email@example.com', randomstring.generate(256)))
 
       expect(errors.length).to.equal(1)
-      expectValidationError(errors, ValidationErrors.YOUR_DX_ADDRESS_TOO_LONG)
+      expectValidationError(errors, ValidationErrors.DX_ADDRESS_TOO_LONG)
     })
 
     it('should reject invalid email address', () => {
       const errors = validator.validateSync(new ContactDetails('01269055505', 'email.example.com', randomstring.generate(255)))
 
       expect(errors.length).to.equal(1)
-      expectValidationError(errors, ValidationErrors.ADDRESS_NOT_VALID)
+      expectValidationError(errors, ValidationErrors.EMAIL_NOT_VALID)
     })
   })
 
