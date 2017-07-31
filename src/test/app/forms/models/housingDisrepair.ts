@@ -118,8 +118,8 @@ describe('Housing Disrepair', () => {
     it('should have valid housing disrepair elements', () => {
       const housingDisrepair = HousingDisrepair.fromObject({
         housingDisrepair: YesNo.YES.value,
-        generalDamages: GeneralDamages.MORE,
-        otherDamages: OtherDamages.NONE
+        generalDamages: GeneralDamages.MORE.value,
+        otherDamages: OtherDamages.NONE.value
       })
 
       expect(housingDisrepair.generalDamages).to.equal(GeneralDamages.MORE)

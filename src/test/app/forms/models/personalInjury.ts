@@ -87,7 +87,7 @@ describe('Personal Injury', () => {
     it('should have valid personal injury elements', () => {
       const personalInjury = PersonalInjury.fromObject({
         personalInjury: YesNo.YES.value,
-        generalDamages: GeneralDamages.MORE
+        generalDamages: GeneralDamages.MORE.value
       })
 
       expect(personalInjury.generalDamages).to.equal(GeneralDamages.MORE)
