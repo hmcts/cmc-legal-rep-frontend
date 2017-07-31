@@ -3,7 +3,7 @@ import { Paths } from 'claim/paths'
 
 import { Form } from 'app/forms/form'
 import { FormValidator } from 'app/forms/validation/formValidator'
-import { IndividualTypes } from 'app/forms/models/individualTypes'
+import { PartyTypes as ClaimantTypes } from 'app/forms/models/partyTypes'
 import { ClaimantDetails } from 'app/forms/models/claimantDetails'
 
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
@@ -24,7 +24,7 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        if (form.model.type === IndividualTypes.INDIVIDUAL) {
+        if (form.model.type === ClaimantTypes.INDIVIDUAL) {
           form.model.organisation = null
           form.model.companyHouseNumber = null
         } else {

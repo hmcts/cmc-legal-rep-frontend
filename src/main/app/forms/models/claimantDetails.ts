@@ -1,6 +1,6 @@
 import { Serializable } from 'app/models/serializable'
 import { IsDefined, IsIn, IsOptional, MaxLength, ValidateIf } from 'class-validator'
-import { IndividualTypes } from 'app/forms/models/individualTypes'
+import { PartyTypes as ClaimantTypes } from 'app/forms/models/partyTypes'
 import { IsNotBlank } from 'app/forms/validation/validators/isBlank'
 
 export class ValidationErrors {
@@ -15,34 +15,34 @@ export class ValidationErrors {
 export class ClaimantDetails implements Serializable<ClaimantDetails> {
 
   @IsDefined({ message: ValidationErrors.CLAIMANT_TYPE_REQUIRED })
-  @IsIn(IndividualTypes.all(), { message: ValidationErrors.CLAIMANT_TYPE_REQUIRED })
-  type?: IndividualTypes
+  @IsIn(ClaimantTypes.all(), { message: ValidationErrors.CLAIMANT_TYPE_REQUIRED })
+  type?: ClaimantTypes
 
-  @ValidateIf(o => o.type === IndividualTypes.INDIVIDUAL)
+  @ValidateIf(o => o.type === ClaimantTypes.INDIVIDUAL)
   @IsOptional()
   @IsDefined({ message: ValidationErrors.TITLE_REQUIRED })
   @MaxLength(35, { message: ValidationErrors.CONTENT_TOO_LONG })
   title?: string
 
-  @ValidateIf(o => o.type === IndividualTypes.INDIVIDUAL)
+  @ValidateIf(o => o.type === ClaimantTypes.INDIVIDUAL)
   @IsDefined({ message: ValidationErrors.FULLNAME_REQUIRED })
   @IsNotBlank({ message: ValidationErrors.FULLNAME_REQUIRED })
   @MaxLength(70, { message: ValidationErrors.CONTENT_TOO_LONG })
   fullName?: string
 
-  @ValidateIf(o => o.type === IndividualTypes.ORGANISATION)
+  @ValidateIf(o => o.type === ClaimantTypes.ORGANISATION)
   @IsDefined({ message: ValidationErrors.ORGANISATION_NAME_REQUIRED })
   @IsNotBlank({ message: ValidationErrors.ORGANISATION_NAME_REQUIRED })
   @MaxLength(255, { message: ValidationErrors.CONTENT_TOO_LONG })
   organisation?: string
 
-  @ValidateIf(o => o.type === IndividualTypes.ORGANISATION)
+  @ValidateIf(o => o.type === ClaimantTypes.ORGANISATION)
   @IsOptional()
   @IsDefined({ message: ValidationErrors.COMPANY_HOUSE_NUMBER_REQUIRED })
   @MaxLength(8, { message: ValidationErrors.CONTENT_TOO_LONG })
   companyHouseNumber?: string
 
-  constructor (type?: IndividualTypes, title?: string, fullName?: string, organisation?: string, companyHouseNumber?: string) {
+  constructor (type?: ClaimantTypes, title?: string, fullName?: string, organisation?: string, companyHouseNumber?: string) {
     this.type = type
     this.title = title
     this.fullName = fullName
@@ -55,7 +55,7 @@ export class ClaimantDetails implements Serializable<ClaimantDetails> {
       let type
 
       if (value.type) {
-        type = IndividualTypes.all()
+        type = ClaimantTypes.all()
           .filter(type => {
             return type.value === value.type
           })

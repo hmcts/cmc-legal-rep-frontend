@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import { Address } from 'forms/models/address'
 import Claimant from 'app/drafts/models/claimant'
 import { ClaimantDetails } from 'app/forms/models/claimantDetails'
-import { IndividualTypes } from 'app/forms/models/individualTypes'
+import { PartyTypes } from 'app/forms/models/partyTypes'
 
 describe('Claimant', () => {
   describe('constructor', () => {
@@ -24,7 +24,7 @@ describe('Claimant', () => {
 
     it('should return an instance from given object', () => {
       const address = new Address('line1', 'line2', 'city', 'postcode')
-      const claimantDetails = new ClaimantDetails(IndividualTypes.INDIVIDUAL, 'title', 'full name')
+      const claimantDetails = new ClaimantDetails(PartyTypes.INDIVIDUAL, 'title', 'full name')
 
       const claimant = new Claimant().deserialize({
         address: { line1: 'line1', line2: 'line2', city: 'city', postcode: 'postcode' },
