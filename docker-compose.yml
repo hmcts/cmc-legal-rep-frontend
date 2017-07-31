@@ -3,22 +3,20 @@
 version: '2.1'
 
 services:
-  legal-rep-frontend:
+  legal-frontend:
     build:
       context: .
       args:
         - http_proxy
         - https_proxy
         - no_proxy
-    image: docker.artifactory.reform.hmcts.net/cmc/legal-rep-frontend
+    image: docker.artifactory.reform.hmcts.net/cmc/legal-frontend
     environment:
         - PORT=3401
         - IDAM_AUTHENTICATION_WEB_URL=https://idam-test.dev.ccidam.reform.hmcts.net
         - IDAM_API_URL=http://betaDevBccidamAppLB.reform.hmcts.net:4551
         - FEES_URL=https://dev.fees-register.reform.hmcts.net:4411
         - DRAFT_STORE_URL=https://devdraftstorelb.moneyclaim.reform.hmcts.net:4301
-        - IDAM_S2S_AUTH=http://betaDevBccidamAppLB.reform.hmcts.net:4552
-        - IDAM_S2S_TOTP_SECRET=J7PBT37Y6C3SEFGX
         - http_proxy=
         - https_proxy=
         - no_proxy=
