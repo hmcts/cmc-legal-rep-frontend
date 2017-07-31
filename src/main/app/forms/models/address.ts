@@ -1,39 +1,31 @@
-import { IsDefined, IsOptional, MaxLength } from 'class-validator'
+import { IsDefined, MaxLength } from 'class-validator'
 
 import { IsNotBlank } from 'forms/validation/validators/isBlank'
 
 import { Serializable } from 'models/serializable'
 
 export class ValidationErrors {
-  static readonly FIRST_LINE_REQUIRED: string = 'Enter first address line'
-  static readonly FIRST_LINE_TOO_LONG: string = 'Enter first address line no longer than $constraint1 characters'
-
-  static readonly SECOND_LINE_TOO_LONG: string = 'Enter second address line no longer than $constraint1 characters'
-
-  static readonly CITY_NOT_VALID: string = 'Enter city no longer than $constraint1 characters'
-
-  static readonly POSTCODE_REQUIRED: string = 'Enter postcode'
-  static readonly POSTCODE_NOT_VALID: string = 'Enter postcode no longer than $constraint1 characters'
+  static readonly FIRST_LINE_REQUIRED: string = 'Enter address line 1'
+  static readonly CONTENT_TOO_LONG: string = 'You’ve entered too many characters'
+  static readonly POSTCODE_REQUIRED: string = 'Enter a postcode'
 }
 
 export class Address implements Serializable<Address> {
 
   @IsDefined({ message: ValidationErrors.FIRST_LINE_REQUIRED })
   @IsNotBlank({ message: ValidationErrors.FIRST_LINE_REQUIRED })
-  @MaxLength(100, { message: ValidationErrors.FIRST_LINE_TOO_LONG })
+  @MaxLength(100, { message: ValidationErrors.CONTENT_TOO_LONG })
   line1?: string
 
-  @MaxLength(100, { message: ValidationErrors.SECOND_LINE_TOO_LONG })
-  @IsOptional()
+  @MaxLength(100, { message: ValidationErrors.CONTENT_TOO_LONG })
   line2?: string
 
-  @MaxLength(60, { message: ValidationErrors.CITY_NOT_VALID })
-  @IsOptional()
+  @MaxLength(60, { message: ValidationErrors.CONTENT_TOO_LONG })
   city?: string
 
   @IsDefined({ message: ValidationErrors.POSTCODE_REQUIRED })
   @IsNotBlank({ message: ValidationErrors.POSTCODE_REQUIRED })
-  @MaxLength(8, { message: ValidationErrors.POSTCODE_NOT_VALID })
+  @MaxLength(8, { message: ValidationErrors.CONTENT_TOO_LONG })
   postcode?: string
 
   constructor (line1?: string, line2?: string, city?: string, postcode?: string) {
@@ -41,6 +33,22 @@ export class Address implements Serializable<Address> {
     this.line2 = line2
     this.city = city
     this.postcode = postcode
+  }
+
+  static fromObject (value?: any): Address {
+    if (value != null) {
+      const line1 = Address.toUpperCase(value.line1)
+      const line2 = Address.toUpperCase(value.line2)
+      const city = Address.toUpperCase(value.city)
+      const postcode = Address.toUpperCase(value.postcode)
+      return new Address(line1, line2, city, postcode)
+    }
+
+    return new Address()
+  }
+
+  static toUpperCase (value: any): string {
+    return value ? value.toUpperCase() : value
   }
 
   deserialize (input?: any): Address {
