@@ -31,7 +31,7 @@ export class PersonalInjury implements Serializable<PersonalInjury> {
     if (value) {
       if (value.generalDamages) {
         generalDamagesValue = GeneralDamages.all()
-          .filter(generalDamages => generalDamages.value === value.generalDamages)
+          .filter(generalDamages => generalDamages.value === value.generalDamages.value)
           .pop()
       }
       if (value.personalInjury) {
