@@ -3,11 +3,8 @@
     "referrerPolicy": "origin"
   },
   "idam": {
-    "registration-web": {
-      "url": "http://localhost:9000"
-    },
     "authentication-web": {
-      "url": "http://localhost:8000"
+      "url": "https://localhost:8000"
     },
     "api": {
       "url": "http://localhost:8080"
@@ -19,8 +16,7 @@
     }
   },
   "claim-store": {
-    "url": "http://localhost:4400",
-    "healthCheckUrl": "http://localhost:4401/health"
+    "url": "http://localhost:4400"
   },
   "draft-store": {
     "url": "http://localhost:8800",

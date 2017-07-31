@@ -4,7 +4,7 @@ import * as config from 'config'
 import * as mock from 'nock'
 
 import '../../../routes/expectations'
-import { checkAuthorizationGuards } from '../../../routes/authorization-check'
+import { checkAuthorizationGuards } from './checks/authorization-check'
 
 import { Paths as ClaimPaths } from 'claim/paths'
 
@@ -22,7 +22,7 @@ describe('Claim issue: Your company address page', () => {
   })
 
   describe('on GET', () => {
-    checkAuthorizationGuards(app, 'get', ClaimPaths.representativeAddressPage.uri, new RegExp('http://localhost:8000/login\\?continue-url=http://127.0.0.1:[0-9]{1,5}/claim/receiver'))
+    checkAuthorizationGuards(app, 'get', ClaimPaths.representativeAddressPage.uri)
 
     it('should render page when everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
@@ -35,7 +35,7 @@ describe('Claim issue: Your company address page', () => {
   })
 
   describe('on POST', () => {
-    checkAuthorizationGuards(app, 'post', ClaimPaths.representativeAddressPage.uri, new RegExp('http://localhost:8000/login\\?continue-url=http://127.0.0.1:[0-9]{1,5}/claim/receiver'))
+    checkAuthorizationGuards(app, 'post', ClaimPaths.representativeAddressPage.uri)
 
     it('should render page when form is invalid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')

@@ -19,8 +19,7 @@
     }
   },
   "claim-store": {
-    "url": "CLAIM_STORE_URL",
-    "healthCheckUrl": "CLAIM_STORE_HEALTH_CHECK_URL"
+    "url": "CLAIM_STORE_URL"
   },
   "draft-store": {
     "url": "DRAFT_STORE_URL",
