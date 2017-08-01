@@ -26,6 +26,7 @@ export default class DraftStoreClient<T> {
       throw new Error('Draft type is required by the client')
     }
     this.endpointURL = `${draftStoreConfig.url}/api/${draftStoreConfig.apiVersion}/draft/${draftType}`
+    console.log(this.endpointURL)
   }
 
   save (userId: number, draft: T): Promise<void> {

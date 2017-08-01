@@ -10,7 +10,7 @@ import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import ErrorHandling from 'common/errorHandling'
 
 function renderView (form: Form<Address>, res: express.Response): void {
-  const defendantDetails = res.locals.user.claimDraft.defendant.defendantDetails
+  const defendantDetails = res.locals.user.draftLegalClaim.defendant.defendantDetails
   const isIndividual = defendantDetails.type.value === PartyTypes.INDIVIDUAL.value
   const title = defendantDetails.title != null ? defendantDetails.title + ' ' : defendantDetails.title
   const name = isIndividual ? title + defendantDetails.fullName : defendantDetails.organisation
@@ -23,7 +23,7 @@ function renderView (form: Form<Address>, res: express.Response): void {
 
 export default express.Router()
   .get(Paths.defendantAddressPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.claimDraft.defendant.address), res)
+    renderView(new Form(res.locals.user.draftLegalClaim.defendant.address), res)
   })
   .post(Paths.defendantAddressPage.uri, FormValidator.requestHandler(Address, Address.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -32,7 +32,7 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        res.locals.user.claimDraft.defendant.address = form.model
+        res.locals.user.draftLegalClaim.defendant.address = form.model
         await ClaimDraftMiddleware.save(res, next)
         res.redirect(Paths.defendantRepresentedPage.uri)
       }

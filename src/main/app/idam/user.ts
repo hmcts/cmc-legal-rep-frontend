@@ -1,4 +1,4 @@
-import DraftClaim from 'drafts/models/draftClaim'
+import DraftLegalClaim from 'drafts/models/draftLegalClaim'
 
 export default class User {
   id: string
@@ -8,7 +8,7 @@ export default class User {
   roles: string[]
   group: string
   bearerToken: string
-  claimDraft: DraftClaim
+  draftLegalClaim: DraftLegalClaim
 
   constructor (id: string,
                email: string,

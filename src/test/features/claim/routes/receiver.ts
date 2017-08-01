@@ -18,7 +18,7 @@ const cookieName: string = config.get<string>('session.cookieName')
 describe('Claim issue: post login receiver', () => {
   beforeEach(() => {
     mock.cleanAll()
-    draftStoreServiceMock.resolveRetrieve('claim')
+    draftStoreServiceMock.resolveRetrieve('legalClaim')
   })
 
   describe('on GET', () => {

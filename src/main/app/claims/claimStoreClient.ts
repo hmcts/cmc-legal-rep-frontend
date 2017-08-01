@@ -2,7 +2,7 @@ import request from 'client/request'
 import * as config from 'config'
 import Claim from 'app/claims/models/claim'
 import User from 'app/idam/user'
-import DraftClaim from 'app/drafts/models/draftClaim'
+import DraftClaim from 'app/drafts/models/draftLegalClaim'
 
 const claimApiBaseUrl = `${config.get<string>('claim-store.url')}`
 const claimStoreApiUrl = `${claimApiBaseUrl}/claims`
@@ -17,7 +17,7 @@ function serialise (draftClaim: DraftClaim): any {
 
 export default class ClaimStoreClient {
   static saveClaimForUser (user: User): Promise<Claim> {
-    const convertedDraftClaim = serialise(user.claimDraft)
+    const convertedDraftClaim = serialise(user.draftLegalClaim)
 
     return request.post(`${claimStoreApiUrl}/${user.id}`, {
       body: convertedDraftClaim,

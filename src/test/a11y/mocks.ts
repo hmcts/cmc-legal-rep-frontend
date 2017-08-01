@@ -1,5 +1,5 @@
 import * as mock from 'mock-require'
-import DraftClaim from 'drafts/models/draftClaim'
+import DraftClaim from 'drafts/models/draftLegalClaim'
 import Claim from 'claims/models/claim'
 import ClaimData from 'claims/models/claimData'
 
