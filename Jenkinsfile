@@ -67,7 +67,7 @@ timestamps {
         }
 
         stage('Package application (RPM)') {
-          legalFrontendRPMVersion = packager.nodeRPM('cmc-legal-frontend')
+          legalFrontendRPMVersion = packager.nodeRPM('legal-frontend')
           version = "{legal_frontend_buildnumber: ${legalFrontendRPMVersion}}"
 
           if ("master" == BRANCH_NAME) {
