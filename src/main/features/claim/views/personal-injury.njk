@@ -33,8 +33,8 @@
         </fieldset>
 
         {% set errorGeneral = form.errorFor('generalDamages') %}
-        <div class="panel panel-border-narrow js-hidden {% if errorDamages %} form-group-error {% endif %}" id="personalInjury-yes" aria-hidden="false">
-        <fieldset id="generalDamages[label]">
+        <div class="panel panel-border-narrow js-hidden" id="personalInjury-yes" aria-hidden="false">
+        <fieldset id="generalDamages[label]" class="form-group {% if errorGeneral %} form-group-error {% endif %}">
           <legend class="form-group-compound">
             <span class="form-label-bold">
               {{ t('How much do you expect to recover as general damages for pain, suffering and amenity?') }}

@@ -16,7 +16,7 @@ export default express.Router()
   .get(Paths.representativeAddressPage.uri, (req: express.Request, res: express.Response) => {
     renderView(new Form(res.locals.user.claimDraft.representative.address), res)
   })
-  .post(Paths.representativeAddressPage.uri, FormValidator.requestHandler(Address),
+  .post(Paths.representativeAddressPage.uri, FormValidator.requestHandler(Address, Address.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form: Form<Address> = req.body
 

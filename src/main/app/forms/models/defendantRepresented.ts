@@ -5,7 +5,7 @@ import { IsNotBlank } from 'app/forms/validation/validators/isBlank'
 
 export class ValidationErrors {
   static readonly DEFENDANT_IS_REPRESENTED_REQUIRED: string = 'Choose yes if defendant is represented'
-  static readonly COMPANY_NAME_REQUIRED: string = 'Enter your company name'
+  static readonly COMPANY_NAME_REQUIRED: string = 'Enter defendant representative company name'
   static readonly COMPANY_NAME_TOO_LONG: string = 'Enter the legal representative’s company name'}
 
 export class DefendantRepresented implements Serializable<DefendantRepresented> {
