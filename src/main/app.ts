@@ -13,8 +13,8 @@ import { Config as HelmetConfig, Helmet } from 'modules/helmet'
 import I18Next from 'modules/i18n'
 import Nunjucks from 'modules/nunjucks'
 
-import { Feature as ClaimIssueFeature } from 'claim/index'
 import { CsrfProtection } from 'modules/csrf'
+import { Feature as ClaimIssueFeature } from 'claim/index'
 
 export const app: express.Express = express()
 
