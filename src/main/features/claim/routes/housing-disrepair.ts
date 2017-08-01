@@ -15,7 +15,6 @@ function renderView (form: Form<HousingDisrepair>, res: express.Response) {
 
 export default express.Router()
   .get(Paths.housingDisrepairPage.uri, (req: express.Request, res: express.Response) => {
-    console.log(res.locals.user.claimDraft.housingDisrepair)
     renderView(new Form(res.locals.user.claimDraft.housingDisrepair), res)
   })
   .post(Paths.housingDisrepairPage.uri, FormValidator.requestHandler(HousingDisrepair, HousingDisrepair.fromObject),
