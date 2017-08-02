@@ -9,31 +9,41 @@
 
   <div class="grid-row">
     <div class="column-two-thirds">
-      <p> {{ t("Your fee will be calculated based on the higher value.") }} </p>
       <form novalidate method="post">
         {{ csrfProtection(csrf) }}
+        <p> {{ t("Your fee will be calculated based on the higher value.") }} </p>
 
         <div class="form-group">
-          {{ textInput(t('Lower value (optional)'), 'lowerValue)', form,'input-symbol-pound') }}
-          {{ textInput(t('Higher value'), 'upperValue', form,'input-symbol-pound') }}
+          {% set errorLowerValue = form.errorFor('lowerValue') %}
+          <div class="column-one-half no-padding {% if errorLowerValue %} form-group-error {% endif %}">
+            <span class="form-block">{{ t('Lower value (optional)') }} </span>
+            {{ textInputInline( 'lowerValue', form,'form-control-3-4', 'input-symbol-pound') }}
+          </div>
+          {% set errorUpperValue = form.errorFor('upperValue') %}
+          <div class="column-one-half no-padding {% if errorUpperValue %} form-group-error {% endif %}">
+            <span class="form-block">{{ t('Higher value') }} </span>
+            {{ textInputInline( 'upperValue', form, 'form-control-3-4','input-symbol-pound') }}
+          </div>
         </div>
 
         {% set errorType = form.errorFor('cannotState') %}
-        <fieldset class="form-group {% if errorType %} form-group-error {% endif %}">
-          <legend class="visuallyhidden">
-            {{ t("I can't state the value of the claim") }}
-          </legend>
+        <div class="form-group">
+          <fieldset class="form-group {% if errorType %} form-group-error {% endif %}">
+            <legend class="visuallyhidden">
+              {{ t("I can't state the value of the claim") }}
+            </legend>
 
-          {% if errorType %}<span class="error-message">{{ t(errorType) }}</span>{% endif %}
-          <div class="multiple-choice" data-target="max-fee">
-            <input id="cannotStateType" type="checkbox" name="cannotState" value="cannot">
-            <label for="organisationType">{{ t("I can't state the value of the claim") }} </label>
-          </div>
+            {% if errorType %}<span class="error-message">{{ t(errorType) }}</span>{% endif %}
+            <div class="multiple-choice" data-target="max-fee">
+              <input id="cannotStateType" type="checkbox" name="cannotState" value="cannot">
+              <label for="cannotStateType">{{ t("I can't state the value of the claim") }} </label>
+            </div>
 
-          <div class="form-group panel panel-border-narrow js-hidden" id="max-fee" aria-hidden="false">
-            <p>{{ t("You'll be charged the maximum fee") }}</p>
-          </div>
-        </fieldset>
+            <div class="form-group panel panel-border-narrow js-hidden" id="max-fee" aria-hidden="false">
+              <p>{{ t("You'll be charged the maximum fee") }}</p>
+            </div>
+          </fieldset>
+        </div>
 
         <div class="form-group">
           {{ saveAndContinueButton() }}

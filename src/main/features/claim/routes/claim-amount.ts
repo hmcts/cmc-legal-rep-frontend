@@ -9,7 +9,7 @@ import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import ErrorHandling from 'common/errorHandling'
 
 function renderView (form: Form<Amount>, res: express.Response): void {
-  res.render(Paths.claimantAddressPage.associatedView, {
+  res.render(Paths.claimAmountPage.associatedView, {
     form: form
   })
 }
