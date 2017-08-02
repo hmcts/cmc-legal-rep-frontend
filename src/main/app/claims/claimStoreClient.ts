@@ -2,7 +2,7 @@ import request from 'client/request'
 import * as config from 'config'
 import Claim from 'app/claims/models/claim'
 import User from 'app/idam/user'
-import DraftClaim from 'app/drafts/models/draftLegalClaim'
+import DraftLegalClaim from 'app/drafts/models/draftLegalClaim'
 
 const claimApiBaseUrl = `${config.get<string>('claim-store.url')}`
 const claimStoreApiUrl = `${claimApiBaseUrl}/claims`
@@ -10,7 +10,7 @@ const claimStoreApiUrl = `${claimApiBaseUrl}/claims`
 /**
  * Convert draftStore representation to claim store.
  */
-function serialise (draftClaim: DraftClaim): any {
+function serialise (draftClaim: DraftLegalClaim): any {
   // Remove optional field if empty
   return draftClaim
 }
