@@ -103,10 +103,10 @@ timestamps {
 //              rpmTagger.tagDeploymentSuccessfulOn('dev')
 //              rpmTagger.tagAnsibleCommit(ansibleCommitId)
             }
-            stage('Smoke test (Test)') {
-              smokeTests.executeAgainst(env.CMC_LEGAL_TEST_APPLICATION_URL)
+            // stage('Smoke test (Test)') {
+              // smokeTests.executeAgainst(env.CMC_LEGAL_TEST_APPLICATION_URL)
 //              rpmTagger.tagTestingPassedOn('dev')
-            }
+            // }
           }
         }
       } catch (Throwable err) {
