@@ -1,13 +1,13 @@
 import * as express from 'express'
 
 import { DraftMiddleware } from 'common/draft/draftMiddleware'
-import DraftClaim from 'app/drafts/models/draftClaim'
+import DraftLegalClaim from 'app/drafts/models/draftLegalClaim'
 
-const deserialize = (value: any): DraftClaim => {
-  return new DraftClaim().deserialize(value)
+const deserialize = (value: any): DraftLegalClaim => {
+  return new DraftLegalClaim().deserialize(value)
 }
 
-const middleware = new DraftMiddleware<DraftClaim>('claim', deserialize)
+const middleware = new DraftMiddleware<DraftLegalClaim>('legalClaim', deserialize)
 
 export class ClaimDraftMiddleware {
 

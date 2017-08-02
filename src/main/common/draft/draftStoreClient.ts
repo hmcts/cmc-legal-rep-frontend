@@ -25,11 +25,13 @@ export default class DraftStoreClient<T> {
     if (!draftType || draftType.trim() === '') {
       throw new Error('Draft type is required by the client')
     }
+
     this.endpointURL = `${draftStoreConfig.url}/api/${draftStoreConfig.apiVersion}/draft/${draftType}`
   }
 
   save (userId: number, draft: T): Promise<void> {
     draft['lastUpdateTimestamp'] = moment().unix() // Workaround to track draft has been saved
+
     return request.post(this.endpointURL, withAuthHeader(userId, {
       body: draft
     }))

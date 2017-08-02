@@ -111,7 +111,7 @@ export function resolveRetrieve (draftType: string, draftOverride?: object) {
   let draft: object
 
   switch (draftType) {
-    case 'claim':
+    case 'legalClaim':
       draft = { ...sampleClaimDraftObj, ...draftOverride }
       break
     case 'response':

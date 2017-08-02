@@ -9,7 +9,7 @@ import Defendant from 'app/drafts/models/defendant'
 import Summary from 'app/forms/models/summary'
 import Amount from 'app/forms/models/amount'
 
-export default class DraftClaim implements Serializable<DraftClaim> {
+export default class DraftLegalClaim implements Serializable<DraftLegalClaim> {
   claimant: Claimant = new Claimant()
   summary: Summary = new Summary()
   amount: Amount = new Amount()
@@ -20,7 +20,7 @@ export default class DraftClaim implements Serializable<DraftClaim> {
   representative: Representative = new Representative()
   defendant: Defendant = new Defendant()
 
-  deserialize (input: any): DraftClaim {
+  deserialize (input: any): DraftLegalClaim {
     if (input) {
       this.claimant = new Claimant().deserialize(input.claimant)
       this.summary = new Summary().deserialize(input.summary)
