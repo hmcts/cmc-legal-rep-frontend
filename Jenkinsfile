@@ -68,7 +68,7 @@ timestamps {
 
         stage('Package application (RPM)') {
           legalFrontendRPMVersion = packager.nodeRPM('legal-frontend')
-          version = "{legal_frontend_buildnumber: ${legalFrontendRPMVersion}}"
+          version = "{legal_frontend_buildnumber: '-1'}"
 
 //          if ("master" == BRANCH_NAME) {
 //            packager.publishNodeRPM('legal-frontend')
@@ -99,7 +99,7 @@ timestamps {
           milestone()
           lock(resource: "CMC-deploy-dev", inversePrecedence: true) {
             stage('Deploy (Test)') {
-              ansibleCommitId = ansible.runDeployPlaybook('-1', 'test', 'feature/legal-FE-deployment')
+              ansibleCommitId = ansible.runDeployPlaybook(version, 'test', 'feature/legal-FE-deployment')
 //              rpmTagger.tagDeploymentSuccessfulOn('dev')
 //              rpmTagger.tagAnsibleCommit(ansibleCommitId)
             }
