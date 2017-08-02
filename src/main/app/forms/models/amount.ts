@@ -1,12 +1,12 @@
 import * as _ from 'lodash'
-import { IsDefined, Max, Min } from 'class-validator'
+import { Max, Min, ValidateIf } from 'class-validator'
 import { Fractions } from 'forms/validation/validators/fractions'
 import { Serializable } from 'app/models/serializable'
 
 export class ValidationErrors {
-  static readonly UPPER_VALUE_REQUIRED: string = 'Enter amount'
-  static readonly AMOUNT_NOT_VALID: string = 'Enter valid amount'
-  static readonly AMOUNT_INVALID_DECIMALS: string = 'Enter valid amount, maximum two decimal places'
+  static readonly UPPER_VALUE_REQUIRED: string = 'Enter upper value'
+  static readonly UPPER_VALUE_AMOUNT_NOT_VALID: string = 'Enter valid upper value'
+  static readonly AMOUNT_INVALID_DECIMALS: string = 'Enter maximum two decimal places'
 }
 
 export default class Amount implements Serializable<Amount> {
@@ -15,9 +15,9 @@ export default class Amount implements Serializable<Amount> {
   @Fractions(0, 2, { message: ValidationErrors.AMOUNT_INVALID_DECIMALS })
   lowerValue?: number
 
-  @IsDefined({ message: ValidationErrors.UPPER_VALUE_REQUIRED })
-  @Min(0.01, { message: ValidationErrors.AMOUNT_NOT_VALID })
-  @Max(99999.99, { message: ValidationErrors.AMOUNT_NOT_VALID })
+  @ValidateIf(o => o.cannotState !== 'cannot')
+  @Min(0.01, { message: ValidationErrors.UPPER_VALUE_AMOUNT_NOT_VALID })
+  @Max(99999.99, { message: ValidationErrors.UPPER_VALUE_AMOUNT_NOT_VALID })
   @Fractions(0, 2, { message: ValidationErrors.AMOUNT_INVALID_DECIMALS })
   upperValue?: number
 

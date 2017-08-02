@@ -1,0 +1,58 @@
+{% extends "layout.njk" %}
+{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, radioOption, textInputInline %}
+
+{% set title = t('Money claim') %}
+{% set heading = t('Enter claim value') %}
+
+
+{% block content %}
+
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <p> {{ t("Your fee will be calculated based on the higher value.") }} </p>
+
+      <form novalidate method="post">
+        {{ csrfProtection(csrf) }}
+
+        {% set errorType = form.errorFor('cannotState') %}
+
+        <div class="form-group">
+          {% set errorLowerValue = form.errorFor('lowerValue') %}
+          {% set errorUpperValue = form.errorFor('upperValue') %}
+          {% if errorUpperValue or errorLowerValue %}
+            <div class="column-one-half no-padding">
+              <span class="error-message">{{ t(errorLowerValue) }}</span>
+            </div>
+            <div class="column-one-half no-padding">
+              <span class="error-message">{{ t(errorUpperValue) }}</span>
+            </div>
+          {% endif %}
+          <div class="column-one-half no-padding ">
+            <span class="form-block">{{ t('Lower value (optional)') }} </span>
+            {{ textInputInline( 'lowerValue', form,'form-control-3-4', 'input-symbol-pound') }}
+          </div>
+          <div class="column-one-half no-padding">
+            <span class="form-block">{{ t('Higher value') }} </span>
+            {{ textInputInline( 'upperValue', form, 'form-control-3-4','input-symbol-pound') }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="multiple-choice {% if errorType %} form-group-error {% endif %}" data-target="max-fee">
+            <input id="cannotStateType" type="checkbox" name="cannotState" value="cannot">
+            <label for="cannotStateType">{{ t("I can't state the value of the claim") }} </label>
+          </div>
+
+          <div class="form-group panel panel-border-narrow js-hidden" id="max-fee" aria-hidden="false">
+            <p>{{ t("You'll be charged the maximum fee") }}</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          {{ saveAndContinueButton() }}
+        </div>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

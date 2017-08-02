@@ -25,6 +25,6 @@ export default express.Router()
       } else {
         res.locals.user.legalClaimDraft.summary = form.model
         await ClaimDraftMiddleware.save(res, next)
-        res.redirect('/not-implemented-yet')
+        res.redirect(Paths.claimAmountPage.uri)
       }
     }))

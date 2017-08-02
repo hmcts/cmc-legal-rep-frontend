@@ -16,7 +16,7 @@ function renderView (form: Form<Amount>, res: express.Response): void {
 
 export default express.Router()
   .get(Paths.claimAmountPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.claimDraft.amount), res)
+    renderView(new Form(res.locals.user.legalClaimDraft.amount), res)
   })
   .post(Paths.claimAmountPage.uri, FormValidator.requestHandler(Amount, Amount.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -25,7 +25,7 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        res.locals.user.claimDraft.amount = form.model
+        res.locals.user.legalClaimDraft.amount = form.model
         await ClaimDraftMiddleware.save(res, next)
         res.redirect(Paths.claimTotalPage.uri)
       }
