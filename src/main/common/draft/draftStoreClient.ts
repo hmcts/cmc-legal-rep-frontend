@@ -57,6 +57,14 @@ export default class DraftStoreClient<T> {
   }
 
   delete (userId: number): Promise<void> {
-    return request.delete(this.endpointURL, withAuthHeader(userId))
+    return request
+      .delete(this.endpointURL, withAuthHeader(userId))
+      .catch(err => {
+        if (err.statusCode === HttpStatus.NOT_FOUND) {
+          return null
+        } else {
+          throw err
+        }
+      })
   }
 }

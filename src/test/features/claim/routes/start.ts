@@ -4,13 +4,13 @@ import * as config from 'config'
 import * as mock from 'nock'
 
 import { Paths as ClaimPaths } from 'claim/paths'
-
 import { app } from '../../../../main/app'
-
 import * as idamServiceMock from '../../../http-mocks/idam'
 import { checkAuthorizationGuards } from './checks/authorization-check'
+import * as DraftStoreServiceMock from '../../../http-mocks/draft-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
+const draftType = 'legalClaim'
 
 describe('Claim issue: start page', () => {
   beforeEach(() => {
@@ -27,6 +27,31 @@ describe('Claim issue: start page', () => {
         .get(ClaimPaths.startPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .expect(res => expect(res).to.be.successful.withText('Issue civil court proceedings'))
+    })
+
+  })
+
+  describe('on POST', () => {
+    checkAuthorizationGuards(app, 'post', ClaimPaths.startPage.uri)
+
+    it('should return 500 and render error page when can not delete draft claim', async () => {
+      idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+      DraftStoreServiceMock.rejectDelete(draftType, 'HTTP error')
+
+      await request(app)
+        .post(ClaimPaths.startPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .expect(res => expect(res).to.be.serverError.withText('Error'))
+    })
+
+    it('should redirect to representative-name page when delete previous draft is successful', async () => {
+      idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+      DraftStoreServiceMock.resolveDelete('legalClaim')
+
+      await request(app)
+        .post(ClaimPaths.startPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.representativeNamePage.uri))
     })
   })
 })
