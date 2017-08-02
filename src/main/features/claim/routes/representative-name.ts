@@ -14,7 +14,7 @@ function renderView (form: Form<CompanyName>, res: express.Response): void {
 
 export default express.Router()
   .get(Paths.representativeNamePage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.claimDraft.representative.companyName), res)
+    renderView(new Form(res.locals.user.legalClaimDraft.representative.companyName), res)
   })
   .post(Paths.representativeNamePage.uri, FormValidator.requestHandler(CompanyName, CompanyName.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -22,7 +22,7 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        res.locals.user.claimDraft.representative.companyName = form.model
+        res.locals.user.legalClaimDraft.representative.companyName = form.model
         await ClaimDraftMiddleware.save(res, next)
         res.redirect(Paths.representativeAddressPage.uri)
       }

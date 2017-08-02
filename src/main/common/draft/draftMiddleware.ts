@@ -16,6 +16,7 @@ export class DraftMiddleware<T> {
       this.client
         .retrieve(res.locals.user.id, this.deserializeFn)
         .then(draft => {
+
           if (!draft) {
             draft = this.deserializeFn(null)
           }

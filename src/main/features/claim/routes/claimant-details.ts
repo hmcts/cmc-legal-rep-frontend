@@ -15,7 +15,7 @@ function renderView (form: Form<ClaimantDetails>, res: express.Response) {
 
 export default express.Router()
   .get(Paths.claimantTypePage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.claimDraft.claimant.claimantDetails), res)
+    renderView(new Form(res.locals.user.legalClaimDraft.claimant.claimantDetails), res)
   })
   .post(Paths.claimantTypePage.uri, FormValidator.requestHandler(ClaimantDetails, ClaimantDetails.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -32,7 +32,7 @@ export default express.Router()
           form.model.fullName = null
         }
 
-        res.locals.user.claimDraft.claimant.claimantDetails = form.model
+        res.locals.user.legalClaimDraft.claimant.claimantDetails = form.model
 
         await ClaimDraftMiddleware.save(res, next)
         res.redirect(Paths.claimantAddressPage.uri)
