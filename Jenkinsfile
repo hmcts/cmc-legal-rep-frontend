@@ -68,7 +68,7 @@ timestamps {
 
         stage('Package application (RPM)') {
           legalFrontendRPMVersion = packager.nodeRPM('legal-frontend')
-          version = "{legal_frontend_buildnumber: '-1'}"
+          version = "{legal_frontend_buildnumber: ${legalFrontendRPMVersion}}"
 
 //          if ("master" == BRANCH_NAME) {
 //            packager.publishNodeRPM('legal-frontend')
