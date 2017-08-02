@@ -2,7 +2,7 @@ import * as express from 'express'
 import { Paths } from 'claim/paths'
 
 import { Form } from 'forms/form'
-import Amount from 'app/forms/models/amount'
+import { Amount } from 'app/forms/models/amount'
 import { FormValidator } from 'forms/validation/formValidator'
 
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'

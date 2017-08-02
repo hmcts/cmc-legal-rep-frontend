@@ -7,7 +7,7 @@ import PreferredCourt from 'app/forms/models/preferredCourt'
 import Representative from 'drafts/models/representative'
 import Defendant from 'app/drafts/models/defendant'
 import Summary from 'app/forms/models/summary'
-import Amount from 'app/forms/models/amount'
+import { Amount } from 'app/forms/models/amount'
 
 export default class DraftLegalClaim implements Serializable<DraftLegalClaim> {
   claimant: Claimant = new Claimant()
