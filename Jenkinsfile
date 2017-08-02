@@ -99,7 +99,7 @@ timestamps {
           milestone()
           lock(resource: "CMC-deploy-dev", inversePrecedence: true) {
             stage('Deploy (Test)') {
-              ansibleCommitId = ansible.runDeployPlaybook(version, 'test', 'PR-52')
+              ansibleCommitId = ansible.runDeployPlaybook(version, 'test', 'feature/legal-FE-deployment')
 //              rpmTagger.tagDeploymentSuccessfulOn('dev')
 //              rpmTagger.tagAnsibleCommit(ansibleCommitId)
             }
