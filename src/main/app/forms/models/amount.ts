@@ -6,7 +6,8 @@ import { Serializable } from 'app/models/serializable'
 export class ValidationErrors {
   static readonly UPPER_VALUE_REQUIRED: string = 'Enter a value or choose ‘I can’t state the value’'
   static readonly UPPER_VALUE_AMOUNT_NOT_VALID: string = 'Enter valid upper value'
-  static readonly AMOUNT_INVALID_DECIMALS: string = 'Enter maximum two decimal places'
+  static readonly LOWER_VALUE_AMOUNT_NOT_VALID: string = 'Enter valid lower value'
+  static readonly AMOUNT_INVALID_DECIMALS: string = 'Enter a maximum two decimal places'
 }
 
 export class Amount implements Serializable<Amount> {
