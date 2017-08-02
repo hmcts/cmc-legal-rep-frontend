@@ -28,6 +28,7 @@ export default express.Router()
           form.model.generalDamages = undefined
           form.model.otherDamages = undefined
         }
+
         res.locals.user.legalClaimDraft.housingDisrepair = form.model
         await ClaimDraftMiddleware.save(res, next)
         res.redirect(Paths.summariseTheClaimPage.uri)

@@ -33,8 +33,8 @@
 
         {% set errorGeneral = form.errorFor('generalDamages') %}
         {% set errorOther = form.errorFor('otherDamages') %}
-        <div class="form-group panel panel-border-narrow js-hidden {% if errorDamages %} form-group-error {% endif %}" id="housing-disrepair-yes" aria-hidden="false">
-          <fieldset id="generalDamages[label]" class="form-group">
+        <div class="form-group panel panel-border-narrow js-hidden" id="housing-disrepair-yes" aria-hidden="false">
+          <fieldset id="generalDamages[label]" class="form-group {% if errorGeneral %} form-group-error {% endif %}">
             <legend class="form-group-compound form-label-bold">
                 {{ t("How much do you expect to recover as general damages for the cost of repairs or other work?") }}
             </legend>
@@ -48,7 +48,7 @@
             )}}
           </fieldset>
 
-          <fieldset id="otherDamages[label]" class="form-group">
+          <fieldset id="otherDamages[label]" class="form-group {% if errorOther %} form-group-error {% endif %}">
             <legend class="form-group-compound form-label-bold">
                 {{ t("How much do you expect to recover for other damages besides the cost of repairs?") }}
             </legend>
