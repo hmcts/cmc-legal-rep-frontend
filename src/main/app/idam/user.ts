@@ -8,7 +8,7 @@ export default class User {
   roles: string[]
   group: string
   bearerToken: string
-  draftLegalClaim: DraftLegalClaim
+  legalClaimDraft: DraftLegalClaim
 
   constructor (id: string,
                email: string,

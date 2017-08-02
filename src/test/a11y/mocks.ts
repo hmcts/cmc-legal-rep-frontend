@@ -1,5 +1,5 @@
 import * as mock from 'mock-require'
-import DraftClaim from 'drafts/models/draftLegalClaim'
+import DraftLegalClaim from 'drafts/models/draftLegalClaim'
 import Claim from 'claims/models/claim'
 import ClaimData from 'claims/models/claimData'
 
@@ -14,7 +14,7 @@ import { PartyTypes } from 'app/forms/models/partyTypes'
 import moment = require('moment')
 
 function mockedDraftClaim () {
-  let draft = new DraftClaim()
+  let draft = new DraftLegalClaim()
   draft.claimant = new Claimant()
   draft.claimant.claimantDetails = new ClaimantDetails()
   draft.claimant.claimantDetails.type = PartyTypes.INDIVIDUAL
@@ -55,7 +55,7 @@ mock('claim/draft/claimDraftMiddleware', {
   'ClaimDraftMiddleware': {
     retrieve: (req, res, next) => {
       res.locals.user = {
-        claimDraft: mockedDraftClaim()
+        legalClaimDraft: mockedDraftClaim()
       }
       next()
     }

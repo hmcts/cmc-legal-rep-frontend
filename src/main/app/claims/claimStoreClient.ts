@@ -17,7 +17,7 @@ function serialise (draftClaim: DraftClaim): any {
 
 export default class ClaimStoreClient {
   static saveClaimForUser (user: User): Promise<Claim> {
-    const convertedDraftClaim = serialise(user.draftLegalClaim)
+    const convertedDraftClaim = serialise(user.legalClaimDraft)
 
     return request.post(`${claimStoreApiUrl}/${user.id}`, {
       body: convertedDraftClaim,
