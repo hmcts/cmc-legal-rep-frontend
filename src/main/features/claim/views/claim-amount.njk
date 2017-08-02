@@ -1,0 +1,45 @@
+{% extends "layout.njk" %}
+{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, radioOption, textInputInline %}
+
+{% set title = t('Money claim') %}
+{% set heading = t('Enter claim value') %}
+
+
+{% block content %}
+
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <p> {{ t("Your fee will be calculated based on the higher value.") }} </p>
+      <form novalidate method="post">
+        {{ csrfProtection(csrf) }}
+
+        <div class="form-group">
+          {{ textInput(t('Lower value (optional)'), 'lowerValue)', form,'input-symbol-pound') }}
+          {{ textInput(t('Higher value'), 'upperValue', form,'input-symbol-pound') }}
+        </div>
+
+        {% set errorType = form.errorFor('cannotState') %}
+        <fieldset class="form-group {% if errorType %} form-group-error {% endif %}">
+          <legend class="visuallyhidden">
+            {{ t("I can't state the value of the claim") }}
+          </legend>
+
+          {% if errorType %}<span class="error-message">{{ t(errorType) }}</span>{% endif %}
+          <div class="multiple-choice" data-target="max-fee">
+            <input id="cannotStateType" type="checkbox" name="cannotState" value="cannot">
+            <label for="organisationType">{{ t("I can't state the value of the claim") }} </label>
+          </div>
+
+          <div class="form-group panel panel-border-narrow js-hidden" id="max-fee" aria-hidden="false">
+            <p>{{ t("You'll be charged the maximum fee") }}</p>
+          </div>
+        </fieldset>
+
+        <div class="form-group">
+          {{ saveAndContinueButton() }}
+        </div>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}
