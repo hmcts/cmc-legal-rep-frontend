@@ -18,7 +18,7 @@
       <form novalidate method="post">
         {{ csrfProtection(csrf) }}
 
-        {{ textArea(label = '', name = 'text', form = form, rows = 10) }}
+        {{ textArea(label = '', name = 'text', form = form, inputClass='full-width-textarea', rows = 10) }}
         {{ saveAndContinueButton() }}
       </form>
     </div>
