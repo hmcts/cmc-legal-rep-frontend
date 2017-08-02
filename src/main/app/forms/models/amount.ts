@@ -10,7 +10,7 @@ export class ValidationErrors {
 }
 
 export class Amount implements Serializable<Amount> {
-  static readonly CANNOT_STATE_VALUE = 'CANNOT'
+  static readonly CANNOT_STATE_VALUE = 'cannot'
 
   cannotState?: string
 
@@ -25,10 +25,10 @@ export class Amount implements Serializable<Amount> {
   @Fractions(0, 2, { message: ValidationErrors.AMOUNT_INVALID_DECIMALS })
   upperValue?: number
 
-  constructor (lowerValue?: number, upperValue?: number, reason?: string) {
+  constructor (lowerValue?: number, upperValue?: number, cannotState?: string) {
     this.lowerValue = lowerValue
     this.upperValue = upperValue
-    this.cannotState = reason
+    this.cannotState = cannotState
   }
 
   static fromObject (value?: any): Amount {
@@ -38,7 +38,7 @@ export class Amount implements Serializable<Amount> {
 
     const lowerValue = value.lowerValue ? _.toNumber(value.lowerValue) : undefined
     const upperValue = value.upperValue ? _.toNumber(value.upperValue) : undefined
-    const cannotState = value.cannotState && value.cannotState === Amount.CANNOT_STATE_VALUE ? value.cannotState : undefined
+    const cannotState = value.cannotState ? value.cannotState : undefined
     return new Amount(lowerValue, upperValue, cannotState)
   }
 
@@ -46,7 +46,7 @@ export class Amount implements Serializable<Amount> {
     if (input) {
       this.lowerValue = input.lowerValue
       this.upperValue = input.upperValue
-      this.cannotState = input.reason
+      this.cannotState = input.cannotState
     }
 
     return this

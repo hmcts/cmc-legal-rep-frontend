@@ -28,6 +28,8 @@ export default express.Router()
         if (form.model.cannotState === Amount.CANNOT_STATE_VALUE) {
           form.model.upperValue = undefined
           form.model.lowerValue = undefined
+        } else {
+          form.model.cannotState = undefined
         }
 
         res.locals.user.legalClaimDraft.amount = form.model
