@@ -28,7 +28,7 @@ describe('Amount', () => {
 
     it('should return a Address instance with set fields from given object', () => {
       let amount = new Amount().deserialize({
-        cannotState: '',
+        cannotState: undefined,
         lowerValue: 1212.12,
         upperValue: 12332.21
       })
@@ -119,7 +119,7 @@ describe('Amount', () => {
 
     it('should have valid amount details elements provided cannot state value', () => {
       const amount = Amount.fromObject({
-        cannotState: 'CANNOT'
+        cannotState: 'cannot'
       })
 
       expect(amount.cannotState).to.equal(Amount.CANNOT_STATE_VALUE)
