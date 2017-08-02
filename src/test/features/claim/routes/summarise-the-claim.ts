@@ -59,7 +59,7 @@ describe('Claim issue: Briefly describe the claim page', () => {
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
 
-    it('should redirect to not implemented page when form is valid and everything is fine', async () => {
+    it('should redirect to claim amount page when form is valid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
       draftStoreServiceMock.resolveSave('legalClaim')
 
@@ -69,7 +69,7 @@ describe('Claim issue: Briefly describe the claim page', () => {
         .send({
           text: 'summary of claim'
         })
-        .expect(res => expect(res).to.be.redirect.toLocation('/not-implemented-yet'))
+        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimAmountPage.uri))
     })
   })
 })
