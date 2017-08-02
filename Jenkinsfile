@@ -73,7 +73,7 @@ timestamps {
 //          if ("master" == BRANCH_NAME) {
 //            packager.publishNodeRPM('legal-frontend')
 //          }
-          if ("feature/ROC-1813" == BRANCH_NAME) {
+          if ("PR-52" == BRANCH_NAME) {
             packager.publishNodeRPM('legal-frontend')
           }
         }
@@ -95,16 +95,16 @@ timestamps {
 //          'cmc-local'
 //        )
 
-        if ("feature/ROC-1813" == BRANCH_NAME) {
+        if ("PR-52" == BRANCH_NAME) {
           milestone()
           lock(resource: "CMC-deploy-dev", inversePrecedence: true) {
             stage('Deploy (Test)') {
-              ansibleCommitId = ansible.runDeployPlaybook(version, 'test', 'feature/ROC-1813')
+              ansibleCommitId = ansible.runDeployPlaybook(version, 'test', 'PR-52')
 //              rpmTagger.tagDeploymentSuccessfulOn('dev')
 //              rpmTagger.tagAnsibleCommit(ansibleCommitId)
             }
             stage('Smoke test (Test)') {
-              smokeTests.executeAgainst(env.CMC_LEGAL_DEV_APPLICATION_URL)
+              smokeTests.executeAgainst(env.CMC_LEGAL_TEST_APPLICATION_URL)
 //              rpmTagger.tagTestingPassedOn('dev')
             }
           }
