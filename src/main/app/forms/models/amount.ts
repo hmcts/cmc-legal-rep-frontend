@@ -10,12 +10,15 @@ export class ValidationErrors {
 }
 
 export class Amount implements Serializable<Amount> {
+  static readonly CANNOT_STATE_VALUE = 'CANNOT'
+
   cannotState?: string
 
+  @ValidateIf(o => o.cannotState !== Amount.CANNOT_STATE_VALUE)
   @Fractions(0, 2, { message: ValidationErrors.AMOUNT_INVALID_DECIMALS })
   lowerValue?: number
 
-  @ValidateIf(o => o.cannotState !== 'cannot')
+  @ValidateIf(o => o.cannotState !== Amount.CANNOT_STATE_VALUE)
   @IsDefined({ message: ValidationErrors.UPPER_VALUE_REQUIRED })
   @Min(0.01, { message: ValidationErrors.UPPER_VALUE_AMOUNT_NOT_VALID })
   @Max(99999.99, { message: ValidationErrors.UPPER_VALUE_AMOUNT_NOT_VALID })
@@ -35,7 +38,7 @@ export class Amount implements Serializable<Amount> {
 
     const lowerValue = value.lowerValue ? _.toNumber(value.lowerValue) : undefined
     const upperValue = value.upperValue ? _.toNumber(value.upperValue) : undefined
-    const cannotState = value.cannotState ? value.cannotState : undefined
+    const cannotState = value.cannotState && value.cannotState === Amount.CANNOT_STATE_VALUE ? value.cannotState : undefined
     return new Amount(lowerValue, upperValue, cannotState)
   }
 

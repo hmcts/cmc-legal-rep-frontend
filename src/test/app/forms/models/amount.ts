@@ -106,9 +106,8 @@ describe('Amount', () => {
       expect(amount.upperValue).to.equal(undefined)
     })
 
-    it('should have valid amount details elements', () => {
+    it('should have valid amount details elements provided lower and uppr value', () => {
       const amount = Amount.fromObject({
-        cannotState: '',
         lowerValue: '500',
         upperValue: '10000'
       })
@@ -116,6 +115,16 @@ describe('Amount', () => {
       expect(amount.cannotState).to.equal(undefined)
       expect(amount.lowerValue).to.equal(500)
       expect(amount.upperValue).to.equal(10000)
+    })
+
+    it('should have valid amount details elements provided cannot state value', () => {
+      const amount = Amount.fromObject({
+        cannotState: 'CANNOT'
+      })
+
+      expect(amount.cannotState).to.equal(Amount.CANNOT_STATE_VALUE)
+      expect(amount.lowerValue).to.equal(undefined)
+      expect(amount.upperValue).to.equal(undefined)
     })
   })
 })
