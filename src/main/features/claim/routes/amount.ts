@@ -25,6 +25,11 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
+        if (form.model.cannotState === Amount.CANNOT_STATE_VALUE) {
+          form.model.upperValue = undefined
+          form.model.lowerValue = undefined
+        }
+
         res.locals.user.legalClaimDraft.amount = form.model
         await ClaimDraftMiddleware.save(res, next)
         res.redirect(Paths.claimTotalPage.uri)
