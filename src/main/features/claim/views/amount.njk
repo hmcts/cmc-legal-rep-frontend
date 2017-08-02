@@ -13,8 +13,6 @@
       <form novalidate method="post">
         {{ csrfProtection(csrf) }}
 
-        {% set errorType = form.errorFor('cannotState') %}
-
         <div class="form-group">
           {% set errorLowerValue = form.errorFor('lowerValue') %}
           {% set errorUpperValue = form.errorFor('upperValue') %}
@@ -35,7 +33,7 @@
         </div>
 
         <div class="form-group">
-          <div class="multiple-choice {% if errorType %} form-group-error {% endif %}" data-target="max-fee">
+          <div class="multiple-choice" data-target="max-fee">
             <input id="cannotState" type="checkbox" name="cannotState" value="cannot" {% if form.valueFor('cannotState')  == 'cannot' %} checked="checked" {% endif %}>
             <label for="cannotState">{{ t("I can't state the value of the claim") }} </label>
           </div>
