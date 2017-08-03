@@ -14,6 +14,7 @@ import * as idamServiceMock from '../../../http-mocks/idam'
 import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
+const pageText = 'Has the defendant got a representative'
 
 describe('Claim issue: is defendant represented page', () => {
   beforeEach(() => {
@@ -30,7 +31,7 @@ describe('Claim issue: is defendant represented page', () => {
       await request(app)
         .get(ClaimPaths.defendantRepresentedPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText('Is the defendant represented?'))
+        .expect(res => expect(res).to.be.successful.withText(pageText))
     })
   })
 
@@ -43,7 +44,7 @@ describe('Claim issue: is defendant represented page', () => {
       await request(app)
         .post(ClaimPaths.defendantRepresentedPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText('Is the defendant represented?', 'div class="error-summary"'))
+        .expect(res => expect(res).to.be.successful.withText(pageText, 'div class="error-summary"'))
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
