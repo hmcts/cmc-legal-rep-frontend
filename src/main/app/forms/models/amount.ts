@@ -1,5 +1,5 @@
 import * as _ from 'lodash'
-import { IsDefined, Max, Min, ValidateIf, Contains } from 'class-validator'
+import { IsDefined, Max, Min, ValidateIf } from 'class-validator'
 import { Fractions } from 'forms/validation/validators/fractions'
 import { Serializable } from 'app/models/serializable'
 
@@ -14,8 +14,6 @@ export class ValidationErrors {
 export class Amount implements Serializable<Amount> {
   static readonly CANNOT_STATE_VALUE = 'cannot'
 
-  @ValidateIf(o => o.upperValue !== undefined)
-  @Contains(Amount.CANNOT_STATE_VALUE, { message: ValidationErrors.PICK_ONLY_ONE_OPTION})
   cannotState?: string
 
   @ValidateIf(o => o.cannotState !== Amount.CANNOT_STATE_VALUE)
