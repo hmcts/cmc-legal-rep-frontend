@@ -1,5 +1,5 @@
 {% extends "layout.njk" %}
-{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, radioOption, textInputInline %}
+{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, radioOption %}
 
 {% set title = t('Money claim') %}
 {% set heading = t('Enter claim value') %}
@@ -16,23 +16,31 @@
         <div class="form-group">
           {% set errorLowerValue = form.errorFor('lowerValue') %}
           {% set errorUpperValue = form.errorFor('upperValue') %}
-          {% if errorUpperValue or errorLowerValue %}
-            <div class="column-one-half no-padding">
-              <span class="error-message">{{ t(errorLowerValue) }}</span>
-            </div>
-            <div class="column-one-half no-padding">
-              <span class="error-message">{{ t(errorUpperValue) }}</span>
-            </div>
-          {% endif %}
-          <div class="column-one-half no-padding ">
-            {{ textInputInline( 'lowerValue', form,'form-control-3-4', 'input-symbol-pound', 'Lower value (optional)', 'form-block') }}
+          <div class="column-one-half no-padding">
+            <label for="lowerValue" id="lowerValue[label]" class="form-block">Lower value (optional)</label>
+            {% if errorUpperValue or errorLowerValue %}
+              <span class="error-message error-min-height">{{ t(errorLowerValue) }}</span>
+            {% endif %}
+            <span class="input-symbol-pound">
+              <input id="lowerValue" name="lowerValue" type="text" class="form-control form-control-3-4 {% if errorLowerValue %} form-control-error {% endif %}" value="{{ form.valueFor('lowerValue') }}">
+            </span>
           </div>
           <div class="column-one-half no-padding">
-            {{ textInputInline( 'upperValue', form, 'form-control-3-4','input-symbol-pound', 'Upper value', 'form-block') }}
+            <label for="upperValue" id="upperValue[label]" class="form-block">Upper value</label>
+            {% if errorUpperValue or errorLowerValue %}
+                <span class="error-message error-min-height">{{ t(errorUpperValue) }}</span>
+            {% endif %}
+            <span class="input-symbol-pound">
+              <input id="upperValue" name="upperValue" type="text" class="form-control form-control-3-4 {% if error %} form-control-error {% endif %}" value="{{ form.valueFor('upperValue') }}">
+            </span>
           </div>
         </div>
 
         <div class="form-group">
+          {% set errorCannotState = form.errorFor('cannotState') %}
+          {% if errorCannotState %}
+            <span class="error-message">{{ t(errorCannotState) }}</span>
+          {% endif %}
           <div class="multiple-choice" data-target="max-fee">
             <input id="cannotState" type="checkbox" name="cannotState" value="cannot" {% if form.valueFor('cannotState')  == 'cannot' %} checked="checked" {% endif %}>
             <label for="cannotState">{{ t("I can't state the value of the claim") }} </label>
