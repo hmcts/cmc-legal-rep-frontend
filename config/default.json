@@ -21,8 +21,7 @@
     "cookieName": "SESSION_ID"
   },
   "legal_frontend_analytics": {
-    "piwikTrackingId": "7",
-    "piwikTrackingSite": "https://hmctspiwik.useconnect.co.uk/"
+    "gaTrackingId": ""
   },
   "fees": {
     "url": "http://localhost:8182",
