@@ -12,6 +12,7 @@ import { ClaimantDetails } from 'app/forms/models/claimantDetails'
 import { DefendantDetails } from 'app/forms/models/defendantDetails'
 import { PartyTypes } from 'app/forms/models/partyTypes'
 import moment = require('moment')
+import CompanyName from 'app/forms/models/companyName'
 
 function mockedDraftClaim () {
   let draft = new DraftLegalClaim()
@@ -19,6 +20,7 @@ function mockedDraftClaim () {
   draft.claimant.claimantDetails = new ClaimantDetails()
   draft.claimant.claimantDetails.type = PartyTypes.INDIVIDUAL
   draft.representative = new Representative()
+  draft.representative.companyName = new CompanyName('name')
   draft.defendant = new Defendant()
   draft.defendant.defendantDetails = new DefendantDetails()
   draft.defendant.defendantDetails.type = PartyTypes.INDIVIDUAL
