@@ -2,7 +2,7 @@
 /* tslint:disable:no-unused-expression */
 
 import { expect } from 'chai'
-import * as _ from 'lodash'
+import * as randomstring from 'randomstring'
 import { Validator } from 'class-validator'
 
 import { expectValidationError } from './validationUtils'
@@ -27,10 +27,11 @@ describe('StatementOfTruth', () => {
     })
 
     it('should return a statementOfTruth instance with set fields from given object', () => {
-      let result = new StatementOfTruth().deserialize({
+      const result = new StatementOfTruth().deserialize({
         signerName: 'signerName',
         signerRole: 'signerRole'
       })
+
       expect(result.signerName).to.be.equals('signerName')
       expect(result.signerRole).to.be.equals('signerRole')
     })
@@ -64,14 +65,14 @@ describe('StatementOfTruth', () => {
     })
 
     it('should reject statementOfTruth with elements longer then upper limit', () => {
-      const errors = validator.validateSync(new StatementOfTruth(_.repeat('*', 71), _.repeat('*', 256)))
+      const errors = validator.validateSync(new StatementOfTruth(randomstring.generate(71), randomstring.generate(256)))
 
       expect(errors.length).to.equal(2)
       expectValidationError(errors, ValidationErrors.CONTENT_TOO_LONG)
     })
 
     it('should accept valid statementOfTruth upto to upper limit', () => {
-      const errors = validator.validateSync(new StatementOfTruth(_.repeat('*', 70), _.repeat('*', 255)))
+      const errors = validator.validateSync(new StatementOfTruth(randomstring.generate(70), randomstring.generate(255)))
 
       expect(errors.length).to.equal(0)
     })

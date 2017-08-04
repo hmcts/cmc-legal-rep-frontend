@@ -29,7 +29,6 @@ export class StatementOfTruth implements Serializable<StatementOfTruth> {
 
   static fromObject (value?: any): StatementOfTruth {
     if (value != null) {
-
       return new StatementOfTruth(value.signerName, value.signerRole)
     }
 
@@ -41,6 +40,7 @@ export class StatementOfTruth implements Serializable<StatementOfTruth> {
       this.signerName = input.signerName
       this.signerRole = input.signerRole
     }
+
     return this
   }
 }
