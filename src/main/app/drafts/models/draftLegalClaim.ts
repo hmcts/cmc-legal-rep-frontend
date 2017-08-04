@@ -7,6 +7,7 @@ import PreferredCourt from 'app/forms/models/preferredCourt'
 import Representative from 'drafts/models/representative'
 import Defendant from 'app/drafts/models/defendant'
 import Summary from 'app/forms/models/summary'
+import { StatementOfTruth } from 'app/forms/models/statementOfTruth'
 
 export default class DraftLegalClaim implements Serializable<DraftLegalClaim> {
   claimant: Claimant = new Claimant()
@@ -17,6 +18,7 @@ export default class DraftLegalClaim implements Serializable<DraftLegalClaim> {
   preferredCourt: PreferredCourt = new PreferredCourt()
   representative: Representative = new Representative()
   defendant: Defendant = new Defendant()
+  statementOfTruth: StatementOfTruth = new StatementOfTruth()
 
   deserialize (input: any): DraftLegalClaim {
     if (input) {
@@ -28,7 +30,9 @@ export default class DraftLegalClaim implements Serializable<DraftLegalClaim> {
       this.preferredCourt = new PreferredCourt().deserialize(input.preferredCourt)
       this.representative = new Representative().deserialize(input.representative)
       this.defendant = new Defendant().deserialize(input.defendant)
+      this.statementOfTruth = new StatementOfTruth().deserialize(input.statementOfTruth)
     }
+
     return this
   }
 }
