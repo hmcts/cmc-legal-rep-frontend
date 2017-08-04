@@ -9,7 +9,6 @@ export default express.Router()
     checks: {
       'draft-store': basicHealthCheck('draft-store'),
       'fees': basicHealthCheck('fees'),
-      'idam-service-2-service-auth': basicHealthCheck('idam.service-2-service-auth'),
       'idam-api': basicHealthCheck('idam.api'),
       'idam-authentication-web': basicHealthCheck('idam.authentication-web')
     }
