@@ -1,7 +1,7 @@
 {% extends "layout.njk" %}
 
 {% set title = t('Money claim') %}
-{% set heading = t('Is the defendant represented?') %}
+{% set heading = t("Has the defendant got a representative who's instructed to accept service?") %}
 
 {% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, radioOption, textInput %}
 
@@ -13,7 +13,7 @@
         {{ csrfProtection(csrf) }}
 
         {% set errorType = form.errorFor('isDefendantRepresented') %}
-        <fieldset class="form-group {% if errorType %} form-group-error {% endif %}">
+        <fieldset id="isDefendantRepresented[label]"  class="form-group {% if errorType %} form-group-error {% endif %}">
           <legend class="visuallyhidden">
             {{ t('Is the defendant represented?') }}
           </legend>

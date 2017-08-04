@@ -2,7 +2,7 @@
 /* tslint:disable:no-unused-expression */
 
 import { expect } from 'chai'
-import * as _ from 'lodash'
+import * as randomstring from 'randomstring'
 import { Validator } from 'class-validator'
 
 import { expectValidationError } from './validationUtils'
@@ -29,12 +29,13 @@ describe('Address', () => {
     })
 
     it('should return a Address instance with set fields from given object', () => {
-      let result = new Address().deserialize({
+      const result = new Address().deserialize({
         line1: 'AddressLine1',
         line2: 'AddressLine2',
         city: 'City',
         postcode: 'PostCode'
       })
+
       expect(result.line1).to.be.equals('AddressLine1')
       expect(result.line2).to.be.equals('AddressLine2')
       expect(result.city).to.be.equals('City')
@@ -62,28 +63,28 @@ describe('Address', () => {
     })
 
     it('should reject address with first line longer then upper limit', () => {
-      const errors = validator.validateSync(new Address(_.repeat('*', 101), '', '', 'SA1'))
+      const errors = validator.validateSync(new Address(randomstring.generate( 101 ), '', '', 'SA1'))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, ValidationErrors.CONTENT_TOO_LONG)
     })
 
     it('should reject address with second line longer then upper limit', () => {
-      const errors = validator.validateSync(new Address('Apartment 99', _.repeat('*', 101), '', 'SA1'))
+      const errors = validator.validateSync(new Address('Apartment 99',randomstring.generate( 101 ), '', 'SA1'))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, ValidationErrors.CONTENT_TOO_LONG)
     })
 
     it('should reject address with city longer then upper limit', () => {
-      const errors = validator.validateSync(new Address('Apartment 99', '', _.repeat('*', 61), 'SA1'))
+      const errors = validator.validateSync(new Address('Apartment 99', '', randomstring.generate( 61 ), 'SA1'))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, ValidationErrors.CONTENT_TOO_LONG)
     })
 
     it('should reject address with postcode longer then upper limit', () => {
-      const errors = validator.validateSync(new Address('Apartment 99', '', '', _.repeat('*', 9)))
+      const errors = validator.validateSync(new Address('Apartment 99', '', '',randomstring.generate( 9 )))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, ValidationErrors.CONTENT_TOO_LONG)
