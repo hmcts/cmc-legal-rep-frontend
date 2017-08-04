@@ -18,7 +18,7 @@ const cookieName: string = config.get<string>('session.cookieName')
 describe('Claim issue: claimant type page', () => {
   beforeEach(() => {
     mock.cleanAll()
-    draftStoreServiceMock.resolveRetrieve('claim')
+    draftStoreServiceMock.resolveRetrieve('legalClaim')
   })
 
   describe('on GET', () => {
@@ -48,7 +48,7 @@ describe('Claim issue: claimant type page', () => {
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
-      draftStoreServiceMock.rejectSave('claim', 'HTTP error')
+      draftStoreServiceMock.rejectSave('legalClaim', 'HTTP error')
 
       await request(app)
         .post(ClaimPaths.claimantTypePage.uri)
@@ -63,7 +63,7 @@ describe('Claim issue: claimant type page', () => {
 
     it('should redirect to claimant address page when form is valid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
-      draftStoreServiceMock.resolveSave('claim')
+      draftStoreServiceMock.resolveSave('legalClaim')
 
       await request(app)
         .post(ClaimPaths.claimantTypePage.uri)

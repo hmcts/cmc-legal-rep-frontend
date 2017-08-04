@@ -33,23 +33,24 @@
         </fieldset>
 
         {% set errorGeneral = form.errorFor('generalDamages') %}
-        <div class="panel panel-border-narrow js-hidden {% if errorDamages %} form-group-error {% endif %}" id="personalInjury-yes" aria-hidden="false">
-        <fieldset id="generalDamages[label]">
-          <legend class="form-group-compound">
-            <span class="form-label-bold">
-              {{ t('How much do you expect to recover as general damages for pain, suffering and amenity?') }}
-            </span>
-          </legend>
-          {% if errorGeneral %}<span class="error-message">{{ t(errorGeneral) }}</span>{% endif %}
-          {{ radioOption(form = form, name = 'generalDamages[value]', value = 'LESS',
-          label = t('£1,000 or less'), bold = false
-          )}}
+        <div class="panel panel-border-narrow js-hidden" id="personalInjury-yes" aria-hidden="false">
+          <div class="form-group {% if errorGeneral %} form-group-error {% endif %}">
+            <fieldset id="generalDamages[label]">
+              <legend class="form-group-compound">
+                <span class="form-label-bold">
+                  {{ t('How much do you expect to recover as general damages for pain, suffering and amenity?') }}
+                </span>
+              </legend>
+              {% if errorGeneral %}<span class="error-message">{{ t(errorGeneral) }}</span>{% endif %}
+              {{ radioOption(form = form, name = 'generalDamages[value]', value = 'LESS',
+              label = t('£1,000 or less'), bold = false
+              )}}
 
-          {{ radioOption(form = form, name = 'generalDamages[value]', value = 'MORE',
-          label = t('More than £1,000'), bold = false
-          )}}
-        </fieldset>
-
+              {{ radioOption(form = form, name = 'generalDamages[value]', value = 'MORE',
+              label = t('More than £1,000'), bold = false
+              )}}
+            </fieldset>
+          </div>
         </div>
 
         <div class="form-group">

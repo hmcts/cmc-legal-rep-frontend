@@ -14,7 +14,7 @@ function renderView (form: Form<YourReference>, res: express.Response) {
 
 export default express.Router()
   .get(Paths.yourReferencePage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.claimDraft.yourReference), res)
+    renderView(new Form(res.locals.user.legalClaimDraft.yourReference), res)
   })
   .post(Paths.yourReferencePage.uri, FormValidator.requestHandler(YourReference, YourReference.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -23,7 +23,7 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        res.locals.user.claimDraft.yourReference = form.model
+        res.locals.user.legalClaimDraft.yourReference = form.model
         await ClaimDraftMiddleware.save(res, next)
         res.redirect(Paths.preferredCourtPage.uri)
       }

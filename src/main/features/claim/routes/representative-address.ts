@@ -14,16 +14,16 @@ function renderView (form: Form<Address>, res: express.Response): void {
 
 export default express.Router()
   .get(Paths.representativeAddressPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.claimDraft.representative.address), res)
+    renderView(new Form(res.locals.user.legalClaimDraft.representative.address), res)
   })
-  .post(Paths.representativeAddressPage.uri, FormValidator.requestHandler(Address),
+  .post(Paths.representativeAddressPage.uri, FormValidator.requestHandler(Address, Address.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form: Form<Address> = req.body
 
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        res.locals.user.claimDraft.representative.address = form.model
+        res.locals.user.legalClaimDraft.representative.address = form.model
         await ClaimDraftMiddleware.save(res, next)
         res.redirect(Paths.representativeContactsPage.uri)
       }

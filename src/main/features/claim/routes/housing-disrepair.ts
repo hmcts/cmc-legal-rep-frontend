@@ -15,7 +15,7 @@ function renderView (form: Form<HousingDisrepair>, res: express.Response) {
 
 export default express.Router()
   .get(Paths.housingDisrepairPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.claimDraft.housingDisrepair), res)
+    renderView(new Form(res.locals.user.legalClaimDraft.housingDisrepair), res)
   })
   .post(Paths.housingDisrepairPage.uri, FormValidator.requestHandler(HousingDisrepair, HousingDisrepair.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -28,7 +28,8 @@ export default express.Router()
           form.model.generalDamages = undefined
           form.model.otherDamages = undefined
         }
-        res.locals.user.claimDraft.housingDisrepair = form.model
+
+        res.locals.user.legalClaimDraft.housingDisrepair = form.model
         await ClaimDraftMiddleware.save(res, next)
         res.redirect(Paths.summariseTheClaimPage.uri)
 

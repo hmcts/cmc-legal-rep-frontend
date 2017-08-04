@@ -15,10 +15,10 @@ import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
 
-describe('Claim issue: housing disrepair page', () => {
+describe('Claim issue: Briefly describe the claim page', () => {
   beforeEach(() => {
     mock.cleanAll()
-    draftStoreServiceMock.resolveRetrieve('claim')
+    draftStoreServiceMock.resolveRetrieve('legalClaim')
   })
 
   describe('on GET', () => {
@@ -30,7 +30,7 @@ describe('Claim issue: housing disrepair page', () => {
       await request(app)
         .get(ClaimPaths.summariseTheClaimPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText('Summarise the claim'))
+        .expect(res => expect(res).to.be.successful.withText('Briefly describe the claim'))
     })
   })
 
@@ -43,12 +43,12 @@ describe('Claim issue: housing disrepair page', () => {
       await request(app)
         .post(ClaimPaths.summariseTheClaimPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText('Summarise the claim', 'div class="error-summary"'))
+        .expect(res => expect(res).to.be.successful.withText('Briefly describe the claim', 'div class="error-summary"'))
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
-      draftStoreServiceMock.rejectSave('claim', 'HTTP error')
+      draftStoreServiceMock.rejectSave('legalClaim', 'HTTP error')
 
       await request(app)
         .post(ClaimPaths.summariseTheClaimPage.uri)
@@ -61,7 +61,7 @@ describe('Claim issue: housing disrepair page', () => {
 
     it('should redirect to not implemented page when form is valid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
-      draftStoreServiceMock.resolveSave('claim')
+      draftStoreServiceMock.resolveSave('legalClaim')
 
       await request(app)
         .post(ClaimPaths.summariseTheClaimPage.uri)
