@@ -1,0 +1,49 @@
+{% extends "layout.njk" %}
+{% from "form.njk" import csrfProtection, saveAndContinueButton %}
+
+{% set title = t('Money claim') %}
+{% set heading = t('Your issue fee') %}
+
+{% block content %}
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <form novalidate method="post" class="form-group">
+        {{ csrfProtection(csrf) }}
+
+        <table class="table-form form-group">
+          <thead>
+          <tr>
+            <th class="font-small" scope="col"></th>
+            <th class="numeric last" scope="col">{{ t('Amount') }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th class="font-small" scope="row">{{ t('Amount claimed') }}</th>
+            <td class="numeric last">
+              {{ t('To be assessed') }}
+            </td>
+          </tr>
+          <tr>
+            <th class="font-small" scope="row">{{ t('Legal representative’s costs') }}</th>
+            <td class="numeric last">
+              {{ t('To be assessed') }}
+            </td>
+          </tr>
+          <tr>
+            <th class="bold-small" scope="row">Issue fee (based on {{ higherValue | numeral }} higher value)</th>
+            <td class="numeric last">
+              <span class="bold-small">{{ feeAmount | numeral }}</span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <div class="form-group">
+          {{ saveAndContinueButton() }}
+        </div>
+
+      </form>
+    </div>
+  </div>
+{% endblock %}
