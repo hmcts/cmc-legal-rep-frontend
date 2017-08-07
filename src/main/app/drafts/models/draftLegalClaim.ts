@@ -9,6 +9,7 @@ import Defendant from 'app/drafts/models/defendant'
 import Summary from 'app/forms/models/summary'
 import { StatementOfTruth } from 'app/forms/models/statementOfTruth'
 import { Amount } from 'app/forms/models/amount'
+import { FeeAccount } from 'forms/models/FeeAccount'
 
 export default class DraftLegalClaim implements Serializable<DraftLegalClaim> {
   claimant: Claimant = new Claimant()
@@ -21,6 +22,7 @@ export default class DraftLegalClaim implements Serializable<DraftLegalClaim> {
   representative: Representative = new Representative()
   defendant: Defendant = new Defendant()
   statementOfTruth: StatementOfTruth = new StatementOfTruth()
+  feeAccount: FeeAccount = new FeeAccount()
 
   deserialize (input: any): DraftLegalClaim {
     if (input) {
@@ -34,6 +36,7 @@ export default class DraftLegalClaim implements Serializable<DraftLegalClaim> {
       this.representative = new Representative().deserialize(input.representative)
       this.defendant = new Defendant().deserialize(input.defendant)
       this.statementOfTruth = new StatementOfTruth().deserialize(input.statementOfTruth)
+      this.feeAccount = new FeeAccount().deserialize(input.feeAccount)
     }
 
     return this
