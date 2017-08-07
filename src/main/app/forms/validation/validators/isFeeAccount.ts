@@ -6,6 +6,8 @@ import {
   ValidationArguments
 } from 'class-validator'
 
+import * as validator from 'validator'
+
 @ValidatorConstraint()
 export class IsFeeAccountConstraint implements ValidatorConstraintInterface {
 
@@ -18,14 +20,16 @@ export class IsFeeAccountConstraint implements ValidatorConstraintInterface {
       return false
     }
 
-    const feeAccountRule: RegExp = new RegExp(/^PBA[0-9]{7}$/g)
-    return feeAccountRule.test(value)
+    return validator.matches(value, new RegExp(/^PBA[0-9]{7}$/g))
   }
 
 }
 
 /**
- * Verify a valid fee account number.*
+ * Verify a valid fee account number based on the rules:
+ * A Fee Account reference must be in the format PBAnnnnnnn (where n is a number from 0 to 9)
+ * A Fee Account references must have a prefix PBA
+ * A Fee Account reference must have a 7 digit suffix
  */
 export function IsFeeAccount (validationOptions?: ValidationOptions) {
   return function (object: Object, propertyName: string) {

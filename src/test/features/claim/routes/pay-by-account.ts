@@ -58,7 +58,7 @@ describe('Claim : Pay by Fee Account page', () => {
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
 
-    it('should redirect to representative-address page when form is valid and everything is fine', async () => {
+    it('should redirect to claim submitted page when form is valid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
       draftStoreServiceMock.resolveSave('legalClaim')
 
@@ -66,7 +66,7 @@ describe('Claim : Pay by Fee Account page', () => {
         .post(ClaimPaths.payByAccountPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({ reference: 'PBA1234567' })
-        .expect(res => expect(res).to.be.redirect.toLocation('/not-implemented-yet'))
+        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimSubmittedPage.uri))
     })
   })
 })

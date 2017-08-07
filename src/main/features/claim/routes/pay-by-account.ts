@@ -27,7 +27,7 @@ export default express.Router()
       } else {
         res.locals.user.legalClaimDraft.feeAccount.reference = form.model
         await ClaimDraftMiddleware.save(res, next)
-        res.redirect('/not-implemented-yet')
+        res.redirect(Paths.claimSubmittedPage.uri)
       }
 
     }))
