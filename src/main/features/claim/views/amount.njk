@@ -21,14 +21,18 @@
             {% if errorUpperValue or errorLowerValue %}
               <span class="error-message error-min-height">{{ t(errorLowerValue) }}</span>
             {% endif %}
-            <input id="lowerValue" name="lowerValue" type="text" class="form-control form-control-3-4 {% if errorLowerValue %} form-control-error {% endif %}" value="{{ form.valueFor('lowerValue') | numeral}}">
+            <span class="input-symbol-pound">
+              <input id="lowerValue" name="lowerValue" type="text" class="form-control form-control-3-4 {% if errorLowerValue %} form-control-error {% endif %}" value="{{ form.valueFor('lowerValue') }}">
+            </span>
           </div>
           <div class="column-one-half no-padding">
             <label for="upperValue" id="upperValue[label]" class="form-block">{{ t('Upper value')}}</label>
             {% if errorUpperValue or errorLowerValue %}
                 <span class="error-message error-min-height">{{ t(errorUpperValue) }}</span>
             {% endif %}
-            <input id="upperValue" name="upperValue" type="text" class="form-control form-control-3-4 {% if error %} form-control-error {% endif %}" value="{{ form.valueFor('upperValue') | numeral }}">
+            <span class="input-symbol-pound">
+              <input id="upperValue" name="upperValue" type="text" class="form-control form-control-3-4 {% if error %} form-control-error {% endif %}" value="{{ form.valueFor('upperValue') }}">
+            </span>
           </div>
         </div>
 
