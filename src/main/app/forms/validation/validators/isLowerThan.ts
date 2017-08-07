@@ -6,7 +6,7 @@ import {
   ValidatorConstraintInterface
 } from 'class-validator'
 
-@ValidatorConstraint({ name: 'isLongerThan' })
+@ValidatorConstraint({ name: 'isLowerThan' })
 export class IsLowerThanConstraint implements ValidatorConstraintInterface {
 
   validate (value: any, args: ValidationArguments) {

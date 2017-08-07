@@ -3,7 +3,7 @@ import { IsLowerThanConstraint } from 'app/forms/validation/validators/isLowerTh
 import { ValidationArguments } from 'class-validator'
 
 /**
- * The tests below are aligned to what GOV.UK Notify is accepting and not how we would like to validate phone numbers.
+ * The tests below are comparing one property value again another.
  */
 describe('IsLowerThanConstraint', () => {
   const constraint: IsLowerThanConstraint = new IsLowerThanConstraint()
