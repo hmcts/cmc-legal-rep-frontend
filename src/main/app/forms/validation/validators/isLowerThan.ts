@@ -10,6 +10,10 @@ import {
 export class IsLowerThanConstraint implements ValidatorConstraintInterface {
 
   validate (value: any, args: ValidationArguments) {
+    if (value == null) {
+      return true
+    }
+
     const [relatedPropertyName] = args.constraints
     const relatedValue = (args.object as any)[relatedPropertyName]
 
