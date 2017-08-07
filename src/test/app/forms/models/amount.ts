@@ -74,7 +74,7 @@ describe('Amount', () => {
       const errors = validator.validateSync(new Amount(100, 10, undefined))
 
       expect(errors.length).to.equal(1)
-      expectValidationError(errors, ValidationErrors.LOWER_VALUE_AMOUNT_NOT_VALID)
+      expectValidationError(errors, ValidationErrors.LOWER_VALUE_LESS_THAN_UPPER_NOT_VALID)
     })
 
     it('should accept amount with lower value equal to upper value', () => {
