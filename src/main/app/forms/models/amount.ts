@@ -5,9 +5,9 @@ import { Serializable } from 'app/models/serializable'
 import { IsLowerThan } from 'app/forms/validation/validators/isLowerThan'
 
 export class ValidationErrors {
-  static readonly VALID_SELECTION_REQUIRED: string = 'Enter a value or choose ‘I can’t state the value'
+  static readonly VALID_SELECTION_REQUIRED: string = 'Enter a value or choose ‘I can’t state the value’'
   static readonly UPPER_VALUE_AMOUNT_NOT_VALID: string = 'Enter valid upper value'
-  static readonly LOWER_VALUE_LESS_THAN_UPPER_NOT_VALID: string = "Higher value can't be less than lower value"
+  static readonly LOWER_VALUE_LESS_THAN_UPPER_NOT_VALID: string = "Upper value can't be less than lower value"
   static readonly AMOUNT_INVALID_DECIMALS: string = 'Enter a maximum two decimal places'
 }
 

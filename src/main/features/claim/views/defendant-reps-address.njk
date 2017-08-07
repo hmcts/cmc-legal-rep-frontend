@@ -7,9 +7,9 @@
 {% block content %}
   <div class="grid-row">
     <div class="column-two-thirds">
-      <h1 class="heading-large"><span class="form-hint">{{ t("Defendant's representative: ") }}{{ name }}</span>
+      <p class="bold-medium"><span class="form-hint">{{ t("Defendant's representative: ") }}{{ name }}</span>
         {{ t('Address for service') }}
-      </h1>
+      </p>
 
       {{ addressForm(form, csrf) }}
 

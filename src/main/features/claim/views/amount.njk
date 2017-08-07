@@ -9,7 +9,7 @@
 
   <div class="grid-row">
     <div class="column-two-thirds">
-      <h1 class="heading-medium">{{ t('Your fee will be calculated based on the higher value.') }}</h1>
+      <p class="bold-medium">{{ t('Your fee will be calculated based on the higher value.') }}</p>
       <form novalidate method="post">
         {{ csrfProtection(csrf) }}
 
@@ -17,7 +17,7 @@
           {% set errorLowerValue = form.errorFor('lowerValue') %}
           {% set errorUpperValue = form.errorFor('upperValue') %}
           <div class="column-one-half no-padding">
-            <label for="lowerValue" id="lowerValue[label]" class="form-block">{{ t('Lower value (optional)')}}</label>
+            <label for="lowerValue" id="lowerValue[label]" class="form-label">{{ t('Lower value (optional)')}}</label>
             {% if errorUpperValue or errorLowerValue %}
               <span class="error-message error-min-height">{{ t(errorLowerValue) }}</span>
             {% endif %}
@@ -26,7 +26,7 @@
             </span>
           </div>
           <div class="column-one-half no-padding">
-            <label for="upperValue" id="upperValue[label]" class="form-block">{{ t('Upper value')}}</label>
+            <label for="upperValue" id="upperValue[label]" class="form-label">{{ t('Upper value')}}</label>
             {% if errorUpperValue or errorLowerValue %}
                 <span class="error-message error-min-height">{{ t(errorUpperValue) }}</span>
             {% endif %}
