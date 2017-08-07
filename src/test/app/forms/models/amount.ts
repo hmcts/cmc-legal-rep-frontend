@@ -70,6 +70,19 @@ describe('Amount', () => {
       expectValidationError(errors, ValidationErrors.UPPER_VALUE_AMOUNT_NOT_VALID)
     })
 
+    it('should reject amount with lower value greater than upper value', () => {
+      const errors = validator.validateSync(new Amount(100, 10, undefined))
+
+      expect(errors.length).to.equal(1)
+      expectValidationError(errors, ValidationErrors.LOWER_VALUE_AMOUNT_NOT_VALID)
+    })
+
+    it('should accept amount with lower value equal to upper value', () => {
+      const errors = validator.validateSync(new Amount(100, 100, undefined))
+
+      expect(errors.length).to.equal(0)
+    })
+
     it('should reject amount with values having more than two decimal spaces', () => {
       const errors = validator.validateSync(new Amount(12.123, 3435.32434, ''))
 
@@ -90,8 +103,21 @@ describe('Amount', () => {
       expectValidationError(errors, ValidationErrors.VALID_SELECTION_REQUIRED)
     })
 
-    it('should accept when only cannot state selected', () => {
+    it('should reject Nan Upper value', () => {
+      const errors = validator.validateSync(new Amount(100, Number.NaN, ''))
+
+      expect(errors.length).to.equal(1)
+      expectValidationError(errors, ValidationErrors.UPPER_VALUE_AMOUNT_NOT_VALID)
+    })
+
+    it('should accept when upper value is null and cannot state is selected', () => {
       const errors = validator.validateSync(new Amount(100, null, Amount.CANNOT_STATE_VALUE))
+
+      expect(errors.length).to.equal(0)
+    })
+
+    it('should accept when upper value is Nan and cannot state is selected', () => {
+      const errors = validator.validateSync(new Amount(100, NaN, Amount.CANNOT_STATE_VALUE))
 
       expect(errors.length).to.equal(0)
     })
