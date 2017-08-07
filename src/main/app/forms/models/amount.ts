@@ -1,19 +1,19 @@
 import * as _ from 'lodash'
-import { IsDefined, Max, Min, ValidateIf } from 'class-validator'
+import { IsDefined, IsEmpty, Max, Min, ValidateIf } from 'class-validator'
 import { Fractions } from 'forms/validation/validators/fractions'
 import { Serializable } from 'app/models/serializable'
 
 export class ValidationErrors {
-  static readonly UPPER_VALUE_REQUIRED: string = 'Enter a value or choose ‘I can’t state the value’'
+  static readonly VALID_SELECTION_REQUIRED: string = 'Enter a value or choose ‘I can’t state the value’'
   static readonly UPPER_VALUE_AMOUNT_NOT_VALID: string = 'Enter valid upper value'
-  static readonly LOWER_VALUE_AMOUNT_NOT_VALID: string = 'Enter valid lower value'
-  static readonly PICK_ONLY_ONE_OPTION: string = 'You have stated an upper value'
   static readonly AMOUNT_INVALID_DECIMALS: string = 'Enter a maximum two decimal places'
 }
 
 export class Amount implements Serializable<Amount> {
   static readonly CANNOT_STATE_VALUE = 'cannot'
 
+  @ValidateIf(o => o.upperValue && o.upperValue > 0)
+  @IsEmpty({ message: ValidationErrors.VALID_SELECTION_REQUIRED })
   cannotState?: string
 
   @ValidateIf(o => o.cannotState !== Amount.CANNOT_STATE_VALUE)
@@ -21,7 +21,7 @@ export class Amount implements Serializable<Amount> {
   lowerValue?: number
 
   @ValidateIf(o => o.cannotState !== Amount.CANNOT_STATE_VALUE)
-  @IsDefined({ message: ValidationErrors.UPPER_VALUE_REQUIRED })
+  @IsDefined({ message: ValidationErrors.VALID_SELECTION_REQUIRED })
   @Min(0.01, { message: ValidationErrors.UPPER_VALUE_AMOUNT_NOT_VALID })
   @Max(99999.99, { message: ValidationErrors.UPPER_VALUE_AMOUNT_NOT_VALID })
   @Fractions(0, 2, { message: ValidationErrors.AMOUNT_INVALID_DECIMALS })

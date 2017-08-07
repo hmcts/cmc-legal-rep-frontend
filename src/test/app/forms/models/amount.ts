@@ -53,14 +53,14 @@ describe('Amount', () => {
       const errors = validator.validateSync(new Amount(undefined, undefined, undefined))
 
       expect(errors.length).to.equal(1)
-      expectValidationError(errors, ValidationErrors.UPPER_VALUE_REQUIRED)
+      expectValidationError(errors, ValidationErrors.VALID_SELECTION_REQUIRED)
     })
 
     it('should reject amount with values null', () => {
       const errors = validator.validateSync(new Amount(null, null, null))
 
       expect(errors.length).to.equal(1)
-      expectValidationError(errors, ValidationErrors.UPPER_VALUE_REQUIRED)
+      expectValidationError(errors, ValidationErrors.VALID_SELECTION_REQUIRED)
     })
 
     it('should reject amount with upper value greater than 99999.99', () => {
@@ -79,6 +79,19 @@ describe('Amount', () => {
 
     it('should accept valid amount', () => {
       const errors = validator.validateSync(new Amount(100, 19090, ''))
+
+      expect(errors.length).to.equal(0)
+    })
+
+    it('should reject all fields selections', () => {
+      const errors = validator.validateSync(new Amount(100, 19090, Amount.CANNOT_STATE_VALUE))
+
+      expect(errors.length).to.equal(1)
+      expectValidationError(errors, ValidationErrors.VALID_SELECTION_REQUIRED)
+    })
+
+    it('should accept when only cannot state selected', () => {
+      const errors = validator.validateSync(new Amount(100, null, Amount.CANNOT_STATE_VALUE))
 
       expect(errors.length).to.equal(0)
     })

@@ -43,7 +43,7 @@
           {% endif %}
           <div class="multiple-choice" data-target="max-fee">
             <input id="cannotState" type="checkbox" name="cannotState" value="cannot" {% if form.valueFor('cannotState')  == 'cannot' %} checked="checked" {% endif %}>
-            <label for="cannotState">{{ t("I can't state the value of the claim") }} </label>
+            <label for="cannotState" id="cannotState[label]" class="form-label">{{ t("I can't state the value of the claim") }} </label>
           </div>
 
           <div class="form-group panel panel-border-narrow js-hidden" id="max-fee" aria-hidden="false">
