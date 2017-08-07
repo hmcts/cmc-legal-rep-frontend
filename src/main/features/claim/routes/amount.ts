@@ -26,7 +26,7 @@ export default express.Router()
         renderView(form, res)
       } else {
         if (form.model.cannotState === Amount.CANNOT_STATE_VALUE) {
-          form.model.upperValue = undefined
+          form.model.higherValue = undefined
           form.model.lowerValue = undefined
         } else {
           form.model.cannotState = undefined

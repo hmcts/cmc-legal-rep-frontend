@@ -9,7 +9,7 @@ import Defendant from 'app/drafts/models/defendant'
 import Summary from 'app/forms/models/summary'
 import { StatementOfTruth } from 'app/forms/models/statementOfTruth'
 import { Amount } from 'app/forms/models/amount'
-import { FeeAccount } from 'forms/models/FeeAccount'
+import { FeeAccount } from 'forms/models/feeAccount'
 
 export default class DraftLegalClaim implements Serializable<DraftLegalClaim> {
   claimant: Claimant = new Claimant()

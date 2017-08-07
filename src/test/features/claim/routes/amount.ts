@@ -56,7 +56,7 @@ describe('Claim issue: Enter claim range page', () => {
         .send({
           cannotState: '',
           lowerValue: '',
-          upperValue: '10000'
+          higherValue: '10000'
         })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
@@ -71,7 +71,7 @@ describe('Claim issue: Enter claim range page', () => {
         .send({
           cannotState: '',
           lowerValue: '',
-          upperValue: '10000'
+          higherValue: '10000'
         })
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimTotalPage.uri))
     })

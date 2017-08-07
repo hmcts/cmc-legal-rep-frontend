@@ -13,29 +13,29 @@ describe('Amount', () => {
       let amount = new Amount()
       expect(amount.cannotState).to.be.undefined
       expect(amount.lowerValue).to.be.undefined
-      expect(amount.upperValue).to.be.undefined
+      expect(amount.higherValue).to.be.undefined
     })
   })
 
   describe('deserialize', () => {
-    it('should return a Address instance initialised with defaults for undefined', () => {
+    it('should return a Amount instance initialised with defaults for undefined', () => {
       expect(new Amount().deserialize(undefined)).to.eql(new Amount())
     })
 
-    it('should return a Address instance initialised with defaults for null', () => {
+    it('should return a Amount instance initialised with defaults for null', () => {
       expect(new Amount().deserialize(null)).to.eql(new Amount())
     })
 
-    it('should return a Address instance with set fields from given object', () => {
+    it('should return a Amount instance with set fields from given object', () => {
       let amount = new Amount().deserialize({
         cannotState: undefined,
         lowerValue: 1212.12,
-        upperValue: 12332.21
+        higherValue: 12332.21
       })
 
       expect(amount.cannotState).to.be.undefined
       expect(amount.lowerValue).to.be.equal(1212.12)
-      expect(amount.upperValue).to.be.equal(12332.21)
+      expect(amount.higherValue).to.be.equal(12332.21)
     })
   })
 
@@ -46,7 +46,7 @@ describe('Amount', () => {
       const errors = validator.validateSync(new Amount(0, 0, ''))
 
       expect(errors.length).to.equal(1)
-      expectValidationError(errors, ValidationErrors.UPPER_VALUE_AMOUNT_NOT_VALID)
+      expectValidationError(errors, ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID)
     })
 
     it('should reject amount with values undefined', () => {
@@ -67,7 +67,7 @@ describe('Amount', () => {
       const errors = validator.validateSync(new Amount(0, 100000, undefined))
 
       expect(errors.length).to.equal(1)
-      expectValidationError(errors, ValidationErrors.UPPER_VALUE_AMOUNT_NOT_VALID)
+      expectValidationError(errors, ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID)
     })
 
     it('should reject amount with lower value greater than upper value', () => {
@@ -107,7 +107,7 @@ describe('Amount', () => {
       const errors = validator.validateSync(new Amount(100, Number.NaN, ''))
 
       expect(errors.length).to.equal(1)
-      expectValidationError(errors, ValidationErrors.UPPER_VALUE_AMOUNT_NOT_VALID)
+      expectValidationError(errors, ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID)
     })
 
     it('should accept when upper value is null and cannot state is selected', () => {
@@ -130,30 +130,30 @@ describe('Amount', () => {
 
       expect(amount.cannotState).to.equal(undefined)
       expect(amount.lowerValue).to.equal(undefined)
-      expect(amount.upperValue).to.equal(undefined)
+      expect(amount.higherValue).to.equal(undefined)
     })
 
     it('should have amount elements undefined when input has undefined element value', () => {
       const amount = Amount.fromObject({
         cannotState: undefined,
         lowerValue: undefined,
-        upperValue: undefined
+        higherValue: undefined
       })
 
       expect(amount.cannotState).to.equal(undefined)
       expect(amount.lowerValue).to.equal(undefined)
-      expect(amount.upperValue).to.equal(undefined)
+      expect(amount.higherValue).to.equal(undefined)
     })
 
     it('should have valid amount details elements provided lower and uppr value', () => {
       const amount = Amount.fromObject({
         lowerValue: '500',
-        upperValue: '10000'
+        higherValue: '10000'
       })
 
       expect(amount.cannotState).to.equal(undefined)
       expect(amount.lowerValue).to.equal(500)
-      expect(amount.upperValue).to.equal(10000)
+      expect(amount.higherValue).to.equal(10000)
     })
 
     it('should have valid amount details elements provided cannot state value', () => {
@@ -163,7 +163,7 @@ describe('Amount', () => {
 
       expect(amount.cannotState).to.equal(Amount.CANNOT_STATE_VALUE)
       expect(amount.lowerValue).to.equal(undefined)
-      expect(amount.upperValue).to.equal(undefined)
+      expect(amount.higherValue).to.equal(undefined)
     })
   })
 })
