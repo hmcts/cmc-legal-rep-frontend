@@ -22,6 +22,7 @@ export default express.Router()
   .post(Paths.payByAccountPage.uri, FormValidator.requestHandler(FeeAccount, FeeAccount.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form: Form<FeeAccount> = req.body
+
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
