@@ -8,17 +8,16 @@ import { DefendantDetails } from 'app/forms/models/defendantDetails'
 
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import ErrorHandling from 'common/errorHandling'
-import { Defendants } from 'common/router/defendants'
 
 function renderView (form: Form<DefendantDetails>, res: express.Response) {
-  res.render(Paths.defendantTypePage.associatedView, { form: form })
+  res.render(Paths.defendantAdditionPage.associatedView, { form: form })
 }
 
 export default express.Router()
-  .get(Paths.defendantTypePage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentNumber(res)].defendantDetails), res)
+  .get(Paths.defendantAdditionPage.uri, (req: express.Request, res: express.Response) => {
+    renderView(new Form(res.locals.user.legalClaimDragulpft.defendant.defendantDetails), res)
   })
-  .post(Paths.defendantTypePage.uri, FormValidator.requestHandler(DefendantDetails, DefendantDetails.fromObject),
+  .post(Paths.defendantAdditionPage.uri, FormValidator.requestHandler(DefendantDetails, DefendantDetails.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form: Form<DefendantDetails> = req.body
 
@@ -33,7 +32,7 @@ export default express.Router()
           form.model.fullName = null
         }
 
-        res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentNumber(res)].defendantDetails = form.model
+        res.locals.user.legalClaimDraft.defendant.defendantDetails = form.model
         await ClaimDraftMiddleware.save(res, next)
         res.redirect(Paths.defendantAddressPage.uri)
 

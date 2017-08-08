@@ -18,7 +18,7 @@ export default class DraftLegalClaim implements Serializable<DraftLegalClaim> {
   housingDisrepair: HousingDisrepair = new HousingDisrepair()
   preferredCourt: PreferredCourt = new PreferredCourt()
   representative: Representative = new Representative()
-  defendant: Defendant = new Defendant()
+  defendants: Defendant[] = [new Defendant()]
   statementOfTruth: StatementOfTruth = new StatementOfTruth()
   feeAccount: FeeAccount = new FeeAccount()
 
@@ -31,9 +31,14 @@ export default class DraftLegalClaim implements Serializable<DraftLegalClaim> {
       this.housingDisrepair = new HousingDisrepair().deserialize(input.housingDisrepair)
       this.preferredCourt = new PreferredCourt().deserialize(input.preferredCourt)
       this.representative = new Representative().deserialize(input.representative)
-      this.defendant = new Defendant().deserialize(input.defendant)
       this.statementOfTruth = new StatementOfTruth().deserialize(input.statementOfTruth)
       this.feeAccount = new FeeAccount().deserialize(input.feeAccount)
+
+      if (input.defendants && input.defendants.length > 0) {
+        let defendants: Defendant[] = []
+        input.defendants.map((defendant) => defendants.push(new Defendant().deserialize(defendant)))
+        this.defendants = defendants
+      }
     }
 
     return this

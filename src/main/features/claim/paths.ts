@@ -13,6 +13,7 @@ export class Paths {
   static readonly representativeContactsPage = new RoutablePath('/claim/representative-contacts')
   static readonly representativeAddressPage = new RoutablePath('/claim/representative-address')
   static readonly defendantTypePage = new RoutablePath('/claim/defendant-type')
+  static readonly defendantAdditionPage = new RoutablePath('/claim/defendant-add')
   static readonly claimantTypePage = new RoutablePath('/claim/claimant-type')
   static readonly defendantAddressPage = new RoutablePath('/claim/defendant-address')
   static readonly defendantRepresentedPage = new RoutablePath('/claim/defendant-represented')
