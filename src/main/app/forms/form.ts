@@ -40,7 +40,6 @@ export class FormValidationError extends ValidationError {
 
     const firstConstraintName: string = Object.keys(error.constraints).reverse()[0]
     this.message = error.constraints[firstConstraintName]
-    console.log(this.message)
   }
 }
 
@@ -73,8 +72,6 @@ export class Form<Model> {
    * @param fieldName - field name / model property
    */
   errorFor (fieldName: string): string {
-    console.log(fieldName)
-    console.log(this.errors)
     return this.errors
       .filter((error: FormValidationError) => error.fieldName === fieldName)
       .map((error: FormValidationError) => error.message)[0]

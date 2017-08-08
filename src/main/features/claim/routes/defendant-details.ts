@@ -15,7 +15,7 @@ function renderView (form: Form<DefendantDetails>, res: express.Response) {
 
   res.render(Paths.defendantTypePage.associatedView, {
     form: form,
-    defendantNumber: defendants.length > 0 ? 'Defendant ' + defendants.length + ' : ' : null
+    defendantNumber: defendants.length >= 2 ? 'Defendant ' + defendants.length + ' : ' : null
   })
 }
 

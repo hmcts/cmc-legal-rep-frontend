@@ -15,7 +15,7 @@ function renderView (form: Form<Address>, res: express.Response): void {
   res.render(Paths.defendantRepAddressPage.associatedView, {
     form: form,
     name: defendants[Defendants.getCurrentNumber(res)].defendantRepresented.companyName,
-    defendantNumber: defendants.length > 0 ? 'Defendant ' + defendants.length + '\'s representative: ' : null
+    defendantNumber: defendants.length >= 2 ? 'Defendant ' + defendants.length + '\'s representative: ' : null
   })
 }
 

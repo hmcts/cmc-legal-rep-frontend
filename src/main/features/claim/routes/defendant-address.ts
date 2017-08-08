@@ -20,7 +20,7 @@ function renderView (form: Form<Address>, res: express.Response): void {
   res.render(Paths.defendantAddressPage.associatedView, {
     form: form,
     name: name,
-    defendantNumber: defendants.length > 0 ? 'Defendant ' + defendants.length + ' : ' : null
+    defendantNumber: defendants.length >= 2 ? 'Defendant ' + defendants.length + ' : ' : null
   })
 }
 
