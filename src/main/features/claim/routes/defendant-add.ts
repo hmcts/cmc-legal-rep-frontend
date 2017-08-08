@@ -12,9 +12,11 @@ import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import { ValidationError } from 'class-validator'
 
 function renderView (form: Form<DefendantAddition>, res: express.Response) {
+  const defendants = res.locals.user.legalClaimDraft.defendants
+
   res.render(Paths.defendantAdditionPage.associatedView, {
     form: form,
-    defendants: res.locals.user.legalClaimDraft.defendants.length > 1 ? res.locals.user.legalClaimDraft.defendants : null
+    defendants: defendants.length > 1 ? defendants : null
   })
 }
 
@@ -23,7 +25,7 @@ let addErrorMessage = function (form: Form<DefendantAddition>) {
   validationError.property = 'isAddDefendant'
   validationError.target = { 'isAddDefendant': 'YES' }
   validationError.value = 'YES'
-  validationError.constraints = { ['isAddDefendant']: 'You have already added 4 defendants' }
+  validationError.constraints = { ['isAddDefendant']: 'Remove a defendant to add more' }
   form.errors.push(new FormValidationError(validationError, ''))
 }
 export default express.Router()

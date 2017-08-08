@@ -16,7 +16,7 @@ export class Defendants {
     let defendants: Defendant[] = []
 
     res.locals.user.legalClaimDraft.defendants.forEach((defendant, index) => {
-      if (index !== id) {
+      if (index != id) {
         defendants.push(new Defendant().deserialize(defendant))
       }
     })

@@ -11,7 +11,12 @@ import { Defendants } from 'common/router/defendants'
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 
 function renderView (form: Form<DefendantRepresented>, res: express.Response) {
-  res.render(Paths.defendantRepresentedPage.associatedView, { form: form })
+  const defendants = res.locals.user.legalClaimDraft.defendants
+
+  res.render(Paths.defendantRepresentedPage.associatedView, {
+    form: form,
+    defendantNumber: defendants.length > 0 ? 'Defendant ' + defendants.length + ' : ' : null
+  })
 }
 
 export default express.Router()

@@ -11,14 +11,16 @@ import ErrorHandling from 'common/errorHandling'
 import { Defendants } from 'common/router/defendants'
 
 function renderView (form: Form<Address>, res: express.Response): void {
-  const defendantDetails = res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentNumber(res)].defendantDetails
+  const defendants = res.locals.user.legalClaimDraft.defendants
+  const defendantDetails = defendants[Defendants.getCurrentNumber(res)].defendantDetails
   const isIndividual = defendantDetails.type.value === PartyTypes.INDIVIDUAL.value
   const title = defendantDetails.title != null ? defendantDetails.title + ' ' : defendantDetails.title
   const name = isIndividual ? title + defendantDetails.fullName : defendantDetails.organisation
 
   res.render(Paths.defendantAddressPage.associatedView, {
     form: form,
-    name: name
+    name: name,
+    defendantNumber: defendants.length > 0 ? 'Defendant ' + defendants.length + ' : ' : null
   })
 }
 

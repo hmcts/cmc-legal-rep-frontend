@@ -1,12 +1,12 @@
 {% extends "layout.njk" %}
 
 {% set title = t('Money claim') %}
-{% set heading = t("Do you want to add another defendant?") %}
 
 {% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, radioOption, textInput %}
 
 {% block content %}
 
+  <h1 class="heading-large">{{ t("Do you want to add another defendant?") }}</h1>
 <div class="grid-row">
   <div class="column-two-thirds">
     <p>{{ t('You can add up to 4 defendants in this service.') }}</p>
