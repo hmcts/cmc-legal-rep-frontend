@@ -60,4 +60,8 @@ export class Address implements Serializable<Address> {
     }
     return this
   }
+
+  toString (): string {
+    return this.line1 + this.line2 ? this.line2 + ' ' : '' + this.city ? this.city + ' ' : '' + this.postcode
+  }
 }

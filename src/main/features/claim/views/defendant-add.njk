@@ -49,26 +49,18 @@
           <div class="column-one-quarter bold">Action</div>
         </div>
         <hr class="column-full">
+
         {% for defendant in defendants %}
 
         <div class="column-full">
-          <div class="column-one-quarter">1</div>
-          <div class="column-one-quarter"></div>
-          <div class="column-one-quarter">undefined undefined undefined undefined</div>
+          <div class="column-one-quarter">{{ loop.index }}</div>
+          <div class="column-one-quarter">{{ defendant.defendantDetails.toString() }}</div>
+          <div class="column-one-quarter">{{  defendant.address.toString() }}</div>
           <div class="column-one-quarter"><a class="link" onclick="delete_item(this)">Remove</a></div>
           <hr class="column-full">
         </div>
 
-        <div class="column-full">
-          <div class="column-one-quarter">1</div>
-          <div class="column-one-quarter"></div>
-          <div class="column-one-quarter">undefined undefined undefined undefined</div>
-          <div class="column-one-quarter"><a class="link" onclick="delete_item(this)">Remove</a></div>
-          <hr class="column-full">
-        </div>
-
-
-
+        {% endfor %}
 
       </form>
 
