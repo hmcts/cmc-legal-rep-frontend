@@ -12,6 +12,18 @@ export class Defendants {
     res.locals.user.legalClaimDraft.defendants = defendants
   }
 
+  static removeDefendant (res: express.Response, id: number) {
+    let defendants: Defendant[] = []
+
+    res.locals.user.legalClaimDraft.defendants.forEach((defendant, index) => {
+      if (index !== id) {
+        defendants.push(new Defendant().deserialize(defendant))
+      }
+    })
+
+    res.locals.user.legalClaimDraft.defendants = defendants
+  }
+
   static getCurrentNumber (res: express.Response): number {
     return res.locals.user.legalClaimDraft.defendants.length - 1
   }

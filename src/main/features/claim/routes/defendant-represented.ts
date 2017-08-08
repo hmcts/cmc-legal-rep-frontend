@@ -34,7 +34,7 @@ export default express.Router()
         await ClaimDraftMiddleware.save(res, next)
 
         if (res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentNumber(res)].defendantRepresented.isDefendantRepresented === YesNo.NO) {
-          res.redirect(Paths.personalInjuryPage.uri)
+          res.redirect(Paths.defendantAdditionPage.uri)
         } else {
           res.redirect(Paths.defendantRepAddressPage.uri)
         }
