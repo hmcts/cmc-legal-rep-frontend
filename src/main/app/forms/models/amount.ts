@@ -8,7 +8,7 @@ export class ValidationErrors {
   static readonly VALID_SELECTION_REQUIRED: string = 'Enter a value or choose ‘I can’t state the value’'
   static readonly HIGHER_VALUE_AMOUNT_NOT_VALID: string = 'Enter valid higher value'
   static readonly LOWER_VALUE_LESS_THAN_UPPER_NOT_VALID: string = 'Lower value must be less than higher value'
-  static readonly AMOUNT_INVALID_DECIMALS: string = 'Enter a maximum two decimal places'
+  static readonly AMOUNT_INVALID_DECIMALS: string = 'Enter a maximum of two decimal places'
 }
 
 export class Amount implements Serializable<Amount> {
