@@ -1,7 +1,7 @@
 import { Serializable } from 'app/models/serializable'
 import { IsDefined, IsIn, IsOptional, MaxLength, ValidateIf } from 'class-validator'
 import { PartyTypes as DefendantTypes } from 'app/forms/models/partyTypes'
-import { IsNotBlank } from 'app/forms/validation/validators/isBlank'
+import { IsNotBlank } from 'app/forms/validation/validators/isNotBlank'
 
 export class ValidationErrors {
   static readonly DEFENDANT_TYPE_REQUIRED: string = 'Choose a type of defendant'

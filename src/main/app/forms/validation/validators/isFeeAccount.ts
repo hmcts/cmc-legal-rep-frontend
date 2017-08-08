@@ -20,7 +20,7 @@ export class IsFeeAccountConstraint implements ValidatorConstraintInterface {
       return false
     }
 
-    return validator.matches(value, new RegExp(/^PBA[0-9]{7}$/g))
+    return validator.matches(value, new RegExp(/^PBA[0-9]{7}$/gi))
   }
 
 }

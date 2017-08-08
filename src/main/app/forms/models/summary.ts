@@ -1,6 +1,6 @@
 import { MaxLength, IsDefined } from 'class-validator'
 import { Serializable } from 'models/serializable'
-import { IsNotBlank } from 'forms/validation/validators/isBlank'
+import { IsNotBlank } from 'forms/validation/validators/isNotBlank'
 
 export class ValidationErrors {
   static readonly SUMMARY_REQUIRED: string = 'Enter a brief description of the claim'

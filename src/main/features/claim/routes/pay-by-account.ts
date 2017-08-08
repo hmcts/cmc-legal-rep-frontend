@@ -5,7 +5,7 @@ import { Form } from 'app/forms/form'
 import { FormValidator } from 'app/forms/validation/formValidator'
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import ErrorHandling from 'common/errorHandling'
-import { FeeAccount } from 'forms/models/FeeAccount'
+import { FeeAccount } from 'forms/models/feeAccount'
 
 function renderView (form: Form<FeeAccount>, res: express.Response): void {
   res.render(Paths.payByAccountPage.associatedView,
