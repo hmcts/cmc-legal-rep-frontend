@@ -5,10 +5,10 @@ import { Form } from 'forms/form'
 import { FormValidator } from 'forms/validation/formValidator'
 import { YesNo } from 'app/forms/models/yesNo'
 
-import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import { DefendantRepresented } from 'app/forms/models/defendantRepresented'
 import ErrorHandling from 'common/errorHandling'
 import { Defendants } from 'common/router/defendants'
+import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 
 function renderView (form: Form<DefendantRepresented>, res: express.Response) {
   res.render(Paths.defendantRepresentedPage.associatedView, { form: form })
@@ -21,7 +21,6 @@ export default express.Router()
   .post(Paths.defendantRepresentedPage.uri, FormValidator.requestHandler(DefendantRepresented, DefendantRepresented.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form: Form<DefendantRepresented> = req.body
-      console.log(form)
 
       if (form.model.isDefendantRepresented === YesNo.NO) {
         form.model.companyName = undefined

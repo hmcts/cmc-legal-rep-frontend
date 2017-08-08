@@ -1,0 +1,78 @@
+{% extends "layout.njk" %}
+
+{% set title = t('Money claim') %}
+{% set heading = t("Do you want to add another defendant?") %}
+
+{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, radioOption, textInput %}
+
+{% block content %}
+
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <p>{{ t('You can add up to 4 defendants in this service.') }}</p>
+      <form novalidate method="post">
+        {{ csrfProtection(csrf) }}
+
+        {% set errorIsAddDefendant = form.errorFor('isAddDefendant') %}
+        <fieldset id="isDefendantRepresented[label]"  class="form-group {% if errorIsAddDefendant %} form-group-error {% endif %}">
+          <legend class="visuallyhidden">
+            {{ t('You can add up to 4 defendants in this service.') }}
+          </legend>
+
+          {% if errorIsAddDefendant %}<span class="error-message">{{ t(errorIsAddDefendant) }}</span>{% endif %}
+          <div class="inline">
+            <div class="multiple-choice">
+              <input id="defendant_add_yes" type="radio" name="isAddDefendant" value="YES">
+              <label for="defendant_add_yes">{{ t('Yes') }} </label>
+            </div>
+
+            <div class="multiple-choice">
+              <input id="defendant_add_no" type="radio" name="isAddDefendant" value="NO">
+              <label for="defendant_add_no">{{ t('No') }} </label>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="form-group">
+          {{ saveAndContinueButton() }}
+        </div>
+      </form>
+      <form>
+
+        <h1 class="heading-medium">
+          Already added
+        </h1>
+        <div class="column-full">
+          <div class="column-one-quarter bold">No.</div>
+          <div class="column-one-quarter bold">Defendant</div>
+          <div class="column-one-quarter bold">Service Address</div>
+          <div class="column-one-quarter bold">Action</div>
+        </div>
+        <hr class="column-full">
+        {% for defendant in defendants %}
+
+        <div class="column-full">
+          <div class="column-one-quarter">1</div>
+          <div class="column-one-quarter"></div>
+          <div class="column-one-quarter">undefined undefined undefined undefined</div>
+          <div class="column-one-quarter"><a class="link" onclick="delete_item(this)">Remove</a></div>
+          <hr class="column-full">
+        </div>
+
+        <div class="column-full">
+          <div class="column-one-quarter">1</div>
+          <div class="column-one-quarter"></div>
+          <div class="column-one-quarter">undefined undefined undefined undefined</div>
+          <div class="column-one-quarter"><a class="link" onclick="delete_item(this)">Remove</a></div>
+          <hr class="column-full">
+        </div>
+
+
+
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

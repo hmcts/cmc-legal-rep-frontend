@@ -29,7 +29,7 @@ export default express.Router()
       } else {
         res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentNumber(res)].representative.address = form.model
         await ClaimDraftMiddleware.save(res, next)
-        res.redirect(Paths.personalInjuryPage.uri)
+        res.redirect(Paths.defendantAdditionPage.uri)
       }
     })
   )
