@@ -10,6 +10,10 @@ describe('IsFeeAccountConstraint', () => {
         expect(constraint.validate('PBA1234567')).to.equal(true)
       })
 
+      it('given an valid reference in lower case', () => {
+        expect(constraint.validate('pba1234567')).to.equal(true)
+      })
+
       it('given null', () => {
         expect(constraint.validate(null)).to.equal(true)
       })
