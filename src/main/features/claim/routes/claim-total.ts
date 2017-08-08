@@ -1,21 +1,22 @@
 import * as express from 'express'
 import { Paths } from 'claim/paths'
-import { ClaimDraftMiddleware } from '../draft/claimDraftMiddleware'
-import ErrorHandling from 'common/errorHandling'
+import FeesClient from 'fees/feesClient'
 
 export default express.Router()
 
-  .get(Paths.claimTotalPage.uri, (req: express.Request, res: express.Response) => {
-    res.render(Paths.claimTotalPage.associatedView, {
-      feeAmount: 123,
-      higherValue: 1000
-    })
+  .get(Paths.claimTotalPage.uri, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const claimHigherValue = 100000
+    await FeesClient.calculateIssueFee(claimHigherValue)
+      .then((feeAmount: number) => {
+        res.render(Paths.claimTotalPage.associatedView, {
+          feeAmount: feeAmount,
+          higherValue: claimHigherValue
+        })
+      })
+      .catch(next)
   })
 
-  .post(Paths.claimTotalPage.uri,
-    ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+  .post(Paths.claimTotalPage.uri, (req: express.Request, res: express.Response) => {
+    res.redirect(Paths.detailsSummaryPage.uri)
 
-      await ClaimDraftMiddleware.save(res, next)
-      res.redirect(Paths.detailsSummaryPage.uri)
-
-    }))
+  })

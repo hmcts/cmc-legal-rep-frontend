@@ -31,7 +31,9 @@
             </td>
           </tr>
           <tr>
-            <th class="bold-small" scope="row">Issue fee (based on higher value of £{{ higherValue | numeral }} )</th>
+            <th scope="row"> <span class="bold-small">{{ t('Issue fee') }} </span>
+              {{ t('(based on higher value of %s )', { postProcess: 'sprintf', sprintf: [higherValue | numeral ]}) }}
+            </th>
             <td class="numeric last">
               <span class="bold-small">{{ feeAmount | numeral }}</span>
             </td>

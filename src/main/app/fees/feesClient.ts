@@ -2,6 +2,7 @@ import * as config from 'config'
 import ClaimValidator from 'app/utils/claimValidator'
 import request from 'client/request'
 import { Fee } from 'fees/fee'
+
 const feesUrl = config.get('fees.url')
 const issueFeeCode = config.get<string>('fees.issueFeeCode')
 
@@ -9,6 +10,7 @@ export default class FeesClient {
 
   // TODO: Using this as tactical solution, will be replaced once fee service is ready for this scenario
   static readonly maxClaimValue = 10000000000
+
   /**
    * Calculates the issue fee a claimant should pay based on the claim value
    *
@@ -43,7 +45,7 @@ export default class FeesClient {
       throw new Error(`Amount must be at least 1 penny, amount was: ${amountInPennies}`)
     }
 
-    return request.get(`${feesUrl}/range-groups/${feeCode}/calculations/?value={amountInPennies}`)
+    return request.get(`${feesUrl}/range-groups/${feeCode}/calculations?value=${amountInPennies}`)
       .then((body: any) => new Fee(body.amount))
   }
 
