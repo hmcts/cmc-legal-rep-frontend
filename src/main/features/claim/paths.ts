@@ -9,7 +9,7 @@ export class Paths {
   static readonly summariseTheClaimPage = new RoutablePath('/claim/summarise-the-claim')
   static readonly claimantAddressPage = new RoutablePath('/claim/claimant-address')
   static readonly claimAmountPage = new RoutablePath('/claim/amount')
-  static readonly claimTotalPage = new RoutablePath('/claim/total')
+  static readonly claimTotalPage = new RoutablePath('/claim/claim-total')
   static readonly preferredCourtPage = new RoutablePath('/claim/preferred-court')
   static readonly representativeNamePage = new RoutablePath('/claim/representative-name')
   static readonly representativeContactsPage = new RoutablePath('/claim/representative-contacts')
@@ -22,7 +22,6 @@ export class Paths {
   static readonly statementOfTruthPage = new RoutablePath('/claim/statement-of-truth')
   static readonly payByAccountPage = new RoutablePath('/claim/pay-by-account')
   static readonly claimSubmittedPage = new RoutablePath('/claim/submitted')
-  static readonly claimTotalPage = new RoutablePath('/claim/claim-total')
   static readonly detailsSummaryPage = new RoutablePath('/claim/details-summary')
 
 }
