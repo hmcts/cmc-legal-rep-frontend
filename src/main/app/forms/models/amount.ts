@@ -19,7 +19,6 @@ export class Amount implements Serializable<Amount> {
   cannotState?: string
 
   @ValidateIf(o => o.cannotState !== Amount.CANNOT_STATE_VALUE)
-  @ValidateIf(o => o.higherValue && o.higherValue > 0)
   @Fractions(0, 2, { message: ValidationErrors.AMOUNT_INVALID_DECIMALS })
   @IsLowerThan('higherValue', { message: ValidationErrors.LOWER_VALUE_LESS_THAN_UPPER_NOT_VALID })
   lowerValue?: number
