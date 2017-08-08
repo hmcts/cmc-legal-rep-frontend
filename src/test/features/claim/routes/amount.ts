@@ -15,35 +15,35 @@ import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
 
-describe('Claim issue: Briefly describe the claim page', () => {
+describe('Claim issue: Enter claim range page', () => {
   beforeEach(() => {
     mock.cleanAll()
     draftStoreServiceMock.resolveRetrieve('legalClaim')
   })
 
   describe('on GET', () => {
-    checkAuthorizationGuards(app, 'get', ClaimPaths.summariseTheClaimPage.uri)
+    checkAuthorizationGuards(app, 'get', ClaimPaths.claimAmountPage.uri)
 
     it('should render page when everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
 
       await request(app)
-        .get(ClaimPaths.summariseTheClaimPage.uri)
+        .get(ClaimPaths.claimAmountPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText('Briefly describe the claim'))
+        .expect(res => expect(res).to.be.successful.withText('Enter claim value'))
     })
   })
 
   describe('on POST', () => {
-    checkAuthorizationGuards(app, 'post', ClaimPaths.summariseTheClaimPage.uri)
+    checkAuthorizationGuards(app, 'post', ClaimPaths.claimAmountPage.uri)
 
     it('should render page when form is invalid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
 
       await request(app)
-        .post(ClaimPaths.summariseTheClaimPage.uri)
+        .post(ClaimPaths.claimAmountPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText('Briefly describe the claim', 'div class="error-summary"'))
+        .expect(res => expect(res).to.be.successful.withText('Enter claim value', 'div class="error-summary"'))
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
@@ -51,25 +51,29 @@ describe('Claim issue: Briefly describe the claim page', () => {
       draftStoreServiceMock.rejectSave('legalClaim', 'HTTP error')
 
       await request(app)
-        .post(ClaimPaths.summariseTheClaimPage.uri)
+        .post(ClaimPaths.claimAmountPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({
-          text: 'summary of claim'
+          cannotState: '',
+          lowerValue: '',
+          higherValue: '10000'
         })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
 
-    it('should redirect to claim amount page when form is valid and everything is fine', async () => {
+    it('should redirect to claim total page when form is valid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
       draftStoreServiceMock.resolveSave('legalClaim')
 
       await request(app)
-        .post(ClaimPaths.summariseTheClaimPage.uri)
+        .post(ClaimPaths.claimAmountPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({
-          text: 'summary of claim'
+          cannotState: '',
+          lowerValue: '',
+          higherValue: '10000'
         })
-        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimAmountPage.uri))
+        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimTotalPage.uri))
     })
   })
 })

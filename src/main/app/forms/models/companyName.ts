@@ -1,6 +1,6 @@
 import { IsDefined, MaxLength } from 'class-validator'
 import { Serializable } from 'models/serializable'
-import { IsNotBlank } from 'forms/validation/validators/isBlank'
+import { IsNotBlank } from 'forms/validation/validators/isNotBlank'
 
 export class ValidationErrors {
   static readonly COMPANY_NAME_REQUIRED: string = 'Enter your company name'

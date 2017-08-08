@@ -12,7 +12,7 @@ import { HousingDisrepair } from 'app/forms/models/housingDisrepair'
 import { PersonalInjury } from 'app/forms/models/personalInjury'
 import { YourReference } from 'app/forms/models/yourReference'
 import Summary from 'app/forms/models/summary'
-import { FeeAccount } from 'forms/models/FeeAccount'
+import { FeeAccount } from 'forms/models/feeAccount'
 
 function verifyDefaultValues (initialValue: any) {
   const actualDraft: DraftLegalClaim = new DraftLegalClaim().deserialize(initialValue)
