@@ -21,13 +21,11 @@
     "cookieName": "SESSION_ID"
   },
   "legal_frontend_analytics": {
-    "piwikTrackingId": "7",
-    "piwikTrackingSite": "https://hmctspiwik.useconnect.co.uk/"
+    "gaTrackingId": ""
   },
   "fees": {
-    "url": "http://localhost:8182",
-    "issueFeeCode": "onlinefees",
-    "hearingFeeCode": "hearingfees"
+    "url": "https://dev-proxy.fees-register.reform.hmcts.net",
+    "issueFeeCode": "cmc-paper"
   },
   "pay": {
     "url": "http://localhost:4421"

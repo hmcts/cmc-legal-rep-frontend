@@ -12,6 +12,7 @@ import { HousingDisrepair } from 'app/forms/models/housingDisrepair'
 import { PersonalInjury } from 'app/forms/models/personalInjury'
 import { YourReference } from 'app/forms/models/yourReference'
 import Summary from 'app/forms/models/summary'
+import { FeeAccount } from 'forms/models/FeeAccount'
 
 function verifyDefaultValues (initialValue: any) {
   const actualDraft: DraftLegalClaim = new DraftLegalClaim().deserialize(initialValue)
@@ -26,6 +27,7 @@ function verifyDefaultValues (initialValue: any) {
   expect(actualDraft.representative).to.eql(expected.representative)
   expect(actualDraft.defendant).to.eql(expected.defendant)
   expect(actualDraft.statementOfTruth).to.eql(expected.statementOfTruth)
+  expect(actualDraft.feeAccount).to.eql(expected.feeAccount)
 }
 
 describe('DraftLegalClaim', () => {
@@ -41,6 +43,7 @@ describe('DraftLegalClaim', () => {
       expect(draftClaim.representative).to.be.instanceof(Representative)
       expect(draftClaim.defendant).to.be.instanceof(Defendant)
       expect(draftClaim.statementOfTruth).to.be.instanceof(StatementOfTruth)
+      expect(draftClaim.feeAccount).to.be.instanceof(FeeAccount)
     })
   })
 

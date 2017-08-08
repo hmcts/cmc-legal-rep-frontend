@@ -19,7 +19,9 @@ export class Paths {
   static readonly defendantRepAddressPage = new RoutablePath('/claim/defendant-reps-address')
   static readonly statementOfTruthPage = new RoutablePath('/claim/statement-of-truth')
   static readonly payByAccountPage = new RoutablePath('/claim/pay-by-account')
+  static readonly claimSubmittedPage = new RoutablePath('/claim/submitted')
   static readonly claimTotalPage = new RoutablePath('/claim/claim-total')
+  static readonly detailsSummaryPage = new RoutablePath('/claim/details-summary')
 
 }
 

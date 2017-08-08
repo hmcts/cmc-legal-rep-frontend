@@ -16,6 +16,6 @@ export default express.Router()
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
 
       await ClaimDraftMiddleware.save(res, next)
-      res.redirect('/not-implemented-yet')
+      res.redirect(Paths.detailsSummaryPage.uri)
 
     }))
