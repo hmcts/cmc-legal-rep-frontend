@@ -9,7 +9,7 @@ const issueFeeCode = config.get<string>('fees.issueFeeCode')
 
 export default class FeesClient {
 
-  // TODO: Using this as tactical solution, will be replaced once fee service is ready for this scenario
+  // TODO: Using this as tactical solution, will be replaced once fee service(PAY-314) is ready for this scenario
   static readonly maxClaimValue = 10000000
 
   static getFeeAmount (claimAmount: Amount): Promise<number> {

@@ -93,7 +93,8 @@ mock('claims/claimStoreClient', {
 mock('fees/feesClient', {
   'default': {
     calculateIssueFee: (amount) => Promise.resolve(100),
-    calculateHearingFee: (amount) => Promise.resolve(50)
+    getFeeAmount: (amount) => Promise.resolve(50),
+    calculateMaxIssueFee: (amount) => Promise.resolve(10000)
   }
 })
 
