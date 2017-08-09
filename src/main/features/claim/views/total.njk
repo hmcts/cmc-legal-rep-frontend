@@ -12,22 +12,22 @@
 
         <div class="form-group">
           <div class="task">
-            <div>{{ t('Amount claimed') }}</div>
-            <div class="text-align-right"> {{ t('To be assessed') }}</div>
+            <div class="column-two-thirds">{{ t('Amount claimed') }}</div>
+            <div class="column-one-thirds text-align-right"> {{ t('To be assessed') }}</div>
           </div>
           <div class="task">
-            <div>{{ t('Legal representative’s costs') }}</div>
-            <div class="text-align-right"> {{ t('To be assessed') }}</div>
+            <div class="column-two-thirds">{{ t('Legal representative’s costs') }}</div>
+            <div class="column-one-thirds text-align-right"> {{ t('To be assessed') }}</div>
           </div>
-          <div class="task">
-            <div><span class="bold-small">{{ t('Issue fee') }}</span>
+          <div class="task clearfix">
+            <div class="column-two-thirds"><span class="bold-small">{{ t('Issue fee') }}</span>
               {% if (claimAmount.canNotState()) %}
                 {{ t('(no higher value given)') }}
               {% else %}
                 {{ t('(based on higher value of %s )', { postProcess: 'sprintf', sprintf: [claimAmount.higherValue | numeral ]}) }}
               {% endif %}
             </div>
-            <div class="bold-small text-align-right">{{ feeAmount | numeral }}</div>
+            <div class="column-one-thirds bold-small text-align-right">{{ feeAmount | numeral }}</div>
           </div>
         </div>
 
