@@ -2,6 +2,7 @@ import * as config from 'config'
 import ClaimValidator from 'app/utils/claimValidator'
 import request from 'client/request'
 import { Fee } from 'fees/fee'
+import { Amount } from 'forms/models/amount'
 
 const feesUrl = config.get('fees.url')
 const issueFeeCode = config.get<string>('fees.issueFeeCode')
@@ -10,6 +11,20 @@ export default class FeesClient {
 
   // TODO: Using this as tactical solution, will be replaced once fee service is ready for this scenario
   static readonly maxClaimValue = 10000000
+
+  static getFeeAmount (claimAmount: Amount): Promise<number> {
+    if (claimAmount.canNotState()) {
+      return FeesClient.calculateMaxIssueFee()
+        .then((feeAmount: number) => {
+          return feeAmount
+        })
+    } else {
+      return FeesClient.calculateIssueFee(claimAmount.higherValue)
+        .then((feeAmount: number) => {
+          return feeAmount
+        })
+    }
+  }
 
   /**
    * Calculates the issue fee a claimant should pay based on the claim value

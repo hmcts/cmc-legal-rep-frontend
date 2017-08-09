@@ -15,22 +15,13 @@ export default express.Router()
 
   .get(Paths.claimTotalPage.uri,
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
-      const claimAmount: Amount = res.locals.user.legalClaimDraft.amount
-      if (claimAmount.canNotState()) {
-        await FeesClient.calculateMaxIssueFee()
-          .then((feeAmount: number) => {
-            renderView(res, feeAmount, claimAmount)
-          })
-          .catch(next)
-      } else {
-        const claimHigherValue = claimAmount.higherValue
-        await FeesClient.calculateIssueFee(claimHigherValue)
-          .then((feeAmount: number) => {
-            renderView(res, feeAmount, claimAmount)
-          })
-          .catch(next)
-      }
 
+      const claimAmount: Amount = res.locals.user.legalClaimDraft.amount
+      FeesClient.getFeeAmount(claimAmount)
+        .then((feeAmount: number) => {
+          renderView(res, feeAmount, claimAmount)
+        })
+        .catch(next)
     }))
 
   .post(Paths.claimTotalPage.uri, (req: express.Request, res: express.Response) => {
