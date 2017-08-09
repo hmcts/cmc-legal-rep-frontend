@@ -10,40 +10,26 @@
       <form novalidate method="post" class="form-group">
         {{ csrfProtection(csrf) }}
 
-        <table class="table-form form-group">
-          <thead>
-          <tr>
-            <th scope="row"/>
-            <th scope="row"/>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <th class="font-small" scope="row">{{ t('Amount claimed') }}</th>
-            <td>
-              {{ t('To be assessed') }}
-            </td>
-          </tr>
-          <tr>
-            <th class="font-small" scope="row">{{ t('Legal representative’s costs') }}</th>
-            <td>
-              {{ t('To be assessed') }}
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"><span class="bold-small">{{ t('Issue fee') }} </span>
+        <div class="form-group">
+          <div class="task">
+            <div>{{ t('Amount claimed') }}</div>
+            <div class="text-align-right"> {{ t('To be assessed') }}</div>
+          </div>
+          <div class="task">
+            <div>{{ t('Legal representative’s costs') }}</div>
+            <div class="text-align-right"> {{ t('To be assessed') }}</div>
+          </div>
+          <div class="task">
+            <div><span class="bold-small">{{ t('Issue fee') }}</span>
               {% if (claimAmount.canNotState()) %}
                 {{ t('(no higher value given)') }}
               {% else %}
                 {{ t('(based on higher value of %s )', { postProcess: 'sprintf', sprintf: [claimAmount.higherValue | numeral ]}) }}
               {% endif %}
-            </th>
-            <td>
-              <span class="bold-small">{{ feeAmount | numeral }}</span>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+            </div>
+            <div class="bold-small text-align-right">{{ feeAmount | numeral }}</div>
+          </div>
+        </div>
 
         <div class="form-group">
           {{ saveAndContinueButton() }}
