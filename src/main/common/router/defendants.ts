@@ -24,7 +24,7 @@ export class Defendants {
     res.locals.user.legalClaimDraft.defendants = defendants
   }
 
-  static getCurrentNumber (res: express.Response): number {
+  static getCurrentIndex (res: express.Response): number {
     return res.locals.user.legalClaimDraft.defendants.length - 1
   }
 }

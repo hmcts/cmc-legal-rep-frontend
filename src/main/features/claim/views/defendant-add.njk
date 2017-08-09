@@ -40,12 +40,12 @@
     {% if defendants %}
      <div>
       <h1 class="heading-medium">
-        Already added
+      {{ t('Already added') }}
       </h1>
       <div class="task-list-item">
-        <div class="column-one-quarter bold">No.</div>
-        <div class="column-one-half bold">Defendant name</div>
-        <div class="column-one-quarter bold">Action</div>
+        <div class="column-one-quarter bold">{{ t('No.') }}</div>
+        <div class="column-one-half bold">{{ t('Defendant name') }}</div>
+        <div class="column-one-quarter bold">{{ t('Action') }}</div>
       </div>
       <hr class="column-full">
 
@@ -54,7 +54,7 @@
         <div class="task-list-item">
           <div class="column-one-quarter">{{ loop.index }}</div>
           <div class="column-one-half">{{ defendant.defendantDetails.toString() }}</div>
-          <div class="column-one-quarter"><a class="link" href="/claim/defendant-remove?index={{ loop.index }}">Remove</a></div>
+          <div class="column-one-quarter"><a class="link" href="/claim/defendant-remove?index={{ loop.index }}">{{ t('Remove') }}</a></div>
           <hr class="column-full">
         </div>
 

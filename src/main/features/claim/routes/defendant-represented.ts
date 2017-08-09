@@ -21,7 +21,7 @@ function renderView (form: Form<DefendantRepresented>, res: express.Response) {
 
 export default express.Router()
   .get(Paths.defendantRepresentedPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentNumber(res)].defendantRepresented), res)
+    renderView(new Form(res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentIndex(res)].defendantRepresented), res)
   })
   .post(Paths.defendantRepresentedPage.uri, FormValidator.requestHandler(DefendantRepresented, DefendantRepresented.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -34,11 +34,11 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentNumber(res)].defendantRepresented = form.model
+        res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentIndex(res)].defendantRepresented = form.model
 
         await ClaimDraftMiddleware.save(res, next)
 
-        if (res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentNumber(res)].defendantRepresented.isDefendantRepresented === YesNo.NO) {
+        if (res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentIndex(res)].defendantRepresented.isDefendantRepresented === YesNo.NO) {
           res.redirect(Paths.defendantAdditionPage.uri)
         } else {
           res.redirect(Paths.defendantRepAddressPage.uri)

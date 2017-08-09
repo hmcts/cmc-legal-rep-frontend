@@ -60,7 +60,7 @@ describe('Claim issue: is defendant addition page', () => {
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
 
-    it('should redirect to defendant rep address page when form is valid and user has selected yes', async () => {
+    it('should redirect to defendant type page when form is valid and user has selected yes', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
       draftStoreServiceMock.resolveSave('legalClaim')
 
@@ -73,7 +73,7 @@ describe('Claim issue: is defendant addition page', () => {
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantTypePage.uri))
     })
 
-    it('should redirect to defendant add page when form is valid and user has selected no', async () => {
+    it('should redirect to personal injury page when form is valid and user has selected no', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
       draftStoreServiceMock.resolveSave('legalClaim')
 
