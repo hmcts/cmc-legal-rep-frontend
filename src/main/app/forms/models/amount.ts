@@ -41,8 +41,8 @@ export class Amount implements Serializable<Amount> {
       return new Amount()
     }
 
-    const lowerValue = value.lowerValue ? _.toNumber(value.lowerValue.replace(',','')) : undefined
-    const higherValue = value.higherValue ? _.toNumber(value.higherValue.replace(',','')) : undefined
+    const lowerValue = value.lowerValue ? _.toNumber(value.lowerValue.replace(',', '')) : undefined
+    const higherValue = value.higherValue ? _.toNumber(value.higherValue.replace(',', '')) : undefined
     const cannotState = value.cannotState ? value.cannotState : undefined
     return new Amount(lowerValue, higherValue, cannotState)
   }
@@ -56,4 +56,9 @@ export class Amount implements Serializable<Amount> {
 
     return this
   }
+
+  canNotState (): boolean {
+    return this.cannotState === Amount.CANNOT_STATE_VALUE
+  }
+
 }

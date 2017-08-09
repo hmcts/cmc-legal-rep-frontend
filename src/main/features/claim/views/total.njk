@@ -31,8 +31,12 @@
             </td>
           </tr>
           <tr>
-            <th scope="row"> <span class="bold-small">{{ t('Issue fee') }} </span>
-              {{ t('(based on higher value of %s )', { postProcess: 'sprintf', sprintf: [higherValue | numeral ]}) }}
+            <th scope="row"><span class="bold-small">{{ t('Issue fee') }} </span>
+              {% if (claimAmount.canNotState()) %}
+                {{ t('(no higher value given)') }}
+              {% else %}
+                {{ t('(based on higher value of %s )', { postProcess: 'sprintf', sprintf: [claimAmount.higherValue | numeral ]}) }}
+              {% endif %}
             </th>
             <td class="numeric last">
               <span class="bold-small">{{ feeAmount | numeral }}</span>

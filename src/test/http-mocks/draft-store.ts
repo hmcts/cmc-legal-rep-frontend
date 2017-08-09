@@ -66,12 +66,9 @@ const sampleClaimDraftObj = {
     }
   },
   amount: {
-    rows: [
-      {
-        reason: 'Valid reason',
-        amount: 1
-      }
-    ]
+    cannotState: '',
+    lowerValue: 100,
+    higherValue: 1000
   },
   interest: {
     type: 'no interest'

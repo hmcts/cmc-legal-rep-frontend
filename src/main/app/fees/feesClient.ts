@@ -9,7 +9,7 @@ const issueFeeCode = config.get<string>('fees.issueFeeCode')
 export default class FeesClient {
 
   // TODO: Using this as tactical solution, will be replaced once fee service is ready for this scenario
-  static readonly maxClaimValue = 10000000000
+  static readonly maxClaimValue = 10000000
 
   /**
    * Calculates the issue fee a claimant should pay based on the claim value
