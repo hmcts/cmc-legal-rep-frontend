@@ -41,9 +41,10 @@ describe('DraftLegalClaim', () => {
       expect(draftClaim.housingDisrepair).to.be.instanceof(HousingDisrepair)
       expect(draftClaim.preferredCourt).to.be.instanceof(PreferredCourt)
       expect(draftClaim.representative).to.be.instanceof(Representative)
-      expect(draftClaim.defendants[0]).to.be.instanceof(Defendant)
       expect(draftClaim.statementOfTruth).to.be.instanceof(StatementOfTruth)
       expect(draftClaim.feeAccount).to.be.instanceof(FeeAccount)
+
+      draftClaim.defendants.forEach((defendant) => expect(draftClaim.defendants[0]).to.be.instanceof(Defendant))
     })
   })
 
