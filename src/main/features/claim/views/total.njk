@@ -13,20 +13,20 @@
         <table class="table-form form-group">
           <thead>
           <tr>
-            <th class="font-small" scope="col"></th>
-            <th class="numeric last" scope="col">{{ t('Amount') }}</th>
+            <th scope="row"/>
+            <th scope="row"/>
           </tr>
           </thead>
           <tbody>
           <tr>
             <th class="font-small" scope="row">{{ t('Amount claimed') }}</th>
-            <td class="numeric last">
+            <td>
               {{ t('To be assessed') }}
             </td>
           </tr>
           <tr>
             <th class="font-small" scope="row">{{ t('Legal representative’s costs') }}</th>
-            <td class="numeric last">
+            <td>
               {{ t('To be assessed') }}
             </td>
           </tr>
@@ -38,7 +38,7 @@
                 {{ t('(based on higher value of %s )', { postProcess: 'sprintf', sprintf: [claimAmount.higherValue | numeral ]}) }}
               {% endif %}
             </th>
-            <td class="numeric last">
+            <td>
               <span class="bold-small">{{ feeAmount | numeral }}</span>
             </td>
           </tr>
