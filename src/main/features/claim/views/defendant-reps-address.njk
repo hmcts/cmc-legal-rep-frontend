@@ -5,11 +5,17 @@
 {% set title = t('Money claim') %}
 
 {% block content %}
+  <h1 class="heading-large">
+    <span class="form-hint">
+      {% if defendantNumber %} {{ defendantNumber }}
+      {% else %} {{ t("Defendant's representative: ") }}
+      {% endif %}
+      {{ name }}
+    </span>
+    {{ t('Address for service') }}
+  </h1>
   <div class="grid-row">
     <div class="column-two-thirds">
-      <h1 class="heading-large"><span class="form-hint">{{ t("Defendant's representative: ") }}{{ name }}</span>
-        {{ t('Address for service') }}
-      </h1>
 
       {{ addressForm(form, csrf) }}
 

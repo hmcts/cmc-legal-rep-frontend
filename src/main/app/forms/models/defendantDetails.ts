@@ -80,4 +80,8 @@ export class DefendantDetails implements Serializable<DefendantDetails> {
     return this
   }
 
+  toString (): string {
+    return this.type.value === DefendantTypes.INDIVIDUAL.value ? (this.title ? this.title + ' ' : '') + this.fullName : this.organisation
+  }
+
 }
