@@ -8,17 +8,20 @@ import Defendant from 'app/drafts/models/defendant'
 chai.use(spies)
 const expect = chai.expect
 
+function createDefendants (res: express.Response) {
+  res.locals.isLoggedIn = true
+  res.locals.user = {
+    id: 123
+  }
+  res.locals.user.legalClaimDraft = {
+    defendants: []
+  }
+}
+
 describe('Defendants', () => {
   it('should add defendant', async () => {
     const res: express.Response = mockRes()
-    res.locals.isLoggedIn = true
-    res.locals.user = {
-      id: 123
-    }
-    res.locals.user.legalClaimDraft = {
-      defendants: []
-    }
-
+    createDefendants(res)
     Defendants.addDefendant(res)
     expect(res.locals.user.legalClaimDraft.defendants.length === 1)
 
@@ -26,13 +29,7 @@ describe('Defendants', () => {
 
   it('should remove defendant from response defendants', async () => {
     const res: express.Response = mockRes()
-    res.locals.isLoggedIn = true
-    res.locals.user = {
-      id: 123
-    }
-    res.locals.user.legalClaimDraft = {
-      defendants: []
-    }
+    createDefendants(res)
     res.locals.user.legalClaimDraft.defendants.push(new Defendant())
     res.locals.user.legalClaimDraft.defendants.push(new Defendant())
 
@@ -43,13 +40,7 @@ describe('Defendants', () => {
 
   it('should give current defendants index', async () => {
     const res: express.Response = mockRes()
-    res.locals.isLoggedIn = true
-    res.locals.user = {
-      id: 123
-    }
-    res.locals.user.legalClaimDraft = {
-      defendants: []
-    }
+    createDefendants(res)
     res.locals.user.legalClaimDraft.defendants.push(new Defendant())
     res.locals.user.legalClaimDraft.defendants.push(new Defendant())
     res.locals.user.legalClaimDraft.defendants.push(new Defendant())
