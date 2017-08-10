@@ -24,7 +24,7 @@
     "gaTrackingId": ""
   },
   "fees": {
-    "url": "https://dev-proxy.fees-register.reform.hmcts.net",
+    "url": "http://localhost:8182",
     "issueFeeCode": "cmc-paper"
   },
   "pay": {
