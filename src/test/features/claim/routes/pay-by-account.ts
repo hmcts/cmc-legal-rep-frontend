@@ -5,7 +5,7 @@ import * as mock from 'nock'
 
 import '../../../routes/expectations'
 import { checkAuthorizationGuards } from './checks/authorization-check'
-
+import * as feesServiceMock from '../../../http-mocks/fees'
 import { Paths as ClaimPaths } from 'claim/paths'
 
 import { app } from '../../../../main/app'
@@ -15,6 +15,7 @@ import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
 const pageHeading = 'Pay by Fee Account'
+const draftType: string = 'legalClaim'
 
 describe('Claim : Pay by Fee Account page', () => {
   beforeEach(() => {
@@ -25,13 +26,31 @@ describe('Claim : Pay by Fee Account page', () => {
   describe('on GET', () => {
     checkAuthorizationGuards(app, 'get', ClaimPaths.payByAccountPage.uri)
 
-    it('should render page when everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+    describe('for authorized user', () => {
+      beforeEach(() => {
+        idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+      })
 
-      await request(app)
-        .get(ClaimPaths.payByAccountPage.uri)
-        .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText(pageHeading))
+      it('should return 500 and render error page when cannot calculate issue fee', async () => {
+        draftStoreServiceMock.resolveRetrieve(draftType)
+        feesServiceMock.rejectCalculateIssueFee('HTTP error')
+
+        await request(app)
+          .get(ClaimPaths.payByAccountPage.uri)
+          .set('Cookie', `${cookieName}=ABC`)
+          .expect(res => expect(res).to.be.serverError.withText('Error'))
+      })
+
+      it('should render page when everything is fine', async () => {
+        draftStoreServiceMock.resolveRetrieve(draftType)
+        feesServiceMock.resolveCalculateIssueFee()
+
+        await request(app)
+          .get(ClaimPaths.payByAccountPage.uri)
+          .set('Cookie', `${cookieName}=ABC`)
+          .expect(res => expect(res).to.be.successful.withText(pageHeading))
+      })
+
     })
   })
 
@@ -49,7 +68,7 @@ describe('Claim : Pay by Fee Account page', () => {
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
-      draftStoreServiceMock.rejectSave('legalClaim', 'HTTP error')
+      draftStoreServiceMock.rejectSave(draftType, 'HTTP error')
 
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
@@ -60,7 +79,8 @@ describe('Claim : Pay by Fee Account page', () => {
 
     it('should redirect to claim submitted page when form is valid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
-      draftStoreServiceMock.resolveSave('legalClaim')
+      draftStoreServiceMock.resolveSave(draftType)
+      feesServiceMock.resolveCalculateIssueFee()
 
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)

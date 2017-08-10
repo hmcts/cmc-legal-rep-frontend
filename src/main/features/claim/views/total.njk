@@ -1,0 +1,41 @@
+{% extends "layout.njk" %}
+{% from "form.njk" import csrfProtection, saveAndContinueButton %}
+
+{% set title = t('Money claim') %}
+{% set heading = t('Your issue fee') %}
+
+{% block content %}
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <form novalidate method="post" class="form-group">
+        {{ csrfProtection(csrf) }}
+
+        <div class="form-group">
+          <div class="task">
+            <div class="column-two-thirds">{{ t('Amount claimed') }}</div>
+            <div class="column-one-thirds text-align-right"> {{ t('To be assessed') }}</div>
+          </div>
+          <div class="task">
+            <div class="column-two-thirds">{{ t('Legal representative’s costs') }}</div>
+            <div class="column-one-thirds text-align-right"> {{ t('To be assessed') }}</div>
+          </div>
+          <div class="task clearfix">
+            <div class="column-two-thirds"><span class="bold-small">{{ t('Issue fee') }}</span>
+              {% if (claimAmount.canNotState()) %}
+                {{ t('(no higher value given)') }}
+              {% else %}
+                {{ t('(based on higher value of %s )', { postProcess: 'sprintf', sprintf: [claimAmount.higherValue | numeral ]}) }}
+              {% endif %}
+            </div>
+            <div class="column-one-thirds bold-small text-align-right">{{ feeAmount | numeral }}</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          {{ saveAndContinueButton() }}
+        </div>
+
+      </form>
+    </div>
+  </div>
+{% endblock %}
