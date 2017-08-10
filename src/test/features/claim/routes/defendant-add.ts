@@ -14,36 +14,37 @@ import * as idamServiceMock from '../../../http-mocks/idam'
 import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
+const pageText = 'Do you want to add another defendant?'
 
-describe("Claim issue: Defendant's representative address page", () => {
+describe('Claim issue: is defendant addition page', () => {
   beforeEach(() => {
     mock.cleanAll()
     draftStoreServiceMock.resolveRetrieve('legalClaim')
   })
 
   describe('on GET', () => {
-    checkAuthorizationGuards(app, 'get', ClaimPaths.defendantRepAddressPage.uri)
+    checkAuthorizationGuards(app, 'get', ClaimPaths.defendantAdditionPage.uri)
 
     it('should render page when everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
 
       await request(app)
-        .get(ClaimPaths.defendantRepAddressPage.uri)
+        .get(ClaimPaths.defendantAdditionPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText('Address for service'))
+        .expect(res => expect(res).to.be.successful.withText(pageText))
     })
   })
 
   describe('on POST', () => {
-    checkAuthorizationGuards(app, 'post', ClaimPaths.defendantRepAddressPage.uri)
+    checkAuthorizationGuards(app, 'post', ClaimPaths.defendantAdditionPage.uri)
 
     it('should render page when form is invalid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
 
       await request(app)
-        .post(ClaimPaths.defendantRepAddressPage.uri)
+        .post(ClaimPaths.defendantAdditionPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText('Address for service', 'div class="error-summary"'))
+        .expect(res => expect(res).to.be.successful.withText(pageText, 'div class="error-summary"'))
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
@@ -51,21 +52,38 @@ describe("Claim issue: Defendant's representative address page", () => {
       draftStoreServiceMock.rejectSave('legalClaim', 'HTTP error')
 
       await request(app)
-        .post(ClaimPaths.defendantRepAddressPage.uri)
+        .post(ClaimPaths.defendantAdditionPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .send({ line1: 'Apt 99', line2: '', city: 'London', postcode: 'E1' })
+        .send({
+          isAddDefendant: 'YES'
+        })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
 
-    it('should redirect to defendant addition page when form is valid and everything is fine', async () => {
+    it('should redirect to defendant type page when form is valid and user has selected yes', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
       draftStoreServiceMock.resolveSave('legalClaim')
 
       await request(app)
-        .post(ClaimPaths.defendantRepAddressPage.uri)
+        .post(ClaimPaths.defendantAdditionPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .send({ line1: 'Apt 99', line2: '', city: 'London', postcode: 'E1' })
-        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantAdditionPage.uri))
+        .send({
+          isAddDefendant: 'YES'
+        })
+        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantTypePage.uri))
+    })
+
+    it('should redirect to personal injury page when form is valid and user has selected no', async () => {
+      idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+      draftStoreServiceMock.resolveSave('legalClaim')
+
+      await request(app)
+        .post(ClaimPaths.defendantAdditionPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .send({
+          isAddDefendant: 'NO'
+        })
+        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.personalInjuryPage.uri))
     })
   })
 })

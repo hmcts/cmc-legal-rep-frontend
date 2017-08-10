@@ -75,7 +75,7 @@ describe('Claim issue: is defendant represented page', () => {
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantRepAddressPage.uri))
     })
 
-    it('should redirect to personal injury page when form is valid and user has selected no', async () => {
+    it('should redirect to defendant add page when form is valid and user has selected no', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
       draftStoreServiceMock.resolveSave('legalClaim')
 
@@ -86,7 +86,7 @@ describe('Claim issue: is defendant represented page', () => {
           isDefendantRepresented: 'NO',
           companyName: undefined
         })
-        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.personalInjuryPage.uri))
+        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantAdditionPage.uri))
     })
   })
 })

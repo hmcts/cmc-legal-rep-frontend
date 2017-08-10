@@ -25,7 +25,7 @@ function verifyDefaultValues (initialValue: any) {
   expect(actualDraft.housingDisrepair).to.eql(expected.housingDisrepair)
   expect(actualDraft.preferredCourt).to.eql(expected.preferredCourt)
   expect(actualDraft.representative).to.eql(expected.representative)
-  expect(actualDraft.defendant).to.eql(expected.defendant)
+  expect(actualDraft.defendants).to.eql(expected.defendants)
   expect(actualDraft.statementOfTruth).to.eql(expected.statementOfTruth)
   expect(actualDraft.feeAccount).to.eql(expected.feeAccount)
 }
@@ -41,9 +41,10 @@ describe('DraftLegalClaim', () => {
       expect(draftClaim.housingDisrepair).to.be.instanceof(HousingDisrepair)
       expect(draftClaim.preferredCourt).to.be.instanceof(PreferredCourt)
       expect(draftClaim.representative).to.be.instanceof(Representative)
-      expect(draftClaim.defendant).to.be.instanceof(Defendant)
       expect(draftClaim.statementOfTruth).to.be.instanceof(StatementOfTruth)
       expect(draftClaim.feeAccount).to.be.instanceof(FeeAccount)
+
+      draftClaim.defendants.forEach((defendant) => expect(draftClaim.defendants[0]).to.be.instanceof(Defendant))
     })
   })
 

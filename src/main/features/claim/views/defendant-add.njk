@@ -1,0 +1,67 @@
+{% extends "layout.njk" %}
+
+{% set title = t('Money claim') %}
+
+{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, radioOption, textInput %}
+
+{% block content %}
+
+  <h1 class="heading-large">{{ t("Do you want to add another defendant?") }}</h1>
+  <div class="grid-row">
+  <div class="column-two-thirds">
+    <p>{{ t('You can add up to 4 defendants in this service.') }}</p>
+    <form novalidate method="post">
+      {{ csrfProtection(csrf) }}
+
+      {% set errorIsAddDefendant = form.errorFor('isAddDefendant') %}
+      <fieldset id="isDefendantRepresented[label]" class="form-group {% if errorIsAddDefendant %} form-group-error {% endif %}">
+        <legend class="visuallyhidden">
+          {{ t('You can add up to 4 defendants in this service.') }}
+        </legend>
+
+        {% if errorIsAddDefendant %}<span class="error-message">{{ t(errorIsAddDefendant) }}</span>{% endif %}
+        <div class="inline">
+          <div class="multiple-choice">
+            <input id="defendant_add_yes" type="radio" name="isAddDefendant" value="YES">
+            <label for="defendant_add_yes" id="isAddDefendant[label]">{{ t('Yes') }} </label>
+          </div>
+
+          <div class="multiple-choice">
+            <input id="defendant_add_no" type="radio" name="isAddDefendant" value="NO">
+            <label for="defendant_add_no" id="isAddDefendant[label][NO]">{{ t('No') }} </label>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="form-group">
+        {{ saveAndContinueButton() }}
+      </div>
+    </form>
+    {% if defendants %}
+     <div>
+      <h1 class="heading-medium">
+      {{ t('Already added') }}
+      </h1>
+      <div class="task-list-item">
+        <div class="column-one-quarter bold">{{ t('No.') }}</div>
+        <div class="column-one-half bold">{{ t('Defendant name') }}</div>
+        <div class="column-one-quarter bold">{{ t('Action') }}</div>
+      </div>
+      <hr class="column-full">
+
+      {% for defendant in defendants %}
+
+        <div class="task-list-item">
+          <div class="column-one-quarter">{{ loop.index }}</div>
+          <div class="column-one-half">{{ defendant.defendantDetails.toString() }}</div>
+          <div class="column-one-quarter"><a class="link" href="/claim/defendant-remove?index={{ loop.index }}">{{ t('Remove') }}</a></div>
+          <hr class="column-full">
+        </div>
+
+      {% endfor %}
+     </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

@@ -44,7 +44,7 @@ const sampleClaimDraftObj = {
       state: { status: 'failed' }
     }
   },
-  defendant: {
+  defendants: [{
     address: {
       line1: 'Apt 99',
       city: 'London',
@@ -64,7 +64,7 @@ const sampleClaimDraftObj = {
       title: 'title',
       fullName: 'fullName'
     }
-  },
+  }],
   amount: {
     cannotState: '',
     lowerValue: 100,

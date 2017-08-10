@@ -21,9 +21,9 @@ function mockedDraftClaim () {
   draft.claimant.claimantDetails.type = PartyTypes.INDIVIDUAL
   draft.representative = new Representative()
   draft.representative.companyName = new CompanyName('name')
-  draft.defendant = new Defendant()
-  draft.defendant.defendantDetails = new DefendantDetails()
-  draft.defendant.defendantDetails.type = PartyTypes.INDIVIDUAL
+  draft.defendants = [new Defendant()]
+  draft.defendants[0].defendantDetails = new DefendantDetails()
+  draft.defendants[0].defendantDetails.type = PartyTypes.INDIVIDUAL
   return draft
 }
 
