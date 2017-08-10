@@ -79,11 +79,11 @@ timestamps {
           legalFrontendVersion = dockerImage imageName: 'cmc/legal-frontend'
         }
 
-        stage('Integration Tests') {
-          integrationTests.execute([
-            'LEGAL_FRONTEND_VERSION': legalFrontendVersion
-          ])
-        }
+        //stage('Integration Tests') {
+        //  integrationTests.execute([
+        //    'LEGAL_FRONTEND_VERSION': legalFrontendVersion
+        //  ])
+        //}
 
         //noinspection GroovyVariableNotAssigned It is guaranteed to be assigned
         RPMTagger rpmTagger = new RPMTagger(this,
