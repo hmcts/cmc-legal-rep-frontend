@@ -4,7 +4,7 @@ import ErrorHandling from 'common/errorHandling'
 import { Defendants } from 'common/router/defendants'
 
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
-import { ViewDraftMiddleware } from '../../view/draft/viewDraftMiddleware'
+import { ViewDraftMiddleware } from 'views/draft/viewDraftMiddleware'
 
 export default express.Router()
   .get(Paths.defendantRemovePage.uri,

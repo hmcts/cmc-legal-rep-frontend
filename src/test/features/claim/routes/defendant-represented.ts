@@ -19,7 +19,6 @@ const pageText = 'Has the defendant got a representative'
 describe('Claim issue: is defendant represented page', () => {
   beforeEach(() => {
     mock.cleanAll()
-    draftStoreServiceMock.resolveRetrieve('view')
     draftStoreServiceMock.resolveRetrieve('legalClaim')
   })
 

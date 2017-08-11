@@ -19,8 +19,8 @@ const pageText = 'Do you want to add another defendant?'
 describe('Claim issue: is defendant addition page', () => {
   beforeEach(() => {
     mock.cleanAll()
-    draftStoreServiceMock.resolveRetrieve('view')
     draftStoreServiceMock.resolveRetrieve('legalClaim')
+    draftStoreServiceMock.resolveRetrieve('view')
   })
 
   describe('on GET', () => {
@@ -28,6 +28,7 @@ describe('Claim issue: is defendant addition page', () => {
 
     it('should render page when everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+      draftStoreServiceMock.resolveRetrieve('view')
 
       await request(app)
         .get(ClaimPaths.defendantAdditionPage.uri)
@@ -41,6 +42,7 @@ describe('Claim issue: is defendant addition page', () => {
 
     it('should render page when form is invalid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+      draftStoreServiceMock.resolveRetrieve('view')
 
       await request(app)
         .post(ClaimPaths.defendantAdditionPage.uri)

@@ -18,7 +18,6 @@ const cookieName: string = config.get<string>('session.cookieName')
 describe('Claim issue: defendant type page', () => {
   beforeEach(() => {
     mock.cleanAll()
-    draftStoreServiceMock.resolveRetrieve('view')
     draftStoreServiceMock.resolveRetrieve('legalClaim')
   })
 

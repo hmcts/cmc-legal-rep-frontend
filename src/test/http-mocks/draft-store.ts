@@ -113,7 +113,6 @@ export function resolveRetrieve (draftType: string, draftOverride?: object) {
 
   switch (draftType) {
     case 'legalClaim':
-
       draft = { ...sampleClaimDraftObj, ...draftOverride }
       break
     case 'view':

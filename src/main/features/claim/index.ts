@@ -7,7 +7,7 @@ import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import { RouterFinder } from 'common/router/routerFinder'
 import { buildURL } from 'utils/callbackBuilder'
 import { Paths } from 'claim/paths'
-import { ViewDraftMiddleware } from '../view/draft/viewDraftMiddleware'
+import { ViewDraftMiddleware } from 'views/draft/viewDraftMiddleware'
 
 function claimIssueRequestHandler (): express.RequestHandler {
   function accessDeniedCallback (req: express.Request, res: express.Response): void {
@@ -26,7 +26,7 @@ export class Feature {
   enableFor (app: express.Express) {
     app.all('/claim/*', claimIssueRequestHandler())
     app.all(/^\/claim\/(?!start).*$/, ClaimDraftMiddleware.retrieve)
-    app.all(/^\/claim\/defendant-.*$/, ViewDraftMiddleware.retrieve)
+    app.all(/^\/claim\/defendant-(add|remove)$/, ViewDraftMiddleware.retrieve)
 
     app.use('/', RouterFinder.findAll(path.join(__dirname, 'routes')))
   }

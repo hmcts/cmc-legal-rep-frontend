@@ -13,6 +13,7 @@ import { DefendantDetails } from 'app/forms/models/defendantDetails'
 import { PartyTypes } from 'app/forms/models/partyTypes'
 import moment = require('moment')
 import CompanyName from 'app/forms/models/companyName'
+import DraftView from 'app/drafts/models/draftView'
 
 function mockedDraftClaim () {
   let draft = new DraftLegalClaim()
@@ -25,6 +26,13 @@ function mockedDraftClaim () {
   draft.defendants[0].defendantDetails = new DefendantDetails()
   draft.defendants[0].defendantDetails.type = PartyTypes.INDIVIDUAL
   return draft
+}
+
+function mockedDraftView () {
+  let draftView = new DraftView()
+  draftView.viewFlowOption = true
+
+  return draftView
 }
 
 function mockedClaim () {
@@ -58,6 +66,17 @@ mock('claim/draft/claimDraftMiddleware', {
     retrieve: (req, res, next) => {
       res.locals.user = {
         legalClaimDraft: mockedDraftClaim()
+      }
+      next()
+    }
+  }
+})
+
+mock('views/draft/viewDraftMiddleware', {
+  'ViewDraftMiddleware': {
+    retrieve: (req, res, next) => {
+      res.locals.user = {
+        viewDraft: mockedDraftView()
       }
       next()
     }
