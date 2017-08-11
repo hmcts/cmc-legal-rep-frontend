@@ -19,6 +19,7 @@ const pageText = 'Do you want to add another defendant?'
 describe('Claim issue: is defendant addition page', () => {
   beforeEach(() => {
     mock.cleanAll()
+    draftStoreServiceMock.resolveRetrieve('view')
     draftStoreServiceMock.resolveRetrieve('legalClaim')
   })
 

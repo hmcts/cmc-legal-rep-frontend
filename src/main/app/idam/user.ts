@@ -1,4 +1,5 @@
 import DraftLegalClaim from 'drafts/models/draftLegalClaim'
+import DraftView from 'app/drafts/models/draftView'
 
 export default class User {
   id: string
@@ -8,6 +9,7 @@ export default class User {
   roles: string[]
   group: string
   bearerToken: string
+  viewDraft: DraftView
   legalClaimDraft: DraftLegalClaim
 
   constructor (id: string,

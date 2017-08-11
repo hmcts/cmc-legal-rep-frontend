@@ -59,6 +59,7 @@ describe('Claim : Pay by Fee Account page', () => {
 
     it('should render page when form is invalid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+      feesServiceMock.resolveCalculateIssueFee()
 
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
