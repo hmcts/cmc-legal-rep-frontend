@@ -75,9 +75,7 @@ mock('claim/draft/claimDraftMiddleware', {
 mock('views/draft/viewDraftMiddleware', {
   'ViewDraftMiddleware': {
     retrieve: (req, res, next) => {
-      res.locals.user = {
-        viewDraft: mockedDraftView()
-      }
+      res.locals.user.viewDraft = mockedDraftView()
       next()
     }
   }
