@@ -14,6 +14,14 @@ describe('IsFeeAccountConstraint', () => {
         expect(constraint.validate('pba1234567')).to.equal(true)
       })
 
+      it('given an valid reference with leading spaces', () => {
+        expect(constraint.validate('   PBA1234567')).to.equal(true)
+      })
+
+      it('given an valid reference with trailing spaces', () => {
+        expect(constraint.validate('PBA1234567  ')).to.equal(true)
+      })
+
       it('given null', () => {
         expect(constraint.validate(null)).to.equal(true)
       })

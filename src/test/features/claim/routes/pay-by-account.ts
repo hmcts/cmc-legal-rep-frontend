@@ -63,6 +63,7 @@ describe('Claim : Pay by Fee Account page', () => {
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
+        .send({ reference: '' })
         .expect(res => expect(res).to.be.successful.withText(pageHeading, 'div class="error-summary"'))
     })
 
