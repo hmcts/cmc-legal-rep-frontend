@@ -17,8 +17,10 @@ export class RoutablePath {
       .substring(1) // remove leading slash
       .split('/')
 
-    const featureName: string = split[0]
-    const viewPath: string = split.slice(1).join('/')
+    // we are escaping legal path of split[0]
+
+    const featureName: string = split[1]
+    const viewPath: string = split.slice(2).join('/')
     return `${featureName}/views/${viewPath}`
   }
 }
