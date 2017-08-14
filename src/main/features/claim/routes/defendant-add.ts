@@ -16,7 +16,7 @@ function renderView (form: Form<DefendantAddition>, res: express.Response) {
 
   res.render(Paths.defendantAdditionPage.associatedView, {
     form: form,
-    defendants: defendants.length > 1 ? defendants : null
+    defendants: res.locals.user.viewDraft.viewFlowOption || defendants.length > 1 ? defendants : null
   })
 }
 
@@ -25,7 +25,7 @@ let addErrorMessage = function (form: Form<DefendantAddition>) {
   validationError.property = 'isAddDefendant'
   validationError.target = { 'isAddDefendant': 'YES' }
   validationError.value = 'YES'
-  validationError.constraints = { ['isAddDefendant']: 'Remove a defendant to add more' }
+  validationError.constraints = { ['isAddDefendant']: "You can't add more than four defendant" }
   form.errors.push(new FormValidationError(validationError, ''))
 }
 export default express.Router()

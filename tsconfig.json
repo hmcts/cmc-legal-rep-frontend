@@ -59,6 +59,9 @@
       ],
       "first-contact/*": [
         "features/first-contact/*"
+      ],
+      "views/*": [
+        "features/view/*"
       ]
     },
     "typeRoots": [

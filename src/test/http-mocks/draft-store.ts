@@ -4,6 +4,10 @@ import * as HttpStatus from 'http-status-codes'
 
 const serviceBaseURL: string = `${config.get('draft-store.url')}/api/${config.get('draft-store.apiVersion')}`
 
+const sampleViewDraftObj = {
+  viewFlowOption: true
+}
+
 const sampleClaimDraftObj = {
   externalId: '12345',
   readResolveDispute: true,
@@ -110,6 +114,9 @@ export function resolveRetrieve (draftType: string, draftOverride?: object) {
   switch (draftType) {
     case 'legalClaim':
       draft = { ...sampleClaimDraftObj, ...draftOverride }
+      break
+    case 'view':
+      draft = { ...sampleViewDraftObj, ...draftOverride }
       break
     case 'response':
       draft = { ...sampleResponseDraftObj, ...draftOverride }
