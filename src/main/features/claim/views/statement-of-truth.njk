@@ -12,14 +12,14 @@
         <div class="form-group-compound">
 
           <p>{{ t("The claimant believes that the facts in this claim form is true. I'm duly authorised by the claimant to sign this statement.") }}</p>
-          {{ textInput('Name', 'signerName', form) }}
+          {{ textInput(t('Name'), 'signerName', form) }}
 
           <div class="form-group">
             <pre>{{ t('Company ') }} </pre>
             <pre class="form-label-bold">{{ companyName }}</pre>
           </div>
 
-          {{ textInput('Your role', 'signerRole', form) }}
+          {{ textInput(t('Your role'), 'signerRole', form) }}
         </div>
 
         <div class="form-group">
