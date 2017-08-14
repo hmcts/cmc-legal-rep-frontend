@@ -20,11 +20,11 @@ describe('DraftView', () => {
   })
 
   describe('deserialize', () => {
-    it('with value \'undefined\' should return a DraftView instance initialised with defaults', () => {
+    it("with value 'undefined' should return a DraftView instance initialised with defaults", () => {
       verifyDefaultValues(undefined)
     })
 
-    it('with value \'null\' should return a DraftView instance initialised with defaults', () => {
+    it("with value 'null' should return a DraftView instance initialised with defaults", () => {
       verifyDefaultValues(null)
     })
   })
