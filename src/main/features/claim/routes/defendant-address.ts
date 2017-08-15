@@ -4,7 +4,6 @@ import { Paths } from 'claim/paths'
 import { Form } from 'forms/form'
 import { FormValidator } from 'forms/validation/formValidator'
 import { Address } from 'forms/models/address'
-import { PartyTypes } from 'app/forms/models/partyTypes'
 
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import ErrorHandling from 'common/errorHandling'
@@ -12,14 +11,10 @@ import { Defendants } from 'common/router/defendants'
 
 function renderView (form: Form<Address>, res: express.Response): void {
   const defendants = res.locals.user.legalClaimDraft.defendants
-  const defendantDetails = defendants[Defendants.getCurrentIndex(res)].defendantDetails
-  const isIndividual = defendantDetails.type.value === PartyTypes.INDIVIDUAL.value
-  const title = defendantDetails.title != null ? defendantDetails.title + ' ' : defendantDetails.title
-  const name = isIndividual ? title + defendantDetails.fullName : defendantDetails.organisation
 
   res.render(Paths.defendantAddressPage.associatedView, {
     form: form,
-    name: name,
+    name: Defendants.getCurrentDefendantName(res),
     defendantNumber: defendants.length >= 2 ? 'Defendant ' + defendants.length + ' : ' : null
   })
 }
