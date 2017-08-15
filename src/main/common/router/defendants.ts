@@ -33,7 +33,7 @@ export class Defendants {
     const defendants = res.locals.user.legalClaimDraft.defendants
     const defendantDetails = defendants[Defendants.getCurrentIndex(res)].defendantDetails
     const isIndividual = defendantDetails.type.value === PartyTypes.INDIVIDUAL.value
-    const title = defendantDetails.title != null ? defendantDetails.title + ' ' : defendantDetails.title
-    return isIndividual ? title + defendantDetails.fullName : defendantDetails.organisation
+    const title = defendantDetails.title != null ? `${defendantDetails.title} ` : defendantDetails.title
+    return isIndividual ? `${title}${defendantDetails.fullName}` : defendantDetails.organisation
   }
 }
