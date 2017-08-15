@@ -24,7 +24,7 @@
               {% if (claimAmount.canNotState()) %}
                 {{ t('(no higher value given)') }}
               {% else %}
-                {{ t('(based on higher value of %s )', { postProcess: 'sprintf', sprintf: [claimAmount.higherValue | numeral ]}) }}
+                {{ t('(based on %s higher value)', { postProcess: 'sprintf', sprintf: [claimAmount.higherValue | numeral ]}) }}
               {% endif %}
             </div>
             <div class="column-one-thirds bold-small text-align-right">{{ feeAmount | numeral }}</div>
