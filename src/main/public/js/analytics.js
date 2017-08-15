@@ -16,5 +16,5 @@ xhttp.onreadystatechange = function() {
     ga('send', 'pageview');
   }
 };
-xhttp.open("GET", '/analytics', true)
+xhttp.open("GET", '/legal/analytics', true)
 xhttp.send()

@@ -1,8 +1,6 @@
 import { RoutablePath } from 'common/router/routablePath'
-import { Paths as AppPaths } from 'app/paths'
 
 export class Paths {
-  static readonly claimantLoginReceiver = AppPaths.receiver
   static readonly startPage = new RoutablePath('/legal/claim/start')
   static readonly housingDisrepairPage = new RoutablePath('/legal/claim/housing-disrepair')
   static readonly personalInjuryPage = new RoutablePath('/legal/claim/personal-injury')
@@ -27,7 +25,4 @@ export class Paths {
   static readonly claimSubmittedPage = new RoutablePath('/legal/claim/submitted')
   static readonly detailsSummaryPage = new RoutablePath('/legal/claim/details-summary')
 
-}
-
-export class ErrorPaths {
 }

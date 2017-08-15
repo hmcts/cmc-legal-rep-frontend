@@ -4,7 +4,7 @@ import * as promisify from 'es6-promisify'
 import { expect } from 'chai'
 
 import { RoutablePath } from 'common/router/routablePath'
-import { ErrorPaths as ClaimIssueErrorPaths, Paths as ClaimIssuePaths } from 'claim/paths'
+import { Paths as ClaimIssuePaths } from 'claim/paths'
 
 import './mocks'
 import { app } from '../../main/app'
@@ -50,5 +50,4 @@ describe('Accessibility', () => {
   }
 
   checkPaths(ClaimIssuePaths)
-  checkPaths(ClaimIssueErrorPaths)
 })

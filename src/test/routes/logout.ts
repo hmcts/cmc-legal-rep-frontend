@@ -23,7 +23,7 @@ describe('Logout receiver', () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
 
       await request(app)
-        .get(AppPaths.logoutReceiver.uri)
+        .get('/legal/logout')
         .set('Cookie', `${cookieName}=ABC`)
         .expect(res => expect(res).to.be.redirect.toLocation(AppPaths.homePage.uri))
     })
@@ -32,7 +32,7 @@ describe('Logout receiver', () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
 
       await request(app)
-        .get(AppPaths.logoutReceiver.uri)
+        .get('/legal/logout')
         .set('Cookie', `${cookieName}=ABC`)
         .expect(res => expect(res).to.not.have.cookie(cookieName, 'ABC'))
     })
