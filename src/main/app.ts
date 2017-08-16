@@ -67,9 +67,7 @@ const errorLogger = new ErrorLogger()
 app.use((err, req, res, next) => {
   errorLogger.log(err)
   res.status(err.statusCode || 500)
-  if (err.statusCode === 302 && err.associatedView) {
-    res.redirect(err.associatedView)
-  } else if (err.associatedView) {
+  if (err.associatedView) {
     res.render(err.associatedView)
   } else {
     const view = (env === 'mocha' || env === 'development' || env === 'dev' || env === 'demo') ? 'error_dev' : 'error'
