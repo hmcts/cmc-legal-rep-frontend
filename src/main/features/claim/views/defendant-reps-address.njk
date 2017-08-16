@@ -6,12 +6,7 @@
 
 {% block content %}
   <h1 class="heading-large">
-    <span class="form-hint">
-      {% if defendantNumber %} {{ defendantNumber }}
-      {% else %} {{ t("Defendant's representative: ") }}
-      {% endif %}
-      {{ name }}
-    </span>
+    <span class="form-hint">{{ defendantNumberHint }}{{ name }}</span>
     {{ t('Address for service') }}
   </h1>
   <div class="grid-row">

@@ -25,7 +25,7 @@ let addErrorMessage = function (form: Form<DefendantAddition>) {
   validationError.property = 'isAddDefendant'
   validationError.target = { 'isAddDefendant': 'YES' }
   validationError.value = 'YES'
-  validationError.constraints = { ['isAddDefendant']: "You can't add more than four defendant" }
+  validationError.constraints = { ['isAddDefendant']: "You can't add more than four defendants" }
   form.errors.push(new FormValidationError(validationError, ''))
 }
 export default express.Router()

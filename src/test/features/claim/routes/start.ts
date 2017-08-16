@@ -47,6 +47,7 @@ describe('Claim issue: start page', () => {
     it('should redirect to representative-name page when delete previous draft is successful', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
       DraftStoreServiceMock.resolveDelete('legalClaim')
+      DraftStoreServiceMock.resolveDelete('view')
 
       await request(app)
         .post(ClaimPaths.startPage.uri)
