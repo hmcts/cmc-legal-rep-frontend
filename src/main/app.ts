@@ -6,7 +6,6 @@ import * as cookieParser from 'cookie-parser'
 import * as bodyParser from 'body-parser'
 import * as logging from '@hmcts/nodejs-logging'
 import { NotFoundError } from './errors'
-import { AccessLogger } from 'logging/accessLogger'
 import { ErrorLogger } from 'logging/errorLogger'
 import { RouterFinder } from 'common/router/routerFinder'
 import { Config as HelmetConfig, Helmet } from 'modules/helmet'
@@ -43,7 +42,12 @@ app.use(bodyParser.urlencoded({
   extended: true
 }))
 app.use(cookieParser())
-app.use(express.static(path.join(__dirname, 'public')))
+
+if (!developmentMode) {
+  app.use(logging.express.accessLogger())
+}
+
+app.use('/legal', express.static(path.join(__dirname, 'public')))
 
 if (env !== 'mocha') {
   new CsrfProtection().enableFor(app)
@@ -51,7 +55,7 @@ if (env !== 'mocha') {
 
 new ClaimIssueFeature().enableFor(app)
 
-app.use('/', RouterFinder.findAll(path.join(__dirname, 'routes')))
+app.use('/legal', RouterFinder.findAll(path.join(__dirname, 'routes')))
 
 // Below will match all routes not covered by the router, which effectively translates to a 404 response
 app.use((req, res, next) => {
@@ -62,17 +66,15 @@ app.use((req, res, next) => {
 const errorLogger = new ErrorLogger()
 app.use((err, req, res, next) => {
   errorLogger.log(err)
-  const view = (env === 'mocha' || env === 'development' || env === 'dev' || env === 'demo') ? 'error_dev' : 'error'
   res.status(err.statusCode || 500)
-  res.render(view, {
-    error: err,
-    title: 'error'
-  })
-  next()
-})
-
-const accessLogger = new AccessLogger()
-app.use((req, res, next) => {
-  res.on('finish', () => accessLogger.log(req, res))
+  if (err.associatedView) {
+    res.render(err.associatedView)
+  } else {
+    const view = (env === 'mocha' || env === 'development' || env === 'dev' || env === 'demo') ? 'error_dev' : 'error'
+    res.render(view, {
+      error: err,
+      title: 'error'
+    })
+  }
   next()
 })
