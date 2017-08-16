@@ -1,0 +1,75 @@
+{% extends "layout.njk" %}
+{% from "table.njk" import tableStart,tableEnd, row, rowWithMultipleValue %}
+{% from "form.njk" import csrfProtection, saveAndContinueButton %}
+
+{% set title = t("Money claim") %}
+
+{% block content %}
+  <h1 class="heading-large">{{ t("Check the claim details") }}</h1>
+
+  <form novalidate method="post" class="form-group">
+    {{ csrfProtection(csrf) }}
+
+    <p>{{ t('Make sure this information is correct before you issue.') }}</p>
+
+    {% if(legalClaimDraft.claimant.claimantDetails.title) %}
+      {% set claimantFullName = legalClaimDraft.claimant.claimantDetails.title + ' ' + legalClaimDraft.claimant.claimantDetails.fullName %}
+    {% else %}
+      {% set claimantFullName = legalClaimDraft.claimant.claimantDetails.fullName %}
+    {% endif %}
+
+    {{ tableStart('companyDetails', 'Company details') }}
+    {{ row('Company name', legalClaimDraft.representative.companyName.name) }}
+
+    {{ rowWithMultipleValue(
+    label = 'Address',
+    values = [legalClaimDraft.representative.address.line1,
+    legalClaimDraft.representative.address.line2,
+    legalClaimDraft.representative.address.city,
+    legalClaimDraft.representative.address.postcode],
+    bottomBorder = true
+    ) }}
+
+    {{ row('Phone number', legalClaimDraft.representative.contactDetails.phoneNumber) }}
+    {{ row('Email', legalClaimDraft.representative.contactDetails.email) }}
+    {{ row('DX address', legalClaimDraft.representative.contactDetails.dxAddress) }}
+    {{ row('Your reference number', legalClaimDraft.yourReference.reference) }}
+    {{ tableEnd() }}
+
+    {{ tableStart('claimantDetails', 'Claimant details') }}
+    {% if (isClaimantIndividual) %}
+      {{ row('Name', claimantFullName) }}
+    {% else %}
+      {{ row('Organisation name', legalClaimDraft.claimant.claimantDetails.organisation) }}
+      {{ row('Companies House number', legalClaimDraft.claimant.claimantDetails.companyHouseNumber) }}
+    {% endif %}
+
+    {{ rowWithMultipleValue(
+    label = 'Address',
+    values = [legalClaimDraft.claimant.address.line1,
+    legalClaimDraft.claimant.address.line2,
+    legalClaimDraft.claimant.address.city,
+    legalClaimDraft.claimant.address.postcode],
+    bottomBorder = true
+    ) }}
+
+    {{ tableEnd() }}
+
+    {{ tableStart('defendantDetails', 'Defendant details') }}
+    {{ tableEnd() }}
+
+    {{ tableStart('aboutClaim', 'About this claim') }}
+    {{ row('Brief details of claim', legalClaimDraft.summary.text) }}
+    {{ row('Claim amount', 'To be assessed') }}
+    {{ row('Statement of value', '......') }}
+    {{ row('Issue fee', feeAmount | numeral ) }}
+    {{ tableEnd() }}
+
+    <p>
+    <div class="form-group">
+      {{ saveAndContinueButton() }}
+    </div>
+    </p>
+  </form>
+
+{% endblock %}
