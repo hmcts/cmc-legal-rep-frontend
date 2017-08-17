@@ -56,8 +56,48 @@
 
     {{ tableEnd() }}
 
-    {{ tableStart('defendantDetails', 'Defendant details') }}
-    {{ tableEnd() }}
+    {% for defendant in legalClaimDraft.defendants %}
+      {% if loop.length == 1 %}
+        {{ tableStart('defendantDetails', 'Defendant details') }}
+      {% else %}
+        {{ tableStart('defendantDetails'+loop.index, 'Defendant ' + loop.index + ' details') }}
+      {% endif %}
+      {% if defendant.defendantDetails.type.value == 'INDIVIDUAL' %}
+        {% if defendant.defendantDetails.title %}
+          {% set defendantFullName = defendant.defendantDetails.title + ' ' + defendant.defendantDetails.fullName %}
+        {% else %}
+          {% set defendantFullName = defendant.defendantDetails.fullName %}
+        {% endif %}
+        {{ row('Name', defendantFullName) }}
+      {% else %}
+        {{ row('Organisation name', defendant.defendantDetails.organisation) }}
+        {{ row('Companies House number', defendant.defendantDetails.companyHouseNumber) }}
+      {% endif %}
+
+      {{ rowWithMultipleValue(
+      label = 'Address',
+      values = [defendant.address.line1,
+      defendant.address.line2,
+      defendant.address.city,
+      defendant.address.postcode],
+      bottomBorder = true
+      ) }}
+
+      {% if defendant.defendantRepresented.isDefendantRepresented.value =='YES' %}
+        {{ row('Representative company name', defendant.defendantRepresented.companyName) }}
+
+        {{ rowWithMultipleValue(
+        label = 'Address of service',
+        values = [defendant.representative.address.line1,
+        defendant.representative.address.line2,
+        defendant.representative.address.city,
+        defendant.representative.address.postcode],
+        bottomBorder = true
+        ) }}
+      {% endif %}
+      {{ tableEnd() }}
+    {% endfor %}
+
 
     {{ tableStart('aboutClaim', 'About this claim') }}
     {{ row('Brief details of claim', legalClaimDraft.summary.text) }}
