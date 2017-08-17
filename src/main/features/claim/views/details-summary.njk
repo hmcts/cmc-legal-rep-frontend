@@ -34,7 +34,9 @@
     {{ row('Email', legalClaimDraft.representative.contactDetails.email) }}
     {{ row('DX address', legalClaimDraft.representative.contactDetails.dxAddress) }}
     {{ row('Your reference number', legalClaimDraft.yourReference.reference) }}
-
+    {% if legalClaimDraft.preferredCourt.name %}
+      {{ row('Preferred court', legalClaimDraft.preferredCourt.name) }}
+    {% endif %}
     {{ tableEnd() }}
 
     {{ tableStart('claimantDetails', 'Claimant details') }}
@@ -159,10 +161,6 @@
     ) }}
 
     {{ row('Issue fee', feeAmount | numeral ) }}
-
-    {% if legalClaimDraft.preferredCourt.name %}
-      {{ row('Preferred court', legalClaimDraft.preferredCourt.name) }}
-    {% endif %}
 
     {{ tableEnd() }}
 
