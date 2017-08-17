@@ -12,7 +12,7 @@
 
     <p>{{ t('Make sure this information is correct before you issue.') }}</p>
 
-    {% if(legalClaimDraft.claimant.claimantDetails.title) %}
+    {% if legalClaimDraft.claimant.claimantDetails.title %}
       {% set claimantFullName = legalClaimDraft.claimant.claimantDetails.title + ' ' + legalClaimDraft.claimant.claimantDetails.fullName %}
     {% else %}
       {% set claimantFullName = legalClaimDraft.claimant.claimantDetails.fullName %}
@@ -34,10 +34,11 @@
     {{ row('Email', legalClaimDraft.representative.contactDetails.email) }}
     {{ row('DX address', legalClaimDraft.representative.contactDetails.dxAddress) }}
     {{ row('Your reference number', legalClaimDraft.yourReference.reference) }}
+
     {{ tableEnd() }}
 
     {{ tableStart('claimantDetails', 'Claimant details') }}
-    {% if (isClaimantIndividual) %}
+    {% if isClaimantIndividual %}
       {{ row('Name', claimantFullName) }}
     {% else %}
       {{ row('Organisation name', legalClaimDraft.claimant.claimantDetails.organisation) }}
@@ -61,8 +62,68 @@
     {{ tableStart('aboutClaim', 'About this claim') }}
     {{ row('Brief details of claim', legalClaimDraft.summary.text) }}
     {{ row('Claim amount', 'To be assessed') }}
-    {{ row('Statement of value', '......') }}
+
+    {% if legalClaimDraft.amount.lowerValue and legalClaimDraft.amount.higherValue %}
+      {% set amountStatementOfValue %}
+        {{ t('The claimant expects to recover more than %s but not more than %s', { postProcess: 'sprintf', sprintf: [legalClaimDraft.amount.lowerValue | numeral, legalClaimDraft.amount.higherValue | numeral ]}) }}
+      {% endset %}
+    {% elseif legalClaimDraft.amount.higherValue %}
+      {% set amountStatementOfValue %}
+        {{ t('The claimant expects to recover up to %s', { postProcess: 'sprintf', sprintf: [legalClaimDraft.amount.higherValue | numeral ]}) }}
+      {% endset %}
+    {% else %}
+      {% set amountStatementOfValue %}
+        {{ t('The claimant cannot state the value of the claim.') }}
+      {% endset %}
+    {% endif %}
+
+    {% if isPersonalInjury %}
+      {% set personalInjuryStatementOfValue %}
+        {% if legalClaimDraft.personalInjury.generalDamages.value == 'LESS' %}
+          {% set damages = 'not more than £1,000' %}
+        {% else %}
+          {% set damages = 'more than £1,000' %}
+        {% endif %}
+        {{ t('This claim is for personal injury. The claimant expects to recover %s as damages for pain, suffering and loss of amenity.', { postProcess: 'sprintf', sprintf: [damages]}) }}
+      {% endset %}
+    {% endif %}
+
+    {% if isHousingDisrepair %}
+      {% set housingDisrepairStatementOfValue %}
+        {% if legalClaimDraft.housingDisrepair.generalDamages.value == 'LESS' %}
+          {% set housingDisrepairDamages = 'not more than £1,000' %}
+        {% else %}
+          {% set damages = 'more than £1,000' %}
+        {% endif %}
+
+        {% if legalClaimDraft.housingDisrepair.otherDamages.value == 'LESS' %}
+          {% set housingDisrepairOtherDamages = 'The cost of any claim for damages is not more than £1,000.' %}
+        {% elseif legalClaimDraft.housingDisrepair.otherDamages.value == 'MORE' %}
+          {% set housingDisrepairOtherDamages = 'The cost of any claim for damages is more than £1,000.' %}
+        {% else %}
+          {% set housingDisrepairOtherDamages = '' %}
+        {% endif %}
+        {% if isPersonalInjury and isHousingDisrepair %}
+          {% set also = 'also ' %}
+        {% else %}
+          {% set also = '' %}
+        {% endif %}
+        {{ t(' This is %sa claim for housing disrepair which includes an order for the landlord to carry out work. The cost of repairs or other work is %s. %s', { postProcess: 'sprintf', sprintf: [also, housingDisrepairDamages, housingDisrepairOtherDamages]}) }}
+      {% endset %}
+    {% endif %}
+
+    {{ rowWithMultipleValue(
+    label = 'Statement of value',
+    values = [amountStatementOfValue, personalInjuryStatementOfValue, housingDisrepairStatementOfValue],
+    bottomBorder = true
+    ) }}
+
     {{ row('Issue fee', feeAmount | numeral ) }}
+
+    {% if legalClaimDraft.preferredCourt.name %}
+      {{ row('Preferred court', legalClaimDraft.preferredCourt.name) }}
+    {% endif %}
+
     {{ tableEnd() }}
 
     <p>
