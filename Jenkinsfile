@@ -6,6 +6,7 @@ import uk.gov.hmcts.RPMTagger
 @Library('CMC')
 import uk.gov.hmcts.cmc.integrationtests.IntegrationTests
 import uk.gov.hmcts.cmc.smoketests.SmokeTests
+import uk.gov.hmcts.cmc.Team
 
 Ansible ansible = new Ansible(this, 'cmc')
 Packager packager = new Packager(this, 'cmc')
@@ -80,9 +81,7 @@ timestamps {
         }
 
         stage('Integration Tests') {
-          integrationTests.execute([
-            'LEGAL_FRONTEND_VERSION': legalFrontendVersion
-          ])
+          integrationTests.execute(['LEGAL_FRONTEND_VERSION': legalFrontendVersion], Team.LEGAL)
         }
 
         //noinspection GroovyVariableNotAssigned It is guaranteed to be assigned
