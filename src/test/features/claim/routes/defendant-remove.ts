@@ -14,6 +14,7 @@ import * as idamServiceMock from '../../../http-mocks/idam'
 import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
+const roles: string[] = ['solicitor']
 
 const twoDefendants = {
   defendants: [{
@@ -64,7 +65,7 @@ describe('Claim issue: is defendant removal page', () => {
   beforeEach(() => {
     mock.cleanAll()
     draftStoreServiceMock.resolveRetrieve('view')
-    idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+    idamServiceMock.resolveRetrieveUserFor(1, ...roles)
   })
 
   describe('on GET', () => {

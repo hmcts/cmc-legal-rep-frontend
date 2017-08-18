@@ -14,7 +14,7 @@ import * as idamServiceMock from '../../../http-mocks/idam'
 import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
-const roles:string[] = ['cmc-private-beta', 'claimant', 'solicitor']
+const roles: string[] = ['solicitor']
 
 describe('Claim issue: Enter claim range page', () => {
   beforeEach(() => {
