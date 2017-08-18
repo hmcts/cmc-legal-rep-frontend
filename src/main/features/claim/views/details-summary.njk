@@ -86,7 +86,7 @@
       ) }}
 
       {% if defendant.defendantRepresented.isDefendantRepresented.value =='YES' %}
-        {{ row('Representative company name', defendant.defendantRepresented.companyName) }}
+        {{ row('Representative organisation name', defendant.defendantRepresented.companyName) }}
 
         {{ rowWithMultipleValue(
         label = 'Address of service',
@@ -106,9 +106,15 @@
     {{ row('Claim amount', 'To be assessed') }}
 
     {% if legalClaimDraft.amount.lowerValue and legalClaimDraft.amount.higherValue %}
-      {% set amountStatementOfValue %}
-        {{ t('The claimant expects to recover more than %s but not more than %s', { postProcess: 'sprintf', sprintf: [legalClaimDraft.amount.lowerValue | numeral, legalClaimDraft.amount.higherValue | numeral ]}) }}
-      {% endset %}
+      {% if legalClaimDraft.amount.lowerValue == legalClaimDraft.amount.higherValue %}
+        {% set amountStatementOfValue %}
+          {{ t('The claimant expects to recover up to %s', { postProcess: 'sprintf', sprintf: [legalClaimDraft.amount.higherValue | numeral ]}) }}
+        {% endset %}
+      {% else %}
+        {% set amountStatementOfValue %}
+          {{ t('The claimant expects to recover more than %s but not more than %s', { postProcess: 'sprintf', sprintf: [legalClaimDraft.amount.lowerValue | numeral, legalClaimDraft.amount.higherValue | numeral ]}) }}
+        {% endset %}
+      {% endif %}
     {% elseif legalClaimDraft.amount.higherValue %}
       {% set amountStatementOfValue %}
         {{ t('The claimant expects to recover up to %s', { postProcess: 'sprintf', sprintf: [legalClaimDraft.amount.higherValue | numeral ]}) }}
