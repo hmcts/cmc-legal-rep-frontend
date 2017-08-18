@@ -15,8 +15,6 @@ function claimIssueRequestHandler (): express.RequestHandler {
   }
 
   const requiredRoles = [
-    'cmc-private-beta',
-    'claimant',
     'solicitor'
   ]
   const unprotectedPaths = []
