@@ -18,8 +18,8 @@
       {% set claimantFullName = legalClaimDraft.claimant.claimantDetails.fullName %}
     {% endif %}
 
-    {{ tableStart('companyDetails', 'Company details') }}
-    {{ row('Company name', legalClaimDraft.representative.companyName.name) }}
+    {{ tableStart('organisationDetails', 'Your organisation details') }}
+    {{ row('Organisation name', legalClaimDraft.representative.companyName.name) }}
 
     {{ rowWithMultipleValue(
     label = 'Address',
@@ -86,10 +86,10 @@
       ) }}
 
       {% if defendant.defendantRepresented.isDefendantRepresented.value =='YES' %}
-        {{ row('Representative organisation name', defendant.defendantRepresented.companyName) }}
+        {{ row('Solicitor', defendant.defendantRepresented.companyName) }}
 
         {{ rowWithMultipleValue(
-        label = 'Address of service',
+        label = 'Service address',
         values = [defendant.representative.address.line1,
         defendant.representative.address.line2,
         defendant.representative.address.city,
@@ -99,7 +99,6 @@
       {% endif %}
       {{ tableEnd() }}
     {% endfor %}
-
 
     {{ tableStart('aboutClaim', 'About this claim') }}
     {{ row('Brief details of claim', legalClaimDraft.summary.text) }}
@@ -112,7 +111,7 @@
         {% endset %}
       {% else %}
         {% set amountStatementOfValue %}
-          {{ t('The claimant expects to recover more than %s but not more than %s', { postProcess: 'sprintf', sprintf: [legalClaimDraft.amount.lowerValue | numeral, legalClaimDraft.amount.higherValue | numeral ]}) }}
+          {{ t('The claimant expects to recover up to %s. The claimant estimates the claim to be worth more than %s', { postProcess: 'sprintf', sprintf: [legalClaimDraft.amount.higherValue | numeral, legalClaimDraft.amount.lowerValue | numeral ]}) }}
         {% endset %}
       {% endif %}
     {% elseif legalClaimDraft.amount.higherValue %}
@@ -121,7 +120,7 @@
       {% endset %}
     {% else %}
       {% set amountStatementOfValue %}
-        {{ t('The claimant cannot state the value of the claim.') }}
+        {{ t("The claimant can't state the value of the claim.") | safe }}
       {% endset %}
     {% endif %}
 
@@ -162,7 +161,7 @@
 
     {{ rowWithMultipleValue(
     label = 'Statement of value',
-    values = [amountStatementOfValue, personalInjuryStatementOfValue, housingDisrepairStatementOfValue],
+    values = [personalInjuryStatementOfValue, housingDisrepairStatementOfValue, amountStatementOfValue],
     bottomBorder = true
     ) }}
 
