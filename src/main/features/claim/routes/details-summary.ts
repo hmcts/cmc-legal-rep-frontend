@@ -20,7 +20,8 @@ function renderView (res: express.Response, next: express.NextFunction) {
         feeAmount: feeAmount,
         isClaimantIndividual: isClaimantIndividual,
         isHousingDisrepair: isHousingDisrepair,
-        isPersonalInjury: isPersonalInjury
+        isPersonalInjury: isPersonalInjury,
+        paths: Paths
       })
     })
     .catch(next)
