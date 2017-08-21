@@ -19,7 +19,7 @@
     {% endif %}
 
     {{ tableStart('organisationDetails', 'Your organisation details') }}
-    {{ row('Organisation name', legalClaimDraft.representative.companyName.name) }}
+    {{ row('Organisation name', legalClaimDraft.representative.companyName.name, paths.representativeNamePage.uri) }}
 
     {{ rowWithMultipleValue(
     label = 'Address',
@@ -27,23 +27,25 @@
     legalClaimDraft.representative.address.line2,
     legalClaimDraft.representative.address.city,
     legalClaimDraft.representative.address.postcode],
+    changeLink = paths.representativeAddressPage.uri,
     bottomBorder = true
     ) }}
 
-    {{ row('Phone number', legalClaimDraft.representative.contactDetails.phoneNumber) }}
+    {{ row('Phone number', legalClaimDraft.representative.contactDetails.phoneNumber, paths.representativeContactsPage.uri) }}
     {{ row('Email', legalClaimDraft.representative.contactDetails.email) }}
     {{ row('DX address', legalClaimDraft.representative.contactDetails.dxAddress) }}
-    {{ row('Your reference number', legalClaimDraft.yourReference.reference) }}
+
+    {{ row('Your reference number', legalClaimDraft.yourReference.reference, paths.yourReferencePage.uri) }}
     {% if legalClaimDraft.preferredCourt.name %}
-      {{ row('Preferred court', legalClaimDraft.preferredCourt.name) }}
+      {{ row('Preferred court', legalClaimDraft.preferredCourt.name, paths.preferredCourtPage.uri) }}
     {% endif %}
     {{ tableEnd() }}
 
     {{ tableStart('claimantDetails', 'Claimant details') }}
     {% if isClaimantIndividual %}
-      {{ row('Name', claimantFullName) }}
+      {{ row('Name', claimantFullName, paths.claimantTypePage.uri) }}
     {% else %}
-      {{ row('Organisation name', legalClaimDraft.claimant.claimantDetails.organisation) }}
+      {{ row('Organisation name', legalClaimDraft.claimant.claimantDetails.organisation, paths.claimantTypePage.uri) }}
       {{ row('Companies House number', legalClaimDraft.claimant.claimantDetails.companyHouseNumber) }}
     {% endif %}
 
@@ -53,6 +55,7 @@
     legalClaimDraft.claimant.address.line2,
     legalClaimDraft.claimant.address.city,
     legalClaimDraft.claimant.address.postcode],
+    changeLink = paths.claimantAddressPage.uri,
     bottomBorder = true
     ) }}
 
@@ -61,7 +64,13 @@
     {% for defendant in legalClaimDraft.defendants %}
       {% if loop.length == 1 %}
         {{ tableStart('defendantDetails', 'Defendant details') }}
+        {% set changeDefendantLink = paths.defendantTypePage.uri %}
+        {% set changeRepresentativeLink = paths.defendantRepresentedPage.uri %}
+        {% set changeRepresentativeAddressLink = paths.defendantRepAddressPage.uri %}
       {% else %}
+        {% set changeDefendantLink = paths.defendantAdditionPage.uri %}
+        {% set changeRepresentativeLink = paths.defendantAdditionPage.uri %}
+        {% set changeRepresentativeAddressLink = paths.defendantAdditionPage.uri %}
         {{ tableStart('defendantDetails'+loop.index, 'Defendant ' + loop.index + ' details') }}
       {% endif %}
       {% if defendant.defendantDetails.type.value == 'INDIVIDUAL' %}
@@ -70,9 +79,9 @@
         {% else %}
           {% set defendantFullName = defendant.defendantDetails.fullName %}
         {% endif %}
-        {{ row('Name', defendantFullName) }}
+        {{ row('Name', defendantFullName, changeDefendantLink) }}
       {% else %}
-        {{ row('Organisation name', defendant.defendantDetails.organisation) }}
+        {{ row('Organisation name', defendant.defendantDetails.organisation, changeDefendantLink) }}
         {{ row('Companies House number', defendant.defendantDetails.companyHouseNumber) }}
       {% endif %}
 
@@ -86,7 +95,7 @@
       ) }}
 
       {% if defendant.defendantRepresented.isDefendantRepresented.value =='YES' %}
-        {{ row('Solicitor', defendant.defendantRepresented.companyName) }}
+        {{ row('Solicitor', defendant.defendantRepresented.companyName, changeRepresentativeLink) }}
 
         {{ rowWithMultipleValue(
         label = 'Service address',
@@ -94,6 +103,7 @@
         defendant.representative.address.line2,
         defendant.representative.address.city,
         defendant.representative.address.postcode],
+        changeLink = changeRepresentativeAddressLink,
         bottomBorder = true
         ) }}
       {% endif %}
@@ -101,8 +111,8 @@
     {% endfor %}
 
     {{ tableStart('aboutClaim', 'About this claim') }}
-    {{ row('Brief details of claim', legalClaimDraft.summary.text) }}
-    {{ row('Claim amount', 'To be assessed') }}
+    {{ row('Brief details of claim', legalClaimDraft.summary.text, paths.summariseTheClaimPage.uri) }}
+    {{ row('Claim amount', 'To be assessed', paths.claimAmountPage.uri) }}
 
     {% if legalClaimDraft.amount.lowerValue and legalClaimDraft.amount.higherValue %}
       {% if legalClaimDraft.amount.lowerValue == legalClaimDraft.amount.higherValue %}
@@ -162,6 +172,7 @@
     {{ rowWithMultipleValue(
     label = 'Statement of value',
     values = [personalInjuryStatementOfValue, housingDisrepairStatementOfValue, amountStatementOfValue],
+    changeLink = paths.personalInjuryPage.uri,
     bottomBorder = true
     ) }}
 
