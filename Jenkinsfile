@@ -84,7 +84,7 @@ timestamps {
           try{
             integrationTests.execute(['LEGAL_FRONTEND_VERSION': legalFrontendVersion], Team.LEGAL)
           } finally {
-            archiveArtifacts 'mochawesome-report/CMCT2-End2End-Test-Report.html'
+            archiveArtifacts 'integration-tests-report/CMCT2-End2End-Test-Report.html'
           }
         }
 
