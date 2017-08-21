@@ -81,7 +81,11 @@ timestamps {
         }
 
         stage('Integration Tests') {
-          integrationTests.execute(['LEGAL_FRONTEND_VERSION': legalFrontendVersion], Team.LEGAL)
+          try{
+            integrationTests.execute(['LEGAL_FRONTEND_VERSION': legalFrontendVersion], Team.LEGAL)
+          } finally {
+            archiveArtifacts 'integration-tests-report/CMCT2-End2End-Test-Report.html'
+          }
         }
 
         //noinspection GroovyVariableNotAssigned It is guaranteed to be assigned

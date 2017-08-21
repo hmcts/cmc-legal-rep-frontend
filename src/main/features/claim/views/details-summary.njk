@@ -1,0 +1,178 @@
+{% extends "layout.njk" %}
+{% from "table.njk" import tableStart,tableEnd, row, rowWithMultipleValue %}
+{% from "form.njk" import csrfProtection, saveAndContinueButton %}
+
+{% set title = t("Money claim") %}
+
+{% block content %}
+  <h1 class="heading-large">{{ t("Check the claim details") }}</h1>
+
+  <form novalidate method="post" class="form-group">
+    {{ csrfProtection(csrf) }}
+
+    <p>{{ t('Make sure this information is correct before you issue.') }}</p>
+
+    {% if legalClaimDraft.claimant.claimantDetails.title %}
+      {% set claimantFullName = legalClaimDraft.claimant.claimantDetails.title + ' ' + legalClaimDraft.claimant.claimantDetails.fullName %}
+    {% else %}
+      {% set claimantFullName = legalClaimDraft.claimant.claimantDetails.fullName %}
+    {% endif %}
+
+    {{ tableStart('organisationDetails', 'Your organisation details') }}
+    {{ row('Organisation name', legalClaimDraft.representative.companyName.name) }}
+
+    {{ rowWithMultipleValue(
+    label = 'Address',
+    values = [legalClaimDraft.representative.address.line1,
+    legalClaimDraft.representative.address.line2,
+    legalClaimDraft.representative.address.city,
+    legalClaimDraft.representative.address.postcode],
+    bottomBorder = true
+    ) }}
+
+    {{ row('Phone number', legalClaimDraft.representative.contactDetails.phoneNumber) }}
+    {{ row('Email', legalClaimDraft.representative.contactDetails.email) }}
+    {{ row('DX address', legalClaimDraft.representative.contactDetails.dxAddress) }}
+    {{ row('Your reference number', legalClaimDraft.yourReference.reference) }}
+    {% if legalClaimDraft.preferredCourt.name %}
+      {{ row('Preferred court', legalClaimDraft.preferredCourt.name) }}
+    {% endif %}
+    {{ tableEnd() }}
+
+    {{ tableStart('claimantDetails', 'Claimant details') }}
+    {% if isClaimantIndividual %}
+      {{ row('Name', claimantFullName) }}
+    {% else %}
+      {{ row('Organisation name', legalClaimDraft.claimant.claimantDetails.organisation) }}
+      {{ row('Companies House number', legalClaimDraft.claimant.claimantDetails.companyHouseNumber) }}
+    {% endif %}
+
+    {{ rowWithMultipleValue(
+    label = 'Address',
+    values = [legalClaimDraft.claimant.address.line1,
+    legalClaimDraft.claimant.address.line2,
+    legalClaimDraft.claimant.address.city,
+    legalClaimDraft.claimant.address.postcode],
+    bottomBorder = true
+    ) }}
+
+    {{ tableEnd() }}
+
+    {% for defendant in legalClaimDraft.defendants %}
+      {% if loop.length == 1 %}
+        {{ tableStart('defendantDetails', 'Defendant details') }}
+      {% else %}
+        {{ tableStart('defendantDetails'+loop.index, 'Defendant ' + loop.index + ' details') }}
+      {% endif %}
+      {% if defendant.defendantDetails.type.value == 'INDIVIDUAL' %}
+        {% if defendant.defendantDetails.title %}
+          {% set defendantFullName = defendant.defendantDetails.title + ' ' + defendant.defendantDetails.fullName %}
+        {% else %}
+          {% set defendantFullName = defendant.defendantDetails.fullName %}
+        {% endif %}
+        {{ row('Name', defendantFullName) }}
+      {% else %}
+        {{ row('Organisation name', defendant.defendantDetails.organisation) }}
+        {{ row('Companies House number', defendant.defendantDetails.companyHouseNumber) }}
+      {% endif %}
+
+      {{ rowWithMultipleValue(
+      label = 'Address',
+      values = [defendant.address.line1,
+      defendant.address.line2,
+      defendant.address.city,
+      defendant.address.postcode],
+      bottomBorder = true
+      ) }}
+
+      {% if defendant.defendantRepresented.isDefendantRepresented.value =='YES' %}
+        {{ row('Solicitor', defendant.defendantRepresented.companyName) }}
+
+        {{ rowWithMultipleValue(
+        label = 'Service address',
+        values = [defendant.representative.address.line1,
+        defendant.representative.address.line2,
+        defendant.representative.address.city,
+        defendant.representative.address.postcode],
+        bottomBorder = true
+        ) }}
+      {% endif %}
+      {{ tableEnd() }}
+    {% endfor %}
+
+    {{ tableStart('aboutClaim', 'About this claim') }}
+    {{ row('Brief details of claim', legalClaimDraft.summary.text) }}
+    {{ row('Claim amount', 'To be assessed') }}
+
+    {% if legalClaimDraft.amount.lowerValue and legalClaimDraft.amount.higherValue %}
+      {% if legalClaimDraft.amount.lowerValue == legalClaimDraft.amount.higherValue %}
+        {% set amountStatementOfValue %}
+          {{ t('The claimant expects to recover up to %s', { postProcess: 'sprintf', sprintf: [legalClaimDraft.amount.higherValue | numeral ]}) }}
+        {% endset %}
+      {% else %}
+        {% set amountStatementOfValue %}
+          {{ t('The claimant expects to recover up to %s. The claimant estimates the claim to be worth more than %s', { postProcess: 'sprintf', sprintf: [legalClaimDraft.amount.higherValue | numeral, legalClaimDraft.amount.lowerValue | numeral ]}) }}
+        {% endset %}
+      {% endif %}
+    {% elseif legalClaimDraft.amount.higherValue %}
+      {% set amountStatementOfValue %}
+        {{ t('The claimant expects to recover up to %s', { postProcess: 'sprintf', sprintf: [legalClaimDraft.amount.higherValue | numeral ]}) }}
+      {% endset %}
+    {% else %}
+      {% set amountStatementOfValue %}
+        {{ t("The claimant can't state the value of the claim.") | safe }}
+      {% endset %}
+    {% endif %}
+
+    {% if isPersonalInjury %}
+      {% set personalInjuryStatementOfValue %}
+        {% if legalClaimDraft.personalInjury.generalDamages.value == 'LESS' %}
+          {% set damages = 'not more than £1,000' %}
+        {% else %}
+          {% set damages = 'more than £1,000' %}
+        {% endif %}
+        {{ t('This claim is for personal injury. The claimant expects to recover %s as damages for pain, suffering and loss of amenity.', { postProcess: 'sprintf', sprintf: [damages]}) }}
+      {% endset %}
+    {% endif %}
+
+    {% if isHousingDisrepair %}
+      {% set housingDisrepairStatementOfValue %}
+        {% if legalClaimDraft.housingDisrepair.generalDamages.value == 'LESS' %}
+          {% set housingDisrepairDamages = 'not more than £1,000' %}
+        {% else %}
+          {% set damages = 'more than £1,000' %}
+        {% endif %}
+
+        {% if legalClaimDraft.housingDisrepair.otherDamages.value == 'LESS' %}
+          {% set housingDisrepairOtherDamages = 'The cost of any claim for damages is not more than £1,000.' %}
+        {% elseif legalClaimDraft.housingDisrepair.otherDamages.value == 'MORE' %}
+          {% set housingDisrepairOtherDamages = 'The cost of any claim for damages is more than £1,000.' %}
+        {% else %}
+          {% set housingDisrepairOtherDamages = '' %}
+        {% endif %}
+        {% if isPersonalInjury and isHousingDisrepair %}
+          {% set also = 'also ' %}
+        {% else %}
+          {% set also = '' %}
+        {% endif %}
+        {{ t(' This is %sa claim for housing disrepair which includes an order for the landlord to carry out work. The cost of repairs or other work is %s. %s', { postProcess: 'sprintf', sprintf: [also, housingDisrepairDamages, housingDisrepairOtherDamages]}) }}
+      {% endset %}
+    {% endif %}
+
+    {{ rowWithMultipleValue(
+    label = 'Statement of value',
+    values = [personalInjuryStatementOfValue, housingDisrepairStatementOfValue, amountStatementOfValue],
+    bottomBorder = true
+    ) }}
+
+    {{ row('Issue fee', feeAmount | numeral ) }}
+
+    {{ tableEnd() }}
+
+    <div class="form-group">
+      {{ saveAndContinueButton() }}
+    </div>
+
+  </form>
+
+{% endblock %}

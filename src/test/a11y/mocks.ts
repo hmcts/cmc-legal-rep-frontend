@@ -14,6 +14,10 @@ import { PartyTypes } from 'app/forms/models/partyTypes'
 import moment = require('moment')
 import CompanyName from 'app/forms/models/companyName'
 import DraftView from 'app/drafts/models/draftView'
+import { Amount } from 'forms/models/amount'
+import { HousingDisrepair } from 'forms/models/housingDisrepair'
+import { YesNo } from 'forms/models/yesNo'
+import { PersonalInjury } from 'forms/models/personalInjury'
 
 function mockedDraftClaim () {
   let draft = new DraftLegalClaim()
@@ -25,6 +29,9 @@ function mockedDraftClaim () {
   draft.defendants = [new Defendant()]
   draft.defendants[0].defendantDetails = new DefendantDetails()
   draft.defendants[0].defendantDetails.type = PartyTypes.INDIVIDUAL
+  draft.amount = new Amount(100, 200, '')
+  draft.housingDisrepair = new HousingDisrepair(YesNo.NO)
+  draft.personalInjury = new PersonalInjury(YesNo.NO)
   return draft
 }
 

@@ -34,7 +34,6 @@ function check (url: string): void {
 }
 
 const excludedPaths: ClaimIssuePaths[] = [
-  ClaimIssuePaths.detailsSummaryPage,
   ClaimIssuePaths.claimSubmittedPage,
   ClaimIssuePaths.defendantRemovePage
 ]
