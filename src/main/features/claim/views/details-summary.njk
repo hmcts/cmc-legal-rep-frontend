@@ -31,11 +31,22 @@
     bottomBorder = true
     ) }}
 
-    {{ row('Phone number', legalClaimDraft.representative.contactDetails.phoneNumber, paths.representativeContactsPage.uri) }}
-    {{ row('Email', legalClaimDraft.representative.contactDetails.email) }}
-    {{ row('DX address', legalClaimDraft.representative.contactDetails.dxAddress) }}
+    {% if legalClaimDraft.representative.contactDetails.phoneNumber %}
+      {{ row('Phone number', legalClaimDraft.representative.contactDetails.phoneNumber, paths.representativeContactsPage.uri) }}
+    {% endif %}
 
-    {{ row('Your reference number', legalClaimDraft.yourReference.reference, paths.yourReferencePage.uri) }}
+    {% if legalClaimDraft.representative.contactDetails.email %}
+      {{ row('Email', legalClaimDraft.representative.contactDetails.email, paths.representativeContactsPage.uri) }}
+    {% endif %}
+
+    {% if legalClaimDraft.representative.contactDetails.dxAddress %}
+      {{ row('DX address', legalClaimDraft.representative.contactDetails.dxAddress, paths.representativeContactsPage.uri) }}
+    {% endif %}
+
+    {% if legalClaimDraft.yourReference.reference %}
+      {{ row('Your reference number', legalClaimDraft.yourReference.reference, paths.yourReferencePage.uri) }}
+    {% endif %}
+
     {% if legalClaimDraft.preferredCourt.name %}
       {{ row('Preferred court', legalClaimDraft.preferredCourt.name, paths.preferredCourtPage.uri) }}
     {% endif %}
