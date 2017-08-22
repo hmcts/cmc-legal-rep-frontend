@@ -1,5 +1,5 @@
 import * as chai from 'chai'
-import * as spies from 'chai-spies'
+import * as spies from 'sinon-chai'
 import { mockRes } from 'sinon-express-mock'
 import * as express from 'express'
 import { Defendants } from 'common/router/defendants'
