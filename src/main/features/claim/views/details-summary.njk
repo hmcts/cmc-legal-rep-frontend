@@ -151,7 +151,7 @@
         {% if legalClaimDraft.housingDisrepair.generalDamages.value == 'LESS' %}
           {% set housingDisrepairDamages = 'not more than £1,000' %}
         {% else %}
-          {% set damages = 'more than £1,000' %}
+          {% set housingDisrepairDamages = 'more than £1,000' %}
         {% endif %}
 
         {% if legalClaimDraft.housingDisrepair.otherDamages.value == 'LESS' %}
