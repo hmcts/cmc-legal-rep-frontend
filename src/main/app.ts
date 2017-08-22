@@ -70,7 +70,7 @@ app.use((err, req, res, next) => {
   if (err.associatedView) {
     res.render(err.associatedView)
   } else {
-    const view = (env === 'mocha' || env === 'development' || env === 'dev' || env === 'demo') ? 'error_dev' : 'error'
+    const view = (env === 'mocha' || env === 'development' || env === 'dev') ? 'error_dev' : 'error'
     res.render(view, {
       error: err,
       title: 'error'
