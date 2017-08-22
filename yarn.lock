@@ -29,12 +29,6 @@
   dependencies:
     "@types/chai" "*"
 
-"@types/chai-spies@^0.0.0":
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/@types/chai-spies/-/chai-spies-0.0.0.tgz#945a62e42263eea3c437614f23ed962354a9f2a4"
-  dependencies:
-    "@types/chai" "*"
-
 "@types/chai@*", "@types/chai@^3.4.34":
   version "3.5.2"
   resolved "https://registry.yarnpkg.com/@types/chai/-/chai-3.5.2.tgz#c11cd2817d3a401b7ba0f5a420f35c56139b1c1e"
@@ -122,6 +116,17 @@
 "@types/shortid@^0.0.28":
   version "0.0.28"
   resolved "https://registry.yarnpkg.com/@types/shortid/-/shortid-0.0.28.tgz#b359e25348351f6bf736eed20d2e666528c248c6"
+
+"@types/sinon-chai@^2.7.29":
+  version "2.7.29"
+  resolved "https://registry.yarnpkg.com/@types/sinon-chai/-/sinon-chai-2.7.29.tgz#4db01497e2dd1908b2bd30d1782f456353f5f723"
+  dependencies:
+    "@types/chai" "*"
+    "@types/sinon" "*"
+
+"@types/sinon@*":
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/@types/sinon/-/sinon-2.3.3.tgz#1f20b96f954b4997a09c1c0a20264aaba6b00147"
 
 "@types/superagent@*":
   version "3.5.0"
@@ -613,10 +618,6 @@ chai-as-promised@^6.0.0:
   resolved "https://registry.yarnpkg.com/chai-as-promised/-/chai-as-promised-6.0.0.tgz#1a02a433a6f24dafac63b9c96fa1684db1aa8da6"
   dependencies:
     check-error "^1.0.2"
-
-chai-spies@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/chai-spies/-/chai-spies-0.7.1.tgz#343d99f51244212e8b17e64b93996ff7b2c2a9b1"
 
 "chai@>=1.9.2 <4.0.0", chai@^3.5.0:
   version "3.5.0"
@@ -2629,9 +2630,9 @@ joi@^6.9.1:
     moment "2.x.x"
     topo "1.x.x"
 
-jquery@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
+jquery@1.12.4:
+  version "1.12.4"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-1.12.4.tgz#01e1dfba290fe73deba77ceeacb0f9ba2fec9e0c"
 
 js-base64@^2.1.8:
   version "2.1.9"
@@ -4434,6 +4435,10 @@ sigmund@~1.0.0:
 signal-exit@^3.0.0, signal-exit@^3.0.1, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
+
+sinon-chai@^2.13.0:
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/sinon-chai/-/sinon-chai-2.13.0.tgz#b9a42e801c20234bfc2f43b29e6f4f61b60990c4"
 
 sinon-express-mock@^1.3.0:
   version "1.3.1"
