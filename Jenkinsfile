@@ -36,10 +36,6 @@ timestamps {
           '''
         }
 
-        stage('Lint') {
-          sh "yarn run lint"
-        }
-
         stage('Node security check') {
           try {
             sh "yarn test:nsp 2> nsp-report.txt"
@@ -51,19 +47,26 @@ timestamps {
           sh "rm nsp-report.txt"
         }
 
-        stage('Test') {
-          try {
-            sh "yarn test"
-          } finally {
-            archiveArtifacts 'mochawesome-report/unit.html'
+        // Travis runs all linting and unit testing, no need to do this twice (but run on master to be safe)
+        onMaster {
+          stage('Lint') {
+            sh "yarn run lint"
           }
-        }
 
-        stage('Test a11y') {
-          try {
-            sh "yarn test:a11y"
-          } finally {
-            archiveArtifacts 'mochawesome-report/a11y.html'
+          stage('Test') {
+            try {
+              sh "yarn test"
+            } finally {
+              archiveArtifacts 'mochawesome-report/unit.html'
+            }
+          }
+
+          stage('Test a11y') {
+            try {
+              sh "yarn test:a11y"
+            } finally {
+              archiveArtifacts 'mochawesome-report/a11y.html'
+            }
           }
         }
 
