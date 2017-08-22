@@ -32,13 +32,11 @@
     ) }}
 
     {{ row('Phone number', legalClaimDraft.representative.contactDetails.phoneNumber, paths.representativeContactsPage.uri) }}
-    {{ row('Email', legalClaimDraft.representative.contactDetails.email) }}
-    {{ row('DX address', legalClaimDraft.representative.contactDetails.dxAddress) }}
+    {{ row('Email', legalClaimDraft.representative.contactDetails.email, paths.representativeContactsPage.uri) }}
+    {{ row('DX address', legalClaimDraft.representative.contactDetails.dxAddress, paths.representativeContactsPage.uri) }}
 
     {{ row('Your reference number', legalClaimDraft.yourReference.reference, paths.yourReferencePage.uri) }}
-    {% if legalClaimDraft.preferredCourt.name %}
-      {{ row('Preferred court', legalClaimDraft.preferredCourt.name, paths.preferredCourtPage.uri) }}
-    {% endif %}
+    {{ row('Preferred court', legalClaimDraft.preferredCourt.name, paths.preferredCourtPage.uri) }}
     {{ tableEnd() }}
 
     {{ tableStart('claimantDetails', 'Claimant details') }}
@@ -46,7 +44,7 @@
       {{ row('Name', claimantFullName, paths.claimantTypePage.uri) }}
     {% else %}
       {{ row('Organisation name', legalClaimDraft.claimant.claimantDetails.organisation, paths.claimantTypePage.uri) }}
-      {{ row('Companies House number', legalClaimDraft.claimant.claimantDetails.companyHouseNumber) }}
+      {{ row('Companies House number', legalClaimDraft.claimant.claimantDetails.companyHouseNumber, paths.claimantTypePage.uri) }}
     {% endif %}
 
     {{ rowWithMultipleValue(
@@ -65,10 +63,12 @@
       {% if loop.length == 1 %}
         {{ tableStart('defendantDetails', 'Defendant details') }}
         {% set changeDefendantLink = paths.defendantTypePage.uri %}
+        {% set changeDefendantAddressPageLink = paths.defendantAddressPage.uri %}
         {% set changeRepresentativeLink = paths.defendantRepresentedPage.uri %}
         {% set changeRepresentativeAddressLink = paths.defendantRepAddressPage.uri %}
       {% else %}
         {% set changeDefendantLink = paths.defendantAdditionPage.uri %}
+        {% set changeDefendantAddressPageLink = paths.defendantAdditionPage.uri %}
         {% set changeRepresentativeLink = paths.defendantAdditionPage.uri %}
         {% set changeRepresentativeAddressLink = paths.defendantAdditionPage.uri %}
         {{ tableStart('defendantDetails'+loop.index, 'Defendant ' + loop.index + ' details') }}
@@ -82,7 +82,7 @@
         {{ row('Name', defendantFullName, changeDefendantLink) }}
       {% else %}
         {{ row('Organisation name', defendant.defendantDetails.organisation, changeDefendantLink) }}
-        {{ row('Companies House number', defendant.defendantDetails.companyHouseNumber) }}
+        {{ row('Companies House number', defendant.defendantDetails.companyHouseNumber, changeDefendantLink) }}
       {% endif %}
 
       {{ rowWithMultipleValue(
@@ -91,6 +91,7 @@
       defendant.address.line2,
       defendant.address.city,
       defendant.address.postcode],
+      changeLink = changeDefendantAddressPageLink,
       bottomBorder = true
       ) }}
 
