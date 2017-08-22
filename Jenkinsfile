@@ -6,6 +6,7 @@ import uk.gov.hmcts.RPMTagger
 @Library('CMC')
 import uk.gov.hmcts.cmc.integrationtests.IntegrationTests
 import uk.gov.hmcts.cmc.smoketests.SmokeTests
+import uk.gov.hmcts.cmc.Team
 
 Ansible ansible = new Ansible(this, 'cmc')
 Packager packager = new Packager(this, 'cmc')
@@ -35,10 +36,6 @@ timestamps {
           '''
         }
 
-        stage('Lint') {
-          sh "yarn run lint"
-        }
-
         stage('Node security check') {
           try {
             sh "yarn test:nsp 2> nsp-report.txt"
@@ -50,19 +47,26 @@ timestamps {
           sh "rm nsp-report.txt"
         }
 
-        stage('Test') {
-          try {
-            sh "yarn test"
-          } finally {
-            archiveArtifacts 'mochawesome-report/unit.html'
+        // Travis runs all linting and unit testing, no need to do this twice (but run on master to be safe)
+        onMaster {
+          stage('Lint') {
+            sh "yarn run lint"
           }
-        }
 
-        stage('Test a11y') {
-          try {
-            sh "yarn test:a11y"
-          } finally {
-            archiveArtifacts 'mochawesome-report/a11y.html'
+          stage('Test') {
+            try {
+              sh "yarn test"
+            } finally {
+              archiveArtifacts 'mochawesome-report/unit.html'
+            }
+          }
+
+          stage('Test a11y') {
+            try {
+              sh "yarn test:a11y"
+            } finally {
+              archiveArtifacts 'mochawesome-report/a11y.html'
+            }
           }
         }
 
@@ -79,11 +83,13 @@ timestamps {
           legalFrontendVersion = dockerImage imageName: 'cmc/legal-frontend'
         }
 
-        //stage('Integration Tests') {
-        //  integrationTests.execute([
-        //    'LEGAL_FRONTEND_VERSION': legalFrontendVersion
-        //  ])
-        //}
+        stage('Integration Tests') {
+          try{
+            integrationTests.execute(['LEGAL_FRONTEND_VERSION': legalFrontendVersion], Team.LEGAL)
+          } finally {
+            archiveArtifacts 'integration-tests-report/CMCT2-End2End-Test-Report.html'
+          }
+        }
 
         //noinspection GroovyVariableNotAssigned It is guaranteed to be assigned
         RPMTagger rpmTagger = new RPMTagger(this,

@@ -14,6 +14,7 @@ import * as idamServiceMock from '../../../http-mocks/idam'
 import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 
 const cookieName: string = config.get<string>( 'session.cookieName' )
+const roles: string[] = ['solicitor']
 
 describe( 'Claim : Your company name page', () => {
   beforeEach( () => {
@@ -25,7 +26,7 @@ describe( 'Claim : Your company name page', () => {
     checkAuthorizationGuards( app, 'get', ClaimPaths.representativeNamePage.uri)
 
     it( 'should render page when everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor( 1, 'cmc-private-beta', 'claimant' )
+      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
 
       await request( app )
         .get( ClaimPaths.representativeNamePage.uri )
@@ -38,7 +39,7 @@ describe( 'Claim : Your company name page', () => {
     checkAuthorizationGuards( app, 'post', ClaimPaths.representativeNamePage.uri)
 
     it( 'should render page when form is invalid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor( 1, 'cmc-private-beta', 'claimant' )
+      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
 
       await request( app )
         .post( ClaimPaths.representativeNamePage.uri )
@@ -47,7 +48,7 @@ describe( 'Claim : Your company name page', () => {
     } )
 
     it( 'should return 500 and render error page when form is valid and cannot save draft', async () => {
-      idamServiceMock.resolveRetrieveUserFor( 1, 'cmc-private-beta', 'claimant' )
+      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       draftStoreServiceMock.rejectSave( 'legalClaim', 'HTTP error' )
 
       await request( app )
@@ -58,7 +59,7 @@ describe( 'Claim : Your company name page', () => {
     } )
 
     it( 'should redirect to representative-address page when form is valid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor( 1, 'cmc-private-beta', 'claimant' )
+      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       draftStoreServiceMock.resolveSave( 'legalClaim' )
 
       await request( app )

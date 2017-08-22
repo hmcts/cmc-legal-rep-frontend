@@ -1,26 +1,31 @@
 import { expect } from 'chai'
 import * as request from 'supertest'
 import * as config from 'config'
+import * as mock from 'nock'
 
 import '../../../routes/expectations'
 import { checkAuthorizationGuards } from './checks/authorization-check'
-
+import * as feesServiceMock from '../../../http-mocks/fees'
 import { Paths as ClaimPaths } from 'claim/paths'
+
 import { app } from '../../../../main/app'
 
 import * as idamServiceMock from '../../../http-mocks/idam'
 import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
-import * as feesServiceMock from '../../../http-mocks/fees'
 
 const cookieName: string = config.get<string>('session.cookieName')
-const pageHeading: string = 'Your issue fee'
+const pageHeading = 'Check the claim details'
 const draftType: string = 'legalClaim'
 const roles: string[] = ['solicitor']
 
-describe('Claim issue: Your issue fee page', () => {
+describe('Claim : Details summary page', () => {
+  beforeEach(() => {
+    mock.cleanAll()
+    draftStoreServiceMock.resolveRetrieve('legalClaim')
+  })
 
   describe('on GET', () => {
-    checkAuthorizationGuards(app, 'get', ClaimPaths.claimTotalPage.uri)
+    checkAuthorizationGuards(app, 'get', ClaimPaths.detailsSummaryPage.uri)
 
     describe('for authorized user', () => {
       beforeEach(() => {
@@ -32,7 +37,7 @@ describe('Claim issue: Your issue fee page', () => {
         feesServiceMock.rejectCalculateIssueFee('HTTP error')
 
         await request(app)
-          .get(ClaimPaths.claimTotalPage.uri)
+          .get(ClaimPaths.detailsSummaryPage.uri)
           .set('Cookie', `${cookieName}=ABC`)
           .expect(res => expect(res).to.be.serverError.withText('Error'))
       })
@@ -42,31 +47,26 @@ describe('Claim issue: Your issue fee page', () => {
         feesServiceMock.resolveCalculateIssueFee()
 
         await request(app)
-          .get(ClaimPaths.claimTotalPage.uri)
+          .get(ClaimPaths.detailsSummaryPage.uri)
           .set('Cookie', `${cookieName}=ABC`)
           .expect(res => expect(res).to.be.successful.withText(pageHeading))
       })
+
     })
   })
 
   describe('on POST', () => {
-    checkAuthorizationGuards(app, 'post', ClaimPaths.claimTotalPage.uri)
+    checkAuthorizationGuards(app, 'post', ClaimPaths.detailsSummaryPage.uri)
 
-    describe('for authorized user', () => {
-      beforeEach(() => {
-        idamServiceMock.resolveRetrieveUserFor(1, ...roles)
-      })
+    it('should redirect to statement of truth page when form is valid and everything is fine', async () => {
+      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      draftStoreServiceMock.resolveSave(draftType)
+      feesServiceMock.resolveCalculateIssueFee()
 
-      it('should redirect to claim summary page when everything is fine', async () => {
-        draftStoreServiceMock.resolveRetrieve(draftType)
-
-        await request(app)
-          .post(ClaimPaths.claimTotalPage.uri)
-          .set('Cookie', `${cookieName}=ABC`)
-          .send({})
-          .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.detailsSummaryPage.uri))
-      })
-
+      await request(app)
+        .post(ClaimPaths.detailsSummaryPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.statementOfTruthPage.uri))
     })
   })
 })
