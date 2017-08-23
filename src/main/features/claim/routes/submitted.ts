@@ -1,17 +1,22 @@
 import * as express from 'express'
 import { Paths } from 'claim/paths'
 import ErrorHandling from 'common/errorHandling'
+import Claim from 'claims/models/claim'
+import ClaimStoreClient from 'claims/claimStoreClient'
 
 function renderView (req: express.Request, res: express.Response, next: express.NextFunction): void {
+  const { externalId } = req.params
+
+  const claim: Claim = ClaimStoreClient.retrieveByExternalId(externalId)
   // TODO: The below values needs to be retrieved from claim store, should be done as part of/after ROC-1796
   const today = new Date()
   res.render(Paths.claimSubmittedPage.associatedView, {
-    claimNumber: 'D99YJ987',
-    submittedDate: today,
+    claimNumber: claim.claimNumber,
+    submittedDate: ,
     issueDate: today,
     feePaid: '70',
     repEmail: 'test@email.com',
-    externalId: 'xxxxxx'
+    externalId: externalId
   })
 }
 

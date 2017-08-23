@@ -40,7 +40,8 @@ export default express.Router()
 
         const claim: Claim = await ClaimStoreClient.saveClaimForUser(res.locals.user)
         console.log(claim)
-        res.json(claim)
+
+        res.redirect(Paths.claimSubmittedPage.uri.replace(':externalId', claim.externalId))
       }
 
     }))
