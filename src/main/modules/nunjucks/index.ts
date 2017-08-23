@@ -31,7 +31,7 @@ export default class Nunjucks {
     app.set('view engine', 'njk')
     const nunjucksEnv = nunjucks.configure([
       path.join(__dirname, '..', '..', 'views'),
-      path.join(__dirname,'..', '..', 'public', 'macros'),
+      path.join(__dirname, '..', '..', 'public', 'macros'),
       path.join(__dirname, '..', '..', 'features')
     ], {
       autoescape: true,
