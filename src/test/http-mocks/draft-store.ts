@@ -75,12 +75,12 @@ const sampleClaimDraftObj = {
     higherValue: 1000
   },
   housingDisrepair: {
-    housingDisrepair: { value: 'YES', displayValue: 'yes' },
-    generalDamages: { value: 'LESS', displayValue: 'less' },
-    otherDamages: { value: 'NONE', displayValue: 'none' }
+    housingDisrepair: 'YES',
+    generalDamages: 'LESS',
+    otherDamages: 'NONE'
   },
   personalInjury: {
-    personalInjury: { value: 'NO', displayValue: 'no' },
+    personalInjury: 'NO',
     generalDamages: undefined
   }
 }

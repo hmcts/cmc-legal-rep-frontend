@@ -12,7 +12,7 @@ export class DefendantRepresented implements Serializable<DefendantRepresented> 
 
   @IsDefined({ message: ValidationErrors.DEFENDANT_IS_REPRESENTED_REQUIRED })
   @IsIn(YesNo.all(), { message: ValidationErrors.DEFENDANT_IS_REPRESENTED_REQUIRED })
-  isDefendantRepresented?: YesNo
+  isDefendantRepresented?: string
 
   @ValidateIf(o => o.isDefendantRepresented === YesNo.YES)
   @IsDefined( { message: ValidationErrors.COMPANY_NAME_REQUIRED } )
@@ -20,7 +20,7 @@ export class DefendantRepresented implements Serializable<DefendantRepresented> 
   @MaxLength( 255, { message: ValidationErrors.COMPANY_NAME_TOO_LONG } )
   companyName?: string
 
-  constructor (isDefendantRepresented?: YesNo, companyName?: string) {
+  constructor (isDefendantRepresented?: string, companyName?: string) {
     this.isDefendantRepresented = isDefendantRepresented
     this.companyName = companyName
   }
@@ -31,7 +31,7 @@ export class DefendantRepresented implements Serializable<DefendantRepresented> 
     if (value) {
       if (value.isDefendantRepresented) {
         isDefendantRepresented = YesNo.all()
-          .filter(yesNo => yesNo.value === value.isDefendantRepresented)
+          .filter(yesNo => yesNo === value.isDefendantRepresented)
           .pop()
       }
 

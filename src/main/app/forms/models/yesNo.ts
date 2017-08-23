@@ -1,16 +1,14 @@
 export class YesNo {
-  static readonly YES = new YesNo('YES', 'yes')
-  static readonly NO = new YesNo('NO', 'no')
+  static readonly YES = 'YES'
+  static readonly NO = 'NO'
 
   readonly value: string
-  readonly displayValue: string
 
-  constructor (value: string, displayValue: string) {
+  constructor (value: string) {
     this.value = value
-    this.displayValue = displayValue
   }
 
-  static all (): YesNo[] {
+  static all (): string[] {
     return [
       YesNo.YES,
       YesNo.NO

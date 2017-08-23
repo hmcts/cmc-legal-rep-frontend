@@ -1,37 +1,37 @@
 {% extends "layout.njk" %}
 
 {% set title = t('Money claim') %}
+{% set heading = t('Do you want to add another defendant?') %}
 
-{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, radioOption, textInput %}
+{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, textInput, radioGroup %}
 
 {% block content %}
 
-  <h1 class="heading-large">{{ t("Do you want to add another defendant?") }}</h1>
   <div class="grid-row">
   <div class="column-two-thirds">
     <p>{{ t('You can add up to 4 defendants in this service.') }}</p>
     <form novalidate method="post">
       {{ csrfProtection(csrf) }}
 
-      {% set errorIsAddDefendant = form.errorFor('isAddDefendant') %}
-      <fieldset id="isDefendantRepresented[label]" class="form-group {% if errorIsAddDefendant %} form-group-error {% endif %}">
-        <legend class="visuallyhidden">
-          {{ t('You can add up to 4 defendants in this service.') }}
-        </legend>
-
-        {% if errorIsAddDefendant %}<span class="error-message">{{ t(errorIsAddDefendant) }}</span>{% endif %}
-        <div class="inline">
-          <div class="multiple-choice">
-            <input id="defendant_add_yes" type="radio" name="isAddDefendant" value="YES">
-            <label for="defendant_add_yes" id="isAddDefendant[label]">{{ t('Yes') }} </label>
-          </div>
-
-          <div class="multiple-choice">
-            <input id="defendant_add_no" type="radio" name="isAddDefendant" value="NO">
-            <label for="defendant_add_no" id="isAddDefendant[label][NO]">{{ t('No') }} </label>
-          </div>
-        </div>
-      </fieldset>
+      {{
+        radioGroup(
+          label = "Do you want to add another defendant?",
+          name = "isAddDefendant",
+          options = [
+          {
+            label: "Yes",
+            value: "YES"
+          },
+          {
+            label: "No",
+            value: "NO"
+          }
+          ],
+          form = form,
+          isInline = true,
+          legendHidden = true
+        )
+      }}
 
       <div class="form-group">
         {{ saveAndContinueButton() }}

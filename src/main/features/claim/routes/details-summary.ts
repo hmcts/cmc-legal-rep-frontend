@@ -12,8 +12,8 @@ function renderView (res: express.Response, next: express.NextFunction) {
     .then((feeAmount: number) => {
       const claimant = res.locals.user.legalClaimDraft.claimant
       const isClaimantIndividual = claimant.claimantDetails.type.value === PartyTypes.INDIVIDUAL.value
-      const isHousingDisrepair = res.locals.user.legalClaimDraft.housingDisrepair.housingDisrepair.value === YesNo.YES.value
-      const isPersonalInjury = res.locals.user.legalClaimDraft.personalInjury.personalInjury.value === YesNo.YES.value
+      const isHousingDisrepair = res.locals.user.legalClaimDraft.housingDisrepair.housingDisrepair.value === YesNo.YES
+      const isPersonalInjury = res.locals.user.legalClaimDraft.personalInjury.personalInjury.value === YesNo.YES
 
       res.render(Paths.detailsSummaryPage.associatedView, {
         legalClaimDraft: res.locals.user.legalClaimDraft,

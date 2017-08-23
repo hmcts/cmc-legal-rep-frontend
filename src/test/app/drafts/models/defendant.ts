@@ -53,7 +53,7 @@ describe('Defendant', () => {
           companyHouseNumber: undefined
         },
         defendantRepresented: {
-          isDefendantRepresented: { value: 'YES', displayValue: 'yes' },
+          isDefendantRepresented: 'YES',
           companyName: companyName.name
         }
       })

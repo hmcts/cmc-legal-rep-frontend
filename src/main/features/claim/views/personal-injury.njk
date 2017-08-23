@@ -3,7 +3,7 @@
 {% set title = t('Money claim') %}
 {% set heading = t('Is it a personal injury claim?') %}
 
-{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, radioOption  %}
+{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, radioGroup  %}
 
 {% block content %}
 
@@ -13,44 +13,44 @@
       <form novalidate method="post">
         {{ csrfProtection(csrf) }}
 
-        {% set errorInjury = form.errorFor('personalInjury') %}
-        <fieldset id="personalInjury[label]" class="form-group {% if errorInjury %} form-group-error {% endif %}">
-          <legend class="visuallyhidden">
-            {{ t("Is it a personal injury claim?") }}
-          </legend>
-          <div class="inline">
-            {% if errorInjury %}<span class="error-message">{{ t(errorInjury) }}</span>{% endif %}
-            <div class="multiple-choice" data-target="personalInjury-yes">
-              <input id="personal_injury_yes" type="radio" name="personalInjury" value="YES" {% if form.valueFor('personalInjury.value') == 'YES' %} checked {% endif %}>
-              <label for="personal_injury_yes">{{ t('Yes') }}</label>
-            </div>
+        {{
+          radioGroup(
+            label = "Is it a personal injury claim?",
+            name = "personalInjury",
+            options = [
+            {
+              label: "Yes",
+              value: "YES"
+            },
+            {
+              label: "No",
+              value: "NO"
+            }
+            ],
+            form = form,
+            isInline = true,
+            legendHidden = true
+          )
+        }}
 
-            <div class="multiple-choice">
-              <input id="personal_injury_no" type="radio" name="personalInjury" value="NO" {% if form.valueFor('personalInjury.value') == 'NO' %} checked {% endif %}>
-              <label for="personal_injury_no">{{ t('No') }}</label>
-            </div>
-          </div>
-        </fieldset>
-
-        {% set errorGeneral = form.errorFor('generalDamages') %}
-        <div class="panel panel-border-narrow js-hidden" id="personalInjury-yes" aria-hidden="false">
-          <div class="form-group {% if errorGeneral %} form-group-error {% endif %}">
-            <fieldset id="generalDamages[label]">
-              <legend class="form-group-compound">
-                <span class="form-label-bold">
-                  {{ t('How much do you expect to recover as general damages for pain, suffering and loss of amenity?') }}
-                </span>
-              </legend>
-              {% if errorGeneral %}<span class="error-message">{{ t(errorGeneral) }}</span>{% endif %}
-              {{ radioOption(form = form, name = 'generalDamages[value]', value = 'LESS',
-              label = t('£1,000 or less'), bold = false
-              )}}
-
-              {{ radioOption(form = form, name = 'generalDamages[value]', value = 'MORE',
-              label = t('More than £1,000'), bold = false
-              )}}
-            </fieldset>
-          </div>
+        <div class="panel panel-border-narrow js-hidden" id="personalInjury-YES" aria-hidden="false">
+          {{
+            radioGroup(
+              label = "How much do you expect to recover as general damages for pain, suffering and loss of amenity?",
+              name = "generalDamages",
+              options = [
+              {
+                label: "£1,000 or less",
+                value: "LESS"
+              },
+              {
+                label: "More than £1,000",
+                value: "MORE"
+              }
+              ],
+              form = form
+            )
+          }}
         </div>
 
         <div class="form-group">

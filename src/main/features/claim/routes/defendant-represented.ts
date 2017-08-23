@@ -28,13 +28,12 @@ export default express.Router()
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form: Form<DefendantRepresented> = req.body
 
-      if (form.model.isDefendantRepresented === YesNo.NO) {
-        form.model.companyName = undefined
-      }
-
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
+        if (form.model.isDefendantRepresented === YesNo.NO) {
+          form.model.companyName = undefined
+        }
         res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentIndex(res)].defendantRepresented = form.model
 
         await ClaimDraftMiddleware.save(res, next)

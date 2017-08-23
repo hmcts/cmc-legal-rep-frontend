@@ -12,14 +12,14 @@ export class PersonalInjury implements Serializable<PersonalInjury> {
 
   @IsDefined({ message: ValidationErrors.PERSONAL_INJURY_REQUIRED })
   @IsIn(YesNo.all(), { message: ValidationErrors.PERSONAL_INJURY_REQUIRED })
-  personalInjury?: YesNo
+  personalInjury?: string
 
   @ValidateIf(o => o.personalInjury === YesNo.YES)
   @IsDefined({ message: ValidationErrors.GENERAL_DAMAGES_REQUIRED })
   @IsIn(GeneralDamages.all(), { message: ValidationErrors.GENERAL_DAMAGES_REQUIRED })
-  generalDamages?: GeneralDamages
+  generalDamages?: string
 
-  constructor (personalInjury?: YesNo, generalDamages?: GeneralDamages) {
+  constructor (personalInjury?: string, generalDamages?: string) {
     this.personalInjury = personalInjury
     this.generalDamages = generalDamages
   }
@@ -31,12 +31,12 @@ export class PersonalInjury implements Serializable<PersonalInjury> {
     if (value) {
       if (value.generalDamages) {
         generalDamagesValue = GeneralDamages.all()
-          .filter(generalDamages => generalDamages.value === value.generalDamages.value)
+          .filter(generalDamages => generalDamages === value.generalDamages)
           .pop()
       }
       if (value.personalInjury) {
         personalInjuryValue = YesNo.all()
-          .filter(personalInjury => personalInjury.value === value.personalInjury)
+          .filter(personalInjury => personalInjury === value.personalInjury)
           .pop()
       }
       return new PersonalInjury(personalInjuryValue, generalDamagesValue)

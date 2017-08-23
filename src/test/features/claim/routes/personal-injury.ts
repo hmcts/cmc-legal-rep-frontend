@@ -54,7 +54,7 @@ describe('Claim issue: personal injury page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .send({
           personalInjury: 'YES',
-          generalDamages: { value: 'MORE', displayValue: 'more' }
+          generalDamages: 'MORE'
         })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
@@ -68,7 +68,7 @@ describe('Claim issue: personal injury page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .send({
           personalInjury: 'YES',
-          generalDamages: { value: 'MORE', displayValue: 'more' }
+          generalDamages: 'MORE'
         })
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.housingDisrepairPage.uri))
     })

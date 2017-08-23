@@ -1,16 +1,14 @@
 export class GeneralDamages {
-  static readonly LESS = new GeneralDamages('LESS', 'less')
-  static readonly MORE = new GeneralDamages('MORE', 'more')
+  static readonly LESS = 'LESS'
+  static readonly MORE = 'MORE'
 
   readonly value: string
-  readonly displayValue: string
 
-  constructor (value: string, displayValue: string) {
+  constructor (value: string) {
     this.value = value
-    this.displayValue = displayValue
   }
 
-  static all (): GeneralDamages[] {
+  static all (): string[] {
     return [
       GeneralDamages.LESS,
       GeneralDamages.MORE

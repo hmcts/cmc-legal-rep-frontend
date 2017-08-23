@@ -22,13 +22,12 @@ export default express.Router()
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form: Form<PersonalInjury> = req.body
 
-      if (form.model.personalInjury === YesNo.NO) {
-        form.model.generalDamages = undefined
-      }
-
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
+        if (form.model.personalInjury === YesNo.NO) {
+          form.model.generalDamages = undefined
+        }
         res.locals.user.legalClaimDraft.personalInjury = form.model
         await ClaimDraftMiddleware.save(res, next)
         res.redirect(Paths.housingDisrepairPage.uri)
