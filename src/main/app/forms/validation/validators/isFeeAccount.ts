@@ -31,7 +31,7 @@ export class IsFeeAccountConstraint implements ValidatorConstraintInterface {
  * A Fee Account references must have a prefix PBA
  * A Fee Account reference must have a 7 digit suffix
  */
-export function IsFeeAccount (validationOptions?: ValidationOptions) {
+export function   IsFeeAccount (validationOptions?: ValidationOptions) {
   return function (object: Object, propertyName: string) {
     registerDecorator({
       target: object.constructor,

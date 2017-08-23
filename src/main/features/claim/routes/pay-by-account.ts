@@ -7,6 +7,8 @@ import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import ErrorHandling from 'common/errorHandling'
 import { FeeAccount } from 'forms/models/feeAccount'
 import FeesClient from 'fees/feesClient'
+import ClaimStoreClient from 'claims/claimStoreClient'
+import Claim from 'claims/models/claim'
 
 function renderView (form: Form<FeeAccount>, res: express.Response, next: express.NextFunction): void {
   FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.amount)
@@ -35,7 +37,10 @@ export default express.Router()
       } else {
         res.locals.user.legalClaimDraft.feeAccount.reference = form.model
         await ClaimDraftMiddleware.save(res, next)
-        res.redirect(Paths.claimSubmittedPage.uri)
+
+        const claim: Claim = await ClaimStoreClient.saveClaimForUser(res.locals.user)
+        console.log(claim)
+        res.json(claim)
       }
 
     }))
