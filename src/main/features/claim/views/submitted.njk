@@ -16,13 +16,12 @@
           <div class="confirmation-detail">{{ t('Issued: %s', { postProcess: 'sprintf', sprintf: [issueDate | date]}) }}</div>
           <div class="confirmation-detail">{{ t('Fee paid: %s', { postProcess: 'sprintf', sprintf: [feePaid | numeral]}) }}</div>
         </div>
-        <div>{{ t("We've emailed confirmation to: ") }}
+        <div class="form-group">{{ t("We've emailed confirmation to: ") }}
           <span class="bold-small">{{ repEmail }}</span>
         </div>
 
-        <h2 class="bold-medium">{{ t('Follow these steps to serve a claim:') }}</h2>
+        <h2 class="bold-medium form-group">{{ t('Follow these steps to serve a claim:') }}</h2>
 
-        <p class="form-group">
         <ol class="form-group" type="1">
           <li>1. <a target="_blank" href="/claim/{{ externalId }}/receipt">{{ t('Download the sealed claim form') }}</a>
             {{ t('(this will open in a new window).') }}
@@ -34,7 +33,6 @@
         21 days.') }}
           </li>
         </ol>
-        </p>
 
         <div class="panel panel-border-narrow">
           <h2 class="bold-small">{{ t('Court address:') }}</h2>
