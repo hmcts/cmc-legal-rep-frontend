@@ -95,7 +95,7 @@
       bottomBorder = true
       ) }}
 
-      {% if defendant.defendantRepresented.isDefendantRepresented.value =='YES' %}
+      {% if defendant.defendantRepresented.isDefendantRepresented =='YES' %}
         {{ row('Solicitor', defendant.defendantRepresented.companyName, changeRepresentativeLink) }}
 
         {{ rowWithMultipleValue(
@@ -137,7 +137,7 @@
 
     {% if isPersonalInjury %}
       {% set personalInjuryStatementOfValue %}
-        {% if legalClaimDraft.personalInjury.generalDamages.value == 'LESS' %}
+        {% if legalClaimDraft.personalInjury.generalDamages == 'LESS' %}
           {% set damages = 'not more than £1,000' %}
         {% else %}
           {% set damages = 'more than £1,000' %}
@@ -148,15 +148,15 @@
 
     {% if isHousingDisrepair %}
       {% set housingDisrepairStatementOfValue %}
-        {% if legalClaimDraft.housingDisrepair.generalDamages.value == 'LESS' %}
+        {% if legalClaimDraft.housingDisrepair.generalDamages == 'LESS' %}
           {% set housingDisrepairDamages = 'not more than £1,000' %}
         {% else %}
           {% set housingDisrepairDamages = 'more than £1,000' %}
         {% endif %}
 
-        {% if legalClaimDraft.housingDisrepair.otherDamages.value == 'LESS' %}
+        {% if legalClaimDraft.housingDisrepair.otherDamages == 'LESS' %}
           {% set housingDisrepairOtherDamages = 'The cost of any claim for damages is not more than £1,000.' %}
-        {% elseif legalClaimDraft.housingDisrepair.otherDamages.value == 'MORE' %}
+        {% elseif legalClaimDraft.housingDisrepair.otherDamages == 'MORE' %}
           {% set housingDisrepairOtherDamages = 'The cost of any claim for damages is more than £1,000.' %}
         {% else %}
           {% set housingDisrepairOtherDamages = '' %}
