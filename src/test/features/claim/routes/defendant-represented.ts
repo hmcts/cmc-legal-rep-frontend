@@ -14,7 +14,7 @@ import * as idamServiceMock from '../../../http-mocks/idam'
 import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
-const pageText = 'Has the defendant got a representative'
+const pageText = 'Has the defendant got a legal representative'
 const roles: string[] = ['solicitor']
 
 describe('Claim issue: is defendant represented page', () => {
