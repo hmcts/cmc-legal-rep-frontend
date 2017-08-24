@@ -3,11 +3,13 @@ import Defendant from 'drafts/models/defendant'
 
 export class ClaimModelConverter {
 
-  static convert (draftClaim: DraftLegalClaim): any {
+  static convert (draftClaim: DraftLegalClaim): object {
     this.convertClaimantDetails(draftClaim)
     this.convertDefendantDetails(draftClaim)
 
     draftClaim['reason'] = draftClaim.summary.text
+
+    draftClaim.personalInjury = draftClaim.personalInjury.generalDamages.dataStoreValue as any
 
     return draftClaim
   }
@@ -22,6 +24,17 @@ export class ClaimModelConverter {
     }
 
     draftClaim.claimant['name'] = draftClaim.claimant.claimantDetails.fullName
+
+    draftClaim.claimant['representative'] = draftClaim.representative
+    draftClaim.claimant['representative'].companyName = draftClaim.representative.companyName.name
+    draftClaim.claimant['representative'].companyAddress = draftClaim.representative.address
+    draftClaim.claimant['representative'].companyContactDetails = draftClaim.representative.contactDetails
+    draftClaim.claimant['representative'].companyContactDetails.phone = draftClaim.representative.contactDetails.phoneNumber
+
+    delete draftClaim.claimant['representative'].contactDetails
+    delete draftClaim.claimant['representative'].companyContactDetails.phoneNumber
+    delete draftClaim.claimant['representative'].address
+    delete draftClaim.representative
 
   }
 

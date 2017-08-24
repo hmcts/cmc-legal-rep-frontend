@@ -2,7 +2,6 @@ import request from 'client/request'
 import * as config from 'config'
 import Claim from 'app/claims/models/claim'
 import User from 'app/idam/user'
-import DraftLegalClaim from 'app/drafts/models/draftLegalClaim'
 import { ClaimModelConverter } from 'claims/claimModelConverter'
 
 const claimApiBaseUrl = `${config.get<string>('claim-store.url')}`
@@ -10,7 +9,7 @@ const claimStoreApiUrl = `${claimApiBaseUrl}/claims`
 
 export default class ClaimStoreClient {
   static saveClaimForUser (user: User): Promise<Claim> {
-    const convertedDraftClaim: DraftLegalClaim = ClaimModelConverter.convert(user.legalClaimDraft)
+    const convertedDraftClaim: object = ClaimModelConverter.convert(user.legalClaimDraft)
     console.log(JSON.stringify(convertedDraftClaim))
 
     return request.post(`${claimStoreApiUrl}/${user.id}`, {
