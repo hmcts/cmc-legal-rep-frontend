@@ -11,8 +11,8 @@ describe('Name', () => {
 
   describe('constructor', () => {
     it('should set the primitive fields to undefined', () => {
-      const companyName = new Name()
-      expect(companyName.text).to.be.undefined
+      const organisationName = new Name()
+      expect(organisationName.text).to.be.undefined
     })
   })
 

@@ -12,7 +12,7 @@ import { ClaimantDetails } from 'app/forms/models/claimantDetails'
 import { DefendantDetails } from 'app/forms/models/defendantDetails'
 import { PartyTypes } from 'app/forms/models/partyTypes'
 import moment = require('moment')
-import CompanyName from 'app/forms/models/companyName'
+import CompanyName from 'app/forms/models/organisationName'
 import DraftView from 'app/drafts/models/draftView'
 import { Amount } from 'forms/models/amount'
 import { HousingDisrepair } from 'forms/models/housingDisrepair'
@@ -25,7 +25,7 @@ function mockedDraftClaim () {
   draft.claimant.claimantDetails = new ClaimantDetails()
   draft.claimant.claimantDetails.type = PartyTypes.INDIVIDUAL
   draft.representative = new Representative()
-  draft.representative.companyName = new CompanyName('name')
+  draft.representative.organisationName = new CompanyName('name')
   draft.defendants = [new Defendant()]
   draft.defendants[0].defendantDetails = new DefendantDetails()
   draft.defendants[0].defendantDetails.type = PartyTypes.INDIVIDUAL

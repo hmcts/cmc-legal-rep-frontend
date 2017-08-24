@@ -4,7 +4,7 @@
 import { expect } from 'chai'
 import { ContactDetails } from 'app/forms/models/contactDetails'
 import Representative from 'drafts/models/representative'
-import CompanyName from 'forms/models/companyName'
+import CompanyName from 'forms/models/organisationName'
 import { Address } from 'forms/models/address'
 
 describe('Representative', () => {
@@ -12,7 +12,7 @@ describe('Representative', () => {
   describe('constructor', () => {
     it('should set the fields to undefined', () => {
       const representative = new Representative()
-      expect(representative.companyName).to.be.undefined
+      expect(representative.organisationName).to.be.undefined
       expect(representative.contactDetails).to.be.undefined
       expect(representative.address).to.be.undefined
     })
@@ -34,7 +34,7 @@ describe('Representative', () => {
       const address = new Address('line1', 'line2', 'city', 'postcode')
 
       const deserialized = new Representative().deserialize({
-        companyName: companyName,
+        organisationName: companyName,
         address: address,
         contactDetails: contactDetails
       })

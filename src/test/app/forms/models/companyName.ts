@@ -4,15 +4,15 @@
 import { expect } from 'chai'
 import { Validator } from 'class-validator'
 import { expectValidationError } from './validationUtils'
-import CompanyName, { ValidationErrors } from 'forms/models/companyName'
+import CompanyName, { ValidationErrors } from 'forms/models/organisationName'
 import * as randomstring from 'randomstring'
 
-describe( 'CompanyName', () => {
+describe( 'OrganisationName', () => {
 
   describe( 'constructor', () => {
     it( 'should set the primitive fields to undefined', () => {
-      const companyName = new CompanyName()
-      expect( companyName.name ).to.be.undefined
+      const organisationName = new CompanyName()
+      expect( organisationName.name ).to.be.undefined
     } )
   } )
 
@@ -41,34 +41,34 @@ describe( 'CompanyName', () => {
       const errors = validator.validateSync( new CompanyName( undefined ) )
 
       expect( errors.length ).to.equal( 1 )
-      expectValidationError( errors, ValidationErrors.COMPANY_NAME_REQUIRED )
+      expectValidationError( errors, ValidationErrors.ORGANISATION_NAME_REQUIRED )
     } )
 
     it( 'should reject organisation name with null type', () => {
       const errors = validator.validateSync( new CompanyName( null ) )
 
       expect( errors.length ).to.equal( 1 )
-      expectValidationError( errors, ValidationErrors.COMPANY_NAME_REQUIRED )
+      expectValidationError( errors, ValidationErrors.ORGANISATION_NAME_REQUIRED )
     } )
 
     it( 'should reject organisation name with empty string', () => {
       const errors = validator.validateSync( new CompanyName( '' ) )
 
       expect( errors.length ).to.equal( 1 )
-      expectValidationError( errors, ValidationErrors.COMPANY_NAME_REQUIRED )
+      expectValidationError( errors, ValidationErrors.ORGANISATION_NAME_REQUIRED )
     } )
 
     it( 'should reject organisation name with white spaces string', () => {
       const errors = validator.validateSync( new CompanyName( '   ' ) )
 
       expect( errors.length ).to.equal( 1 )
-      expectValidationError( errors, ValidationErrors.COMPANY_NAME_REQUIRED )
+      expectValidationError( errors, ValidationErrors.ORGANISATION_NAME_REQUIRED )
     } )
 
     it( 'should reject organisation name with more than 255 characters', () => {
       const errors = validator.validateSync( new CompanyName( randomstring.generate( 256 ) ) )
       expect( errors.length ).to.equal( 1 )
-      expectValidationError( errors, ValidationErrors.COMPANY_NAME_TOO_LONG )
+      expectValidationError( errors, ValidationErrors.ORGANISATION_NAME_TOO_LONG )
     } )
 
     it( 'should accept organisation name with 255 characters', () => {

@@ -18,11 +18,11 @@ export class DefendantRepresented implements Serializable<DefendantRepresented> 
   @IsDefined( { message: ValidationErrors.COMPANY_NAME_REQUIRED } )
   @IsNotBlank( { message: ValidationErrors.COMPANY_NAME_REQUIRED } )
   @MaxLength( 255, { message: ValidationErrors.COMPANY_NAME_TOO_LONG } )
-  companyName?: string
+  organisationName?: string
 
-  constructor (isDefendantRepresented?: YesNo, companyName?: string) {
+  constructor (isDefendantRepresented?: YesNo, organisationName?: string) {
     this.isDefendantRepresented = isDefendantRepresented
-    this.companyName = companyName
+    this.organisationName = organisationName
   }
 
   static fromObject (value?: any): DefendantRepresented {
@@ -35,7 +35,7 @@ export class DefendantRepresented implements Serializable<DefendantRepresented> 
           .pop()
       }
 
-      return new DefendantRepresented(isDefendantRepresented, value.companyName)
+      return new DefendantRepresented(isDefendantRepresented, value.organisationName)
     } else {
       return new DefendantRepresented()
     }
@@ -44,7 +44,7 @@ export class DefendantRepresented implements Serializable<DefendantRepresented> 
   deserialize (input?: any): DefendantRepresented {
     if (input) {
       this.isDefendantRepresented = input.isDefendantRepresented
-      this.companyName = input.companyName
+      this.organisationName = input.organisationName
     }
     return this
   }

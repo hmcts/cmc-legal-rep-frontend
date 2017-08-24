@@ -9,7 +9,7 @@ import { expectValidationError } from './validationUtils'
 import { YesNo } from 'app/forms/models/yesNo'
 import { GeneralDamages } from 'app/forms/models/generalDamages'
 import { DefendantRepresented, ValidationErrors } from 'app/forms/models/defendantRepresented'
-import CompanyName from 'app/forms/models/companyName'
+import CompanyName from 'app/forms/models/organisationName'
 
 describe('Defendant Represented', () => {
   describe('deserialize', () => {
@@ -27,12 +27,12 @@ describe('Defendant Represented', () => {
     })
 
     it('should return an instance from given object', () => {
-      const companyName = 'companyName'
+      const organisationName = 'organisationName'
       let deserialized = new DefendantRepresented().deserialize({
         isDefendantRepresented: YesNo.YES,
-        companyName: companyName
+        organisationName: organisationName
       })
-      expect(deserialized).to.deep.eq(new DefendantRepresented(YesNo.YES, 'companyName'))
+      expect(deserialized).to.deep.eq(new DefendantRepresented(YesNo.YES, 'organisationName'))
     })
   })
 
@@ -48,7 +48,7 @@ describe('Defendant Represented', () => {
 
     it('should accept defendant represented with recognised type', () => {
       YesNo.all().forEach(type => {
-        const errors = validator.validateSync(new DefendantRepresented(type, 'companyName'))
+        const errors = validator.validateSync(new DefendantRepresented(type, 'organisationName'))
 
         expect(errors.length).to.equal(0)
       })
@@ -63,7 +63,7 @@ describe('Defendant Represented', () => {
 
     it('should accept defendant represented with valid organisation name', () => {
       GeneralDamages.all().forEach(type => {
-        const errors = validator.validateSync(new DefendantRepresented(YesNo.YES, 'companyName'))
+        const errors = validator.validateSync(new DefendantRepresented(YesNo.YES, 'organisationName'))
 
         expect(errors.length).to.equal(0)
       })
@@ -76,28 +76,28 @@ describe('Defendant Represented', () => {
       const defendantRepresented = DefendantRepresented.fromObject(undefined)
 
       expect(defendantRepresented.isDefendantRepresented).to.equal(undefined)
-      expect(defendantRepresented.companyName).to.equal(undefined)
+      expect(defendantRepresented.organisationName).to.equal(undefined)
     })
 
     it('should have defendant represented elements undefined when input has invalid element value', () => {
       const defendantRepresented = DefendantRepresented.fromObject({
         isDefendantRepresented: undefined,
-        companyName: undefined
+        organisationName: undefined
       })
 
       expect(defendantRepresented.isDefendantRepresented).to.equal(undefined)
-      expect(defendantRepresented.companyName).to.equal(undefined)
+      expect(defendantRepresented.organisationName).to.equal(undefined)
     })
 
     it('should have valid defendant respresented', () => {
-      const companyName = new CompanyName('companyName')
+      const companyName = new CompanyName('organisationName')
       const defendantRepresented = DefendantRepresented.fromObject({
         isDefendantRepresented: 'YES',
-        companyName: companyName
+        organisationName: companyName
       })
 
       expect(defendantRepresented.isDefendantRepresented).to.equal(YesNo.YES)
-      expect(defendantRepresented.companyName).to.eql(companyName)
+      expect(defendantRepresented.organisationName).to.eql(companyName)
     })
   })
 })
