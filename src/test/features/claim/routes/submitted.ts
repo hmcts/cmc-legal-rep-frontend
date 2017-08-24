@@ -8,6 +8,8 @@ import { app } from '../../../../main/app'
 import * as idamServiceMock from '../../../http-mocks/idam'
 import { checkAuthorizationGuards } from './checks/authorization-check'
 import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
+import * as claimStoreServiceMock from '../../../http-mocks/claim-store'
+import { sampleClaimObj } from '../../../http-mocks/claim-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
 const roles: string[] = ['solicitor']
@@ -24,10 +26,10 @@ describe('Claim issue: Submitted page', () => {
 
     it('should render page when everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, ...roles)
-      draftStoreServiceMock.resolveRetrieve(draftType)
+      claimStoreServiceMock.resolveRetrieveClaimByExternalId()
 
       await request(app)
-        .get(ClaimPaths.claimSubmittedPage.uri)
+        .get(ClaimPaths.claimSubmittedPage.uri.replace(':externalId', sampleClaimObj.externalId))
         .set('Cookie', `${cookieName}=ABC`)
         .expect(res => expect(res).to.be.successful.withText(pageHeading))
     })
