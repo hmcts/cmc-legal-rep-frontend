@@ -1,6 +1,7 @@
 import DraftLegalClaim from 'drafts/models/draftLegalClaim'
 import Defendant from 'drafts/models/defendant'
 import { OtherDamages } from 'forms/models/otherDamages'
+import { YesNo } from 'forms/models/yesNo'
 
 export class ClaimModelConverter {
 
@@ -57,6 +58,16 @@ export class ClaimModelConverter {
     draftClaim.defendants.map((defendant: Defendant) => {
       defendant['name'] = defendant.defendantDetails.fullName
       defendant['type'] = defendant.defendantDetails.type.dataStoreValue
+
+      if (defendant.defendantRepresented.isDefendantRepresented.value === YesNo.YES.value) {
+        defendant['representative'] = defendant.representative
+        defendant.representative.companyName = defendant.defendantRepresented.companyName as any
+        defendant.representative['companyAddress'] = defendant.representative.address
+
+        delete defendant.defendantRepresented
+        delete defendant.representative.address
+        delete defendant.representative.contactDetails
+      }
       return defendant
     })
   }
