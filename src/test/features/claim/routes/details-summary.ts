@@ -16,6 +16,7 @@ import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 const cookieName: string = config.get<string>('session.cookieName')
 const pageHeading = 'Check the claim details'
 const draftType: string = 'legalClaim'
+const roles: string[] = ['solicitor']
 
 describe('Claim : Details summary page', () => {
   beforeEach(() => {
@@ -28,7 +29,7 @@ describe('Claim : Details summary page', () => {
 
     describe('for authorized user', () => {
       beforeEach(() => {
-        idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+        idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       })
 
       it('should return 500 and render error page when cannot calculate issue fee', async () => {
@@ -58,7 +59,7 @@ describe('Claim : Details summary page', () => {
     checkAuthorizationGuards(app, 'post', ClaimPaths.detailsSummaryPage.uri)
 
     it('should redirect to statement of truth page when form is valid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       draftStoreServiceMock.resolveSave(draftType)
       feesServiceMock.resolveCalculateIssueFee()
 

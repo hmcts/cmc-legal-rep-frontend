@@ -16,6 +16,7 @@ import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 const cookieName: string = config.get<string>('session.cookieName')
 const pageHeading = 'Pay by Fee Account'
 const draftType: string = 'legalClaim'
+const roles: string[] = ['solicitor']
 
 describe('Claim : Pay by Fee Account page', () => {
   beforeEach(() => {
@@ -28,7 +29,7 @@ describe('Claim : Pay by Fee Account page', () => {
 
     describe('for authorized user', () => {
       beforeEach(() => {
-        idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+        idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       })
 
       it('should return 500 and render error page when cannot calculate issue fee', async () => {
@@ -58,7 +59,7 @@ describe('Claim : Pay by Fee Account page', () => {
     checkAuthorizationGuards(app, 'post', ClaimPaths.payByAccountPage.uri)
 
     it('should render page when form is invalid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       feesServiceMock.resolveCalculateIssueFee()
 
       await request(app)
@@ -69,7 +70,7 @@ describe('Claim : Pay by Fee Account page', () => {
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       draftStoreServiceMock.rejectSave(draftType, 'HTTP error')
 
       await request(app)
@@ -80,7 +81,7 @@ describe('Claim : Pay by Fee Account page', () => {
     })
 
     it('should redirect to claim submitted page when form is valid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       draftStoreServiceMock.resolveSave(draftType)
       feesServiceMock.resolveCalculateIssueFee()
 

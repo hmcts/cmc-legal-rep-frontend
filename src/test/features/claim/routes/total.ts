@@ -15,6 +15,7 @@ import * as feesServiceMock from '../../../http-mocks/fees'
 const cookieName: string = config.get<string>('session.cookieName')
 const pageHeading: string = 'Your issue fee'
 const draftType: string = 'legalClaim'
+const roles: string[] = ['solicitor']
 
 describe('Claim issue: Your issue fee page', () => {
 
@@ -23,7 +24,7 @@ describe('Claim issue: Your issue fee page', () => {
 
     describe('for authorized user', () => {
       beforeEach(() => {
-        idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+        idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       })
 
       it('should return 500 and render error page when cannot calculate issue fee', async () => {
@@ -53,7 +54,7 @@ describe('Claim issue: Your issue fee page', () => {
 
     describe('for authorized user', () => {
       beforeEach(() => {
-        idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+        idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       })
 
       it('should redirect to claim summary page when everything is fine', async () => {
