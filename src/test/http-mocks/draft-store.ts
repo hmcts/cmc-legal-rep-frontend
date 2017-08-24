@@ -61,6 +61,10 @@ const sampleClaimDraftObj = {
         postcode: 'E1'
       }
     },
+    defendantRepresented: {
+      isDefendantRepresented: { value: YesNo.YES.value, displayValue: YesNo.YES.displayValue },
+      companyName: 'Defendant rep'
+    },
     defendantDetails: {
       type: 'INDIVIDUAL',
       title: 'title',

@@ -27,7 +27,7 @@ export class ClaimModelConverter {
     }
     delete draftClaim.housingDisrepair.housingDisrepair
 
-    draftClaim['feeAccountNumber'] = draftClaim.feeAccount.reference['reference'] as any
+    draftClaim['feeAccountNumber'] = draftClaim.feeAccount.reference
     delete draftClaim.feeAccount
 
     return draftClaim
