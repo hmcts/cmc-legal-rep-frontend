@@ -54,14 +54,14 @@ describe('Defendant Represented', () => {
       })
     })
 
-    it('should reject defendant represented with undefined company name', () => {
+    it('should reject defendant represented with undefined organisation name', () => {
       const errors = validator.validateSync(new DefendantRepresented(YesNo.YES, undefined))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, ValidationErrors.COMPANY_NAME_REQUIRED)
     })
 
-    it('should accept defendant represented with valid company name', () => {
+    it('should accept defendant represented with valid organisation name', () => {
       GeneralDamages.all().forEach(type => {
         const errors = validator.validateSync(new DefendantRepresented(YesNo.YES, 'companyName'))
 
