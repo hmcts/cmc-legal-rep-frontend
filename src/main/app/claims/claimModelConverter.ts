@@ -33,7 +33,7 @@ export class ClaimModelConverter {
     draftClaim.claimant['type'] = draftClaim.claimant.claimantDetails.type.dataStoreValue
 
     if (draftClaim.amount.canNotState()) {
-      draftClaim.amount['type'] = 'cannotState'
+      draftClaim.amount['type'] = 'unspecified'
     } else {
       draftClaim.amount['type'] = 'range'
     }
