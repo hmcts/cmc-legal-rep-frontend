@@ -11,6 +11,7 @@ import { app } from '../../main/app'
 import * as idamServiceMock from '../http-mocks/idam'
 
 const cookieName: string = config.get<string>('session.cookieName')
+const roles: string[] = ['solicitor']
 
 describe('Claim issue: post login receiver', () => {
   beforeEach(() => {
@@ -20,7 +21,7 @@ describe('Claim issue: post login receiver', () => {
   describe('on GET', () => {
     describe('for authorized user', () => {
       beforeEach(() => {
-        idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+        idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       })
 
       it.skip('should save JWT token in cookie when JWT token exists in query string', async () => {

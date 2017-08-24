@@ -1,0 +1,52 @@
+{% extends "layout.njk" %}
+{% from "form.njk" import linkButton, csrfProtection %}
+
+{% set title = t('Money claim') %}
+
+{% block content %}
+
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <form novalidate method="post">
+        {{ csrfProtection(csrf) }}
+        <div class="govuk-box-highlight">
+          <h1 class="bold-large">{{ t('Your claim has been issued') }}</h1>
+          <h2 class="bold-medium reference-number">{{ t('Claim number: %s', { postProcess: 'sprintf', sprintf: [claimNumber]}) }}</h2>
+          <div class="confirmation-detail">{{ t('Submitted %s', { postProcess: 'sprintf', sprintf: [submittedDate | date]}) }}</div>
+          <div class="confirmation-detail">{{ t('Issued %s', { postProcess: 'sprintf', sprintf: [issueDate | date]}) }}</div>
+          <div class="confirmation-detail">{{ t('Fee paid: %s', { postProcess: 'sprintf', sprintf: [feePaid | numeral]}) }}</div>
+        </div>
+        <div class="form-group">{{ t("We've emailed confirmation to: ") }}
+          <span class="bold-small">{{ repEmail }}</span>
+        </div>
+
+        <h2 class="bold-medium form-group">{{ t('Follow these steps to serve a claim:') }}</h2>
+
+        <ol class="form-group" type="1">
+          <li>1. <a target="_blank" href="/claim/{{ externalId }}/receipt">{{ t('Download the sealed claim form') }}</a>
+            {{ t('(this will open in a new window).') }}
+          </li>
+          <li>2. {{ t('Send the form, particulars of claim and a response pack to the defendant within 4 months of the date of
+        issue.') }}
+          </li>
+          <li>3. {{ t('Send the court a certificate of service and a copy of any documents you served on the defendant, within
+        21 days.') }}
+          </li>
+        </ol>
+
+        <div class="panel panel-border-narrow">
+          <h2 class="bold-small">{{ t('Court address:') }}</h2>
+          <p class="form-group-compound">County Court Money Claims Centre (CCMCC)</p>
+          <p class="form-group-compound">Salford</p>
+          <p class="form-group-compound">Greater Manchester</p>
+          <p class="form-group">M5 0BY</p>
+          <p class="form-group-compound"><span class="bold">DX:</span> 702634 Salford 5</p>
+        </div>
+
+        {{ linkButton('Finish', 'start', 'button button-start') }}
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

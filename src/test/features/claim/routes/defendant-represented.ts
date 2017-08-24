@@ -15,6 +15,7 @@ import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
 const pageText = 'Has the defendant got a representative'
+const roles: string[] = ['solicitor']
 
 describe('Claim issue: is defendant represented page', () => {
   beforeEach(() => {
@@ -26,8 +27,7 @@ describe('Claim issue: is defendant represented page', () => {
     checkAuthorizationGuards(app, 'get', ClaimPaths.defendantRepresentedPage.uri)
 
     it('should render page when everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
-
+      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       await request(app)
         .get(ClaimPaths.defendantRepresentedPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -39,8 +39,7 @@ describe('Claim issue: is defendant represented page', () => {
     checkAuthorizationGuards(app, 'post', ClaimPaths.defendantRepresentedPage.uri)
 
     it('should render page when form is invalid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
-
+      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       await request(app)
         .post(ClaimPaths.defendantRepresentedPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -48,7 +47,7 @@ describe('Claim issue: is defendant represented page', () => {
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       draftStoreServiceMock.rejectSave('legalClaim', 'HTTP error')
 
       await request(app)
@@ -62,7 +61,7 @@ describe('Claim issue: is defendant represented page', () => {
     })
 
     it('should redirect to defendant rep address page when form is valid and user has selected yes', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       draftStoreServiceMock.resolveSave('legalClaim')
 
       await request(app)
@@ -76,7 +75,7 @@ describe('Claim issue: is defendant represented page', () => {
     })
 
     it('should redirect to defendant add page when form is valid and user has selected no', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, 'cmc-private-beta', 'claimant')
+      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       draftStoreServiceMock.resolveSave('legalClaim')
 
       await request(app)

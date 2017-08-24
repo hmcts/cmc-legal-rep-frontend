@@ -14,10 +14,7 @@ function claimIssueRequestHandler (): express.RequestHandler {
     res.redirect(`${config.get('idam.authentication-web.url')}/login?continue-url=${buildURL(req, AppPaths.receiver.uri.substring(1))}`)
   }
 
-  const requiredRoles = [
-    'cmc-private-beta',
-    'claimant'
-  ]
+  const requiredRoles = ['solicitor']
   const unprotectedPaths = []
   return AuthorizationMiddleware.requestHandler(requiredRoles, accessDeniedCallback, unprotectedPaths)
 }
