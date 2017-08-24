@@ -68,7 +68,7 @@ export default class FeesClient {
     return amount / 100
   }
 
-  private static convertPoundsToPennies (amount: number) {
+  public static convertPoundsToPennies (amount: number) {
     return Math.round(amount * 100)
   }
 }

@@ -45,7 +45,12 @@ export class ClaimModelConverter {
     if (draftClaim.claimant.claimantDetails.title) {
       draftClaim.claimant['title'] = draftClaim.claimant.claimantDetails.title
     }
-    draftClaim.claimant['name'] = draftClaim.claimant.claimantDetails.fullName
+
+    if (draftClaim.claimant.claimantDetails.organisation) {
+      draftClaim.claimant['name'] = draftClaim.claimant.claimantDetails.organisation
+    } else {
+      draftClaim.claimant['name'] = draftClaim.claimant.claimantDetails.fullName
+    }
 
     draftClaim.claimant['representative'] = draftClaim.representative
     draftClaim.claimant['representative'].companyName = draftClaim.representative.companyName.name
@@ -72,7 +77,11 @@ export class ClaimModelConverter {
       if (defendant.defendantDetails.title) {
         defendant['title'] = defendant.defendantDetails.title
       }
-      defendant['name'] = defendant.defendantDetails.fullName
+      if (defendant.defendantDetails.organisation) {
+        defendant['name'] = defendant.defendantDetails.organisation
+      } else {
+        defendant['name'] = defendant.defendantDetails.fullName
+      }
       defendant['type'] = defendant.defendantDetails.type.dataStoreValue
 
       if (defendant.defendantRepresented.isDefendantRepresented.value === YesNo.YES.value) {
@@ -82,6 +91,9 @@ export class ClaimModelConverter {
         delete defendant.defendantRepresented
         delete defendant.representative.address
         delete defendant.representative.contactDetails
+      } else {
+        delete defendant.representative
+        delete defendant.defendantRepresented
       }
       return defendant
     })
