@@ -29,7 +29,8 @@ export const sampleClaimObj = {
         postcode: 'bb127nq'
       }
     }],
-    reason: 'Because I can'
+    reason: 'Because I can',
+    feeAmountInPennies: 7000
   },
   responseDeadline: '2017-08-08'
 }

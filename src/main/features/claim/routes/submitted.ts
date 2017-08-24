@@ -12,7 +12,7 @@ async function renderView (req: express.Request, res: express.Response): Promise
     claimNumber: claim.claimNumber,
     submittedDate: claim.createdAt,
     issueDate: claim.issuedOn,
-    feePaid: claim.claimData.paidFeeAmount,
+    feePaid: claim.claimData.feeAmountInPennies,
     repEmail: claim.claimantEmail,
     externalId: externalId
   })

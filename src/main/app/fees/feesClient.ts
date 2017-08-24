@@ -64,11 +64,11 @@ export default class FeesClient {
       .then((body: any) => new Fee(body.amount))
   }
 
-  private static convertPenniesToPounds (amount: number) {
-    return amount / 100
+  static convertPoundsToPennies (amount: number) {
+    return Math.round(amount * 100)
   }
 
-  public static convertPoundsToPennies (amount: number) {
-    return Math.round(amount * 100)
+  private static convertPenniesToPounds (amount: number) {
+    return amount / 100
   }
 }
