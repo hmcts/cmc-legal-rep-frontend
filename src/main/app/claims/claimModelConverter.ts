@@ -10,13 +10,15 @@ export class ClaimModelConverter {
 
     draftClaim['reason'] = draftClaim.summary.text
 
-    draftClaim.personalInjury.generalDamages = draftClaim.personalInjury.generalDamages.dataStoreValue as any
-    delete draftClaim.personalInjury.personalInjury
+    if (draftClaim.personalInjury.generalDamages) {
+      draftClaim.personalInjury.generalDamages = draftClaim.personalInjury.generalDamages.dataStoreValue as any
+      delete draftClaim.personalInjury.personalInjury
+    }
 
-    console.log(draftClaim.housingDisrepair)
-    draftClaim.housingDisrepair['costOfRepairsDamages'] = draftClaim.housingDisrepair.generalDamages.dataStoreValue
-    console.log(draftClaim.housingDisrepair['costOfRepairsDamages'])
-    delete draftClaim.housingDisrepair.generalDamages
+    if (draftClaim.housingDisrepair.generalDamages) {
+      draftClaim.housingDisrepair['costOfRepairsDamages'] = draftClaim.housingDisrepair.generalDamages.dataStoreValue
+      delete draftClaim.housingDisrepair.generalDamages
+    }
 
     draftClaim.housingDisrepair.otherDamages = draftClaim.housingDisrepair.otherDamages.dataStoreValue as any
     if (draftClaim.housingDisrepair.otherDamages as any === OtherDamages.NONE.dataStoreValue) {

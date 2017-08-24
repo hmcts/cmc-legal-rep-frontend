@@ -12,6 +12,8 @@ import { app } from '../../../../main/app'
 
 import * as idamServiceMock from '../../../http-mocks/idam'
 import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
+import * as claimStoreServiceMock from '../../../http-mocks/claim-store'
+import { sampleClaimObj } from '../../../http-mocks/claim-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
 const pageHeading = 'Pay by Fee Account'
@@ -84,12 +86,14 @@ describe('Claim : Pay by Fee Account page', () => {
       idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       draftStoreServiceMock.resolveSave(draftType)
       feesServiceMock.resolveCalculateIssueFee()
+      claimStoreServiceMock.saveClaimForUser()
 
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({ reference: 'PBA1234567' })
-        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimSubmittedPage.uri))
+        .expect(res => expect(res).to.be.redirect
+          .toLocation(ClaimPaths.claimSubmittedPage.uri.replace(':externalId', sampleClaimObj.externalId)))
     })
   })
 })
