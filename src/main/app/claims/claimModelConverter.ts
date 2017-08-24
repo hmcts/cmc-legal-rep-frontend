@@ -27,6 +27,9 @@ export class ClaimModelConverter {
     }
     delete draftClaim.housingDisrepair.housingDisrepair
 
+    draftClaim['feeAccountNumber'] = draftClaim.feeAccount.reference['reference'] as any
+    delete draftClaim.feeAccount
+
     return draftClaim
   }
 
@@ -39,6 +42,9 @@ export class ClaimModelConverter {
       draftClaim.amount['type'] = 'range'
     }
 
+    if (draftClaim.claimant.claimantDetails.title) {
+      draftClaim.claimant['title'] = draftClaim.claimant.claimantDetails.title
+    }
     draftClaim.claimant['name'] = draftClaim.claimant.claimantDetails.fullName
 
     draftClaim.claimant['representative'] = draftClaim.representative
@@ -46,6 +52,13 @@ export class ClaimModelConverter {
     draftClaim.claimant['representative'].companyAddress = draftClaim.representative.address
     draftClaim.claimant['representative'].companyContactDetails = draftClaim.representative.contactDetails
     draftClaim.claimant['representative'].companyContactDetails.phone = draftClaim.representative.contactDetails.phoneNumber
+
+    if (draftClaim.yourReference.reference) {
+      draftClaim.claimant['representative'].reference = draftClaim.yourReference.reference
+    }
+    if (draftClaim.preferredCourt.name) {
+      draftClaim.claimant['representative'].preferredCourt = draftClaim.preferredCourt.name
+    }
 
     delete draftClaim.claimant['representative'].contactDetails
     delete draftClaim.claimant['representative'].companyContactDetails.phoneNumber
@@ -56,12 +69,14 @@ export class ClaimModelConverter {
 
   private static convertDefendantDetails (draftClaim: DraftLegalClaim): void {
     draftClaim.defendants.map((defendant: Defendant) => {
+      if (defendant.defendantDetails.title) {
+        defendant['title'] = defendant.defendantDetails.title
+      }
       defendant['name'] = defendant.defendantDetails.fullName
       defendant['type'] = defendant.defendantDetails.type.dataStoreValue
 
       if (defendant.defendantRepresented.isDefendantRepresented.value === YesNo.YES.value) {
-        defendant['representative'] = defendant.representative
-        defendant.representative.companyName = defendant.defendantRepresented.companyName as any
+        defendant.representative['companyName'] = defendant.defendantRepresented.companyName as any
         defendant.representative['companyAddress'] = defendant.representative.address
 
         delete defendant.defendantRepresented
