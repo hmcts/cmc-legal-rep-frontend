@@ -1,5 +1,6 @@
 import DraftLegalClaim from 'drafts/models/draftLegalClaim'
 import Defendant from 'drafts/models/defendant'
+import { OtherDamages } from 'forms/models/otherDamages'
 
 export class ClaimModelConverter {
 
@@ -9,7 +10,19 @@ export class ClaimModelConverter {
 
     draftClaim['reason'] = draftClaim.summary.text
 
-    draftClaim.personalInjury = draftClaim.personalInjury.generalDamages.dataStoreValue as any
+    draftClaim.personalInjury.generalDamages = draftClaim.personalInjury.generalDamages.dataStoreValue as any
+    delete draftClaim.personalInjury.personalInjury
+
+    console.log(draftClaim.housingDisrepair)
+    draftClaim.housingDisrepair['costOfRepairsDamages'] = draftClaim.housingDisrepair.generalDamages.dataStoreValue
+    console.log(draftClaim.housingDisrepair['costOfRepairsDamages'])
+    delete draftClaim.housingDisrepair.generalDamages
+
+    draftClaim.housingDisrepair.otherDamages = draftClaim.housingDisrepair.otherDamages.dataStoreValue as any
+    if (draftClaim.housingDisrepair.otherDamages as any === OtherDamages.NONE.dataStoreValue) {
+      delete draftClaim.housingDisrepair.otherDamages
+    }
+    delete draftClaim.housingDisrepair.housingDisrepair
 
     return draftClaim
   }
