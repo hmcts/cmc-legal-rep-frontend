@@ -39,6 +39,7 @@ export default express.Router()
         await ClaimDraftMiddleware.save(res, next)
 
         const claim: Claim = await ClaimStoreClient.saveClaimForUser(res.locals.user)
+        await ClaimDraftMiddleware.delete(res, next)
 
         res.redirect(Paths.claimSubmittedPage.uri.replace(':externalId', claim.externalId))
       }

@@ -87,6 +87,7 @@ describe('Claim : Pay by Fee Account page', () => {
       draftStoreServiceMock.resolveSave(draftType)
       feesServiceMock.resolveCalculateIssueFee()
       claimStoreServiceMock.saveClaimForUser()
+      draftStoreServiceMock.resolveDelete(draftType)
 
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
