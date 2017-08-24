@@ -3,7 +3,7 @@ import { Serializable } from 'models/serializable'
 import { IsNotBlank } from 'forms/validation/validators/isNotBlank'
 
 export class ValidationErrors {
-  static readonly COMPANY_NAME_REQUIRED: string = 'Enter your company name'
+  static readonly COMPANY_NAME_REQUIRED: string = 'Enter your organisation name'
   static readonly COMPANY_NAME_TOO_LONG: string = 'You’ve entered too many characters'
 }
 
