@@ -12,8 +12,8 @@
         <div class="govuk-box-highlight">
           <h1 class="bold-large">{{ t('Your claim has been issued') }}</h1>
           <h2 class="bold-medium reference-number">{{ t('Claim number: %s', { postProcess: 'sprintf', sprintf: [claimNumber]}) }}</h2>
-          <div class="confirmation-detail">{{ t('Submitted %s', { postProcess: 'sprintf', sprintf: [submittedDate | date]}) }}</div>
-          <div class="confirmation-detail">{{ t('Issued %s', { postProcess: 'sprintf', sprintf: [issueDate | date]}) }}</div>
+          <div class="confirmation-detail">{{ t('Submitted %s', { postProcess: 'sprintf', sprintf: [submittedDate ]}) }}</div>
+          <div class="confirmation-detail">{{ t('Issued %s', { postProcess: 'sprintf', sprintf: [issueDate]}) }}</div>
           <div class="confirmation-detail">{{ t('Fee paid: %s', { postProcess: 'sprintf', sprintf: [feePaid | pennies2pounds | numeral]}) }}</div>
         </div>
         <div class="form-group">{{ t("We've emailed confirmation to: ") }}

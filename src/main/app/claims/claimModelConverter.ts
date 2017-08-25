@@ -11,21 +11,35 @@ export class ClaimModelConverter {
 
     draftClaim['reason'] = draftClaim.summary.text
 
-    if (draftClaim.personalInjury.generalDamages) {
-      draftClaim.personalInjury.generalDamages = draftClaim.personalInjury.generalDamages.dataStoreValue as any
+    if (draftClaim.personalInjury.personalInjury && draftClaim.personalInjury.personalInjury === YesNo.YES) {
+      if (draftClaim.personalInjury.generalDamages) {
+        draftClaim.personalInjury.generalDamages = draftClaim.personalInjury.generalDamages.dataStoreValue as any
+      }
+
       delete draftClaim.personalInjury.personalInjury
+    } else {
+      delete draftClaim.personalInjury
     }
 
-    if (draftClaim.housingDisrepair.generalDamages) {
-      draftClaim.housingDisrepair['costOfRepairsDamages'] = draftClaim.housingDisrepair.generalDamages.dataStoreValue
-      delete draftClaim.housingDisrepair.generalDamages
-    }
+    if (draftClaim.housingDisrepair.housingDisrepair && draftClaim.housingDisrepair.housingDisrepair === YesNo.YES) {
 
-    draftClaim.housingDisrepair.otherDamages = draftClaim.housingDisrepair.otherDamages.dataStoreValue as any
-    if (draftClaim.housingDisrepair.otherDamages as any === OtherDamages.NONE.dataStoreValue) {
-      delete draftClaim.housingDisrepair.otherDamages
+      if (draftClaim.housingDisrepair.generalDamages) {
+        draftClaim.housingDisrepair['costOfRepairsDamages'] = draftClaim.housingDisrepair.generalDamages.dataStoreValue
+        delete draftClaim.housingDisrepair.generalDamages
+      }
+
+      if (draftClaim.housingDisrepair.otherDamages) {
+        draftClaim.housingDisrepair.otherDamages = draftClaim.housingDisrepair.otherDamages.dataStoreValue as any
+        if (draftClaim.housingDisrepair.otherDamages as any === OtherDamages.NONE.dataStoreValue) {
+          delete draftClaim.housingDisrepair.otherDamages
+        }
+      }
+
+      delete draftClaim.housingDisrepair.housingDisrepair
+    } else {
+      delete draftClaim.housingDisrepair
+
     }
-    delete draftClaim.housingDisrepair.housingDisrepair
 
     draftClaim['feeAccountNumber'] = draftClaim.feeAccount.reference
     delete draftClaim.feeAccount
