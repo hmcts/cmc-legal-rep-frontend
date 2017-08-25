@@ -32,7 +32,7 @@ export default express.Router()
         renderView(form, res)
       } else {
         if (form.model.isDefendantRepresented === YesNo.NO) {
-          form.model.companyName = undefined
+          form.model.organisationName = undefined
         }
 
         res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentIndex(res)].defendantRepresented = form.model

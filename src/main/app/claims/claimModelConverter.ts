@@ -67,7 +67,7 @@ export class ClaimModelConverter {
     }
 
     draftClaim.claimant['representative'] = draftClaim.representative
-    draftClaim.claimant['representative'].companyName = draftClaim.representative.companyName.name
+    draftClaim.claimant['representative'].companyName = draftClaim.representative.organisationName.name
     draftClaim.claimant['representative'].companyAddress = draftClaim.representative.address
     draftClaim.claimant['representative'].companyContactDetails = draftClaim.representative.contactDetails
     draftClaim.claimant['representative'].companyContactDetails.phone = draftClaim.representative.contactDetails.phoneNumber
@@ -99,7 +99,7 @@ export class ClaimModelConverter {
       defendant['type'] = defendant.defendantDetails.type.dataStoreValue
 
       if (defendant.defendantRepresented.isDefendantRepresented.value === YesNo.YES.value) {
-        defendant.representative['companyName'] = defendant.defendantRepresented.companyName as any
+        defendant.representative['companyName'] = defendant.defendantRepresented.organisationName as any
         defendant.representative['companyAddress'] = defendant.representative.address
 
         delete defendant.defendantRepresented
