@@ -26,7 +26,7 @@ describe('Name', () => {
     })
 
     it('should return an instance from given object', () => {
-      const name = 'My Company Name'
+      const name = 'My Organisation Name'
       const result = new Name().deserialize({
         text: name
       })

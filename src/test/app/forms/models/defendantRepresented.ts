@@ -9,7 +9,7 @@ import { expectValidationError } from './validationUtils'
 import { YesNo } from 'app/forms/models/yesNo'
 import { GeneralDamages } from 'app/forms/models/generalDamages'
 import { DefendantRepresented, ValidationErrors } from 'app/forms/models/defendantRepresented'
-import CompanyName from 'app/forms/models/organisationName'
+import OrganisationName from 'app/forms/models/organisationName'
 
 describe('Defendant Represented', () => {
   describe('deserialize', () => {
@@ -90,14 +90,14 @@ describe('Defendant Represented', () => {
     })
 
     it('should have valid defendant respresented', () => {
-      const companyName = new CompanyName('organisationName')
+      const organisationName = new OrganisationName('organisationName')
       const defendantRepresented = DefendantRepresented.fromObject({
         isDefendantRepresented: 'YES',
-        organisationName: companyName
+        organisationName: organisationName
       })
 
       expect(defendantRepresented.isDefendantRepresented).to.equal(YesNo.YES)
-      expect(defendantRepresented.organisationName).to.eql(companyName)
+      expect(defendantRepresented.organisationName).to.eql(organisationName)
     })
   })
 })

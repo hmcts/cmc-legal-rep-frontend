@@ -6,7 +6,7 @@ import Representative from 'drafts/models/representative'
 import { DefendantDetails } from 'forms/models/defendantDetails'
 import { DefendantRepresented } from 'app/forms/models/defendantRepresented'
 import { ContactDetails } from 'app/forms/models/contactDetails'
-import CompanyName from 'app/forms/models/organisationName'
+import OrganisationName from 'app/forms/models/organisationName'
 import { PartyTypes } from 'app/forms/models/partyTypes'
 import { YesNo } from 'app/forms/models/yesNo'
 
@@ -32,7 +32,7 @@ describe('Defendant', () => {
 
     it('should return an instance from given object', () => {
       const contactDetails = new ContactDetails('07555055505', 'email@example.com', 'any dx address')
-      const organisationName = new CompanyName('organisationName')
+      const organisationName = new OrganisationName('organisationName')
       const address = new Address('line1', 'line2', 'city', 'postcode')
       const representative = new Representative(organisationName, address, contactDetails)
       const defendantDetails = new DefendantDetails(PartyTypes.INDIVIDUAL, 'title', 'full name')
