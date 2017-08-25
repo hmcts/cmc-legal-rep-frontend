@@ -13,7 +13,7 @@ const sampleClaimDraftObj = {
   readResolveDispute: true,
   readCompletingClaim: true,
   representative: {
-    companyName: 'My Company Name',
+    organisationName: 'My Organisation Name',
     address: {
       line1: 'Apt 99',
       line2: 'Building A',
@@ -55,7 +55,7 @@ const sampleClaimDraftObj = {
       postcode: 'E1'
     },
     representative: {
-      companyName: 'Defendant Company Name',
+      organisationName: 'Defendant Company Name',
       address: {
         line1: 'Apt 99',
         line2: 'Building A',
