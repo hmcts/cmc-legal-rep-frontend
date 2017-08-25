@@ -46,7 +46,7 @@ describe('Defendant', () => {
           contactDetails: { phoneNumber: '07555055505', email: 'email@example.com', dxAddress: 'any dx address' }
         },
         defendantDetails: {
-          type: { value: 'INDIVIDUAL', displayValue: 'An individual' },
+          type: { value: 'INDIVIDUAL', displayValue: 'An individual', dataStoreValue: 'individual' },
           title: 'title',
           fullName: 'full name',
           organisation: undefined,

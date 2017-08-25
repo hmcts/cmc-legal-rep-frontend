@@ -56,7 +56,6 @@
     "nock": "^9.0.13",
     "numeral": "^2.0.6",
     "nunjucks": "^3.0.1",
-    "nunjucks-date-filter": "^0.1.1",
     "nunjucks-numeral-filter": "^0.0.2",
     "randomstring": "^1.1.5",
     "request-promise-native": "^1.0.4",

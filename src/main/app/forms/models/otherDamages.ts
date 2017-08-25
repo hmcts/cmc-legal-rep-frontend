@@ -1,7 +1,7 @@
 export class OtherDamages {
-  static readonly LESS = 'LESS'
-  static readonly MORE = 'MORE'
-  static readonly NONE = 'NONE'
+  static readonly LESS = 'thousandPoundsOrLess'
+  static readonly MORE = 'moreThanThousandPounds'
+  static readonly NONE = 'none'
 
   readonly value: string
 

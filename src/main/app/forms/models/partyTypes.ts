@@ -1,13 +1,15 @@
 export class PartyTypes {
-  static readonly ORGANISATION = new PartyTypes('ORGANISATION', 'An organisation')
-  static readonly INDIVIDUAL = new PartyTypes('INDIVIDUAL', 'An individual')
+  static readonly ORGANISATION = new PartyTypes('ORGANISATION', 'An organisation', 'organisation')
+  static readonly INDIVIDUAL = new PartyTypes('INDIVIDUAL', 'An individual', 'individual')
 
   readonly value: string
   readonly displayValue: string
+  readonly dataStoreValue: string
 
-  constructor (value: string, displayValue: string) {
+  constructor (value: string, displayValue: string, dataStoreValue: string) {
     this.value = value
     this.displayValue = displayValue
+    this.dataStoreValue = dataStoreValue
   }
 
   static all (): PartyTypes[] {

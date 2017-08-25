@@ -1,6 +1,6 @@
 export class GeneralDamages {
-  static readonly LESS = 'LESS'
-  static readonly MORE = 'MORE'
+  static readonly LESS = 'thousandPoundsOrLess'
+  static readonly MORE = 'moreThanThousandPounds'
 
   readonly value: string
 

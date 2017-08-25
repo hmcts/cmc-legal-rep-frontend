@@ -1,6 +1,9 @@
 import * as config from 'config'
 import * as mock from 'nock'
 import * as HttpStatus from 'http-status-codes'
+import { OtherDamages } from 'forms/models/otherDamages'
+import { YesNo } from 'forms/models/yesNo'
+import { GeneralDamages } from 'forms/models/generalDamages'
 
 const serviceBaseURL: string = `${config.get('draft-store.url')}/api/${config.get('draft-store.apiVersion')}`
 
@@ -41,11 +44,6 @@ const sampleClaimDraftObj = {
     },
     mobilePhone: {
       number: '07000000000'
-    },
-    payment: {
-      id: '12',
-      amount: 2500,
-      state: { status: 'failed' }
     }
   },
   defendants: [{
@@ -63,6 +61,10 @@ const sampleClaimDraftObj = {
         postcode: 'E1'
       }
     },
+    defendantRepresented: {
+      isDefendantRepresented: YesNo.YES,
+      companyName: 'Defendant rep'
+    },
     defendantDetails: {
       type: 'INDIVIDUAL',
       title: 'title',
@@ -75,12 +77,12 @@ const sampleClaimDraftObj = {
     higherValue: 1000
   },
   housingDisrepair: {
-    housingDisrepair: 'YES',
-    generalDamages: 'LESS',
-    otherDamages: 'NONE'
+    housingDisrepair: YesNo.YES,
+    generalDamages: GeneralDamages.LESS,
+    otherDamages: OtherDamages.NONE
   },
   personalInjury: {
-    personalInjury: 'NO',
+    personalInjury: YesNo.NO,
     generalDamages: undefined
   }
 }
