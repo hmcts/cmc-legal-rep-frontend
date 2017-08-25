@@ -54,7 +54,7 @@ describe('Defendant', () => {
         },
         defendantRepresented: {
           isDefendantRepresented: 'YES',
-          companyName: organisationName.name
+          organisationName: organisationName.name
         }
       })
 
