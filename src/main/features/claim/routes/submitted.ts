@@ -1,24 +1,28 @@
 import * as express from 'express'
 import { Paths } from 'claim/paths'
 import ErrorHandling from 'common/errorHandling'
+import Claim from 'claims/models/claim'
+import ClaimStoreClient from 'claims/claimStoreClient'
+import { MomentFormatter } from 'app/utils/momentFormatter'
 
-function renderView (req: express.Request, res: express.Response, next: express.NextFunction): void {
-  // TODO: The below values needs to be retrieved from claim store, should be done as part of/after ROC-1796
-  const today = new Date()
+async function renderView (req: express.Request, res: express.Response): Promise<void> {
+  const { externalId } = req.params
+
+  const claim: Claim = await ClaimStoreClient.retrieveByExternalId(externalId)
   res.render(Paths.claimSubmittedPage.associatedView, {
-    claimNumber: 'D99YJ987',
-    submittedDate: today,
-    issueDate: today,
-    feePaid: '70',
-    repEmail: 'test@email.com',
-    externalId: 'xxxxxx'
+    claimNumber: claim.claimNumber,
+    submittedDate: MomentFormatter.formatLongDateWithLongMonth(claim.createdAt),
+    issueDate: MomentFormatter.formatLongDateWithLongMonth(claim.issuedOn),
+    feePaid: claim.claimData.feeAmountInPennies,
+    repEmail: claim.claimantEmail,
+    externalId: externalId
   })
 }
 
 export default express.Router()
   .get(Paths.claimSubmittedPage.uri,
-    ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
-      renderView(req, res, next)
+    ErrorHandling.apply(async (req: express.Request, res: express.Response): Promise<void> => {
+      await renderView(req, res)
     }))
 
   .post(Paths.claimSubmittedPage.uri, (req: express.Request, res: express.Response) => {

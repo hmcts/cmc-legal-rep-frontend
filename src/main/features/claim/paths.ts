@@ -22,7 +22,7 @@ export class Paths {
   static readonly defendantRepAddressPage = new RoutablePath('/legal/claim/defendant-reps-address')
   static readonly statementOfTruthPage = new RoutablePath('/legal/claim/statement-of-truth')
   static readonly payByAccountPage = new RoutablePath('/legal/claim/pay-by-account')
-  static readonly claimSubmittedPage = new RoutablePath('/legal/claim/submitted')
+  static readonly claimSubmittedPage = new RoutablePath('/legal/claim/:externalId/submitted')
   static readonly detailsSummaryPage = new RoutablePath('/legal/claim/details-summary')
 
 }

@@ -11,13 +11,13 @@ import Defendant from 'drafts/models/defendant'
 import { ClaimantDetails } from 'app/forms/models/claimantDetails'
 import { DefendantDetails } from 'app/forms/models/defendantDetails'
 import { PartyTypes } from 'app/forms/models/partyTypes'
-import moment = require('moment')
 import OrganisationName from 'app/forms/models/organisationName'
 import DraftView from 'app/drafts/models/draftView'
 import { Amount } from 'forms/models/amount'
 import { HousingDisrepair } from 'forms/models/housingDisrepair'
 import { YesNo } from 'forms/models/yesNo'
 import { PersonalInjury } from 'forms/models/personalInjury'
+import { MomentFactory } from 'common/momentFactory'
 
 function mockedDraftClaim () {
   let draft = new DraftLegalClaim()
@@ -48,8 +48,10 @@ function mockedClaim () {
   claim.claimData.claimant = new Claimant()
   claim.claimNumber = 'NNDD-NNDD'
   claim.externalId = 'uuid'
-  claim.responseDeadline = moment()
-  claim.createdAt = moment()
+  claim.responseDeadline = MomentFactory.currentDate().add(20, 'days')
+  claim.createdAt = MomentFactory.currentDateTime()
+  claim.issuedOn = MomentFactory.currentDate()
+  claim.claimData.feeAmountInPennies = 700
   return claim
 }
 
