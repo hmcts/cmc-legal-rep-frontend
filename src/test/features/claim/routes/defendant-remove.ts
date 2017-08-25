@@ -24,7 +24,7 @@ const twoDefendants = {
       postcode: 'E1'
     },
     representative: {
-      companyName: 'Defendant Company Name',
+      organisationName: 'Defendant Organisation Name',
       address: {
         line1: 'Apt 99',
         line2: 'Building A',
@@ -45,7 +45,7 @@ const twoDefendants = {
         postcode: 'E1'
       },
       representative: {
-        companyName: 'Defendant Company Name',
+        organisationName: 'Defendant Organisation Name',
         address: {
           line1: 'Apt 99',
           line2: 'Building A',

@@ -19,7 +19,7 @@
     {% endif %}
 
     {{ tableStart('organisationDetails', 'Your organisation details') }}
-    {{ row('Organisation name', legalClaimDraft.representative.companyName.name, paths.representativeNamePage.uri) }}
+    {{ row('Organisation name', legalClaimDraft.representative.organisationName.name, paths.representativeNamePage.uri) }}
 
     {{ rowWithMultipleValue(
     label = 'Address',
@@ -96,7 +96,7 @@
       ) }}
 
       {% if defendant.defendantRepresented.isDefendantRepresented =='YES' %}
-        {{ row('Solicitor', defendant.defendantRepresented.companyName, changeRepresentativeLink) }}
+        {{ row('Solicitor', defendant.defendantRepresented.organisationName, changeRepresentativeLink) }}
 
         {{ rowWithMultipleValue(
         label = 'Service address',

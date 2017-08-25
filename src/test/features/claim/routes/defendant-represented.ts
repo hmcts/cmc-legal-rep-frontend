@@ -14,7 +14,7 @@ import * as idamServiceMock from '../../../http-mocks/idam'
 import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
-const pageText = 'Has the defendant got a representative'
+const pageText = 'Has the defendant got a legal representative'
 const roles: string[] = ['solicitor']
 
 describe('Claim issue: is defendant represented page', () => {
@@ -55,7 +55,7 @@ describe('Claim issue: is defendant represented page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .send({
           isDefendantRepresented: 'NO',
-          companyName: 'companyName'
+          organisationName: 'organisationName'
         })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
@@ -69,7 +69,7 @@ describe('Claim issue: is defendant represented page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .send({
           isDefendantRepresented: 'YES',
-          companyName: 'companyName'
+          organisationName: 'organisationName'
         })
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantRepAddressPage.uri))
     })
@@ -83,7 +83,7 @@ describe('Claim issue: is defendant represented page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .send({
           isDefendantRepresented: 'NO',
-          companyName: undefined
+          organisationName: undefined
         })
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantAdditionPage.uri))
     })
