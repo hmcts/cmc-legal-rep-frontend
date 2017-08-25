@@ -55,7 +55,7 @@ describe('Claim issue: is defendant represented page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .send({
           isDefendantRepresented: 'NO',
-          companyName: 'companyName'
+          organisationName: 'organisationName'
         })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
@@ -69,7 +69,7 @@ describe('Claim issue: is defendant represented page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .send({
           isDefendantRepresented: 'YES',
-          companyName: 'companyName'
+          organisationName: 'organisationName'
         })
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantRepAddressPage.uri))
     })
@@ -83,7 +83,7 @@ describe('Claim issue: is defendant represented page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .send({
           isDefendantRepresented: 'NO',
-          companyName: undefined
+          organisationName: undefined
         })
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantAdditionPage.uri))
     })

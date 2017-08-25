@@ -16,7 +16,7 @@ import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 const cookieName: string = config.get<string>( 'session.cookieName' )
 const roles: string[] = ['solicitor']
 
-describe( 'Claim : Your company contact details page', () => {
+describe( 'Claim : Your organisation contact details page', () => {
   beforeEach( () => {
     mock.cleanAll()
     draftStoreServiceMock.resolveRetrieve( 'legalClaim' )
@@ -31,7 +31,7 @@ describe( 'Claim : Your company contact details page', () => {
       await request( app )
         .get( ClaimPaths.representativeContactsPage.uri )
         .set( 'Cookie', `${cookieName}=ABC` )
-        .expect( res => expect( res ).to.be.successful.withText( 'Your company contact details' ) )
+        .expect( res => expect( res ).to.be.successful.withText( 'Your organisation contact details' ) )
     } )
   } )
 
@@ -44,7 +44,7 @@ describe( 'Claim : Your company contact details page', () => {
       await request( app )
         .post( ClaimPaths.representativeContactsPage.uri )
         .set( 'Cookie', `${cookieName}=ABC` )
-        .expect( res => expect( res ).to.be.successful.withText( 'Your company contact details', 'div class="error-summary"' ) )
+        .expect( res => expect( res ).to.be.successful.withText( 'Your organisation contact details', 'div class="error-summary"' ) )
     } )
 
     it( 'should return 500 and render error page when form is valid and cannot save draft', async () => {
