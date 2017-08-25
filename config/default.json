@@ -24,7 +24,7 @@
     "gaTrackingId": ""
   },
   "fees": {
-    "url": "http://localhost:8182",
+    "url": "http://localhost:4182",
     "issueFeeCode": "cmc-paper"
   },
   "pay": {
