@@ -1,12 +1,9 @@
-import * as moment from 'moment'
-import { Moment } from 'moment'
+import { Person } from 'claims/models/person'
 
-export default class Claimant {
-  dateOfBirth: Moment
-
+export class Claimant extends Person {
   deserialize (input: any): Claimant {
     if (input) {
-      this.dateOfBirth = moment(input.dateOfBirth)
+      Object.assign(this, new Person().deserialize(input))
     }
     return this
   }

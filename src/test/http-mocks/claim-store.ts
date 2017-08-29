@@ -20,7 +20,7 @@ export const sampleClaimObj = {
         higherValue: 300
       }
     },
-    defendant: [{
+    defendants: [{
       name: 'John Doe',
       address: {
         line1: 'line1',
