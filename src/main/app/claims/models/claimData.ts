@@ -3,7 +3,7 @@ import Claimant from 'app/drafts/models/claimant'
 
 export default class ClaimData implements Serializable<ClaimData> {
   claimant: Claimant
-  paidFeeAmount: number
+  feeAmountInPennies: number
   amount: number
   reason: string
 
@@ -11,6 +11,7 @@ export default class ClaimData implements Serializable<ClaimData> {
     if (input) {
       this.claimant = new Claimant().deserialize(input.claimant)
       this.reason = input.reason
+      this.feeAmountInPennies = input.feeAmountInPennies
     }
     return this
   }

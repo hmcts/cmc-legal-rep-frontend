@@ -11,7 +11,7 @@ import { StatementOfTruth } from 'app/forms/models/statementOfTruth'
 function renderView (form: Form<StatementOfTruth>, res: express.Response): void {
   res.render(Paths.statementOfTruthPage.associatedView, {
     form: form,
-    companyName: res.locals.user.legalClaimDraft.representative.companyName.name
+    organisationName: res.locals.user.legalClaimDraft.representative.organisationName.name
   })
 }
 

@@ -23,6 +23,7 @@ export default class DraftLegalClaim implements Serializable<DraftLegalClaim> {
   defendants: Defendant[] = [new Defendant()]
   statementOfTruth: StatementOfTruth = new StatementOfTruth()
   feeAccount: FeeAccount = new FeeAccount()
+  feeAmountInPennies: number
 
   deserialize (input: any): DraftLegalClaim {
     if (input) {
@@ -36,6 +37,10 @@ export default class DraftLegalClaim implements Serializable<DraftLegalClaim> {
       this.representative = new Representative().deserialize(input.representative)
       this.statementOfTruth = new StatementOfTruth().deserialize(input.statementOfTruth)
       this.feeAccount = new FeeAccount().deserialize(input.feeAccount)
+
+      if (input.feeAmountInPennies) {
+        this.feeAmountInPennies = input.feeAmountInPennies
+      }
 
       if (input.defendants && input.defendants.length > 0) {
         let defendants: Defendant[] = []

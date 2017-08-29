@@ -11,13 +11,13 @@ import Defendant from 'drafts/models/defendant'
 import { ClaimantDetails } from 'app/forms/models/claimantDetails'
 import { DefendantDetails } from 'app/forms/models/defendantDetails'
 import { PartyTypes } from 'app/forms/models/partyTypes'
-import moment = require('moment')
-import CompanyName from 'app/forms/models/companyName'
+import OrganisationName from 'app/forms/models/organisationName'
 import DraftView from 'app/drafts/models/draftView'
 import { Amount } from 'forms/models/amount'
 import { HousingDisrepair } from 'forms/models/housingDisrepair'
 import { YesNo } from 'forms/models/yesNo'
 import { PersonalInjury } from 'forms/models/personalInjury'
+import { MomentFactory } from 'common/momentFactory'
 
 function mockedDraftClaim () {
   let draft = new DraftLegalClaim()
@@ -25,7 +25,7 @@ function mockedDraftClaim () {
   draft.claimant.claimantDetails = new ClaimantDetails()
   draft.claimant.claimantDetails.type = PartyTypes.INDIVIDUAL
   draft.representative = new Representative()
-  draft.representative.companyName = new CompanyName('name')
+  draft.representative.organisationName = new OrganisationName('name')
   draft.defendants = [new Defendant()]
   draft.defendants[0].defendantDetails = new DefendantDetails()
   draft.defendants[0].defendantDetails.type = PartyTypes.INDIVIDUAL
@@ -48,8 +48,10 @@ function mockedClaim () {
   claim.claimData.claimant = new Claimant()
   claim.claimNumber = 'NNDD-NNDD'
   claim.externalId = 'uuid'
-  claim.responseDeadline = moment()
-  claim.createdAt = moment()
+  claim.responseDeadline = MomentFactory.currentDate().add(20, 'days')
+  claim.createdAt = MomentFactory.currentDateTime()
+  claim.issuedOn = MomentFactory.currentDate()
+  claim.claimData.feeAmountInPennies = 700
   return claim
 }
 
