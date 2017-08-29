@@ -9,8 +9,9 @@ export class ClaimMapper {
       submittedDate: MomentFormatter.formatLongDateAndTime(claim.createdAt),
       issuedOn: MomentFormatter.formatLongDateAndTime(claim.issuedOn),
       claimNumber: claim.claimNumber,
-      issueFee: NumberFormatter.formatMoney(claim.claimData.paidFeeAmount)
+      issueFee: NumberFormatter.formatMoney(claim.claimData.feeAmountInPennies)
     }
     return data
   }
+
 }
