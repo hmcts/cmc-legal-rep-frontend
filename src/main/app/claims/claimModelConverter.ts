@@ -51,7 +51,7 @@ export class ClaimModelConverter {
     draftClaim.claimant['type'] = draftClaim.claimant.claimantDetails.type.dataStoreValue
 
     if (draftClaim.amount.canNotState()) {
-      draftClaim.amount['type'] = 'unspecified'
+      draftClaim.amount['type'] = 'not_known'
     } else {
       draftClaim.amount['type'] = 'range'
     }
@@ -72,6 +72,7 @@ export class ClaimModelConverter {
     draftClaim.claimant['representative'].companyContactDetails = draftClaim.representative.contactDetails
     draftClaim.claimant['representative'].companyContactDetails.phone = draftClaim.representative.contactDetails.phoneNumber
 
+    delete draftClaim.claimant['representative'].organisationName
     if (draftClaim.yourReference.reference) {
       draftClaim.claimant['representative'].reference = draftClaim.yourReference.reference
     }
@@ -83,7 +84,6 @@ export class ClaimModelConverter {
     delete draftClaim.claimant['representative'].companyContactDetails.phoneNumber
     delete draftClaim.claimant['representative'].address
     delete draftClaim.representative
-
   }
 
   private static convertDefendantDetails (draftClaim: DraftLegalClaim): void {
