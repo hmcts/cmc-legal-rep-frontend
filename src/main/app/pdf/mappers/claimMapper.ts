@@ -6,10 +6,14 @@ export class ClaimMapper {
 
   static createClaimDetails (claim: Claim): object {
     const data = {
+      claimNumber: claim.claimNumber,
+      feeAccountNumber: claim.claimData.feeAccountNumber,
       submittedDate: MomentFormatter.formatLongDateAndTime(claim.createdAt),
       issuedOn: MomentFormatter.formatLongDateAndTime(claim.issuedOn),
-      claimNumber: claim.claimNumber,
-      issueFee: NumberFormatter.formatMoney(claim.claimData.feeAmountInPennies)
+      claimant: claim.claimData.claimant,
+
+      issueFee: NumberFormatter.formatMoney(claim.claimData.feeAmountInPennies / 100),
+      defendants: claim.claimData.defendants
     }
     return data
   }

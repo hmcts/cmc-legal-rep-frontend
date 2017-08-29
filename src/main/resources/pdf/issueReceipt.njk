@@ -7,6 +7,10 @@
       size: 8.5in 11in;
       margin: 10%;
 
+      @bottom-left {
+        content: "[OCCN1]"
+      }
+
       @bottom-center {
         content: "For further details of the courts www.gov.uk/find-court-tribunal";
       }
@@ -101,16 +105,16 @@
       <td align="right"><p>In the County Court Money Claims Centre</p></td>
     </tr>
     <tr>
-      <td colspan="2" align="right"><h3><strong>Claim number: </strong> 000LR003</h3></td>
+      <td colspan="2" align="right"><h3><strong>Claim number: </strong> {{ claimNumber }}</h3></td>
     </tr>
     <tr>
-      <td colspan="2" align="right"><strong>Fee account: </strong> PBA1234567</td>
+      <td colspan="2" align="right"><strong>Fee account: </strong> {{ feeAccountNumber }}</td>
     </tr>
     <tr>
-      <td colspan="2" align="right"><strong>Claim submitted: </strong> 15 August 2017</td>
+      <td colspan="2" align="right"><strong>Claim submitted: </strong> {{ submittedDate }}</td>
     </tr>
     <tr>
-      <td colspan="2" align="right"><strong>Claim issued: </strong> 15 August 2017</td>
+      <td colspan="2" align="right"><strong>Claim issued: </strong> {{ issuedOn }}</td>
     </tr>
   </table>
 </header>
@@ -122,15 +126,15 @@
     <tr>
       <td><h3>Claimant</h3></td>
       <td>
-        {{ claimant.fullName }}
+        {{ claimant.name }}
         <br/>
-        {{ claimant.address.lineOne }}
+        {{ claimant.address.line1 }}
         <br/>
-        {% if claimant.address.lineTwo is defined %}
-          {{ claimant.address.lineTwo }}
+        {% if claimant.address.line2 is defined %}
+          {{ claimant.address.line2 }}
           <br/>
         {% endif %}
-        {{ claimant.address.townOrCity }}
+        {{ claimant.address.city }}
         <br/>
         {{ claimant.address.postcode }}
       </td>

@@ -1,27 +1,28 @@
 import { Serializable } from 'models/serializable'
-import { Moment } from 'moment'
-import { MomentFactory } from 'common/momentFactory'
 import { Address } from 'claims/models/address'
+import Representative from 'claims/models/representative'
 
-export class Person implements Serializable<Person> {
+export class Party implements Serializable<Party> {
+  type: string
   name: string
   address: Address
   correspondenceAddress?: Address
-  dateOfBirth?: Moment
   mobilePhone?: string
+  representative?: Representative
 
-  deserialize (input: any): Person {
+  deserialize (input: any): Party {
     if (input) {
+      this.type = input.type
       this.name = input.name
       this.address = new Address().deserialize(input.address)
       if (input.correspondenceAddress) {
         this.correspondenceAddress = new Address().deserialize(input.correspondenceAddress)
       }
-      if (input.dateOfBirth) {
-        this.dateOfBirth = MomentFactory.parse(input.dateOfBirth)
-      }
       if (input.mobilePhone) {
         this.mobilePhone = input.mobilePhone
+      }
+      if (input.representative) {
+        this.representative = new Representative().deserialize(input.representative)
       }
     }
     return this
