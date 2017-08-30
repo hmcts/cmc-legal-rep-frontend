@@ -104,6 +104,7 @@ export class ClaimModelConverter {
 
         delete defendant.defendantRepresented
         delete defendant.representative.address
+        delete defendant.representative.organisationName
         delete defendant.representative.contactDetails
       } else {
         delete defendant.representative
