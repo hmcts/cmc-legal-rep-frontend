@@ -63,8 +63,8 @@ describe('Amount', () => {
       expectValidationError(errors, ValidationErrors.VALID_SELECTION_REQUIRED)
     })
 
-    it('should reject amount with upper value greater than 99999.99', () => {
-      const errors = validator.validateSync(new Amount(0, 100000, undefined))
+    it('should reject amount with upper value greater than 9,999,999.99', () => {
+      const errors = validator.validateSync(new Amount(0, 10000000, undefined))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID)
