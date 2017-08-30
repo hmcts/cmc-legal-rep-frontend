@@ -12,8 +12,8 @@ function renderView (res: express.Response, next: express.NextFunction) {
     .then((feeAmount: number) => {
       const claimant = res.locals.user.legalClaimDraft.claimant
       const isClaimantIndividual = claimant.claimantDetails.type.value === PartyTypes.INDIVIDUAL.value
-      const isHousingDisrepair = res.locals.user.legalClaimDraft.housingDisrepair.housingDisrepair.value === YesNo.YES
-      const isPersonalInjury = res.locals.user.legalClaimDraft.personalInjury.personalInjury.value === YesNo.YES
+      const isHousingDisrepair = res.locals.user.legalClaimDraft.housingDisrepair.housingDisrepair === YesNo.YES
+      const isPersonalInjury = res.locals.user.legalClaimDraft.personalInjury.personalInjury === YesNo.YES
 
       res.render(Paths.detailsSummaryPage.associatedView, {
         legalClaimDraft: res.locals.user.legalClaimDraft,
@@ -30,6 +30,7 @@ function renderView (res: express.Response, next: express.NextFunction) {
 export default express.Router()
   .get(Paths.detailsSummaryPage.uri,
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+      console.log(res.locals.user.legalClaimDraft.personalInjury.generalDamages)
       renderView(res, next)
     }))
 

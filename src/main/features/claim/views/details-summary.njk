@@ -137,7 +137,7 @@
 
     {% if isPersonalInjury %}
       {% set personalInjuryStatementOfValue %}
-        {% if legalClaimDraft.personalInjury.generalDamages == 'LESS' %}
+        {% if legalClaimDraft.personalInjury.generalDamages == 'thousandPoundsOrLess' %}
           {% set damages = 'not more than £1,000' %}
         {% else %}
           {% set damages = 'more than £1,000' %}
@@ -148,15 +148,15 @@
 
     {% if isHousingDisrepair %}
       {% set housingDisrepairStatementOfValue %}
-        {% if legalClaimDraft.housingDisrepair.generalDamages == 'LESS' %}
+        {% if legalClaimDraft.housingDisrepair.generalDamages == 'thousandPoundsOrLess' %}
           {% set housingDisrepairDamages = 'not more than £1,000' %}
         {% else %}
           {% set housingDisrepairDamages = 'more than £1,000' %}
         {% endif %}
 
-        {% if legalClaimDraft.housingDisrepair.otherDamages == 'LESS' %}
+        {% if legalClaimDraft.housingDisrepair.otherDamages == 'thousandPoundsOrLess' %}
           {% set housingDisrepairOtherDamages = 'The cost of any claim for damages is not more than £1,000.' %}
-        {% elseif legalClaimDraft.housingDisrepair.otherDamages == 'MORE' %}
+        {% elseif legalClaimDraft.housingDisrepair.otherDamages == 'moreThanThousandPounds' %}
           {% set housingDisrepairOtherDamages = 'The cost of any claim for damages is more than £1,000.' %}
         {% else %}
           {% set housingDisrepairOtherDamages = '' %}
