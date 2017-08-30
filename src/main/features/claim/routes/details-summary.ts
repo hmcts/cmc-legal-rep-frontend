@@ -30,7 +30,6 @@ function renderView (res: express.Response, next: express.NextFunction) {
 export default express.Router()
   .get(Paths.detailsSummaryPage.uri,
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
-      console.log(res.locals.user.legalClaimDraft.personalInjury.generalDamages)
       renderView(res, next)
     }))
 
