@@ -12,14 +12,13 @@ import { app } from '../../../../main/app'
 
 import * as idamServiceMock from '../../../http-mocks/idam'
 import * as claimStoreServiceMock from '../../../http-mocks/claim-store'
-import * as pdfServiceMock from '../../../http-mocks/pdf-service'
 
 const cookieName: string = config.get<string>('session.cookieName')
 
 const externalId = '400f4c57-9684-49c0-adb4-4cf46579d6dc'
 const roles: string[] = ['solicitor']
 
-describe('Claim issue: receipt', () => {
+describe('Get Sealed Claim copy', () => {
   beforeEach(() => {
     mock.cleanAll()
   })
@@ -32,8 +31,9 @@ describe('Claim issue: receipt', () => {
         idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       })
 
-      it('should return 500 and render error page when cannot retrieve claim by external id', async () => {
-        claimStoreServiceMock.rejectRetrieveClaimByExternalId('HTTP error')
+      it('should return 500 and render error page when cannot download the claim copy', async () => {
+        claimStoreServiceMock.resolveRetrieveClaimByExternalId()
+        claimStoreServiceMock.rejectRetrieveSealedClaimCopy('Something went wrong')
 
         await request(app)
           .get(ClaimPaths.receiptReceiver.uri.replace(':externalId', externalId))
@@ -41,9 +41,8 @@ describe('Claim issue: receipt', () => {
           .expect(res => expect(res).to.be.serverError.withText('Error'))
       })
 
-      it('should return 500 and render error page when cannot generate PDF', async () => {
-        claimStoreServiceMock.resolveRetrieveClaimByExternalId()
-        pdfServiceMock.rejectGenerate('HTTP error')
+      it('should return 500 and render error page when the user is not owner of claim', async () => {
+        claimStoreServiceMock.resolveRetrieveClaimByExternalId({ claimantId: 123 })
 
         await request(app)
           .get(ClaimPaths.receiptReceiver.uri.replace(':externalId', externalId))
@@ -51,9 +50,9 @@ describe('Claim issue: receipt', () => {
           .expect(res => expect(res).to.be.serverError.withText('Error'))
       })
 
-      it.skip('should return receipt when everything is fine', async () => {
+      it('should return sealed claim when everything is fine', async () => {
         claimStoreServiceMock.resolveRetrieveClaimByExternalId()
-        pdfServiceMock.resolveGenerate()
+        claimStoreServiceMock.resolveRetrieveSealedClaimCopy()
 
         await request(app)
           .get(ClaimPaths.receiptReceiver.uri.replace(':externalId', externalId))

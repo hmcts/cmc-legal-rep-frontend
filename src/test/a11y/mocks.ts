@@ -18,7 +18,6 @@ import { HousingDisrepair } from 'forms/models/housingDisrepair'
 import { YesNo } from 'forms/models/yesNo'
 import { PersonalInjury } from 'forms/models/personalInjury'
 import { MomentFactory } from 'common/momentFactory'
-import { Party } from 'claims/models/party'
 
 function mockedDraftClaim () {
   let draft = new DraftLegalClaim()
@@ -46,7 +45,6 @@ function mockedDraftView () {
 function mockedClaim () {
   let claim = new Claim()
   claim.claimData = new ClaimData()
-  claim.claimData.claimant = new Party()
   claim.claimNumber = 'NNDD-NNDD'
   claim.externalId = 'uuid'
   claim.responseDeadline = MomentFactory.currentDate().add(20, 'days')
