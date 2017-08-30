@@ -2,7 +2,7 @@ import DraftLegalClaim from 'drafts/models/draftLegalClaim'
 import DraftView from 'app/drafts/models/draftView'
 
 export default class User {
-  id: string
+  id: number
   email: string
   forename: string
   surname: string
@@ -12,7 +12,7 @@ export default class User {
   viewDraft: DraftView
   legalClaimDraft: DraftLegalClaim
 
-  constructor (id: string,
+  constructor (id: number,
                email: string,
                forename: string,
                surname: string,

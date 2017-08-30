@@ -15,7 +15,7 @@ async function renderView (req: express.Request, res: express.Response): Promise
     issueDate: MomentFormatter.formatLongDateWithLongMonth(claim.issuedOn),
     feePaid: claim.claimData.feeAmountInPennies,
     repEmail: claim.claimantEmail,
-    externalId: externalId
+    receiptPath: Paths.receiptReceiver.uri.replace(':externalId', externalId)
   })
 }
 
