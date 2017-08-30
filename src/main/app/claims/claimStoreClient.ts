@@ -40,7 +40,6 @@ export default class ClaimStoreClient {
       .get(`${claimStoreApiUrl}/${externalId}`)
       .then(claim => {
         if (claim) {
-          console.log(claim)
           return new Claim().deserialize(claim)
         } else {
           throw new Error('Call was successful, but received an empty claim instance')
