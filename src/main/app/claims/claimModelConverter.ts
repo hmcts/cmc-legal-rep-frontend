@@ -98,7 +98,7 @@ export class ClaimModelConverter {
       }
       defendant['type'] = defendant.defendantDetails.type.dataStoreValue
 
-      if (defendant.defendantRepresented.isDefendantRepresented.value === YesNo.YES) {
+      if (defendant.defendantRepresented.isDefendantRepresented === YesNo.YES) {
         defendant.representative['organisationName'] = defendant.defendantRepresented.organisationName as any
         defendant.representative['organisationAddress'] = defendant.representative.address
 
