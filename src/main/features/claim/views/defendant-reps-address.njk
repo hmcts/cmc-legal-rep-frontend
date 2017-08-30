@@ -3,12 +3,9 @@
 {% from "address.njk" import addressForm %}
 
 {% set title = t('Money claim') %}
+{% set heading = t('Address for service') %}
 
 {% block content %}
-  <h1 class="heading-large">
-    <span class="form-hint">{{ defendantNumberHint }}{{ name }}</span>
-    {{ t('Address for service') }}
-  </h1>
   <div class="grid-row">
     <div class="column-two-thirds">
 
