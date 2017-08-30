@@ -52,6 +52,7 @@ export class ClaimModelConverter {
 
     if (draftClaim.amount.canNotState()) {
       draftClaim.amount['type'] = 'not_known'
+      delete draftClaim.amount.cannotState
     } else {
       draftClaim.amount['type'] = 'range'
     }
@@ -67,12 +68,11 @@ export class ClaimModelConverter {
     }
 
     draftClaim.claimant['representative'] = draftClaim.representative
-    draftClaim.claimant['representative'].companyName = draftClaim.representative.organisationName.name
-    draftClaim.claimant['representative'].companyAddress = draftClaim.representative.address
-    draftClaim.claimant['representative'].companyContactDetails = draftClaim.representative.contactDetails
-    draftClaim.claimant['representative'].companyContactDetails.phone = draftClaim.representative.contactDetails.phoneNumber
+    draftClaim.claimant['representative'].organisationName = draftClaim.representative.organisationName.name
+    draftClaim.claimant['representative'].organisationAddress = draftClaim.representative.address
+    draftClaim.claimant['representative'].organisationContactDetails = draftClaim.representative.contactDetails
+    draftClaim.claimant['representative'].organisationContactDetails.phone = draftClaim.representative.contactDetails.phoneNumber
 
-    delete draftClaim.claimant['representative'].organisationName
     if (draftClaim.yourReference.reference) {
       draftClaim.claimant['representative'].reference = draftClaim.yourReference.reference
     }
@@ -81,7 +81,7 @@ export class ClaimModelConverter {
     }
 
     delete draftClaim.claimant['representative'].contactDetails
-    delete draftClaim.claimant['representative'].companyContactDetails.phoneNumber
+    delete draftClaim.claimant['representative'].organisationContactDetails.phoneNumber
     delete draftClaim.claimant['representative'].address
     delete draftClaim.representative
   }
@@ -99,12 +99,11 @@ export class ClaimModelConverter {
       defendant['type'] = defendant.defendantDetails.type.dataStoreValue
 
       if (defendant.defendantRepresented.isDefendantRepresented.value === YesNo.YES.value) {
-        defendant.representative['companyName'] = defendant.defendantRepresented.organisationName as any
-        defendant.representative['companyAddress'] = defendant.representative.address
+        defendant.representative['organisationName'] = defendant.defendantRepresented.organisationName as any
+        defendant.representative['organisationAddress'] = defendant.representative.address
 
         delete defendant.defendantRepresented
         delete defendant.representative.address
-        delete defendant.representative.organisationName
         delete defendant.representative.contactDetails
       } else {
         delete defendant.representative
