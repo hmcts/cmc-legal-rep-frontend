@@ -23,7 +23,7 @@
         <h2 class="bold-medium form-group">{{ t('Follow these steps to serve a claim:') }}</h2>
 
         <ol class="form-group" type="1">
-          <li>1. <a target="_blank" href="/claim/{{ externalId }}/receipt">{{ t('Download the sealed claim form') }}</a>
+          <li>1. <a target="_blank" href="{{ receiptPath }}">{{ t('Download the sealed claim form') }}</a>
             {{ t('(this will open in a new window).') }}
           </li>
           <li>2. {{ t('Send the form, particulars of claim and a response pack to the defendant within 4 months of the date of
