@@ -45,7 +45,6 @@ function mockedDraftView () {
 function mockedClaim () {
   let claim = new Claim()
   claim.claimData = new ClaimData()
-  claim.claimData.claimant = new Claimant()
   claim.claimNumber = 'NNDD-NNDD'
   claim.externalId = 'uuid'
   claim.responseDeadline = MomentFactory.currentDate().add(20, 'days')
