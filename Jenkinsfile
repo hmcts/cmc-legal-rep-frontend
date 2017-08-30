@@ -74,7 +74,7 @@ timestamps {
           legalFrontendRPMVersion = packager.nodeRPM('legal-frontend')
           version = "{legal_frontend_buildnumber: ${legalFrontendRPMVersion}}"
 
-          if ("master" == BRANCH_NAME) {
+          onMaster {
             packager.publishNodeRPM('legal-frontend')
           }
         }
@@ -84,11 +84,7 @@ timestamps {
         }
 
         stage('Integration Tests') {
-          try{
-            integrationTests.execute(['LEGAL_FRONTEND_VERSION': legalFrontendVersion], Team.LEGAL)
-          } finally {
-            archiveArtifacts 'integration-tests-report/CMCT2-End2End-Test-Report.html'
-          }
+          integrationTests.execute(['LEGAL_FRONTEND_VERSION': legalFrontendVersion], Team.LEGAL)
         }
 
         //noinspection GroovyVariableNotAssigned It is guaranteed to be assigned
@@ -98,7 +94,7 @@ timestamps {
           'cmc-local'
         )
 
-        if ("master" == BRANCH_NAME) {
+        onMaster {
           milestone()
           lock(resource: "CMC-deploy-dev", inversePrecedence: true) {
             stage('Deploy (Dev)') {
