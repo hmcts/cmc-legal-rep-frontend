@@ -51,8 +51,7 @@ export class ClaimModelConverter {
     draftClaim.claimant['type'] = draftClaim.claimant.claimantDetails.type.dataStoreValue
 
     if (draftClaim.amount.canNotState()) {
-      draftClaim.amount['type'] = 'not_known'
-      delete draftClaim.amount.cannotState
+      draftClaim.amount['type'] = 'unspecified'
     } else {
       draftClaim.amount['type'] = 'range'
     }
@@ -71,25 +70,20 @@ export class ClaimModelConverter {
     draftClaim.claimant['representative'].organisationName = draftClaim.representative.organisationName.name
     draftClaim.claimant['representative'].organisationAddress = draftClaim.representative.address
     draftClaim.claimant['representative'].organisationContactDetails = draftClaim.representative.contactDetails
-
-    if (draftClaim.representative.contactDetails.phoneNumber) {
-      draftClaim.claimant['representative'].organisationContactDetails.phone = draftClaim.representative.contactDetails.phoneNumber
-      delete draftClaim.claimant['representative'].organisationContactDetails.phoneNumber
-
-    }
+    draftClaim.claimant['representative'].organisationContactDetails.phone = draftClaim.representative.contactDetails.phoneNumber
 
     if (draftClaim.yourReference.reference) {
-      draftClaim['externalReferenceNumber'] = draftClaim.yourReference.reference
-      delete draftClaim.yourReference.reference
+      draftClaim.claimant['representative'].reference = draftClaim.yourReference.reference
     }
     if (draftClaim.preferredCourt.name) {
-      draftClaim.preferredCourt = draftClaim.preferredCourt.name as any
-      delete draftClaim.preferredCourt.name
+      draftClaim.claimant['representative'].preferredCourt = draftClaim.preferredCourt.name
     }
 
     delete draftClaim.claimant['representative'].contactDetails
+    delete draftClaim.claimant['representative'].organisationContactDetails.phoneNumber
     delete draftClaim.claimant['representative'].address
     delete draftClaim.representative
+
   }
 
   private static convertDefendantDetails (draftClaim: DraftLegalClaim): void {
