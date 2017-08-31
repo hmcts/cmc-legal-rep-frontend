@@ -1,8 +1,7 @@
 import DraftLegalClaim from 'drafts/models/draftLegalClaim'
 import Defendant from 'drafts/models/defendant'
 import { OtherDamages } from 'forms/models/otherDamages'
-import { 
-} from 'forms/models/yesNo'
+import { YesNo } from 'forms/models/yesNo'
 
 export class ClaimModelConverter {
 
@@ -80,7 +79,7 @@ export class ClaimModelConverter {
 
     if (draftClaim.yourReference.reference) {
       draftClaim['externalReferenceNumber'] = draftClaim.yourReference.reference
-      delete draftClaim.yourReference.reference
+      delete draftClaim.yourReference
     }
     if (draftClaim.preferredCourt.name) {
       draftClaim.preferredCourt = draftClaim.preferredCourt.name as any
