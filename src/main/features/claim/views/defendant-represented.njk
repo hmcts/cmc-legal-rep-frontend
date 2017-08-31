@@ -1,16 +1,11 @@
 {% extends "layout.njk" %}
 
 {% set title = t('Money claim') %}
+{% set heading = t("Has the defendant got a legal representative who's instructed to accept service?") %}
 
 {% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, radioOption, textInput %}
 
 {% block content %}
-
-  <h1 class="heading-large">
-    <span class="form-hint">{{ defendantNumberHint }}{{ name }}</span>
-    <div>{{ t("Has the defendant got a legal representative") }}</div>
-    <div>{{ t("who's instructed to accept service?") }}</div>
-  </h1>
   <div class="grid-row">
     <div class="column-two-thirds">
       <form novalidate method="post">

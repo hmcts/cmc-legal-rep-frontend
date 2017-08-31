@@ -3,11 +3,12 @@
 {% from "address.njk" import addressForm %}
 
 {% set title = t('Money claim') %}
+{% set heading = t('Address') %}
+{% set partyStripeTitle = t('Claimant') %}
 
 {% block content %}
   <div class="grid-row">
     <div class="column-two-thirds">
-      <h1 class="heading-large"><span class="form-hint">{{ t('Claimant: ') }}{{ name }} </span>Address</h1>
 
       {{ addressForm(form, csrf) }}
 
