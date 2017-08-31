@@ -8,10 +8,10 @@
 {% block content %}
 
   <div class="grid-row">
-  <div class="column-two-thirds">
-    <p>{{ t('You can add up to 4 defendants in this service.') }}</p>
-    <form novalidate method="post">
-      {{ csrfProtection(csrf) }}
+    <div class="column-two-thirds">
+      <p>{{ t('You can add up to 4 defendants in this service.') }}</p>
+      <form novalidate method="post">
+        {{ csrfProtection(csrf) }}
 
       {{
         radioGroup(
@@ -33,35 +33,34 @@
         )
       }}
 
-      <div class="form-group">
-        {{ saveAndContinueButton() }}
-      </div>
-    </form>
-    {% if defendants %}
-     <div>
-      <h1 class="heading-medium">
-      {{ t('Already added') }}
-      </h1>
-      <div class="task-list-item">
-        <div class="column-one-quarter bold">{{ t('Number') }}</div>
-        <div class="column-one-half bold">{{ t('Defendant name') }}</div>
-        <div class="column-one-quarter bold">{{ t('Action') }}</div>
-      </div>
-      <hr class="column-full">
-
-      {% for defendant in defendants %}
-
-        <div class="task-list-item">
-          <div class="column-one-quarter">{{ loop.index }}</div>
-          <div class="column-one-half">{{ defendant.defendantDetails.toString() }}</div>
-          <div class="column-one-quarter"><a class="link" href="/legal/claim/defendant-remove?index={{ loop.index }}">{{ t('Remove') }}</a></div>
-          <hr class="column-full">
+        <div class="form-group">
+          {{ saveAndContinueButton() }}
         </div>
+      </form>
+      {% if defendants %}
+       <div>
+        <h1 class="heading-medium">
+        {{ t('Already added') }}
+        </h1>
+        <div class="task-list-item">
+          <div class="column-one-quarter bold">{{ t('Number') }}</div>
+          <div class="column-one-half bold">{{ t('Defendant name') }}</div>
+          <div class="column-one-quarter bold">{{ t('Action') }}</div>
+        </div>
+        <hr class="column-full">
 
-      {% endfor %}
-     </div>
-    {% endif %}
+        {% for defendant in defendants %}
+
+          <div class="task-list-item">
+            <div class="column-one-quarter">{{ loop.index }}</div>
+            <div class="column-one-half">{{ defendant.defendantDetails.toString() }}</div>
+            <div class="column-one-quarter"><a class="link" href="/legal/claim/defendant-remove?index={{ loop.index }}">{{ t('Remove') }}</a></div>
+            <hr class="column-full">
+          </div>
+
+        {% endfor %}
+       </div>
+      {% endif %}
+    </div>
   </div>
-</div>
-
 {% endblock %}

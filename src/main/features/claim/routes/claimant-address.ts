@@ -13,11 +13,11 @@ function renderView (form: Form<Address>, res: express.Response): void {
   const claimantDetails = res.locals.user.legalClaimDraft.claimant.claimantDetails
   const isIndividual = claimantDetails.type.value === PartyTypes.INDIVIDUAL.value
   const title = claimantDetails.title != null ? claimantDetails.title + ' ' : claimantDetails.title
-  const name = isIndividual ? title + claimantDetails.fullName : claimantDetails.organisation
+  const partyStripeValue = isIndividual ? title + claimantDetails.fullName : claimantDetails.organisation
 
   res.render(Paths.claimantAddressPage.associatedView, {
     form: form,
-    name: name
+    partyStripeValue: partyStripeValue
   })
 }
 

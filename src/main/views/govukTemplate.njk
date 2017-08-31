@@ -74,7 +74,7 @@
   {% endif %}
 
   {% if heading %}
-    <h1 class="heading-xlarge">
+    <h1 class="heading-large">{% if partyStripeTitle %} <span class="form-hint">{{ partyStripeTitle }}: {{ partyStripeValue }} </span>{% endif %}
       {{ heading }}
     {% if headingSecondary %}
       <span class="heading-secondary">{{ headingSecondary }}</span>

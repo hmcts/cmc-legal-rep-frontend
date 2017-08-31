@@ -1,15 +1,11 @@
 {% extends "layout.njk" %}
 
 {% set title = t('Money claim') %}
+{% set heading = t('Choose defendant type') %}
 
 {% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, radioOption, textInput %}
 
 {% block content %}
-
-  <h1 class="heading-large">
-    {% if defendantNumberHint %} <span class="form-hint">{{ defendantNumberHint }}</span> {% endif %}
-    {{ t('Choose defendant type') }}
-  </h1>
   <div class="grid-row">
     <div class="column-two-thirds">
       <p> {{ t("You'll have a chance to add more defendants later.") }} </p>
