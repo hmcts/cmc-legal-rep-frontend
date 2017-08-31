@@ -30,7 +30,7 @@ describe('Claim issue: preferred court page', () => {
       await request(app)
         .get(ClaimPaths.preferredCourtPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText('Choose a county court'))
+        .expect(res => expect(res).to.be.successful.withText('Choose court location'))
     })
   })
 
@@ -42,7 +42,7 @@ describe('Claim issue: preferred court page', () => {
       await request(app)
         .post(ClaimPaths.preferredCourtPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText('Choose a county court', 'div class="error-summary"'))
+        .expect(res => expect(res).to.be.successful.withText('Choose court location', 'div class="error-summary"'))
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
