@@ -3,10 +3,9 @@
 {% from "form.njk" import csrfProtection, saveAndContinueButton %}
 
 {% set title = t("Money claim") %}
+{% set heading = t('Check the claim details') %}
 
 {% block content %}
-  <h1 class="heading-large">{{ t("Check the claim details") }}</h1>
-
   <form novalidate method="post" class="form-group">
     {{ csrfProtection(csrf) }}
 
