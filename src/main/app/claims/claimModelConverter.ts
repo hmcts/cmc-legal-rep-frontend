@@ -73,10 +73,11 @@ export class ClaimModelConverter {
     draftClaim.claimant['representative'].organisationContactDetails.phone = draftClaim.representative.contactDetails.phoneNumber
 
     if (draftClaim.yourReference.reference) {
-      draftClaim.claimant['representative'].reference = draftClaim.yourReference.reference
+      draftClaim['externalReferenceNumber'] = draftClaim.yourReference.reference
+      delete draftClaim.yourReference
     }
     if (draftClaim.preferredCourt.name) {
-      draftClaim.claimant['representative'].preferredCourt = draftClaim.preferredCourt.name
+      draftClaim.preferredCourt = draftClaim.preferredCourt.name as any
     }
 
     delete draftClaim.claimant['representative'].contactDetails
