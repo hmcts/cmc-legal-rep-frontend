@@ -27,7 +27,7 @@ export class Amount implements Serializable<Amount> {
   @IsDefined({ message: ValidationErrors.VALID_SELECTION_REQUIRED })
   @Fractions(0, 2, { message: ValidationErrors.AMOUNT_INVALID_DECIMALS })
   @Min(0.01, { message: ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID })
-  @Max(99999.99, { message: ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID })
+  @Max(9999999.99, { message: ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID })
   higherValue?: number
 
   constructor (lowerValue?: number, higherValue?: number, cannotState?: string) {
