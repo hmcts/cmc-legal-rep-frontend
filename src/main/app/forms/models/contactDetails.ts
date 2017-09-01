@@ -39,9 +39,15 @@ export class ContactDetails implements Serializable<ContactDetails> {
 
   deserialize (input?: any): ContactDetails {
     if (input) {
-      this.phoneNumber = input.phoneNumber
-      this.email = input.email
-      this.dxAddress = input.dxAddress
+      if (input.phoneNumber) {
+        this.phoneNumber = input.phoneNumber
+      }
+      if (input.email) {
+        this.email = input.email
+      }
+      if (input.dxAddress) {
+        this.dxAddress = input.dxAddress
+      }
     }
 
     return this
