@@ -1,4 +1,4 @@
-import { IsDefined, IsEnum } from 'class-validator'
+import { IsDefined } from 'class-validator'
 import { Serializable } from 'models/serializable'
 import { YesNo } from 'forms/models/yesNo'
 
@@ -9,7 +9,6 @@ export class ValidationErrors {
 export class DefendantAddition implements Serializable<DefendantAddition> {
 
   @IsDefined({ message: ValidationErrors.DEFENDANT_ADDITION_REQUIRED })
-  @IsEnum(YesNo, { message: ValidationErrors.DEFENDANT_ADDITION_REQUIRED })
   isAddDefendant?: string
 
   constructor (isAddDefendant?: string) {

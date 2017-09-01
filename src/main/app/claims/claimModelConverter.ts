@@ -11,7 +11,7 @@ export class ClaimModelConverter {
 
     draftClaim['reason'] = draftClaim.summary.text
 
-    if (draftClaim.personalInjury.personalInjury && draftClaim.personalInjury.personalInjury.value === YesNo.YES.value) {
+    if (draftClaim.personalInjury.personalInjury && draftClaim.personalInjury.personalInjury === YesNo.YES) {
       if (draftClaim.personalInjury.generalDamages) {
         draftClaim.personalInjury.generalDamages = draftClaim.personalInjury.generalDamages as any
       }
@@ -21,7 +21,7 @@ export class ClaimModelConverter {
       delete draftClaim.personalInjury
     }
 
-    if (draftClaim.housingDisrepair.housingDisrepair && draftClaim.housingDisrepair.housingDisrepair.value === YesNo.YES.value) {
+    if (draftClaim.housingDisrepair.housingDisrepair && draftClaim.housingDisrepair.housingDisrepair === YesNo.YES) {
 
       if (draftClaim.housingDisrepair.generalDamages) {
         draftClaim.housingDisrepair['costOfRepairsDamages'] = draftClaim.housingDisrepair.generalDamages
