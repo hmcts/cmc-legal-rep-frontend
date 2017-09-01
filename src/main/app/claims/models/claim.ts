@@ -6,26 +6,26 @@ import { MomentFactory } from 'common/momentFactory'
 
 export default class Claim implements Serializable<Claim> {
   id: number
-  claimantId: number
+  submitterId: number
   externalId: string
   claimNumber: string
   responseDeadline: Moment
   createdAt: Moment
   issuedOn: Moment
   claimData: ClaimData
-  claimantEmail: string
+  submitterEmail: string
 
   deserialize (input: any): Claim {
     if (input) {
       this.id = input.id
-      this.claimantId = input.claimantId
+      this.submitterId = input.submitterId
       this.externalId = input.externalId
       this.claimNumber = input.referenceNumber
       this.createdAt = MomentFactory.parse(input.createdAt)
       this.responseDeadline = MomentFactory.parse(input.responseDeadline)
       this.issuedOn = MomentFactory.parse(input.issuedOn)
       this.claimData = new ClaimData().deserialize(input.claim)
-      this.claimantEmail = input.claimantEmail
+      this.submitterEmail = input.submitterEmail
     }
     return this
   }
