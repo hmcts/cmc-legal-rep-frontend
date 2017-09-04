@@ -110,14 +110,14 @@ describe('Amount', () => {
       expectValidationError(errors, ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID)
     })
 
-    it('should accept when upper value is null and cannot state is selected', () => {
-      const errors = validator.validateSync(new Amount(100, null, Amount.CANNOT_STATE_VALUE))
+    it('should accept when upper value and lower value are null and cannot state is selected', () => {
+      const errors = validator.validateSync(new Amount(null, null, Amount.CANNOT_STATE_VALUE))
 
       expect(errors.length).to.equal(0)
     })
 
-    it('should accept when upper value is Nan and cannot state is selected', () => {
-      const errors = validator.validateSync(new Amount(100, NaN, Amount.CANNOT_STATE_VALUE))
+    it('should accept when upper value and lower value are Nan and cannot state is selected', () => {
+      const errors = validator.validateSync(new Amount(NaN, NaN, Amount.CANNOT_STATE_VALUE))
 
       expect(errors.length).to.equal(0)
     })

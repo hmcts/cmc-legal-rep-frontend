@@ -47,6 +47,23 @@ describe('Claim issue: Enter claim range page', () => {
         .expect(res => expect(res).to.be.successful.withText('Enter claim value', 'div class="error-summary"'))
     })
 
+    it('should render page again when form has errors for lower value', async () => {
+      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+
+      await request(app)
+        .post(ClaimPaths.claimAmountPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .send({
+          cannotState: '',
+          lowerValue: '0.001',
+          higherValue: '10000'
+        })
+        .expect(res => expect(res).to.be.successful
+          .withText('Enter claim value',
+            'div class="error-summary"',
+            'Enter valid lower value'))
+    })
+
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       draftStoreServiceMock.rejectSave('legalClaim', 'HTTP error')
