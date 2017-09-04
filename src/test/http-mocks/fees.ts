@@ -8,10 +8,7 @@ const serviceURL: string = `${config.get('fees.url')}/range-groups/${issueFeeCod
 const body = {
   amount: 1000000,
   fee: {
-    code: 'X0012',
-    description: 'Civil Court fees - Money Claims - Claim Amount - 200000.01 GBP or more',
-    amount: 1000000,
-    type: 'fixed'
+    code: 'X0012'
   }
 }
 
