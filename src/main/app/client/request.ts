@@ -1,14 +1,12 @@
 import { RequestLoggingHandler } from 'logging/requestPromiseLoggingHandler'
 import { ApiLogger } from 'logging/apiLogger'
-import * as requestPromise from 'request-promise-native'
+import * as config from 'config'
 import * as request from 'request'
+import * as requestPromise from 'request-promise-native'
 
 const logger = new ApiLogger()
 
-const localDevEnvironment = 'development'
-const developmentMode = (process.env.NODE_ENV || localDevEnvironment) === localDevEnvironment
-
-const timeout: number = developmentMode ? 10000 : 1500
+const timeout: number = config.get<number>('http.timeout')
 
 const wrappedRequestPromise = requestPromise
   .defaults({
