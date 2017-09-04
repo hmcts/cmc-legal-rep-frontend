@@ -24,6 +24,7 @@ export default class DraftLegalClaim implements Serializable<DraftLegalClaim> {
   statementOfTruth: StatementOfTruth = new StatementOfTruth()
   feeAccount: FeeAccount = new FeeAccount()
   feeAmountInPennies: number
+  feeCode: string
 
   deserialize (input: any): DraftLegalClaim {
     if (input) {
@@ -51,6 +52,7 @@ export default class DraftLegalClaim implements Serializable<DraftLegalClaim> {
         input.defendants.map((defendant) => defendants.push(new Defendant().deserialize(defendant)))
         this.defendants = defendants
       }
+      this.feeCode = input.feeCode
     }
 
     return this
