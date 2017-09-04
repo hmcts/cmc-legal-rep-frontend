@@ -6,7 +6,13 @@ const issueFeeCode: string = config.get<string>('fees.issueFeeCode')
 const serviceURL: string = `${config.get('fees.url')}/range-groups/${issueFeeCode}/calculations?value=`
 
 const body = {
-  amount: 100
+  amount: 1000000,
+  fee: {
+    code: 'X0012',
+    description: 'Civil Court fees - Money Claims - Claim Amount - 200000.01 GBP or more',
+    amount: 1000000,
+    type: 'fixed'
+  }
 }
 
 export function resolveCalculateIssueFee () {
