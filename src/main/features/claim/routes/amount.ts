@@ -15,7 +15,7 @@ function renderView (form: Form<Amount>, res: express.Response): void {
   })
 }
 
-let addErrorMessage = function (form: Form<Amount>, fieldName: string, errorMessage: string) {
+function addErrorMessage (form: Form<Amount>, fieldName: string, errorMessage: string): void {
   const validationError = new ValidationError()
   validationError.property = fieldName
   validationError.constraints = { [fieldName]: errorMessage }
