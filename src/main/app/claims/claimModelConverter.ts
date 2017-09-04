@@ -67,6 +67,10 @@ export class ClaimModelConverter {
       draftClaim.claimant['name'] = draftClaim.claimant.claimantDetails.fullName
     }
 
+    if (draftClaim.claimant.claimantDetails.companyHouseNumber) {
+      draftClaim.claimant['companiesHouseNumber'] = draftClaim.claimant.claimantDetails.companyHouseNumber
+    }
+
     draftClaim.claimant['representative'] = draftClaim.representative
     draftClaim.claimant['representative'].organisationName = draftClaim.representative.organisationName.name
     draftClaim.claimant['representative'].organisationAddress = draftClaim.representative.address
@@ -102,6 +106,9 @@ export class ClaimModelConverter {
         defendant['name'] = defendant.defendantDetails.organisation
       } else {
         defendant['name'] = defendant.defendantDetails.fullName
+      }
+      if (defendant.defendantDetails.companyHouseNumber) {
+        defendant['companiesHouseNumber'] = defendant.defendantDetails.companyHouseNumber
       }
       defendant['type'] = defendant.defendantDetails.type.dataStoreValue
 
