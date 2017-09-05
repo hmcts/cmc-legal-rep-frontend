@@ -119,7 +119,8 @@ describe('Amount', () => {
     it('should accept when upper value and lower value are Nan and cannot state is selected', () => {
       const errors = validator.validateSync(new Amount(NaN, NaN, Amount.CANNOT_STATE_VALUE))
 
-      expect(errors.length).to.equal(0)
+      expect(errors.length).to.equal(1)
+      expectValidationError(errors, ValidationErrors.CANNOT_STATE_VALID_SELECTION_REQUIRED)
     })
   })
 

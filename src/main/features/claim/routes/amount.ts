@@ -30,17 +30,9 @@ export default express.Router()
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form: Form<Amount> = req.body
 
-      // if (form.model.lowerValue != null && form.model.lowerValue < 0.01) {
-      //   addErrorMessage(form, 'lowerValue', ValidationErrors.LOWER_VALUE_AMOUNT_NOT_VALID)
-      // }
-      //
       if ((form.model.higherValue != null || isNaN(form.model.higherValue)) && form.model.cannotState === Amount.CANNOT_STATE_VALUE) {
         addErrorMessage(form, 'higherValue', ValidationErrors.VALID_SELECTION_REQUIRED)
       }
-
-      // if (form.model.lowerValue != null && form.model.cannotState === Amount.CANNOT_STATE_VALUE) {
-      //   addErrorMessage(form, 'lowerValue', ValidationErrors.VALID_SELECTION_REQUIRED)
-      // }
 
       if (form.hasErrors()) {
         renderView(form, res)

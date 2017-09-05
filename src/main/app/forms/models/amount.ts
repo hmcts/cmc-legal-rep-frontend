@@ -16,7 +16,7 @@ export class ValidationErrors {
 export class Amount implements Serializable<Amount> {
   static readonly CANNOT_STATE_VALUE = 'cannot'
 
-  @ValidateIf(o => (o.higherValue && o.higherValue > 0) || (o.lowerValue && o.lowerValue > 0))
+  @ValidateIf(o => ((o.higherValue && o.higherValue > 0 ) || isNaN(o.higherValue) || (o.lowerValue && o.lowerValue > 0) || isNaN(o.higherValue)))
   @IsEmpty({ message: ValidationErrors.CANNOT_STATE_VALID_SELECTION_REQUIRED })
   cannotState?: string
 
