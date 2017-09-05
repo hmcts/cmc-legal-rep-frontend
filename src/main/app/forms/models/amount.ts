@@ -44,7 +44,7 @@ export class Amount implements Serializable<Amount> {
       return new Amount()
     }
 
-    // change to undefined for return value after class validator release 0.7.2
+    // change to undefined after class-validator version > 0.7.2 is released
     const lowerValue = value.lowerValue ? _.toNumber(value.lowerValue.replace(',', '')) : null
     const higherValue = value.higherValue ? _.toNumber(value.higherValue.replace(',', '')) : undefined
     const cannotState = value.cannotState ? value.cannotState : undefined
