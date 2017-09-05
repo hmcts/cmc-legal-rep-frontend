@@ -6,7 +6,10 @@ const issueFeeCode: string = config.get<string>('fees.issueFeeCode')
 const serviceURL: string = `${config.get('fees.url')}/range-groups/${issueFeeCode}/calculations?value=`
 
 const body = {
-  amount: 100
+  amount: 1000000,
+  fee: {
+    code: 'X0012'
+  }
 }
 
 export function resolveCalculateIssueFee () {

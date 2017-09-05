@@ -5,11 +5,12 @@ import ErrorHandling from 'common/errorHandling'
 import { Amount } from 'forms/models/amount'
 import { PartyTypes } from 'app/forms/models/partyTypes'
 import { YesNo } from 'forms/models/yesNo'
+import { Fee } from 'fees/fee'
 
 function renderView (res: express.Response, next: express.NextFunction) {
   const claimAmount: Amount = res.locals.user.legalClaimDraft.amount
   FeesClient.getFeeAmount(claimAmount)
-    .then((feeAmount: number) => {
+    .then((fee: Fee) => {
       const claimant = res.locals.user.legalClaimDraft.claimant
       const isClaimantIndividual = claimant.claimantDetails.type.value === PartyTypes.INDIVIDUAL.value
       const isHousingDisrepair = res.locals.user.legalClaimDraft.housingDisrepair.housingDisrepair.value === YesNo.YES.value
@@ -17,7 +18,7 @@ function renderView (res: express.Response, next: express.NextFunction) {
 
       res.render(Paths.detailsSummaryPage.associatedView, {
         legalClaimDraft: res.locals.user.legalClaimDraft,
-        feeAmount: feeAmount,
+        feeAmount: fee.amount,
         isClaimantIndividual: isClaimantIndividual,
         isHousingDisrepair: isHousingDisrepair,
         isPersonalInjury: isPersonalInjury,
