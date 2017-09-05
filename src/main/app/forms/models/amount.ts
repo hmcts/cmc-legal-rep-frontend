@@ -1,5 +1,5 @@
 import * as _ from 'lodash'
-import { IsDefined, IsEmpty, Max, Min, ValidateIf } from 'class-validator'
+import { IsDefined, IsEmpty, IsOptional, Max, Min, ValidateIf } from 'class-validator'
 import { Fractions } from 'forms/validation/validators/fractions'
 import { Serializable } from 'app/models/serializable'
 import { IsLowerThan } from 'app/forms/validation/validators/isLowerThan'
@@ -20,7 +20,9 @@ export class Amount implements Serializable<Amount> {
   cannotState?: string
 
   @ValidateIf(o => o.cannotState !== Amount.CANNOT_STATE_VALUE)
+  @IsOptional()
   @Fractions(0, 2, { message: ValidationErrors.AMOUNT_INVALID_DECIMALS })
+  @Min(0.01, { message: ValidationErrors.LOWER_VALUE_AMOUNT_NOT_VALID })
   @IsLowerThan('higherValue', { message: ValidationErrors.LOWER_VALUE_LESS_THAN_UPPER_NOT_VALID })
   lowerValue?: number
 
@@ -42,9 +44,10 @@ export class Amount implements Serializable<Amount> {
       return new Amount()
     }
 
-    const lowerValue = value.lowerValue ? _.toNumber(value.lowerValue.replace(',', '')) : undefined
-    const higherValue = value.higherValue ? _.toNumber(value.higherValue.replace(',', '')) : undefined
+    const lowerValue = value.lowerValue ? _.toNumber(value.lowerValue.replace(',', '')) : null
+    const higherValue = value.higherValue ? _.toNumber(value.higherValue.replace(',', '')) : null
     const cannotState = value.cannotState ? value.cannotState : undefined
+
     return new Amount(lowerValue, higherValue, cannotState)
   }
 
