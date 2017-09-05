@@ -31,7 +31,7 @@ describe( 'Claim : Your organisation name page', () => {
       await request( app )
         .get( ClaimPaths.representativeNamePage.uri )
         .set( 'Cookie', `${cookieName}=ABC` )
-        .expect( res => expect( res ).to.be.successful.withText( 'Enter your details' ) )
+        .expect( res => expect( res ).to.be.successful.withText( 'Your organisation name' ) )
     } )
   } )
 
@@ -44,7 +44,7 @@ describe( 'Claim : Your organisation name page', () => {
       await request( app )
         .post( ClaimPaths.representativeNamePage.uri )
         .set( 'Cookie', `${cookieName}=ABC` )
-        .expect( res => expect( res ).to.be.successful.withText( 'Enter your details', 'div class="error-summary"' ) )
+        .expect( res => expect( res ).to.be.successful.withText( 'Your organisation name', 'div class="error-summary"' ) )
     } )
 
     it( 'should return 500 and render error page when form is valid and cannot save draft', async () => {
