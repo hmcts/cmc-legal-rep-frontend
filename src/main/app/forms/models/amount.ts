@@ -16,7 +16,7 @@ export class ValidationErrors {
 export class Amount implements Serializable<Amount> {
   static readonly CANNOT_STATE_VALUE = 'cannot'
 
-  @ValidateIf(o => (o.higherValue && (o.higherValue > 0 )) || (o.lowerValue && (o.lowerValue > 0)))
+  @ValidateIf(o => (o.higherValue && o.higherValue > 0 ) || (o.lowerValue && o.lowerValue > 0))
   @IsEmpty({ message: ValidationErrors.CANNOT_STATE_VALID_SELECTION_REQUIRED })
   cannotState?: string
 
@@ -49,6 +49,7 @@ export class Amount implements Serializable<Amount> {
     const lowerValue = value.lowerValue ? _.toNumber(value.lowerValue.replace(',', '')) : null
     const higherValue = value.higherValue ? _.toNumber(value.higherValue.replace(',', '')) : undefined
     const cannotState = value.cannotState ? value.cannotState : undefined
+
     return new Amount(lowerValue, higherValue, cannotState)
   }
 
