@@ -10,14 +10,15 @@ import FeesClient from 'fees/feesClient'
 import ClaimStoreClient from 'claims/claimStoreClient'
 import Claim from 'claims/models/claim'
 import User from 'idam/user'
+import { Fee } from 'fees/fee'
 
 function renderView (form: Form<FeeAccount>, res: express.Response, next: express.NextFunction): void {
   FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.amount)
-    .then((feeAmount: number) => {
+    .then((fee: Fee) => {
       res.render(Paths.payByAccountPage.associatedView,
         {
           form: form,
-          feeAmount: feeAmount
+          feeAmount: fee.amount
         })
     })
     .catch(next)
@@ -37,9 +38,9 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res, next)
       } else {
-        res.locals.user.legalClaimDraft.feeAmountInPennies = FeesClient.convertPoundsToPennies(
-          await FeesClient.getFeeAmount(user.legalClaimDraft.amount)
-        )
+        const fee: Fee = await FeesClient.getFeeAmount(user.legalClaimDraft.amount)
+        res.locals.user.legalClaimDraft.feeAmountInPennies = FeesClient.convertPoundsToPennies(fee.amount)
+        res.locals.user.legalClaimDraft.feeCode = fee.code
         res.locals.user.legalClaimDraft.feeAccount = form.model
         await ClaimDraftMiddleware.save(res, next)
 

@@ -12,16 +12,16 @@ export default class FeesClient {
   // TODO: Using this as tactical solution, will be replaced once fee service(PAY-314) is ready for this scenario
   static readonly maxClaimValue = 10000000
 
-  static getFeeAmount (claimAmount: Amount): Promise<number> {
+  static getFeeAmount (claimAmount: Amount): Promise<Fee> {
     if (claimAmount.canNotState()) {
       return FeesClient.calculateMaxIssueFee()
-        .then((feeAmount: number) => {
-          return feeAmount
+        .then((fee: Fee) => {
+          return fee
         })
     } else {
       return FeesClient.calculateIssueFee(claimAmount.higherValue)
-        .then((feeAmount: number) => {
-          return feeAmount
+        .then((fee: Fee) => {
+          return fee
         })
     }
   }
@@ -32,9 +32,9 @@ export default class FeesClient {
    * @param {number} claimValue the amount claiming for in pounds
    * @returns {Promise.<number>} promise containing the fee amount in pounds
    */
-  static calculateIssueFee (claimValue: number): Promise<number> {
+  static calculateIssueFee (claimValue: number): Promise<Fee> {
     return this.callFeesRegister(issueFeeCode, claimValue)
-      .then((fee: Fee) => this.convertPenniesToPounds(fee.amount))
+      .then((fee: Fee) => new Fee(this.convertPenniesToPounds(fee.amount), fee.code))
   }
 
   /**
@@ -42,9 +42,9 @@ export default class FeesClient {
    *
    * @returns {Promise.<number>} promise containing the fee amount in pounds
    */
-  static calculateMaxIssueFee (): Promise<number> {
+  static calculateMaxIssueFee (): Promise<Fee> {
     return this.callFeesRegister(issueFeeCode, FeesClient.maxClaimValue)
-      .then((fee: Fee) => this.convertPenniesToPounds(fee.amount))
+      .then((fee: Fee) => new Fee(this.convertPenniesToPounds(fee.amount), fee.code))
   }
 
   /**
@@ -61,7 +61,7 @@ export default class FeesClient {
     }
 
     return request.get(`${feesUrl}/range-groups/${feeCode}/calculations?value=${amountInPennies}`)
-      .then((body: any) => new Fee(body.amount))
+      .then((body: any) => new Fee(body.amount, body.fee.code))
   }
 
   static convertPoundsToPennies (amount: number) {
