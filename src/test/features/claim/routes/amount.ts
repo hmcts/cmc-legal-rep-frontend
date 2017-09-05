@@ -66,24 +66,6 @@ describe('Claim issue: Enter claim range page', () => {
             ValidationErrors.VALID_SELECTION_REQUIRED))
     })
 
-    it('should render page again when form has errors for invalid higher value and check box selection', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
-
-      await request(app)
-        .post(ClaimPaths.claimAmountPage.uri)
-        .set('Cookie', `${cookieName}=ABC`)
-        .send({
-          cannotState: Amount.CANNOT_STATE_VALUE,
-          lowerValue: '0',
-          higherValue: '10000.12.45'
-        })
-        .expect(res => expect(res).to.be.successful
-          .withText('Enter claim value',
-            'div class="error-summary"',
-            ValidationErrors.CANNOT_STATE_VALID_SELECTION_REQUIRED,
-            ValidationErrors.VALID_SELECTION_REQUIRED))
-    })
-
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       draftStoreServiceMock.rejectSave('legalClaim', 'HTTP error')
