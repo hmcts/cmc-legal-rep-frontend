@@ -100,7 +100,7 @@ describe('Amount', () => {
       const errors = validator.validateSync(new Amount(100, 19090, Amount.CANNOT_STATE_VALUE))
 
       expect(errors.length).to.equal(1)
-      expectValidationError(errors, ValidationErrors.VALID_SELECTION_REQUIRED)
+      expectValidationError(errors, ValidationErrors.CANNOT_STATE_VALID_SELECTION_REQUIRED)
     })
 
     it('should reject Nan Upper value', () => {

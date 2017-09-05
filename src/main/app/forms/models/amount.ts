@@ -5,6 +5,7 @@ import { Serializable } from 'app/models/serializable'
 import { IsLowerThan } from 'app/forms/validation/validators/isLowerThan'
 
 export class ValidationErrors {
+  static readonly CANNOT_STATE_VALID_SELECTION_REQUIRED: string = 'Choose ‘I can’t state the value’ or enter a higher value'
   static readonly VALID_SELECTION_REQUIRED: string = 'Enter a value or choose ‘I can’t state the value’'
   static readonly HIGHER_VALUE_AMOUNT_NOT_VALID: string = 'Enter valid higher value'
   static readonly LOWER_VALUE_AMOUNT_NOT_VALID: string = 'Enter valid lower value'
@@ -16,7 +17,7 @@ export class Amount implements Serializable<Amount> {
   static readonly CANNOT_STATE_VALUE = 'cannot'
 
   @ValidateIf(o => (o.higherValue && o.higherValue > 0) || (o.lowerValue && o.lowerValue > 0))
-  @IsEmpty({ message: ValidationErrors.VALID_SELECTION_REQUIRED })
+  @IsEmpty({ message: ValidationErrors.CANNOT_STATE_VALID_SELECTION_REQUIRED })
   cannotState?: string
 
   @ValidateIf(o => o.cannotState !== Amount.CANNOT_STATE_VALUE)
