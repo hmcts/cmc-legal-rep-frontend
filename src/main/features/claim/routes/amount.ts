@@ -35,10 +35,6 @@ export default express.Router()
         addErrorMessage(form, 'higherValue', ValidationErrors.VALID_SELECTION_REQUIRED)
       }
 
-      if ((form.model.higherValue != null || isNaN(form.model.higherValue)) && form.model.cannotState === Amount.CANNOT_STATE_VALUE) {
-        addErrorMessage(form, 'higherValue', ValidationErrors.VALID_SELECTION_REQUIRED)
-      }
-
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
