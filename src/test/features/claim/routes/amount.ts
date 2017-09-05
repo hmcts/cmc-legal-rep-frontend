@@ -55,7 +55,7 @@ describe('Claim issue: Enter claim range page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .send({
           cannotState: '',
-          lowerValue: '0.001',
+          lowerValue: '0',
           higherValue: '10000'
         })
         .expect(res => expect(res).to.be.successful

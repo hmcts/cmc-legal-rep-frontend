@@ -43,14 +43,14 @@ describe('Amount', () => {
     const validator: Validator = new Validator()
 
     it('should reject amount with zero upper value', () => {
-      const errors = validator.validateSync(new Amount(0, 0, ''))
+      const errors = validator.validateSync(new Amount(null, 0, ''))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID)
     })
 
     it('should reject amount with values undefined', () => {
-      const errors = validator.validateSync(new Amount(undefined, undefined, undefined))
+      const errors = validator.validateSync(new Amount(null, undefined, undefined))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, ValidationErrors.VALID_SELECTION_REQUIRED)
@@ -64,7 +64,7 @@ describe('Amount', () => {
     })
 
     it('should reject amount with upper value greater than 9,999,999.99', () => {
-      const errors = validator.validateSync(new Amount(0, 10000000, undefined))
+      const errors = validator.validateSync(new Amount(null, 10000000, undefined))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID)
@@ -136,12 +136,12 @@ describe('Amount', () => {
     it('should have amount elements undefined when input has undefined element value', () => {
       const amount = Amount.fromObject({
         cannotState: undefined,
-        lowerValue: undefined,
+        lowerValue: null,
         higherValue: undefined
       })
 
       expect(amount.cannotState).to.equal(undefined)
-      expect(amount.lowerValue).to.equal(undefined)
+      expect(amount.lowerValue).to.equal(null)
       expect(amount.higherValue).to.equal(undefined)
     })
 
@@ -162,7 +162,7 @@ describe('Amount', () => {
       })
 
       expect(amount.cannotState).to.equal(Amount.CANNOT_STATE_VALUE)
-      expect(amount.lowerValue).to.equal(undefined)
+      expect(amount.lowerValue).to.equal(null)
       expect(amount.higherValue).to.equal(undefined)
     })
   })
