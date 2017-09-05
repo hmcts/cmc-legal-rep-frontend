@@ -29,6 +29,11 @@ export default express.Router()
   .post(Paths.claimAmountPage.uri, FormValidator.requestHandler(Amount, Amount.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form: Form<Amount> = req.body
+      const higherValue: number = form.model.higherValue
+
+      if ((higherValue != null && higherValue > 0 ) && form.model.cannotState === Amount.CANNOT_STATE_VALUE) {
+        addErrorMessage(form, 'higherValue', ValidationErrors.VALID_SELECTION_REQUIRED)
+      }
 
       if ((form.model.higherValue != null || isNaN(form.model.higherValue)) && form.model.cannotState === Amount.CANNOT_STATE_VALUE) {
         addErrorMessage(form, 'higherValue', ValidationErrors.VALID_SELECTION_REQUIRED)
