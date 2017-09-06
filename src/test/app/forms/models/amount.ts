@@ -42,7 +42,7 @@ describe('Amount', () => {
   describe('validation', () => {
     const validator: Validator = new Validator()
 
-    it('should reject amount with zero upper value', () => {
+    it('should reject amount with zero higher value', () => {
       const errors = validator.validateSync(new Amount(null, 0, ''))
 
       expect(errors.length).to.equal(1)
@@ -63,14 +63,14 @@ describe('Amount', () => {
       expectValidationError(errors, ValidationErrors.VALID_SELECTION_REQUIRED)
     })
 
-    it('should reject amount with upper value greater than 9,999,999.99', () => {
+    it('should reject amount with higher value greater than 9,999,999.99', () => {
       const errors = validator.validateSync(new Amount(null, 10000000, undefined))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID)
     })
 
-    it('should reject amount with lower value greater than upper value', () => {
+    it('should reject amount with lower value greater than higher value', () => {
       const errors = validator.validateSync(new Amount(100, 10, undefined))
 
       expect(errors.length).to.equal(1)
@@ -85,7 +85,7 @@ describe('Amount', () => {
       expectValidationError(errors, ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID)
     })
 
-    it('should accept amount with lower value equal to upper value', () => {
+    it('should accept amount with lower value equal to higher value', () => {
       const errors = validator.validateSync(new Amount(100, 100, undefined))
 
       expect(errors.length).to.equal(0)
@@ -118,13 +118,13 @@ describe('Amount', () => {
       expectValidationError(errors, ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID)
     })
 
-    it('should accept when upper value and lower value are null and cannot state is selected', () => {
+    it('should accept when higher value and lower value are null and cannot state is selected', () => {
       const errors = validator.validateSync(new Amount(null, null, Amount.CANNOT_STATE_VALUE))
 
       expect(errors.length).to.equal(0)
     })
 
-    it('should accept when upper value and lower value are Nan and cannot state is selected', () => {
+    it('should accept when higher value and lower value are Nan and cannot state is selected', () => {
       const errors = validator.validateSync(new Amount(NaN, NaN, Amount.CANNOT_STATE_VALUE))
 
       expect(errors.length).to.equal(0)
@@ -153,7 +153,7 @@ describe('Amount', () => {
       expect(amount.higherValue).to.equal(undefined)
     })
 
-    it('should have valid amount details elements provided lower and uppr value', () => {
+    it('should have valid amount details elements provided lower and higher value', () => {
       const amount = Amount.fromObject({
         lowerValue: '500',
         higherValue: '10000'
@@ -164,7 +164,29 @@ describe('Amount', () => {
       expect(amount.higherValue).to.equal(10000)
     })
 
-    it('should have valid amount details elements provided lower and uppr value', () => {
+    it('should have valid amount details elements provided values with single comma', () => {
+      const amount = Amount.fromObject({
+        lowerValue: '5,000',
+        higherValue: '9,999'
+      })
+
+      expect(amount.cannotState).to.equal(undefined)
+      expect(amount.lowerValue).to.equal(5000)
+      expect(amount.higherValue).to.equal(9999)
+    })
+
+    it('should have valid amount details elements provided values with multiple commas', () => {
+      const amount = Amount.fromObject({
+        lowerValue: '9,999,999',
+        higherValue: '9,999,999'
+      })
+
+      expect(amount.cannotState).to.equal(undefined)
+      expect(amount.lowerValue).to.equal(9999999)
+      expect(amount.higherValue).to.equal(9999999)
+    })
+
+    it('should have valid amount details elements provided lower and higher value', () => {
       const amount = Amount.fromObject({
         lowerValue: '500.34.56',
         higherValue: '10000.45.67'
