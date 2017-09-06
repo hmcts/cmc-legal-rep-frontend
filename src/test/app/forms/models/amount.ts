@@ -77,6 +77,14 @@ describe('Amount', () => {
       expectValidationError(errors, ValidationErrors.LOWER_VALUE_LESS_THAN_UPPER_NOT_VALID)
     })
 
+    it('should reject amount with invalid numbers', () => {
+      const errors = validator.validateSync(new Amount('100.23.56', '10.56.78', undefined))
+
+      expect(errors.length).to.equal(2)
+      expectValidationError(errors, ValidationErrors.LOWER_VALUE_AMOUNT_NOT_VALID)
+      expectValidationError(errors, ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID)
+    })
+
     it('should accept amount with lower value equal to upper value', () => {
       const errors = validator.validateSync(new Amount(100, 100, undefined))
 
@@ -154,6 +162,17 @@ describe('Amount', () => {
       expect(amount.cannotState).to.equal(undefined)
       expect(amount.lowerValue).to.equal(500)
       expect(amount.higherValue).to.equal(10000)
+    })
+
+    it('should have valid amount details elements provided lower and uppr value', () => {
+      const amount = Amount.fromObject({
+        lowerValue: '500.34.56',
+        higherValue: '10000.45.67'
+      })
+
+      expect(amount.cannotState).to.equal(undefined)
+      expect(amount.lowerValue).to.equal('500.34.56')
+      expect(amount.higherValue).to.equal('10000.45.67')
     })
 
     it('should have valid amount details elements provided cannot state value', () => {
