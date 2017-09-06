@@ -46,52 +46,54 @@ describe('Address', () => {
   describe('validation', () => {
     const validator: Validator = new Validator()
 
-    it('should reject address with empty first address line and postcode', () => {
+    it('should reject address with empty first address line, town and postcode', () => {
       const errors = validator.validateSync(new Address('', '', '', ''))
 
-      expect(errors.length).to.equal(2)
+      expect(errors.length).to.equal(3)
       expectValidationError(errors, ValidationErrors.FIRST_LINE_REQUIRED)
+      expectValidationError(errors, ValidationErrors.CITY_REQUIRED)
       expectValidationError(errors, ValidationErrors.POSTCODE_REQUIRED)
     })
 
-    it('should reject address with blank first address line and postcode', () => {
-      const errors = validator.validateSync(new Address(' ', '', '', ' '))
+    it('should reject address with blank first address line, town and postcode', () => {
+      const errors = validator.validateSync(new Address(' ', '', ' ', ' '))
 
-      expect(errors.length).to.equal(2)
+      expect(errors.length).to.equal(3)
       expectValidationError(errors, ValidationErrors.FIRST_LINE_REQUIRED)
+      expectValidationError(errors, ValidationErrors.CITY_REQUIRED)
       expectValidationError(errors, ValidationErrors.POSTCODE_REQUIRED)
     })
 
     it('should reject address with first line longer then upper limit', () => {
-      const errors = validator.validateSync(new Address(randomstring.generate( 101 ), '', '', 'SA1'))
+      const errors = validator.validateSync(new Address(randomstring.generate(101), '', 'town', 'SA1'))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, ValidationErrors.CONTENT_TOO_LONG)
     })
 
     it('should reject address with second line longer then upper limit', () => {
-      const errors = validator.validateSync(new Address('Apartment 99',randomstring.generate( 101 ), '', 'SA1'))
+      const errors = validator.validateSync(new Address('Apartment 99', randomstring.generate(101), 'town', 'SA1'))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, ValidationErrors.CONTENT_TOO_LONG)
     })
 
     it('should reject address with city longer then upper limit', () => {
-      const errors = validator.validateSync(new Address('Apartment 99', '', randomstring.generate( 61 ), 'SA1'))
+      const errors = validator.validateSync(new Address('Apartment 99', '', randomstring.generate(61), 'SA1'))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, ValidationErrors.CONTENT_TOO_LONG)
     })
 
     it('should reject address with postcode longer then upper limit', () => {
-      const errors = validator.validateSync(new Address('Apartment 99', '', '',randomstring.generate( 9 )))
+      const errors = validator.validateSync(new Address('Apartment 99', '', 'town', randomstring.generate(9)))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, ValidationErrors.CONTENT_TOO_LONG)
     })
 
     it('should accept valid address', () => {
-      const errors = validator.validateSync(new Address('Apartment 99', '', '', 'SA1'))
+      const errors = validator.validateSync(new Address('Apartment 99', '', 'London', 'SA1'))
 
       expect(errors.length).to.equal(0)
     })

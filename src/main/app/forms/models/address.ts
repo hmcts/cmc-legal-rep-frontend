@@ -7,6 +7,7 @@ import { Serializable } from 'models/serializable'
 export class ValidationErrors {
   static readonly FIRST_LINE_REQUIRED: string = 'Enter address line 1'
   static readonly CONTENT_TOO_LONG: string = 'You’ve entered too many characters'
+  static readonly CITY_REQUIRED: string = 'Enter a valid city/town'
   static readonly POSTCODE_REQUIRED: string = 'Enter a postcode'
 }
 
@@ -20,6 +21,8 @@ export class Address implements Serializable<Address> {
   @MaxLength(100, { message: ValidationErrors.CONTENT_TOO_LONG })
   line2?: string
 
+  @IsDefined({ message: ValidationErrors.CITY_REQUIRED })
+  @IsNotBlank({ message: ValidationErrors.CITY_REQUIRED })
   @MaxLength(60, { message: ValidationErrors.CONTENT_TOO_LONG })
   city?: string
 
