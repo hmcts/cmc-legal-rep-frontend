@@ -12,6 +12,7 @@ import { app } from '../../../../main/app'
 
 import * as idamServiceMock from '../../../http-mocks/idam'
 import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
+import { Amount, ValidationErrors } from 'app/forms/models/amount'
 
 const cookieName: string = config.get<string>('session.cookieName')
 const roles: string[] = ['solicitor']
@@ -47,21 +48,22 @@ describe('Claim issue: Enter claim range page', () => {
         .expect(res => expect(res).to.be.successful.withText('Enter claim value', 'div class="error-summary"'))
     })
 
-    it('should render page again when form has errors for lower value', async () => {
+    it('should render page again when form has errors for higher value and check box selection', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, ...roles)
 
       await request(app)
         .post(ClaimPaths.claimAmountPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({
-          cannotState: '',
+          cannotState: Amount.CANNOT_STATE_VALUE,
           lowerValue: '0',
           higherValue: '10000'
         })
         .expect(res => expect(res).to.be.successful
           .withText('Enter claim value',
             'div class="error-summary"',
-            'Enter valid lower value'))
+            ValidationErrors.CANNOT_STATE_VALID_SELECTION_REQUIRED,
+            ValidationErrors.VALID_SELECTION_REQUIRED))
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
