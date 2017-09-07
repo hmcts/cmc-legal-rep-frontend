@@ -25,13 +25,13 @@ function addErrorMessage (form: Form<Amount>, fieldName: string, errorMessage: s
 function handleWhenAnyValueAndCannotStateSelected (form: Form<Amount>): void {
   const higherValue: number = form.model.higherValue
   const lowerValue: number = form.model.lowerValue
-  const higherValueEntered = higherValue != null && higherValue > 0
-  const lowerValueEntered = lowerValue != null && lowerValue > 0
-  const canNotStateSelected = form.model.cannotState === Amount.CANNOT_STATE_VALUE
-  const onlyLowerValueEntered = (lowerValueEntered && !higherValueEntered)
-  const CanNotStateAndAnyValueEntered = (higherValueEntered || onlyLowerValueEntered) && canNotStateSelected
+  const higherValueEntered: boolean = higherValue != null && higherValue > 0
+  const lowerValueEntered: boolean = lowerValue != null && lowerValue > 0
+  const canNotStateSelected: boolean = form.model.cannotState === Amount.CANNOT_STATE_VALUE
+  const onlyLowerValueEntered: boolean = (lowerValueEntered && !higherValueEntered)
+  const canNotStateAndAnyValueEntered: boolean = (higherValueEntered || onlyLowerValueEntered) && canNotStateSelected
 
-  if (CanNotStateAndAnyValueEntered) {
+  if (canNotStateAndAnyValueEntered) {
     addErrorMessage(form, 'higherValue', ValidationErrors.VALID_SELECTION_REQUIRED)
   }
 }
