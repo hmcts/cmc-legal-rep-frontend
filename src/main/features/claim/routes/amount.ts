@@ -22,6 +22,20 @@ function addErrorMessage (form: Form<Amount>, fieldName: string, errorMessage: s
   form.errors.push(new FormValidationError(validationError, ''))
 }
 
+function handleWhenAnyValueAndCannotStateSelected (form: Form<Amount>): void {
+  const higherValue: number = form.model.higherValue
+  const lowerValue: number = form.model.lowerValue
+  const higherValueEntered = higherValue != null && higherValue > 0
+  const lowerValueEntered = lowerValue != null && lowerValue > 0
+  const canNotStateSelected = form.model.cannotState === Amount.CANNOT_STATE_VALUE
+  const onlyLowerValueEntered = (lowerValueEntered && !higherValueEntered)
+  const CanNotStateAndAnyValueEntered = (higherValueEntered || onlyLowerValueEntered) && canNotStateSelected
+
+  if (CanNotStateAndAnyValueEntered) {
+    addErrorMessage(form, 'higherValue', ValidationErrors.VALID_SELECTION_REQUIRED)
+  }
+}
+
 export default express.Router()
   .get(Paths.claimAmountPage.uri, (req: express.Request, res: express.Response) => {
     renderView(new Form(res.locals.user.legalClaimDraft.amount), res)
@@ -29,22 +43,12 @@ export default express.Router()
   .post(Paths.claimAmountPage.uri, FormValidator.requestHandler(Amount, Amount.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form: Form<Amount> = req.body
-      const higherValue: number = form.model.higherValue
-      const lowerValue: number = form.model.lowerValue
-      const higherValueEntered = higherValue != null && higherValue > 0
-      const lowerValueEntered = lowerValue != null && lowerValue > 0
-      const canNotStateSelected = form.model.cannotState === Amount.CANNOT_STATE_VALUE
-      const onlyLowerValueEntered = (lowerValueEntered && !higherValueEntered)
-      const CanNotStateAndAnyValueEntered = (higherValueEntered || onlyLowerValueEntered) && canNotStateSelected
-
-      if (CanNotStateAndAnyValueEntered) {
-        addErrorMessage(form, 'higherValue', ValidationErrors.VALID_SELECTION_REQUIRED)
-      }
+      handleWhenAnyValueAndCannotStateSelected(form)
 
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        if (canNotStateSelected) {
+        if (form.model.cannotState === Amount.CANNOT_STATE_VALUE) {
           form.model.higherValue = undefined
           form.model.lowerValue = undefined
         } else {
