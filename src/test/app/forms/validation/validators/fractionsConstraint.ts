@@ -24,7 +24,6 @@ describe('FractionsConstraint', () => {
       it('given a valid decimal with no decimal place ', () => {
         expect(constraint.validate(10, validationArgs(0, 2))).to.equal(true)
       })
-
     })
 
     describe('should return false when ', () => {

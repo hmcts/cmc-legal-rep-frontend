@@ -30,15 +30,21 @@ export default express.Router()
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form: Form<Amount> = req.body
       const higherValue: number = form.model.higherValue
+      const lowerValue: number = form.model.lowerValue
+      const higherValueEntered = higherValue != null && higherValue > 0
+      const lowerValueEntered = lowerValue != null && lowerValue > 0
+      const canNotStateSelected = form.model.cannotState === Amount.CANNOT_STATE_VALUE
+      const onlyLowerValueEntered = (lowerValueEntered && !higherValueEntered)
+      const CanNotStateAndAnyValueEntered = (higherValueEntered || onlyLowerValueEntered) && canNotStateSelected
 
-      if ((higherValue != null && higherValue > 0 ) && form.model.cannotState === Amount.CANNOT_STATE_VALUE) {
+      if (CanNotStateAndAnyValueEntered) {
         addErrorMessage(form, 'higherValue', ValidationErrors.VALID_SELECTION_REQUIRED)
       }
 
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        if (form.model.cannotState === Amount.CANNOT_STATE_VALUE) {
+        if (canNotStateSelected) {
           form.model.higherValue = undefined
           form.model.lowerValue = undefined
         } else {
