@@ -56,8 +56,8 @@ export class Amount implements Serializable<Amount> {
     }
 
     // change to undefined after class-validator version > 0.7.2 is released
-    const lowerValue = value.lowerValue ? Amount.translateToNumber(value.lowerValue.replace(',', '')) : null
-    const higherValue = value.higherValue ? Amount.translateToNumber(value.higherValue.replace(',', '')) : undefined
+    const lowerValue = value.lowerValue ? Amount.translateToNumber(value.lowerValue.replace(new RegExp(/,/g), '')) : null
+    const higherValue = value.higherValue ? Amount.translateToNumber(value.higherValue.replace(new RegExp(/,/g), '')) : undefined
     const cannotState = value.cannotState ? value.cannotState : undefined
 
     return new Amount(lowerValue, higherValue, cannotState)
