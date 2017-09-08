@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@hmcts/cmc-common-frontend@^1.4.10":
-  version "1.4.10"
-  resolved "https://registry.yarnpkg.com/@hmcts/cmc-common-frontend/-/cmc-common-frontend-1.4.10.tgz#10318817ef4e4df135e7379ae8b9a9bfb061bb69"
+"@hmcts/cmc-common-frontend@^1.4.11":
+  version "1.4.11"
+  resolved "https://registry.yarnpkg.com/@hmcts/cmc-common-frontend/-/cmc-common-frontend-1.4.11.tgz#85138e77063ab2d0ce1b96a612b929346e9a8dc9"
 
 "@hmcts/nodejs-healthcheck@^1.4.3":
   version "1.4.3"
@@ -23,9 +23,9 @@
     moment "^2.17.1"
     on-finished "~2.3.0"
 
-"@types/chai-as-promised@^0.0.31":
-  version "0.0.31"
-  resolved "https://registry.yarnpkg.com/@types/chai-as-promised/-/chai-as-promised-0.0.31.tgz#e1e905ea6d971dafcad36560c8f1f7a7d690c5e5"
+"@types/chai-as-promised@7.1.0":
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@types/chai-as-promised/-/chai-as-promised-7.1.0.tgz#010b04cde78eacfb6e72bfddb3e58fe23c2e78b9"
   dependencies:
     "@types/chai" "*"
 
