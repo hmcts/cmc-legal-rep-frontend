@@ -52,7 +52,7 @@ describe("Claim issue: Defendant's service address page", () => {
       await request(app)
         .post(ClaimPaths.defendantServiceAddressPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .send({ line1: 'Apt 99', line2: '', city: 'London', postcode: 'E1' })
+        .send({ defendantsAddress: 'NO', line1: 'Apt 99', line2: '', city: 'London', postcode: 'E1' })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
 
@@ -64,7 +64,7 @@ describe("Claim issue: Defendant's service address page", () => {
         .post(ClaimPaths.defendantServiceAddressPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({ defendantsAddress: 'YES' })
-        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantServiceAddressPage.uri))
+        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantAdditionPage.uri))
     })
 
     it('should redirect to defendant addition page when form is valid and address filled in', async () => {
@@ -75,7 +75,7 @@ describe("Claim issue: Defendant's service address page", () => {
         .post(ClaimPaths.defendantServiceAddressPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({ defendantsAddress: 'NO', line1: 'Apt 99', line2: '', city: 'London', postcode: 'E1' })
-        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantServiceAddressPage.uri))
+        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantAdditionPage.uri))
     })
   })
 })
