@@ -8,14 +8,14 @@
 {% block content %}
   <div class="grid-row">
     <div class="column-two-thirds">
-      <p>{{ t('You can add up to 4 defendants in this service.') }}</p>
+      <p>{{ t('You can add up to %s defendants in this service.', { postProcess: 'sprintf', sprintf: [maxAllowedLimit]}) }}</p>
       <form novalidate method="post">
         {{ csrfProtection(csrf) }}
 
         {% set errorIsAddDefendant = form.errorFor('isAddDefendant') %}
         <fieldset id="isDefendantRepresented[label]" class="form-group {% if errorIsAddDefendant %} form-group-error {% endif %}">
           <legend class="visuallyhidden">
-            {{ t('You can add up to 4 defendants in this service.') }}
+            {{ t('You can add up to %s defendants in this service.', { postProcess: 'sprintf', sprintf: [maxAllowedLimit]}) }}
           </legend>
 
           {% if errorIsAddDefendant %}<span class="error-message">{{ t(errorIsAddDefendant) }}</span>{% endif %}
