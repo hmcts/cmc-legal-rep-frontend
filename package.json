@@ -1,6 +1,6 @@
 {
   "name": "cmc-legal-rep-frontend",
-  "version": "1.0.0-alpha",
+  "version": "1.1.0",
   "description": "Front end for legal representation journey within CMC",
   "private": true,
   "engines": {
@@ -67,7 +67,7 @@
   },
   "devDependencies": {
     "@types/chai": "^4.0.4",
-    "@types/chai-as-promised": "^0.0.31",
+    "@types/chai-as-promised": "^7.1.0",
     "@types/mocha": "*",
     "@types/sinon-chai": "^2.7.29",
     "@types/supertest": "*",

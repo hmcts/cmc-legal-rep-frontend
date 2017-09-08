@@ -11,6 +11,9 @@ import { YesNo } from 'app/forms/models/yesNo'
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import { ValidationError } from 'class-validator'
 
+const MAX_DEFENDANTS_ALLOWED: number = 20
+const ERROR_MESSAGE: string = `You can't add more than ${MAX_DEFENDANTS_ALLOWED} defendants`
+
 function renderView (form: Form<DefendantAddition>, res: express.Response) {
   const defendants = res.locals.user.legalClaimDraft.defendants
 
@@ -25,7 +28,7 @@ let addErrorMessage = function (form: Form<DefendantAddition>) {
   validationError.property = 'isAddDefendant'
   validationError.target = { 'isAddDefendant': 'YES' }
   validationError.value = 'YES'
-  validationError.constraints = { ['isAddDefendant']: "You can't add more than four defendants" }
+  validationError.constraints = { ['isAddDefendant']: ERROR_MESSAGE }
   form.errors.push(new FormValidationError(validationError, ''))
 }
 export default express.Router()
@@ -36,7 +39,7 @@ export default express.Router()
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form: Form<DefendantAddition> = req.body
 
-      if (form.model.isAddDefendant === YesNo.YES && res.locals.user.legalClaimDraft.defendants.length === 4) {
+      if (form.model.isAddDefendant === YesNo.YES && res.locals.user.legalClaimDraft.defendants.length === MAX_DEFENDANTS_ALLOWED) {
         addErrorMessage(form)
       }
 
