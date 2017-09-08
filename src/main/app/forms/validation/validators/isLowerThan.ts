@@ -21,6 +21,10 @@ export class IsLowerThanConstraint implements ValidatorConstraintInterface {
       return true
     }
 
+    if (typeof relatedValue !== 'number') {
+      return true
+    }
+
     return typeof value === 'number' &&
       typeof relatedValue === 'number' &&
       value <= relatedValue

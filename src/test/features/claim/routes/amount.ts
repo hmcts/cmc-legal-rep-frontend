@@ -66,6 +66,24 @@ describe('Claim issue: Enter claim range page', () => {
             ValidationErrors.VALID_SELECTION_REQUIRED))
     })
 
+    it('should render page again when form has errors for lower value and check box selection', async () => {
+      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+
+      await request(app)
+        .post(ClaimPaths.claimAmountPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .send({
+          cannotState: Amount.CANNOT_STATE_VALUE,
+          lowerValue: '10000',
+          higherValue: ''
+        })
+        .expect(res => expect(res).to.be.successful
+          .withText('Enter claim value',
+            'div class="error-summary"',
+            ValidationErrors.CANNOT_STATE_VALID_SELECTION_REQUIRED,
+            ValidationErrors.VALID_SELECTION_REQUIRED))
+    })
+
     it('should render page again with errors for invalid higher value and lower value text', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, ...roles)
 
