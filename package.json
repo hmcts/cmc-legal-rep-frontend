@@ -103,12 +103,13 @@
     "include": [
       "src/test/app/**/*.ts",
       "src/test/common/**/*.ts",
-      "src/test/features/**/*.ts",
-      "src/test/http-mocks/**/*.ts"
+      "src/test/features/**/*.ts"
     ],
     "exclude": [
       "typings",
-      "typings/*.d.ts"
+      "typings/*.d.ts",
+      "src/test/routes/*.ts",
+      "src/test/features/claim/routes/**/*.ts"
     ],
     "extension": [
       ".jsx",
