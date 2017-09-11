@@ -24,7 +24,7 @@ const sampleClaimDraftObj = {
       postcode: 'E1'
     }
   },
-  claimant: {
+  claimant: [{
     claimantDetails: {
       type: 'INDIVIDUAL',
       title: 'title',
@@ -45,7 +45,7 @@ const sampleClaimDraftObj = {
     mobilePhone: {
       number: '07000000000'
     }
-  },
+  }],
   defendants: [{
     address: {
       line1: 'Apt 99',

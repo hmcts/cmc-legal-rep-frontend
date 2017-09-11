@@ -56,7 +56,7 @@ describe('Claim issue: claimant address page', () => {
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
 
-    it('should redirect to defendant type page when form is valid and everything is fine', async () => {
+    it('should redirect to claimant addition page when form is valid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       draftStoreServiceMock.resolveSave('legalClaim')
 
@@ -64,7 +64,7 @@ describe('Claim issue: claimant address page', () => {
         .post(ClaimPaths.claimantAddressPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({line1: 'Apt 99', line2: '', city: 'London', postcode: 'E1'})
-        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantTypePage.uri))
+        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimantAdditionPage.uri))
     })
   })
 })
