@@ -3,7 +3,7 @@
 {% set title = t('Money claim') %}
 {% set heading = t("Has the defendant got a legal representative who's instructed to accept service?") %}
 
-{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, radioOption, textInput %}
+{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, textInput, radioGroup %}
 
 {% block content %}
   <div class="grid-row">
@@ -11,28 +11,28 @@
       <form novalidate method="post">
         {{ csrfProtection(csrf) }}
 
-        {% set errorType = form.errorFor('isDefendantRepresented') %}
-        <fieldset id="isDefendantRepresented[label]"  class="form-group {% if errorType %} form-group-error {% endif %}">
-          <legend class="visuallyhidden">
-            {{ t('Is the defendant represented?') }}
-          </legend>
+        {{
+          radioGroup(
+            label = "Has the defendant got a representative who's instructed to accept service?",
+            name = "isDefendantRepresented",
+            options = [
+            {
+              label: "Yes",
+              value: "YES"
+            },
+            {
+              label: "No",
+              value: "NO"
+            }
+            ],
+            form = form,
+            isInline = true,
+            legendHidden = true
+          )
+        }}
 
-          {% if errorType %}<span class="error-message">{{ t(errorType) }}</span>{% endif %}
-          <div class="inline">
-            <div class="multiple-choice" data-target="company-name">
-              <input id="defendant_represented_yes" type="radio" name="isDefendantRepresented" value="YES" {% if form.valueFor('isDefendantRepresented.value')  == 'YES' %} checked="checked" {% endif %}>
-              <label for="defendant_represented_yes">{{ t('Yes') }} </label>
-            </div>
-
-            <div class="multiple-choice">
-              <input id="defendant_represented_no" type="radio" name="isDefendantRepresented" value="NO" {% if form.valueFor('isDefendantRepresented.value')  == 'NO' %} checked="checked" {% endif %}>
-              <label for="defendant_represented_no">{{ t('No') }} </label>
-            </div>
-          </div>
-        </fieldset>
-
-        <div class="form-group panel panel-border-narrow js-hidden" id="company-name">
-          {{ textInput(t('Defendant representative organisation name'), 'organisationName', form) }}
+        <div class="form-group panel panel-border-narrow js-hidden" id="isDefendantRepresented-YES">
+          {{ textInput(t('Defendant representative company name'), 'companyName', form) }}
         </div>
 
         <div class="form-group">

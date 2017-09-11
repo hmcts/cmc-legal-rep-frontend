@@ -1,19 +1,15 @@
 export class OtherDamages {
-  static readonly LESS = new OtherDamages('LESS', 'less', 'thousandPoundsOrLess')
-  static readonly MORE = new OtherDamages('MORE', 'more', 'moreThanThousandPounds')
-  static readonly NONE = new OtherDamages('NONE', 'none', 'none')
+  static readonly LESS = 'thousandPoundsOrLess'
+  static readonly MORE = 'moreThanThousandPounds'
+  static readonly NONE = 'none'
 
   readonly value: string
-  readonly displayValue: string
-  readonly dataStoreValue: string
 
-  constructor (value: string, displayValue: string, dataStoreValue) {
+  constructor (value: string) {
     this.value = value
-    this.displayValue = displayValue
-    this.dataStoreValue = dataStoreValue
   }
 
-  static all (): OtherDamages[] {
+  static all (): string[] {
     return [
       OtherDamages.LESS,
       OtherDamages.MORE,

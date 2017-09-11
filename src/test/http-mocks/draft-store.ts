@@ -62,7 +62,7 @@ const sampleClaimDraftObj = {
       }
     },
     defendantRepresented: {
-      isDefendantRepresented: { value: YesNo.YES.value, displayValue: YesNo.YES.displayValue },
+      isDefendantRepresented: YesNo.YES,
       companyName: 'Defendant rep'
     },
     defendantDetails: {
@@ -77,12 +77,12 @@ const sampleClaimDraftObj = {
     higherValue: 1000
   },
   housingDisrepair: {
-    housingDisrepair: { value: YesNo.YES.value, displayValue: YesNo.YES.displayValue },
-    generalDamages: { value: GeneralDamages.LESS.value, displayValue: GeneralDamages.LESS.displayValue, dataStoreValue: GeneralDamages.LESS.dataStoreValue },
-    otherDamages: { value: OtherDamages.NONE.value, displayValue: OtherDamages.NONE.displayValue, dataStoreValue: OtherDamages.NONE.dataStoreValue }
+    housingDisrepair: YesNo.YES,
+    generalDamages: GeneralDamages.LESS,
+    otherDamages: OtherDamages.NONE
   },
   personalInjury: {
-    personalInjury: { value: YesNo.NO.value, displayValue: YesNo.NO.value },
+    personalInjury: YesNo.NO,
     generalDamages: undefined
   }
 }

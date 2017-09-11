@@ -14,19 +14,19 @@ export class HousingDisrepair implements Serializable<HousingDisrepair> {
 
   @IsDefined({ message: ValidationErrors.HOUSING_DISREPAIR_REQUIRED })
   @IsIn(YesNo.all(), { message: ValidationErrors.HOUSING_DISREPAIR_REQUIRED })
-  housingDisrepair?: YesNo
+  housingDisrepair?: string
 
   @ValidateIf(o => o.housingDisrepair === YesNo.YES)
   @IsDefined({ message: ValidationErrors.GENERAL_DAMAGES_REQUIRED })
   @IsIn(GeneralDamages.all(), { message: ValidationErrors.GENERAL_DAMAGES_REQUIRED })
-  generalDamages?: GeneralDamages
+  generalDamages?: string
 
   @ValidateIf(o => o.housingDisrepair === YesNo.YES)
   @IsDefined({ message: ValidationErrors.OTHER_DAMAGES_REQUIRED })
   @IsIn(OtherDamages.all(), { message: ValidationErrors.OTHER_DAMAGES_REQUIRED })
-  otherDamages?: OtherDamages
+  otherDamages?: string
 
-  constructor (housingDisrepair?: YesNo, generalDamages?: GeneralDamages, otherDamages?: OtherDamages) {
+  constructor (housingDisrepair?: string, generalDamages?: string, otherDamages?: string) {
     this.housingDisrepair = housingDisrepair
     this.generalDamages = generalDamages
     this.otherDamages = otherDamages
@@ -41,19 +41,19 @@ export class HousingDisrepair implements Serializable<HousingDisrepair> {
 
       if (value.housingDisrepair) {
         housingDisrepairValue = YesNo.all()
-          .filter(housingDisrepair => housingDisrepair.value === value.housingDisrepair)
+          .filter(housingDisrepair => housingDisrepair === value.housingDisrepair)
           .pop()
       }
 
       if (value.generalDamages) {
         generalDamagesValue = GeneralDamages.all()
-          .filter(generalDamages => generalDamages.value === value.generalDamages.value)
+          .filter(generalDamages => generalDamages === value.generalDamages)
           .pop()
       }
 
       if (value.otherDamages) {
         otherDamagesValue = OtherDamages.all()
-          .filter(otherDamages => otherDamages.value === value.otherDamages.value)
+          .filter(otherDamages => otherDamages === value.otherDamages)
           .pop()
       }
 

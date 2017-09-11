@@ -13,7 +13,7 @@
         {{ csrfProtection(csrf) }}
 
         {% set errorType = form.errorFor('type') %}
-        <fieldset class="form-group {% if errorType %} form-group-error {% endif %}">
+        <fieldset id="type[label]" class="form-group {% if errorType %} form-group-error {% endif %}">
           <legend class="visuallyhidden">
             {{ t("Choose defendant type") }}
           </legend>

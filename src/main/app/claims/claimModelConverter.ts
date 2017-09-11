@@ -11,9 +11,9 @@ export class ClaimModelConverter {
 
     draftClaim['reason'] = draftClaim.summary.text
 
-    if (draftClaim.personalInjury.personalInjury && draftClaim.personalInjury.personalInjury.value === YesNo.YES.value) {
+    if (draftClaim.personalInjury.personalInjury && draftClaim.personalInjury.personalInjury === YesNo.YES) {
       if (draftClaim.personalInjury.generalDamages) {
-        draftClaim.personalInjury.generalDamages = draftClaim.personalInjury.generalDamages.dataStoreValue as any
+        draftClaim.personalInjury.generalDamages = draftClaim.personalInjury.generalDamages as any
       }
 
       delete draftClaim.personalInjury.personalInjury
@@ -21,16 +21,16 @@ export class ClaimModelConverter {
       delete draftClaim.personalInjury
     }
 
-    if (draftClaim.housingDisrepair.housingDisrepair && draftClaim.housingDisrepair.housingDisrepair.value === YesNo.YES.value) {
+    if (draftClaim.housingDisrepair.housingDisrepair && draftClaim.housingDisrepair.housingDisrepair === YesNo.YES) {
 
       if (draftClaim.housingDisrepair.generalDamages) {
-        draftClaim.housingDisrepair['costOfRepairsDamages'] = draftClaim.housingDisrepair.generalDamages.dataStoreValue
+        draftClaim.housingDisrepair['costOfRepairsDamages'] = draftClaim.housingDisrepair.generalDamages
         delete draftClaim.housingDisrepair.generalDamages
       }
 
       if (draftClaim.housingDisrepair.otherDamages) {
-        draftClaim.housingDisrepair.otherDamages = draftClaim.housingDisrepair.otherDamages.dataStoreValue as any
-        if (draftClaim.housingDisrepair.otherDamages as any === OtherDamages.NONE.dataStoreValue) {
+        draftClaim.housingDisrepair.otherDamages = draftClaim.housingDisrepair.otherDamages as any
+        if (draftClaim.housingDisrepair.otherDamages as any === OtherDamages.NONE) {
           delete draftClaim.housingDisrepair.otherDamages
         }
       }
@@ -112,7 +112,7 @@ export class ClaimModelConverter {
       }
       defendant['type'] = defendant.defendantDetails.type.dataStoreValue
 
-      if (defendant.defendantRepresented.isDefendantRepresented.value === YesNo.YES.value) {
+      if (defendant.defendantRepresented.isDefendantRepresented === YesNo.YES) {
         defendant.representative['organisationName'] = defendant.defendantRepresented.organisationName as any
         defendant.representative['organisationAddress'] = defendant.representative.address
 

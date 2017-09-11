@@ -30,7 +30,7 @@ describe('Claim issue: housing disrepair page', () => {
       await request(app)
         .get(ClaimPaths.housingDisrepairPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText('Is it a claim for housing disrepair?'))
+        .expect(res => expect(res).to.be.successful.withText('Is it a claim for housing disrepair seeking an order for a landlord to carry out work?'))
     })
   })
 
@@ -42,7 +42,7 @@ describe('Claim issue: housing disrepair page', () => {
       await request(app)
         .post(ClaimPaths.housingDisrepairPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText('Is it a claim for housing disrepair?', 'div class="error-summary"'))
+        .expect(res => expect(res).to.be.successful.withText('Is it a claim for housing disrepair seeking an order for a landlord to carry out work?', 'div class="error-summary"'))
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
@@ -54,8 +54,8 @@ describe('Claim issue: housing disrepair page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .send({
           housingDisrepair: 'YES',
-          generalDamages: { value: 'MORE', displayValue: 'more' },
-          otherDamages: { value: 'NONE', displayValue: 'none' }
+          generalDamages: 'moreThanThousandPounds',
+          otherDamages: 'none'
         })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
@@ -69,8 +69,8 @@ describe('Claim issue: housing disrepair page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .send({
           housingDisrepair: 'YES',
-          generalDamages: { value: 'MORE', displayValue: 'more' },
-          otherDamages: { value: 'NONE', displayValue: 'none' }
+          generalDamages: 'moreThanThousandPounds',
+          otherDamages: 'none'
         })
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.summariseTheClaimPage.uri))
     })

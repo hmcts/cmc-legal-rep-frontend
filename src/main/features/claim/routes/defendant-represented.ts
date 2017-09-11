@@ -34,7 +34,6 @@ export default express.Router()
         if (form.model.isDefendantRepresented === YesNo.NO) {
           form.model.organisationName = undefined
         }
-
         res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentIndex(res)].defendantRepresented = form.model
 
         await ClaimDraftMiddleware.save(res, next)
