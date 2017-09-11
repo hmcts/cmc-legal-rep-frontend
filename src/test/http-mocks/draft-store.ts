@@ -24,7 +24,7 @@ const sampleClaimDraftObj = {
       postcode: 'E1'
     }
   },
-  claimant: [{
+  claimants: [{
     claimantDetails: {
       type: 'INDIVIDUAL',
       title: 'title',
