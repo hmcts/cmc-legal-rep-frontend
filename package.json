@@ -17,10 +17,8 @@
     "test:routes": "NODE_ENV=mocha LOG_LEVEL=OFF mocha --compilers ts:ts-node/register -r tsconfig-paths/register $(find src/test \\( -name '*.ts' -or -name '*.js' \\) -path '*/routes/*') --reporter mochawesome --reporter-options reportFilename=routes,inlineAssets=true,reportTitle=legal-rep-frontend-routes",
     "test:a11y": "mocha --compilers ts:ts-node/register -r tsconfig-paths/register src/test/a11y --timeout 60000 --reporter mochawesome --reporter-options reportFilename=a11y,inlineAssets=true,reportTitle=legal-rep-frontend-a11y",
     "test:nsp": "nsp check",
-    "test:coverage": "cross-env NODE_PATH=. nyc istanbul cover  ./node_modules/mocha/bin/_mocha -- --compilers ts:ts-node/register -r tsconfig-paths/register $(find src/test \\( -name '*.ts' -or -name '*.js' \\) ! -path '*a11y*' ! -path '*/routes/*')",
-    "sonar-scanner": "cross-env NODE_PATH=. node_modules/sonar-scanner/bin/sonar-scanner",
-    "precommit": "yarn lint",
-    "prepush": "yarn test && yarn test:routes"
+    "test:coverage": "cross-env NODE_PATH=. nyc istanbul cover  ./node_modules/mocha/bin/_mocha -- --compilers ts:ts-node/register -r tsconfig-paths/register $(find src/test \\( -name '*.ts' -or -name '*.js' \\) ! -path '*a11y*')",
+    "sonar-scanner": "cross-env NODE_PATH=. node_modules/sonar-scanner/bin/sonar-scanner"
   },
   "dependencies": {
     "@hmcts/cmc-common-frontend": "^1.4.11",
@@ -110,8 +108,10 @@
     "exclude": [
       "typings",
       "typings/*.d.ts",
-      "src/test/routes/*.ts",
-      "src/test/features/claim/routes/**/*.ts"
+      "src/main/views/*.njk",
+      "src/main/views/include/*.njk",
+      "src/main/resources",
+      "src/main/modules"
     ],
     "extension": [
       ".jsx",
