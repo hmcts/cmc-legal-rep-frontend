@@ -51,7 +51,7 @@
         {% set claimantFullName = claimant.claimantDetails.fullName %}
       {% endif %}
 
-      {% if isClaimantIndividual %}
+      {% if claimant.claimantDetails.type.value === 'INDIVIDUAL' %}
         {{ row('Name', claimantFullName, changeClaimantLink) }}
       {% else %}
         {{ row('Organisation name', claimant.claimantDetails.organisation, changeClaimantLink) }}

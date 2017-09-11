@@ -3,24 +3,20 @@ import { Paths } from 'claim/paths'
 import FeesClient from 'fees/feesClient'
 import ErrorHandling from 'common/errorHandling'
 import { Amount } from 'forms/models/amount'
-import { PartyTypes } from 'app/forms/models/partyTypes'
 import { YesNo } from 'forms/models/yesNo'
 import { Fee } from 'fees/fee'
-import { Claimants } from 'common/router/claimants'
 
 function renderView (res: express.Response, next: express.NextFunction) {
   const claimAmount: Amount = res.locals.user.legalClaimDraft.amount
   FeesClient.getFeeAmount(claimAmount)
     .then((fee: Fee) => {
-      const claimant = res.locals.user.legalClaimDraft.claimants[Claimants.getCurrentIndex(res)]
-      const isClaimantIndividual = claimant.claimantDetails.type.value === PartyTypes.INDIVIDUAL.value
+
       const isHousingDisrepair = res.locals.user.legalClaimDraft.housingDisrepair.housingDisrepair.value === YesNo.YES.value
       const isPersonalInjury = res.locals.user.legalClaimDraft.personalInjury.personalInjury.value === YesNo.YES.value
 
       res.render(Paths.detailsSummaryPage.associatedView, {
         legalClaimDraft: res.locals.user.legalClaimDraft,
         feeAmount: fee.amount,
-        isClaimantIndividual: isClaimantIndividual,
         isHousingDisrepair: isHousingDisrepair,
         isPersonalInjury: isPersonalInjury,
         paths: Paths
