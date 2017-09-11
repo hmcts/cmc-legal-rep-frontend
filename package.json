@@ -103,9 +103,9 @@
   },
   "nyc": {
     "include": [
-      "src/test/app/**/*.ts",
-      "src/test/common/**/*.ts",
-      "src/test/features/**/*.ts"
+      "src/main/app/**/*.ts",
+      "src/main/common/**/*.ts",
+      "src/main/features/**/*.ts"
     ],
     "exclude": [
       "typings",
@@ -126,7 +126,6 @@
       "text-summary"
     ],
     "report-dir": "test/coverage",
-    "all": true,
-    "check-coverage": true
+    "all": true
   }
 }
