@@ -12,7 +12,7 @@ import { Amount } from 'app/forms/models/amount'
 import { FeeAccount } from 'forms/models/feeAccount'
 
 export default class DraftLegalClaim implements Serializable<DraftLegalClaim> {
-  claimant: Claimant = new Claimant()
+  claimants: Claimant[] = [new Claimant()]
   summary: Summary = new Summary()
   amount: Amount = new Amount()
   yourReference?: YourReference = new YourReference()
@@ -28,7 +28,6 @@ export default class DraftLegalClaim implements Serializable<DraftLegalClaim> {
 
   deserialize (input: any): DraftLegalClaim {
     if (input) {
-      this.claimant = new Claimant().deserialize(input.claimant)
       this.summary = new Summary().deserialize(input.summary)
       this.amount = new Amount().deserialize(input.amount)
       if (input.yourReference && input.yourReference.reference) {
@@ -45,6 +44,12 @@ export default class DraftLegalClaim implements Serializable<DraftLegalClaim> {
 
       if (input.feeAmountInPennies) {
         this.feeAmountInPennies = input.feeAmountInPennies
+      }
+
+      if (input.claimants && input.claimants.length > 0) {
+        let claimants: Claimant[] = []
+        input.claimants.map((claimant) => claimants.push(new Claimant().deserialize(claimant)))
+        this.claimants = claimants
       }
 
       if (input.defendants && input.defendants.length > 0) {

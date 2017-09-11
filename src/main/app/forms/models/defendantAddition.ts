@@ -34,7 +34,7 @@ export class DefendantAddition implements Serializable<DefendantAddition> {
 
   deserialize (input?: any): DefendantAddition {
     if (input) {
-      this.isAddDefendant = input.isAddDefendant
+      this.isAddDefendant = input.isAddClaimant
     }
     return this
   }

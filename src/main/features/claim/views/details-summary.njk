@@ -10,6 +10,7 @@
     {{ csrfProtection(csrf) }}
 
     <p>{{ t('Make sure this information is correct before you issue.') }}</p>
+    {% for claimant in legalClaimDraft.claimants %}
 
     {% if legalClaimDraft.claimant.claimantDetails.title %}
       {% set claimantFullName = legalClaimDraft.claimant.claimantDetails.title + ' ' + legalClaimDraft.claimant.claimantDetails.fullName %}

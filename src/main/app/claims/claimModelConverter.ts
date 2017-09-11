@@ -2,6 +2,7 @@ import DraftLegalClaim from 'drafts/models/draftLegalClaim'
 import Defendant from 'drafts/models/defendant'
 import { OtherDamages } from 'forms/models/otherDamages'
 import { YesNo } from 'forms/models/yesNo'
+import Claimant from 'app/drafts/models/claimant'
 
 export class ClaimModelConverter {
 
@@ -19,6 +20,24 @@ export class ClaimModelConverter {
       delete draftClaim.personalInjury.personalInjury
     } else {
       delete draftClaim.personalInjury
+    }
+
+    if (draftClaim.amount.canNotState()) {
+      draftClaim.amount['type'] = 'not_known'
+      delete draftClaim.amount.cannotState
+    } else {
+      draftClaim.amount['type'] = 'range'
+    }
+
+    if (draftClaim.yourReference) {
+      draftClaim['externalReferenceNumber'] = draftClaim.yourReference.reference
+    }
+    delete draftClaim.yourReference
+
+    if (draftClaim.preferredCourt) {
+      draftClaim.preferredCourt = draftClaim.preferredCourt.name as any
+    } else {
+      delete draftClaim.preferredCourt
     }
 
     if (draftClaim.housingDisrepair.housingDisrepair && draftClaim.housingDisrepair.housingDisrepair.value === YesNo.YES.value) {
@@ -48,53 +67,40 @@ export class ClaimModelConverter {
   }
 
   private static convertClaimantDetails (draftClaim: DraftLegalClaim): void {
-    draftClaim.claimant['type'] = draftClaim.claimant.claimantDetails.type.dataStoreValue
+    draftClaim.claimants.map((claimant: Claimant) => {
 
-    if (draftClaim.amount.canNotState()) {
-      draftClaim.amount['type'] = 'not_known'
-      delete draftClaim.amount.cannotState
-    } else {
-      draftClaim.amount['type'] = 'range'
-    }
+      claimant['type'] = claimant.claimantDetails.type.dataStoreValue
 
-    if (draftClaim.claimant.claimantDetails.title) {
-      draftClaim.claimant['title'] = draftClaim.claimant.claimantDetails.title
-    }
+      if (claimant.claimantDetails.title) {
+        claimant['title'] = claimant.claimantDetails.title
+      }
 
-    if (draftClaim.claimant.claimantDetails.organisation) {
-      draftClaim.claimant['name'] = draftClaim.claimant.claimantDetails.organisation
-    } else {
-      draftClaim.claimant['name'] = draftClaim.claimant.claimantDetails.fullName
-    }
+      if (claimant.claimantDetails.organisation) {
+        claimant['name'] = claimant.claimantDetails.organisation
+      } else {
+        claimant['name'] = claimant.claimantDetails.fullName
+      }
 
-    if (draftClaim.claimant.claimantDetails.companyHouseNumber) {
-      draftClaim.claimant['companiesHouseNumber'] = draftClaim.claimant.claimantDetails.companyHouseNumber
-    }
+      if (claimant.claimantDetails.companyHouseNumber) {
+        claimant['companiesHouseNumber'] = claimant.claimantDetails.companyHouseNumber
+      }
 
-    draftClaim.claimant['representative'] = draftClaim.representative
-    draftClaim.claimant['representative'].organisationName = draftClaim.representative.organisationName.name
-    draftClaim.claimant['representative'].organisationAddress = draftClaim.representative.address
-    draftClaim.claimant['representative'].organisationContactDetails = draftClaim.representative.contactDetails
+      claimant['representative'] = draftClaim.representative
+      claimant['representative'].organisationName = draftClaim.representative.organisationName.name
+      claimant['representative'].organisationAddress = draftClaim.representative.address
+      claimant['representative'].organisationContactDetails = draftClaim.representative.contactDetails
 
-    if (draftClaim.representative.contactDetails.phoneNumber) {
-      draftClaim.claimant['representative'].organisationContactDetails.phone = draftClaim.representative.contactDetails.phoneNumber
-      delete draftClaim.claimant['representative'].organisationContactDetails.phoneNumber
-    }
+      if (draftClaim.representative.contactDetails.phoneNumber) {
+        claimant['representative'].organisationContactDetails.phone = draftClaim.representative.contactDetails.phoneNumber
+        delete claimant['representative'].organisationContactDetails.phoneNumber
+      }
 
-    if (draftClaim.yourReference) {
-      draftClaim['externalReferenceNumber'] = draftClaim.yourReference.reference
-    }
-    delete draftClaim.yourReference
+      delete claimant['representative'].contactDetails
+      delete claimant['representative'].address
+      delete draftClaim.representative
 
-    if (draftClaim.preferredCourt) {
-      draftClaim.preferredCourt = draftClaim.preferredCourt.name as any
-    } else {
-      delete draftClaim.preferredCourt
-    }
-
-    delete draftClaim.claimant['representative'].contactDetails
-    delete draftClaim.claimant['representative'].address
-    delete draftClaim.representative
+      return claimant
+    })
   }
 
   private static convertDefendantDetails (draftClaim: DraftLegalClaim): void {

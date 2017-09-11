@@ -4,26 +4,24 @@ import { Paths } from 'claim/paths'
 import { Form } from 'forms/form'
 import { FormValidator } from 'forms/validation/formValidator'
 import { Address } from 'forms/models/address'
-import { PartyTypes } from 'app/forms/models/partyTypes'
 
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import ErrorHandling from 'common/errorHandling'
+import { Claimants } from 'common/router/claimants'
 
 function renderView (form: Form<Address>, res: express.Response): void {
-  const claimantDetails = res.locals.user.legalClaimDraft.claimant.claimantDetails
-  const isIndividual = claimantDetails.type.value === PartyTypes.INDIVIDUAL.value
-  const title = claimantDetails.title != null ? claimantDetails.title + ' ' : claimantDetails.title
-  const partyStripeValue = isIndividual ? title + claimantDetails.fullName : claimantDetails.organisation
+  const claimants = res.locals.user.legalClaimDraft.claimants
 
   res.render(Paths.claimantAddressPage.associatedView, {
     form: form,
-    partyStripeValue: partyStripeValue
+    partyStripeTitle: claimants.length >= 2 ? `Claimant ${claimants.length}` : `Claimant`,
+    partyStripeValue: Claimants.getCurrentClaimantName(res)
   })
 }
 
 export default express.Router()
   .get(Paths.claimantAddressPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.legalClaimDraft.claimant.address), res)
+    renderView(new Form(res.locals.user.legalClaimDraft.claimants[Claimants.getCurrentIndex(res)].address), res)
   })
   .post(Paths.claimantAddressPage.uri, FormValidator.requestHandler(Address, Address.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -32,9 +30,9 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        res.locals.user.legalClaimDraft.claimant.address = form.model
+        res.locals.user.legalClaimDraft.claimants[Claimants.getCurrentIndex(res)].address = form.model
         await ClaimDraftMiddleware.save(res, next)
-        res.redirect(Paths.defendantTypePage.uri)
+        res.redirect(Paths.claimantAdditionPage.uri)
       }
     })
   )

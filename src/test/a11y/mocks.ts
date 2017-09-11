@@ -21,9 +21,9 @@ import { MomentFactory } from 'common/momentFactory'
 
 function mockedDraftClaim () {
   let draft = new DraftLegalClaim()
-  draft.claimant = new Claimant()
-  draft.claimant.claimantDetails = new ClaimantDetails()
-  draft.claimant.claimantDetails.type = PartyTypes.INDIVIDUAL
+  draft.claimants = [new Claimant()]
+  draft.claimants[0].claimantDetails = new ClaimantDetails()
+  draft.claimants[0].claimantDetails.type = PartyTypes.INDIVIDUAL
   draft.representative = new Representative()
   draft.representative.organisationName = new OrganisationName('name')
   draft.defendants = [new Defendant()]
@@ -37,7 +37,7 @@ function mockedDraftClaim () {
 
 function mockedDraftView () {
   let draftView = new DraftView()
-  draftView.viewFlowOption = true
+  draftView.isDefendantDeleted = true
 
   return draftView
 }
