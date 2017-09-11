@@ -29,6 +29,10 @@ export class FractionsConstraint implements ValidatorConstraintInterface {
       return true
     }
 
+    if (value < 0) {
+      return true
+    }
+
     const regex = '^\\d+\\.*\\d{' + min + ',' + max + '}\$'
     return validator.matches(value.toString(), new RegExp(regex))
   }
