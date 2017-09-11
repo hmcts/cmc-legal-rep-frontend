@@ -6,7 +6,7 @@ import { IsLowerThan } from 'app/forms/validation/validators/isLowerThan'
 
 export class ValidationErrors {
   static readonly CANNOT_STATE_VALID_SELECTION_REQUIRED: string = 'Choose ‘I can’t state the value’ or enter a higher value'
-  static readonly VALID_SELECTION_REQUIRED: string = 'Enter a value or choose ‘I can’t state the value’'
+  static readonly VALID_SELECTION_REQUIRED: string = 'Enter a higher value or choose ‘I can’t state the value’'
   static readonly HIGHER_VALUE_AMOUNT_NOT_VALID: string = 'Enter valid higher value'
   static readonly LOWER_VALUE_AMOUNT_NOT_VALID: string = 'Enter valid lower value'
   static readonly LOWER_VALUE_LESS_THAN_UPPER_NOT_VALID: string = 'Lower value must be less than higher value'
@@ -15,6 +15,7 @@ export class ValidationErrors {
 
 export class Amount implements Serializable<Amount> {
   static readonly CANNOT_STATE_VALUE = 'cannot'
+  static readonly MAX_ALLOWED = 9999999.99
 
   @ValidateIf(o => (o.higherValue && o.higherValue > 0 ) || (o.lowerValue && o.lowerValue > 0))
   @IsEmpty({ message: ValidationErrors.CANNOT_STATE_VALID_SELECTION_REQUIRED })
@@ -33,7 +34,7 @@ export class Amount implements Serializable<Amount> {
   @IsNumber({ message: ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID })
   @Fractions(0, 2, { message: ValidationErrors.AMOUNT_INVALID_DECIMALS })
   @Min(0.01, { message: ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID })
-  @Max(9999999.99, { message: ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID })
+  @Max(Amount.MAX_ALLOWED, { message: ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID })
   higherValue?: number
 
   constructor (lowerValue?: any, higherValue?: any, cannotState?: string) {
@@ -43,8 +44,11 @@ export class Amount implements Serializable<Amount> {
   }
 
   static translateToNumber (input?: any): any {
-    if (!isNaN(_.toNumber(input))) {
-      return _.toNumber(input)
+    const numberValue = _.toNumber(input)
+    const isExponential = numberValue.toString().match(new RegExp('\\d*[Ee][+-]?\\d*?'))
+
+    if (!isNaN(numberValue) && !isExponential) {
+      return numberValue
     } else {
       return input
     }
