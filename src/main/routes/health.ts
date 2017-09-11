@@ -7,6 +7,7 @@ import * as path from 'path'
 export default express.Router()
   .get('/health', healthcheck.configure({
     checks: {
+      'claim-store': basicHealthCheck('claim-store'),
       'draft-store': basicHealthCheck('draft-store'),
       'fees': basicHealthCheck('fees'),
       'idam-api': basicHealthCheck('idam.api'),
