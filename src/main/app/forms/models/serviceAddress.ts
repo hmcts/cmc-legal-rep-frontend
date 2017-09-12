@@ -2,6 +2,7 @@ import { IsDefined, IsIn, MaxLength, ValidateIf } from 'class-validator'
 import { Serializable } from 'models/serializable'
 import { YesNo } from 'forms/models/yesNo'
 import { IsNotBlank } from 'app/forms/validation/validators/isNotBlank'
+import StringUtils from 'utils/stringUtils'
 
 export class ValidationErrors {
   static readonly DEFENDANT_SERVICE_ADDRESS_REQUIRED: string = 'Choose which address to use'
@@ -57,18 +58,14 @@ export class ServiceAddress implements Serializable<ServiceAddress> {
           .pop()
       }
 
-      const line1 = ServiceAddress.toUpperCase(value.line1)
-      const line2 = ServiceAddress.toUpperCase(value.line2)
-      const city = ServiceAddress.toUpperCase(value.city)
-      const postcode = ServiceAddress.toUpperCase(value.postcode)
+      const line1 = StringUtils.toUpperCase(value.line1)
+      const line2 = StringUtils.toUpperCase(value.line2)
+      const city = StringUtils.toUpperCase(value.city)
+      const postcode = StringUtils.toUpperCase(value.postcode)
       return new ServiceAddress(defendantsAddress, line1, line2, city, postcode)
     }
 
     return new ServiceAddress()
-  }
-
-  static toUpperCase (value: any): string {
-    return value ? value.toUpperCase() : value
   }
 
   deserialize (input?: any): ServiceAddress {

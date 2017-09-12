@@ -4,4 +4,8 @@ export default class StringUtils {
     return !(value && value.length > 0)
   }
 
+  static toUpperCase (value: any): string {
+    return value ? value.toUpperCase() : value
+  }
+
 }

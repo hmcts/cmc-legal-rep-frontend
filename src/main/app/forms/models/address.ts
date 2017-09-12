@@ -3,6 +3,7 @@ import { IsDefined, MaxLength } from 'class-validator'
 import { IsNotBlank } from 'forms/validation/validators/isNotBlank'
 
 import { Serializable } from 'models/serializable'
+import StringUtils from 'utils/stringUtils'
 
 export class ValidationErrors {
   static readonly FIRST_LINE_REQUIRED: string = 'Enter address line 1'
@@ -40,18 +41,14 @@ export class Address implements Serializable<Address> {
 
   static fromObject (value?: any): Address {
     if (value != null) {
-      const line1 = Address.toUpperCase(value.line1)
-      const line2 = Address.toUpperCase(value.line2)
-      const city = Address.toUpperCase(value.city)
-      const postcode = Address.toUpperCase(value.postcode)
+      const line1 = StringUtils.toUpperCase(value.line1)
+      const line2 = StringUtils.toUpperCase(value.line2)
+      const city = StringUtils.toUpperCase(value.city)
+      const postcode = StringUtils.toUpperCase(value.postcode)
       return new Address(line1, line2, city, postcode)
     }
 
     return new Address()
-  }
-
-  static toUpperCase (value: any): string {
-    return value ? value.toUpperCase() : value
   }
 
   deserialize (input?: any): Address {

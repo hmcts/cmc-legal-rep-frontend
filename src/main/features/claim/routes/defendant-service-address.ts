@@ -28,7 +28,6 @@ export default express.Router()
   .post(Paths.defendantServiceAddressPage.uri, FormValidator.requestHandler(ServiceAddress, ServiceAddress.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form: Form<ServiceAddress> = req.body
-      console.log(form)
 
       if (form.hasErrors()) {
         renderView(form, res)
