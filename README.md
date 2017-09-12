@@ -60,3 +60,9 @@ For accessibilit testing:
 ```bash
 $ yarn test:a11y
 ```
+For code coverage:
+```bash
+$ yarn test:coverage
+$ yarn sonar-scanner
+```
+
