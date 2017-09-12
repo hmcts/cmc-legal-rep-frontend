@@ -17,7 +17,7 @@ function renderView (form: Form<ServiceAddress>, res: express.Response) {
     form: form,
     partyStripeTitle: defendants.length >= 2 ? `Defendant ${defendants.length}` : `Defendant`,
     partyStripeValue: Defendants.getCurrentDefendantName(res),
-    defendantsAddress: res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentIndex(res)].address
+    defendantsAddress: res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentIndex(res)].address.toString()
   })
 }
 
