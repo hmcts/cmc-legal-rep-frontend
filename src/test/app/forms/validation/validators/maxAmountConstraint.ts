@@ -80,7 +80,7 @@ describe('MaxAmountConstraint', () => {
   })
 })
 
-function validationArgs (input: number, cannotState: String): ValidationArguments {
+function validationArgs (input: number, cannotState: string): ValidationArguments {
   return {
     value: undefined,
     targetName: undefined,
