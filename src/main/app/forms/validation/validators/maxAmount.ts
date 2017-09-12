@@ -7,14 +7,14 @@ import {
 } from 'class-validator'
 
 @ValidatorConstraint({ name: 'maxAmount' })
-export class MinAmountConstraint implements ValidatorConstraintInterface {
+export class MaxAmountConstraint implements ValidatorConstraintInterface {
 
   validate (value: any, args: ValidationArguments) {
 
     const max: number = args.constraints[0]
     const cannotStateInput = (args.object as any)[args.constraints[1]]
 
-    if (cannotStateInput === 'cannot' && (value === null || value === undefined)) {
+    if (cannotStateInput === 'cannot' && (value === null || value === undefined )) {
       return true
     }
 
@@ -29,7 +29,7 @@ export function MaxAmount (max: number, cannotState: string, validationOptions?:
       propertyName: propertyName,
       options: validationOptions,
       constraints: [max, cannotState],
-      validator: MinAmountConstraint
+      validator: MaxAmountConstraint
     })
   }
 }

@@ -21,15 +21,7 @@ export class FractionsConstraint implements ValidatorConstraintInterface {
       throw new Error('Maximum allowed decimal places has to be specified and positive value')
     }
 
-    if (value == null) {
-      return true
-    }
-
-    if (typeof value !== 'number') {
-      return true
-    }
-
-    if (value < 0) {
+    if (value == null || typeof value !== 'number' || value < 0) {
       return true
     }
 

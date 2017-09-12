@@ -17,15 +17,7 @@ export class IsLowerThanConstraint implements ValidatorConstraintInterface {
     const [relatedPropertyName] = args.constraints
     const relatedValue = (args.object as any)[relatedPropertyName]
 
-    if (isNaN(relatedValue)) {
-      return true
-    }
-
-    if (typeof relatedValue !== 'number') {
-      return true
-    }
-
-    if (typeof value !== 'number') {
+    if (isNaN(relatedValue) || typeof relatedValue !== 'number' || typeof value !== 'number') {
       return true
     }
 

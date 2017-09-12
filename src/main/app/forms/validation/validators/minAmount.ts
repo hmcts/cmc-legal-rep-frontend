@@ -11,7 +11,7 @@ export class MinAmountConstraint implements ValidatorConstraintInterface {
 
   validate (value: any, args: ValidationArguments) {
 
-    const min = args.constraints[0]
+    const min: number = args.constraints[0]
     const cannotStateInput = (args.object as any)[args.constraints[1]]
 
     if (cannotStateInput === 'cannot' && (value === null || value === undefined)) {
