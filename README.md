@@ -60,3 +60,19 @@ For accessibilit testing:
 ```bash
 $ yarn test:a11y
 ```
+For code coverage:
+```bash
+$ yarn test:coverage
+```
+## Troubleshooting
+
+### Warnings while running ```yarn install``` on yarn version 1.0.1
+
+There is currently an open issue : https://github.com/yarnpkg/yarn/issues/3751
+
+Example:
+```
+warning The case-insensitive file C:\CMC\cmc-legal-rep-frontend\node_modules\nyc\node_modules shouldn't be copied twice in one bulk copy
+warning The case-insensitive file C:\CMC\cmc-legal-rep-frontend\node_modules\nyc\node_modules\ansi-regex shouldn't be copied twice in one bulk copy
+
+```
