@@ -9,6 +9,7 @@ import { ContactDetails } from 'app/forms/models/contactDetails'
 import OrganisationName from 'app/forms/models/organisationName'
 import { PartyTypes } from 'app/forms/models/partyTypes'
 import { YesNo } from 'app/forms/models/yesNo'
+import { ServiceAddress } from 'forms/models/serviceAddress'
 
 describe('Defendant', () => {
   describe('constructor', () => {
@@ -18,6 +19,7 @@ describe('Defendant', () => {
       expect(defendant.representative).to.be.instanceof(Representative)
       expect(defendant.defendantDetails).to.be.instanceof(DefendantDetails)
       expect(defendant.defendantRepresented).to.be.instanceof(DefendantRepresented)
+      expect(defendant.serviceAddress).to.be.instanceof(ServiceAddress)
     })
   })
 
@@ -37,6 +39,7 @@ describe('Defendant', () => {
       const representative = new Representative(organisationName, address, contactDetails)
       const defendantDetails = new DefendantDetails(PartyTypes.INDIVIDUAL, 'title', 'full name')
       const defendantRepresented = new DefendantRepresented(YesNo.YES, organisationName.name)
+      const serviceAddress = new ServiceAddress(YesNo.NO, 'line1', 'line2', 'city', 'postcode')
 
       const defendant = new Defendant().deserialize({
         address: { line1: 'line1', line2: 'line2', city: 'city', postcode: 'postcode' },
@@ -55,6 +58,13 @@ describe('Defendant', () => {
         defendantRepresented: {
           isDefendantRepresented: { value: 'YES', displayValue: 'yes' },
           organisationName: organisationName.name
+        },
+        serviceAddress: {
+          defendantsAddress: { value: 'NO', displayValue: 'no' },
+          line1: 'line1',
+          line2: 'line2',
+          city: 'city',
+          postcode: 'postcode'
         }
       })
 
@@ -62,6 +72,7 @@ describe('Defendant', () => {
       expect(defendant.representative).to.deep.eq(representative)
       expect(defendant.defendantDetails).to.deep.eq(defendantDetails)
       expect(defendant.defendantRepresented).to.deep.eq(defendantRepresented)
+      expect(defendant.serviceAddress).to.deep.eq(serviceAddress)
     })
   })
 })

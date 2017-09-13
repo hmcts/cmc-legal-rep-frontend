@@ -2,7 +2,6 @@ import { Serializable } from 'models/serializable'
 import { IsFeeAccount } from 'app/forms/validation/validators/isFeeAccount'
 import { IsDefined } from 'class-validator'
 import { IsNotBlank } from 'app/forms/validation/validators/isNotBlank'
-import StringUtils from 'utils/stringUtils'
 
 export class ValidationErrors {
   static readonly FEE_ACCOUNT_INVALID: string = 'Enter a valid Fee Account number'
@@ -24,7 +23,7 @@ export class FeeAccount implements Serializable<FeeAccount> {
     if (value == null) {
       return value
     }
-    return new FeeAccount(StringUtils.toUpperCase(value.reference.trim()))
+    return new FeeAccount((value.reference.trim().toUpperCase()))
   }
 
   deserialize (input?: any): FeeAccount {

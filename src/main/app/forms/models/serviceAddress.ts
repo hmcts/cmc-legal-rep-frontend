@@ -2,7 +2,7 @@ import { IsDefined, IsIn, MaxLength, ValidateIf } from 'class-validator'
 import { Serializable } from 'models/serializable'
 import { YesNo } from 'forms/models/yesNo'
 import { IsNotBlank } from 'app/forms/validation/validators/isNotBlank'
-import StringUtils from 'utils/stringUtils'
+import { isUndefined } from 'util'
 
 export class ValidationErrors {
   static readonly DEFENDANT_SERVICE_ADDRESS_REQUIRED: string = 'Choose which address to use'
@@ -58,10 +58,10 @@ export class ServiceAddress implements Serializable<ServiceAddress> {
           .pop()
       }
 
-      const line1 = StringUtils.toUpperCase(value.line1)
-      const line2 = StringUtils.toUpperCase(value.line2)
-      const city = StringUtils.toUpperCase(value.city)
-      const postcode = StringUtils.toUpperCase(value.postcode)
+      const line1 = isUndefined(value.line1) ? undefined : value.line1.toString().toUpperCase()
+      const line2 = isUndefined(value.line2) ? undefined : value.line2.toString().toUpperCase()
+      const city = isUndefined(value.city) ? undefined : value.city.toString().toUpperCase()
+      const postcode = isUndefined(value.postcode) ? undefined : value.postcode.toString().toUpperCase()
       return new ServiceAddress(defendantsAddress, line1, line2, city, postcode)
     }
 
