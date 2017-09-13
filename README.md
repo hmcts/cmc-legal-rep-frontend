@@ -65,4 +65,13 @@ For code coverage:
 $ yarn test:coverage
 $ yarn sonar-scanner
 ```
+## Troubleshooting
+
+### nyc warings while running  ```yarn install``` on yarn version 1.0.1
+
+This is currently an Open issue : https://github.com/yarnpkg/yarn/issues/3751
+and also for checking integrity use following command instead of ```yarn check```
+```bash
+$ yarn check --integrity
+```
 
