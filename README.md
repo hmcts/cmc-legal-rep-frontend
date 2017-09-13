@@ -67,11 +67,13 @@ $ yarn sonar-scanner
 ```
 ## Troubleshooting
 
-### nyc warings while running  ```yarn install``` on yarn version 1.0.1
+### Warnings while running ```yarn install``` on yarn version 1.0.1
 
-This is currently an Open issue : https://github.com/yarnpkg/yarn/issues/3751
-and also for checking integrity use following command instead of ```yarn check```
-```bash
-$ yarn check --integrity
+There is currently an open issue : https://github.com/yarnpkg/yarn/issues/3751
+
+Example:
 ```
+warning The case-insensitive file C:\CMC\cmc-legal-rep-frontend\node_modules\nyc\node_modules shouldn't be copied twice in one bulk copy
+warning The case-insensitive file C:\CMC\cmc-legal-rep-frontend\node_modules\nyc\node_modules\ansi-regex shouldn't be copied twice in one bulk copy
 
+```
