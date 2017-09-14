@@ -145,7 +145,6 @@ describe('Service Address', () => {
         city: 'city',
         postcode: 'postcode'
       })
-      console.log(address)
 
       expect(address.defendantsAddress).to.equal(YesNo.NO)
       expect(address.line1).to.equal('LINE1')
