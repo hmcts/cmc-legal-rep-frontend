@@ -23,11 +23,7 @@ export class FeeAccount implements Serializable<FeeAccount> {
     if (value == null) {
       return value
     }
-    return new FeeAccount(FeeAccount.toUpperCase(value.reference.trim()))
-  }
-
-  static toUpperCase (value: any): string {
-    return value ? value.toUpperCase() : value
+    return new FeeAccount((value.reference.trim().toUpperCase()))
   }
 
   deserialize (input?: any): FeeAccount {
