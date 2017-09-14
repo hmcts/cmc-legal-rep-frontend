@@ -69,6 +69,19 @@ describe('IsLowerThanConstraint', () => {
 
         expect(constraint.validate(110, args)).to.equal(true)
       })
+
+      it('given a upperValue is not a number', () => {
+        const args: ValidationArguments = {
+          'value': '',
+          'constraints': ['upperValue'],
+          'targetName': '',
+          'object': { 'upperValue': 'test' },
+          'property': ''
+        }
+
+        expect(constraint.validate(100, args)).to.equal(true)
+      })
+
     })
 
     describe('should return false when ', () => {
