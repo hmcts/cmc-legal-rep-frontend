@@ -29,6 +29,27 @@ describe('LocalDate', () => {
     })
   })
 
+  describe('deserialize', () => {
+    it('should return an instance initialised with defaults for undefined', () => {
+      expect(new LocalDate().deserialize(undefined)).to.eql(new LocalDate())
+    })
+
+    it('should return an instance initialised with defaults for null', () => {
+      expect(new LocalDate().deserialize(null)).to.eql(new LocalDate())
+    })
+
+    it('should return an instance from given object', () => {
+      const result = new LocalDate().deserialize({
+        year: 2017,
+        month: 12,
+        day: 30
+      })
+      expect(result.year).to.be.equals(2017)
+      expect(result.month).to.be.equals(12)
+      expect(result.day).to.be.equals(30)
+    })
+  })
+
   describe('validation', () => {
     const validator: Validator = new Validator()
 
