@@ -58,10 +58,10 @@ export class ServiceAddress implements Serializable<ServiceAddress> {
           .pop()
       }
 
-      const line1 = isUndefined(value.line1) ? undefined : value.line1.toString().toUpperCase()
-      const line2 = isUndefined(value.line2) ? undefined : value.line2.toString().toUpperCase()
-      const city = isUndefined(value.city) ? undefined : value.city.toString().toUpperCase()
-      const postcode = isUndefined(value.postcode) ? undefined : value.postcode.toString().toUpperCase()
+      const line1 = isUndefined(value.line1) ? undefined : value.line1.toUpperCase()
+      const line2 = isUndefined(value.line2) ? undefined : value.line2.toUpperCase()
+      const city = isUndefined(value.city) ? undefined : value.city.toUpperCase()
+      const postcode = isUndefined(value.postcode) ? undefined : value.postcode.toUpperCase()
       return new ServiceAddress(defendantsAddress, line1, line2, city, postcode)
     }
 
