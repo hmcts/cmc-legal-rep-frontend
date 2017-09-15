@@ -3,6 +3,7 @@ import ClaimValidator from 'app/utils/claimValidator'
 import request from 'client/request'
 import { Fee } from 'fees/fee'
 import { Amount } from 'forms/models/amount'
+import MoneyConverter from 'app/fees/moneyConverter'
 
 const feesUrl = config.get('fees.url')
 const issueFeeCode = config.get<string>('fees.issueFeeCode')
@@ -34,7 +35,7 @@ export default class FeesClient {
    */
   static calculateIssueFee (claimValue: number): Promise<Fee> {
     return this.callFeesRegister(issueFeeCode, claimValue)
-      .then((fee: Fee) => new Fee(this.convertPenniesToPounds(fee.amount), fee.code))
+      .then((fee: Fee) => new Fee(MoneyConverter.convertPenniesToPounds(fee.amount), fee.code))
   }
 
   /**
@@ -44,7 +45,7 @@ export default class FeesClient {
    */
   static calculateMaxIssueFee (): Promise<Fee> {
     return this.callFeesRegister(issueFeeCode, FeesClient.maxClaimValue)
-      .then((fee: Fee) => new Fee(this.convertPenniesToPounds(fee.amount), fee.code))
+      .then((fee: Fee) => new Fee(MoneyConverter.convertPenniesToPounds(fee.amount), fee.code))
   }
 
   /**
@@ -55,7 +56,7 @@ export default class FeesClient {
    */
   static callFeesRegister (feeCode: string, amount: number): Promise<Fee> {
     ClaimValidator.claimAmount(amount)
-    const amountInPennies = this.convertPoundsToPennies(amount)
+    const amountInPennies = MoneyConverter.convertPoundsToPennies(amount)
     if (amountInPennies <= 0) {
       throw new Error(`Amount must be at least 1 penny, amount was: ${amountInPennies}`)
     }
@@ -64,11 +65,4 @@ export default class FeesClient {
       .then((body: any) => new Fee(body.amount, body.fee.code))
   }
 
-  static convertPoundsToPennies (amount: number) {
-    return Math.round(amount * 100)
-  }
-
-  private static convertPenniesToPounds (amount: number) {
-    return amount / 100
-  }
 }

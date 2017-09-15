@@ -62,4 +62,21 @@ describe('YourReference', () => {
       expect(errors.length).to.equal(0)
     })
   })
+
+  describe('fromObject', () => {
+
+    it('should have YourReference undefined when input is undefined', () => {
+      const reference = YourReference.fromObject(undefined)
+
+      expect(reference).to.equal(undefined)
+    })
+
+    it('should have valid YourReference text', () => {
+      const yourReference = YourReference.fromObject({
+        reference: 'REF123'
+      })
+      expect(yourReference.reference).to.equal('REF123')
+    })
+  })
+
 })

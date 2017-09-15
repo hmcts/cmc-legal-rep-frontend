@@ -233,4 +233,24 @@ describe('Amount', () => {
       expect(amount.higherValue).to.equal(undefined)
     })
   })
+
+  describe('canNotState', () => {
+
+    it('should return true for can not state', () => {
+      const amount = Amount.fromObject({
+        cannotState: 'cannot'
+      })
+      const result: boolean = amount.canNotState()
+      expect(result).to.equal(true)
+    })
+
+    it('should return false for range given', () => {
+      const amount = Amount.fromObject({
+        lowerValue: '5,000',
+        higherValue: '9,999'
+      })
+      const result: boolean = amount.canNotState()
+      expect(result).to.equal(false)
+    })
+  })
 })

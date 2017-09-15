@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@hmcts/cmc-common-frontend@^1.4.11":
-  version "1.4.11"
-  resolved "https://registry.yarnpkg.com/@hmcts/cmc-common-frontend/-/cmc-common-frontend-1.4.11.tgz#85138e77063ab2d0ce1b96a612b929346e9a8dc9"
+"@hmcts/cmc-common-frontend@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@hmcts/cmc-common-frontend/-/cmc-common-frontend-1.6.0.tgz#bb48cd6d301a53973ea2c161a340fe9ed21ff06e"
 
 "@hmcts/nodejs-healthcheck@^1.4.3":
   version "1.4.3"
@@ -4586,6 +4586,10 @@ sntp@1.x.x:
   resolved "https://registry.yarnpkg.com/sntp/-/sntp-1.0.9.tgz#6541184cc90aeea6c6e7b35e2659082443c66198"
   dependencies:
     hoek "2.x.x"
+
+sonar-scanner@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/sonar-scanner/-/sonar-scanner-3.0.3.tgz#7b59469ac5a92856149d57af86fce57365fb5f67"
 
 source-map-support@^0.4.0:
   version "0.4.16"
