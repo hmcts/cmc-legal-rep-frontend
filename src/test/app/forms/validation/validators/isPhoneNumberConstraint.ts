@@ -68,6 +68,10 @@ describe('IsPhoneNumberConstraint', () => {
       it('should return true if the string contains a valid number with valid characters in between', () => {
         expect(constraint.validate('0+7)8-7(3)7+3-8-5--4(7')).to.equal(true)
       })
+
+      it('should return false if the number is not string object', () => {
+        expect(constraint.validate({ key: 'value' })).to.equal(false)
+      })
     })
 
     describe('for numbers with international code', () => {

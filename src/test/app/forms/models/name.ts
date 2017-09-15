@@ -83,4 +83,21 @@ describe('Name', () => {
     })
 
   })
+
+  describe('fromObject', () => {
+
+    it('should have name undefined when input is undefined', () => {
+      const name = Name.fromObject(undefined)
+
+      expect(name).to.equal(undefined)
+    })
+
+    it('should have valid name text', () => {
+      const name = Name.fromObject({
+        text: 'My Name'
+      })
+      expect(name.text).to.equal('My Name')
+    })
+  })
+
 })
