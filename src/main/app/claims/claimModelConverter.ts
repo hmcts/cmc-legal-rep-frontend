@@ -3,12 +3,13 @@ import Defendant from 'drafts/models/defendant'
 import { OtherDamages } from 'forms/models/otherDamages'
 import { YesNo } from 'forms/models/yesNo'
 import Claimant from 'app/drafts/models/claimant'
+import Representative from 'app/drafts/models/representative'
 
 export class ClaimModelConverter {
 
   static convert (draftClaim: DraftLegalClaim): object {
-    this.convertClaimantDetails(draftClaim)
-    this.convertDefendantDetails(draftClaim)
+    ClaimModelConverter.convertClaimantDetails(draftClaim)
+    ClaimModelConverter.convertDefendantDetails(draftClaim)
 
     draftClaim['reason'] = draftClaim.summary.text
 
@@ -62,11 +63,14 @@ export class ClaimModelConverter {
 
     draftClaim['feeAccountNumber'] = draftClaim.feeAccount.reference
     delete draftClaim.feeAccount
+    delete draftClaim.representative
 
     return draftClaim
   }
 
   private static convertClaimantDetails (draftClaim: DraftLegalClaim): void {
+    const representative: Representative = draftClaim.representative
+
     draftClaim.claimants.map((claimant: Claimant) => {
 
       claimant['type'] = claimant.claimantDetails.type.dataStoreValue
@@ -85,22 +89,21 @@ export class ClaimModelConverter {
         claimant['companiesHouseNumber'] = claimant.claimantDetails.companyHouseNumber
       }
 
-      claimant['representative'] = draftClaim.representative
-      claimant['representative'].organisationName = draftClaim.representative.organisationName.name
-      claimant['representative'].organisationAddress = draftClaim.representative.address
-      claimant['representative'].organisationContactDetails = draftClaim.representative.contactDetails
+      claimant['representative'] = new Representative().deserialize(representative)
+      claimant['representative'].organisationName = representative.organisationName.name
+      claimant['representative'].organisationAddress = representative.address
+      claimant['representative'].organisationContactDetails = representative.contactDetails
 
-      if (draftClaim.representative.contactDetails.phoneNumber) {
-        claimant['representative'].organisationContactDetails.phone = draftClaim.representative.contactDetails.phoneNumber
+      if (representative.contactDetails.phoneNumber) {
+        claimant['representative'].organisationContactDetails.phone = representative.contactDetails.phoneNumber
         delete claimant['representative'].organisationContactDetails.phoneNumber
       }
 
       delete claimant['representative'].contactDetails
       delete claimant['representative'].address
-      delete draftClaim.representative
-
       return claimant
     })
+
   }
 
   private static convertDefendantDetails (draftClaim: DraftLegalClaim): void {
