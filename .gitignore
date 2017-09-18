@@ -21,3 +21,6 @@ npm-debug.log.*
 
 .project
 .settings/
+
+coverage
+.scannerwork
