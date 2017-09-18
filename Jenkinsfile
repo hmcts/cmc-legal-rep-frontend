@@ -68,7 +68,7 @@ timestamps {
               archiveArtifacts 'mochawesome-report/a11y.html'
             }
           }
-        }
+
         stage('Test coverage') {
                     try {
                       sh "yarn test:coverage"
@@ -76,7 +76,7 @@ timestamps {
                       archiveArtifacts 'coverage/lcov-report/index.html'
                     }
                   }
-
+        }
 
                 stage('Sonar') {
                   onPR {
