@@ -77,11 +77,13 @@
         {% set changeDefendantAddressPageLink = paths.defendantAddressPage.uri %}
         {% set changeRepresentativeLink = paths.defendantRepresentedPage.uri %}
         {% set changeRepresentativeAddressLink = paths.defendantRepAddressPage.uri %}
+        {% set changeServiceAddressLink = paths.defendantServiceAddressPage.uri %}
       {% else %}
         {% set changeDefendantLink = paths.defendantAdditionPage.uri %}
         {% set changeDefendantAddressPageLink = paths.defendantAdditionPage.uri %}
         {% set changeRepresentativeLink = paths.defendantAdditionPage.uri %}
         {% set changeRepresentativeAddressLink = paths.defendantAdditionPage.uri %}
+        {% set changeServiceAddressLink = paths.defendantAdditionPage.uri %}
         {{ tableStart('defendantDetails'+loop.index, 'Defendant ' + loop.index + ' details') }}
       {% endif %}
       {% if defendant.defendantDetails.type.value == 'INDIVIDUAL' %}
@@ -116,6 +118,18 @@
         defendant.representative.address.city,
         defendant.representative.address.postcode],
         changeLink = changeRepresentativeAddressLink,
+        bottomBorder = true
+        ) }}
+      {% endif %}
+      {% if defendant.defendantRepresented.isDefendantRepresented.value == 'NO' and defendant.serviceAddress.defendantsAddress == 'NO' %}
+
+        {{ rowWithMultipleValue(
+        label = 'Service address',
+        values = [defendant.serviceAddress.line1,
+        defendant.serviceAddress.line2,
+        defendant.serviceAddress.city,
+        defendant.serviceAddress.postcode],
+        changeLink = changeServiceAddressLink,
         bottomBorder = true
         ) }}
       {% endif %}

@@ -106,8 +106,9 @@ describe('Amount', () => {
     it('should reject all fields selections', () => {
       const errors = validator.validateSync(new Amount(100, 19090, Amount.CANNOT_STATE_VALUE))
 
-      expect(errors.length).to.equal(1)
+      expect(errors.length).to.equal(2)
       expectValidationError(errors, ValidationErrors.CANNOT_STATE_VALID_SELECTION_REQUIRED)
+      expectValidationError(errors, ValidationErrors.VALID_SELECTION_REQUIRED)
     })
 
     it('should reject Nan Upper value', () => {
@@ -123,10 +124,14 @@ describe('Amount', () => {
       expect(errors.length).to.equal(0)
     })
 
-    it('should accept when higher value and lower value are Nan and cannot state is selected', () => {
+    it('should not accept when higher value and lower value are Nan and cannot state is selected', () => {
       const errors = validator.validateSync(new Amount(NaN, NaN, Amount.CANNOT_STATE_VALUE))
 
-      expect(errors.length).to.equal(0)
+      expect(errors.length).to.equal(3)
+      expectValidationError(errors, ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID)
+      expectValidationError(errors, ValidationErrors.CANNOT_STATE_VALID_SELECTION_REQUIRED)
+      expectValidationError(errors, ValidationErrors.LOWER_VALUE_AMOUNT_NOT_VALID)
+
     })
   })
 
@@ -226,6 +231,26 @@ describe('Amount', () => {
       expect(amount.cannotState).to.equal(Amount.CANNOT_STATE_VALUE)
       expect(amount.lowerValue).to.equal(null)
       expect(amount.higherValue).to.equal(undefined)
+    })
+  })
+
+  describe('canNotState', () => {
+
+    it('should return true for can not state', () => {
+      const amount = Amount.fromObject({
+        cannotState: 'cannot'
+      })
+      const result: boolean = amount.canNotState()
+      expect(result).to.equal(true)
+    })
+
+    it('should return false for range given', () => {
+      const amount = Amount.fromObject({
+        lowerValue: '5,000',
+        higherValue: '9,999'
+      })
+      const result: boolean = amount.canNotState()
+      expect(result).to.equal(false)
     })
   })
 })

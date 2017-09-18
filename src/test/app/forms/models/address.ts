@@ -138,4 +138,19 @@ describe('Address', () => {
       expect(address.postcode).to.equal('POSTCODE')
     })
   })
+
+  describe('toString', () => {
+
+    it('should return an address in one string', () => {
+      const address = Address.fromObject({
+        line1: 'line1',
+        line2: 'line2',
+        city: 'city',
+        postcode: 'postcode'
+      }).toString()
+
+      expect(address).to.equal('LINE1 LINE2 CITY POSTCODE')
+    })
+
+  })
 })

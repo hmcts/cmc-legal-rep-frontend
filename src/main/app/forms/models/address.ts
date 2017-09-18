@@ -3,11 +3,12 @@ import { IsDefined, MaxLength } from 'class-validator'
 import { IsNotBlank } from 'forms/validation/validators/isNotBlank'
 
 import { Serializable } from 'models/serializable'
+import { isUndefined } from 'util'
 
 export class ValidationErrors {
   static readonly FIRST_LINE_REQUIRED: string = 'Enter address line 1'
   static readonly CONTENT_TOO_LONG: string = 'You’ve entered too many characters'
-  static readonly CITY_REQUIRED: string = 'Enter a valid city/town'
+  static readonly CITY_REQUIRED: string = 'Enter a town or city'
   static readonly POSTCODE_REQUIRED: string = 'Enter a postcode'
 }
 
@@ -40,18 +41,14 @@ export class Address implements Serializable<Address> {
 
   static fromObject (value?: any): Address {
     if (value != null) {
-      const line1 = Address.toUpperCase(value.line1)
-      const line2 = Address.toUpperCase(value.line2)
-      const city = Address.toUpperCase(value.city)
-      const postcode = Address.toUpperCase(value.postcode)
+      const line1 = isUndefined(value.line1) ? undefined : value.line1.toUpperCase()
+      const line2 = isUndefined(value.line2) ? undefined : value.line2.toUpperCase()
+      const city = isUndefined(value.city) ? undefined : value.city.toUpperCase()
+      const postcode = isUndefined(value.postcode) ? undefined : value.postcode.toUpperCase()
       return new Address(line1, line2, city, postcode)
     }
 
     return new Address()
-  }
-
-  static toUpperCase (value: any): string {
-    return value ? value.toUpperCase() : value
   }
 
   deserialize (input?: any): Address {
@@ -65,6 +62,6 @@ export class Address implements Serializable<Address> {
   }
 
   toString (): string {
-    return this.line1 + (this.line2 ? this.line2 + ' ' : '') + (this.city ? this.city + ' ' : '' ) + this.postcode
+    return this.line1 + ' ' + (this.line2 ? this.line2 + ' ' : '') + (this.city ? this.city + ' ' : '' ) + this.postcode
   }
 }

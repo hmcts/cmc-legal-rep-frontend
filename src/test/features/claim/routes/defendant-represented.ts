@@ -85,7 +85,7 @@ describe('Claim issue: is defendant represented page', () => {
           isDefendantRepresented: 'NO',
           organisationName: undefined
         })
-        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantAdditionPage.uri))
+        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantServiceAddressPage.uri))
     })
   })
 })

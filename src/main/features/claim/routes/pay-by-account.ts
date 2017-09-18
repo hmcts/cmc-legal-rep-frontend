@@ -11,6 +11,7 @@ import ClaimStoreClient from 'claims/claimStoreClient'
 import Claim from 'claims/models/claim'
 import User from 'idam/user'
 import { Fee } from 'fees/fee'
+import MoneyConverter from 'app/fees/moneyConverter'
 
 function renderView (form: Form<FeeAccount>, res: express.Response, next: express.NextFunction): void {
   FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.amount)
@@ -39,7 +40,7 @@ export default express.Router()
         renderView(form, res, next)
       } else {
         const fee: Fee = await FeesClient.getFeeAmount(user.legalClaimDraft.amount)
-        res.locals.user.legalClaimDraft.feeAmountInPennies = FeesClient.convertPoundsToPennies(fee.amount)
+        res.locals.user.legalClaimDraft.feeAmountInPennies = MoneyConverter.convertPoundsToPennies(fee.amount)
         res.locals.user.legalClaimDraft.feeCode = fee.code
         res.locals.user.legalClaimDraft.feeAccount = form.model
         await ClaimDraftMiddleware.save(res, next)

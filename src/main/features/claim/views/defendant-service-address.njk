@@ -1,0 +1,45 @@
+{% extends "layout.njk" %}
+{% from "form.njk" import errorSummary, radioGroup, csrfProtection, saveAndContinueButton %}
+{% from "address.njk" import addressFields %}
+
+{% set title = t('Money claim') %}
+{% set heading = t('Address for service') %}
+
+{% block content %}
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <form novalidate method="post">
+        {{ csrfProtection(csrf) }}
+
+        {% set errorType = form.errorFor('defendantsAddress') %}
+        <fieldset id="defendantsAddress[label]" class="form-group {% if errorType %} form-group-error {% endif %}">
+          <legend class="visuallyhidden">
+            {{ t("Address for service") }}
+          </legend>
+
+          {% if errorType %}<span class="error-message">{{ t(errorType) }}</span>{% endif %}
+          <div class="multiple-choice" data-target="defendantsAddress-YES">
+            <input id="defendantsAddressYES" type="radio" name="defendantsAddress" value="YES" {% if form.valueFor('defendantsAddress.value') == 'YES' %} checked="checked" {% endif %}>
+            <label for="defendantsAddressYES">{{ t("Use the defendant's address") }}</label>
+          </div>
+
+          <div class="form-group panel panel-border-narrow js-hidden " id="defendantsAddress-YES" aria-hidden="false">
+            {{ defendantsAddress }}
+          </div>
+
+          <div class="multiple-choice" data-target="defendantsAddress-NO">
+            <input id="defendantsAddressNO" type="radio" name="defendantsAddress" value="NO" {% if form.valueFor('defendantsAddress.value') == 'NO' %} checked="checked" {% endif %}>
+            <label for="defendantsAddressNO">{{ t('Use another address') }}</label>
+          </div>
+
+          <div class="form-group panel panel-border-narrow js-hidden" id="defendantsAddress-NO" aria-hidden="false">
+            {{ addressFields(form) }}
+          </div>
+        </fieldset>
+
+        {{ saveAndContinueButton() }}
+      </form>
+
+    </div>
+  </div>
+{% endblock %}
