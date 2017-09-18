@@ -6,28 +6,31 @@ import {
   ValidatorConstraintInterface
 } from 'class-validator'
 
-@ValidatorConstraint({ name: 'amountIsDefined' })
-export class AmountIsDefinedConstraint implements ValidatorConstraintInterface {
+@ValidatorConstraint({ name: 'isAmountRangeNumber' })
+export class IsAmountRangeNumberConstraint implements ValidatorConstraintInterface {
 
   validate (value: any, args: ValidationArguments) {
     const cannotStateInput = (args.object as any)[args.constraints[0]]
 
-    if (cannotStateInput === 'cannot' && (value === undefined || value === null || isNaN(value))) {
+    if (cannotStateInput === 'cannot' && (value === null || value === undefined)) {
       return true
     }
 
-    return value != null
+    return typeof value === 'number'
   }
 }
 
-export function AmountIsDefined (cannotState: string, validationOptions?: ValidationOptions) {
+/**
+ * Validator validates only amount range value for number when cannot state is not selected.
+ */
+export function IsAmountRangeNumber (cannotState: string, validationOptions?: ValidationOptions) {
   return function (object: Object, propertyName: string) {
     registerDecorator({
       target: object.constructor,
       propertyName: propertyName,
       options: validationOptions,
       constraints: [cannotState],
-      validator: AmountIsDefinedConstraint
+      validator: IsAmountRangeNumberConstraint
     })
   }
 }

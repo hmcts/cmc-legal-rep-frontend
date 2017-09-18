@@ -6,8 +6,8 @@ import {
   ValidatorConstraintInterface
 } from 'class-validator'
 
-@ValidatorConstraint({ name: 'maxAmount' })
-export class MaxAmountConstraint implements ValidatorConstraintInterface {
+@ValidatorConstraint({ name: 'maxAmountRange' })
+export class MaxAmountRangeConstraint implements ValidatorConstraintInterface {
 
   validate (value: any, args: ValidationArguments) {
 
@@ -22,14 +22,17 @@ export class MaxAmountConstraint implements ValidatorConstraintInterface {
   }
 }
 
-export function MaxAmount (max: number, cannotState: string, validationOptions?: ValidationOptions) {
+/**
+ * Validator validates only amount range value for maximum when cannot state is not selected.
+ */
+export function MaxRangeAmount (max: number, cannotState: string, validationOptions?: ValidationOptions) {
   return function (object: Object, propertyName: string) {
     registerDecorator({
       target: object.constructor,
       propertyName: propertyName,
       options: validationOptions,
       constraints: [max, cannotState],
-      validator: MaxAmountConstraint
+      validator: MaxAmountRangeConstraint
     })
   }
 }

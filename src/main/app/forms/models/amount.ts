@@ -4,10 +4,10 @@ import { Fractions } from 'forms/validation/validators/fractions'
 import { Serializable } from 'app/models/serializable'
 import { IsLowerThan } from 'app/forms/validation/validators/isLowerThan'
 import { IsSelectedAlong } from 'app/forms/validation/validators/isSelectedAlong'
-import { MinAmount } from 'app/forms/validation/validators/minAmount'
-import { MaxAmount } from 'app/forms/validation/validators/maxAmount'
-import { AmountIsNumber } from 'app/forms/validation/validators/amountIsNumber'
-import { AmountIsDefined } from 'app/forms/validation/validators/amountIsDefined'
+import { MinAmountRange } from 'app/forms/validation/validators/minAmountRange'
+import { MaxRangeAmount } from 'app/forms/validation/validators/maxAmountRange'
+import { IsAmountRangeNumber } from 'app/forms/validation/validators/isAmountRangeNumber'
+import { IsAmountRangeDefined } from 'app/forms/validation/validators/isAmountRangeDefined'
 
 export class ValidationErrors {
   static readonly CANNOT_STATE_VALID_SELECTION_REQUIRED: string = 'Choose ‘I can’t state the value’ or enter a higher value'
@@ -34,11 +34,11 @@ export class Amount implements Serializable<Amount> {
   @IsLowerThan('higherValue', { message: ValidationErrors.LOWER_VALUE_LESS_THAN_UPPER_NOT_VALID })
   lowerValue?: number
 
-  @AmountIsDefined('cannotState', { message: ValidationErrors.VALID_SELECTION_REQUIRED })
-  @AmountIsNumber('cannotState', { message: ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID })
+  @IsAmountRangeDefined('cannotState', { message: ValidationErrors.VALID_SELECTION_REQUIRED })
+  @IsAmountRangeNumber('cannotState', { message: ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID })
   @Fractions(0, 2, { message: ValidationErrors.AMOUNT_INVALID_DECIMALS })
-  @MinAmount(Amount.MIN_ALLOWED, 'cannotState', { message: ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID })
-  @MaxAmount(Amount.MAX_ALLOWED, 'cannotState', { message: ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID })
+  @MinAmountRange(Amount.MIN_ALLOWED, 'cannotState', { message: ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID })
+  @MaxRangeAmount(Amount.MAX_ALLOWED, 'cannotState', { message: ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID })
   @IsSelectedAlong('cannotState', 'lowerValue', { message: ValidationErrors.VALID_SELECTION_REQUIRED })
   higherValue?: number
 

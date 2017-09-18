@@ -1,10 +1,10 @@
 import { expect } from 'chai'
 import { ValidationArguments } from 'class-validator'
-import { MaxAmountConstraint } from 'app/forms/validation/validators/maxAmount'
+import { MaxAmountRangeConstraint } from 'app/forms/validation/validators/maxAmountRange'
 import { Amount } from 'app/forms/models/amount'
 
 describe('MaxAmountConstraint', () => {
-  const constraint: MaxAmountConstraint = new MaxAmountConstraint()
+  const constraint: MaxAmountRangeConstraint = new MaxAmountRangeConstraint()
 
   describe('validate', () => {
     describe('should return true', () => {

@@ -6,8 +6,8 @@ import {
   ValidatorConstraintInterface
 } from 'class-validator'
 
-@ValidatorConstraint({ name: 'minAmount' })
-export class MinAmountConstraint implements ValidatorConstraintInterface {
+@ValidatorConstraint({ name: 'minAmountRange' })
+export class MinAmountRangeConstraint implements ValidatorConstraintInterface {
 
   validate (value: any, args: ValidationArguments) {
 
@@ -22,14 +22,17 @@ export class MinAmountConstraint implements ValidatorConstraintInterface {
   }
 }
 
-export function MinAmount (min: number, cannotState: string, validationOptions?: ValidationOptions) {
+/**
+ * Validator validates only amount range value for minimum when cannot state is not selected.
+ */
+export function MinAmountRange (min: number, cannotState: string, validationOptions?: ValidationOptions) {
   return function (object: Object, propertyName: string) {
     registerDecorator({
       target: object.constructor,
       propertyName: propertyName,
       options: validationOptions,
       constraints: [min, cannotState],
-      validator: MinAmountConstraint
+      validator: MinAmountRangeConstraint
     })
   }
 }
