@@ -76,7 +76,7 @@ timestamps {
                       archiveArtifacts 'coverage/lcov-report/index.html'
                     }
                   }
-                }
+
 
                 stage('Sonar') {
                   onPR {
