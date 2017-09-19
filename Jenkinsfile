@@ -68,6 +68,28 @@ timestamps {
               archiveArtifacts 'mochawesome-report/a11y.html'
             }
           }
+
+          stage('Test coverage') {
+            try {
+              sh "yarn test:coverage"
+            } finally {
+              archiveArtifacts 'coverage/lcov-report/index.html'
+            }
+          }
+        }
+
+        stage('Sonar') {
+          onPR {
+            sh """
+              yarn sonar-scanner -- \
+              -Dsonar.analysis.mode=preview \
+              -Dsonar.host.url=$SONARQUBE_URL
+            """
+          }
+
+          onMaster {
+            sh "yarn sonar-scanner -- -Dsonar.host.url=$SONARQUBE_URL"
+          }
         }
 
         stage('Package application (RPM)') {
