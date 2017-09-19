@@ -109,7 +109,7 @@
         bottomBorder = true
         ) }}
       {% endif %}
-      {% if defendant.defendantRepresented.isDefendantRepresented.value == 'NO' and defendant.serviceAddress.defendantsAddress == 'NO' %}
+      {% if defendant.defendantRepresented.isDefendantRepresented.value == 'NO' and defendant.serviceAddress.defendantsAddress.value == 'NO' %}
 
         {{ rowWithMultipleValue(
         label = 'Service address',
