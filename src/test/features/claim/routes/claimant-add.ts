@@ -77,7 +77,7 @@ describe('Claim issue: is claimant addition page', () => {
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimantTypePage.uri))
     })
 
-    it('should redirect to personal injury page when form is valid and user has selected no', async () => {
+    it('should redirect to defendant type page when form is valid and user has selected no', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       draftStoreServiceMock.resolveSave('legalClaim')
 

@@ -24,7 +24,7 @@ describe('Claimant Addition', () => {
       expect(new ClaimantAddition().deserialize(null)).to.eql(new ClaimantAddition())
     })
 
-    it('should return am instance from given object', () => {
+    it('should return an instance from given object', () => {
       let deserialized = new ClaimantAddition().deserialize({
         isAddClaimant: YesNo.YES
       })
