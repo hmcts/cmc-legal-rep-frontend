@@ -132,6 +132,12 @@ export class ClaimModelConverter {
         delete defendant.representative
         delete defendant.defendantRepresented
       }
+      const serviceAddress = defendant.serviceAddress
+      if (serviceAddress.defendantsAddress && serviceAddress.defendantsAddress.value === YesNo.NO.value) {
+        delete defendant.serviceAddress.defendantsAddress
+      } else {
+        delete defendant.serviceAddress
+      }
       return defendant
     })
   }
