@@ -43,7 +43,8 @@ timestamps {
             sh "cat nsp-report.txt"
             archiveArtifacts 'nsp-report.txt'
             notifyBuildResult channel: channel, color: 'warning',
-            message: 'Node security check failed see the report for the errors'          }
+            message: 'Node security check failed see the report for the errors'
+          }
           sh "rm nsp-report.txt"
         }
 
