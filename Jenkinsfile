@@ -13,6 +13,7 @@ Packager packager = new Packager(this, 'cmc')
 
 SmokeTests smokeTests = new SmokeTests(this)
 IntegrationTests integrationTests = new IntegrationTests(env, this)
+def channel = '#cmc-tech-notification'
 
 timestamps {
   milestone()
