@@ -1,11 +1,13 @@
 import { Serializable } from 'app/models/serializable'
 
 export default class DraftView implements Serializable<DraftView> {
-  viewFlowOption: boolean = false
+  isDefendantDeleted: boolean = false
+  isClaimantDeleted: boolean = false
 
   deserialize (input: any): DraftView {
     if (input) {
-      this.viewFlowOption = input.viewFlowOption
+      this.isDefendantDeleted = input.isDefendantDeleted
+      this.isClaimantDeleted = input.isClaimantDeleted
     }
 
     return this

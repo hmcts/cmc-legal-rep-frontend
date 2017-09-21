@@ -7,14 +7,16 @@ import DraftView from 'app/drafts/models/draftView'
 function verifyDefaultValues (initialValue: any) {
   const actualDraft: DraftView = new DraftView().deserialize(initialValue)
   const expected: DraftView = new DraftView()
-  expect(actualDraft.viewFlowOption).to.eql(expected.viewFlowOption)
+  expect(actualDraft.isDefendantDeleted).to.eql(expected.isDefendantDeleted)
+  expect(actualDraft.isClaimantDeleted).to.eql(expected.isClaimantDeleted)
 }
 
 describe('DraftView', () => {
   describe('constructor', () => {
     it('should have primitive fields initialised where possible', () => {
       let draftView = new DraftView()
-      expect(draftView.viewFlowOption).to.be.eq(false)
+      expect(draftView.isDefendantDeleted).to.be.eq(false)
+      expect(draftView.isClaimantDeleted).to.be.eq(false)
 
     })
   })
