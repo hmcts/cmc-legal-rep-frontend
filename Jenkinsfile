@@ -13,6 +13,7 @@ Packager packager = new Packager(this, 'cmc')
 
 SmokeTests smokeTests = new SmokeTests(this)
 IntegrationTests integrationTests = new IntegrationTests(env, this)
+def channel = '#cmc-tech-notification'
 
 timestamps {
   milestone()
@@ -42,7 +43,8 @@ timestamps {
           } catch (ignore) {
             sh "cat nsp-report.txt"
             archiveArtifacts 'nsp-report.txt'
-            error "Node security check failed see the report for the errors"
+            notifyBuildResult channel: channel, color: 'warning',
+            message: 'Node security check failed see the report for the errors'
           }
           sh "rm nsp-report.txt"
         }

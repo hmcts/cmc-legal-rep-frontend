@@ -11,12 +11,6 @@
 
     <p>{{ t('Make sure this information is correct before you issue.') }}</p>
 
-    {% if legalClaimDraft.claimant.claimantDetails.title %}
-      {% set claimantFullName = legalClaimDraft.claimant.claimantDetails.title + ' ' + legalClaimDraft.claimant.claimantDetails.fullName %}
-    {% else %}
-      {% set claimantFullName = legalClaimDraft.claimant.claimantDetails.fullName %}
-    {% endif %}
-
     {{ tableStart('organisationDetails', 'Your organisation details') }}
     {{ row('Organisation name', legalClaimDraft.representative.organisationName.name, paths.representativeNamePage.uri) }}
 
@@ -38,25 +32,43 @@
     {{ row('Preferred court', legalClaimDraft.preferredCourt.name, paths.preferredCourtPage.uri) }}
     {{ tableEnd() }}
 
-    {{ tableStart('claimantDetails', 'Claimant details') }}
-    {% if isClaimantIndividual %}
-      {{ row('Name', claimantFullName, paths.claimantTypePage.uri) }}
-    {% else %}
-      {{ row('Organisation name', legalClaimDraft.claimant.claimantDetails.organisation, paths.claimantTypePage.uri) }}
-      {{ row('Companies House number', legalClaimDraft.claimant.claimantDetails.companyHouseNumber, paths.claimantTypePage.uri) }}
-    {% endif %}
+    {% for claimant in legalClaimDraft.claimants %}
 
-    {{ rowWithMultipleValue(
-    label = 'Address',
-    values = [legalClaimDraft.claimant.address.line1,
-    legalClaimDraft.claimant.address.line2,
-    legalClaimDraft.claimant.address.city,
-    legalClaimDraft.claimant.address.postcode],
-    changeLink = paths.claimantAddressPage.uri,
-    bottomBorder = true
-    ) }}
+      {% if loop.length == 1 %}
 
-    {{ tableEnd() }}
+        {{ tableStart('claimantDetails', 'Claimant details') }}
+        {% set changeClaimantLink = paths.claimantTypePage.ur %}
+        {% set changeClaimantAddressPageLink = paths.claimantAddressPage.uri %}
+      {% else %}
+        {% set changeClaimantLink = paths.claimantAdditionPage.uri %}
+        {% set changeClaimantAddressPageLink = paths.claimantAdditionPage.uri %}
+        {{ tableStart('claimantDetails'+loop.index, 'Claimant ' + loop.index + ' details') }}
+      {% endif %}
+
+      {% if claimant.claimantDetails.title %}
+        {% set claimantFullName = claimant.claimantDetails.title + ' ' + claimant.claimantDetails.fullName %}
+      {% else %}
+        {% set claimantFullName = claimant.claimantDetails.fullName %}
+      {% endif %}
+
+      {% if claimant.claimantDetails.type.value === 'INDIVIDUAL' %}
+        {{ row('Name', claimantFullName, changeClaimantLink) }}
+      {% else %}
+        {{ row('Organisation name', claimant.claimantDetails.organisation, changeClaimantLink) }}
+        {{ row('Companies House number', claimant.claimantDetails.companyHouseNumber, changeClaimantLink) }}
+      {% endif %}
+
+      {{ rowWithMultipleValue(
+      label = 'Address',
+      values = [claimant.address.line1,
+      claimant.address.line2,
+      claimant.address.city,
+      claimant.address.postcode],
+      changeLink = changeClaimantAddressPageLinki,
+      bottomBorder = true
+      ) }}
+      {{ tableEnd() }}
+    {% endfor %}
 
     {% for defendant in legalClaimDraft.defendants %}
       {% if loop.length == 1 %}

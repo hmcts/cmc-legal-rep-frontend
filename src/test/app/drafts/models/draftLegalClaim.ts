@@ -18,7 +18,7 @@ function verifyDefaultValues (initialValue: any) {
   const actualDraft: DraftLegalClaim = new DraftLegalClaim().deserialize(initialValue)
   const expected: DraftLegalClaim = new DraftLegalClaim()
 
-  expect(actualDraft.claimant).to.eql(expected.claimant)
+  expect(actualDraft.claimants).to.eql(expected.claimants)
   expect(actualDraft.summary).to.eql(expected.summary)
   expect(actualDraft.yourReference).to.eql(expected.yourReference)
   expect(actualDraft.personalInjury).to.eql(expected.personalInjury)
@@ -34,7 +34,7 @@ describe('DraftLegalClaim', () => {
   describe('constructor', () => {
     it('should have instance fields initialised where possible', () => {
       let draftClaim = new DraftLegalClaim()
-      expect(draftClaim.claimant).to.be.instanceof(Claimant)
+      draftClaim.claimants.forEach(claimant => expect(claimant).to.be.instanceof(Claimant))
       expect(draftClaim.summary).to.be.instanceof(Summary)
       expect(draftClaim.yourReference).to.be.instanceof(YourReference)
       expect(draftClaim.personalInjury).to.be.instanceof(PersonalInjury)
