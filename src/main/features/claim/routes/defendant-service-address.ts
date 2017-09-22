@@ -17,13 +17,14 @@ function renderView (form: Form<ServiceAddress>, res: express.Response) {
     form: form,
     partyStripeTitle: defendants.length >= 2 ? `Defendant ${defendants.length}` : `Defendant`,
     partyStripeValue: Defendants.getCurrentDefendantName(res),
-    defendantsAddress: res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentIndex(res)].address.toString()
+    defendantsAddress: res.locals.user.legalClaimDraft.defendants[Defendants.getIndex(res)].address.toString()
   })
 }
 
 export default express.Router()
   .get(Paths.defendantServiceAddressPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentIndex(res)].serviceAddress), res)
+    const index: number = Defendants.getIndex(res)
+    renderView(new Form(res.locals.user.legalClaimDraft.defendants[index].serviceAddress), res)
   })
   .post(Paths.defendantServiceAddressPage.uri, FormValidator.requestHandler(ServiceAddress, ServiceAddress.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -38,8 +39,8 @@ export default express.Router()
           form.model.city = undefined
           form.model.postcode = undefined
         }
-
-        res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentIndex(res)].serviceAddress = form.model
+        const index: number = Defendants.getIndex(res)
+        res.locals.user.legalClaimDraft.defendants[index].serviceAddress = form.model
 
         await ClaimDraftMiddleware.save(res, next)
 

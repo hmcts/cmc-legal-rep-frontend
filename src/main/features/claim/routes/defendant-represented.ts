@@ -22,7 +22,8 @@ function renderView (form: Form<DefendantRepresented>, res: express.Response) {
 
 export default express.Router()
   .get(Paths.defendantRepresentedPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentIndex(res)].defendantRepresented), res)
+    const index: number = Defendants.getIndex(res)
+    renderView(new Form(res.locals.user.legalClaimDraft.defendants[index].defendantRepresented), res)
   })
   .post(Paths.defendantRepresentedPage.uri, FormValidator.requestHandler(DefendantRepresented, DefendantRepresented.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -34,12 +35,12 @@ export default express.Router()
         if (form.model.isDefendantRepresented === YesNo.NO) {
           form.model.organisationName = undefined
         }
-
-        res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentIndex(res)].defendantRepresented = form.model
+        const index: number = Defendants.getIndex(res)
+        res.locals.user.legalClaimDraft.defendants[index].defendantRepresented = form.model
 
         await ClaimDraftMiddleware.save(res, next)
 
-        if (res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentIndex(res)].defendantRepresented.isDefendantRepresented === YesNo.NO) {
+        if (res.locals.user.legalClaimDraft.defendants[index].defendantRepresented.isDefendantRepresented === YesNo.NO) {
           res.redirect(Paths.defendantServiceAddressPage.uri)
         } else {
           res.redirect(Paths.defendantRepAddressPage.uri)

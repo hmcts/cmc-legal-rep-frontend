@@ -25,13 +25,26 @@ export class Defendants {
     res.locals.user.legalClaimDraft.defendants = defendants
   }
 
+  static getIndex (res: express.Response): number {
+    const changeIndex = res.locals.user.viewDraft.defendantChangeIndex
+    return changeIndex ? changeIndex : Defendants.getCurrentIndex(res)
+  }
+
+  static getChangeIndex (req: express.Request, res: express.Response): number {
+    const index = req.query.index ? (req.query.index - 1) : -1
+    if (index < 0 || index > Defendants.getCurrentIndex(res)) {
+      throw Error('Invalid index for defendant')
+    }
+    return index
+  }
+
   static getCurrentIndex (res: express.Response): number {
     return res.locals.user.legalClaimDraft.defendants.length - 1
   }
 
   static getCurrentDefendantName (res: express.Response): string {
     const defendants = res.locals.user.legalClaimDraft.defendants
-    const defendantDetails = defendants[Defendants.getCurrentIndex(res)].defendantDetails
+    const defendantDetails = defendants[Defendants.getIndex(res)].defendantDetails
     const isIndividual = defendantDetails.type.value === PartyTypes.INDIVIDUAL.value
     const title = defendantDetails.title != null ? `${defendantDetails.title} ` : defendantDetails.title
     return isIndividual ? `${title}${defendantDetails.fullName}` : defendantDetails.organisation

@@ -21,7 +21,8 @@ function renderView (form: Form<DefendantDetails>, res: express.Response) {
 
 export default express.Router()
   .get(Paths.defendantTypePage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentIndex(res)].defendantDetails), res)
+    const index = Defendants.getIndex(res)
+    renderView(new Form(res.locals.user.legalClaimDraft.defendants[index].defendantDetails), res)
   })
   .post(Paths.defendantTypePage.uri, FormValidator.requestHandler(DefendantDetails, DefendantDetails.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -37,8 +38,8 @@ export default express.Router()
           form.model.title = null
           form.model.fullName = null
         }
-
-        res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentIndex(res)].defendantDetails = form.model
+        const index: number = Defendants.getIndex(res)
+        res.locals.user.legalClaimDraft.defendants[index].defendantDetails = form.model
         await ClaimDraftMiddleware.save(res, next)
         res.redirect(Paths.defendantAddressPage.uri)
 

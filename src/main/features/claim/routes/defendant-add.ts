@@ -10,6 +10,7 @@ import { YesNo } from 'app/forms/models/yesNo'
 
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import { ValidationError } from 'class-validator'
+import { ViewDraftMiddleware } from 'views/draft/viewDraftMiddleware'
 
 const MAX_DEFENDANTS_ALLOWED: number = 20
 const ERROR_MESSAGE: string = `You can't add more than ${MAX_DEFENDANTS_ALLOWED} defendants`
@@ -33,9 +34,13 @@ let addErrorMessage = function (form: Form<DefendantAddition>) {
   form.errors.push(new FormValidationError(validationError, ''))
 }
 export default express.Router()
-  .get(Paths.defendantAdditionPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(new DefendantAddition()), res)
-  })
+  .get(Paths.defendantAdditionPage.uri,
+    ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+      delete res.locals.user.viewDraft.defendantChangeIndex
+      await ViewDraftMiddleware.save(res, next)
+      renderView(new Form(new DefendantAddition()), res)
+    })
+  )
   .post(Paths.defendantAdditionPage.uri, FormValidator.requestHandler(DefendantAddition, DefendantAddition.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form: Form<DefendantAddition> = req.body
