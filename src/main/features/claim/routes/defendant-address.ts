@@ -10,11 +10,10 @@ import ErrorHandling from 'common/errorHandling'
 import { Defendants } from 'common/router/defendants'
 
 function renderView (form: Form<Address>, res: express.Response): void {
-  const defendants = res.locals.user.legalClaimDraft.defendants
 
   res.render(Paths.defendantAddressPage.associatedView, {
     form: form,
-    partyStripeTitle: defendants.length >= 2 ? `Defendant ${defendants.length}` : `Defendant`,
+    partyStripeTitle: Defendants.getPartyStrip(res),
     partyStripeValue: Defendants.getCurrentDefendantName(res)
   })
 }

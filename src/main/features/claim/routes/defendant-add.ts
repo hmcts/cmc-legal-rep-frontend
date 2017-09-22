@@ -36,7 +36,7 @@ let addErrorMessage = function (form: Form<DefendantAddition>) {
 export default express.Router()
   .get(Paths.defendantAdditionPage.uri,
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
-      delete res.locals.user.viewDraft.defendantChangeIndex
+      res.locals.user.viewDraft.defendantChangeIndex = undefined
       await ViewDraftMiddleware.save(res, next)
       renderView(new Form(new DefendantAddition()), res)
     })

@@ -1,6 +1,7 @@
 import * as express from 'express'
 import Defendant from 'app/drafts/models/defendant'
 import { PartyTypes } from 'app/forms/models/partyTypes'
+import { Paths as ClaimPaths } from 'claim/paths'
 
 export class Defendants {
 
@@ -27,7 +28,7 @@ export class Defendants {
 
   static getIndex (res: express.Response): number {
     const changeIndex = res.locals.user.viewDraft.defendantChangeIndex
-    return changeIndex ? changeIndex : Defendants.getCurrentIndex(res)
+    return changeIndex !== undefined ? changeIndex : Defendants.getCurrentIndex(res)
   }
 
   static getChangeIndex (req: express.Request, res: express.Response): number {
@@ -36,6 +37,27 @@ export class Defendants {
       throw Error('Invalid index for defendant')
     }
     return index
+  }
+
+  static getNextPage (req: express.Request): string {
+    let pagePath: string
+    switch (req.query.page) {
+      case 'address':
+        pagePath = ClaimPaths.defendantAddressPage.uri
+        break
+      case 'represented':
+        pagePath = ClaimPaths.defendantRepresentedPage.uri
+        break
+      case 'reps-address':
+        pagePath = ClaimPaths.defendantRepAddressPage.uri
+        break
+      case 'service-address':
+        pagePath = ClaimPaths.defendantServiceAddressPage.uri
+        break
+      default:
+        pagePath = ClaimPaths.defendantTypePage.uri
+    }
+    return pagePath
   }
 
   static getCurrentIndex (res: express.Response): number {
@@ -49,4 +71,15 @@ export class Defendants {
     const title = defendantDetails.title != null ? `${defendantDetails.title} ` : defendantDetails.title
     return isIndividual ? `${title}${defendantDetails.fullName}` : defendantDetails.organisation
   }
+
+  static getPartyStrip (res: express.Response): string {
+    const index = Defendants.getIndex(res)
+    return index >= 1 ? `Defendant ${index + 1}` : `Defendant`
+  }
+
+  static getPartyStripeTitleForRepresentative (res: express.Response): string {
+    const index = Defendants.getIndex(res)
+    return index >= 1 ? `Defendant ${index + 1}'s legal representative` : `Defendant's legal representative`
+  }
+
 }

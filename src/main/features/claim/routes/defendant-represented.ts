@@ -11,11 +11,10 @@ import { Defendants } from 'common/router/defendants'
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 
 function renderView (form: Form<DefendantRepresented>, res: express.Response) {
-  const defendants = res.locals.user.legalClaimDraft.defendants
 
   res.render(Paths.defendantRepresentedPage.associatedView, {
     form: form,
-    partyStripeTitle: defendants.length >= 2 ? `Defendant ${defendants.length}` : `Defendant`,
+    partyStripeTitle: Defendants.getPartyStrip(res),
     partyStripeValue: Defendants.getCurrentDefendantName(res)
   })
 }
