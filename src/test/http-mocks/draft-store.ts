@@ -8,7 +8,8 @@ import { GeneralDamages } from 'forms/models/generalDamages'
 const serviceBaseURL: string = `${config.get('draft-store.url')}/api/${config.get('draft-store.apiVersion')}`
 
 const sampleViewDraftObj = {
-  viewFlowOption: true
+  viewFlowOption: true,
+  defendantChangeIndex: undefined
 }
 
 const sampleClaimDraftObj = {
@@ -87,31 +88,6 @@ const sampleClaimDraftObj = {
   }
 }
 
-const sampleResponseDraftObj = {
-  externalId: '400f4c57-9684-49c0-adb4-4cf46579d6dc',
-  response: {
-    type: 'OWE_NONE'
-  },
-  counterClaim: {
-    counterClaim: false
-  },
-  defence: {
-    text: 'Some valid defence'
-  },
-  freeMediation: {
-    option: 'no'
-  },
-  moreTimeNeeded: {
-    option: 'yes'
-  },
-  defendantDetails: {
-    name: { first: 'John', middle: '', last: 'Smith' },
-    address: { line1: 'Apartment 99', line2: '', city: 'London', postcode: 'SE28 0JE' },
-    dateOfBirth: { date: { year: 1978, month: 1, day: 11 } },
-    mobilePhone: { number: '07123456789' }
-  }
-}
-
 export function resolveRetrieve (draftType: string, draftOverride?: object) {
   let draft: object
 
@@ -121,9 +97,6 @@ export function resolveRetrieve (draftType: string, draftOverride?: object) {
       break
     case 'view':
       draft = { ...sampleViewDraftObj, ...draftOverride }
-      break
-    case 'response':
-      draft = { ...sampleResponseDraftObj, ...draftOverride }
       break
     default:
       throw new Error('Unsupported draft type')

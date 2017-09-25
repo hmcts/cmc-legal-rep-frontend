@@ -10,18 +10,18 @@ import ErrorHandling from 'common/errorHandling'
 import { Defendants } from 'common/router/defendants'
 
 function renderView (form: Form<Address>, res: express.Response): void {
-  const defendants = res.locals.user.legalClaimDraft.defendants
 
   res.render(Paths.defendantAddressPage.associatedView, {
     form: form,
-    partyStripeTitle: defendants.length >= 2 ? `Defendant ${defendants.length}` : `Defendant`,
+    partyStripeTitle: Defendants.getPartyStrip(res),
     partyStripeValue: Defendants.getCurrentDefendantName(res)
   })
 }
 
 export default express.Router()
   .get(Paths.defendantAddressPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentIndex(res)].address), res)
+    const index: number = Defendants.getIndex(res)
+    renderView(new Form(res.locals.user.legalClaimDraft.defendants[index].address), res)
   })
   .post(Paths.defendantAddressPage.uri, FormValidator.requestHandler(Address, Address.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -30,7 +30,8 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentIndex(res)].address = form.model
+        const index: number = Defendants.getIndex(res)
+        res.locals.user.legalClaimDraft.defendants[index].address = form.model
         await ClaimDraftMiddleware.save(res, next)
         res.redirect(Paths.defendantRepresentedPage.uri)
       }
