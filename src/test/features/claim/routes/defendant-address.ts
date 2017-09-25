@@ -20,6 +20,7 @@ describe('Claim issue: Defendant address page', () => {
   beforeEach(() => {
     mock.cleanAll()
     draftStoreServiceMock.resolveRetrieve('legalClaim')
+    draftStoreServiceMock.resolveRetrieve('view')
   })
 
   describe('on GET', () => {

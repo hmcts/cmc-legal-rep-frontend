@@ -21,6 +21,7 @@ describe('Claim issue: is defendant represented page', () => {
   beforeEach(() => {
     mock.cleanAll()
     draftStoreServiceMock.resolveRetrieve('legalClaim')
+    draftStoreServiceMock.resolveRetrieve('view')
   })
 
   describe('on GET', () => {
