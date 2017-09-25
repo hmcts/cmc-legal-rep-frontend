@@ -117,7 +117,7 @@ describe('Defendants', () => {
 
     it('for more than one defendants', async () => {
       const res: express.Response = mockRes()
-      createDefendants(res,)
+      createDefendants(res)
       res.locals.user.legalClaimDraft.defendants.push(new Defendant())
       res.locals.user.legalClaimDraft.defendants.push(new Defendant())
 
@@ -136,7 +136,7 @@ describe('Defendants', () => {
 
     it('for more than one defendants', async () => {
       const res: express.Response = mockRes()
-      createDefendants(res,)
+      createDefendants(res)
       res.locals.user.legalClaimDraft.defendants.push(new Defendant())
       res.locals.user.legalClaimDraft.defendants.push(new Defendant())
 
