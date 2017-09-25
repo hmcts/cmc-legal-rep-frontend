@@ -37,7 +37,7 @@
       {% if loop.length == 1 %}
 
         {{ tableStart('claimantDetails', 'Claimant details') }}
-        {% set changeClaimantLink = paths.claimantTypePage.ur %}
+        {% set changeClaimantLink = paths.claimantTypePage.uri %}
         {% set changeClaimantAddressPageLink = paths.claimantAddressPage.uri %}
       {% else %}
         {% set changeClaimantLink = paths.claimantAdditionPage.uri %}
