@@ -86,6 +86,7 @@ describe('Claim : Pay by Fee Account page', () => {
       idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       draftStoreServiceMock.resolveSave(draftType)
       feesServiceMock.resolveCalculateIssueFee()
+      claimStoreServiceMock.resolveRetrieveClaimByExternalId()
       claimStoreServiceMock.saveClaimForUser()
       draftStoreServiceMock.resolveDelete(draftType)
 

@@ -12,6 +12,7 @@ import { app } from '../../../../main/app'
 
 import * as idamServiceMock from '../../../http-mocks/idam'
 import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
+import * as feesServiceMock from '../../../http-mocks/fees'
 import { Amount, ValidationErrors } from 'app/forms/models/amount'
 
 const cookieName: string = config.get<string>('session.cookieName')
@@ -120,6 +121,7 @@ describe('Claim issue: Enter claim range page', () => {
     it('should redirect to claim total page when form is valid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       draftStoreServiceMock.resolveSave('legalClaim')
+      feesServiceMock.resolveCalculateIssueFee()
 
       await request(app)
         .post(ClaimPaths.claimAmountPage.uri)
