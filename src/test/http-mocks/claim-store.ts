@@ -41,16 +41,22 @@ export function resolveRetrieveClaimByExternalId (claimOverride?: object) {
     .reply(HttpStatus.OK, { ...sampleClaimObj, ...claimOverride })
 }
 
-export function rejectRetrieveClaimByExternalId (reason: string) {
+export function rejectRetrieveClaimByExternalIdWithNotFound (reason: string) {
   mock(`${serviceBaseURL}/claims`)
     .get(new RegExp('/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}'))
-    .reply(HttpStatus.INTERNAL_SERVER_ERROR, reason)
+    .reply(HttpStatus.NOT_FOUND, reason)
 }
 
 export function saveClaimForUser () {
   mock(`${serviceBaseURL}/claims`)
     .post(new RegExp('/[0-9]+'))
     .reply(HttpStatus.OK, { ...sampleClaimObj })
+}
+
+export function saveClaimForUserFailedWithUniqueConstraint (reason: string) {
+  mock(`${serviceBaseURL}/claims`)
+    .post(new RegExp('/[0-9]+'))
+    .reply(HttpStatus.CONFLICT, reason)
 }
 
 export function saveClaimForUserFailed (reason: string) {

@@ -1,3 +1,5 @@
+const pathParameterRegex = /\/:[^\/]+/g
+
 export class RoutablePath {
   constructor (public uri: string, public feature: boolean = true) {
     if (!uri || uri.trim() === '') {
@@ -22,5 +24,29 @@ export class RoutablePath {
     const featureName: string = split[1]
     const viewPath: string = split.slice(2).join('/')
     return `${featureName}/views/${viewPath}`
+  }
+
+  evaluateUri (substitutions: { [key: string]: string }): string {
+    if (substitutions === undefined || Object.keys(substitutions).length === 0) {
+      throw new Error('Path parameter substitutions are required')
+    }
+
+    const path = Object.entries(substitutions).reduce((uri: string, substitution: [string, string]) => {
+      const [parameterName, parameterValue] = substitution
+
+      const updatedUri: string = uri.replace(`:${parameterName}`, parameterValue)
+      if (updatedUri === uri) {
+        throw new Error(`Path parameter :${parameterName} is not defined`)
+      }
+      return updatedUri
+    }, this.uri)
+
+    const missingParameters = path.match(pathParameterRegex)
+    if (missingParameters) {
+      const removeLeadingSlash = value => value.substring(1)
+      throw new Error(`Path parameter substitutions for ${missingParameters.map(removeLeadingSlash).join(', ')} are missing`)
+    }
+
+    return path
   }
 }

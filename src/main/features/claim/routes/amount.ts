@@ -33,6 +33,7 @@ export default express.Router()
         }
 
         res.locals.user.legalClaimDraft.amount = form.model
+
         await ClaimDraftMiddleware.save(res, next)
         res.redirect(Paths.claimTotalPage.uri)
       }
