@@ -60,6 +60,7 @@ describe("Claim issue: Defendant's representative address page", () => {
     it('should redirect to defendant addition page when form is valid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       draftStoreServiceMock.resolveSave('legalClaim')
+      draftStoreServiceMock.resolveSave('view')
 
       await request(app)
         .post(ClaimPaths.defendantRepAddressPage.uri)

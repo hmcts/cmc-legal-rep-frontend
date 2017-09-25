@@ -60,6 +60,7 @@ describe("Claim issue: Defendant's service address page", () => {
     it('should redirect to defendant addition page when user selects to use the defendants address option', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       draftStoreServiceMock.resolveSave('legalClaim')
+      draftStoreServiceMock.resolveSave('view')
 
       await request(app)
         .post(ClaimPaths.defendantServiceAddressPage.uri)
@@ -71,6 +72,7 @@ describe("Claim issue: Defendant's service address page", () => {
     it('should redirect to defendant addition page when form is valid and address filled in', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       draftStoreServiceMock.resolveSave('legalClaim')
+      draftStoreServiceMock.resolveSave('view')
 
       await request(app)
         .post(ClaimPaths.defendantServiceAddressPage.uri)

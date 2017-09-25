@@ -8,6 +8,7 @@ import { Address } from 'forms/models/address'
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import ErrorHandling from 'common/errorHandling'
 import { Defendants } from 'common/router/defendants'
+import { ViewDraftMiddleware } from 'views/draft/viewDraftMiddleware'
 
 function renderView (form: Form<Address>, res: express.Response): void {
   const defendants = res.locals.user.legalClaimDraft.defendants
@@ -33,6 +34,8 @@ export default express.Router()
       } else {
         const index: number = Defendants.getIndex(res)
         res.locals.user.legalClaimDraft.defendants[index].representative.address = form.model
+        res.locals.user.viewDraft.defendantChangeIndex = undefined
+        await ViewDraftMiddleware.save(res, next)
         await ClaimDraftMiddleware.save(res, next)
         res.redirect(Paths.defendantAdditionPage.uri)
       }
