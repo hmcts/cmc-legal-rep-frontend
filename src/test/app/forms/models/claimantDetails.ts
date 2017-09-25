@@ -230,4 +230,19 @@ describe('Claimant Details', () => {
       expect(claimantDetails.companyHouseNumber).to.equal(undefined)
     })
   })
+
+  describe('toString', () => {
+
+    it('should have claimant details elements undefined when input is undefined', () => {
+      const claimantDetails = ClaimantDetails.fromObject({
+        type: 'INDIVIDUAL',
+        title: 'title',
+        fullName: 'full name',
+        organisation: undefined,
+        companyHouseNumber: undefined
+      })
+
+      expect(claimantDetails.toString()).to.equal('title full name')
+    })
+  })
 })

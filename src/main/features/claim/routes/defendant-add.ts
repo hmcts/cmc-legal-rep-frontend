@@ -20,7 +20,7 @@ function renderView (form: Form<DefendantAddition>, res: express.Response) {
   res.render(Paths.defendantAdditionPage.associatedView, {
     form: form,
     maxAllowedLimit: MAX_DEFENDANTS_ALLOWED,
-    defendants: res.locals.user.viewDraft.viewFlowOption || defendants.length > 1 ? defendants : null
+    defendants: res.locals.user.viewDraft.isDefendantDeleted || defendants.length > 1 ? defendants : null
   })
 }
 

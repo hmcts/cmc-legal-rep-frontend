@@ -8,14 +8,20 @@ import { ClaimantDetails } from 'app/forms/models/claimantDetails'
 
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import ErrorHandling from 'common/errorHandling'
+import { Claimants } from 'common/router/claimants'
 
 function renderView (form: Form<ClaimantDetails>, res: express.Response) {
-  res.render(Paths.claimantTypePage.associatedView, { form: form })
+  const claimants = res.locals.user.legalClaimDraft.claimants
+
+  res.render(Paths.claimantTypePage.associatedView, {
+    form: form,
+    partyStripeTitle: claimants.length >= 2 ? `Claimant ${claimants.length}` : null
+  })
 }
 
 export default express.Router()
   .get(Paths.claimantTypePage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.legalClaimDraft.claimant.claimantDetails), res)
+    renderView(new Form(res.locals.user.legalClaimDraft.claimants[Claimants.getCurrentIndex(res)].claimantDetails), res)
   })
   .post(Paths.claimantTypePage.uri, FormValidator.requestHandler(ClaimantDetails, ClaimantDetails.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -32,7 +38,7 @@ export default express.Router()
           form.model.fullName = null
         }
 
-        res.locals.user.legalClaimDraft.claimant.claimantDetails = form.model
+        res.locals.user.legalClaimDraft.claimants[Claimants.getCurrentIndex(res)].claimantDetails = form.model
 
         await ClaimDraftMiddleware.save(res, next)
         res.redirect(Paths.claimantAddressPage.uri)

@@ -1,0 +1,65 @@
+{% extends "layout.njk" %}
+
+{% set title = t('Money claim') %}
+{% set heading = t('Do you want to add another claimant?') %}
+
+{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, radioOption, textInput %}
+
+{% block content %}
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <p>{{ t('You can add up to %s claimants in this service.', { postProcess: 'sprintf', sprintf: [maxAllowedLimit]}) }}</p>
+      <form novalidate method="post">
+        {{ csrfProtection(csrf) }}
+
+        {% set errorIsAddClaimant = form.errorFor('isAddClaimant') %}
+        <fieldset id="isClaimantRepresented[label]" class="form-group {% if errorIsAddClaimant %} form-group-error {% endif %}">
+          <legend class="visuallyhidden">
+            {{ t('You can add up to %s claimants in this service.', { postProcess: 'sprintf', sprintf: [maxAllowedLimit]}) }}
+          </legend>
+
+          {% if errorIsAddClaimant %}<span class="error-message">{{ t(errorIsAddClaimant) }}</span>{% endif %}
+          <div class="inline">
+            <div class="multiple-choice">
+              <input id="claimant_add_yes" type="radio" name="isAddClaimant" value="YES">
+              <label for="claimant_add_yes" id="isAddClaimant[label]">{{ t('Yes') }} </label>
+            </div>
+
+            <div class="multiple-choice">
+              <input id="claimant_add_no" type="radio" name="isAddClaimant" value="NO">
+              <label for="claimant_add_no" id="isAddClaimant[label][NO]">{{ t('No') }} </label>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="form-group">
+          {{ saveAndContinueButton() }}
+        </div>
+      </form>
+      {% if claimants %}
+       <div>
+        <h1 class="heading-medium">
+        {{ t('Already added') }}
+        </h1>
+        <div class="task-list-item">
+          <div class="column-one-quarter bold">{{ t('Number') }}</div>
+          <div class="column-one-half bold">{{ t('Claimant name') }}</div>
+          <div class="column-one-quarter bold">{{ t('Action') }}</div>
+        </div>
+        <hr class="column-full">
+
+        {% for claimant in claimants %}
+
+          <div class="task-list-item">
+            <div class="column-one-quarter">{{ loop.index }}</div>
+            <div class="column-one-half">{{ claimant.claimantDetails.toString() }}</div>
+            <div class="column-one-quarter"><a class="link" href="/legal/claim/claimant-remove?index={{ loop.index }}">{{ t('Remove') }}</a></div>
+            <hr class="column-full">
+          </div>
+
+        {% endfor %}
+       </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
