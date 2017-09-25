@@ -29,7 +29,7 @@ describe('Claim issue: is defendant addition page', () => {
 
     it('should render page when everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, ...roles)
-      draftStoreServiceMock.resolveRetrieve('view')
+      draftStoreServiceMock.resolveSave('view')
 
       await request(app)
         .get(ClaimPaths.defendantAdditionPage.uri)
@@ -43,7 +43,6 @@ describe('Claim issue: is defendant addition page', () => {
 
     it('should render page when form is invalid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor(1, ...roles)
-      draftStoreServiceMock.resolveRetrieve('view')
 
       await request(app)
         .post(ClaimPaths.defendantAdditionPage.uri)

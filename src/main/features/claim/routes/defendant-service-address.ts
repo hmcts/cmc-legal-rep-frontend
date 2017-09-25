@@ -9,21 +9,23 @@ import { ServiceAddress } from 'app/forms/models/serviceAddress'
 import ErrorHandling from 'common/errorHandling'
 import { Defendants } from 'common/router/defendants'
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
+import { ViewDraftMiddleware } from 'views/draft/viewDraftMiddleware'
 
 function renderView (form: Form<ServiceAddress>, res: express.Response) {
   const defendants = res.locals.user.legalClaimDraft.defendants
 
   res.render(Paths.defendantServiceAddressPage.associatedView, {
     form: form,
-    partyStripeTitle: defendants.length >= 2 ? `Defendant ${defendants.length}` : `Defendant`,
+    partyStripeTitle: Defendants.getPartyStrip(res),
     partyStripeValue: Defendants.getCurrentDefendantName(res),
-    defendantsAddress: res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentIndex(res)].address.toString()
+    defendantsAddress: defendants[Defendants.getIndex(res)].address.toString()
   })
 }
 
 export default express.Router()
   .get(Paths.defendantServiceAddressPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentIndex(res)].serviceAddress), res)
+    const index: number = Defendants.getIndex(res)
+    renderView(new Form(res.locals.user.legalClaimDraft.defendants[index].serviceAddress), res)
   })
   .post(Paths.defendantServiceAddressPage.uri, FormValidator.requestHandler(ServiceAddress, ServiceAddress.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -38,9 +40,10 @@ export default express.Router()
           form.model.city = undefined
           form.model.postcode = undefined
         }
-
-        res.locals.user.legalClaimDraft.defendants[Defendants.getCurrentIndex(res)].serviceAddress = form.model
-
+        const index: number = Defendants.getIndex(res)
+        res.locals.user.legalClaimDraft.defendants[index].serviceAddress = form.model
+        res.locals.user.viewDraft.defendantChangeIndex = undefined
+        await ViewDraftMiddleware.save(res, next)
         await ClaimDraftMiddleware.save(res, next)
 
         res.redirect(Paths.defendantAdditionPage.uri)
