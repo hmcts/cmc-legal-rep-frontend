@@ -30,10 +30,10 @@ async function saveClaimHandler (res, next) {
     claimStatus = await ClaimStoreClient.retrieveByExternalId(externalId)
       .then(() => true)
   } catch (err) {
-    if (err.toString().includes('Claim not found by external id')) {
+    if (err.statusCode === HttpStatus.NOT_FOUND) {
       claimStatus = false
     } else {
-      logError(res.locals.user.id, `There is problem retrieving claim from claim store externalId: ${externalId},`)
+      logError(res.locals.user.id, `There is a problem retrieving claim from claim store externalId: ${externalId},`)
       next(err)
       return
     }

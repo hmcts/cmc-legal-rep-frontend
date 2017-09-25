@@ -97,5 +97,21 @@ describe('Claim : Pay by Fee Account page', () => {
         .expect(res => expect(res).to.be.redirect
           .toLocation(ClaimPaths.claimSubmittedPage.uri.replace(':externalId', sampleClaimObj.externalId)))
     })
+
+    it('should redirect to claim submitted page when claim is duplicate', async () => {
+      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      draftStoreServiceMock.resolveSave(draftType)
+      feesServiceMock.resolveCalculateIssueFee()
+      claimStoreServiceMock.rejectRetrieveClaimByExternalId('missing claim as submitted claim transaction is not complete')
+      claimStoreServiceMock.saveClaimForUserFailedWithUniqueConstraint('Duplicate Claim')
+      draftStoreServiceMock.resolveDelete(draftType)
+
+      await request(app)
+        .post(ClaimPaths.payByAccountPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .send({ reference: 'PBA1234567' })
+        .expect(res => expect(res).to.be.redirect
+          .toLocation(ClaimPaths.claimSubmittedPage.uri.replace(':externalId', sampleClaimObj.externalId)))
+    })
   })
 })
