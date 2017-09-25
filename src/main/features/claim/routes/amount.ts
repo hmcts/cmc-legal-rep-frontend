@@ -3,13 +3,10 @@ import { Paths } from 'claim/paths'
 
 import { Form } from 'forms/form'
 import { Amount } from 'app/forms/models/amount'
-import { Fee } from 'fees/fee'
 import { FormValidator } from 'forms/validation/formValidator'
 
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
 import ErrorHandling from 'common/errorHandling'
-import MoneyConverter from 'app/fees/moneyConverter'
-import FeesClient from 'fees/feesClient'
 
 function renderView (form: Form<Amount>, res: express.Response): void {
   res.render(Paths.claimAmountPage.associatedView, {
@@ -35,9 +32,6 @@ export default express.Router()
           form.model.cannotState = undefined
         }
 
-        const fee: Fee = await FeesClient.getFeeAmount(form.model)
-        res.locals.user.legalClaimDraft.feeAmountInPennies = MoneyConverter.convertPoundsToPennies(fee.amount)
-        res.locals.user.legalClaimDraft.feeCode = fee.code
         res.locals.user.legalClaimDraft.amount = form.model
 
         await ClaimDraftMiddleware.save(res, next)

@@ -9,6 +9,7 @@ import ErrorHandling from 'common/errorHandling'
 import { FeeAccount } from 'forms/models/feeAccount'
 import FeesClient from 'fees/feesClient'
 import ClaimStoreClient from 'claims/claimStoreClient'
+import MoneyConverter from 'app/fees/moneyConverter'
 import { Fee } from 'fees/fee'
 
 const logger = require('@hmcts/nodejs-logging').getLogger('router/pay-by-account')
@@ -82,6 +83,11 @@ export default express.Router()
         renderView(form, res, next)
       } else {
         res.locals.user.legalClaimDraft.feeAccount = form.model
+
+        const fee: Fee = await FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.amount)
+        res.locals.user.legalClaimDraft.feeAmountInPennies = MoneyConverter.convertPoundsToPennies(fee.amount)
+        res.locals.user.legalClaimDraft.feeCode = fee.code
+
         await ClaimDraftMiddleware.save(res, next)
         await saveClaimHandler(res, next)
       }

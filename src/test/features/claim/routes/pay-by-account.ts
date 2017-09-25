@@ -89,6 +89,7 @@ describe('Claim : Pay by Fee Account page', () => {
       claimStoreServiceMock.resolveRetrieveClaimByExternalId()
       claimStoreServiceMock.saveClaimForUser()
       draftStoreServiceMock.resolveDelete(draftType)
+      feesServiceMock.resolveCalculateIssueFee()
 
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
@@ -105,6 +106,7 @@ describe('Claim : Pay by Fee Account page', () => {
       claimStoreServiceMock.rejectRetrieveClaimByExternalIdWithNotFound('missing claim as submitted claim transaction is not complete')
       claimStoreServiceMock.saveClaimForUserFailedWithUniqueConstraint('Duplicate Claim')
       draftStoreServiceMock.resolveDelete(draftType)
+      feesServiceMock.resolveCalculateIssueFee()
 
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
