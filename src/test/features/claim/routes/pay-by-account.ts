@@ -102,7 +102,7 @@ describe('Claim : Pay by Fee Account page', () => {
       idamServiceMock.resolveRetrieveUserFor(1, ...roles)
       draftStoreServiceMock.resolveSave(draftType)
       feesServiceMock.resolveCalculateIssueFee()
-      claimStoreServiceMock.rejectRetrieveClaimByExternalId('missing claim as submitted claim transaction is not complete')
+      claimStoreServiceMock.rejectRetrieveClaimByExternalIdWithNotFound('missing claim as submitted claim transaction is not complete')
       claimStoreServiceMock.saveClaimForUserFailedWithUniqueConstraint('Duplicate Claim')
       draftStoreServiceMock.resolveDelete(draftType)
 
