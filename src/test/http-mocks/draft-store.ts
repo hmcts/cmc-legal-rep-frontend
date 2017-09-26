@@ -13,7 +13,7 @@ const sampleViewDraftObj = {
 }
 
 const sampleClaimDraftObj = {
-  externalId: '12345',
+  externalId: '400f4c57-9684-49c0-adb4-4cf46579d6dc',
   readResolveDispute: true,
   readCompletingClaim: true,
   representative: {

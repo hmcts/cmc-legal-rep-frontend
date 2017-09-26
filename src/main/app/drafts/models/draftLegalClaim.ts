@@ -7,11 +7,13 @@ import PreferredCourt from 'app/forms/models/preferredCourt'
 import Representative from 'drafts/models/representative'
 import Defendant from 'app/drafts/models/defendant'
 import Summary from 'app/forms/models/summary'
+import * as uuid from 'uuid'
 import { StatementOfTruth } from 'app/forms/models/statementOfTruth'
 import { Amount } from 'app/forms/models/amount'
 import { FeeAccount } from 'forms/models/feeAccount'
 
 export default class DraftLegalClaim implements Serializable<DraftLegalClaim> {
+  externalId = uuid()
   claimants: Claimant[] = [new Claimant()]
   summary: Summary = new Summary()
   amount: Amount = new Amount()
@@ -28,6 +30,7 @@ export default class DraftLegalClaim implements Serializable<DraftLegalClaim> {
 
   deserialize (input: any): DraftLegalClaim {
     if (input) {
+      this.externalId = input.externalId
       this.summary = new Summary().deserialize(input.summary)
       this.amount = new Amount().deserialize(input.amount)
       if (input.yourReference && input.yourReference.reference) {
