@@ -33,9 +33,11 @@ let addErrorMessage = function (form: Form<DefendantAddition>) {
   form.errors.push(new FormValidationError(validationError, ''))
 }
 export default express.Router()
-  .get(Paths.defendantAdditionPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(new DefendantAddition()), res)
-  })
+  .get(Paths.defendantAdditionPage.uri,
+    ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+      renderView(new Form(new DefendantAddition()), res)
+    })
+  )
   .post(Paths.defendantAdditionPage.uri, FormValidator.requestHandler(DefendantAddition, DefendantAddition.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form: Form<DefendantAddition> = req.body
