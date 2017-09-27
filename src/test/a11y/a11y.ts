@@ -37,6 +37,7 @@ const excludedPaths: ClaimIssuePaths[] = [
   ClaimIssuePaths.defendantRemovePage,
   ClaimIssuePaths.claimantRemovePage,
   ClaimIssuePaths.defendantChangePage,
+  ClaimIssuePaths.claimantChangePage,
   ClaimIssuePaths.receiptReceiver
 ]
 

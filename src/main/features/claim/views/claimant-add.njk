@@ -42,18 +42,16 @@
         {{ t('Already added') }}
         </h1>
         <div class="task-list-item">
-          <div class="column-one-quarter bold">{{ t('Number') }}</div>
-          <div class="column-one-half bold">{{ t('Claimant name') }}</div>
-          <div class="column-one-quarter bold">{{ t('Action') }}</div>
+          <div class="column-one-half bold">{{ t('Claimant') }}</div>
         </div>
         <hr class="column-full">
 
         {% for claimant in claimants %}
 
           <div class="task-list-item">
-            <div class="column-one-quarter">{{ loop.index }}</div>
             <div class="column-one-half">{{ claimant.claimantDetails.toString() }}</div>
             <div class="column-one-quarter"><a class="link" href="/legal/claim/claimant-remove?index={{ loop.index }}">{{ t('Remove') }}</a></div>
+            <div class="column-one-quarter"><a class="link" href="/legal/claim/claimant-change?index={{ loop.index }}">{{ t('Change') }}</a></div>
             <hr class="column-full">
           </div>
 

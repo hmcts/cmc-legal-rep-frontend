@@ -1,14 +1,15 @@
 import * as chai from 'chai'
 import * as spies from 'sinon-chai'
-import { mockRes } from 'sinon-express-mock'
+import { mockReq, mockRes } from 'sinon-express-mock'
 import * as express from 'express'
 import { Claimants } from 'common/router/claimants'
 import Claimant from 'drafts/models/claimant'
+import { Paths as ClaimPaths } from 'claim/paths'
 
 chai.use(spies)
 const expect = chai.expect
 
-function createClaimants (res: express.Response) {
+function createClaimants (res: express.Response, claimantChangeIndex?: number) {
   res.locals.isLoggedIn = true
   res.locals.user = {
     id: 123
@@ -16,9 +17,13 @@ function createClaimants (res: express.Response) {
   res.locals.user.legalClaimDraft = {
     claimants: []
   }
+  res.locals.user.viewDraft = {
+    claimantChangeIndex: claimantChangeIndex
+  }
 }
 
 describe('Claimants', () => {
+
   it('should add claimant', async () => {
     const res: express.Response = mockRes()
     createClaimants(res)
@@ -27,7 +32,7 @@ describe('Claimants', () => {
 
   })
 
-  it('should remove claimant from response defendants', async () => {
+  it('should remove claimant from response claimants', async () => {
     const res: express.Response = mockRes()
     createClaimants(res)
     res.locals.user.legalClaimDraft.claimants.push(new Claimant())
@@ -47,5 +52,93 @@ describe('Claimants', () => {
 
     expect(Claimants.getCurrentIndex(res) === 2)
 
+  })
+
+  describe('getChangeIndex', () => {
+
+    it('should give claimant index from query parameter', async () => {
+      const req: express.Request = mockReq()
+      req.query = { index: 1 }
+      const res: express.Response = mockRes()
+      createClaimants(res)
+      res.locals.user.legalClaimDraft.claimants.push(new Claimant())
+
+      expect(Claimants.getChangeIndex(req, res)).eq(0)
+    })
+
+    it('should throw error if index is negative number from query parameter', async () => {
+      const req: express.Request = mockReq()
+      req.query = { index: -1 }
+      const res: express.Response = mockRes()
+
+      expect(() => Claimants.getChangeIndex(req, res)).to.throw(Error, 'Invalid index for claimant')
+    })
+
+    it('should throw error if index is out of range for the claimants array', async () => {
+      const req: express.Request = mockReq()
+      req.query = { index: 100 }
+      const res: express.Response = mockRes()
+      createClaimants(res)
+      res.locals.user.legalClaimDraft.claimants.push(new Claimant())
+
+      expect(() => Claimants.getChangeIndex(req, res)).to.throw(Error, 'Invalid index for claimant')
+    })
+
+    it('should throw error if query parameter index is not present', async () => {
+      const req: express.Request = mockReq()
+      const res: express.Response = mockRes()
+
+      expect(() => Claimants.getChangeIndex(req, res)).to.throw(Error, 'Invalid index for claimant')
+    })
+
+  })
+
+  describe('getIndex', () => {
+    it('should give change index from view draft', async () => {
+      const res: express.Response = mockRes()
+      createClaimants(res, 1)
+
+      expect(Claimants.getIndex(res)).eq(1)
+    })
+
+    it('should give last claimant index if not a change request', async () => {
+      const res: express.Response = mockRes()
+      createClaimants(res)
+      res.locals.user.legalClaimDraft.claimants.push(new Claimant())
+
+      expect(Claimants.getIndex(res)).eq(0)
+    })
+  })
+
+  describe('getPartyStrip', () => {
+    it('for just one claimant', async () => {
+      const res: express.Response = mockRes()
+      createClaimants(res)
+      res.locals.user.legalClaimDraft.claimants.push(new Claimant())
+
+      expect(Claimants.getPartyStrip(res)).eq('Claimant')
+    })
+
+    it('for more than one claimants', async () => {
+      const res: express.Response = mockRes()
+      createClaimants(res)
+      res.locals.user.legalClaimDraft.claimants.push(new Claimant())
+      res.locals.user.legalClaimDraft.claimants.push(new Claimant())
+
+      expect(Claimants.getPartyStrip(res)).eq('Claimant 2')
+    })
+  })
+
+  describe('getNextPage', () => {
+    it('should give claimant address page', async () => {
+      const req: express.Request = mockReq()
+      req.query = { page: 'address' }
+      expect(Claimants.getNextPage(req)).eq(ClaimPaths.claimantAddressPage.uri)
+    })
+
+    it('should give claimant type page if no query parameter', async () => {
+      const req: express.Request = mockReq()
+      expect(Claimants.getNextPage(req)).eq(ClaimPaths.claimantTypePage.uri)
+    })
   })
 })

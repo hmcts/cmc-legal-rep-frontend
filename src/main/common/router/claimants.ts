@@ -1,6 +1,7 @@
 import * as express from 'express'
 import { PartyTypes } from 'app/forms/models/partyTypes'
 import Claimant from 'app/drafts/models/claimant'
+import { Paths as ClaimPaths } from 'claim/paths'
 
 export class Claimants {
 
@@ -31,9 +32,40 @@ export class Claimants {
 
   static getCurrentClaimantName (res: express.Response): string {
     const claimants = res.locals.user.legalClaimDraft.claimants
-    const claimantDetails = claimants[Claimants.getCurrentIndex(res)].claimantDetails
+    const claimantDetails = claimants[Claimants.getIndex(res)].claimantDetails
     const isIndividual = claimantDetails.type.value === PartyTypes.INDIVIDUAL.value
     const title = claimantDetails.title != null ? `${claimantDetails.title} ` : claimantDetails.title
     return isIndividual ? `${title}${claimantDetails.fullName}` : claimantDetails.organisation
   }
+
+  static getIndex (res: express.Response): number {
+    const changeIndex = res.locals.user.viewDraft.claimantChangeIndex
+    return changeIndex !== undefined ? changeIndex : Claimants.getCurrentIndex(res)
+  }
+
+  static getChangeIndex (req: express.Request, res: express.Response): number {
+    const index = req.query.index !== undefined ? (req.query.index - 1) : -1
+    if (index < 0 || index > Claimants.getCurrentIndex(res)) {
+      throw Error('Invalid index for claimant')
+    }
+    return index
+  }
+
+  static getNextPage (req: express.Request): string {
+    let pagePath: string
+    switch (req.query.page) {
+      case 'address':
+        pagePath = ClaimPaths.claimantAddressPage.uri
+        break
+      default:
+        pagePath = ClaimPaths.claimantTypePage.uri
+    }
+    return pagePath
+  }
+
+  static getPartyStrip (res: express.Response): string {
+    const index = Claimants.getIndex(res)
+    return index >= 1 ? `Claimant ${index + 1}` : `Claimant`
+  }
+
 }

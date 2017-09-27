@@ -9,7 +9,8 @@ const serviceBaseURL: string = `${config.get('draft-store.url')}/api/${config.ge
 
 const sampleViewDraftObj = {
   viewFlowOption: true,
-  defendantChangeIndex: undefined
+  defendantChangeIndex: undefined,
+  claimantChangeIndex: undefined
 }
 
 const sampleClaimDraftObj = {
