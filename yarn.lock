@@ -33,7 +33,7 @@
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/@types/chai/-/chai-4.0.4.tgz#fe86315d9a66827feeb16f73bc954688ec950e18"
 
-"@types/config@0.0.33":
+"@types/config@^0.0.33":
   version "0.0.33"
   resolved "https://registry.yarnpkg.com/@types/config/-/config-0.0.33.tgz#2b256fe9744e9a3f913f551a9aa4660c41f28c4b"
 
@@ -2346,9 +2346,9 @@ govuk_frontend_toolkit@^6.0.2:
   version "6.0.4"
   resolved "https://registry.yarnpkg.com/govuk_frontend_toolkit/-/govuk_frontend_toolkit-6.0.4.tgz#fc4b741b16d27ec1a3cd1c4f3830972d333c7044"
 
-govuk_template_jinja@^0.22.2:
-  version "0.22.3"
-  resolved "https://registry.yarnpkg.com/govuk_template_jinja/-/govuk_template_jinja-0.22.3.tgz#d704cb2b7ce92682a8174be7d746668d4afad9d6"
+govuk_template_jinja@0.23.0:
+  version "0.23.0"
+  resolved "https://registry.yarnpkg.com/govuk_template_jinja/-/govuk_template_jinja-0.23.0.tgz#9315ac403d1d85b01a62b7044cb95d8ec3e303a4"
 
 graceful-fs@^3.0.0:
   version "3.0.11"
@@ -5126,7 +5126,7 @@ sinon@1.17.2:
     samsam "1.1.2"
     util ">=0.10.3 <1"
 
-sinon@4.0.0:
+sinon@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/sinon/-/sinon-4.0.0.tgz#a54a5f0237aa1dd2215e5e81c89b42b50c4fdb6b"
   dependencies:

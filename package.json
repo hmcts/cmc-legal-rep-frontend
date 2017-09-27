@@ -46,7 +46,7 @@
     "express": "^4.15.3",
     "fs": "0.0.2",
     "govuk-elements-sass": "^3.1.0",
-    "govuk_template_jinja": "^0.22.2",
+    "govuk_template_jinja": "^0.23.0",
     "helmet": "^3.6.1",
     "http-status-codes": "^1.1.6",
     "i18next": "^9.0.0",
