@@ -21,6 +21,8 @@ export default express.Router()
       const form: Form<PreferredCourt> = req.body
       if (form.hasErrors()) {
         renderView(form, res)
+      } else if (res.locals.user.legalClaimDraft.claimants.length > 1) {
+        res.redirect(Paths.claimantAdditionPage.uri)
       } else {
         res.locals.user.legalClaimDraft.preferredCourt = form.model
         await ClaimDraftMiddleware.save(res, next)

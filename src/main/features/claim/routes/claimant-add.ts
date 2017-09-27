@@ -51,6 +51,8 @@ export default express.Router()
           Claimants.addClaimant(res)
           await ClaimDraftMiddleware.save(res, next)
           res.redirect(Paths.claimantTypePage.uri)
+        } else if (res.locals.user.legalClaimDraft.defendants.length > 1) {
+          res.redirect(Paths.defendantAdditionPage.uri)
         } else {
           res.redirect(Paths.defendantTypePage.uri)
         }

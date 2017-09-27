@@ -9,6 +9,8 @@ function verifyDefaultValues (initialValue: any) {
   const expected: DraftView = new DraftView()
   expect(actualDraft.isDefendantDeleted).to.eql(expected.isDefendantDeleted)
   expect(actualDraft.isClaimantDeleted).to.eql(expected.isClaimantDeleted)
+  expect(actualDraft.defendantChangeIndex).to.eql(expected.defendantChangeIndex)
+  expect(actualDraft.claimantChangeIndex).to.eql(expected.claimantChangeIndex)
 }
 
 describe('DraftView', () => {
@@ -17,6 +19,8 @@ describe('DraftView', () => {
       let draftView = new DraftView()
       expect(draftView.isDefendantDeleted).to.be.eq(false)
       expect(draftView.isClaimantDeleted).to.be.eq(false)
+      expect(draftView.defendantChangeIndex).to.be.eq(undefined)
+      expect(draftView.claimantChangeIndex).to.be.eq(undefined)
 
     })
   })
