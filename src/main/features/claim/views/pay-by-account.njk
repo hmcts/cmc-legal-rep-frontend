@@ -3,7 +3,7 @@
 {% set title = t('Money claim') %}
 {% set heading = t('Pay by Fee Account') %}
 
-{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, textInput %}
+{% from "form.njk" import csrfProtection, submitButton, errorSummary, textInput %}
 
 {% block content %}
 
@@ -19,7 +19,7 @@
           {{ csrfProtection(csrf) }}
 
           {{ textInput(t('Fee Account number'), 'reference', form) }}
-          {{ saveAndContinueButton('Pay and issue') }}
+          {{ submitButton('Pay and issue') }}
         </form>
       </div>
     </div>
