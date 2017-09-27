@@ -16,7 +16,7 @@ export default express.Router()
       res.locals.user.viewDraft.isClaimantDeleted = true
       await ViewDraftMiddleware.save(res, next)
 
-      if (res.locals.user.legalClaimDraft.defendants.length > 0) {
+      if (res.locals.user.legalClaimDraft.claimants.length > 0) {
         res.redirect(Paths.claimantAdditionPage.uri)
       } else {
         res.redirect(Paths.claimantTypePage.uri)
