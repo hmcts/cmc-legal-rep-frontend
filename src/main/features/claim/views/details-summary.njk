@@ -40,8 +40,8 @@
         {% set changeClaimantLink = paths.claimantTypePage.uri %}
         {% set changeClaimantAddressPageLink = paths.claimantAddressPage.uri %}
       {% else %}
-        {% set changeClaimantLink = paths.claimantAdditionPage.uri %}
-        {% set changeClaimantAddressPageLink = paths.claimantAdditionPage.uri %}
+        {% set changeClaimantLink = '/legal/claim/claimant-change?index='+ loop.index %}
+        {% set changeClaimantAddressPageLink = '/legal/claim/claimant-change?index='+ loop.index + '&page=address' %}
         {{ tableStart('claimantDetails'+loop.index, 'Claimant ' + loop.index + ' details') }}
       {% endif %}
 
@@ -64,7 +64,7 @@
       claimant.address.line2,
       claimant.address.city,
       claimant.address.postcode],
-      changeLink = changeClaimantAddressPageLinki,
+      changeLink = changeClaimantAddressPageLink,
       bottomBorder = true
       ) }}
       {{ tableEnd() }}
