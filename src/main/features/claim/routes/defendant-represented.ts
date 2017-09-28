@@ -31,11 +31,13 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
+        const index: number = Defendants.getIndex(res)
+
+        res.locals.user.legalClaimDraft.defendants[index].defendantRepresented = form.model
         if (form.model.isDefendantRepresented === YesNo.NO) {
           form.model.organisationName = undefined
+          res.locals.user.legalClaimDraft.defendants[index].representative = undefined
         }
-        const index: number = Defendants.getIndex(res)
-        res.locals.user.legalClaimDraft.defendants[index].defendantRepresented = form.model
 
         await ClaimDraftMiddleware.save(res, next)
 
