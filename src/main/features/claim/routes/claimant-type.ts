@@ -11,11 +11,8 @@ import ErrorHandling from 'common/errorHandling'
 import { Claimants } from 'common/router/claimants'
 
 function renderView (form: Form<ClaimantDetails>, res: express.Response) {
-
   res.render(Paths.claimantTypePage.associatedView, {
-    form: form,
-    partyStripeTitle: Claimants.getPartyStrip(res)
-  })
+    form: form})
 }
 
 export default express.Router()
