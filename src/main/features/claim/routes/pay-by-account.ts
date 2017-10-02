@@ -19,7 +19,7 @@ function logError (id: number, message: string) {
 }
 
 async function deleteDraftAndRedirect (res, next, externalId: string) {
-  await ClaimDraftMiddleware.delete(res, next)
+  // await ClaimDraftMiddleware.delete(res, next)
   res.redirect(Paths.claimSubmittedPage.evaluateUri({ externalId: externalId }))
 }
 

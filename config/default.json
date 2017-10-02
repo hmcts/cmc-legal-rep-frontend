@@ -36,5 +36,12 @@
   },
   "http": {
     "timeout": 10000
+  },
+  "oauth": {
+    "clientId": "cmc_legal",
+    "clientSecret": "123456"
+  },
+  "featureToggles": {
+    "idamOauth": false
   }
 }
