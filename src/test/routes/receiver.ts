@@ -20,29 +20,27 @@ describe('Claim issue: post login receiver', () => {
 
   describe('on GET', () => {
     describe('for authorized user', () => {
-      beforeEach(() => {
-        idamServiceMock.resolveRetrieveUserFor(1, ...roles)
-      })
 
-      it.skip('should save JWT token in cookie when JWT token exists in query string', async () => {
+      it('should save JWT token in cookie when JWT token exists in query string', async () => {
 
         await request(app)
           .get(`${AppPaths.receiver.uri}?jwt=ABC`)
           .expect(res => expect(res).to.have.cookie(cookieName, 'ABC'))
       })
 
-      it('should not remove JWT token saved in cookie when JWT token does not exist in query string', async () => {
-
-        await request(app)
-          .get(AppPaths.receiver.uri)
-          .set('Cookie', `${cookieName}=ABC`)
-          .expect(res => expect(res).to.not.have.cookie(cookieName, ''))
-      })
-
-      it('should redirect to start page when everything is fine', async () => {
+      it('should redirect to start page for jwt when everything is fine', async () => {
+        idamServiceMock.resolveRetrieveUserFor(1, ...roles)
 
         await request(app)
           .get(`${AppPaths.receiver.uri}?jwt=ABC`)
+          .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.startPage.uri))
+      })
+
+      it('should redirect to start page for authToken when everything is fine', async () => {
+        idamServiceMock.resolveRetrieveAuthTokenFor()
+
+        await request(app)
+          .get(`${AppPaths.receiver.uri}?code=code`)
           .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.startPage.uri))
       })
 
