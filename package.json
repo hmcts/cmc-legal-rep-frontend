@@ -99,7 +99,8 @@
     "sonarqube-scanner": "^2.0.1",
     "supertest": "^3.0.0",
     "tslint": "^5.5.0",
-    "tslint-config-standard": "^6.0.1"
+    "tslint-config-standard": "^6.0.1",
+    "to-boolean":"^1.0.0"
   },
   "nyc": {
     "include": [
