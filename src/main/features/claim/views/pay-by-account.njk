@@ -15,7 +15,7 @@
       </div>
 
       <div class="form-group">
-        <form novalidate method="post">
+        <form novalidate method="post" class="prevent-double-submit">
           {{ csrfProtection(csrf) }}
 
           {{ textInput(t('Fee Account number'), 'reference', form) }}
