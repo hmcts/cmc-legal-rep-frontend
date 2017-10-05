@@ -10,7 +10,7 @@ export function resolveRetrieveUserFor (id: number, ...roles: string[]) {
     .reply(HttpStatus.OK, { id: id, roles: roles })
 }
 
-export function resolveRetrieveAuthTokenFor () {
+export function resolveRetrieveAuthTokenFor (code: string) {
 
   mock(serviceBaseURL)
     .get(new RegExp('/oauth2/token.*'))
