@@ -21,6 +21,7 @@ function claimIssueRequestHandler (): express.RequestHandler {
     const idamUrlWithoutOauth = `${config.get('idam.authentication-web.url')}/login?continue-url=${redirectUri}`
 
     const useOauth = toBoolean(config.get<boolean>('featureToggles.idamOauth'))
+    console.log(useOauth)
     res.redirect(useOauth ? idamUrlWithOauth : idamUrlWithoutOauth)
   }
 

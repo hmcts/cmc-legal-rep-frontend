@@ -42,6 +42,6 @@
     "clientSecret": "123456"
   },
   "featureToggles": {
-    "idamOauth": false
+    "idamOauth": true
   }
 }
