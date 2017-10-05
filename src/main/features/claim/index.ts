@@ -3,6 +3,7 @@ import * as config from 'config'
 import * as path from 'path'
 import { Paths as AppPaths } from 'app/paths'
 import * as uuid from 'uuid'
+import * as toBoolean from 'to-boolean'
 
 import { AuthorizationMiddleware } from 'idam/authorizationMiddleware'
 import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
@@ -16,7 +17,11 @@ function claimIssueRequestHandler (): express.RequestHandler {
     const redirectUri = buildURL(req, AppPaths.receiver.uri.substring(1))
     const state = uuid()
 
-    res.redirect(`${config.get('idam.authentication-web.url')}/login?response_type=code&state=${state}&client_id=${clientId}&redirect_uri=${redirectUri}`)
+    const idamUrlWithOauth = `${config.get('idam.authentication-web.url')}/login?response_type=code&state=${state}&client_id=${clientId}&redirect_uri=${redirectUri}`
+    const idamUrlWithoutOauth = `${config.get('idam.authentication-web.url')}/login?continue-url=${redirectUri}`
+
+    const useOauth = toBoolean(config.get<boolean>('featureToggles.idamOauth'))
+    res.redirect(useOauth ? idamUrlWithOauth : idamUrlWithoutOauth)
   }
 
   const requiredRoles = ['solicitor']
