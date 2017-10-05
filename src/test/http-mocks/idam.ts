@@ -10,12 +10,12 @@ export function resolveRetrieveUserFor (id: number, ...roles: string[]) {
     .reply(HttpStatus.OK, { id: id, roles: roles })
 }
 
-export function resolveRetrieveAuthTokenFor (code: string) {
+export function resolveRetrieveAuthTokenFor (token: string) {
 
   mock(serviceBaseURL)
     .get(new RegExp('/oauth2/token.*'))
     .reply(HttpStatus.OK, {
-      access_token: 'I am dummy access token',
+      access_token: token,
       token_type: 'Bearer',
       expires_in: 28800
     })
