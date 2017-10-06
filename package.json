@@ -67,7 +67,8 @@
     "serve-favicon": "^2.4.3",
     "ts-node": "^3.3.0",
     "tsconfig-paths": "^2.2.0",
-    "typescript": "^2.4.2"
+    "typescript": "^2.4.2",
+    "to-boolean":"^1.0.0"
   },
   "devDependencies": {
     "@types/chai": "^4.0.4",
@@ -99,8 +100,7 @@
     "sonarqube-scanner": "^2.0.1",
     "supertest": "^3.0.0",
     "tslint": "^5.5.0",
-    "tslint-config-standard": "^6.0.1",
-    "to-boolean":"^1.0.0"
+    "tslint-config-standard": "^6.0.1"
   },
   "nyc": {
     "include": [
