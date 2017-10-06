@@ -34,7 +34,7 @@ describe('Claim issue: Submitted page', () => {
         .expect(res => expect(res).to.be.successful.withText(pageHeading))
     })
 
-    it('should fail page when user has not owner of claim with given external reference', async () => {
+    it('should fail page when user is not owner of claim with given external reference', async () => {
       idamServiceMock.resolveRetrieveUserFor(2, ...roles)
       claimStoreServiceMock.resolveRetrieveClaimByExternalId()
 
