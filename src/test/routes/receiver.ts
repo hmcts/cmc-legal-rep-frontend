@@ -8,13 +8,11 @@ import { Paths as AppPaths } from 'app/paths'
 import { Paths as ClaimPaths } from 'claim/paths'
 import { app } from '../../main/app'
 import * as idamServiceMock from '../http-mocks/idam'
-import { attachDefaultHooks } from './hooks'
 
 const cookieName: string = config.get<string>('session.cookieName')
 const token = 'I am dummy access token'
 
 describe('Claim issue: post login receiver', () => {
-  attachDefaultHooks()
 
   describe('on GET', () => {
     describe('for authorized user', () => {
