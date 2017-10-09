@@ -1,5 +1,9 @@
 {
   "featureToggles": {
     "idamOauth": true
+  },
+  "oauth": {
+    "clientId": "cmc_legal",
+    "clientSecret": "123456"
   }
 }
