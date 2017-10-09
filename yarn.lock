@@ -475,6 +475,10 @@ balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
 
+basic-auth@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/basic-auth/-/basic-auth-1.1.0.tgz#45221ee429f7ee1e5035be3f51533f1cdfd29884"
+
 bcrypt-pbkdf@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/bcrypt-pbkdf/-/bcrypt-pbkdf-1.0.1.tgz#63bc5dcb61331b92bc05fd528953c33462a06f8d"
@@ -1672,6 +1676,13 @@ expand-tilde@^2.0.2:
 expect-ct@0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/expect-ct/-/expect-ct-0.1.0.tgz#52735678de18530890d8d7b95f0ac63640958094"
+
+express-basic-auth@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/express-basic-auth/-/express-basic-auth-1.1.2.tgz#fcf5c9f0f5048ca8cbef91f3c84c93b0f9eab8c1"
+  dependencies:
+    "@types/express" "^4.0.36"
+    basic-auth "^1.1.0"
 
 express@^4.15.3:
   version "4.15.4"

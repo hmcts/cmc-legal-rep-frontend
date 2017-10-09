@@ -3,6 +3,7 @@ import * as config from 'config'
 import request from 'client/request'
 import User from 'idam/user'
 import { AuthToken } from 'idam/authToken'
+import { AuthTokenRequest } from 'idam/authTokenRequest'
 
 const idamApiUrl = config.get<string>('idam.api.url')
 
@@ -27,14 +28,20 @@ export default class IdamClient {
     })
   }
 
-  static retrieveAuthToken (url: string): Promise<AuthToken> {
-    return request.get({ uri: url })
-      .then((response: any) => {
-        return new AuthToken(
-          response.access_token,
-          response.token_type,
-          response.expires_in
-        )
-      })
+  static createAuthToken (url: string, auth: string, body: AuthTokenRequest): Promise<AuthToken> {
+    return request.post({
+      uri: url,
+      form: body,
+      headers: {
+        Authorization: auth,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    }).then((response: any) => {
+      return new AuthToken(
+        response.access_token,
+        response.token_type,
+        response.expires_in
+      )
+    })
   }
 }

@@ -13,7 +13,7 @@ export function resolveRetrieveUserFor (id: number, ...roles: string[]) {
 export function resolveRetrieveAuthTokenFor (token: string) {
 
   mock(serviceBaseURL)
-    .get(new RegExp('/oauth2/token.*'))
+    .post(new RegExp('/oauth2/token'))
     .reply(HttpStatus.OK, {
       access_token: token,
       token_type: 'Bearer',

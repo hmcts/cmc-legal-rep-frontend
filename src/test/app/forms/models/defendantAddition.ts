@@ -1,4 +1,4 @@
-/* tslint:disable:no-unused-expression */
+/* tslint:disable:disable.trailingUnderscore */
 
 import { expect } from 'chai'
 import { Validator } from 'class-validator'
