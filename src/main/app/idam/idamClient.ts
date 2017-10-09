@@ -3,7 +3,6 @@ import * as config from 'config'
 import request from 'client/request'
 import User from 'idam/user'
 import { AuthToken } from 'idam/authToken'
-import { AuthTokenRequest } from 'idam/authTokenRequest'
 
 const idamApiUrl = config.get<string>('idam.api.url')
 
@@ -28,20 +27,25 @@ export default class IdamClient {
     })
   }
 
-  static createAuthToken (url: string, auth: string, body: AuthTokenRequest): Promise<AuthToken> {
+  static exchangeCode (code: string, redirectUri: string): Promise<AuthToken> {
+    const clientId = config.get<string>('oauth.clientId')
+    const clientSecret = config.get<string>('oauth.clientSecret')
+    const url = `${config.get('idam.api.url')}/oauth2/token`
+
     return request.post({
       uri: url,
-      form: body,
-      headers: {
-        Authorization: auth,
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    }).then((response: any) => {
-      return new AuthToken(
-        response.access_token,
-        response.token_type,
-        response.expires_in
-      )
+      auth: {
+        username: clientId,
+        password: clientSecret
+      },
+      form: { grant_type: 'authorization_code', code: code, redirect_uri: redirectUri }
     })
+      .then((response: any) => {
+        return new AuthToken(
+          response.access_token,
+          response.token_type,
+          response.expires_in
+        )
+      })
   }
 }
