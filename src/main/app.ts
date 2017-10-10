@@ -3,6 +3,7 @@ import * as config from 'config'
 import * as path from 'path'
 import * as favicon from 'serve-favicon'
 import * as cookieParser from 'cookie-parser'
+import * as cookieEncrypter from 'cookie-encrypter'
 import * as bodyParser from 'body-parser'
 import * as logging from '@hmcts/nodejs-logging'
 import { NotFoundError } from './errors'
@@ -41,7 +42,9 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true
 }))
-app.use(cookieParser())
+
+app.use(cookieParser('session.COOKIE_KEY'))
+app.use(cookieEncrypter('session.COOKIE_KEY'))
 
 if (!developmentMode) {
   app.use(logging.express.accessLogger())
