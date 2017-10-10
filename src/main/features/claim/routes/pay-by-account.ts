@@ -28,7 +28,7 @@ async function saveClaimHandler (res, next) {
 
   let claimStatus: boolean
   try {
-    claimStatus = await ClaimStoreClient.retrieveByExternalId(externalId)
+    claimStatus = await ClaimStoreClient.retrieveByExternalId(externalId, res.locals.user.id)
       .then(() => true)
   } catch (err) {
     if (err.statusCode === HttpStatus.NOT_FOUND) {

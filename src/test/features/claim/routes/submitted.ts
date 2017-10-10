@@ -41,7 +41,7 @@ describe('Claim issue: Submitted page', () => {
       await request(app)
         .get(ClaimPaths.claimSubmittedPage.uri.replace(':externalId', sampleClaimObj.externalId))
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.serverError.withText(`You are not allowed to access this resource`))
+        .expect(res => expect(res).to.be.forbidden)
     })
   })
 
