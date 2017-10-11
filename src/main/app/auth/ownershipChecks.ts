@@ -1,11 +1,10 @@
-import User from 'app/idam/user'
-import Claim from 'app/claims/models/claim'
+import { ForbiddenError } from '../../errors'
 
 export default class OwnershipChecks {
 
-  static checkClaimOwner (user: User, claim: Claim) {
-    if (user.id !== claim.submitterId) {
-      throw new Error('You are not allowed to access this resource')
+  static checkClaimOwner (userId: number, submitterId: number) {
+    if (userId !== submitterId) {
+      throw new ForbiddenError()
     }
   }
 
