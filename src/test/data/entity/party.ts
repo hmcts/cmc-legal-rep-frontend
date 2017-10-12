@@ -25,9 +25,9 @@ export const organisation = {
 
 export const claimants = [{
   address: {
-    line1: 'CLAIMANT ADDRESS1',
+    line1: 'Address Line 1',
     line2: '',
-    city: 'CLEMENT TOWN',
+    city: 'City',
     postcode: 'NE83BA'
   },
   claimantDetails: individual,
