@@ -26,7 +26,7 @@
   },
   "session": {
     "cookieName": "JWT_COOKIE_NAME",
-    "cookieKey": "COOKIE_KEY"
+    "encryptionKey": "COOKIE_KEY"
   },
   "fees": {
     "url": "FEES_URL"

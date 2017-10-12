@@ -1,6 +1,6 @@
 import { Serializable } from 'models/serializable'
 import { Address } from 'forms/models/address'
-import OrganisationName from 'forms/models/organisationName'
+import { OrganisationName } from 'forms/models/organisationName'
 import { ContactDetails } from 'forms/models/contactDetails'
 
 export default class Representative implements Serializable<Representative> {
