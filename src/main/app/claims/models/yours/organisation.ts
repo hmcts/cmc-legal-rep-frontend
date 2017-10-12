@@ -3,19 +3,19 @@ import { Address } from 'claims/models/address'
 import { PartyTypes } from 'forms/models/partyTypes'
 
 export class Organisation extends Party {
-  contactPerson?: string
+  companiesHouseNumber?: string
 
   constructor (name?: string,
                address?: Address,
-               contactPerson?: string) {
+               companiesHouseNumber?: string) {
     super(PartyTypes.ORGANISATION.dataStoreValue, name, address)
-    this.contactPerson = contactPerson
+    this.companiesHouseNumber = companiesHouseNumber
   }
 
   deserialize (input: any): Organisation {
     if (input) {
       Object.assign(this, new Party().deserialize(input))
-      this.contactPerson = input.contactPerson
+      this.companiesHouseNumber = input.companiesHouseNumber
       this.type = PartyTypes.ORGANISATION.dataStoreValue
     }
     return this

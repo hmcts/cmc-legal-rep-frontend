@@ -11,8 +11,9 @@ export class StatementOfTruth implements Serializable<StatementOfTruth> {
 
   deserialize (input: any): StatementOfTruth {
     if (input) {
-      return new StatementOfTruth(input.signerName, input.signerRole)
+      this.signerName = input.signerName
+      this.signerRole = input.signerRole
     }
-    return undefined
+    return this
   }
 }

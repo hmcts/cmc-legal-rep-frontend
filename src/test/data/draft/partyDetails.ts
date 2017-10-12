@@ -6,7 +6,7 @@ export const individualDetails = {
     displayValue: 'An individual',
     dataStoreValue: 'individual'
   },
-  title: '',
+  title: 'Mr',
   fullName: 'no name',
   organisation: null,
   companyHouseNumber: null

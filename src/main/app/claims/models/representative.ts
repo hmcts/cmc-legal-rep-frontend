@@ -8,6 +8,12 @@ export class Representative implements Serializable<Representative> {
   organisationAddress?: Address
   organisationContactDetails?: ContactDetails
 
+  constructor (organisationName?: string, organisationAddress?: Address, organisationContactDetails?: ContactDetails) {
+    this.organisationName = organisationName
+    this.organisationAddress = organisationAddress
+    this.organisationContactDetails = organisationContactDetails
+  }
+
   deserialize (input?: any): Representative {
     if (input) {
       this.organisationName = input.organisationName

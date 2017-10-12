@@ -6,7 +6,6 @@ export const individual = {
     displayValue: 'An individual',
     dataStoreValue: 'individual'
   },
-  title: '',
   fullName: 'no name',
   organisation: null,
   companyHouseNumber: null
@@ -33,6 +32,7 @@ export const claimants = [{
   },
   claimantDetails: individual,
   type: PartyTypes.INDIVIDUAL.value,
+  title: 'Mr',
   name: 'no name',
   representative: {
     organisationName: 'test',
@@ -60,7 +60,8 @@ export const defendants = [{
       line2: '',
       city: 'LEGAL REP TOWN',
       postcode: 'SW1H 9DJ'
-    }
+    },
+    organisationContactDetails: {}
   },
   defendantDetails: organisation,
   name: 'defendant org',
