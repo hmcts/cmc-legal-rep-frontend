@@ -49,9 +49,9 @@ export default class ClaimData implements Serializable<ClaimData> {
     if (claimants) {
       return claimants.map((claimant: any) => {
         switch (claimant.type) {
-          case PartyTypes.INDIVIDUAL.value:
+          case PartyTypes.INDIVIDUAL.dataStoreValue:
             return new ClaimantAsIndividual().deserialize(claimant)
-          case PartyTypes.ORGANISATION.value:
+          case PartyTypes.ORGANISATION.dataStoreValue:
             return new ClaimantAsOrganisation().deserialize(claimant)
           default:
             throw Error('Something went wrong, No claimant type is set')
@@ -64,9 +64,9 @@ export default class ClaimData implements Serializable<ClaimData> {
     if (defendants) {
       return defendants.map((defendant: any) => {
         switch (defendant.type) {
-          case PartyTypes.INDIVIDUAL.value:
+          case PartyTypes.INDIVIDUAL.dataStoreValue:
             return new DefendantAsIndividual().deserialize(defendant)
-          case PartyTypes.ORGANISATION.value:
+          case PartyTypes.ORGANISATION.dataStoreValue:
             return new DefendantAsOrganisation().deserialize(defendant)
           default:
             throw Error('Something went wrong, No defendant type is set')
