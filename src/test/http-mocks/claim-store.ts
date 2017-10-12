@@ -22,7 +22,7 @@ export const sampleClaimObj = {
       },
       claimantDetails: {
         type: {
-          value: PartyTypes.INDIVIDUAL.value,
+          value: PartyTypes.INDIVIDUAL.dataStoreValue,
           displayValue: 'An individual',
           dataStoreValue: 'individual'
         },
@@ -30,7 +30,7 @@ export const sampleClaimObj = {
         organisation: null,
         companyHouseNumber: null
       },
-      type: PartyTypes.INDIVIDUAL.value,
+      type: PartyTypes.INDIVIDUAL.dataStoreValue,
       title: 'Mr',
       name: 'Full Name',
       representative: {
@@ -63,7 +63,7 @@ export const sampleClaimObj = {
       },
       defendantDetails: {
         type: {
-          value: PartyTypes.ORGANISATION.value,
+          value: PartyTypes.ORGANISATION.dataStoreValue,
           displayValue: 'An organisation',
           dataStoreValue: 'organisation'
         },
@@ -73,7 +73,7 @@ export const sampleClaimObj = {
         companyHouseNumber: ''
       },
       name: 'defendant org',
-      type: PartyTypes.ORGANISATION.value
+      type: PartyTypes.ORGANISATION.dataStoreValue
     }],
     reason: 'Because I can',
     feeAmountInPennies: 7000
