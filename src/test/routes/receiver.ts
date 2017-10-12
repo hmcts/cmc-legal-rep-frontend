@@ -1,7 +1,6 @@
 import { expect } from 'chai'
 import * as request from 'supertest'
 import * as config from 'config'
-import * as mock from 'nock'
 
 import './expectations'
 
@@ -11,16 +10,15 @@ import { app } from '../../main/app'
 import * as idamServiceMock from '../http-mocks/idam'
 
 const cookieName: string = config.get<string>('session.cookieName')
-const roles: string[] = ['solicitor']
 const token = 'I am dummy access token'
 
 describe('Claim issue: post login receiver', () => {
-  beforeEach(() => {
-    mock.cleanAll()
-  })
 
   describe('on GET', () => {
     describe('for authorized user', () => {
+      beforeEach(() => {
+        idamServiceMock.resolveRetrieveUserFor(1, 'cmc-solicitor')
+      })
 
       it('should save JWT token in cookie', async () => {
         idamServiceMock.resolveRetrieveAuthTokenFor(token)
@@ -30,12 +28,12 @@ describe('Claim issue: post login receiver', () => {
           .expect(res => expect(res).to.have.cookie(cookieName, token))
       })
 
-      it('should redirect to start page for jwt when everything is fine', async () => {
-        idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      it('should not remove bearer token saved in cookie when code does not exist in query string', async () => {
 
         await request(app)
-          .get(`${AppPaths.receiver.uri}?jwt=ABC`)
-          .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.startPage.uri))
+          .get(AppPaths.receiver.uri)
+          .set('Cookie', `${cookieName}=ABC`)
+          .expect(res => expect(res).to.not.have.cookie(cookieName, ''))
       })
 
       it('should redirect to start page for authToken when everything is fine', async () => {
