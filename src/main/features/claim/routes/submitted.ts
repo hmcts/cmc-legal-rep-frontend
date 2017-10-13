@@ -4,13 +4,11 @@ import ErrorHandling from 'common/errorHandling'
 import Claim from 'claims/models/claim'
 import ClaimStoreClient from 'claims/claimStoreClient'
 import { MomentFormatter } from 'app/utils/momentFormatter'
-import OwnershipChecks from 'app/auth/ownershipChecks'
 
 async function renderView (req: express.Request, res: express.Response): Promise<void> {
   const { externalId } = req.params
 
-  const claim: Claim = await ClaimStoreClient.retrieveByExternalId(externalId)
-  OwnershipChecks.checkClaimOwner(res.locals.user, claim)
+  const claim: Claim = await ClaimStoreClient.retrieveByExternalId(externalId, res.locals.user.id)
 
   res.render(Paths.claimSubmittedPage.associatedView, {
     claimNumber: claim.claimNumber,
