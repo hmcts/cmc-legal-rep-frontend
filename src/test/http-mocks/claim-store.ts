@@ -1,6 +1,7 @@
 import * as config from 'config'
 import * as mock from 'nock'
 import * as HttpStatus from 'http-status-codes'
+import { PartyTypes } from 'forms/models/partyTypes'
 
 const serviceBaseURL: string = config.get<string>('claim-store.url')
 
@@ -12,22 +13,67 @@ export const sampleClaimObj = {
   createdAt: '2017-07-25T22:45:51.785',
   issuedOn: '2017-07-25',
   claim: {
-    claimant: {
-      name: 'John Smith',
-      amount: {
-        type: 'range',
-        lowerValue: 100,
-        higherValue: 300
-      }
-    },
-    defendants: [{
-      name: 'John Doe',
+    claimants: [{
       address: {
-        line1: 'line1',
-        line2: 'line2',
-        city: 'city',
-        postcode: 'bb127nq'
+        line1: 'Address Line 1',
+        line2: '',
+        city: 'London',
+        postcode: 'NE8 3BA'
+      },
+      claimantDetails: {
+        type: {
+          value: PartyTypes.INDIVIDUAL.dataStoreValue,
+          displayValue: 'An individual',
+          dataStoreValue: 'individual'
+        },
+        fullName: 'no name',
+        organisation: null,
+        companyHouseNumber: null
+      },
+      type: PartyTypes.INDIVIDUAL.dataStoreValue,
+      title: 'Mr',
+      name: 'Full Name',
+      representative: {
+        organisationName: 'test',
+        organisationAddress: {
+          line1: 'Address Line 1',
+          line2: '',
+          city: 'City',
+          postcode: 'Postcode'
+        },
+        organisationContactDetails: {}
       }
+    }],
+    defendants: [{
+      address: {
+        line1: 'Address Line 1',
+        line2: '',
+        city: 'London',
+        postcode: 'SW1H 9AJ'
+      },
+      representative: {
+        organisationName: 'legal rep',
+        organisationAddress: {
+          line1: 'LEGAL REP ADD1',
+          line2: '',
+          city: 'LEGAL REP TOWN',
+          postcode: 'SW1H 9DJ'
+        },
+        organisationContactDetails: {}
+      },
+      defendantDetails: {
+        type: {
+          value: PartyTypes.ORGANISATION.dataStoreValue,
+          displayValue: 'An organisation',
+          dataStoreValue: 'organisation'
+        },
+        title: null,
+        fullName: null,
+        organisation: 'defendant org',
+        companyHouseNumber: ''
+      },
+      name: 'defendant org',
+      type: PartyTypes.ORGANISATION.dataStoreValue
     }],
     reason: 'Because I can',
     feeAmountInPennies: 7000
