@@ -41,8 +41,6 @@ export default class ClaimStoreClient {
       .get(`${claimStoreApiUrl}/${externalId}`)
       .then(claim => {
         if (claim) {
-          console.log(typeof userId)
-          console.log(typeof claim.submitterId)
           if (userId !== claim.submitterId) {
             throw new ForbiddenError()
           }
