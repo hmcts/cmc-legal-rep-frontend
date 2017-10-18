@@ -34,3 +34,32 @@ ul {
 .error-min-height {
   min-height: 25px;
 }
+
+.search-submit {
+  background-color: $link-colour;
+  background-image: url('/legal/img/lib/search-button.png');
+  background-position: -12.5% 50%;
+  background-repeat: no-repeat;
+  border: 0;
+  bottom: 0;
+  color: $white;
+  cursor: pointer;
+  height: 50px;
+  overflow: visible;
+  position: absolute;
+  right: 0;
+  text-indent: -5000px;
+  width: 50px;
+}
+
+.search-input {
+  border-color: $border-colour;
+  border-right: 0;
+  box-sizing: border-box;
+  font-size: 19px;
+  font-weight: 400;
+  height: 50px;
+  margin: 0;
+  padding: 0 0 0 10px;
+  width: 50%;
+}

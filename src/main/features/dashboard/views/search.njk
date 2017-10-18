@@ -1,0 +1,24 @@
+{% extends "layout.njk" %}
+{% from "form.njk" import linkButton, csrfProtection %}
+
+{% set title = t('Money claim') %}
+{% set heading = t('Civil Money Claims') %}
+
+{% block content %}
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <form novalidate method="post">
+        {{ csrfProtection(csrf) }}
+
+        {{ linkButton('Issue a new claim', 'start', 'button button-start') }}
+
+        <h2 class="heading-medium" style="margin-bottom: 0">Confirm service</h2>
+        <p class="form-hint" style="margin-top: 0; margin-bottom: 10px;">
+          {{ t('Enter your reference or claim number to find a claim') }}
+        </p>
+        <input type="search" name="search" id="search" class="search-input">
+        <button type="submit" class="search-submit" title="search">{{ t('Search') }}</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
