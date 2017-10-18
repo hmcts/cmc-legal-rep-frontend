@@ -32,7 +32,7 @@ export default class ClaimStoreClient {
       })
   }
 
-  static retrieveByExternalId (externalId: string, userId: number): Promise<Claim> {
+  static retrieveByExternalId (externalId: string, userId: string): Promise<Claim> {
     if (!externalId) {
       return Promise.reject(new Error('External id must be set'))
     }
