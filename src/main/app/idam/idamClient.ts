@@ -16,7 +16,7 @@ export default class IdamClient {
       }
     }).then((response: any) => {
       return new User(
-        response.id,
+        response.id.toString(),
         response.email,
         response.forename,
         response.surname,

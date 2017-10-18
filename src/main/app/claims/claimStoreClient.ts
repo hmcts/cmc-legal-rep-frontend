@@ -32,7 +32,7 @@ export default class ClaimStoreClient {
       })
   }
 
-  static retrieveByExternalId (externalId: string, userId: number): Promise<Claim> {
+  static retrieveByExternalId (externalId: string, userId: string): Promise<Claim> {
     if (!externalId) {
       return Promise.reject(new Error('External id must be set'))
     }
@@ -41,6 +41,8 @@ export default class ClaimStoreClient {
       .get(`${claimStoreApiUrl}/${externalId}`)
       .then(claim => {
         if (claim) {
+          console.log(typeof userId)
+          console.log(typeof claim.submitterId)
           if (userId !== claim.submitterId) {
             throw new ForbiddenError()
           }
