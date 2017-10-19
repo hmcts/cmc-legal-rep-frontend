@@ -3,7 +3,7 @@ import DraftView from 'app/drafts/models/draftView'
 import { Draft } from '@hmcts/draft-store-client/dist/app/models/draft'
 
 export default class User {
-  id: number
+  id: string
   email: string
   forename: string
   surname: string
@@ -13,7 +13,7 @@ export default class User {
   viewDraft: Draft<DraftView>
   legalClaimDraft: Draft<DraftLegalClaim>
 
-  constructor (id: number,
+  constructor (id: string,
                email: string,
                forename: string,
                surname: string,

@@ -26,7 +26,7 @@ describe('Claim issue: preferred court page', () => {
     checkAuthorizationGuards(app, 'get', ClaimPaths.preferredCourtPage.uri)
 
     it('should render page when everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       await request(app)
         .get(ClaimPaths.preferredCourtPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -38,7 +38,7 @@ describe('Claim issue: preferred court page', () => {
     checkAuthorizationGuards(app, 'post', ClaimPaths.preferredCourtPage.uri)
 
     it('should render page when form is invalid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       await request(app)
         .post(ClaimPaths.preferredCourtPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -46,7 +46,7 @@ describe('Claim issue: preferred court page', () => {
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.rejectSave('legalClaim', 'HTTP error')
 
       await request(app)
@@ -57,7 +57,7 @@ describe('Claim issue: preferred court page', () => {
     })
 
     it('should redirect to claimant type page when form is valid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.resolveSave('legalClaim')
 
       await request(app)

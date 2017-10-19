@@ -28,7 +28,7 @@ describe('Get Sealed Claim copy', () => {
 
     describe('for authorized user', () => {
       beforeEach(() => {
-        idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+        idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       })
 
       it('should return 500 and render error page when cannot download the claim copy', async () => {

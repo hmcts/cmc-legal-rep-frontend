@@ -26,7 +26,7 @@ describe('Claim issue: personal injury page', () => {
     checkAuthorizationGuards(app, 'get', ClaimPaths.personalInjuryPage.uri)
 
     it('should render page when everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       await request(app)
         .get(ClaimPaths.personalInjuryPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -38,7 +38,7 @@ describe('Claim issue: personal injury page', () => {
     checkAuthorizationGuards(app, 'post', ClaimPaths.personalInjuryPage.uri)
 
     it('should render page when form is invalid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       await request(app)
         .post(ClaimPaths.personalInjuryPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -46,7 +46,7 @@ describe('Claim issue: personal injury page', () => {
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.rejectSave('legalClaim', 'HTTP error')
 
       await request(app)
@@ -60,7 +60,7 @@ describe('Claim issue: personal injury page', () => {
     })
 
     it('should redirect to hosing disrepair page when form is valid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.resolveSave('legalClaim')
 
       await request(app)
