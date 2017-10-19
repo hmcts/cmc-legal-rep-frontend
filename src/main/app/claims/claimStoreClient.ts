@@ -51,4 +51,42 @@ export default class ClaimStoreClient {
         }
       })
   }
+
+  static retrieveByExternalReference (externalReference: string, userAuthToken: string): Promise<Claim> {
+    if (!externalReference) {
+      return Promise.reject(new Error('Claim external reference is required'))
+    }
+
+    return request
+      .get(`${claimStoreApiUrl}/representative/${externalReference}`, {
+        headers: {
+          Authorization: `Bearer ${userAuthToken}`
+        }
+      })
+      .then((claims: object[]) => {
+        if (claims.length === 0) {
+          return Promise.reject(new Error('No claim found for external reference ' + externalReference))
+        } else if (claims.length > 1) {
+          return Promise.reject(new Error('More than one claims found for external reference ' + externalReference))
+        } else {
+          return new Claim().deserialize(claims[0])
+        }
+      })
+  }
+
+  static retrieveByClaimReference (claimReference: string, userAuthToken: string): Promise<Claim> {
+    if (!claimReference) {
+      return Promise.reject(new Error('Claim reference is required'))
+    }
+
+    return request
+      .get(`${claimStoreApiUrl}/${claimReference}`, {
+        headers: {
+          Authorization: `Bearer ${userAuthToken}`
+        }
+      })
+      .then((claims: object[]) => {
+        return claims.map((claim: object) => new Claim().deserialize(claim))
+      })
+  }
 }
