@@ -20,18 +20,6 @@ export default class ClaimStoreClient {
     })
   }
 
-  static retrieveByClaimantId (claimantId: number): Promise<Claim[]> {
-    if (!claimantId) {
-      return Promise.reject(new Error('Claimant ID is required'))
-    }
-
-    return request
-      .get(`${claimStoreApiUrl}/claimant/${claimantId}`)
-      .then((claims: object[]) => {
-        return claims.map((claim: object) => new Claim().deserialize(claim))
-      })
-  }
-
   static retrieveByExternalId (externalId: string, userId: string): Promise<Claim> {
     if (!externalId) {
       return Promise.reject(new Error('External id must be set'))
