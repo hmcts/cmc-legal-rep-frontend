@@ -13,6 +13,7 @@ import I18Next from 'modules/i18n'
 import Nunjucks from 'modules/nunjucks'
 
 import { Feature as ClaimIssueFeature } from 'claim/index'
+import { Feature as CertificateOfServiceFeature } from 'certificateOfService/index'
 import { CsrfProtection } from 'modules/csrf'
 
 export const app: express.Express = express()
@@ -54,6 +55,7 @@ if (env !== 'mocha') {
 }
 
 new ClaimIssueFeature().enableFor(app)
+new CertificateOfServiceFeature().enableFor(app)
 
 app.use('/legal', RouterFinder.findAll(path.join(__dirname, 'routes')))
 

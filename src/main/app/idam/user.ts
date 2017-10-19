@@ -1,5 +1,6 @@
 import DraftLegalClaim from 'drafts/models/draftLegalClaim'
 import DraftView from 'app/drafts/models/draftView'
+import { DraftCertificateOfService } from 'drafts/models/draftCertificateOfService'
 
 export default class User {
   id: number
@@ -11,6 +12,7 @@ export default class User {
   bearerToken: string
   viewDraft: DraftView
   legalClaimDraft: DraftLegalClaim
+  legalCertificateOfServiceDraft: DraftCertificateOfService
 
   constructor (id: number,
                email: string,

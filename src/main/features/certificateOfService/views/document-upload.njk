@@ -1,0 +1,30 @@
+{% extends "layout.njk" %}
+
+{% set title = t('Money claim') %}
+{% set heading = t('Upload your documents') %}
+
+{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary %}
+
+{% block content %}
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <form action="/legal/certificateOfService/document-upload?_csrf={{ csrf }}" novalidate method="post" enctype="multipart/form-data">
+
+        <div class="form-group">
+          <label for="files"></label>
+          <input type="file" id="files" name="files" multiple>
+        </div>
+
+        <div class="form-group">
+          <h2>Uploaded Documents</h2>
+          <a href="/legal/HO00004283.jpg">download file</a>
+        </div>
+
+        <div class="form-group">
+          {{ saveAndContinueButton() }}
+        </div>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

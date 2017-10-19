@@ -4,7 +4,7 @@
   "description": "Front end for legal representation journey within CMC",
   "private": true,
   "engines": {
-    "node": ">=7.8.0"
+    "node": ">=8.1.4"
   },
   "repository": "git@github.com:hmcts/cmc-legal-rep-frontend.git",
   "author": "HMCTS",
@@ -44,6 +44,7 @@
     "cross-env": "^5.0.5",
     "csurf": "^1.9.0",
     "express": "^4.15.3",
+    "formidable": "^1.1.1",
     "fs": "0.0.2",
     "govuk-elements-sass": "^3.1.0",
     "govuk_template_jinja": "^0.23.0",
@@ -65,10 +66,11 @@
     "request-promise-native": "^1.0.4",
     "require-directory": "^2.1.1",
     "serve-favicon": "^2.4.3",
+    "to-boolean": "^1.0.0",
     "ts-node": "^3.3.0",
     "tsconfig-paths": "^2.2.0",
-    "typescript": "^2.4.2",
-    "to-boolean":"^1.0.0"
+    "clam-engine": "^2.0.1",
+    "typescript": "^2.4.2"
   },
   "devDependencies": {
     "@types/chai": "^4.0.4",
