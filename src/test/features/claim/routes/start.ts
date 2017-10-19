@@ -22,7 +22,7 @@ describe('Claim issue: start page', () => {
     checkAuthorizationGuards(app, 'get', ClaimPaths.startPage.uri)
 
     it('should render page when everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       await request(app)
         .get(ClaimPaths.startPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -35,7 +35,7 @@ describe('Claim issue: start page', () => {
     checkAuthorizationGuards(app, 'post', ClaimPaths.startPage.uri)
 
     it('should return 500 and render error page when can not delete draft claim', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       DraftStoreServiceMock.rejectDelete(draftType, 'HTTP error')
 
       await request(app)
@@ -45,7 +45,7 @@ describe('Claim issue: start page', () => {
     })
 
     it('should redirect to representative-name page when delete previous draft is successful', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       DraftStoreServiceMock.resolveDelete('legalClaim')
       DraftStoreServiceMock.resolveDelete('view')
 
