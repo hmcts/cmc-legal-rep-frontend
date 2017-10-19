@@ -5,18 +5,22 @@ export class SearchClaim {
 
   static search (query: string, userAuthToken: string): Promise<Claim> {
     if (!query) {
-      return Promise.reject(new Error('search text is missing!'))
+      return Promise.reject(new Error('Search text cannot be blank'))
     }
-    if (SearchClaim.isClaimReferenceNumber(query.trim())) {
-      return ClaimStoreClient.retrieveByClaimReference(query.trim(), userAuthToken)
+    if (!userAuthToken) {
+      return Promise.reject(new Error('User auth token cannot be blank'))
+    }
+    const text: string = query.trim()
+    if (SearchClaim.isClaimReferenceNumber(text)) {
+      return ClaimStoreClient.retrieveByClaimReference(text, userAuthToken)
     } else {
-      return ClaimStoreClient.retrieveByExternalReference(query.trim(), userAuthToken)
+      return ClaimStoreClient.retrieveByExternalReference(text, userAuthToken)
     }
   }
 
   static isClaimReferenceNumber (text: string): boolean {
 
-    if (text.match(new RegExp(/^\\d{3}LR\\d{3}$/gi))) {
+    if (text.match(new RegExp(/^\d{3}LR\d{3}$/gi))) {
       return true
     } else {
       return false
