@@ -51,36 +51,4 @@ export default class ClaimStoreClient {
         }
       })
   }
-
-  static retrieveByExternalReference (externalReference: string, userAuthToken: string): Promise<Claim[]> {
-    if (!externalReference) {
-      return Promise.reject(new Error('Claim external reference is required'))
-    }
-
-    return request
-      .get(`${claimStoreApiUrl}/representative/${externalReference}`, {
-        headers: {
-          Authorization: `Bearer ${userAuthToken}`
-        }
-      })
-      .then((claims: object[]) => {
-        return claims.map((claim: object) => new Claim().deserialize(claim))
-      })
-  }
-
-  static retrieveByClaimReference (claimReference: string, userAuthToken: string): Promise<Claim> {
-    if (!claimReference) {
-      return Promise.reject(new Error('Claim reference is required'))
-    }
-
-    return request
-      .get(`${claimStoreApiUrl}/${claimReference}`, {
-        headers: {
-          Authorization: `Bearer ${userAuthToken}`
-        }
-      })
-      .then((claims: object[]) => {
-        return claims.map((claim: object) => new Claim().deserialize(claim))
-      })
-  }
 }
