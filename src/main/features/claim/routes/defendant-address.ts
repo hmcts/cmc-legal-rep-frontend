@@ -5,7 +5,7 @@ import { Form } from 'forms/form'
 import { FormValidator } from 'forms/validation/formValidator'
 import { Address } from 'forms/models/address'
 
-import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
+import { DraftService } from 'services/draftService'
 import ErrorHandling from 'common/errorHandling'
 import { Defendants } from 'common/router/defendants'
 
@@ -21,7 +21,7 @@ function renderView (form: Form<Address>, res: express.Response): void {
 export default express.Router()
   .get(Paths.defendantAddressPage.uri, (req: express.Request, res: express.Response) => {
     const index: number = Defendants.getIndex(res)
-    renderView(new Form(res.locals.user.legalClaimDraft.defendants[index].address), res)
+    renderView(new Form(res.locals.user.legalClaimDraft.document.defendants[index].address), res)
   })
   .post(Paths.defendantAddressPage.uri, FormValidator.requestHandler(Address, Address.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -31,8 +31,8 @@ export default express.Router()
         renderView(form, res)
       } else {
         const index: number = Defendants.getIndex(res)
-        res.locals.user.legalClaimDraft.defendants[index].address = form.model
-        await ClaimDraftMiddleware.save(res, next)
+        res.locals.user.legalClaimDraft.document.defendants[index].address = form.model
+        await new DraftService()['save'](res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
         res.redirect(Paths.defendantRepresentedPage.uri)
       }
     })

@@ -28,27 +28,27 @@ describe('Claimants', () => {
     const res: express.Response = mockRes()
     createClaimants(res)
     Claimants.addClaimant(res)
-    expect(res.locals.user.legalClaimDraft.claimants.length === 1)
+    expect(res.locals.user.legalClaimDraft.document.claimants.length === 1)
 
   })
 
   it('should remove claimant from response claimants', async () => {
     const res: express.Response = mockRes()
     createClaimants(res)
-    res.locals.user.legalClaimDraft.claimants.push(new Claimant())
-    res.locals.user.legalClaimDraft.claimants.push(new Claimant())
+    res.locals.user.legalClaimDraft.document.claimants.push(new Claimant())
+    res.locals.user.legalClaimDraft.document.claimants.push(new Claimant())
 
     Claimants.removeClaimant(res, '1')
-    expect(res.locals.user.legalClaimDraft.claimants.length === 1)
+    expect(res.locals.user.legalClaimDraft.document.claimants.length === 1)
 
   })
 
   it('should give current claimants index', async () => {
     const res: express.Response = mockRes()
     createClaimants(res)
-    res.locals.user.legalClaimDraft.claimants.push(new Claimant())
-    res.locals.user.legalClaimDraft.claimants.push(new Claimant())
-    res.locals.user.legalClaimDraft.claimants.push(new Claimant())
+    res.locals.user.legalClaimDraft.document.claimants.push(new Claimant())
+    res.locals.user.legalClaimDraft.document.claimants.push(new Claimant())
+    res.locals.user.legalClaimDraft.document.claimants.push(new Claimant())
 
     expect(Claimants.getCurrentIndex(res) === 2)
 
@@ -61,7 +61,7 @@ describe('Claimants', () => {
       req.query = { index: 1 }
       const res: express.Response = mockRes()
       createClaimants(res)
-      res.locals.user.legalClaimDraft.claimants.push(new Claimant())
+      res.locals.user.legalClaimDraft.document.claimants.push(new Claimant())
 
       expect(Claimants.getChangeIndex(req, res)).eq(0)
     })
@@ -79,7 +79,7 @@ describe('Claimants', () => {
       req.query = { index: 100 }
       const res: express.Response = mockRes()
       createClaimants(res)
-      res.locals.user.legalClaimDraft.claimants.push(new Claimant())
+      res.locals.user.legalClaimDraft.document.claimants.push(new Claimant())
 
       expect(() => Claimants.getChangeIndex(req, res)).to.throw(Error, 'Invalid index for claimant')
     })
@@ -104,7 +104,7 @@ describe('Claimants', () => {
     it('should give last claimant index if not a change request', async () => {
       const res: express.Response = mockRes()
       createClaimants(res)
-      res.locals.user.legalClaimDraft.claimants.push(new Claimant())
+      res.locals.user.legalClaimDraft.document.claimants.push(new Claimant())
 
       expect(Claimants.getIndex(res)).eq(0)
     })
@@ -114,7 +114,7 @@ describe('Claimants', () => {
     it('for just one claimant', async () => {
       const res: express.Response = mockRes()
       createClaimants(res)
-      res.locals.user.legalClaimDraft.claimants.push(new Claimant())
+      res.locals.user.legalClaimDraft.document.claimants.push(new Claimant())
 
       expect(Claimants.getPartyStrip(res)).eq('Claimant')
     })
@@ -122,8 +122,8 @@ describe('Claimants', () => {
     it('for more than one claimants', async () => {
       const res: express.Response = mockRes()
       createClaimants(res)
-      res.locals.user.legalClaimDraft.claimants.push(new Claimant())
-      res.locals.user.legalClaimDraft.claimants.push(new Claimant())
+      res.locals.user.legalClaimDraft.document.claimants.push(new Claimant())
+      res.locals.user.legalClaimDraft.document.claimants.push(new Claimant())
 
       expect(Claimants.getPartyStrip(res)).eq('Claimant 2')
     })

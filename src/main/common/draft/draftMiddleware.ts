@@ -1,41 +1,63 @@
 import * as express from 'express'
-import DraftStoreClient from 'common/draft/draftStoreClient'
 
-export class DraftMiddleware<T> {
-  client: DraftStoreClient<T>
+import { UUIDUtils } from 'common/utils/uuidUtils'
+import { Draft } from '@hmcts/draft-store-client/dist/app/models/draft'
+import { DraftService } from 'services/draftService'
 
-  constructor (public draftType: string, public deserializeFn: (value: any) => T = (value) => value) {
-    if (!draftType || draftType.trim() === '') {
-      throw new Error('Draft type is required to instantiate middleware')
+/**
+ * Filters list of drafts to return only these matching external ID. If none of the drafts has external ID set
+ * then unchanged list is returned so that they can be migrated to new format with external ID (legacy drafts scenario).
+ */
+function tryFilterByExternalId<T> (drafts: Draft<T>[], externalId: string): Draft<T>[] {
+  if (drafts.filter(draft => draft.document['externalId'] !== undefined).length === 0) {
+    return drafts
+  }
+
+  return drafts.filter(item => item.document['externalId'] === externalId)
+}
+
+export class DraftMiddleware {
+
+  static requestHandler<T> (draftType: string, deserializeFn: (value: any) => T = (value) => value): express.RequestHandler {
+    return async function (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
+      if (res.locals.isLoggedIn) {
+        try {
+          new DraftService()['find'](draftType, '100', res.locals.user.bearerToken, deserializeFn)
+            .then((drafts: Draft<T>[]) => {
+              // req.params isn't populated here https://github.com/expressjs/express/issues/2088
+              const externalId: string = UUIDUtils.extractFrom(req.path)
+
+              if (externalId !== undefined) {
+                drafts = tryFilterByExternalId(drafts, externalId)
+              }
+
+              if (drafts.length > 1) {
+                throw new Error('More then one draft has been found')
+              }
+              let draft: Draft<T>
+              if (drafts.length === 1) {
+                draft = drafts[0]
+              } else {
+                draft = new Draft<T>(undefined, draftType, deserializeFn(undefined), undefined, undefined)
+              }
+
+              if (draft.document['externalId'] === undefined && externalId !== undefined) {
+                draft.document['externalId'] = externalId
+              }
+              res.locals.user[`${draftType}Draft`] = draft
+
+              next()
+            })
+            .catch(err =>{
+              console.log(err)
+              next(err)
+            })
+        } catch (err) {
+          next(err)
+        }
+      } else {
+        next()
+      }
     }
-    this.client = new DraftStoreClient<T>(draftType)
-  }
-
-  retrieve (res: express.Response, next: express.NextFunction): void {
-    if (res.locals.isLoggedIn) {
-      this.client
-        .retrieve(res.locals.user.id, this.deserializeFn)
-        .then(draft => {
-
-          if (!draft) {
-            draft = this.deserializeFn(null)
-          }
-          res.locals.user[`${this.draftType}Draft`] = draft
-          next()
-        })
-        .catch(next)
-    } else {
-      next()
-    }
-  }
-
-  save (res: express.Response, next: express.NextFunction): Promise<void> {
-    return this.client
-      .save(res.locals.user.id, res.locals.user[`${this.draftType}Draft`])
-  }
-
-  delete (res: express.Response, next: express.NextFunction): Promise<void> {
-    return this.client
-      .delete(res.locals.user.id)
   }
 }

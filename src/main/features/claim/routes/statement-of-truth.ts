@@ -4,20 +4,20 @@ import { Paths } from 'claim/paths'
 import { Form } from 'forms/form'
 import { FormValidator } from 'forms/validation/formValidator'
 
-import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
+import { DraftService } from 'services/draftService'
 import ErrorHandling from 'common/errorHandling'
 import { StatementOfTruth } from 'app/forms/models/statementOfTruth'
 
 function renderView (form: Form<StatementOfTruth>, res: express.Response): void {
   res.render(Paths.statementOfTruthPage.associatedView, {
     form: form,
-    organisationName: res.locals.user.legalClaimDraft.representative.organisationName.name
+    organisationName: res.locals.user.legalClaimDraft.document.representative.organisationName.name
   })
 }
 
 export default express.Router()
   .get(Paths.statementOfTruthPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.legalClaimDraft.statementOfTruth), res)
+    renderView(new Form(res.locals.user.legalClaimDraft.document.statementOfTruth), res)
   })
   .post(Paths.statementOfTruthPage.uri, FormValidator.requestHandler(StatementOfTruth, StatementOfTruth.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -26,8 +26,8 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        res.locals.user.legalClaimDraft.statementOfTruth = form.model
-        await ClaimDraftMiddleware.save(res, next)
+        res.locals.user.legalClaimDraft.document.statementOfTruth = form.model
+        await new DraftService()['save'](res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
         res.redirect(Paths.payByAccountPage.uri)
       }
     })

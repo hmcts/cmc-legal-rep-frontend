@@ -14,7 +14,7 @@ function createDefendants (res: express.Response, defendantChangeIndex?: number)
   res.locals.user = {
     id: 123
   }
-  res.locals.user.legalClaimDraft = {
+  res.locals.user.legalClaimDraft.document.= {
     defendants: []
   }
   res.locals.user.viewDraft = {
@@ -27,25 +27,25 @@ describe('Defendants', () => {
     const res: express.Response = mockRes()
     createDefendants(res)
     Defendants.addDefendant(res)
-    expect(res.locals.user.legalClaimDraft.defendants.length).eq(1)
+    expect(res.locals.user.legalClaimDraft.document.defendants.length).eq(1)
   })
 
   it('should remove defendant from response defendants', async () => {
     const res: express.Response = mockRes()
     createDefendants(res)
-    res.locals.user.legalClaimDraft.defendants.push(new Defendant())
-    res.locals.user.legalClaimDraft.defendants.push(new Defendant())
+    res.locals.user.legalClaimDraft.document.defendants.push(new Defendant())
+    res.locals.user.legalClaimDraft.document.defendants.push(new Defendant())
 
     Defendants.removeDefendant(res, '1')
-    expect(res.locals.user.legalClaimDraft.defendants.length).eq(1)
+    expect(res.locals.user.legalClaimDraft.document.defendants.length).eq(1)
   })
 
   it('should give current defendants index', async () => {
     const res: express.Response = mockRes()
     createDefendants(res)
-    res.locals.user.legalClaimDraft.defendants.push(new Defendant())
-    res.locals.user.legalClaimDraft.defendants.push(new Defendant())
-    res.locals.user.legalClaimDraft.defendants.push(new Defendant())
+    res.locals.user.legalClaimDraft.document.defendants.push(new Defendant())
+    res.locals.user.legalClaimDraft.document.defendants.push(new Defendant())
+    res.locals.user.legalClaimDraft.document.defendants.push(new Defendant())
 
     expect(Defendants.getCurrentIndex(res)).eq(2)
   })
@@ -57,7 +57,7 @@ describe('Defendants', () => {
       req.query = { index: 1 }
       const res: express.Response = mockRes()
       createDefendants(res)
-      res.locals.user.legalClaimDraft.defendants.push(new Defendant())
+      res.locals.user.legalClaimDraft.document.defendants.push(new Defendant())
 
       expect(Defendants.getChangeIndex(req, res)).eq(0)
     })
@@ -75,7 +75,7 @@ describe('Defendants', () => {
       req.query = { index: 100 }
       const res: express.Response = mockRes()
       createDefendants(res)
-      res.locals.user.legalClaimDraft.defendants.push(new Defendant())
+      res.locals.user.legalClaimDraft.document.defendants.push(new Defendant())
 
       expect(() => Defendants.getChangeIndex(req, res)).to.throw(Error, 'Invalid index for defendant')
     })
@@ -100,7 +100,7 @@ describe('Defendants', () => {
     it('should give last defendant index if not a change request', async () => {
       const res: express.Response = mockRes()
       createDefendants(res)
-      res.locals.user.legalClaimDraft.defendants.push(new Defendant())
+      res.locals.user.legalClaimDraft.document.defendants.push(new Defendant())
 
       expect(Defendants.getIndex(res)).eq(0)
     })
@@ -110,7 +110,7 @@ describe('Defendants', () => {
     it('for just one defendant', async () => {
       const res: express.Response = mockRes()
       createDefendants(res)
-      res.locals.user.legalClaimDraft.defendants.push(new Defendant())
+      res.locals.user.legalClaimDraft.document.defendants.push(new Defendant())
 
       expect(Defendants.getPartyStrip(res)).eq('Defendant')
     })
@@ -118,8 +118,8 @@ describe('Defendants', () => {
     it('for more than one defendants', async () => {
       const res: express.Response = mockRes()
       createDefendants(res)
-      res.locals.user.legalClaimDraft.defendants.push(new Defendant())
-      res.locals.user.legalClaimDraft.defendants.push(new Defendant())
+      res.locals.user.legalClaimDraft.document.defendants.push(new Defendant())
+      res.locals.user.legalClaimDraft.document.defendants.push(new Defendant())
 
       expect(Defendants.getPartyStrip(res)).eq('Defendant 2')
     })
@@ -129,7 +129,7 @@ describe('Defendants', () => {
     it('for just one defendant', async () => {
       const res: express.Response = mockRes()
       createDefendants(res)
-      res.locals.user.legalClaimDraft.defendants.push(new Defendant())
+      res.locals.user.legalClaimDraft.document.defendants.push(new Defendant())
 
       expect(Defendants.getPartyStripeTitleForRepresentative(res)).eq('Defendant\'s legal representative')
     })
@@ -137,8 +137,8 @@ describe('Defendants', () => {
     it('for more than one defendants', async () => {
       const res: express.Response = mockRes()
       createDefendants(res)
-      res.locals.user.legalClaimDraft.defendants.push(new Defendant())
-      res.locals.user.legalClaimDraft.defendants.push(new Defendant())
+      res.locals.user.legalClaimDraft.document.defendants.push(new Defendant())
+      res.locals.user.legalClaimDraft.document.defendants.push(new Defendant())
 
       expect(Defendants.getPartyStripeTitleForRepresentative(res)).eq('Defendant 2\'s legal representative')
     })

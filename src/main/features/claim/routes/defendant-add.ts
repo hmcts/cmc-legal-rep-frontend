@@ -8,19 +8,19 @@ import { Defendants } from 'common/router/defendants'
 import { DefendantAddition } from 'app/forms/models/defendantAddition'
 import { YesNo } from 'app/forms/models/yesNo'
 
-import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
+import { DraftService } from 'services/draftService'
 import { ValidationError } from 'class-validator'
 
 const MAX_DEFENDANTS_ALLOWED: number = 20
 const ERROR_MESSAGE: string = `You can't add more than ${MAX_DEFENDANTS_ALLOWED} defendants`
 
 function renderView (form: Form<DefendantAddition>, res: express.Response) {
-  const defendants = res.locals.user.legalClaimDraft.defendants
+  const defendants = res.locals.user.legalClaimDraft.document.defendants
 
   res.render(Paths.defendantAdditionPage.associatedView, {
     form: form,
     maxAllowedLimit: MAX_DEFENDANTS_ALLOWED,
-    defendants: res.locals.user.viewDraft.isDefendantDeleted || defendants.length > 1 ? defendants : null
+    defendants: res.locals.user.viewDraft.document.isDefendantDeleted || defendants.length > 1 ? defendants : null
   })
 }
 
@@ -42,7 +42,7 @@ export default express.Router()
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form: Form<DefendantAddition> = req.body
 
-      if (form.model.isAddDefendant === YesNo.YES && res.locals.user.legalClaimDraft.defendants.length === MAX_DEFENDANTS_ALLOWED) {
+      if (form.model.isAddDefendant === YesNo.YES && res.locals.user.legalClaimDraft.document.defendants.length === MAX_DEFENDANTS_ALLOWED) {
         addErrorMessage(form)
       }
 
@@ -51,7 +51,7 @@ export default express.Router()
       } else {
         if (form.model.isAddDefendant === YesNo.YES) {
           Defendants.addDefendant(res)
-          await ClaimDraftMiddleware.save(res, next)
+          await new DraftService()['save'](res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
           res.redirect(Paths.defendantTypePage.uri)
         } else {
           res.redirect(Paths.personalInjuryPage.uri)

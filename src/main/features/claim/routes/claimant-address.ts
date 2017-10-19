@@ -5,10 +5,9 @@ import { Form } from 'forms/form'
 import { FormValidator } from 'forms/validation/formValidator'
 import { Address } from 'forms/models/address'
 
-import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
+import { DraftService } from 'services/draftService'
 import ErrorHandling from 'common/errorHandling'
 import { Claimants } from 'common/router/claimants'
-import { ViewDraftMiddleware } from 'views/draft/viewDraftMiddleware'
 
 function renderView (form: Form<Address>, res: express.Response): void {
 
@@ -22,7 +21,7 @@ function renderView (form: Form<Address>, res: express.Response): void {
 export default express.Router()
   .get(Paths.claimantAddressPage.uri, (req: express.Request, res: express.Response) => {
     const index: number = Claimants.getIndex(res)
-    renderView(new Form(res.locals.user.legalClaimDraft.claimants[index].address), res)
+    renderView(new Form(res.locals.user.legalClaimDraft.document.claimants[index].address), res)
   })
   .post(Paths.claimantAddressPage.uri, FormValidator.requestHandler(Address, Address.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -32,10 +31,10 @@ export default express.Router()
         renderView(form, res)
       } else {
         const index: number = Claimants.getIndex(res)
-        res.locals.user.legalClaimDraft.claimants[index].address = form.model
-        await ClaimDraftMiddleware.save(res, next)
-        res.locals.user.viewDraft.claimantChangeIndex = undefined
-        await ViewDraftMiddleware.save(res, next)
+        res.locals.user.legalClaimDraft.document.claimants[index].address = form.model
+        await new DraftService()['save'](res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+        res.locals.user.viewDraft.document.claimantChangeIndex = undefined
+        await new DraftService()['save'](res.locals.user.viewDraft, res.locals.user.bearerToken)
         res.redirect(Paths.claimantAdditionPage.uri)
       }
     })

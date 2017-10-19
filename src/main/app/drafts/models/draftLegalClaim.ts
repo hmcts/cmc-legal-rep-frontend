@@ -30,7 +30,7 @@ export default class DraftLegalClaim implements Serializable<DraftLegalClaim> {
 
   deserialize (input: any): DraftLegalClaim {
     if (input) {
-      this.externalId = input.externalId
+      this.externalId = input['externalId']
       this.summary = new Summary().deserialize(input.summary)
       this.amount = new Amount().deserialize(input.amount)
       if (input.yourReference && input.yourReference.reference) {

@@ -6,19 +6,20 @@ import { FormValidator } from 'app/forms/validation/formValidator'
 import { PartyTypes as ClaimantTypes } from 'app/forms/models/partyTypes'
 import { ClaimantDetails } from 'app/forms/models/claimantDetails'
 
-import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
+import { DraftService } from 'services/draftService'
 import ErrorHandling from 'common/errorHandling'
 import { Claimants } from 'common/router/claimants'
 
 function renderView (form: Form<ClaimantDetails>, res: express.Response) {
   res.render(Paths.claimantTypePage.associatedView, {
-    form: form})
+    form: form
+  })
 }
 
 export default express.Router()
   .get(Paths.claimantTypePage.uri, (req: express.Request, res: express.Response) => {
     const index = Claimants.getIndex(res)
-    renderView(new Form(res.locals.user.legalClaimDraft.claimants[index].claimantDetails), res)
+    renderView(new Form(res.locals.user.legalClaimDraft.document.claimants[index].claimantDetails), res)
   })
   .post(Paths.claimantTypePage.uri, FormValidator.requestHandler(ClaimantDetails, ClaimantDetails.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -35,9 +36,9 @@ export default express.Router()
           form.model.fullName = null
         }
         const index = Claimants.getIndex(res)
-        res.locals.user.legalClaimDraft.claimants[index].claimantDetails = form.model
+        res.locals.user.legalClaimDraft.document.claimants[index].claimantDetails = form.model
 
-        await ClaimDraftMiddleware.save(res, next)
+        await new DraftService()['save'](res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
         res.redirect(Paths.claimantAddressPage.uri)
       }
     })
