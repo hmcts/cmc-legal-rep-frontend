@@ -15,10 +15,14 @@ function createClaimants (res: express.Response, claimantChangeIndex?: number) {
     id: 123
   }
   res.locals.user.legalClaimDraft = {
-    claimants: []
+    document: {
+      claimants: []
+    }
   }
   res.locals.user.viewDraft = {
-    claimantChangeIndex: claimantChangeIndex
+    document: {
+      claimantChangeIndex: claimantChangeIndex
+    }
   }
 }
 

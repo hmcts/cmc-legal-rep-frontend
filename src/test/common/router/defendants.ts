@@ -14,11 +14,15 @@ function createDefendants (res: express.Response, defendantChangeIndex?: number)
   res.locals.user = {
     id: 123
   }
-  res.locals.user.legalClaimDraft.document.= {
-    defendants: []
+  res.locals.user.legalClaimDraft = {
+    document: {
+      defendants: []
+    }
   }
   res.locals.user.viewDraft = {
-    defendantChangeIndex: defendantChangeIndex
+    document: {
+      defendantChangeIndex: defendantChangeIndex
+    }
   }
 }
 
