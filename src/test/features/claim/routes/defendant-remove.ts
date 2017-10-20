@@ -61,9 +61,12 @@ const twoDefendants = {
     }]
 }
 
-describe('Claim issue: is defendant removal page', () => {
+describe('Claim issue: is defendant removal page, single defendant', () => {
   beforeEach(() => {
     mock.cleanAll()
+    draftStoreServiceMock.resolveFind('legalClaim')
+    idamServiceMock.resolveRetrieveServiceToken()
+    idamServiceMock.resolveRetrieveServiceToken()
     draftStoreServiceMock.resolveFind('view')
     idamServiceMock.resolveRetrieveUserFor('1', ...roles)
   })
@@ -72,23 +75,31 @@ describe('Claim issue: is defendant removal page', () => {
     checkAuthorizationGuards(app, 'get', ClaimPaths.defendantRemovePage.uri)
 
     it('should redirect to defendant type page for one existing defendant when everything is fine', async () => {
-      draftStoreServiceMock.resolveFind('legalClaim')
-      draftStoreServiceMock.resolveSave()
-      draftStoreServiceMock.resolveSave()
-      idamServiceMock.resolveRetrieveServiceToken()
+      draftStoreServiceMock.resolveUpdate()
+      draftStoreServiceMock.resolveUpdate()
 
       await request(app)
         .get(ClaimPaths.defendantRemovePage.uri + '?index=1')
         .set('Cookie', `${cookieName}=ABC`)
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantTypePage.uri))
     })
+  })
+})
+describe('Claim issue: is defendant removal page, multiple defendants', () => {
+  beforeEach(() => {
+    mock.cleanAll()
+    draftStoreServiceMock.resolveFind('legalClaim', twoDefendants)
+    idamServiceMock.resolveRetrieveServiceToken()
+    idamServiceMock.resolveRetrieveServiceToken()
+    draftStoreServiceMock.resolveFind('view')
+    idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+  })
+  describe('on GET', () => {
+    checkAuthorizationGuards(app, 'get', ClaimPaths.defendantRemovePage.uri)
 
     it('should redirect to defendant add page for more than one existing defendants when everything is fine', async () => {
-
-      draftStoreServiceMock.resolveFind('legalClaim', twoDefendants)
-      draftStoreServiceMock.resolveSave()
-      draftStoreServiceMock.resolveSave()
-      idamServiceMock.resolveRetrieveServiceToken()
+      draftStoreServiceMock.resolveUpdate()
+      draftStoreServiceMock.resolveUpdate()
 
       await request(app)
         .get(ClaimPaths.defendantRemovePage.uri + '?index=1')

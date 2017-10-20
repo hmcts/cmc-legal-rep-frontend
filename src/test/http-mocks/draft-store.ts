@@ -6,7 +6,6 @@ import { YesNo } from 'forms/models/yesNo'
 import { GeneralDamages } from 'forms/models/generalDamages'
 
 const serviceBaseURL: string = `${config.get('draft-store.url')}`
-
 const sampleViewDraftObj = {
   viewFlowOption: true,
   defendantChangeIndex: undefined,
@@ -112,7 +111,7 @@ export function resolveFind (draftType: string, draftOverride?: object) {
   }
 
   mock(serviceBaseURL)
-    .get(new RegExp('/drafts.*'))
+    .get(new RegExp('/drafts(\\?|\\&)([^=]+)\\=([^&]+)'))
     .reply(HttpStatus.OK, {
       data: [{
         id: 100,
@@ -122,12 +121,6 @@ export function resolveFind (draftType: string, draftOverride?: object) {
         updated: '2017-10-01T12:01:00.000'
       }]
     })
-}
-
-export function resolveRetrieveWithExternalId (draftType: string, externalId: any) {
-  mock(serviceBaseURL)
-    .get(`/draft/${draftType}`)
-    .reply(HttpStatus.OK, { ...sampleClaimDraftObj, externalId: externalId })
 }
 
 export function rejectFind (reason: string = 'HTTP error') {

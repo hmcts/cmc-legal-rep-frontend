@@ -30,17 +30,17 @@ function claimIssueRequestHandler (): express.RequestHandler {
 export class Feature {
   enableFor (app: express.Express) {
     app.all('/legal/claim/*', claimIssueRequestHandler())
-    app.all(/^\/legal\/claim\/(?!.+submitted|.+\/receipt).*$/, DraftMiddleware.requestHandler('legalClaim',
+    app.all(/^\/legal\/claim\/(?!.+submitted|.+\/receipt).*$/, DraftMiddleware.requestHandler<DraftLegalClaim>('legalClaim',
       (value: any): DraftLegalClaim => {
         return new DraftLegalClaim().deserialize(value)
       }))
 
-    app.all(/^\/legal\/claim\/(claimant)-(add|remove|address|type|change)$/, DraftMiddleware.requestHandler('view',
+    app.all(/^\/legal\/claim\/(claimant)-(add|remove|address|type|change)$/, DraftMiddleware.requestHandler<DraftView>('view',
       (value: any): DraftView => {
         return new DraftView().deserialize(value)
       }))
 
-    app.all(/^\/legal\/claim\/(defendant)-.*$/, DraftMiddleware.requestHandler('view',
+    app.all(/^\/legal\/claim\/(defendant)-.*$/, DraftMiddleware.requestHandler<DraftView>('view',
       (value: any): DraftView => {
         return new DraftView().deserialize(value)
       }))
