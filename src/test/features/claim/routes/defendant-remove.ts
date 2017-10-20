@@ -64,7 +64,7 @@ const twoDefendants = {
 describe('Claim issue: is defendant removal page', () => {
   beforeEach(() => {
     mock.cleanAll()
-    draftStoreServiceMock.resolveRetrieve('view')
+    draftStoreServiceMock.resolveFind('view')
     idamServiceMock.resolveRetrieveUserFor('1', ...roles)
   })
 
@@ -72,9 +72,10 @@ describe('Claim issue: is defendant removal page', () => {
     checkAuthorizationGuards(app, 'get', ClaimPaths.defendantRemovePage.uri)
 
     it('should redirect to defendant type page for one existing defendant when everything is fine', async () => {
-      draftStoreServiceMock.resolveRetrieve('legalClaim')
-      draftStoreServiceMock.resolveSave('legalClaim')
-      draftStoreServiceMock.resolveSave('view')
+      draftStoreServiceMock.resolveFind('legalClaim')
+      draftStoreServiceMock.resolveSave()
+      draftStoreServiceMock.resolveSave()
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .get(ClaimPaths.defendantRemovePage.uri + '?index=1')
@@ -84,9 +85,10 @@ describe('Claim issue: is defendant removal page', () => {
 
     it('should redirect to defendant add page for more than one existing defendants when everything is fine', async () => {
 
-      draftStoreServiceMock.resolveRetrieve('legalClaim', twoDefendants)
-      draftStoreServiceMock.resolveSave('legalClaim')
-      draftStoreServiceMock.resolveSave('view')
+      draftStoreServiceMock.resolveFind('legalClaim', twoDefendants)
+      draftStoreServiceMock.resolveSave()
+      draftStoreServiceMock.resolveSave()
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .get(ClaimPaths.defendantRemovePage.uri + '?index=1')

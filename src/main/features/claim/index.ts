@@ -30,7 +30,7 @@ function claimIssueRequestHandler (): express.RequestHandler {
 export class Feature {
   enableFor (app: express.Express) {
     app.all('/legal/claim/*', claimIssueRequestHandler())
-    app.all(/^\/legal\/claim\/(?!submitted|.+\/receipt).*$/, DraftMiddleware.requestHandler('legalClaim',
+    app.all(/^\/legal\/claim\/(?!.+submitted|.+\/receipt).*$/, DraftMiddleware.requestHandler('legalClaim',
       (value: any): DraftLegalClaim => {
         return new DraftLegalClaim().deserialize(value)
       }))

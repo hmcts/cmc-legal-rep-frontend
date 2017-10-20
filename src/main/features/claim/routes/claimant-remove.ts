@@ -10,7 +10,7 @@ export default express.Router()
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
 
       Claimants.removeClaimant(res, req.query.index)
-      await new DraftService()['save'](res.locals.user.legalClaimDraft.document. res.locals.user.bearerToken)
+      await new DraftService()['save'](res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
 
       res.locals.user.viewDraft.document.isClaimantDeleted = true
       await new DraftService()['save'](res.locals.user.viewDraft, res.locals.user.bearerToken)

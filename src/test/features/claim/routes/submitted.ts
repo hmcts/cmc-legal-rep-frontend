@@ -27,6 +27,7 @@ describe('Claim issue: Submitted page', () => {
     it('should render page when everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       claimStoreServiceMock.resolveRetrieveClaimByExternalId()
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .get(ClaimPaths.claimSubmittedPage.uri.replace(':externalId', sampleClaimObj.externalId))
@@ -37,6 +38,7 @@ describe('Claim issue: Submitted page', () => {
     it('should fail page when user is not owner of claim with given external reference', async () => {
       idamServiceMock.resolveRetrieveUserFor('2', ...roles)
       claimStoreServiceMock.resolveRetrieveClaimByExternalId()
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .get(ClaimPaths.claimSubmittedPage.uri.replace(':externalId', sampleClaimObj.externalId))
@@ -50,7 +52,7 @@ describe('Claim issue: Submitted page', () => {
 
     it('should redirect to start page when is successful', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      draftStoreServiceMock.resolveRetrieve(draftType)
+      draftStoreServiceMock.resolveFind(draftType)
 
       await request(app)
         .post(ClaimPaths.claimSubmittedPage.uri)
