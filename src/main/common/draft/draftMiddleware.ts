@@ -48,10 +48,7 @@ export class DraftMiddleware {
 
               next()
             })
-            .catch(err =>{
-              console.log(err)
-              next(err)
-            })
+            .catch(next)
         } catch (err) {
           next(err)
         }
