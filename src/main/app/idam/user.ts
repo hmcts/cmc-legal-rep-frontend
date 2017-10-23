@@ -3,7 +3,7 @@ import DraftView from 'app/drafts/models/draftView'
 import { DraftCertificateOfService } from 'drafts/models/draftCertificateOfService'
 
 export default class User {
-  id: number
+  id: string
   email: string
   forename: string
   surname: string
@@ -14,7 +14,7 @@ export default class User {
   legalClaimDraft: DraftLegalClaim
   legalCertificateOfServiceDraft: DraftCertificateOfService
 
-  constructor (id: number,
+  constructor (id: string,
                email: string,
                forename: string,
                surname: string,
