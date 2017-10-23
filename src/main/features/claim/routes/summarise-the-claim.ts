@@ -6,7 +6,7 @@ import { FormValidator } from 'app/forms/validation/formValidator'
 import Summary from 'app/forms/models/summary'
 
 import ErrorHandling from 'common/errorHandling'
-import { DraftService } from 'services/DraftService'
+import { DraftService } from 'services/draftService'
 
 function renderView (form: Form<Summary>, res: express.Response) {
   res.render(Paths.summariseTheClaimPage.associatedView, { form: form })

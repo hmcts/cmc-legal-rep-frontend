@@ -10,7 +10,7 @@ import { FeeAccount } from 'forms/models/feeAccount'
 import FeesClient from 'fees/feesClient'
 import ClaimStoreClient from 'claims/claimStoreClient'
 import MoneyConverter from 'app/fees/moneyConverter'
-import { Fee } from 'fees/fee'
+import { FeeResponse } from 'fees/model/feeResponse'
 
 const logger = require('@hmcts/nodejs-logging').getLogger('router/pay-by-account')
 
@@ -59,11 +59,11 @@ async function saveClaimHandler (res, next) {
 
 function renderView (form: Form<FeeAccount>, res: express.Response, next: express.NextFunction): void {
   FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.document.amount)
-    .then((fee: Fee) => {
+    .then((feeResponse: FeeResponse) => {
       res.render(Paths.payByAccountPage.associatedView,
         {
           form: form,
-          feeAmount: fee.amount
+          feeAmount: MoneyConverter.convertPenniesToPounds(feeResponse.amount)
         })
     })
     .catch(next)
@@ -84,9 +84,9 @@ export default express.Router()
       } else {
         res.locals.user.legalClaimDraft.document.feeAccount = form.model
 
-        const fee: Fee = await FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.document.amount)
-        res.locals.user.legalClaimDraft.document.feeAmountInPennies = MoneyConverter.convertPoundsToPennies(fee.amount)
-        res.locals.user.legalClaimDraft.document.feeCode = fee.code
+        const feeResponse: FeeResponse = await FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.amount)
+        res.locals.user.legalClaimDraft.document.feeAmountInPennies = feeResponse.amount
+        res.locals.user.legalClaimDraft.document.feeCode = feeResponse.fee.code
 
         await new DraftService()['save'](res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
         await saveClaimHandler(res, next)
