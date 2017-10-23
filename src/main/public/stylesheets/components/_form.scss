@@ -35,22 +35,20 @@ ul {
   min-height: 25px;
 }
 
+
 .search-submit {
   background-color: $link-colour;
-  background-image: url('/legal/img/lib/search-button.png');
-  background-position: -12.5% 50%;
-  background-repeat: no-repeat;
+  background-position: 7px;
   border: 0;
-  bottom: 0;
+  box-sizing: content-box;
   color: $white;
   cursor: pointer;
   height: 50px;
-  overflow: visible;
-  position: absolute;
-  right: 0;
-  text-indent: -5000px;
+  vertical-align: bottom;
   width: 50px;
 }
+
+
 
 .search-input {
   border-color: $border-colour;
