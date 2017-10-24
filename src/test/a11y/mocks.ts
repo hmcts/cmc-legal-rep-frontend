@@ -44,7 +44,7 @@ function mockedDraftView () {
 
 function mockedClaim () {
   let claim = new Claim()
-  claim.submitterId = 123
+  claim.submitterId = '123'
   claim.claimData = new ClaimData()
   claim.claimNumber = 'NNDD-NNDD'
   claim.externalId = 'uuid'

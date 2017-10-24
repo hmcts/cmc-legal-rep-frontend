@@ -27,7 +27,7 @@ describe("Claim issue: Defendant's service address page", () => {
     checkAuthorizationGuards(app, 'get', ClaimPaths.defendantServiceAddressPage.uri)
 
     it('should render page when everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       await request(app)
         .get(ClaimPaths.defendantServiceAddressPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -39,7 +39,7 @@ describe("Claim issue: Defendant's service address page", () => {
     checkAuthorizationGuards(app, 'post', ClaimPaths.defendantServiceAddressPage.uri)
 
     it('should render page when form is invalid', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       await request(app)
         .post(ClaimPaths.defendantServiceAddressPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -47,7 +47,7 @@ describe("Claim issue: Defendant's service address page", () => {
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.rejectSave('legalClaim', 'HTTP error')
 
       await request(app)
@@ -58,7 +58,7 @@ describe("Claim issue: Defendant's service address page", () => {
     })
 
     it('should redirect to defendant addition page when user selects to use the defendants address option', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.resolveSave('legalClaim')
       draftStoreServiceMock.resolveSave('view')
 
@@ -70,7 +70,7 @@ describe("Claim issue: Defendant's service address page", () => {
     })
 
     it('should redirect to defendant addition page when form is valid and address filled in', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.resolveSave('legalClaim')
       draftStoreServiceMock.resolveSave('view')
 

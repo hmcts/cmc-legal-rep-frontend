@@ -782,6 +782,10 @@ circular-json@^0.3.1:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/circular-json/-/circular-json-0.3.3.tgz#815c99ea84f6809529d2f45791bdf82711352d66"
 
+class-transformer@^0.1.7:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/class-transformer/-/class-transformer-0.1.8.tgz#be04dd2afb7b301e4c8c79c5349fedaac3d5a7e1"
+
 class-validator@^0.7.0:
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/class-validator/-/class-validator-0.7.2.tgz#35ed86f0590bbb60161a8c8ef9c813cb38572ffe"
@@ -4750,6 +4754,10 @@ redent@^1.0.0:
 referrer-policy@1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/referrer-policy/-/referrer-policy-1.1.0.tgz#35774eb735bf50fb6c078e83334b472350207d79"
+
+reflect-metadata@^0.1.10:
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/reflect-metadata/-/reflect-metadata-0.1.10.tgz#b4f83704416acad89988c9b15635d47e03b9344a"
 
 regenerator-runtime@^0.11.0:
   version "0.11.0"

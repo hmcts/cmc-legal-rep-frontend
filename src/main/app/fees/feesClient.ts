@@ -1,29 +1,23 @@
 import * as config from 'config'
 import ClaimValidator from 'app/utils/claimValidator'
 import request from 'client/request'
-import { Fee } from 'fees/fee'
 import { Amount } from 'forms/models/amount'
 import MoneyConverter from 'app/fees/moneyConverter'
+import { FeeResponse } from 'fees/model/feeResponse'
+import { plainToClass } from 'class-transformer'
 
 const feesUrl = config.get('fees.url')
 const issueFeeCode = config.get<string>('fees.issueFeeCode')
 
 export default class FeesClient {
 
-  // TODO: Using this as tactical solution, will be replaced once fee service(PAY-314) is ready for this scenario
-  static readonly maxClaimValue = 10000000
-
-  static getFeeAmount (claimAmount: Amount): Promise<Fee> {
+  static getFeeAmount (claimAmount: Amount): Promise<FeeResponse> {
     if (claimAmount.canNotState()) {
       return FeesClient.calculateMaxIssueFee()
-        .then((fee: Fee) => {
-          return fee
-        })
+        .then((feeResponse: FeeResponse) => feeResponse)
     } else {
       return FeesClient.calculateIssueFee(claimAmount.higherValue)
-        .then((fee: Fee) => {
-          return fee
-        })
+        .then((feeResponse: FeeResponse) => feeResponse)
     }
   }
 
@@ -31,30 +25,30 @@ export default class FeesClient {
    * Calculates the issue fee a claimant should pay based on the claim value
    *
    * @param {number} claimValue the amount claiming for in pounds
-   * @returns {Promise.<number>} promise containing the fee amount in pounds
+   * @returns {Promise.<FeeResponse>} promise containing the fee amount in pennies
    */
-  static calculateIssueFee (claimValue: number): Promise<Fee> {
+  static calculateIssueFee (claimValue: number): Promise<FeeResponse> {
     return this.callFeesRegister(issueFeeCode, claimValue)
-      .then((fee: Fee) => new Fee(MoneyConverter.convertPenniesToPounds(fee.amount), fee.code))
+      .then((feeResponse: FeeResponse) => feeResponse)
   }
 
   /**
    * Calculates the maximum issue fee a claimant should pay as he has not provided the claim value
    *
-   * @returns {Promise.<number>} promise containing the fee amount in pounds
+   * @returns {Promise.<FeeResponse>} promise containing the fee amount in pennies
    */
-  static calculateMaxIssueFee (): Promise<Fee> {
-    return this.callFeesRegister(issueFeeCode, FeesClient.maxClaimValue)
-      .then((fee: Fee) => new Fee(MoneyConverter.convertPenniesToPounds(fee.amount), fee.code))
+  static calculateMaxIssueFee (): Promise<FeeResponse> {
+    return request.get(`${feesUrl}/range-groups/${issueFeeCode}/calculations/unspecified`)
+      .then((body: any) => plainToClass(FeeResponse, body))
   }
 
   /**
    * Call the fees register
    * @param feeCode which fee category to use
    * @param amount amount in pounds
-   * @returns {Promise.<Fee>} promise containing the fee amount in pennies
+   * @returns {Promise.<FeeResponse>} promise containing the fee amount in pennies
    */
-  static callFeesRegister (feeCode: string, amount: number): Promise<Fee> {
+  static callFeesRegister (feeCode: string, amount: number): Promise<FeeResponse> {
     ClaimValidator.claimAmount(amount)
     const amountInPennies = MoneyConverter.convertPoundsToPennies(amount)
     if (amountInPennies <= 0) {
@@ -62,7 +56,7 @@ export default class FeesClient {
     }
 
     return request.get(`${feesUrl}/range-groups/${feeCode}/calculations?value=${amountInPennies}`)
-      .then((body: any) => new Fee(body.amount, body.fee.code))
+      .then((body: any) => plainToClass(FeeResponse, body))
   }
 
 }
