@@ -5,7 +5,8 @@ export default class CookieProperties {
       signed: true,
       httpOnly: true,
       maxAge: 7889238000,
-      secure: true
+      secure: true,
+      sameSite: true
     }
   }
 
