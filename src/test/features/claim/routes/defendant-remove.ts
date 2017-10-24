@@ -65,7 +65,7 @@ describe('Claim issue: is defendant removal page', () => {
   beforeEach(() => {
     mock.cleanAll()
     draftStoreServiceMock.resolveRetrieve('view')
-    idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+    idamServiceMock.resolveRetrieveUserFor('1', ...roles)
   })
 
   describe('on GET', () => {

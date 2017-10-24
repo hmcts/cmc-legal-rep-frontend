@@ -28,7 +28,7 @@ describe('Get Sealed Claim copy', () => {
 
     describe('for authorized user', () => {
       beforeEach(() => {
-        idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+        idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       })
 
       it('should return 500 and render error page when cannot download the claim copy', async () => {
@@ -41,13 +41,13 @@ describe('Get Sealed Claim copy', () => {
           .expect(res => expect(res).to.be.serverError.withText('Error'))
       })
 
-      it('should return 500 and render error page when the user is not owner of claim', async () => {
+      it('should return 403 and render error page when the user is not owner of claim', async () => {
         claimStoreServiceMock.resolveRetrieveClaimByExternalId({ submitterId: 123 })
 
         await request(app)
           .get(ClaimPaths.receiptReceiver.uri.replace(':externalId', externalId))
           .set('Cookie', `${cookieName}=ABC`)
-          .expect(res => expect(res).to.be.serverError.withText('Error'))
+          .expect(res => expect(res).to.be.forbidden)
       })
 
       it('should return sealed claim when everything is fine', async () => {

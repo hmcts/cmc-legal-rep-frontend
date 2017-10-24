@@ -16,7 +16,7 @@ export default class IdamClient {
       }
     }).then((response: any) => {
       return new User(
-        response.id,
+        response.id.toString(),
         response.email,
         response.forename,
         response.surname,
@@ -27,8 +27,19 @@ export default class IdamClient {
     })
   }
 
-  static retrieveAuthToken (url: string): Promise<AuthToken> {
-    return request.get({ uri: url })
+  static exchangeCode (code: string, redirectUri: string): Promise<AuthToken> {
+    const clientId = config.get<string>('oauth.clientId')
+    const clientSecret = config.get<string>('oauth.clientSecret')
+    const url = `${config.get('idam.api.url')}/oauth2/token`
+
+    return request.post({
+      uri: url,
+      auth: {
+        username: clientId,
+        password: clientSecret
+      },
+      form: { grant_type: 'authorization_code', code: code, redirect_uri: redirectUri }
+    })
       .then((response: any) => {
         return new AuthToken(
           response.access_token,

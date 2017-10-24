@@ -12,6 +12,7 @@ export class ClaimModelConverter {
     ClaimModelConverter.convertDefendantDetails(draftClaim)
 
     draftClaim['reason'] = draftClaim.summary.text
+    delete draftClaim.summary
 
     if (draftClaim.personalInjury.personalInjury && draftClaim.personalInjury.personalInjury.value === YesNo.YES.value) {
       if (draftClaim.personalInjury.generalDamages) {
@@ -88,6 +89,7 @@ export class ClaimModelConverter {
       if (claimant.claimantDetails.companyHouseNumber) {
         claimant['companiesHouseNumber'] = claimant.claimantDetails.companyHouseNumber
       }
+      delete claimant.claimantDetails
 
       claimant['representative'] = new Representative().deserialize(representative)
       claimant['representative'].organisationName = representative.organisationName.name
@@ -121,10 +123,12 @@ export class ClaimModelConverter {
       }
       defendant['type'] = defendant.defendantDetails.type.dataStoreValue
 
+      delete defendant.defendantDetails
+
       if (defendant.defendantRepresented.isDefendantRepresented.value === YesNo.YES.value) {
         defendant.representative['organisationName'] = defendant.defendantRepresented.organisationName as any
         defendant.representative['organisationAddress'] = defendant.representative.address
-
+        defendant.representative['organisationContactDetails'] = defendant.representative.contactDetails
         delete defendant.defendantRepresented
         delete defendant.representative.address
         delete defendant.representative.contactDetails

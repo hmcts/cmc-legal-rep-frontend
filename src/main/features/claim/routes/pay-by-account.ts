@@ -10,7 +10,7 @@ import { FeeAccount } from 'forms/models/feeAccount'
 import FeesClient from 'fees/feesClient'
 import ClaimStoreClient from 'claims/claimStoreClient'
 import MoneyConverter from 'app/fees/moneyConverter'
-import { Fee } from 'fees/fee'
+import { FeeResponse } from 'fees/model/feeResponse'
 import { RepresentativeDetails } from 'forms/models/representativeDetails'
 
 const logger = require('@hmcts/nodejs-logging').getLogger('router/pay-by-account')
@@ -29,7 +29,7 @@ async function saveClaimHandler (res, next) {
 
   let claimStatus: boolean
   try {
-    claimStatus = await ClaimStoreClient.retrieveByExternalId(externalId)
+    claimStatus = await ClaimStoreClient.retrieveByExternalId(externalId, res.locals.user.id)
       .then(() => true)
   } catch (err) {
     if (err.statusCode === HttpStatus.NOT_FOUND) {
@@ -60,11 +60,11 @@ async function saveClaimHandler (res, next) {
 
 function renderView (form: Form<FeeAccount>, res: express.Response, next: express.NextFunction): void {
   FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.amount)
-    .then((fee: Fee) => {
+    .then((feeResponse: FeeResponse) => {
       res.render(Paths.payByAccountPage.associatedView,
         {
           form: form,
-          feeAmount: fee.amount
+          feeAmount: MoneyConverter.convertPenniesToPounds(feeResponse.amount)
         })
     })
     .catch(next)
@@ -85,9 +85,9 @@ export default express.Router()
       } else {
         res.locals.user.legalClaimDraft.feeAccount = form.model
 
-        const fee: Fee = await FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.amount)
-        res.locals.user.legalClaimDraft.feeAmountInPennies = MoneyConverter.convertPoundsToPennies(fee.amount)
-        res.locals.user.legalClaimDraft.feeCode = fee.code
+        const feeResponse: FeeResponse = await FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.amount)
+        res.locals.user.legalClaimDraft.feeAmountInPennies = feeResponse.amount
+        res.locals.user.legalClaimDraft.feeCode = feeResponse.fee.code
 
         await ClaimDraftMiddleware.save(res, next)
 

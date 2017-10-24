@@ -1,0 +1,10 @@
+{% extends "layout.njk" %}
+
+{% set title = t('Forbidden | Money Claim') %}
+{% set heading = t('Forbidden Error') %}
+
+{% block content %}
+  <p>
+    {{ t('<a href="/legal/">Return to the claims home page</a>') | safe }}
+  </p>
+{% endblock %}
