@@ -4,7 +4,16 @@ export default class CookieProperties {
     return {
       signed: true,
       httpOnly: true,
-      maxAge: 7889238000
+      maxAge: 7889238000,
+      secure: true
+    }
+  }
+
+  static getCookieConfig () {
+    return {
+      options: {
+        algorithm: 'aes128'
+      }
     }
   }
 }

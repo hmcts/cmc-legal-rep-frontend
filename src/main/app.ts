@@ -15,6 +15,7 @@ import Nunjucks from 'modules/nunjucks'
 
 import { Feature as ClaimIssueFeature } from 'claim/index'
 import { CsrfProtection } from 'modules/csrf'
+import CookieProperties from 'common/cookieProperties'
 
 export const app: express.Express = express()
 
@@ -44,7 +45,7 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.use(cookieParser(config.get('session.encryptionKey')))
-app.use(cookieEncrypter(config.get('session.encryptionKey')))
+app.use(cookieEncrypter(config.get('session.encryptionKey'), CookieProperties.getCookieConfig() ))
 
 if (!developmentMode) {
   app.use(logging.express.accessLogger())
