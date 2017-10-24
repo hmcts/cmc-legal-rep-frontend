@@ -33,7 +33,7 @@ export default express.Router()
         }
 
         res.locals.user.legalClaimDraft.document.amount = form.model
-        await new DraftService()['save'](res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+        await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
         res.redirect(Paths.claimTotalPage.uri)
       }
     })

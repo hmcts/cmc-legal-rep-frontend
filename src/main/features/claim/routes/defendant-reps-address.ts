@@ -34,8 +34,8 @@ export default express.Router()
         const index: number = Defendants.getIndex(res)
         res.locals.user.legalClaimDraft.document.defendants[index].representative.address = form.model
         res.locals.user.viewDraft.document.defendantChangeIndex = undefined
-        await new DraftService()['save'](res.locals.user.viewDraft, res.locals.user.bearerToken)
-        await new DraftService()['save'](res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+        await new DraftService().save(res.locals.user.viewDraft, res.locals.user.bearerToken)
+        await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
         res.redirect(Paths.defendantAdditionPage.uri)
       }
     })

@@ -51,7 +51,7 @@ export default express.Router()
       } else {
         if (form.model.isAddDefendant === YesNo.YES) {
           Defendants.addDefendant(res)
-          await new DraftService()['save'](res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+          await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
           res.redirect(Paths.defendantTypePage.uri)
         } else {
           res.redirect(Paths.personalInjuryPage.uri)

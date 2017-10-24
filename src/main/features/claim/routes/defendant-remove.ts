@@ -9,10 +9,10 @@ export default express.Router()
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
 
       Defendants.removeDefendant(res, req.query.index)
-      await new DraftService()['save'](res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+      await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
 
       res.locals.user.viewDraft.document.isDefendantDeleted = true
-      await new DraftService()['save'](res.locals.user.viewDraft, res.locals.user.bearerToken)
+      await new DraftService().save(res.locals.user.viewDraft, res.locals.user.bearerToken)
 
       if (res.locals.user.legalClaimDraft.document.defendants.length > 0) {
         res.redirect(Paths.defendantAdditionPage.uri)

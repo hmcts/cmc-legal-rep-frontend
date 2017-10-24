@@ -32,9 +32,9 @@ export default express.Router()
       } else {
         const index: number = Claimants.getIndex(res)
         res.locals.user.legalClaimDraft.document.claimants[index].address = form.model
-        await new DraftService()['save'](res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+        await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
         res.locals.user.viewDraft.document.claimantChangeIndex = undefined
-        await new DraftService()['save'](res.locals.user.viewDraft, res.locals.user.bearerToken)
+        await new DraftService().save(res.locals.user.viewDraft, res.locals.user.bearerToken)
         res.redirect(Paths.claimantAdditionPage.uri)
       }
     })

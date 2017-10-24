@@ -3,6 +3,7 @@ import * as express from 'express'
 import { UUIDUtils } from 'common/utils/uuidUtils'
 import { Draft } from '@hmcts/draft-store-client/dist/app/models/draft'
 import { DraftService } from 'services/draftService'
+import { MomentFactory } from 'common/momentFactory'
 
 /**
  * Filters list of drafts to return only these matching external ID. If none of the drafts has external ID set
@@ -22,7 +23,7 @@ export class DraftMiddleware {
     return async function (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
       if (res.locals.isLoggedIn) {
         try {
-          new DraftService()['find'](draftType, '100', res.locals.user.bearerToken, deserializeFn)
+          new DraftService().find(draftType, '100', res.locals.user.bearerToken, deserializeFn)
             .then((drafts: Draft<T>[]) => {
               // req.params isn't populated here https://github.com/expressjs/express/issues/2088
               const externalId: string = UUIDUtils.extractFrom(req.path)
@@ -38,7 +39,13 @@ export class DraftMiddleware {
               if (drafts.length === 1) {
                 draft = drafts[0]
               } else {
-                draft = new Draft<T>(undefined, draftType, deserializeFn(undefined), undefined, undefined)
+                draft = new Draft<T>(
+                  undefined,
+                  draftType,
+                  deserializeFn(undefined),
+                  MomentFactory.currentDateTime(),
+                  MomentFactory.currentDateTime()
+                )
               }
 
               if (draft.document['externalId'] === undefined && externalId !== undefined) {

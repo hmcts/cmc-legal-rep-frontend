@@ -30,7 +30,7 @@ export default express.Router()
         renderView(form, res)
       } else {
         res.locals.user.legalClaimDraft.document.personalInjury = form.model
-        await new DraftService()['save'](res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+        await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
         res.redirect(Paths.housingDisrepairPage.uri)
       }
     })

@@ -41,7 +41,7 @@ export default express.Router()
           res.locals.user.legalClaimDraft.document.defendants[index].serviceAddress = undefined
         }
 
-        await new DraftService()['save'](res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+        await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
         if (res.locals.user.legalClaimDraft.document.defendants[index].defendantRepresented.isDefendantRepresented === YesNo.NO) {
           res.redirect(Paths.defendantServiceAddressPage.uri)
         } else {

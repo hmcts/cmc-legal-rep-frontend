@@ -88,7 +88,7 @@ export default express.Router()
         res.locals.user.legalClaimDraft.document.feeAmountInPennies = feeResponse.amount
         res.locals.user.legalClaimDraft.document.feeCode = feeResponse.fee.code
 
-        await new DraftService()['save'](res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+        await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
         await saveClaimHandler(res, next)
       }
     }))

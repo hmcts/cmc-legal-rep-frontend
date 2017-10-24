@@ -37,7 +37,7 @@ export default express.Router()
         }
         const index: number = Defendants.getIndex(res)
         res.locals.user.legalClaimDraft.document.defendants[index].defendantDetails = form.model
-        await new DraftService()['save'](res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+        await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
         res.redirect(Paths.defendantAddressPage.uri)
 
       }
