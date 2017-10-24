@@ -3,6 +3,7 @@ import { Serializable } from 'models/serializable'
 import { Moment } from 'moment'
 import ClaimData from 'app/claims/models/claimData'
 import { MomentFactory } from 'common/momentFactory'
+import { UploadedDocument } from 'claims/models/uploadedDocument'
 
 export default class Claim implements Serializable<Claim> {
   id: number
@@ -14,6 +15,7 @@ export default class Claim implements Serializable<Claim> {
   issuedOn: Moment
   claimData: ClaimData
   submitterEmail: string
+  files: UploadedDocument[]
 
   deserialize (input: any): Claim {
     if (input) {
@@ -26,6 +28,9 @@ export default class Claim implements Serializable<Claim> {
       this.issuedOn = MomentFactory.parse(input.issuedOn)
       this.claimData = new ClaimData().deserialize(input.claim)
       this.submitterEmail = input.submitterEmail
+      if (input.files) {
+        this.files = this.deserializeDocuments(input.files)
+      }
     }
     return this
   }
@@ -33,5 +38,13 @@ export default class Claim implements Serializable<Claim> {
   // noinspection JSUnusedGlobalSymbols Called in the view
   get remainingDays (): number {
     return this.responseDeadline.diff(MomentFactory.currentDate(), 'days')
+  }
+
+  private deserializeDocuments (documents: any): UploadedDocument[] {
+    if (documents) {
+      return documents.map((document: any) => {
+        return new UploadedDocument().deserialize(document)
+      })
+    }
   }
 }

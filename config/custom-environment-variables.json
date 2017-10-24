@@ -39,5 +39,8 @@
   },
   "featureToggles": {
     "idamOauth": "FEATURE_IDAM_OAUTH"
+  },
+  "documentManagement" : {
+    "url": "DOCUMENT_MANAGEMENT_URL"
   }
 }

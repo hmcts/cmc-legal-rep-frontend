@@ -43,5 +43,8 @@
   },
   "featureToggles": {
     "idamOauth": false
+  },
+  "documentManagement" : {
+    "url": "http://localhost:8083"
   }
 }
