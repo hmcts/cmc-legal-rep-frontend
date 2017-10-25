@@ -26,7 +26,7 @@ describe( 'Claim : Statement of truth page', () => {
     checkAuthorizationGuards( app, 'get', ClaimPaths.statementOfTruthPage.uri)
 
     it( 'should render page when everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
 
       await request( app )
         .get( ClaimPaths.statementOfTruthPage.uri )
@@ -39,7 +39,7 @@ describe( 'Claim : Statement of truth page', () => {
     checkAuthorizationGuards( app, 'post', ClaimPaths.statementOfTruthPage.uri)
 
     it( 'should render page when form is invalid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
 
       await request( app )
         .post( ClaimPaths.statementOfTruthPage.uri )
@@ -48,7 +48,7 @@ describe( 'Claim : Statement of truth page', () => {
     } )
 
     it( 'should return 500 and render error page when form is valid and cannot save draft', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.rejectSave( 'legalClaim', 'HTTP error' )
 
       await request( app )
@@ -59,7 +59,7 @@ describe( 'Claim : Statement of truth page', () => {
     } )
 
     it( 'should redirect to pay by account page when form is valid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.resolveSave( 'legalClaim' )
 
       await request( app )

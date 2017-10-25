@@ -11,7 +11,7 @@ import Defendant from 'drafts/models/defendant'
 import { ClaimantDetails } from 'app/forms/models/claimantDetails'
 import { DefendantDetails } from 'app/forms/models/defendantDetails'
 import { PartyTypes } from 'app/forms/models/partyTypes'
-import OrganisationName from 'app/forms/models/organisationName'
+import { OrganisationName } from 'app/forms/models/organisationName'
 import DraftView from 'app/drafts/models/draftView'
 import { Amount } from 'forms/models/amount'
 import { HousingDisrepair } from 'forms/models/housingDisrepair'
@@ -44,7 +44,7 @@ function mockedDraftView () {
 
 function mockedClaim () {
   let claim = new Claim()
-  claim.submitterId = 123
+  claim.submitterId = '123'
   claim.claimData = new ClaimData()
   claim.claimNumber = 'NNDD-NNDD'
   claim.externalId = 'uuid'

@@ -28,7 +28,7 @@ describe('Claim issue: is defendant addition page', () => {
     checkAuthorizationGuards(app, 'get', ClaimPaths.defendantAdditionPage.uri)
 
     it('should render page when everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.resolveSave('view')
 
       await request(app)
@@ -42,7 +42,7 @@ describe('Claim issue: is defendant addition page', () => {
     checkAuthorizationGuards(app, 'post', ClaimPaths.defendantAdditionPage.uri)
 
     it('should render page when form is invalid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
 
       await request(app)
         .post(ClaimPaths.defendantAdditionPage.uri)
@@ -51,7 +51,7 @@ describe('Claim issue: is defendant addition page', () => {
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.rejectSave('legalClaim', 'HTTP error')
 
       await request(app)
@@ -64,7 +64,7 @@ describe('Claim issue: is defendant addition page', () => {
     })
 
     it('should redirect to defendant type page when form is valid and user has selected yes', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.resolveSave('legalClaim')
 
       await request(app)
@@ -77,7 +77,7 @@ describe('Claim issue: is defendant addition page', () => {
     })
 
     it('should redirect to personal injury page when form is valid and user has selected no', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.resolveSave('legalClaim')
 
       await request(app)

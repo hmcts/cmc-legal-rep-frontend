@@ -3,7 +3,8 @@ import { Paths } from 'claim/paths'
 import FeesClient from 'fees/feesClient'
 import { Amount } from 'forms/models/amount'
 import ErrorHandling from 'common/errorHandling'
-import { Fee } from 'fees/fee'
+import { FeeResponse } from 'fees/model/feeResponse'
+import MoneyConverter from 'fees/moneyConverter'
 
 function renderView (res: express.Response, feeAmount: number, claimAmount: Amount): void {
   res.render(Paths.claimTotalPage.associatedView, {
@@ -19,8 +20,8 @@ export default express.Router()
 
       const claimAmount: Amount = res.locals.user.legalClaimDraft.amount
       FeesClient.getFeeAmount(claimAmount)
-        .then((fee: Fee) => {
-          renderView(res, fee.amount, claimAmount)
+        .then((feeResponse: FeeResponse) => {
+          renderView(res, MoneyConverter.convertPenniesToPounds(feeResponse.amount), claimAmount)
         })
         .catch(next)
     }))
