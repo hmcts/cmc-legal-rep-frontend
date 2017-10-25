@@ -11,7 +11,7 @@ import { IsAmountRangeDefined } from 'app/forms/validation/validators/isAmountRa
 
 export class ValidationErrors {
   static readonly CANNOT_STATE_VALID_SELECTION_REQUIRED: string = 'Choose ‘I can’t state the value’ or enter a higher value'
-  static readonly VALID_SELECTION_REQUIRED: string = 'Enter a higher value or choose ‘I can’t state the value’'
+  static readonly VALID_SELECTION_REQUIRED: string = 'Enter a higher value or choose ‘I can’t or don't want to state the value’'
   static readonly HIGHER_VALUE_AMOUNT_NOT_VALID: string = 'Enter valid higher value'
   static readonly LOWER_VALUE_AMOUNT_NOT_VALID: string = 'Enter valid lower value'
   static readonly LOWER_VALUE_LESS_THAN_UPPER_NOT_VALID: string = 'Lower value must be less than higher value'
