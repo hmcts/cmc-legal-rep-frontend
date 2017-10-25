@@ -10,7 +10,7 @@ export class RepresentativeDetails {
   address: Address = new Address()
   contactDetails: ContactDetails = new ContactDetails()
   feeAccount: FeeAccount = new FeeAccount()
-  cookieName: string = ''
+  cookieName: string
 
   constructor () {
     this.organisationName = new OrganisationName()
