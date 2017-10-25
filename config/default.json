@@ -46,6 +46,6 @@
     "idamOauth": false
   },
   "documentManagement" : {
-    "url": "http://localhost:8083"
+    "url": "http://localhost:8085"
   }
 }
