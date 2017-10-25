@@ -4,7 +4,7 @@
 import { expect } from 'chai'
 import { Validator } from 'class-validator'
 import { expectValidationError } from './validationUtils'
-import OrganisationName, { ValidationErrors } from 'forms/models/organisationName'
+import { OrganisationName, ValidationErrors } from 'forms/models/organisationName'
 import * as randomstring from 'randomstring'
 
 describe('OrganisationName', () => {

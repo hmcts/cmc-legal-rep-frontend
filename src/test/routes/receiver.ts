@@ -17,7 +17,7 @@ describe('Claim issue: post login receiver', () => {
   describe('on GET', () => {
     describe('for authorized user', () => {
       beforeEach(() => {
-        idamServiceMock.resolveRetrieveUserFor(1, 'cmc-solicitor')
+        idamServiceMock.resolveRetrieveUserFor('1', 'cmc-solicitor')
       })
 
       it('should save JWT token in cookie', async () => {

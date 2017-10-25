@@ -6,7 +6,7 @@ import { MomentFactory } from 'common/momentFactory'
 
 export default class Claim implements Serializable<Claim> {
   id: number
-  submitterId: number
+  submitterId: string
   externalId: string
   claimNumber: string
   responseDeadline: Moment
