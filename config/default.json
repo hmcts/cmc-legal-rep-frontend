@@ -18,7 +18,8 @@
     "apiVersion": "v2"
   },
   "session": {
-    "cookieName": "T2_SESSION_ID"
+    "cookieName": "T2_SESSION_ID",
+    "encryptionKey": "COOKIE_KEY"
   },
   "legal_frontend_analytics": {
     "gaTrackingId": ""

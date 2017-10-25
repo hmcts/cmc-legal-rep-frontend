@@ -9,7 +9,7 @@ import { expectValidationError } from './validationUtils'
 import { YesNo } from 'app/forms/models/yesNo'
 import { GeneralDamages } from 'app/forms/models/generalDamages'
 import { DefendantRepresented, ValidationErrors } from 'app/forms/models/defendantRepresented'
-import OrganisationName from 'app/forms/models/organisationName'
+import { OrganisationName } from 'app/forms/models/organisationName'
 
 describe('Defendant Represented', () => {
   describe('deserialize', () => {

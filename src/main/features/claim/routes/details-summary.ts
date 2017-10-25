@@ -4,19 +4,20 @@ import FeesClient from 'fees/feesClient'
 import ErrorHandling from 'common/errorHandling'
 import { Amount } from 'forms/models/amount'
 import { YesNo } from 'forms/models/yesNo'
-import { Fee } from 'fees/fee'
+import { FeeResponse } from 'fees/model/feeResponse'
+import MoneyConverter from 'fees/moneyConverter'
 
 function renderView (res: express.Response, next: express.NextFunction) {
   const claimAmount: Amount = res.locals.user.legalClaimDraft.amount
   FeesClient.getFeeAmount(claimAmount)
-    .then((fee: Fee) => {
+    .then((feeResponse: FeeResponse) => {
 
       const isHousingDisrepair = res.locals.user.legalClaimDraft.housingDisrepair.housingDisrepair.value === YesNo.YES.value
       const isPersonalInjury = res.locals.user.legalClaimDraft.personalInjury.personalInjury.value === YesNo.YES.value
 
       res.render(Paths.detailsSummaryPage.associatedView, {
         legalClaimDraft: res.locals.user.legalClaimDraft,
-        feeAmount: fee.amount,
+        feeAmount: MoneyConverter.convertPenniesToPounds(feeResponse.amount),
         isHousingDisrepair: isHousingDisrepair,
         isPersonalInjury: isPersonalInjury,
         paths: Paths

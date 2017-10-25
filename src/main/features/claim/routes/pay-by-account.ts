@@ -10,7 +10,8 @@ import { FeeAccount } from 'forms/models/feeAccount'
 import FeesClient from 'fees/feesClient'
 import ClaimStoreClient from 'claims/claimStoreClient'
 import MoneyConverter from 'app/fees/moneyConverter'
-import { Fee } from 'fees/fee'
+import { FeeResponse } from 'fees/model/feeResponse'
+import { RepresentativeDetails } from 'forms/models/representativeDetails'
 
 const logger = require('@hmcts/nodejs-logging').getLogger('router/pay-by-account')
 
@@ -59,11 +60,11 @@ async function saveClaimHandler (res, next) {
 
 function renderView (form: Form<FeeAccount>, res: express.Response, next: express.NextFunction): void {
   FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.amount)
-    .then((fee: Fee) => {
+    .then((feeResponse: FeeResponse) => {
       res.render(Paths.payByAccountPage.associatedView,
         {
           form: form,
-          feeAmount: fee.amount
+          feeAmount: MoneyConverter.convertPenniesToPounds(feeResponse.amount)
         })
     })
     .catch(next)
@@ -72,7 +73,7 @@ function renderView (form: Form<FeeAccount>, res: express.Response, next: expres
 export default express.Router()
   .get(Paths.payByAccountPage.uri,
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
-      renderView(new Form(res.locals.user.legalClaimDraft.feeAccount.reference), res, next)
+      renderView(new Form(RepresentativeDetails.getCookie(req).feeAccount), res, next)
     }))
 
   .post(Paths.payByAccountPage.uri, FormValidator.requestHandler(FeeAccount, FeeAccount.fromObject),
@@ -84,11 +85,16 @@ export default express.Router()
       } else {
         res.locals.user.legalClaimDraft.feeAccount = form.model
 
-        const fee: Fee = await FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.amount)
-        res.locals.user.legalClaimDraft.feeAmountInPennies = MoneyConverter.convertPoundsToPennies(fee.amount)
-        res.locals.user.legalClaimDraft.feeCode = fee.code
+        const feeResponse: FeeResponse = await FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.amount)
+        res.locals.user.legalClaimDraft.feeAmountInPennies = feeResponse.amount
+        res.locals.user.legalClaimDraft.feeCode = feeResponse.fee.code
 
         await ClaimDraftMiddleware.save(res, next)
+
+        const legalRepDetails: RepresentativeDetails = RepresentativeDetails.getCookie(req)
+        legalRepDetails.feeAccount = form.model
+        RepresentativeDetails.saveCookie(res, legalRepDetails)
+
         await saveClaimHandler(res, next)
       }
     }))
