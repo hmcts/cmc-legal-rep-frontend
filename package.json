@@ -20,7 +20,9 @@
     "test:coverage": "cross-env NODE_PATH=. NODE_ENV=mocha LOG_LEVEL=OFF nyc mocha --compilers ts:ts-node/register -r tsconfig-paths/register $(find src/test \\( -name '*.ts' -or -name '*.js' \\) ! -path '*a11y*')",
     "sonar-scanner": "cross-env NODE_PATH=. sonar-scanner -Dsonar.projectKey='CMCLFE' -Dsonar.projectName='CMC :: Legal Frontend' -Dsonar.sources=src/main -Dsonar.tests=src/test -Dsonar.exclusions=src/main/public/**,src/main/modules/** -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info",
     "precommit": "yarn lint",
-    "prepush": "yarn test && yarn test:routes"
+    "prepush": "yarn test && yarn test:routes",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "@hmcts/cmc-common-frontend": "^1.8.2",
@@ -69,9 +71,10 @@
     "ts-node": "^3.3.0",
     "tsconfig-paths": "^2.2.0",
     "typescript": "^2.4.2",
-    "to-boolean":"^1.0.0",
+    "to-boolean": "^1.0.0",
     "class-transformer": "^0.1.7",
-    "reflect-metadata": "^0.1.10"
+    "reflect-metadata": "^0.1.10",
+    "snyk": "^1.45.0"
   },
   "devDependencies": {
     "@types/chai": "^4.0.4",
@@ -130,5 +133,6 @@
     ],
     "report-dir": "coverage",
     "all": true
-  }
+  },
+  "snyk": true
 }
