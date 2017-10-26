@@ -1,9 +1,18 @@
 import * as config from 'config'
 import * as mock from 'nock'
+import { Scope } from 'nock'
+
 import * as HttpStatus from 'http-status-codes'
 import { OtherDamages } from 'forms/models/otherDamages'
 import { YesNo } from 'forms/models/yesNo'
 import { GeneralDamages } from 'forms/models/generalDamages'
+import { Address } from 'forms/models/address'
+import { ClaimantDetails } from 'forms/models/claimantDetails'
+import Claimant from 'drafts/models/claimant'
+import { DefendantDetails } from 'forms/models/defendantDetails'
+import { Amount } from 'app/forms/models/amount'
+import { HousingDisrepair } from 'forms/models/housingDisrepair'
+import { PersonalInjury } from 'forms/models/personalInjury'
 
 const serviceBaseURL: string = `${config.get('draft-store.url')}`
 const sampleViewDraftObj = {
@@ -23,36 +32,26 @@ const sampleClaimDraftObj = {
       line2: 'Building A',
       city: 'London',
       postcode: 'E1'
-    }
+    } as Address
   },
   claimants: [{
     claimantDetails: {
-      type: 'INDIVIDUAL',
+      type: { value: 'INDIVIDUAL' },
       title: 'title',
       fullName: 'fullName'
-    },
+    } as ClaimantDetails,
     address: {
       line1: 'Apt 99',
       city: 'London',
       postcode: 'E1'
-    },
-    dateOfBirth: {
-      date: {
-        day: '31',
-        month: '12',
-        year: '1980'
-      }
-    },
-    mobilePhone: {
-      number: '07000000000'
-    }
-  }],
+    }as Address
+  } as Claimant],
   defendants: [{
     address: {
       line1: 'Apt 99',
       city: 'London',
       postcode: 'E1'
-    },
+    } as Address,
     representative: {
       organisationName: 'Defendant Company Name',
       address: {
@@ -60,23 +59,23 @@ const sampleClaimDraftObj = {
         line2: 'Building A',
         city: 'London',
         postcode: 'E1'
-      }
+      }as Address
     },
     defendantRepresented: {
-      isDefendantRepresented: { value: YesNo.YES.value, displayValue: YesNo.YES.displayValue },
+      isDefendantRepresented: { value: 'YES' },
       companyName: 'Defendant rep'
     },
     defendantDetails: {
-      type: 'INDIVIDUAL',
+      type: { value: 'INDIVIDUAL' },
       title: 'title',
       fullName: 'fullName'
-    }
+    } as DefendantDetails
   }],
   amount: {
     cannotState: '',
     lowerValue: 100,
     higherValue: 1000
-  },
+  } as Amount,
   housingDisrepair: {
     housingDisrepair: { value: YesNo.YES.value, displayValue: YesNo.YES.displayValue },
     generalDamages: {
@@ -89,14 +88,14 @@ const sampleClaimDraftObj = {
       displayValue: OtherDamages.NONE.displayValue,
       dataStoreValue: OtherDamages.NONE.dataStoreValue
     }
-  },
+  } as HousingDisrepair,
   personalInjury: {
     personalInjury: { value: YesNo.NO.value, displayValue: YesNo.NO.value },
     generalDamages: undefined
-  }
+  } as PersonalInjury
 }
 
-export function resolveFind (draftType: string, draftOverride?: object) {
+export function resolveFind (draftType: string, draftOverride?: object): Scope {
   let documentDocument: object
 
   switch (draftType) {
@@ -110,7 +109,7 @@ export function resolveFind (draftType: string, draftOverride?: object) {
       throw new Error('Unsupported draft type')
   }
 
-  mock(serviceBaseURL)
+  return mock(serviceBaseURL)
     .get(new RegExp('/drafts(\\?|\\&)([^=]+)\\=([^&]+)'))
     .reply(HttpStatus.OK, {
       data: [{
@@ -119,6 +118,26 @@ export function resolveFind (draftType: string, draftOverride?: object) {
         document: documentDocument,
         created: '2017-10-01T12:00:00.000',
         updated: '2017-10-01T12:01:00.000'
+      }]
+    })
+}
+
+export function resolveFindAllDrafts (): Scope {
+  return mock(serviceBaseURL)
+    .get(new RegExp('/drafts.*'))
+    .reply(HttpStatus.OK, {
+      data: [{
+        id: 200,
+        type: 'claim',
+        document: sampleClaimDraftObj,
+        created: '2017-10-01T12:00:00.000',
+        updated: '2017-10-01T12:01:00.000'
+      }, {
+        id: 201,
+        type: 'view',
+        document: sampleViewDraftObj,
+        created: '2017-10-02T12:00:00.000',
+        updated: '2017-10-02T12:01:00.000'
       }]
     })
 }

@@ -29,7 +29,8 @@
     "gaTrackingId": "GA_TRACKING_ID"
   },
   "session": {
-    "cookieName": "JWT_COOKIE_NAME"
+    "cookieName": "JWT_COOKIE_NAME",
+    "encryptionKey": "COOKIE_KEY"
   },
   "fees": {
     "url": "FEES_URL"

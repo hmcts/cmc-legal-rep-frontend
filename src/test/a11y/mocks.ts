@@ -11,13 +11,30 @@ import Defendant from 'drafts/models/defendant'
 import { ClaimantDetails } from 'app/forms/models/claimantDetails'
 import { DefendantDetails } from 'app/forms/models/defendantDetails'
 import { PartyTypes } from 'app/forms/models/partyTypes'
-import OrganisationName from 'app/forms/models/organisationName'
+import { OrganisationName } from 'app/forms/models/organisationName'
 import DraftView from 'app/drafts/models/draftView'
 import { Amount } from 'forms/models/amount'
 import { HousingDisrepair } from 'forms/models/housingDisrepair'
 import { YesNo } from 'forms/models/yesNo'
 import { PersonalInjury } from 'forms/models/personalInjury'
 import { MomentFactory } from 'common/momentFactory'
+
+import * as idamServiceMock from '../http-mocks/idam'
+import * as draftStoreMock from '../http-mocks/draft-store'
+import * as claimStoreMock from '../http-mocks/claim-store'
+import * as feesMock from '../http-mocks/fees'
+
+idamServiceMock.resolveRetrieveUserFor('1', 'cmc-private-beta', 'letter-holder', 'claimant', 'defendant').persist()
+idamServiceMock.resolveRetrieveServiceToken().persist()
+
+draftStoreMock.resolveFindAllDrafts().persist()
+
+claimStoreMock.resolveRetrieveClaimByExternalId({
+  respondedAt: '2017-08-07T15:27:34.654',
+  countyCourtJudgmentRequestedAt: '2017-08-09T11:51:28.144'
+}).persist()
+
+feesMock.resolveCalculateIssueFee().persist()
 
 function mockedDraftClaim () {
   let draft = new DraftLegalClaim()

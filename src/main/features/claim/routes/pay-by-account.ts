@@ -11,6 +11,7 @@ import FeesClient from 'fees/feesClient'
 import ClaimStoreClient from 'claims/claimStoreClient'
 import MoneyConverter from 'app/fees/moneyConverter'
 import { FeeResponse } from 'fees/model/feeResponse'
+import { RepresentativeDetails } from 'forms/models/representativeDetails'
 
 const logger = require('@hmcts/nodejs-logging').getLogger('router/pay-by-account')
 
@@ -72,7 +73,7 @@ function renderView (form: Form<FeeAccount>, res: express.Response, next: expres
 export default express.Router()
   .get(Paths.payByAccountPage.uri,
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
-      renderView(new Form(res.locals.user.legalClaimDraft.document.feeAccount.reference), res, next)
+      renderView(new Form(RepresentativeDetails.getCookie(req).feeAccount), res, next)
     }))
 
   .post(Paths.payByAccountPage.uri, FormValidator.requestHandler(FeeAccount, FeeAccount.fromObject),
@@ -89,6 +90,11 @@ export default express.Router()
         res.locals.user.legalClaimDraft.document.feeCode = feeResponse.fee.code
 
         await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+
+        const legalRepDetails: RepresentativeDetails = RepresentativeDetails.getCookie(req)
+        legalRepDetails.feeAccount = form.model
+        RepresentativeDetails.saveCookie(res, legalRepDetails)
+
         await saveClaimHandler(res, next)
       }
     }))

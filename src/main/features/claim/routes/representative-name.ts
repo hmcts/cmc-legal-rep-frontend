@@ -3,10 +3,11 @@ import { Paths } from 'claim/paths'
 
 import { Form } from 'app/forms/form'
 import { FormValidator } from 'app/forms/validation/formValidator'
-import OrganisationName from 'forms/models/organisationName'
+import { OrganisationName } from 'forms/models/organisationName'
 
 import { DraftService } from 'services/draftService'
 import ErrorHandling from 'common/errorHandling'
+import { RepresentativeDetails } from 'forms/models/representativeDetails'
 
 function renderView (form: Form<OrganisationName>, res: express.Response): void {
   res.render(Paths.representativeNamePage.associatedView, { form: form })
@@ -14,7 +15,7 @@ function renderView (form: Form<OrganisationName>, res: express.Response): void 
 
 export default express.Router()
   .get(Paths.representativeNamePage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.legalClaimDraft.document.representative.organisationName), res)
+    renderView(new Form(RepresentativeDetails.getCookie(req).organisationName), res)
   })
   .post(Paths.representativeNamePage.uri, FormValidator.requestHandler(OrganisationName, OrganisationName.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -24,6 +25,11 @@ export default express.Router()
       } else {
         res.locals.user.legalClaimDraft.document.representative.organisationName = form.model
         await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+
+        const legalRepDetails: RepresentativeDetails = RepresentativeDetails.getCookie(req)
+        legalRepDetails.organisationName = form.model
+        RepresentativeDetails.saveCookie(res, legalRepDetails)
+
         res.redirect(Paths.representativeAddressPage.uri)
       }
 
