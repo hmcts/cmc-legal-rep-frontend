@@ -85,7 +85,7 @@ export default express.Router()
       } else {
         res.locals.user.legalClaimDraft.document.feeAccount = form.model
 
-        const feeResponse: FeeResponse = await FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.amount)
+        const feeResponse: FeeResponse = await FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.document.amount)
         res.locals.user.legalClaimDraft.document.feeAmountInPennies = feeResponse.amount
         res.locals.user.legalClaimDraft.document.feeCode = feeResponse.fee.code
 

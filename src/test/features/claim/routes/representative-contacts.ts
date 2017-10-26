@@ -46,6 +46,7 @@ describe( 'Claim : Your organisation contact details page', () => {
       await request( app )
         .post( ClaimPaths.representativeContactsPage.uri )
         .set( 'Cookie', `${cookieName}=ABC` )
+        .send({ phoneNumber: '', email: '', dxAddress: '' })
         .expect( res => expect( res ).to.be.successful.withText( 'Your organisation contact details', 'div class="error-summary"' ) )
     } )
 

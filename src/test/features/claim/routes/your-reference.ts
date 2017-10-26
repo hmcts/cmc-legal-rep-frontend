@@ -42,6 +42,7 @@ describe('Claim issue: your reference page', () => {
       await request(app)
         .post(ClaimPaths.yourReferencePage.uri)
         .set('Cookie', `${cookieName}=ABC`)
+        .send({ reference: '12345678901234567890123451212' })
         .expect(res => expect(res).to.be.successful.withText('Your reference for this claim', 'div class="error-summary"'))
     })
 

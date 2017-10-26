@@ -46,6 +46,7 @@ describe('Claim issue: preferred court page', () => {
       await request(app)
         .post(ClaimPaths.preferredCourtPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
+        .send({ name: '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890' })
         .expect(res => expect(res).to.be.successful.withText('Choose court location', 'div class="error-summary"'))
     })
 
