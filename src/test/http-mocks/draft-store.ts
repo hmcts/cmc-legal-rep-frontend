@@ -13,6 +13,8 @@ import { DefendantDetails } from 'forms/models/defendantDetails'
 import { Amount } from 'app/forms/models/amount'
 import { HousingDisrepair } from 'forms/models/housingDisrepair'
 import { PersonalInjury } from 'forms/models/personalInjury'
+import { OrganisationName } from 'forms/models/organisationName'
+import Representative from 'drafts/models/representative'
 
 const serviceBaseURL: string = `${config.get('draft-store.url')}`
 const sampleViewDraftObj = {
@@ -22,18 +24,18 @@ const sampleViewDraftObj = {
 }
 
 const sampleClaimDraftObj = {
-  externalId: '400f4c57-9684-49c0-adb4-4cf46579d6dc',
+  externalId: '91e1c70f-7d2c-4c1e-a88f-cbb02c0e64d6',
   readResolveDispute: true,
   readCompletingClaim: true,
   representative: {
-    organisationName: 'My Organisation Name',
+    organisationName: { name: 'My Organisation Name' } as OrganisationName,
     address: {
       line1: 'Apt 99',
       line2: 'Building A',
       city: 'London',
       postcode: 'E1'
     } as Address
-  },
+  } as Representative,
   claimants: [{
     claimantDetails: {
       type: { value: 'INDIVIDUAL' },
@@ -127,13 +129,13 @@ export function resolveFindAllDrafts (): Scope {
     .get(new RegExp('/drafts.*'))
     .reply(HttpStatus.OK, {
       data: [{
-        id: 200,
-        type: 'claim',
+        id: 100,
+        type: 'legalClaim',
         document: sampleClaimDraftObj,
         created: '2017-10-01T12:00:00.000',
         updated: '2017-10-01T12:01:00.000'
       }, {
-        id: 201,
+        id: 101,
         type: 'view',
         document: sampleViewDraftObj,
         created: '2017-10-02T12:00:00.000',

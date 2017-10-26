@@ -22,7 +22,7 @@ export function rejectCalculateIssueFee (reason: string = 'HTTP error') {
   rejectCallFeesRegister(reason)
 }
 
-export function resolveCallFeesRegister () {
+export function resolveCallFeesRegister (): Scope {
   return mock(serviceURL)
     .get(new RegExp(`[0-9]+`))
     .reply(HttpStatus.OK, body)
