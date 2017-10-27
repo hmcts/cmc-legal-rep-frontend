@@ -4,7 +4,7 @@ import * as HttpStatus from 'http-status-codes'
 
 import { Form } from 'app/forms/form'
 import { FormValidator } from 'app/forms/validation/formValidator'
-import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
+import { DraftService } from 'services/draftService'
 import ErrorHandling from 'common/errorHandling'
 import { FeeAccount } from 'forms/models/feeAccount'
 import FeesClient from 'fees/feesClient'
@@ -20,12 +20,12 @@ function logError (id: number, message: string) {
 }
 
 async function deleteDraftAndRedirect (res, next, externalId: string) {
-  await ClaimDraftMiddleware.delete(res, next)
+  await new DraftService()['delete'](res.locals.user.legalClaimDraft['id'], res.locals.user.bearerToken)
   res.redirect(Paths.claimSubmittedPage.evaluateUri({ externalId: externalId }))
 }
 
 async function saveClaimHandler (res, next) {
-  const externalId = res.locals.user.legalClaimDraft.externalId
+  const externalId = res.locals.user.legalClaimDraft.document.externalId
 
   let claimStatus: boolean
   try {
@@ -59,7 +59,7 @@ async function saveClaimHandler (res, next) {
 }
 
 function renderView (form: Form<FeeAccount>, res: express.Response, next: express.NextFunction): void {
-  FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.amount)
+  FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.document.amount)
     .then((feeResponse: FeeResponse) => {
       res.render(Paths.payByAccountPage.associatedView,
         {
@@ -83,13 +83,13 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res, next)
       } else {
-        res.locals.user.legalClaimDraft.feeAccount = form.model
+        res.locals.user.legalClaimDraft.document.feeAccount = form.model
 
-        const feeResponse: FeeResponse = await FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.amount)
-        res.locals.user.legalClaimDraft.feeAmountInPennies = feeResponse.amount
-        res.locals.user.legalClaimDraft.feeCode = feeResponse.fee.code
+        const feeResponse: FeeResponse = await FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.document.amount)
+        res.locals.user.legalClaimDraft.document.feeAmountInPennies = feeResponse.amount
+        res.locals.user.legalClaimDraft.document.feeCode = feeResponse.fee.code
 
-        await ClaimDraftMiddleware.save(res, next)
+        await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
 
         const legalRepDetails: RepresentativeDetails = RepresentativeDetails.getCookie(req)
         legalRepDetails.feeAccount = form.model

@@ -12,7 +12,8 @@ export default express.Router()
       'pdf-service': basicHealthCheck('pdf-service'),
       'fees': basicHealthCheck('fees'),
       'idam-api': basicHealthCheck('idam.api'),
-      'idam-authentication-web': basicHealthCheck('idam.authentication-web')
+      'idam-authentication-web': basicHealthCheck('idam.authentication-web'),
+      'idam-service-2-service-auth': basicHealthCheck('idam.service-2-service-auth')
     }
   }))
 

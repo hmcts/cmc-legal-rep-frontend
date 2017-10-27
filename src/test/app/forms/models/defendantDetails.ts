@@ -59,9 +59,8 @@ describe('Defendant Details', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.INDIVIDUAL, undefined, undefined, undefined, undefined))
 
-        expect(errors.length).to.equal(2)
+        expect(errors.length).to.equal(1)
         expectValidationError(errors, ValidationErrors.FULLNAME_REQUIRED)
-        expectValidationError(errors, ValidationErrors.TITLE_REQUIRED)
       })
     })
 
