@@ -4,8 +4,8 @@ import { Paths } from 'certificateOfService/paths'
 import { Form } from 'app/forms/form'
 import { FormValidator } from 'app/forms/validation/formValidator'
 import { DocumentType } from 'app/forms/models/documentType'
-import { CertificateOfServiceDraftMiddleware } from 'certificateOfService/draft/middleware'
 import ErrorHandling from 'common/errorHandling'
+import { DraftService } from '../../../services/draftService'
 
 function renderView (form: Form<DocumentType>, res: express.Response): void {
   res.render(Paths.whatDocumentsPage.associatedView, { form: form })
@@ -22,7 +22,7 @@ export default express.Router()
         renderView(form, res)
       } else {
         res.locals.user.legalCertificateOfServiceDraft.whatDocuments = form.model
-        await CertificateOfServiceDraftMiddleware.save(res, next)
+        await new DraftService().save(res.locals.user.legalCertificateOfServiceDraft, res.locals.user.bearerToken)
         res.redirect(Paths.whatDocumentsPage.uri)
       }
 

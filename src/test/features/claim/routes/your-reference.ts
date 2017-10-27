@@ -17,7 +17,7 @@ const roles: string[] = ['solicitor']
 describe('Claim issue: your reference page', () => {
   beforeEach(() => {
     mock.cleanAll()
-    draftStoreServiceMock.resolveRetrieve('legalClaim')
+    draftStoreServiceMock.resolveFind('legalClaim')
   })
 
   describe('on GET', () => {
@@ -25,6 +25,7 @@ describe('Claim issue: your reference page', () => {
 
     it('should render page when everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
       await request(app)
         .get(ClaimPaths.yourReferencePage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -37,15 +38,17 @@ describe('Claim issue: your reference page', () => {
 
     it('should render page when form is invalid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
       await request(app)
         .post(ClaimPaths.yourReferencePage.uri)
         .set('Cookie', `${cookieName}=ABC`)
+        .send({ reference: '12345678901234567890123451212' })
         .expect(res => expect(res).to.be.successful.withText('Your reference for this claim', 'div class="error-summary"'))
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      draftStoreServiceMock.rejectSave('legalClaim', 'HTTP error')
+      draftStoreServiceMock.rejectSave(100, 'HTTP error')
 
       await request(app)
         .post(ClaimPaths.yourReferencePage.uri)
@@ -56,7 +59,8 @@ describe('Claim issue: your reference page', () => {
 
     it('should redirect to personal injury when form is valid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      draftStoreServiceMock.resolveSave('legalClaim')
+      draftStoreServiceMock.resolveUpdate()
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .post(ClaimPaths.yourReferencePage.uri)

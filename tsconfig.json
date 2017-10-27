@@ -65,6 +65,9 @@
       ],
       "views/*": [
         "features/view/*"
+      ],
+      "services/*": [
+        "services/*"
       ]
     },
     "typeRoots": [

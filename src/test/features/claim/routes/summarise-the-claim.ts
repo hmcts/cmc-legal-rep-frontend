@@ -19,7 +19,7 @@ const roles: string[] = ['solicitor']
 describe('Claim issue: Briefly describe the claim page', () => {
   beforeEach(() => {
     mock.cleanAll()
-    draftStoreServiceMock.resolveRetrieve('legalClaim')
+    draftStoreServiceMock.resolveFind('legalClaim')
   })
 
   describe('on GET', () => {
@@ -47,7 +47,7 @@ describe('Claim issue: Briefly describe the claim page', () => {
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      draftStoreServiceMock.rejectSave('legalClaim', 'HTTP error')
+      draftStoreServiceMock.rejectSave(100, 'HTTP error')
 
       await request(app)
         .post(ClaimPaths.summariseTheClaimPage.uri)
@@ -60,7 +60,7 @@ describe('Claim issue: Briefly describe the claim page', () => {
 
     it('should redirect to claim amount page when form is valid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      draftStoreServiceMock.resolveSave('legalClaim')
+      draftStoreServiceMock.resolveUpdate()
 
       await request(app)
         .post(ClaimPaths.summariseTheClaimPage.uri)

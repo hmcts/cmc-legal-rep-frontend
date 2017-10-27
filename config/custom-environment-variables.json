@@ -12,6 +12,10 @@
     },
     "api": {
       "url": "IDAM_API_URL"
+    },
+    "service-2-service-auth": {
+      "url": "IDAM_S2S_AUTH",
+      "totpSecret": "IDAM_S2S_TOTP_SECRET"
     }
   },
   "claim-store": {

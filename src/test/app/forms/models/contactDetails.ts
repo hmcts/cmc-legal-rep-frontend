@@ -42,8 +42,8 @@ describe('ContactDetails', () => {
   describe('validation', () => {
     const validator: Validator = new Validator()
 
-    it('should accepts empty phone number, email and dxAddress', () => {
-      const errors = validator.validateSync(new ContactDetails('', '', ''))
+    it('should accepts undefined phone number, email and dxAddress', () => {
+      const errors = validator.validateSync(new ContactDetails(undefined, undefined, undefined))
       expect(errors.length).to.equal(0)
     })
 

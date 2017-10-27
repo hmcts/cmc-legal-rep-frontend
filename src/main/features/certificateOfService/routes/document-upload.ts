@@ -1,12 +1,10 @@
 import * as express from 'express'
 import { Paths } from 'certificateOfService/paths'
-// import { FormValidator } from 'app/forms/validation/formValidator'
-import { CertificateOfServiceDraftMiddleware } from 'certificateOfService/draft/middleware'
-// import ErrorHandling from 'common/errorHandling'
 import * as formidable from 'formidable'
 import * as fs from 'fs'
 import { UploadedDocument } from 'claims/models/uploadedDocument'
 import * as path from 'path'
+import { DraftService } from '../../../services/draftService'
 
 function renderView (res: express.Response): void {
   res.render(Paths.documentUploadPage.associatedView, { files: res.locals.user.legalCertificateOfServiceDraft.uploadedDocuments })
@@ -38,7 +36,7 @@ export default express.Router()
           .then(documents => res.locals.user.legalCertificateOfServiceDraft.uploadedDocuments = documents)
       })
 
-    await CertificateOfServiceDraftMiddleware.save(res, next)
+    await new DraftService().save(res.locals.user.legalCertificateOfServiceDraft, res.locals.user.bearerToken)
     res.redirect(Paths.documentUploadPage.uri)
   })
 

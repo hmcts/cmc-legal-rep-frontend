@@ -8,15 +8,15 @@ import { FeeResponse } from 'fees/model/feeResponse'
 import MoneyConverter from 'fees/moneyConverter'
 
 function renderView (res: express.Response, next: express.NextFunction) {
-  const claimAmount: Amount = res.locals.user.legalClaimDraft.amount
+  const claimAmount: Amount = res.locals.user.legalClaimDraft.document.amount
   FeesClient.getFeeAmount(claimAmount)
     .then((feeResponse: FeeResponse) => {
 
-      const isHousingDisrepair = res.locals.user.legalClaimDraft.housingDisrepair.housingDisrepair.value === YesNo.YES.value
-      const isPersonalInjury = res.locals.user.legalClaimDraft.personalInjury.personalInjury.value === YesNo.YES.value
+      const isHousingDisrepair = res.locals.user.legalClaimDraft.document.housingDisrepair.housingDisrepair.value === YesNo.YES.value
+      const isPersonalInjury = res.locals.user.legalClaimDraft.document.personalInjury.personalInjury.value === YesNo.YES.value
 
       res.render(Paths.detailsSummaryPage.associatedView, {
-        legalClaimDraft: res.locals.user.legalClaimDraft,
+        legalClaimDraft: res.locals.user.legalClaimDraft.document,
         feeAmount: MoneyConverter.convertPenniesToPounds(feeResponse.amount),
         isHousingDisrepair: isHousingDisrepair,
         isPersonalInjury: isPersonalInjury,
