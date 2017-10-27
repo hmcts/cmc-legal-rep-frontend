@@ -72,8 +72,7 @@
     "typescript": "^2.4.2",
     "to-boolean":"^1.0.0",
     "class-transformer": "^0.1.7",
-    "reflect-metadata": "^0.1.10",
-    "clam-engine": "^2.0.1"
+    "reflect-metadata": "^0.1.10"
   },
   "devDependencies": {
     "@types/chai": "^4.0.4",

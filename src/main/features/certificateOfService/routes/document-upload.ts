@@ -1,45 +1,55 @@
 import * as express from 'express'
 import { Paths } from 'certificateOfService/paths'
-import { Form } from 'app/forms/form'
 // import { FormValidator } from 'app/forms/validation/formValidator'
-// import { CertificateOfServiceDraftMiddleware } from 'certificateOfService/draft/middleware'
+import { CertificateOfServiceDraftMiddleware } from 'certificateOfService/draft/middleware'
 // import ErrorHandling from 'common/errorHandling'
-import { DocumentUpload } from 'forms/models/documentUpload'
 import * as formidable from 'formidable'
-// import * as fs from 'fs'
-import * as clam from 'clam-engine'
+import * as fs from 'fs'
+import { UploadedDocument } from 'claims/models/uploadedDocument'
+import * as path from 'path'
 
-function renderView (form: Form<DocumentUpload>, res: express.Response): void {
-  res.render(Paths.documentUploadPage.associatedView, { form: form, filePath: 'HO00004283.jpg' })
+function renderView (res: express.Response): void {
+  res.render(Paths.documentUploadPage.associatedView, { files: res.locals.user.legalCertificateOfServiceDraft.uploadedDocuments })
+  console.log(res.locals.user.legalCertificateOfServiceDraft.uploadedDocuments)
 }
 
 export default express.Router()
   .get(Paths.documentUploadPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.legalCertificateOfServiceDraft.uploadedDocuments), res)
+    renderView(res)
   })
   .post(Paths.documentUploadPage.uri, async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+    const documents: Array<Promise<UploadedDocument>> = []
     const form = new formidable.IncomingForm()
+    form.uploadDir = 'src/main/public/uploadedFiles/'
+    form.keepExtensions = true
+    form.multiples = true
     form.parse(req)
+      .on('file', function (name, file) {
+        documents.push(
+          moveFile(file.path, form.uploadDir + file.name)
+            .then(file => new UploadedDocument(file.fileName, file.documentManagementURI))
+        )
 
-    form.on('file', function (name, file) {
-      clam.createEngine(function (err, engine) {
-        if (err) {
-          return console.log('Error', err)
-        }
-        engine.scanFile(file.path, function (err, virus) {
-          if (err) {
-            return console.log('Error', err)
-          }
-          if (virus) {
-            return console.log('Virus', virus)
-          }
-          console.log('Clean')
-        })
+        console.log('Uploaded ' + file.name)
       })
-      // fs.rename(file.path, 'src/main/public/' + file.name, function (err) {
-      //   if ( err ) console.log('ERROR: ' + err)
-      // })
-      console.log('Uploaded ' + file.name)
-    })
+      .on('end', function () {
+        console.log(documents)
+        Promise.all(documents)
+          .then(documents => res.locals.user.legalCertificateOfServiceDraft.uploadedDocuments = documents)
+      })
+
+    await CertificateOfServiceDraftMiddleware.save(res, next)
     res.redirect(Paths.documentUploadPage.uri)
   })
+
+function moveFile (from, to) {
+  return new Promise<UploadedDocument>(function (done, reject) {
+    fs.rename(from, to, function (err) {
+      if ( err ) {
+        return reject(new Error(err.message))
+      }
+
+      done(new UploadedDocument(path.basename(to), to))
+    })
+  })
+}
