@@ -13,7 +13,7 @@ function renderView (form: Form<DocumentType>, res: express.Response): void {
 
 export default express.Router()
   .get(Paths.whatDocumentsPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.legalCertificateOfServiceDraft.whatDocuments), res)
+    renderView(new Form(res.locals.user.legalCertificateOfServiceDraft.document.whatDocuments), res)
   })
   .post(Paths.whatDocumentsPage.uri, FormValidator.requestHandler(DocumentType, DocumentType.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -21,7 +21,7 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        res.locals.user.legalCertificateOfServiceDraft.whatDocuments = form.model
+        res.locals.user.legalCertificateOfServiceDraft.document.whatDocuments = form.model
         await new DraftService().save(res.locals.user.legalCertificateOfServiceDraft, res.locals.user.bearerToken)
         res.redirect(Paths.whatDocumentsPage.uri)
       }
