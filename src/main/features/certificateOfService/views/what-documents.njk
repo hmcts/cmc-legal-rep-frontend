@@ -3,7 +3,7 @@
 {% set title = t('Money claim') %}
 {% set heading = t('What documents did you serve?') %}
 
-{% from "form.njk" import csrfProtection, checkboxGroup, saveAndContinueButton, errorSummary %}
+{% from "form.njk" import csrfProtection, textArea, checkboxGroup, saveAndContinueButton, errorSummary %}
 
 {% block content %}
   <div class="grid-row">
@@ -13,17 +13,23 @@
 
         {{
         checkboxGroup(
-        name = 'documentTypes',
-        options = [
-        { label: {{ t('Particulars of claim')}, value: false },
-        { label: {{ t('Response pack')}, value: false },
-        { label: {{ t('Schedule of loss')}, value: false },
-        { label: {{ t('Medical report(s)')}, value: false }
-        ],
-        isInline = false,
-        form = form
-        )
+          label = 'What documents did you serve?',
+          legendHidden = true,
+          name = 'documentTypes',
+          options = [
+          { label: 'Particulars of claim', value: 'particularsOfClaim' },
+          { label: 'Response pack', value: 'responsePack' },
+          { label: 'Schedule of loss', value: 'scheduleOfLoss' },
+          { label: 'Medical report(s)', value: 'medicalReport' },
+          { label: 'Other', value: 'other' }
+          ],
+          form = form
+          )
         }}
+
+        <div class="form-group panel panel-border-narrow js-hidden" id="documentTypes-other">
+          {{ textArea(t('List them here:'), 'otherDocuments', form) }}
+        </div>
 
         <div class="form-group">
           {{ saveAndContinueButton() }}

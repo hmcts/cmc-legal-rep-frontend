@@ -8,7 +8,7 @@ import { DraftService } from '../../../services/draftService'
 
 function renderView (res: express.Response): void {
   res.render(Paths.documentUploadPage.associatedView, { files: res.locals.user.legalCertificateOfServiceDraft.uploadedDocuments })
-  console.log(res.locals.user.legalCertificateOfServiceDraft.uploadedDocuments)
+  console.log(res.locals.user.legalCertificateOfServiceDraft.document.uploadedDocuments)
 }
 
 export default express.Router()
@@ -33,7 +33,7 @@ export default express.Router()
       .on('end', function () {
         console.log(documents)
         Promise.all(documents)
-          .then(documents => res.locals.user.legalCertificateOfServiceDraft.uploadedDocuments = documents)
+          .then(documents => res.locals.user.legalCertificateOfServiceDraft.document.uploadedDocuments = documents)
       })
 
     await new DraftService().save(res.locals.user.legalCertificateOfServiceDraft, res.locals.user.bearerToken)
