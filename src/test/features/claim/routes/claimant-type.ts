@@ -19,8 +19,8 @@ const roles: string[] = ['solicitor']
 describe('Claim issue: claimant type page', () => {
   beforeEach(() => {
     mock.cleanAll()
-    draftStoreServiceMock.resolveRetrieve('legalClaim')
-    draftStoreServiceMock.resolveRetrieve('view')
+    draftStoreServiceMock.resolveFind('legalClaim')
+    draftStoreServiceMock.resolveFind('view')
   })
 
   describe('on GET', () => {
@@ -28,6 +28,8 @@ describe('Claim issue: claimant type page', () => {
 
     it('should render page when everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+
       await request(app)
         .get(ClaimPaths.claimantTypePage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -40,6 +42,8 @@ describe('Claim issue: claimant type page', () => {
 
     it('should render page when form is invalid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+
       await request(app)
         .post(ClaimPaths.claimantTypePage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -48,7 +52,7 @@ describe('Claim issue: claimant type page', () => {
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      draftStoreServiceMock.rejectSave('legalClaim', 'HTTP error')
+      draftStoreServiceMock.rejectSave(100, 'HTTP error')
 
       await request(app)
         .post(ClaimPaths.claimantTypePage.uri)
@@ -63,7 +67,8 @@ describe('Claim issue: claimant type page', () => {
 
     it('should redirect to claimant address page when form is valid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      draftStoreServiceMock.resolveSave('legalClaim')
+      draftStoreServiceMock.resolveUpdate()
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .post(ClaimPaths.claimantTypePage.uri)

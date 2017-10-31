@@ -4,13 +4,14 @@ import * as HttpStatus from 'http-status-codes'
 
 import { Form } from 'app/forms/form'
 import { FormValidator } from 'app/forms/validation/formValidator'
-import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
+import { DraftService } from 'services/draftService'
 import ErrorHandling from 'common/errorHandling'
 import { FeeAccount } from 'forms/models/feeAccount'
 import FeesClient from 'fees/feesClient'
 import ClaimStoreClient from 'claims/claimStoreClient'
 import MoneyConverter from 'app/fees/moneyConverter'
-import { Fee } from 'fees/fee'
+import { FeeResponse } from 'fees/model/feeResponse'
+import { RepresentativeDetails } from 'forms/models/representativeDetails'
 
 const logger = require('@hmcts/nodejs-logging').getLogger('router/pay-by-account')
 
@@ -19,12 +20,12 @@ function logError (id: number, message: string) {
 }
 
 async function deleteDraftAndRedirect (res, next, externalId: string) {
-  await ClaimDraftMiddleware.delete(res, next)
+  await new DraftService()['delete'](res.locals.user.legalClaimDraft['id'], res.locals.user.bearerToken)
   res.redirect(Paths.claimSubmittedPage.evaluateUri({ externalId: externalId }))
 }
 
 async function saveClaimHandler (res, next) {
-  const externalId = res.locals.user.legalClaimDraft.externalId
+  const externalId = res.locals.user.legalClaimDraft.document.externalId
 
   let claimStatus: boolean
   try {
@@ -58,12 +59,12 @@ async function saveClaimHandler (res, next) {
 }
 
 function renderView (form: Form<FeeAccount>, res: express.Response, next: express.NextFunction): void {
-  FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.amount)
-    .then((fee: Fee) => {
+  FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.document.amount)
+    .then((feeResponse: FeeResponse) => {
       res.render(Paths.payByAccountPage.associatedView,
         {
           form: form,
-          feeAmount: fee.amount
+          feeAmount: MoneyConverter.convertPenniesToPounds(feeResponse.amount)
         })
     })
     .catch(next)
@@ -72,7 +73,7 @@ function renderView (form: Form<FeeAccount>, res: express.Response, next: expres
 export default express.Router()
   .get(Paths.payByAccountPage.uri,
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
-      renderView(new Form(res.locals.user.legalClaimDraft.feeAccount.reference), res, next)
+      renderView(new Form(RepresentativeDetails.getCookie(req).feeAccount), res, next)
     }))
 
   .post(Paths.payByAccountPage.uri, FormValidator.requestHandler(FeeAccount, FeeAccount.fromObject),
@@ -82,13 +83,18 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res, next)
       } else {
-        res.locals.user.legalClaimDraft.feeAccount = form.model
+        res.locals.user.legalClaimDraft.document.feeAccount = form.model
 
-        const fee: Fee = await FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.amount)
-        res.locals.user.legalClaimDraft.feeAmountInPennies = MoneyConverter.convertPoundsToPennies(fee.amount)
-        res.locals.user.legalClaimDraft.feeCode = fee.code
+        const feeResponse: FeeResponse = await FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.document.amount)
+        res.locals.user.legalClaimDraft.document.feeAmountInPennies = feeResponse.amount
+        res.locals.user.legalClaimDraft.document.feeCode = feeResponse.fee.code
 
-        await ClaimDraftMiddleware.save(res, next)
+        await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+
+        const legalRepDetails: RepresentativeDetails = RepresentativeDetails.getCookie(req)
+        legalRepDetails.feeAccount = form.model
+        RepresentativeDetails.saveCookie(res, legalRepDetails)
+
         await saveClaimHandler(res, next)
       }
     }))

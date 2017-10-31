@@ -7,7 +7,7 @@ export class ValidationErrors {
   static readonly ORGANISATION_NAME_TOO_LONG: string = 'You’ve entered too many characters'
 }
 
-export default class OrganisationName implements Serializable<OrganisationName> {
+export class OrganisationName implements Serializable<OrganisationName> {
 
   @IsDefined( { message: ValidationErrors.ORGANISATION_NAME_REQUIRED } )
   @IsNotBlank( { message: ValidationErrors.ORGANISATION_NAME_REQUIRED } )

@@ -1,5 +1,6 @@
 import DraftLegalClaim from 'drafts/models/draftLegalClaim'
 import DraftView from 'app/drafts/models/draftView'
+import { Draft } from '@hmcts/draft-store-client/dist/draft/draft'
 
 export default class User {
   id: string
@@ -9,8 +10,8 @@ export default class User {
   roles: string[]
   group: string
   bearerToken: string
-  viewDraft: DraftView
-  legalClaimDraft: DraftLegalClaim
+  viewDraft: Draft<DraftView>
+  legalClaimDraft: Draft<DraftLegalClaim>
 
   constructor (id: string,
                email: string,

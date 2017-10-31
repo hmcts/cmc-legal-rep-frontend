@@ -5,8 +5,9 @@ import { Form } from 'forms/form'
 import { FormValidator } from 'forms/validation/formValidator'
 import { Address } from 'forms/models/address'
 
-import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
+import { DraftService } from 'services/draftService'
 import ErrorHandling from 'common/errorHandling'
+import { RepresentativeDetails } from 'forms/models/representativeDetails'
 
 function renderView (form: Form<Address>, res: express.Response): void {
   res.render(Paths.representativeAddressPage.associatedView, { form: form })
@@ -14,7 +15,7 @@ function renderView (form: Form<Address>, res: express.Response): void {
 
 export default express.Router()
   .get(Paths.representativeAddressPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.legalClaimDraft.representative.address), res)
+    renderView(new Form(RepresentativeDetails.getCookie(req).address), res)
   })
   .post(Paths.representativeAddressPage.uri, FormValidator.requestHandler(Address, Address.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -23,8 +24,13 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        res.locals.user.legalClaimDraft.representative.address = form.model
-        await ClaimDraftMiddleware.save(res, next)
+        res.locals.user.legalClaimDraft.document.representative.address = form.model
+        await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+
+        const legalRepDetails: RepresentativeDetails = RepresentativeDetails.getCookie(req)
+        legalRepDetails.address = form.model
+        RepresentativeDetails.saveCookie(res, legalRepDetails)
+
         res.redirect(Paths.representativeContactsPage.uri)
       }
     }))
