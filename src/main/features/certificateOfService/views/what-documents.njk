@@ -15,7 +15,7 @@
         checkboxGroup(
           label = 'What documents did you serve?',
           legendHidden = true,
-          name = 'documentTypes',
+          name = 'types',
           options = [
           { label: 'Particulars of claim', value: 'particularsOfClaim' },
           { label: 'Response pack', value: 'responsePack' },
@@ -27,7 +27,7 @@
           )
         }}
 
-        <div class="form-group panel panel-border-narrow js-hidden" id="documentTypes-other">
+        <div class="form-group panel panel-border-narrow js-hidden" id="types-other">
           {{ textArea(t('List them here:'), 'otherDocuments', form) }}
         </div>
 

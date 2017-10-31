@@ -8,7 +8,6 @@ import { DraftService } from '../../../services/draftService'
 
 function renderView (res: express.Response): void {
   res.render(Paths.documentUploadPage.associatedView, { files: res.locals.user.legalCertificateOfServiceDraft.uploadedDocuments })
-  console.log(res.locals.user.legalCertificateOfServiceDraft.document.uploadedDocuments)
 }
 
 export default express.Router()
@@ -31,7 +30,6 @@ export default express.Router()
         console.log('Uploaded ' + file.name)
       })
       .on('end', function () {
-        console.log(documents)
         Promise.all(documents)
           .then(documents => res.locals.user.legalCertificateOfServiceDraft.document.uploadedDocuments = documents)
       })
