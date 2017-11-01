@@ -42,8 +42,8 @@ describe('ContactDetails', () => {
   describe('validation', () => {
     const validator: Validator = new Validator()
 
-    it('should accepts empty phone number, email and dxAddress', () => {
-      const errors = validator.validateSync(new ContactDetails('', '', ''))
+    it('should accepts undefined phone number, email and dxAddress', () => {
+      const errors = validator.validateSync(new ContactDetails(undefined, undefined, undefined))
       expect(errors.length).to.equal(0)
     })
 
@@ -69,6 +69,16 @@ describe('ContactDetails', () => {
 
     it('should reject invalid phone number', () => {
       const errors = validator.validateSync(new ContactDetails('00911269055505', 'email@example.com', 'any dx address'))
+      expect(errors.length).to.equal(1)
+    })
+
+    it('should reject empty string for phone number', () => {
+      const errors = validator.validateSync(new ContactDetails('', 'email@example.com', 'any dx address'))
+      expect(errors.length).to.equal(1)
+    })
+
+    it('should reject empty string for email address', () => {
+      const errors = validator.validateSync(new ContactDetails('08905550', '', 'any dx address'))
       expect(errors.length).to.equal(1)
     })
 

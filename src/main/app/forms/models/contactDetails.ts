@@ -31,6 +31,8 @@ export class ContactDetails implements Serializable<ContactDetails> {
 
   static fromObject (value?: any): ContactDetails {
     if (value != null) {
+      value.phoneNumber = value.phoneNumber === '' ? undefined : value.phoneNumber
+      value.email = value.email === '' ? undefined : value.email
       return new ContactDetails(value.phoneNumber, value.email, value.dxAddress)
     }
 

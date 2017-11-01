@@ -18,7 +18,7 @@ export default express.Router()
   .get(Paths.claimTotalPage.uri,
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
 
-      const claimAmount: Amount = res.locals.user.legalClaimDraft.amount
+      const claimAmount: Amount = res.locals.user.legalClaimDraft.document.amount
       FeesClient.getFeeAmount(claimAmount)
         .then((feeResponse: FeeResponse) => {
           renderView(res, MoneyConverter.convertPenniesToPounds(feeResponse.amount), claimAmount)

@@ -19,7 +19,7 @@ const roles: string[] = ['solicitor']
 describe('Claim issue: personal injury page', () => {
   beforeEach(() => {
     mock.cleanAll()
-    draftStoreServiceMock.resolveRetrieve('legalClaim')
+    draftStoreServiceMock.resolveFind('legalClaim')
   })
 
   describe('on GET', () => {
@@ -27,6 +27,8 @@ describe('Claim issue: personal injury page', () => {
 
     it('should render page when everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+
       await request(app)
         .get(ClaimPaths.personalInjuryPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -39,6 +41,8 @@ describe('Claim issue: personal injury page', () => {
 
     it('should render page when form is invalid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+
       await request(app)
         .post(ClaimPaths.personalInjuryPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -47,7 +51,7 @@ describe('Claim issue: personal injury page', () => {
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      draftStoreServiceMock.rejectSave('legalClaim', 'HTTP error')
+      draftStoreServiceMock.rejectSave(100, 'HTTP error')
 
       await request(app)
         .post(ClaimPaths.personalInjuryPage.uri)
@@ -61,7 +65,8 @@ describe('Claim issue: personal injury page', () => {
 
     it('should redirect to hosing disrepair page when form is valid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      draftStoreServiceMock.resolveSave('legalClaim')
+      draftStoreServiceMock.resolveUpdate()
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .post(ClaimPaths.personalInjuryPage.uri)
