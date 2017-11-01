@@ -8,26 +8,26 @@ export class Defendants {
   static addDefendant (res: express.Response) {
     let defendants: Defendant[] = []
 
-    res.locals.user.legalClaimDraft.defendants.map((defendant) => defendants.push(new Defendant().deserialize(defendant)))
+    res.locals.user.legalClaimDraft.document.defendants.map((defendant) => defendants.push(new Defendant().deserialize(defendant)))
     defendants.push(new Defendant())
 
-    res.locals.user.legalClaimDraft.defendants = defendants
+    res.locals.user.legalClaimDraft.document.defendants = defendants
   }
 
   static removeDefendant (res: express.Response, id: string) {
     let defendants: Defendant[] = []
 
-    res.locals.user.legalClaimDraft.defendants.forEach((defendant, index) => {
+    res.locals.user.legalClaimDraft.document.defendants.forEach((defendant, index) => {
       if (Number(index + 1) !== Number(id)) {
         defendants.push(new Defendant().deserialize(defendant))
       }
     })
 
-    res.locals.user.legalClaimDraft.defendants = defendants
+    res.locals.user.legalClaimDraft.document.defendants = defendants
   }
 
   static getIndex (res: express.Response): number {
-    const changeIndex = res.locals.user.viewDraft.defendantChangeIndex
+    const changeIndex = res.locals.user.viewDraft.document.defendantChangeIndex
     return changeIndex !== undefined ? changeIndex : Defendants.getCurrentIndex(res)
   }
 
@@ -61,11 +61,11 @@ export class Defendants {
   }
 
   static getCurrentIndex (res: express.Response): number {
-    return res.locals.user.legalClaimDraft.defendants.length - 1
+    return res.locals.user.legalClaimDraft.document.defendants.length - 1
   }
 
   static getCurrentDefendantName (res: express.Response): string {
-    const defendants = res.locals.user.legalClaimDraft.defendants
+    const defendants = res.locals.user.legalClaimDraft.document.defendants
     const defendantDetails = defendants[Defendants.getIndex(res)].defendantDetails
     const isIndividual = defendantDetails.type.value === PartyTypes.INDIVIDUAL.value
     const title = defendantDetails.title != null ? `${defendantDetails.title} ` : defendantDetails.title

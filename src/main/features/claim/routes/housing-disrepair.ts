@@ -6,7 +6,7 @@ import { FormValidator } from 'app/forms/validation/formValidator'
 import { HousingDisrepair } from 'app/forms/models/housingDisrepair'
 import { YesNo } from 'app/forms/models/yesNo'
 
-import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
+import { DraftService } from 'services/draftService'
 import ErrorHandling from 'common/errorHandling'
 
 function renderView (form: Form<HousingDisrepair>, res: express.Response) {
@@ -15,7 +15,7 @@ function renderView (form: Form<HousingDisrepair>, res: express.Response) {
 
 export default express.Router()
   .get(Paths.housingDisrepairPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.legalClaimDraft.housingDisrepair), res)
+    renderView(new Form(res.locals.user.legalClaimDraft.document.housingDisrepair), res)
   })
   .post(Paths.housingDisrepairPage.uri, FormValidator.requestHandler(HousingDisrepair, HousingDisrepair.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -29,8 +29,8 @@ export default express.Router()
           form.model.otherDamages = undefined
         }
 
-        res.locals.user.legalClaimDraft.housingDisrepair = form.model
-        await ClaimDraftMiddleware.save(res, next)
+        res.locals.user.legalClaimDraft.document.housingDisrepair = form.model
+        await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
         res.redirect(Paths.summariseTheClaimPage.uri)
 
       }

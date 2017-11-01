@@ -8,6 +8,11 @@
     },
     "api": {
       "url": "http://localhost:8080"
+    },
+    "service-2-service-auth": {
+      "url": "http://localhost:4552",
+      "totpSecret": "AAAAAAAAAAAAAAAA",
+      "microservice": "cmc_legal_frontend"
     }
   },
   "claim-store": {

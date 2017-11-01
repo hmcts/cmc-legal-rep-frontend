@@ -23,7 +23,7 @@ const roles: string[] = ['solicitor']
 describe('Claim : Pay by Fee Account page', () => {
   beforeEach(() => {
     mock.cleanAll()
-    draftStoreServiceMock.resolveRetrieve('legalClaim')
+    draftStoreServiceMock.resolveFind('legalClaim')
   })
 
   describe('on GET', () => {
@@ -35,7 +35,7 @@ describe('Claim : Pay by Fee Account page', () => {
       })
 
       it('should return 500 and render error page when cannot calculate issue fee', async () => {
-        draftStoreServiceMock.resolveRetrieve(draftType)
+        draftStoreServiceMock.resolveFind(draftType)
         feesServiceMock.rejectCalculateIssueFee('HTTP error')
 
         await request(app)
@@ -45,8 +45,9 @@ describe('Claim : Pay by Fee Account page', () => {
       })
 
       it('should render page when everything is fine', async () => {
-        draftStoreServiceMock.resolveRetrieve(draftType)
+        draftStoreServiceMock.resolveFind(draftType)
         feesServiceMock.resolveCalculateIssueFee()
+        idamServiceMock.resolveRetrieveServiceToken()
 
         await request(app)
           .get(ClaimPaths.payByAccountPage.uri)
@@ -63,6 +64,7 @@ describe('Claim : Pay by Fee Account page', () => {
     it('should render page when form is invalid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       feesServiceMock.resolveCalculateIssueFee()
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
@@ -73,7 +75,7 @@ describe('Claim : Pay by Fee Account page', () => {
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      draftStoreServiceMock.rejectSave(draftType, 'HTTP error')
+      draftStoreServiceMock.rejectSave(100, 'HTTP error')
 
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
@@ -84,12 +86,13 @@ describe('Claim : Pay by Fee Account page', () => {
 
     it('should redirect to claim submitted page when form is valid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      draftStoreServiceMock.resolveSave(draftType)
+      draftStoreServiceMock.resolveUpdate()
       feesServiceMock.resolveCalculateIssueFee()
       claimStoreServiceMock.resolveRetrieveClaimByExternalId()
       claimStoreServiceMock.saveClaimForUser()
-      draftStoreServiceMock.resolveDelete(draftType)
+      draftStoreServiceMock.resolveDelete()
       feesServiceMock.resolveCalculateIssueFee()
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
@@ -101,12 +104,13 @@ describe('Claim : Pay by Fee Account page', () => {
 
     it('should redirect to claim submitted page when claim is duplicate', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      draftStoreServiceMock.resolveSave(draftType)
+      draftStoreServiceMock.resolveUpdate()
       feesServiceMock.resolveCalculateIssueFee()
       claimStoreServiceMock.rejectRetrieveClaimByExternalIdWithNotFound('missing claim as submitted claim transaction is not complete')
       claimStoreServiceMock.saveClaimForUserFailedWithUniqueConstraint('Duplicate Claim')
-      draftStoreServiceMock.resolveDelete(draftType)
+      draftStoreServiceMock.resolveDelete()
       feesServiceMock.resolveCalculateIssueFee()
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
