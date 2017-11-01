@@ -22,7 +22,7 @@
     js-yaml "^3.8.4"
     superagent "^3.5.1"
 
-"@hmcts/nodejs-logging@^1.1.1":
+"@hmcts/nodejs-logging@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@hmcts/nodejs-logging/-/nodejs-logging-1.4.0.tgz#0e4103ec65f899a65ec5b734d1aad340c4cbcb3b"
   dependencies:
