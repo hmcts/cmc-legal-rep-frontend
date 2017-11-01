@@ -2720,7 +2720,7 @@ husky@^0.14.1:
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
 
-i18next-conv@5.0.0:
+i18next-conv@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/i18next-conv/-/i18next-conv-5.0.0.tgz#d8fcd9ea69af7f2cf110fb69f64927101b89b2c7"
   dependencies:
