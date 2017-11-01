@@ -9,9 +9,9 @@ export class ValidationErrors {
 
 export class Search implements Serializable<Search> {
 
-  @IsDefined( { message: ValidationErrors.REFERENCE_REQUIRED } )
-  @IsNotBlank( { message: ValidationErrors.REFERENCE_REQUIRED } )
-  @MaxLength( 8, { message: ValidationErrors.REFERENCE_TOO_LONG } )
+  @IsDefined({ message: ValidationErrors.REFERENCE_REQUIRED })
+  @IsNotBlank({ message: ValidationErrors.REFERENCE_REQUIRED })
+  @MaxLength(8, { message: ValidationErrors.REFERENCE_TOO_LONG })
   reference?: string
 
   constructor (reference?: string) {
@@ -22,7 +22,7 @@ export class Search implements Serializable<Search> {
     if (value == null) {
       return value
     }
-    return new Search( value.reference )
+    return new Search(value.reference)
   }
 
   deserialize (input?: any): Search {
