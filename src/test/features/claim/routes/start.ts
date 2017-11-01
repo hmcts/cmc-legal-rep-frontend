@@ -15,7 +15,7 @@ const roles: string[] = ['solicitor']
 describe('Claim issue: start page', () => {
   beforeEach(() => {
     mock.cleanAll()
-    DraftStoreServiceMock.resolveFind( 'legalClaim' )
+    DraftStoreServiceMock.resolveFind('legalClaim')
   })
 
   describe('on GET', () => {
