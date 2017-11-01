@@ -563,7 +563,7 @@ block-stream@*:
   dependencies:
     inherits "~2.0.0"
 
-bluebird@^3.5.0:
+bluebird@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
 
@@ -2940,11 +2940,11 @@ husky@^0.14.1:
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
 
-i18next-conv@^4.0.1:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/i18next-conv/-/i18next-conv-4.1.0.tgz#fa551f8b490373ad72f11254f84e117182cb65e4"
+i18next-conv@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/i18next-conv/-/i18next-conv-5.0.0.tgz#d8fcd9ea69af7f2cf110fb69f64927101b89b2c7"
   dependencies:
-    bluebird "^3.5.0"
+    bluebird "^3.5.1"
     chalk "^2.1.0"
     commander "^2.11.0"
     gettext-parser "^1.3.0"
