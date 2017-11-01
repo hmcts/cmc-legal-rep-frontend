@@ -1,5 +1,5 @@
 {% extends "layout.njk" %}
-{% from "form.njk" import linkButton, csrfProtection, errorSummary %}
+{% from "form.njk" import linkButton, csrfProtection, errorSummary, searchInput %}
 
 {% set title = t('Money claim') %}
 {% set heading = t('Civil Money Claims') %}
@@ -17,13 +17,15 @@
           {{ t('Enter your reference or claim number to find a claim') }}
         </p>
 
-        <div class="form-group">
-          {% if error %}
-            <span class="error-message">{{ t(error) }}</span>
-          {% endif %}
-          <input type="search" name="reference" id="reference" class="search-input" aria-label="{{ t('Search for a claim') }}">
-          <button type="submit" class="search-submit icon icon-search" id="button" title="search"></button>
-        </div>
+        {{ searchInput('', 'reference', form) }}
+
+        {#<div class="form-group">#}
+          {#{% if error %}#}
+            {#<span class="error-message">{{ t(error) }}</span>#}
+          {#{% endif %}#}
+          {#<input type="search" name="reference" id="reference" class="search-input" aria-label="{{ t('Search for a claim') }}">#}
+          {#<button type="submit" class="search-submit icon icon-search" id="button" title="search"></button>#}
+        {#</div>#}
       </form>
     </div>
   </div>
