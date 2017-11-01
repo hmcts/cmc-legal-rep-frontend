@@ -45,7 +45,7 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.use(cookieParser(config.get('session.encryptionKey')))
-app.use(cookieEncrypter(config.get('session.encryptionKey'), CookieProperties.getCookieConfig() ))
+app.use(cookieEncrypter(config.get('session.encryptionKey'), CookieProperties.getCookieConfig()))
 
 if (!developmentMode) {
   app.use(logging.express.accessLogger())

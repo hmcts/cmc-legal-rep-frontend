@@ -9,9 +9,9 @@ export class ValidationErrors {
 
 export class OrganisationName implements Serializable<OrganisationName> {
 
-  @IsDefined( { message: ValidationErrors.ORGANISATION_NAME_REQUIRED } )
-  @IsNotBlank( { message: ValidationErrors.ORGANISATION_NAME_REQUIRED } )
-  @MaxLength( 255, { message: ValidationErrors.ORGANISATION_NAME_TOO_LONG } )
+  @IsDefined({ message: ValidationErrors.ORGANISATION_NAME_REQUIRED })
+  @IsNotBlank({ message: ValidationErrors.ORGANISATION_NAME_REQUIRED })
+  @MaxLength(255, { message: ValidationErrors.ORGANISATION_NAME_TOO_LONG })
   name?: string
 
   constructor (name?: string) {
@@ -22,7 +22,7 @@ export class OrganisationName implements Serializable<OrganisationName> {
     if (value == null) {
       return value
     }
-    return new OrganisationName( value.name )
+    return new OrganisationName(value.name)
   }
 
   deserialize (input?: any): OrganisationName {

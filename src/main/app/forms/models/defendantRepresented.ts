@@ -15,9 +15,9 @@ export class DefendantRepresented implements Serializable<DefendantRepresented> 
   isDefendantRepresented?: YesNo
 
   @ValidateIf(o => o.isDefendantRepresented === YesNo.YES)
-  @IsDefined( { message: ValidationErrors.COMPANY_NAME_REQUIRED } )
-  @IsNotBlank( { message: ValidationErrors.COMPANY_NAME_REQUIRED } )
-  @MaxLength( 255, { message: ValidationErrors.COMPANY_NAME_TOO_LONG } )
+  @IsDefined({ message: ValidationErrors.COMPANY_NAME_REQUIRED })
+  @IsNotBlank({ message: ValidationErrors.COMPANY_NAME_REQUIRED })
+  @MaxLength(255, { message: ValidationErrors.COMPANY_NAME_TOO_LONG })
   organisationName?: string
 
   constructor (isDefendantRepresented?: YesNo, organisationName?: string) {
