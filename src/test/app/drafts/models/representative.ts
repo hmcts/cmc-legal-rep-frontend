@@ -30,7 +30,7 @@ describe('Representative', () => {
 
     it('should return an instance from given object', () => {
       const contactDetails = new ContactDetails('07555055505', 'email@example.com', 'any dx address')
-      const organisationName = new OrganisationName( 'name' )
+      const organisationName = new OrganisationName('name')
       const address = new Address('line1', 'line2', 'city', 'postcode')
 
       const deserialized = new Representative().deserialize({

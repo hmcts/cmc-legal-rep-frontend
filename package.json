@@ -12,7 +12,7 @@
   "scripts": {
     "start": "./node_modules/.bin/ts-node -r tsconfig-paths/register src/main/server.ts",
     "setup": "gulp sass copy-files",
-    "lint": "tslint --project tsconfig.json --type-check && sass-lint -v -q",
+    "lint": "tslint --project tsconfig.json && sass-lint -v -q",
     "test": "NODE_ENV=mocha LOG_LEVEL=OFF mocha --compilers ts:ts-node/register -r tsconfig-paths/register $(find src/test \\( -name '*.ts' -or -name '*.js' \\) ! -path '*a11y*' ! -path '*/routes/*') --reporter mochawesome --reporter-options reportFilename=unit,inlineAssets=true,reportTitle=legal-rep-frontend-unit",
     "test:routes": "NODE_ENV=mocha LOG_LEVEL=OFF mocha --compilers ts:ts-node/register -r tsconfig-paths/register $(find src/test \\( -name '*.ts' -or -name '*.js' \\) -path '*/routes/*') --reporter mochawesome --reporter-options reportFilename=routes,inlineAssets=true,reportTitle=legal-rep-frontend-routes",
     "test:a11y": "mocha --compilers ts:ts-node/register -r tsconfig-paths/register src/test/a11y --timeout 60000 --reporter mochawesome --reporter-options reportFilename=a11y,inlineAssets=true,reportTitle=legal-rep-frontend-a11y",
@@ -26,7 +26,7 @@
     "@hmcts/cmc-common-frontend": "^1.8.2",
     "@hmcts/draft-store-client": "^1.1.1",
     "@hmcts/nodejs-healthcheck": "^1.4.3",
-    "@hmcts/nodejs-logging": "^1.1.1",
+    "@hmcts/nodejs-logging": "^1.4.0",
     "@types/config": "^0.0.33",
     "@types/csurf": "^1.9.33",
     "@types/express": "^4.0.36",
@@ -53,7 +53,7 @@
     "helmet": "^3.6.1",
     "http-status-codes": "^1.1.6",
     "i18next": "^10.0.0",
-    "i18next-conv": "^4.0.1",
+    "i18next-conv": "^5.0.0",
     "i18next-express-middleware": "^1.0.5",
     "i18next-sprintf-postprocessor": "^0.2.2",
     "jquery": "^3.2.1",
@@ -107,7 +107,7 @@
     "sonarqube-scanner": "^2.0.1",
     "supertest": "^3.0.0",
     "tslint": "^5.5.0",
-    "tslint-config-standard": "^6.0.1"
+    "tslint-config-standard": "^7.0.0"
   },
   "nyc": {
     "include": [

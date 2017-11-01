@@ -13,9 +13,9 @@ describe('RepresentativeDetails', () => {
   describe('constructor', () => {
     it('should set the objects to default values', () => {
       const representativeDetails = new RepresentativeDetails()
-      expect(representativeDetails.organisationName).to.eql( new OrganisationName())
+      expect(representativeDetails.organisationName).to.eql(new OrganisationName())
       expect(representativeDetails.address).to.eql(new Address())
-      expect(representativeDetails.contactDetails).to.eql( new ContactDetails())
+      expect(representativeDetails.contactDetails).to.eql(new ContactDetails())
       expect(representativeDetails.feeAccount).to.eql(new FeeAccount())
       expect(representativeDetails.cookieName).to.eql('legalRepresentativeDetails')
     })

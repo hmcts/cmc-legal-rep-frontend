@@ -13,8 +13,8 @@ export default class Defendant {
 
   deserialize (input: any): Defendant {
     if (input) {
-      this.address = new Address().deserialize( input.address )
-      this.representative = new Representative().deserialize( input.representative )
+      this.address = new Address().deserialize(input.address)
+      this.representative = new Representative().deserialize(input.representative)
       this.defendantDetails = new DefendantDetails().deserialize(input.defendantDetails)
       this.defendantRepresented = new DefendantRepresented().deserialize(input.defendantRepresented)
       this.serviceAddress = new ServiceAddress().deserialize(input.serviceAddress)

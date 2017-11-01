@@ -1,6 +1,5 @@
 import * as config from 'config'
 import * as mock from 'nock'
-import { Scope } from 'nock'
 import * as HttpStatus from 'http-status-codes'
 import { Fee } from 'fees/model/fee'
 
@@ -14,7 +13,7 @@ const body = {
   } as Fee
 }
 
-export function resolveCalculateIssueFee (): Scope {
+export function resolveCalculateIssueFee (): mock.Scope {
   return resolveCallFeesRegister()
 }
 
@@ -22,7 +21,7 @@ export function rejectCalculateIssueFee (reason: string = 'HTTP error') {
   rejectCallFeesRegister(reason)
 }
 
-export function resolveCallFeesRegister (): Scope {
+export function resolveCallFeesRegister (): mock.Scope {
   return mock(serviceURL)
     .get(new RegExp(`[0-9]+`))
     .reply(HttpStatus.OK, body)
