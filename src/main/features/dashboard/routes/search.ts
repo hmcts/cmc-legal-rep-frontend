@@ -1,11 +1,10 @@
 import * as express from 'express'
 import { Paths as DashboardPaths } from 'dashboard/paths'
-import ClaimStoreClient from 'claims/claimStoreClient'
-import Claim from 'app/claims/models/claim'
 import { Search } from 'forms/search'
 import { Form } from 'app/forms/form'
 import { FormValidator } from 'app/forms/validation/formValidator'
 import ErrorHandling from 'common/errorHandling'
+import { DraftService } from 'services/draftService'
 
 function renderView (form: Form<Search>, res: express.Response) {
   res.render(DashboardPaths.searchPage.associatedView, {
@@ -26,12 +25,8 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        try {
-          const claim: Claim = await ClaimStoreClient.retrieveByClaimReference(form.model.reference, res.locals.user.bearerToken)
-          console.log(claim)
-          res.render(DashboardPaths.searchPage.associatedView)
-        } catch (err) {
-          next(err)
-        }
+        res.locals.user.dashboardDaft.document.search = form.model
+        await new DraftService().save(res.locals.user.dashboardDaft, res.locals.user.bearerToken)
+        res.redirect(DashboardPaths.claimDetailsPage.uri)
       }
     }))

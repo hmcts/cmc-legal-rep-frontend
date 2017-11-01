@@ -8,6 +8,8 @@ import { AuthorizationMiddleware } from 'idam/authorizationMiddleware'
 import { RouterFinder } from 'common/router/routerFinder'
 import { buildURL } from 'utils/callbackBuilder'
 import { OAuthHelper } from 'idam/oAuthHelper'
+import { DraftMiddleware } from 'common/draft/draftMiddleware'
+import { DraftDashboard } from 'drafts/models/draftDashboard'
 
 function dashboardRequestHandler (): express.RequestHandler {
   function accessDeniedCallback (req: express.Request, res: express.Response): void {
@@ -27,6 +29,11 @@ function dashboardRequestHandler (): express.RequestHandler {
 export class DashboardFeature {
   enableFor (app: express.Express) {
     app.all(/^\/(legal\/dashboard.*)$/, dashboardRequestHandler())
+
+    app.all(/^\/legal\/dashboard\/(search|claim-details)$/, DraftMiddleware.requestHandler<DraftDashboard>('dashboardDaft',
+      (value: any): DraftDashboard => {
+        return new DraftDashboard().deserialize(value)
+      }))
 
     app.use('/', RouterFinder.findAll(path.join(__dirname, 'routes')))
   }
