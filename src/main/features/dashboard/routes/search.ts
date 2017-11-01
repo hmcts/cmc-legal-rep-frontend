@@ -1,5 +1,9 @@
 import * as express from 'express'
 import { Paths as DashboardPaths } from 'dashboard/paths'
+import ClaimStoreClient from 'claims/claimStoreClient'
+import Claim from 'app/claims/models/claim'
+import { Search } from 'forms/search'
+import { Form } from 'app/forms/form'
 
 export default express.Router()
 
@@ -8,9 +12,11 @@ export default express.Router()
   })
 
   .post(DashboardPaths.searchPage.uri, async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+    const form: Form<Search> = req.body
+    console.log(form)
     try {
-      // TODO: Implement this as part of ROC-2521 also need to implement search.njk as part of ROC-2521
-
+      const claim: Claim = await ClaimStoreClient.retrieveByClaimReference('000LR001', res.locals.user.bearerToken)
+      console.log(claim)
       res.render(DashboardPaths.searchPage.associatedView)
     } catch (err) {
       next(err)
