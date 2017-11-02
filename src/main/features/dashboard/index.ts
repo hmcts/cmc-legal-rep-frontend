@@ -30,7 +30,7 @@ export class DashboardFeature {
   enableFor (app: express.Express) {
     app.all(/^\/(legal\/dashboard.*)$/, dashboardRequestHandler())
 
-    app.all(/^\/legal\/dashboard\/(search|claim-details)$/, DraftMiddleware.requestHandler<DraftDashboard>('dashboardDaft',
+    app.all(/^\/legal\/dashboard.*$/, DraftMiddleware.requestHandler<DraftDashboard>('dashboardDaft',
       (value: any): DraftDashboard => {
         return new DraftDashboard().deserialize(value)
       }))
