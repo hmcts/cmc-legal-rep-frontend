@@ -12,9 +12,9 @@ export class DocumentType implements Serializable<DocumentType> {
   types?: string[]
 
   @ValidateIf(o => o.types.indexOf('other') !== -1)
-  @MaxLength( 255, { message: ValidationErrors.OTHER_DOCUMENTS_TOO_LONG } )
+  @MaxLength(255, { message: ValidationErrors.OTHER_DOCUMENTS_TOO_LONG })
   @IsDefined({ message: ValidationErrors.OTHER_DOCUMENTS_REQUIRED })
-  @IsNotBlank( { message: ValidationErrors.OTHER_DOCUMENTS_REQUIRED } )
+  @IsNotBlank({ message: ValidationErrors.OTHER_DOCUMENTS_REQUIRED })
   otherDocuments?: string
 
   constructor (types?: string[], otherDocuments?: string) {

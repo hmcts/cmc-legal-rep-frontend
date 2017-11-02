@@ -8,6 +8,7 @@ import ErrorHandling from 'common/errorHandling'
 import { DraftService } from '../../../services/draftService'
 
 function renderView (form: Form<DocumentType>, res: express.Response): void {
+  console.log(form)
   res.render(Paths.whatDocumentsPage.associatedView, { form: form })
 }
 
