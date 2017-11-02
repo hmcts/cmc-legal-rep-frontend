@@ -2,6 +2,7 @@ import { RoutablePath } from 'common/router/routablePath'
 
 export class Paths {
   static readonly startPage = new RoutablePath('/legal/claim/start')
+  static readonly cookiePage = new RoutablePath('/legal/claim/cookie')
   static readonly housingDisrepairPage = new RoutablePath('/legal/claim/housing-disrepair')
   static readonly personalInjuryPage = new RoutablePath('/legal/claim/personal-injury')
   static readonly yourReferencePage = new RoutablePath('/legal/claim/your-reference')

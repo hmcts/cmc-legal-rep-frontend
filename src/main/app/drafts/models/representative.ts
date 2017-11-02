@@ -17,9 +17,9 @@ export default class Representative implements Serializable<Representative> {
 
   deserialize (input: any): Representative {
     if (input) {
-      this.address = new Address().deserialize( input.address )
-      this.organisationName = new OrganisationName().deserialize( input.organisationName )
-      this.contactDetails = new ContactDetails().deserialize( input.contactDetails )
+      this.address = new Address().deserialize(input.address)
+      this.organisationName = new OrganisationName().deserialize(input.organisationName)
+      this.contactDetails = new ContactDetails().deserialize(input.contactDetails)
     }
     return this
   }

@@ -14,7 +14,7 @@ export class MaxAmountRangeConstraint implements ValidatorConstraintInterface {
     const max: number = args.constraints[0]
     const cannotStateInput = (args.object as any)[args.constraints[1]]
 
-    if (cannotStateInput === 'cannot' && (value === null || value === undefined )) {
+    if (cannotStateInput === 'cannot' && (value === null || value === undefined)) {
       return true
     }
 
