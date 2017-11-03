@@ -2,7 +2,7 @@
 {% from "form.njk" import linkButton, csrfProtection, errorSummary, searchInput %}
 
 {% set title = t('Money claim') %}
-{% set heading = t('Civil Money Claims') %}
+{% set heading = t('Manage your claims') %}
 
 {% block content %}
   <div class="grid-row">
@@ -10,16 +10,20 @@
       <form novalidate method="post">
         {{ csrfProtection(csrf) }}
 
-        {{ linkButton('Issue a new claim', 'start', 'button button-start') }}
+        <h2 class="heading-medium form-group-compound">Find a claim</h2>
+        <p>Once you've found a claim you can:</p>
 
-        <h2 class="heading-medium">Confirm service</h2>
-        <p class="form-hint">
-          {{ t('Enter your reference or claim number to find a claim') }}
-        </p>
+        <ul class="list-bullet form-group">
+          <li>confirm you've served the claim form on the defendant</li>
+          <li>download any documents related to the claim</li>
+        </ul>
 
-        {{ searchInput('', 'reference', form) }}
+        {{ searchInput('Search by claim number', 'reference', form, bold=true) }}
 
       </form>
+    </div>
+    <div class="column-one-third govuk-related-items">
+      {{ linkButton('Issue a new claim', 'start', 'button button-secondary') }}
     </div>
   </div>
 {% endblock %}
