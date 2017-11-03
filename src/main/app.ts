@@ -3,6 +3,7 @@ import * as config from 'config'
 import * as path from 'path'
 import * as favicon from 'serve-favicon'
 import * as cookieParser from 'cookie-parser'
+import * as cookieEncrypter from 'cookie-encrypter'
 import * as bodyParser from 'body-parser'
 import * as logging from '@hmcts/nodejs-logging'
 import { NotFoundError } from './errors'
@@ -14,6 +15,7 @@ import Nunjucks from 'modules/nunjucks'
 
 import { Feature as ClaimIssueFeature } from 'claim/index'
 import { CsrfProtection } from 'modules/csrf'
+import CookieProperties from 'common/cookieProperties'
 
 export const app: express.Express = express()
 
@@ -41,7 +43,9 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true
 }))
-app.use(cookieParser())
+
+app.use(cookieParser(config.get('session.encryptionKey')))
+app.use(cookieEncrypter(config.get('session.encryptionKey'), CookieProperties.getCookieConfig()))
 
 if (!developmentMode) {
   app.use(logging.express.accessLogger())

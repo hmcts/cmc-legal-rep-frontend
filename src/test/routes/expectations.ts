@@ -17,7 +17,7 @@ function errorMessageWithResponseExtract (msg: string, res: any): string {
   const responseExtract = {
     statusCode: res.statusCode,
     headers: res.headers,
-    text: res.text.replace(/\n+\s*/g, '')
+    text: res.text ? res.text.replace(/\n+\s*/g, '') : undefined
   }
 
   return `${msg} - see response extract below:\n${stringifyWithoutPropertyQuotes(responseExtract, true)}`
@@ -56,6 +56,13 @@ Assertion.addProperty('redirect', statusCodeInRangeAssertion([
  */
 Assertion.addProperty('serverError', statusCodeInRangeAssertion([
   HttpStatus.INTERNAL_SERVER_ERROR
+]))
+
+/**
+ * Checks whether response status code is within supported forbidden (403) range
+ */
+Assertion.addProperty('forbidden', statusCodeInRangeAssertion([
+  HttpStatus.FORBIDDEN
 ]))
 
 /**

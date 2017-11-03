@@ -20,14 +20,15 @@ const roles: string[] = ['solicitor']
 describe('Claim issue: Enter claim range page', () => {
   beforeEach(() => {
     mock.cleanAll()
-    draftStoreServiceMock.resolveRetrieve('legalClaim')
+    draftStoreServiceMock.resolveFind('legalClaim')
   })
 
   describe('on GET', () => {
     checkAuthorizationGuards(app, 'get', ClaimPaths.claimAmountPage.uri)
 
     it('should render page when everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .get(ClaimPaths.claimAmountPage.uri)
@@ -40,7 +41,8 @@ describe('Claim issue: Enter claim range page', () => {
     checkAuthorizationGuards(app, 'post', ClaimPaths.claimAmountPage.uri)
 
     it('should render page when form is invalid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .post(ClaimPaths.claimAmountPage.uri)
@@ -49,7 +51,8 @@ describe('Claim issue: Enter claim range page', () => {
     })
 
     it('should render page again when form has errors for higher value and check box selection', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .post(ClaimPaths.claimAmountPage.uri)
@@ -67,7 +70,8 @@ describe('Claim issue: Enter claim range page', () => {
     })
 
     it('should render page again when form has errors for lower value and check box selection', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .post(ClaimPaths.claimAmountPage.uri)
@@ -85,7 +89,8 @@ describe('Claim issue: Enter claim range page', () => {
     })
 
     it('should render page again with errors for invalid higher value and lower value text', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .post(ClaimPaths.claimAmountPage.uri)
@@ -103,8 +108,9 @@ describe('Claim issue: Enter claim range page', () => {
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
-      draftStoreServiceMock.rejectSave('legalClaim', 'HTTP error')
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      draftStoreServiceMock.rejectSave()
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .post(ClaimPaths.claimAmountPage.uri)
@@ -118,8 +124,9 @@ describe('Claim issue: Enter claim range page', () => {
     })
 
     it('should redirect to claim total page when form is valid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
-      draftStoreServiceMock.resolveSave('legalClaim')
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      draftStoreServiceMock.resolveUpdate()
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .post(ClaimPaths.claimAmountPage.uri)

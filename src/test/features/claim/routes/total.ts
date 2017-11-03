@@ -24,11 +24,11 @@ describe('Claim issue: Your issue fee page', () => {
 
     describe('for authorized user', () => {
       beforeEach(() => {
-        idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+        idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       })
 
       it('should return 500 and render error page when cannot calculate issue fee', async () => {
-        draftStoreServiceMock.resolveRetrieve(draftType)
+        draftStoreServiceMock.resolveFind(draftType)
         feesServiceMock.rejectCalculateIssueFee('HTTP error')
 
         await request(app)
@@ -38,7 +38,7 @@ describe('Claim issue: Your issue fee page', () => {
       })
 
       it('should render page when everything is fine', async () => {
-        draftStoreServiceMock.resolveRetrieve(draftType)
+        draftStoreServiceMock.resolveFind(draftType)
         feesServiceMock.resolveCalculateIssueFee()
 
         await request(app)
@@ -54,11 +54,11 @@ describe('Claim issue: Your issue fee page', () => {
 
     describe('for authorized user', () => {
       beforeEach(() => {
-        idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+        idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       })
 
       it('should redirect to claim summary page when everything is fine', async () => {
-        draftStoreServiceMock.resolveRetrieve(draftType)
+        draftStoreServiceMock.resolveFind(draftType)
 
         await request(app)
           .post(ClaimPaths.claimTotalPage.uri)

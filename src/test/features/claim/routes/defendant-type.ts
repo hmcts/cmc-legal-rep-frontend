@@ -19,15 +19,17 @@ const roles: string[] = ['solicitor']
 describe('Claim issue: defendant type page', () => {
   beforeEach(() => {
     mock.cleanAll()
-    draftStoreServiceMock.resolveRetrieve('legalClaim')
-    draftStoreServiceMock.resolveRetrieve('view')
+    draftStoreServiceMock.resolveFind('legalClaim')
+    draftStoreServiceMock.resolveFind('view')
   })
 
   describe('on GET', () => {
     checkAuthorizationGuards(app, 'get', ClaimPaths.defendantTypePage.uri)
 
     it('should render page when everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+
       await request(app)
         .get(ClaimPaths.defendantTypePage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -39,7 +41,9 @@ describe('Claim issue: defendant type page', () => {
     checkAuthorizationGuards(app, 'post', ClaimPaths.housingDisrepairPage.uri)
 
     it('should render page when form is invalid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+
       await request(app)
         .post(ClaimPaths.defendantTypePage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -47,8 +51,8 @@ describe('Claim issue: defendant type page', () => {
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
-      draftStoreServiceMock.rejectSave('legalClaim', 'HTTP error')
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      draftStoreServiceMock.rejectSave(100, 'HTTP error')
 
       await request(app)
         .post(ClaimPaths.defendantTypePage.uri)
@@ -62,8 +66,9 @@ describe('Claim issue: defendant type page', () => {
     })
 
     it('should redirect to defendant address page when form is valid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
-      draftStoreServiceMock.resolveSave('legalClaim')
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      draftStoreServiceMock.resolveUpdate()
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .post(ClaimPaths.defendantTypePage.uri)

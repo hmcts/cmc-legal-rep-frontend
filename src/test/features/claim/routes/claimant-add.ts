@@ -20,16 +20,17 @@ const roles: string[] = ['solicitor']
 describe('Claim issue: is claimant addition page', () => {
   beforeEach(() => {
     mock.cleanAll()
-    draftStoreServiceMock.resolveRetrieve('legalClaim')
-    draftStoreServiceMock.resolveRetrieve('view')
+    draftStoreServiceMock.resolveFind('legalClaim')
+    draftStoreServiceMock.resolveFind('view')
   })
 
   describe('on GET', () => {
     checkAuthorizationGuards(app, 'get', ClaimPaths.claimantAdditionPage.uri)
 
     it('should render page when everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
-      draftStoreServiceMock.resolveRetrieve('view')
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      draftStoreServiceMock.resolveFind('view')
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .get(ClaimPaths.claimantAdditionPage.uri)
@@ -42,8 +43,9 @@ describe('Claim issue: is claimant addition page', () => {
     checkAuthorizationGuards(app, 'post', ClaimPaths.claimantAdditionPage.uri)
 
     it('should render page when form is invalid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
-      draftStoreServiceMock.resolveRetrieve('view')
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      draftStoreServiceMock.resolveFind('view')
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .post(ClaimPaths.claimantAdditionPage.uri)
@@ -52,8 +54,8 @@ describe('Claim issue: is claimant addition page', () => {
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
-      draftStoreServiceMock.rejectSave('legalClaim', 'HTTP error')
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      draftStoreServiceMock.rejectSave(100, 'HTTP error')
 
       await request(app)
         .post(ClaimPaths.claimantAdditionPage.uri)
@@ -65,8 +67,9 @@ describe('Claim issue: is claimant addition page', () => {
     })
 
     it('should redirect to claimant type page when form is valid and user has selected yes', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
-      draftStoreServiceMock.resolveSave('legalClaim')
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      draftStoreServiceMock.resolveUpdate()
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .post(ClaimPaths.claimantAdditionPage.uri)
@@ -78,8 +81,9 @@ describe('Claim issue: is claimant addition page', () => {
     })
 
     it('should redirect to defendant type page when form is valid and user has selected no', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
-      draftStoreServiceMock.resolveSave('legalClaim')
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      draftStoreServiceMock.resolveUpdate()
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .post(ClaimPaths.claimantAdditionPage.uri)

@@ -4,7 +4,7 @@
 import { expect } from 'chai'
 import { ContactDetails } from 'app/forms/models/contactDetails'
 import Representative from 'drafts/models/representative'
-import OrganisationName from 'forms/models/organisationName'
+import { OrganisationName } from 'forms/models/organisationName'
 import { Address } from 'forms/models/address'
 
 describe('Representative', () => {
@@ -30,7 +30,7 @@ describe('Representative', () => {
 
     it('should return an instance from given object', () => {
       const contactDetails = new ContactDetails('07555055505', 'email@example.com', 'any dx address')
-      const organisationName = new OrganisationName( 'name' )
+      const organisationName = new OrganisationName('name')
       const address = new Address('line1', 'line2', 'city', 'postcode')
 
       const deserialized = new Representative().deserialize({

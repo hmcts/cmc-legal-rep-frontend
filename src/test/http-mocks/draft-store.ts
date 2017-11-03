@@ -1,12 +1,21 @@
 import * as config from 'config'
 import * as mock from 'nock'
+
 import * as HttpStatus from 'http-status-codes'
 import { OtherDamages } from 'forms/models/otherDamages'
 import { YesNo } from 'forms/models/yesNo'
 import { GeneralDamages } from 'forms/models/generalDamages'
+import { Address } from 'forms/models/address'
+import { ClaimantDetails } from 'forms/models/claimantDetails'
+import Claimant from 'drafts/models/claimant'
+import { DefendantDetails } from 'forms/models/defendantDetails'
+import { Amount } from 'app/forms/models/amount'
+import { HousingDisrepair } from 'forms/models/housingDisrepair'
+import { PersonalInjury } from 'forms/models/personalInjury'
+import { OrganisationName } from 'forms/models/organisationName'
+import Representative from 'drafts/models/representative'
 
-const serviceBaseURL: string = `${config.get('draft-store.url')}/api/${config.get('draft-store.apiVersion')}`
-
+const serviceBaseURL: string = `${config.get('draft-store.url')}`
 const sampleViewDraftObj = {
   viewFlowOption: true,
   defendantChangeIndex: undefined,
@@ -18,42 +27,32 @@ const sampleClaimDraftObj = {
   readResolveDispute: true,
   readCompletingClaim: true,
   representative: {
-    organisationName: 'My Organisation Name',
+    organisationName: { name: 'My Organisation Name' } as OrganisationName,
     address: {
       line1: 'Apt 99',
       line2: 'Building A',
       city: 'London',
       postcode: 'E1'
-    }
-  },
+    } as Address
+  } as Representative,
   claimants: [{
     claimantDetails: {
-      type: 'INDIVIDUAL',
+      type: { value: 'INDIVIDUAL' },
       title: 'title',
       fullName: 'fullName'
-    },
+    } as ClaimantDetails,
     address: {
       line1: 'Apt 99',
       city: 'London',
       postcode: 'E1'
-    },
-    dateOfBirth: {
-      date: {
-        day: '31',
-        month: '12',
-        year: '1980'
-      }
-    },
-    mobilePhone: {
-      number: '07000000000'
-    }
-  }],
+    }as Address
+  } as Claimant],
   defendants: [{
     address: {
       line1: 'Apt 99',
       city: 'London',
       postcode: 'E1'
-    },
+    } as Address,
     representative: {
       organisationName: 'Defendant Company Name',
       address: {
@@ -61,85 +60,121 @@ const sampleClaimDraftObj = {
         line2: 'Building A',
         city: 'London',
         postcode: 'E1'
-      }
+      }as Address
     },
     defendantRepresented: {
-      isDefendantRepresented: { value: YesNo.YES.value, displayValue: YesNo.YES.displayValue },
+      isDefendantRepresented: { value: 'YES' },
       companyName: 'Defendant rep'
     },
     defendantDetails: {
-      type: 'INDIVIDUAL',
+      type: { value: 'INDIVIDUAL' },
       title: 'title',
       fullName: 'fullName'
-    }
+    } as DefendantDetails
   }],
   amount: {
     cannotState: '',
     lowerValue: 100,
     higherValue: 1000
-  },
+  } as Amount,
   housingDisrepair: {
     housingDisrepair: { value: YesNo.YES.value, displayValue: YesNo.YES.displayValue },
-    generalDamages: { value: GeneralDamages.LESS.value, displayValue: GeneralDamages.LESS.displayValue, dataStoreValue: GeneralDamages.LESS.dataStoreValue },
-    otherDamages: { value: OtherDamages.NONE.value, displayValue: OtherDamages.NONE.displayValue, dataStoreValue: OtherDamages.NONE.dataStoreValue }
-  },
+    generalDamages: {
+      value: GeneralDamages.LESS.value,
+      displayValue: GeneralDamages.LESS.displayValue,
+      dataStoreValue: GeneralDamages.LESS.dataStoreValue
+    },
+    otherDamages: {
+      value: OtherDamages.NONE.value,
+      displayValue: OtherDamages.NONE.displayValue,
+      dataStoreValue: OtherDamages.NONE.dataStoreValue
+    }
+  } as HousingDisrepair,
   personalInjury: {
     personalInjury: { value: YesNo.NO.value, displayValue: YesNo.NO.value },
     generalDamages: undefined
-  }
+  } as PersonalInjury
 }
 
-export function resolveRetrieve (draftType: string, draftOverride?: object) {
-  let draft: object
+export function resolveFind (draftType: string, draftOverride?: object): mock.Scope {
+  let documentDocument: object
 
   switch (draftType) {
     case 'legalClaim':
-      draft = { ...sampleClaimDraftObj, ...draftOverride }
+      documentDocument = { ...sampleClaimDraftObj, ...draftOverride }
       break
     case 'view':
-      draft = { ...sampleViewDraftObj, ...draftOverride }
+      documentDocument = { ...sampleViewDraftObj, ...draftOverride }
       break
     default:
       throw new Error('Unsupported draft type')
   }
 
-  mock(serviceBaseURL)
-    .get(`/draft/${draftType}`)
-    .reply(HttpStatus.OK, draft)
+  return mock(serviceBaseURL)
+    .get(new RegExp('/drafts(\\?|\\&)([^=]+)\\=([^&]+)'))
+    .reply(HttpStatus.OK, {
+      data: [{
+        id: 100,
+        type: draftType,
+        document: documentDocument,
+        created: '2017-10-01T12:00:00.000',
+        updated: '2017-10-01T12:01:00.000'
+      }]
+    })
 }
 
-export function resolveRetrieveWithExternalId (draftType: string, externalId: any) {
-  mock(serviceBaseURL)
-    .get(`/draft/${draftType}`)
-    .reply(HttpStatus.OK, { ...sampleClaimDraftObj, externalId: externalId })
+export function resolveFindAllDrafts (): mock.Scope {
+  return mock(serviceBaseURL)
+    .get(new RegExp('/drafts.*'))
+    .reply(HttpStatus.OK, {
+      data: [{
+        id: 100,
+        type: 'legalClaim',
+        document: sampleClaimDraftObj,
+        created: '2017-10-01T12:00:00.000',
+        updated: '2017-10-01T12:01:00.000'
+      }, {
+        id: 101,
+        type: 'view',
+        document: sampleViewDraftObj,
+        created: '2017-10-02T12:00:00.000',
+        updated: '2017-10-02T12:01:00.000'
+      }]
+    })
 }
 
-export function rejectRetrieve (draftType: string, reason: string) {
-  mock(serviceBaseURL)
-    .get(`/draft/${draftType}`)
+export function rejectFind (reason: string = 'HTTP error') {
+  return mock(serviceBaseURL)
+    .get(new RegExp('/drafts.*'))
     .reply(HttpStatus.INTERNAL_SERVER_ERROR, reason)
 }
 
-export function resolveSave (draftType: string) {
-  mock(serviceBaseURL)
-    .post(`/draft/${draftType}`)
+export function resolveSave () {
+  return mock(serviceBaseURL)
+    .post(`/drafts`)
     .reply(HttpStatus.OK)
 }
 
-export function rejectSave (draftType: string, reason: string) {
-  mock(serviceBaseURL)
-    .post(`/draft/${draftType}`)
+export function resolveUpdate (id: number = 100) {
+  return mock(serviceBaseURL)
+    .put(`/drafts/${id}`)
+    .reply(HttpStatus.OK)
+}
+
+export function rejectSave (id: number = 100, reason: string = 'HTTP error') {
+  return mock(serviceBaseURL)
+    .put(`/drafts/${id}`)
     .reply(HttpStatus.INTERNAL_SERVER_ERROR, reason)
 }
 
-export function resolveDelete (draftType: string) {
-  mock(serviceBaseURL)
-    .delete(`/draft/${draftType}`)
+export function resolveDelete (id: number = 100) {
+  return mock(serviceBaseURL)
+    .delete(`/drafts/${id}`)
     .reply(HttpStatus.OK)
 }
 
-export function rejectDelete (draftType: string, reason: string) {
-  mock(serviceBaseURL)
-    .delete(`/draft/${draftType}`)
+export function rejectDelete (id: number = 100, reason: string = 'HTTP error') {
+  return mock(serviceBaseURL)
+    .delete(`/drafts/${id}`)
     .reply(HttpStatus.INTERNAL_SERVER_ERROR, reason)
 }

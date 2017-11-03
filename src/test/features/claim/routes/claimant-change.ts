@@ -46,17 +46,18 @@ const claimants = {
 describe('Claim issue: Claimant change page', () => {
   beforeEach(() => {
     mock.cleanAll()
-    draftStoreServiceMock.resolveSave('legalClaim')
-    draftStoreServiceMock.resolveRetrieve('view')
-    draftStoreServiceMock.resolveSave('view')
-    idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+    draftStoreServiceMock.resolveSave()
+    draftStoreServiceMock.resolveFind('view')
+    draftStoreServiceMock.resolveSave()
+    idamServiceMock.resolveRetrieveUserFor('1', ...roles)
   })
 
   describe('on GET', () => {
     checkAuthorizationGuards(app, 'get', ClaimPaths.claimantChangePage.uri)
 
     it('should redirect to claimant type page for one existing claimant when everything is fine', async () => {
-      draftStoreServiceMock.resolveRetrieve('legalClaim')
+      draftStoreServiceMock.resolveFind('legalClaim')
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .get(ClaimPaths.claimantChangePage.uri + '?index=1')
@@ -65,7 +66,8 @@ describe('Claim issue: Claimant change page', () => {
     })
 
     it('should redirect to claimant address page for one existing claimant when everything is fine', async () => {
-      draftStoreServiceMock.resolveRetrieve('legalClaim', claimants)
+      draftStoreServiceMock.resolveFind('legalClaim', claimants)
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .get(ClaimPaths.claimantChangePage.uri + '?index=1&page=address')

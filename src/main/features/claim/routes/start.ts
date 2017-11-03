@@ -1,7 +1,6 @@
 import * as express from 'express'
 import { Paths } from 'claim/paths'
-import { ClaimDraftMiddleware } from 'claim/draft/claimDraftMiddleware'
-import { ViewDraftMiddleware } from 'views/draft/viewDraftMiddleware'
+import { DraftService } from '../../../services/draftService'
 
 export default express.Router()
 
@@ -11,8 +10,13 @@ export default express.Router()
 
   .post(Paths.startPage.uri, async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
     try {
-      await ClaimDraftMiddleware.delete(res, next)
-      await ViewDraftMiddleware.delete(res, next)
+      if (res.locals.user.legalClaimDraft && res.locals.user.legalClaimDraft['id']) {
+        await new DraftService()['delete'](res.locals.user.legalClaimDraft['id'], res.locals.user.bearerToken)
+      }
+
+      if (res.locals.user.viewDraft && res.locals.user.viewDraft['id']) {
+        await new DraftService()['delete'](res.locals.user.viewDraft['id'], res.locals.user.bearerToken)
+      }
       res.redirect(Paths.representativeNamePage.uri)
     } catch (err) {
       next(err)

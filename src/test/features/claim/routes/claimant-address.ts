@@ -19,15 +19,17 @@ const roles: string[] = ['solicitor']
 describe('Claim issue: claimant address page', () => {
   beforeEach(() => {
     mock.cleanAll()
-    draftStoreServiceMock.resolveRetrieve('legalClaim')
-    draftStoreServiceMock.resolveRetrieve('view')
+    draftStoreServiceMock.resolveFind('legalClaim')
+    draftStoreServiceMock.resolveFind('view')
   })
 
   describe('on GET', () => {
     checkAuthorizationGuards(app, 'get', ClaimPaths.claimantAddressPage.uri)
 
     it('should render page when everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+
       await request(app)
         .get(ClaimPaths.claimantAddressPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -39,7 +41,9 @@ describe('Claim issue: claimant address page', () => {
     checkAuthorizationGuards(app, 'post', ClaimPaths.claimantAddressPage.uri)
 
     it('should render page when form is invalid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+
       await request(app)
         .post(ClaimPaths.claimantAddressPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -47,25 +51,26 @@ describe('Claim issue: claimant address page', () => {
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
-      draftStoreServiceMock.rejectSave('legalClaim', 'HTTP error')
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      draftStoreServiceMock.rejectSave(1000, 'HTTP error')
 
       await request(app)
         .post(ClaimPaths.claimantAddressPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .send({line1: 'Apt 99', line2: '', city: 'London', postcode: 'E1'})
+        .send({ line1: 'Apt 99', line2: '', city: 'London', postcode: 'E1' })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
 
     it('should redirect to claimant addition page when form is valid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor(1, ...roles)
-      draftStoreServiceMock.resolveSave('legalClaim')
-      draftStoreServiceMock.resolveSave('view')
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      draftStoreServiceMock.resolveUpdate()
+      draftStoreServiceMock.resolveUpdate()
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .post(ClaimPaths.claimantAddressPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .send({line1: 'Apt 99', line2: '', city: 'London', postcode: 'E1'})
+        .send({ line1: 'Apt 99', line2: '', city: 'London', postcode: 'E1' })
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimantAdditionPage.uri))
     })
   })
