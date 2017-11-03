@@ -9,7 +9,7 @@ This is the front end for legal representation journey within CMC
 
 ### Prerequisites
 
-* [Node.js](https://nodejs.org/) >= v8.7.0
+* [Node.js](https://nodejs.org/) >= v8.9.0
 * [yarn](https://yarnpkg.com/)
 * [Gulp](http://gulpjs.com/)
 * [Docker](https://www.docker.com)
