@@ -6,7 +6,6 @@ import uk.gov.hmcts.RPMTagger
 @Library('CMC')
 import uk.gov.hmcts.cmc.integrationtests.IntegrationTests
 import uk.gov.hmcts.cmc.smoketests.SmokeTests
-import uk.gov.hmcts.cmc.Team
 
 Ansible ansible = new Ansible(this, 'cmc')
 Packager packager = new Packager(this, 'cmc')
