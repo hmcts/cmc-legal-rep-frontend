@@ -108,7 +108,10 @@ timestamps {
         }
 
         stage('Integration Tests') {
-          integrationTests.execute(['LEGAL_FRONTEND_VERSION': legalFrontendVersion], Team.LEGAL)
+          integrationTests.execute([
+            'LEGAL_FRONTEND_VERSION': legalFrontendVersion,
+            'TESTS_TAG'             : '@legal'
+          ])
         }
 
         //noinspection GroovyVariableNotAssigned It is guaranteed to be assigned
