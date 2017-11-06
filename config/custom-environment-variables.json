@@ -45,5 +45,5 @@
   "featureToggles": {
     "idamOauth": "FEATURE_IDAM_OAUTH"
   },
-  "feedback_legal_service_survey": "SERVICE_SURVEY_URL"
+  "feedback_legal_service_survey": "FEEDBACK_SURVEY_URL"
 }
