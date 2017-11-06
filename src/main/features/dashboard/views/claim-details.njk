@@ -14,13 +14,18 @@
         <div class="form-label">{{ dateIssued | date }}</div>
       </h3>
 
-      <h3 class="heading-medium">{{ t('Claimant(s)') }}
+      <h3 class="heading-medium">{% if claimants.length > 1 %}{{ t('Claimants') }} {% else %} {{ t('Claimant') }}{% endif %}
         {% for claimant in claimants %}
           <div class="form-label">{{ claimant.name }}</div>
         {% endfor %}
       </h3>
 
-      <h3 class="heading-medium">{{ t('Defendant(s)') }}</h3>
+      {% if defendants.length > 1 %}
+        <h3 class="heading-medium">{{ t('Defendants') }}</h3>
+      {% else %}
+        <h3 class="heading-medium">{{ t('Defendant') }}</h3>
+      {% endif %}
+
       <div class="column-one-third form-label-bold border-bottom">{{ t('Names') }}</div>
       <div class="column-one-third form-label-bold border-bottom">{{ t('Serve by') }}</div>
       <div class="column-one-third form-label-bold border-bottom">{{ t('Certificate of service') }}</div>

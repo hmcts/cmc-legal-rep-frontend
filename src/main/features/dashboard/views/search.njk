@@ -11,12 +11,12 @@
 
         <h1 class="heading-large">{{ t('Manage your claims') }}</h1>
 
-        <h2 class="heading-medium form-group-compound">Find a claim</h2>
-        <p>Once you've found a claim you can:</p>
+        <h2 class="heading-medium form-group-compound">{{ t('Find a claim') }}</h2>
+        <p>{{ t('Once you’ve found a claim you can:') }}</p>
 
         <ul class="list-bullet form-group">
-          <li>confirm you've served the claim form on the defendant</li>
-          <li>download any documents related to the claim</li>
+          <li>{{ t('confirm you’ve served the claim form on the defendant') }}</li>
+          <li>{{ t('download any documents related to the claim') }}</li>
         </ul>
 
         {{ searchInput('Search by claim number', 'reference', form, bold=true) }}
@@ -24,7 +24,7 @@
       </form>
     </div>
     <div class="column-one-third govuk-related-items">
-      <a class="button button-secondary" href="/legal/claim/start">{{ t('Issue a new claim') }}</a>
+      <a class="button button-secondary" href="{{ startPage }}">{{ t('Issue a new claim') }}</a>
     </div>
   </div>
 {% endblock %}

@@ -1,5 +1,6 @@
 import * as express from 'express'
 import { Paths as DashboardPaths } from 'dashboard/paths'
+import { Paths as ClaimPaths } from 'claim/paths'
 import { Search } from 'forms/models/search'
 import { Form } from 'app/forms/form'
 import { FormValidator } from 'app/forms/validation/formValidator'
@@ -8,7 +9,8 @@ import { DraftService } from 'services/draftService'
 
 function renderView (form: Form<Search>, res: express.Response) {
   res.render(DashboardPaths.searchPage.associatedView, {
-    form: form
+    form: form,
+    startPage: ClaimPaths.startPage.uri
   })
 }
 

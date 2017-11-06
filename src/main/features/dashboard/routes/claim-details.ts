@@ -9,7 +9,7 @@ async function renderView (req: express.Request, res: express.Response): Promise
   res.render(DashboardPaths.claimDetailsPage.associatedView, {
     claimNumber: claim.claimNumber,
     partyStripeValue: claim.claimNumber,
-    claimantVDefendant: claim.claimData.claimants[0].name + ' v ' + claim.claimData.defendants[0].name,
+    claimantVDefendant: `${claim.claimData.primaryClaimant.name} v ${claim.claimData.primaryDefendant.name}`,
     dateIssued: claim.issuedOn,
     claimants: claim.claimData.claimants,
     defendants: claim.claimData.defendants,
