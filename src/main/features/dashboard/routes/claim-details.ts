@@ -5,7 +5,7 @@ import Claim from 'app/claims/models/claim'
 import ErrorHandling from 'common/errorHandling'
 
 async function renderView (req: express.Request, res: express.Response): Promise<void> {
-  const claim: Claim = await ClaimStoreClient.retrieveByClaimReference(res.locals.user.dashboardDaft.document.search.reference, res.locals.user.bearerToken)
+  const claim: Claim = await ClaimStoreClient.retrieveByClaimReference(res.locals.user.dashboardDraft.document.search.reference, res.locals.user.bearerToken)
   res.render(DashboardPaths.claimDetailsPage.associatedView, {
     claimNumber: claim.claimNumber
   })

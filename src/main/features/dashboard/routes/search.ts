@@ -25,8 +25,8 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        res.locals.user.dashboardDaft.document.search = form.model
-        await new DraftService().save(res.locals.user.dashboardDaft, res.locals.user.bearerToken)
+        res.locals.user.dashboardDraft.document.search = form.model
+        await new DraftService().save(res.locals.user.dashboardDraft, res.locals.user.bearerToken)
         res.redirect(DashboardPaths.claimDetailsPage.uri)
       }
     }))

@@ -13,7 +13,7 @@ export default class User {
   bearerToken: string
   viewDraft: Draft<DraftView>
   legalClaimDraft: Draft<DraftLegalClaim>
-  dashboardDaft: Draft<DraftDashboard>
+  dashboardDraft: Draft<DraftDashboard>
 
   constructor (id: string,
                email: string,

@@ -2,7 +2,7 @@ import { Serializable } from 'app/models/serializable'
 import { Search } from 'forms/search'
 
 export class DraftDashboard implements Serializable<DraftDashboard> {
-  search: Search
+  search: Search = new Search()
 
   deserialize (input: any): DraftDashboard {
     if (input) {
