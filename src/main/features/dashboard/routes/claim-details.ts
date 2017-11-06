@@ -7,7 +7,13 @@ import ErrorHandling from 'common/errorHandling'
 async function renderView (req: express.Request, res: express.Response): Promise<void> {
   const claim: Claim = await ClaimStoreClient.retrieveByClaimReference(res.locals.user.dashboardDraft.document.search.reference, res.locals.user.bearerToken)
   res.render(DashboardPaths.claimDetailsPage.associatedView, {
-    claimNumber: claim.claimNumber
+    claimNumber: claim.claimNumber,
+    partyStripeValue: claim.claimNumber,
+    claimantVDefendant: claim.claimData.claimants[0].name + ' v ' + claim.claimData.defendants[0].name,
+    dateIssued: claim.issuedOn,
+    claimants: claim.claimData.claimants,
+    defendants: claim.claimData.defendants,
+    externalReference: claim.claimData.externalReferenceNumber
   })
 }
 

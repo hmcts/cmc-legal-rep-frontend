@@ -1,5 +1,5 @@
 import { Serializable } from 'app/models/serializable'
-import { Search } from 'forms/search'
+import { Search } from 'forms/models/search'
 
 export class DraftDashboard implements Serializable<DraftDashboard> {
   search: Search = new Search()

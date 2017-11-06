@@ -1,17 +1,17 @@
-import { IsDefined, MaxLength } from 'class-validator'
+import { IsDefined, Matches } from 'class-validator'
 import { Serializable } from 'models/serializable'
 import { IsNotBlank } from 'forms/validation/validators/isNotBlank'
 
 export class ValidationErrors {
   static readonly REFERENCE_REQUIRED: string = 'Enter your claim number'
-  static readonly REFERENCE_TOO_LONG: string = 'You’ve entered too many characters'
+  static readonly CLAIM_REFERENCE_INVALID: string = 'You need to enter valid claim number'
 }
 
 export class Search implements Serializable<Search> {
 
   @IsDefined({ message: ValidationErrors.REFERENCE_REQUIRED })
   @IsNotBlank({ message: ValidationErrors.REFERENCE_REQUIRED })
-  @MaxLength(8, { message: ValidationErrors.REFERENCE_TOO_LONG })
+  @Matches(new RegExp('\\b\\d{3}LR\\d{3}\\b'), { message: ValidationErrors.CLAIM_REFERENCE_INVALID })
   reference?: string
 
   constructor (reference?: string) {

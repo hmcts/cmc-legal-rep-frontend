@@ -1,14 +1,15 @@
 {% extends "layout.njk" %}
-{% from "form.njk" import linkButton, csrfProtection, errorSummary, searchInput %}
+{% from "form.njk" import csrfProtection, errorSummary, searchInput %}
 
 {% set title = t('Money claim') %}
-{% set heading = t('Manage your claims') %}
 
 {% block content %}
   <div class="grid-row">
     <div class="column-two-thirds">
       <form novalidate method="post">
         {{ csrfProtection(csrf) }}
+
+        <h1 class="heading-large">{{ t('Manage your claims') }}</h1>
 
         <h2 class="heading-medium form-group-compound">Find a claim</h2>
         <p>Once you've found a claim you can:</p>
@@ -23,7 +24,7 @@
       </form>
     </div>
     <div class="column-one-third govuk-related-items">
-      {{ linkButton('Issue a new claim', 'start', 'button button-secondary') }}
+      <a class="button button-secondary" href="/legal/claim/start">{{ t('Issue a new claim') }}</a>
     </div>
   </div>
 {% endblock %}

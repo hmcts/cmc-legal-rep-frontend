@@ -1,6 +1,6 @@
 import * as express from 'express'
 import { Paths as DashboardPaths } from 'dashboard/paths'
-import { Search } from 'forms/search'
+import { Search } from 'forms/models/search'
 import { Form } from 'app/forms/form'
 import { FormValidator } from 'app/forms/validation/formValidator'
 import ErrorHandling from 'common/errorHandling'
