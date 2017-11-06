@@ -14,12 +14,17 @@ import { HousingDisrepair } from 'forms/models/housingDisrepair'
 import { PersonalInjury } from 'forms/models/personalInjury'
 import { OrganisationName } from 'forms/models/organisationName'
 import Representative from 'drafts/models/representative'
+import { Search } from 'app/forms/models/search'
 
 const serviceBaseURL: string = `${config.get('draft-store.url')}`
 const sampleViewDraftObj = {
   viewFlowOption: true,
   defendantChangeIndex: undefined,
   claimantChangeIndex: undefined
+}
+
+const sampleDashboardDraftObj = {
+  search: { reference: '000LR001' } as Search
 }
 
 const sampleClaimDraftObj = {
@@ -105,6 +110,9 @@ export function resolveFind (draftType: string, draftOverride?: object): mock.Sc
       break
     case 'view':
       documentDocument = { ...sampleViewDraftObj, ...draftOverride }
+      break
+    case 'dashboard':
+      documentDocument = { ...sampleDashboardDraftObj, ...draftOverride }
       break
     default:
       throw new Error('Unsupported draft type')

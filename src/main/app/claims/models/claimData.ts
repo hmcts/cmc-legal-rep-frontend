@@ -74,4 +74,12 @@ export default class ClaimData implements Serializable<ClaimData> {
       })
     }
   }
+
+  get primaryClaimant (): Party {
+    return this.claimants[0]
+  }
+
+  get primaryDefendant (): Party {
+    return this.defendants[0]
+  }
 }
