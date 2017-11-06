@@ -46,7 +46,7 @@ export default class Nunjucks {
     nunjucksEnv.addGlobal('serviceName', 'Money Claim')
     nunjucksEnv.addGlobal('development', this.developmentMode)
     nunjucksEnv.addGlobal('govuk_template_version', packageDotJson.dependencies.govuk_template_jinja)
-    nunjucksEnv.addGlobal('customerSurveyUrl', config.get('feedback_legal.serviceSurvey.url'))
+    nunjucksEnv.addGlobal('customerSurveyUrl', config.get('feedback_legal_service_survey'))
     nunjucksEnv.addGlobal('t', (key: string, options?: TranslationOptions): string => this.i18next.t(key, options))
     nunjucksEnv.addFilter('numeral', numeralFilter)
     nunjucksEnv.addFilter('date', dateFilter)
