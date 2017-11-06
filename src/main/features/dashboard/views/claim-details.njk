@@ -26,14 +26,17 @@
         <h3 class="heading-medium">{{ t('Defendant') }}</h3>
       {% endif %}
 
-      <div class="column-one-third form-label-bold border-bottom">{{ t('Names') }}</div>
-      <div class="column-one-third form-label-bold border-bottom">{{ t('Serve by') }}</div>
-      <div class="column-one-third form-label-bold border-bottom"></div>
+      <div class="border-bottom column-full">
+        <div class="column-one-third form-label-bold">{{ t('Names') }}</div>
+        <div class="column-one-third form-label-bold">{{ t('Serve by') }}</div>
+        <div class="column-one-third form-label-bold"></div>
+      </div>
       <div class="column-one-third">
         {% for defendant in defendants %}
           <div class="form-label">{{ defendant.name }}</div>
         {% endfor %}
       </div>
+
     </div>
     <div class="column-one-third govuk-related-items">
       {% if externalReference %}
