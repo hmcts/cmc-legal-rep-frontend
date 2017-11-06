@@ -4,7 +4,7 @@ export class ApiLogger {
   }
 
   logRequest (requestData) {
-    return this.logger.debug(this._buildRequestEntry(requestData))
+    return this.logger.info(this._buildRequestEntry(requestData))
   }
 
   _buildRequestEntry (requestData) {
@@ -20,12 +20,13 @@ export class ApiLogger {
   }
 
   _buildResponseEntry (responseData) {
-    return {
+    const logMessage = {
       message: `API: Response ${responseData.responseCode} from ${responseData.uri} ` +
-      ((responseData.responseBody) ? `| Body: ${this._stringifyObject(responseData.responseBody)} ` : '') +
+      ((responseData.responseBody && this.isDebugLevel()) ? `| Body: ${this._stringifyObject(responseData.responseBody)} ` : '') +
       ((responseData.error) ? `| Error: ${this._stringifyObject(responseData.error)} ` : ''),
       responseCode: responseData.responseCode
     }
+    return logMessage
   }
 
   _stringifyObject (object) {
@@ -41,12 +42,21 @@ export class ApiLogger {
   }
 
   _logLevelFor (statusCode) {
-    if (statusCode < 400) {
-      return this.logger.debug
+    if (statusCode < 400 || statusCode === 404) {
+      return this.logger.info
     } else if (statusCode >= 400 && statusCode < 500) {
       return this.logger.warn
     } else {
       return this.logger.error
     }
+  }
+
+  private isDebugLevel (): boolean {
+    return this.resolveLoggingLevel() === 'DEBUG' || this.resolveLoggingLevel() === 'TRACE' || this.resolveLoggingLevel() === 'ALL'
+  }
+
+  private resolveLoggingLevel () {
+    const currentLevel = process.env.LOG_LEVEL || 'INFO'
+    return currentLevel.toUpperCase()
   }
 }
