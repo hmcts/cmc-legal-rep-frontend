@@ -4,6 +4,7 @@ import * as express from 'express'
 import * as nunjucks from 'nunjucks'
 import * as numeralFilter from 'nunjucks-numeral-filter'
 import * as numeral from 'numeral'
+import * as config from 'config'
 
 import { NUMBER_FORMAT } from 'app/utils/numberFormatter'
 import { convertToPoundsFilter } from 'modules/nunjucks/filters/convertToPounds'
@@ -45,9 +46,7 @@ export default class Nunjucks {
     nunjucksEnv.addGlobal('serviceName', 'Money Claim')
     nunjucksEnv.addGlobal('development', this.developmentMode)
     nunjucksEnv.addGlobal('govuk_template_version', packageDotJson.dependencies.govuk_template_jinja)
-    // nunjucksEnv.addGlobal('gaTrackingId', config.get<string>('citizen-frontend.gaTrackingId'))
-    // nunjucksEnv.addGlobal('piwikTrackingId', config.get<string>('citizen-frontend.piwikTrackingId'))
-    // nunjucksEnv.addGlobal('piwikTrackingSite', config.get<string>('citizen-frontend.piwikTrackingSite'))
+    nunjucksEnv.addGlobal('customerSurveyUrl', config.get('feedback_legal.serviceSurvey.url'))
     nunjucksEnv.addGlobal('t', (key: string, options?: TranslationOptions): string => this.i18next.t(key, options))
     nunjucksEnv.addFilter('numeral', numeralFilter)
     nunjucksEnv.addFilter('date', dateFilter)

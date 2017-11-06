@@ -44,5 +44,10 @@
   },
   "featureToggles": {
     "idamOauth": "FEATURE_IDAM_OAUTH"
+  },
+  "feedback_legal": {
+    "serviceSurvey": {
+      "url": "SERVICE_SURVEY_URL"
+    }
   }
 }
