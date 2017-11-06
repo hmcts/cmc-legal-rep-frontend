@@ -40,7 +40,6 @@
     "url": "http://localhost:5500",
     "apiVersion": "v1"
   },
-  ,
   "feedback": {
     "serviceSurvey": {
       "url": "http://www.smartsurvey.co.uk/s/not-a-real-service-survey/"
