@@ -38,8 +38,8 @@ ul {
 .search-submit {
   background-color: $link-colour;
   background-position: 19px;
-  border: 0;
-  border-radius: 5px;
+  border: 1px solid $border-colour;
+  border-left: 0;
   box-sizing: content-box;
   color: $white;
   cursor: pointer;
@@ -67,4 +67,5 @@ ul {
 .icon-search {
   background-image: url('/legal/img/lib/icon-search.png');
   background-size: 50%;
+  margin-left: -5px;
 }
