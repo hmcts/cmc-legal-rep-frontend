@@ -16,6 +16,7 @@ import Nunjucks from 'modules/nunjucks'
 import { Feature as ClaimIssueFeature } from 'claim/index'
 import { Feature as CertificateOfServiceFeature } from 'certificateOfService/index'
 import { CsrfProtection } from 'modules/csrf'
+import { DashboardFeature } from 'dashboard/index'
 import CookieProperties from 'common/cookieProperties'
 
 export const app: express.Express = express()
@@ -59,6 +60,7 @@ if (env !== 'mocha') {
 }
 
 new ClaimIssueFeature().enableFor(app)
+new DashboardFeature().enableFor(app)
 new CertificateOfServiceFeature().enableFor(app)
 
 app.use('/legal', RouterFinder.findAll(path.join(__dirname, 'routes')))

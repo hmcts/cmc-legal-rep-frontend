@@ -73,8 +73,8 @@ export default class ClaimStoreClient {
           Authorization: `Bearer ${userAuthToken}`
         }
       })
-      .then((claims: object[]) => {
-        return claims.map((claim: object) => new Claim().deserialize(claim))
+      .then((claim) => {
+        return new Claim().deserialize(claim)
       })
   }
 }

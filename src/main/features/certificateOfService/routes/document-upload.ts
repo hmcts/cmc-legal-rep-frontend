@@ -27,7 +27,6 @@ export default express.Router()
             .then(file => new UploadedDocument(file.fileName, file.documentManagementURI))
         )
 
-        console.log('Uploaded ' + file.name)
       })
       .on('end', function () {
         Promise.all(documents)

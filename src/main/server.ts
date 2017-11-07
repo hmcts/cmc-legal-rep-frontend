@@ -8,6 +8,8 @@ const logger = require('@hmcts/nodejs-logging').getLogger('server')
 
 const port: number = parseInt(process.env.PORT, 10) || 4000
 
+const logger = require('@hmcts/nodejs-logging').getLogger('server')
+
 if (app.locals.ENV === 'development' || app.locals.ENV === 'dockertests') {
   const sslDirectory = path.join(__dirname, 'resources', 'localhost-ssl')
   const serverOptions = {
