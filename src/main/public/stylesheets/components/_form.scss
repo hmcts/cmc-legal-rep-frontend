@@ -1,3 +1,10 @@
+button {
+  border: 0;
+  cursor: pointer;
+  overflow: visible; // removes padding in IE
+  padding: 0;
+}
+
 .link-button {
   background: none;
   border: 0;
@@ -37,15 +44,14 @@ ul {
 
 .search-submit {
   background-color: $link-colour;
-  background-position: 19px;
+  background-position: 16px;
   border: 0;
-  border-radius: 5px;
   box-sizing: content-box;
   color: $white;
   cursor: pointer;
-  height: 47px;
+  height: 52px;
   vertical-align: bottom;
-  width: 47px;
+  width: 52px;
 }
 
 .search-input {
@@ -67,4 +73,5 @@ ul {
 .icon-search {
   background-image: url('/legal/img/lib/icon-search.png');
   background-size: 50%;
+  margin-left: -5px;
 }
