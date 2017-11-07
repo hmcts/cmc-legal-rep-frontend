@@ -29,7 +29,7 @@ function certificateOfServiceRequestHandler (): express.RequestHandler {
 export class Feature {
   enableFor (app: express.Express) {
     app.all('/legal/certificateOfService/*', certificateOfServiceRequestHandler())
-    app.all(/^\/legal\/certificateOfService\/what-documents$/, DraftMiddleware.requestHandler<DraftCertificateOfService>('legalCertificateOfService',
+    app.all(/^\/legal\/certificateOfService\/.*$/, DraftMiddleware.requestHandler<DraftCertificateOfService>('legalCertificateOfService',
       (value: any): DraftCertificateOfService => {
         return new DraftCertificateOfService().deserialize(value)
       }))
