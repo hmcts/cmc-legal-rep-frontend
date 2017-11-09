@@ -23,7 +23,7 @@ export default express.Router()
       } else {
         res.locals.user.legalCertificateOfServiceDraft.document.whatDocuments = form.model
         await new DraftService().save(res.locals.user.legalCertificateOfServiceDraft, res.locals.user.bearerToken)
-        res.redirect(Paths.whatDocumentsPage.uri)
+        res.redirect(Paths.documentUploadPage.uri)
       }
 
     })

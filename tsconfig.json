@@ -63,6 +63,9 @@
       "first-contact/*": [
         "features/first-contact/*"
       ],
+      "dashboard/*": [
+        "features/dashboard/*"
+      ],
       "views/*": [
         "features/view/*"
       ],

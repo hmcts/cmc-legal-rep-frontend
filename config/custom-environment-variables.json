@@ -47,5 +47,7 @@
   },
   "documentManagement" : {
     "url": "DOCUMENT_MANAGEMENT_URL"
-  }
+  },
+  "feedback_legal_service_survey": "FEEDBACK_SURVEY_URL"
 }
+

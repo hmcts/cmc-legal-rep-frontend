@@ -27,7 +27,6 @@ export default express.Router()
             .then(file => new UploadedDocument(file.fileName, file.documentManagementURI))
         )
 
-        console.log('Uploaded ' + file.name)
       })
       .on('end', function () {
         Promise.all(documents)
@@ -41,7 +40,7 @@ export default express.Router()
 function moveFile (from, to) {
   return new Promise<UploadedDocument>(function (done, reject) {
     fs.rename(from, to, function (err) {
-      if ( err ) {
+      if (err) {
         return reject(new Error(err.message))
       }
 

@@ -1,0 +1,49 @@
+{% extends "layout.njk" %}
+{% from "form.njk" import linkButton, csrfProtection %}
+
+{% set title = t('Money claim') %}
+
+{% block content %}
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <h1 class="heading-large">
+        <span class="form-hint">{{ claimNumber }}</span>
+        {{ claimantVDefendant }}
+      </h1>
+      <h3 class="heading-medium">{{ t('Date issued') }}
+        <div class="form-label">{{ dateIssued | date }}</div>
+      </h3>
+
+      <h3 class="heading-medium">{% if claimants.length > 1 %}{{ t('Claimants') }} {% else %} {{ t('Claimant') }}{% endif %}
+        {% for claimant in claimants %}
+          <div class="form-label">{{ claimant.name }}</div>
+        {% endfor %}
+      </h3>
+
+      {% if defendants.length > 1 %}
+        <h3 class="heading-medium">{{ t('Defendants') }}</h3>
+      {% else %}
+        <h3 class="heading-medium">{{ t('Defendant') }}</h3>
+      {% endif %}
+
+      <div class="border-bottom column-full">
+        <div class="column-one-third form-label-bold">{{ t('Names') }}</div>
+        <div class="column-one-third form-label-bold"></div>
+        <div class="column-one-third form-label-bold"></div>
+      </div>
+      <div class="column-one-third">
+        {% for defendant in defendants %}
+          <div class="form-label">{{ defendant.name }}</div>
+        {% endfor %}
+      </div>
+
+    </div>
+    <div class="column-one-third {% if externalReference %}govuk-related-items{% endif %}">
+      {% if externalReference %}
+        <h3 class="heading-medium">Your reference
+          <div class="form-label">{{ externalReference }}</div>
+        </h3>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

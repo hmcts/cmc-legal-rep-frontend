@@ -9,9 +9,9 @@ import { RouterFinder } from 'common/router/routerFinder'
 import { buildURL } from 'utils/callbackBuilder'
 import { OAuthHelper } from 'idam/oAuthHelper'
 import { DraftMiddleware } from 'common/draft/draftMiddleware'
-import { DraftCertificateOfService } from 'drafts/models/draftCertificateOfService'
+import { DraftDashboard } from 'drafts/models/draftDashboard'
 
-function certificateOfServiceRequestHandler (): express.RequestHandler {
+function dashboardRequestHandler (): express.RequestHandler {
   function accessDeniedCallback (req: express.Request, res: express.Response): void {
     const redirectUri = buildURL(req, AppPaths.receiver.uri.substring(1))
     const useOauth = toBoolean(config.get<boolean>('featureToggles.idamOauth'))
@@ -26,12 +26,13 @@ function certificateOfServiceRequestHandler (): express.RequestHandler {
   return AuthorizationMiddleware.requestHandler(requiredRoles, accessDeniedCallback, unprotectedPaths)
 }
 
-export class Feature {
+export class DashboardFeature {
   enableFor (app: express.Express) {
-    app.all('/legal/certificateOfService/*', certificateOfServiceRequestHandler())
-    app.all(/^\/legal\/certificateOfService\/.*$/, DraftMiddleware.requestHandler<DraftCertificateOfService>('legalCertificateOfService',
-      (value: any): DraftCertificateOfService => {
-        return new DraftCertificateOfService().deserialize(value)
+    app.all(/^\/(legal\/dashboard.*)$/, dashboardRequestHandler())
+
+    app.all(/^\/(legal\/dashboard.*)$/, DraftMiddleware.requestHandler<DraftDashboard>('dashboard',
+      (value: any): DraftDashboard => {
+        return new DraftDashboard().deserialize(value)
       }))
 
     app.use('/', RouterFinder.findAll(path.join(__dirname, 'routes')))
