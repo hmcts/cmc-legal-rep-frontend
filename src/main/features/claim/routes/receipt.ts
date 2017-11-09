@@ -7,6 +7,7 @@ import { Paths } from 'claim/paths'
 import DocumentsClient from 'app/documents/documentsClient'
 import ClaimStoreClient from 'app/claims/claimStoreClient'
 import Claim from 'app/claims/models/claim'
+import User from 'idam/user'
 
 const documentsClient: DocumentsClient = new DocumentsClient()
 
@@ -14,8 +15,9 @@ export default express.Router()
   .get(Paths.receiptReceiver.uri, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const { externalId } = req.params
     try {
-      const claim: Claim = await ClaimStoreClient.retrieveByExternalId(externalId, res.locals.user.id)
-      documentsClient.getSealedClaim(externalId)
+      const user: User = res.locals.user
+      const claim: Claim = await ClaimStoreClient.retrieveByExternalId(externalId, user.id)
+      documentsClient.getSealedClaim(externalId, user)
         .on('response', (response: http.IncomingMessage) => {
           if (response.statusCode !== 200) {
             return next(new Error('Unexpected error during document retrieval'))
