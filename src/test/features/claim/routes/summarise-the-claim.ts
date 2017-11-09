@@ -27,6 +27,7 @@ describe('Claim issue: Briefly describe the claim page', () => {
 
     it('should render page when everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
       await request(app)
         .get(ClaimPaths.summariseTheClaimPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
