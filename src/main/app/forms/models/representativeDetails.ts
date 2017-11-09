@@ -25,6 +25,6 @@ export class RepresentativeDetails {
   }
 
   public static saveCookie (res: express.Response, legalRepDetails: RepresentativeDetails) {
-    res.cookie(legalRepDetails.cookieName, legalRepDetails, CookieProperties.getCookieParameters() )
+    res.cookie(legalRepDetails.cookieName, legalRepDetails, CookieProperties.getCookieParameters())
   }
 }

@@ -12,49 +12,37 @@ import * as DraftStoreServiceMock from '../../../http-mocks/draft-store'
 const cookieName: string = config.get<string>('session.cookieName')
 const roles: string[] = ['solicitor']
 
-describe('Claim issue: start page', () => {
+describe('Claim issue: cookie page', () => {
   beforeEach(() => {
     mock.cleanAll()
     DraftStoreServiceMock.resolveFind('legalClaim')
   })
 
   describe('on GET', () => {
-    checkAuthorizationGuards(app, 'get', ClaimPaths.startPage.uri)
+    checkAuthorizationGuards(app, 'get', ClaimPaths.cookiePage.uri)
 
     it('should render page when everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       idamServiceMock.resolveRetrieveServiceToken()
       await request(app)
-        .get(ClaimPaths.startPage.uri)
+        .get(ClaimPaths.cookiePage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText('Issue civil court proceedings'))
+        .expect(res => expect(res).to.be.successful.withText('Cookies'))
     })
 
   })
 
   describe('on POST', () => {
-    checkAuthorizationGuards(app, 'post', ClaimPaths.startPage.uri)
+    checkAuthorizationGuards(app, 'post', ClaimPaths.cookiePage.uri)
 
-    it('should return 500 and render error page when can not delete draft claim', async () => {
+    it('should redirect to start page when', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      DraftStoreServiceMock.rejectDelete(100, 'HTTP error')
-
-      await request(app)
-        .post(ClaimPaths.startPage.uri)
-        .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.serverError.withText('Error'))
-    })
-
-    it('should redirect to representative-name page when delete previous draft is successful', async () => {
-      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      DraftStoreServiceMock.resolveDelete()
-      DraftStoreServiceMock.resolveDelete()
       idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
-        .post(ClaimPaths.startPage.uri)
+        .post(ClaimPaths.cookiePage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.representativeNamePage.uri))
+        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.startPage.uri))
     })
   })
 })
