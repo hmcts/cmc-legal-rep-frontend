@@ -15,7 +15,7 @@ export default express.Router()
     const { externalId } = req.params
     try {
       const claim: Claim = await ClaimStoreClient.retrieveByExternalId(externalId, res.locals.user.id)
-      documentsClient.getSealedClaim(externalId)
+      documentsClient.getSealedClaim(externalId, res.locals.user)
         .on('response', (response: http.IncomingMessage) => {
           if (response.statusCode !== 200) {
             return next(new Error('Unexpected error during document retrieval'))
