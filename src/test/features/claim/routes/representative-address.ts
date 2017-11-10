@@ -14,6 +14,7 @@ import * as idamServiceMock from '../../../http-mocks/idam'
 import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
+const pageText = 'Your organisation address'
 const roles: string[] = ['solicitor']
 
 describe('Claim issue: Your organisation address page', () => {
@@ -31,20 +32,43 @@ describe('Claim issue: Your organisation address page', () => {
       await request(app)
         .get(ClaimPaths.representativeAddressPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText('Your organisation address'))
+        .expect(res => expect(res).to.be.successful.withText(pageText))
     })
   })
 
   describe('on POST', () => {
     checkAuthorizationGuards(app, 'post', ClaimPaths.representativeAddressPage.uri)
 
-    it('should render page when form is invalid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      idamServiceMock.resolveRetrieveServiceToken()
-      await request(app)
-        .post(ClaimPaths.representativeAddressPage.uri)
-        .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText('Your organisation address', 'div class="error-summary"'))
+    describe('should render page with error when address is invalid', async () => {
+      beforeEach(() => {
+        idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+        draftStoreServiceMock.resolveUpdate()
+        idamServiceMock.resolveRetrieveServiceToken()
+      })
+      it('line 1 is missing', async () => {
+        const invalidAddressInput = { line1: '', line2: '', city: 'London', postcode: 'SE28 0JE' }
+        await request(app)
+          .post(ClaimPaths.representativeAddressPage.uri)
+          .set('Cookie', `${cookieName}=ABC`)
+          .send(invalidAddressInput)
+          .expect(res => expect(res).to.be.successful.withText(pageText, 'Enter address line 1'))
+      })
+      it('town or city is missing', async () => {
+        const invalidAddressInput = { line1: 'Apartment 99', line2: '', city: '', postcode: 'SE28 0JE' }
+        await request(app)
+          .post(ClaimPaths.representativeAddressPage.uri)
+          .set('Cookie', `${cookieName}=ABC`)
+          .send(invalidAddressInput)
+          .expect(res => expect(res).to.be.successful.withText(pageText, 'Enter a town or city'))
+      })
+      it('postcode is missing', async () => {
+        const invalidAddressInput = { line1: 'Apartment 99', line2: '', city: 'London', postcode: '' }
+        await request(app)
+          .post(ClaimPaths.representativeAddressPage.uri)
+          .set('Cookie', `${cookieName}=ABC`)
+          .send(invalidAddressInput)
+          .expect(res => expect(res).to.be.successful.withText(pageText, 'Enter a postcode'))
+      })
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {

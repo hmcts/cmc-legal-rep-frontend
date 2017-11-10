@@ -69,7 +69,7 @@ describe('Claim : Pay by Fee Account page', () => {
         .post(ClaimPaths.payByAccountPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({ reference: '' })
-        .expect(res => expect(res).to.be.successful.withText(pageHeading, 'div class="error-summary"'))
+        .expect(res => expect(res).to.be.successful.withText(pageHeading, 'div class="error-summary"', 'Enter your Fee Account number'))
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {

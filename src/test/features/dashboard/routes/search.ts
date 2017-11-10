@@ -12,6 +12,7 @@ import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 import { checkAuthorizationGuards } from './checks/authorization-check'
 
 const cookieName: string = config.get<string>('session.cookieName')
+const pageText = 'Manage your claims'
 const roles: string[] = ['solicitor']
 
 describe('Dashboard: search page', () => {
@@ -29,7 +30,7 @@ describe('Dashboard: search page', () => {
       await request(app)
         .get(DashboardPaths.searchPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText('Manage your claims'))
+        .expect(res => expect(res).to.be.successful.withText(pageText))
     })
   })
 
@@ -42,8 +43,8 @@ describe('Dashboard: search page', () => {
       await request(app)
         .post(DashboardPaths.searchPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .send({ reference: '12345678901234567890123451212' })
-        .expect(res => expect(res).to.be.successful.withText('Manage your claims', 'div class="error-summary"'))
+        .send({ reference: '' })
+        .expect(res => expect(res).to.be.successful.withText(pageText, 'div class="error-summary"', 'Enter your claim number'))
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {

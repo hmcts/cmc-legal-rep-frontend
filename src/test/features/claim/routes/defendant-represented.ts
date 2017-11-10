@@ -39,12 +39,26 @@ describe('Claim issue: is defendant represented page', () => {
   describe('on POST', () => {
     checkAuthorizationGuards(app, 'post', ClaimPaths.defendantRepresentedPage.uri)
 
-    it('should render page when form is invalid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      await request(app)
-        .post(ClaimPaths.defendantRepresentedPage.uri)
-        .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText(pageText, 'div class="error-summary"'))
+    describe('should render page when form is invalid', async () => {
+      beforeEach(() => {
+        idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+        draftStoreServiceMock.resolveUpdate()
+        idamServiceMock.resolveRetrieveServiceToken()
+      })
+      it('defendant represented is not chosen', async () => {
+        await request(app)
+          .post(ClaimPaths.defendantRepresentedPage.uri)
+          .set('Cookie', `${cookieName}=ABC`)
+          .expect(res => expect(res).to.be.successful.withText(pageText, 'Choose yes if defendant is represented'))
+      })
+      it('defendant represented is yes and name is empty', async () => {
+        const invalidDefendantRepresented = { isDefendantRepresented: 'YES', organisationName: '' }
+        await request(app)
+          .post(ClaimPaths.defendantRepresentedPage.uri)
+          .set('Cookie', `${cookieName}=ABC`)
+          .send(invalidDefendantRepresented)
+          .expect(res => expect(res).to.be.successful.withText(pageText, 'Enter defendant representative organisation name'))
+      })
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
