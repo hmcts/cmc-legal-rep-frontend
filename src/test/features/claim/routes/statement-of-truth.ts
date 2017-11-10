@@ -14,6 +14,7 @@ import * as idamServiceMock from '../../../http-mocks/idam'
 import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
+const pageText = 'Statement of truth'
 const roles: string[] = ['solicitor']
 
 describe('Claim : Statement of truth page', () => {
@@ -27,29 +28,36 @@ describe('Claim : Statement of truth page', () => {
 
     it('should render page when everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .get(ClaimPaths.statementOfTruthPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText('Statement of truth'))
+        .expect(res => expect(res).to.be.successful.withText(pageText))
     })
   })
 
   describe('on POST', () => {
     checkAuthorizationGuards(app, 'post', ClaimPaths.statementOfTruthPage.uri)
 
-    it('should render page when form is invalid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-
-      await request(app)
-        .post(ClaimPaths.statementOfTruthPage.uri)
-        .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText('Statement of truth', 'div class="error-summary"'))
+    describe('should render page when form is invalid', async () => {
+      beforeEach(() => {
+        idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+        idamServiceMock.resolveRetrieveServiceToken()
+      })
+      it('should render page when form is invalid and everything is fine', async () => {
+        await request(app)
+          .post(ClaimPaths.statementOfTruthPage.uri)
+          .set('Cookie', `${cookieName}=ABC`)
+          .send({ signerName: '', signerRole: '' })
+          .expect(res => expect(res).to.be.successful.withText(pageText, 'div class="error-summary"', 'Enter the name of the person signing the statement', 'Enter the role of the person signing the statement'))
+      })
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.rejectSave(100, 'HTTP error')
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .post(ClaimPaths.statementOfTruthPage.uri)
@@ -61,6 +69,7 @@ describe('Claim : Statement of truth page', () => {
     it('should redirect to pay by account page when form is valid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.resolveUpdate()
+      idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
         .post(ClaimPaths.statementOfTruthPage.uri)
