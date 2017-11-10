@@ -89,7 +89,7 @@ export function resolveRetrieveClaimByExternalId (claimOverride?: object): mock.
 
 export function resolveRetrieveClaimByClaimNumber (claimOverride?: object): mock.Scope {
   return mock(`${serviceBaseURL}/claims`)
-    .get(new RegExp('/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}'))
+    .get(new RegExp('[0-9]{3}LR[0-9]{3}'))
     .reply(HttpStatus.OK, { ...sampleClaimObj, ...claimOverride })
 }
 
