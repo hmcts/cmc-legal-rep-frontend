@@ -29,6 +29,7 @@ describe('Claim issue: Briefly describe the claim page', () => {
     checkAuthorizationGuards(app, 'get', ClaimPaths.summariseTheClaimPage.uri)
 
     it('should render page when everything is fine', async () => {
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       await request(app)
         .get(ClaimPaths.summariseTheClaimPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
