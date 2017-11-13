@@ -66,7 +66,7 @@ timestamps {
             try {
               sh "yarn test:routes"
             } finally {
-              archiveArtifacts 'mochawesome-report/legalRoutes.html'
+              archiveArtifacts 'mochawesome-report/routes.html'
             }
           }
 
