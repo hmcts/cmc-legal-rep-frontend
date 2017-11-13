@@ -1,6 +1,7 @@
 import { IsDefined, Matches } from 'class-validator'
 import { Serializable } from 'models/serializable'
 import { IsNotBlank } from 'forms/validation/validators/isNotBlank'
+import { isUndefined } from 'util'
 
 export class ValidationErrors {
   static readonly REFERENCE_REQUIRED: string = 'Enter your claim number'
@@ -22,7 +23,8 @@ export class Search implements Serializable<Search> {
     if (value == null) {
       return value
     }
-    return new Search(value.reference)
+    const reference = isUndefined(value.reference) ? undefined : value.reference.toUpperCase()
+    return new Search(reference)
   }
 
   deserialize (input?: any): Search {
