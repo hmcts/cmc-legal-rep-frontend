@@ -8,9 +8,10 @@ import { OAuthHelper } from 'idam/oAuthHelper'
 import { Paths as AppPaths } from 'app/paths'
 import IdamClient from 'idam/idamClient'
 import { buildURL } from 'utils/callbackBuilder'
+import ErrorHandling from 'common/errorHandling'
 
 export default express.Router()
-  .get('/receiver', async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+  .get('/receiver', ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
 
     const sessionCookie = config.get<string>('session.cookieName')
     const cookies = new Cookies(req, res)
@@ -19,14 +20,14 @@ export default express.Router()
     if (!useOauth && req.query.jwt) {
       cookies.set(sessionCookie, req.query.jwt, { sameSite: 'lax' })
     } else if (useOauth && req.query.code) {
+      cookies.set('state', '', { sameSite: 'lax' })
       if (req.query.state !== OAuthHelper.getStateCookie(req)) {
         throw new Error('Invalid state')
       }
 
-      res.clearCookie('state')
       const authToken: AuthToken = await IdamClient.exchangeCode(req.query.code, buildURL(req, AppPaths.receiver.uri.substring(1)))
       cookies.set(sessionCookie, authToken.accessToken, { sameSite: 'lax' })
     }
 
     res.redirect(ClaimPaths.startPage.uri)
-  })
+  }))
