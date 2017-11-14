@@ -49,7 +49,8 @@
     "clientSecret": "123456"
   },
   "featureToggles": {
-    "idamOauth": false
+    "idamOauth": false,
+    "dashboard": false
   },
   "documentManagement" : {
     "url": "http://localhost:8085"

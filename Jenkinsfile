@@ -62,6 +62,14 @@ timestamps {
             }
           }
 
+          stage('Test routes') {
+            try {
+              sh "yarn test:routes"
+            } finally {
+              archiveArtifacts 'mochawesome-report/routes.html'
+            }
+          }
+
           stage('Test a11y') {
             try {
               sh "yarn test:a11y"

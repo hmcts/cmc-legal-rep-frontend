@@ -18,6 +18,7 @@ import { Feature as CertificateOfServiceFeature } from 'certificateOfService/ind
 import { CsrfProtection } from 'modules/csrf'
 import { DashboardFeature } from 'dashboard/index'
 import CookieProperties from 'common/cookieProperties'
+import * as toBoolean from 'to-boolean'
 
 export const app: express.Express = express()
 
@@ -60,8 +61,10 @@ if (env !== 'mocha') {
 }
 
 new ClaimIssueFeature().enableFor(app)
-new DashboardFeature().enableFor(app)
 new CertificateOfServiceFeature().enableFor(app)
+if (toBoolean(config.get<boolean>('featureToggles.dashboard'))) {
+  new DashboardFeature().enableFor(app)
+}
 
 app.use('/legal', RouterFinder.findAll(path.join(__dirname, 'routes')))
 

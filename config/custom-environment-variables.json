@@ -43,7 +43,8 @@
     "clientSecret": "OAUTH_CLIENT_SECRET"
   },
   "featureToggles": {
-    "idamOauth": "FEATURE_IDAM_OAUTH"
+    "idamOauth": "FEATURE_IDAM_OAUTH",
+    "dashboard": "FEATURE_DASHBOARD"
   },
   "documentManagement" : {
     "url": "DOCUMENT_MANAGEMENT_URL"

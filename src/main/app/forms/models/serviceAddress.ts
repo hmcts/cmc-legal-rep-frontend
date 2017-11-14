@@ -8,7 +8,7 @@ export class ValidationErrors {
   static readonly DEFENDANT_SERVICE_ADDRESS_REQUIRED: string = 'Choose which address to use'
   static readonly FIRST_LINE_REQUIRED: string = 'Enter address line 1'
   static readonly CONTENT_TOO_LONG: string = 'You’ve entered too many characters'
-  static readonly CITY_REQUIRED: string = 'Enter a valid city/town'
+  static readonly CITY_REQUIRED: string = 'Enter a town or city'
   static readonly POSTCODE_REQUIRED: string = 'Enter a postcode'
 }
 
