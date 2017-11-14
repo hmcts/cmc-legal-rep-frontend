@@ -10,17 +10,17 @@ import ErrorHandling from 'common/errorHandling'
 import { Claimants } from 'common/router/claimants'
 
 function renderView (form: Form<ClaimantName>, res: express.Response) {
-  res.render(Paths.claimantTypePage.associatedView, {
+  res.render(Paths.claimantNamePage.associatedView, {
     form: form
   })
 }
 
 export default express.Router()
-  .get(Paths.claimantTypePage.uri, (req: express.Request, res: express.Response) => {
+  .get(Paths.claimantNamePage.uri, (req: express.Request, res: express.Response) => {
     const index = Claimants.getIndex(res)
     renderView(new Form(res.locals.user.legalClaimDraft.document.claimants[index].claimantName), res)
   })
-  .post(Paths.claimantTypePage.uri, FormValidator.requestHandler(ClaimantName, ClaimantName.fromObject),
+  .post(Paths.claimantNamePage.uri, FormValidator.requestHandler(ClaimantName, ClaimantName.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form: Form<ClaimantName> = req.body
 

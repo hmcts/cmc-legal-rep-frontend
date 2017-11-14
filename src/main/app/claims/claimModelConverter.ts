@@ -74,22 +74,10 @@ export class ClaimModelConverter {
 
     draftClaim.claimants.map((claimant: Claimant) => {
 
-      claimant['type'] = claimant.claimantDetails.type.dataStoreValue
+      claimant['type'] = 'claimant'
+      claimant['name'] = claimant.claimantName.value
 
-      if (claimant.claimantDetails.title) {
-        claimant['title'] = claimant.claimantDetails.title
-      }
-
-      if (claimant.claimantDetails.organisation) {
-        claimant['name'] = claimant.claimantDetails.organisation
-      } else {
-        claimant['name'] = claimant.claimantDetails.fullName
-      }
-
-      if (claimant.claimantDetails.companyHouseNumber) {
-        claimant['companiesHouseNumber'] = claimant.claimantDetails.companyHouseNumber
-      }
-      delete claimant.claimantDetails
+      delete claimant.claimantName
 
       claimant['representative'] = new Representative().deserialize(representative)
       claimant['representative'].organisationName = representative.organisationName.name

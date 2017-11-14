@@ -77,7 +77,7 @@ describe('Claim issue: is claimant addition page', () => {
         .send({
           isAddClaimant: 'YES'
         })
-        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimantTypePage.uri))
+        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimantNamePage.uri))
     })
 
     it('should redirect to defendant type page when form is valid and user has selected no', async () => {

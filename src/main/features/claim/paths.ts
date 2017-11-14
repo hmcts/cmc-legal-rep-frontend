@@ -20,7 +20,7 @@ export class Paths {
   static readonly defendantRemovePage = new RoutablePath('/legal/claim/defendant-remove')
   static readonly defendantChangePage = new RoutablePath('/legal/claim/defendant-change')
   static readonly claimantRemovePage = new RoutablePath('/legal/claim/claimant-remove')
-  static readonly claimantTypePage = new RoutablePath('/legal/claim/claimant-type')
+  static readonly claimantNamePage = new RoutablePath('/legal/claim/claimant-name')
   static readonly defendantAddressPage = new RoutablePath('/legal/claim/defendant-address')
   static readonly defendantRepresentedPage = new RoutablePath('/legal/claim/defendant-represented')
   static readonly defendantRepAddressPage = new RoutablePath('/legal/claim/defendant-reps-address')

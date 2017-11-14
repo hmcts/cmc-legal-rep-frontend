@@ -1,14 +1,7 @@
 import { PartyTypes } from 'forms/models/partyTypes'
 
-export const individual = {
-  type: {
-    value: PartyTypes.INDIVIDUAL.dataStoreValue,
-    displayValue: 'An individual',
-    dataStoreValue: 'individual'
-  },
-  fullName: 'no name',
-  organisation: null,
-  companyHouseNumber: null
+export const claimantName = {
+  value: 'no name'
 }
 
 export const organisation = {
@@ -30,10 +23,8 @@ export const claimants = [{
     city: 'City',
     postcode: 'NE83BA'
   },
-  claimantDetails: individual,
-  type: PartyTypes.INDIVIDUAL.dataStoreValue,
-  title: 'Mr',
-  name: 'no name',
+  claimantName: claimantName,
+  type: PartyTypes.CLAIMANT.dataStoreValue,
   representative: {
     organisationName: 'test',
     organisationAddress: {

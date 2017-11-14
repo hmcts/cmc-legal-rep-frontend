@@ -26,7 +26,7 @@ export default express.Router()
       } else {
         res.locals.user.legalClaimDraft.document.preferredCourt = form.model
         await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
-        res.redirect(Paths.claimantTypePage.uri)
+        res.redirect(Paths.claimantNamePage.uri)
       }
 
     })

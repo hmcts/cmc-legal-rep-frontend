@@ -18,10 +18,8 @@ const roles: string[] = ['solicitor']
 
 const claimants = {
   claimants: [{
-    claimantDetails: {
-      type: 'INDIVIDUAL',
-      title: 'title',
-      fullName: 'fullName'
+    claimantName: {
+      value: 'fullName'
     },
     address: {
       line1: 'Apt 99',
@@ -30,10 +28,8 @@ const claimants = {
     }
   },
     {
-      claimantDetails: {
-        type: 'INDIVIDUAL',
-        title: 'title',
-        fullName: 'fullName'
+      claimantName: {
+        value: 'fullName'
       },
       address: {
         line1: 'Apt 99',
@@ -62,7 +58,7 @@ describe('Claim issue: Claimant change page', () => {
       await request(app)
         .get(ClaimPaths.claimantChangePage.uri + '?index=1')
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimantTypePage.uri))
+        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimantNamePage.uri))
     })
 
     it('should redirect to claimant address page for one existing claimant when everything is fine', async () => {

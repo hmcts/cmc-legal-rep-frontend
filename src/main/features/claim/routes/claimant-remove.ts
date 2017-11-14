@@ -18,7 +18,7 @@ export default express.Router()
       if (res.locals.user.legalClaimDraft.document.claimants.length > 0) {
         res.redirect(Paths.claimantAdditionPage.uri)
       } else {
-        res.redirect(Paths.claimantTypePage.uri)
+        res.redirect(Paths.claimantNamePage.uri)
       }
 
     })

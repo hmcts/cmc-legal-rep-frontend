@@ -45,18 +45,7 @@
         {{ tableStart('claimantName'+loop.index, 'Claimant ' + loop.index + ' details') }}
       {% endif %}
 
-      {% if claimant.claimantDetails.title %}
-        {% set claimantFullName = claimant.claimantDetails.title + ' ' + claimant.claimantDetails.fullName %}
-      {% else %}
-        {% set claimantFullName = claimant.claimantDetails.fullName %}
-      {% endif %}
-
-      {% if claimant.claimantDetails.type.value === 'INDIVIDUAL' %}
-        {{ row('Name', claimantFullName, changeClaimantLink) }}
-      {% else %}
-        {{ row('Organisation name', claimant.claimantDetails.organisation, changeClaimantLink) }}
-        {{ row('Companies House number', claimant.claimantDetails.companyHouseNumber, changeClaimantLink) }}
-      {% endif %}
+      {{ row('Name', claimant.claimantName.value, changeClaimantLink) }}
 
       {{ rowWithMultipleValue(
       label = 'Address',

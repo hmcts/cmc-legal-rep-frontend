@@ -20,15 +20,8 @@ export const sampleClaimObj = {
         city: 'London',
         postcode: 'NE8 3BA'
       },
-      claimantDetails: {
-        type: {
-          value: PartyTypes.INDIVIDUAL.dataStoreValue,
-          displayValue: 'An individual',
-          dataStoreValue: 'individual'
-        },
-        fullName: 'no name',
-        organisation: null,
-        companyHouseNumber: null
+      claimantName: {
+        value: 'no name'
       },
       type: PartyTypes.INDIVIDUAL.dataStoreValue,
       title: 'Mr',

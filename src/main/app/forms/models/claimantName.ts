@@ -3,16 +3,14 @@ import { IsDefined, MaxLength } from 'class-validator'
 import { IsNotBlank } from 'app/forms/validation/validators/isNotBlank'
 
 export class ValidationErrors {
-  static readonly CLAIMANT_TYPE_REQUIRED: string = 'Choose a type of claimant'
-  static readonly FULLNAME_REQUIRED: string = 'Enter a full name'
-  static readonly ORGANISATION_NAME_REQUIRED: string = 'Enter an organisation name'
+  static readonly NAME_REQUIRED: string = 'Enter a name'
   static readonly CONTENT_TOO_LONG: string = 'You’ve entered too many characters'
 }
 
 export class ClaimantName implements Serializable<ClaimantName> {
 
-  @IsDefined({ message: ValidationErrors.FULLNAME_REQUIRED })
-  @IsNotBlank({ message: ValidationErrors.FULLNAME_REQUIRED })
+  @IsDefined({ message: ValidationErrors.NAME_REQUIRED })
+  @IsNotBlank({ message: ValidationErrors.NAME_REQUIRED })
   @MaxLength(70, { message: ValidationErrors.CONTENT_TOO_LONG })
   value?: string
 
