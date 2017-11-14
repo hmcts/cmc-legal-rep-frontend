@@ -166,7 +166,7 @@ describe('Defendant Details', () => {
       })
     })
 
-    it('should accept defendant details for defendant type when fullName length is 70', () => {
+    it('should accept defendant details for defendant type when value length is 70', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.INDIVIDUAL,
           'title', randomstring.generate(70), undefined, undefined))

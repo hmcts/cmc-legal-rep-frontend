@@ -32,10 +32,10 @@ export class Claimants {
 
   static getCurrentClaimantName (res: express.Response): string {
     const claimants = res.locals.user.legalClaimDraft.document.claimants
-    const claimantDetails = claimants[Claimants.getIndex(res)].claimantDetails
+    const claimantDetails = claimants[Claimants.getIndex(res)].claimantName
     const isIndividual = claimantDetails.type.value === PartyTypes.INDIVIDUAL.value
     const title = claimantDetails.title != null ? `${claimantDetails.title} ` : claimantDetails.title
-    return isIndividual ? `${title}${claimantDetails.fullName}` : claimantDetails.organisation
+    return isIndividual ? `${title}${claimantDetails.value}` : claimantDetails.organisation
   }
 
   static getIndex (res: express.Response): number {

@@ -36,13 +36,13 @@
 
       {% if loop.length == 1 %}
 
-        {{ tableStart('claimantDetails', 'Claimant details') }}
+        {{ tableStart('claimantName', 'Claimant details') }}
         {% set changeClaimantLink = paths.claimantTypePage.uri %}
         {% set changeClaimantAddressPageLink = paths.claimantAddressPage.uri %}
       {% else %}
         {% set changeClaimantLink = '/legal/claim/claimant-change?index='+ loop.index %}
         {% set changeClaimantAddressPageLink = '/legal/claim/claimant-change?index='+ loop.index + '&page=address' %}
-        {{ tableStart('claimantDetails'+loop.index, 'Claimant ' + loop.index + ' details') }}
+        {{ tableStart('claimantName'+loop.index, 'Claimant ' + loop.index + ' details') }}
       {% endif %}
 
       {% if claimant.claimantDetails.title %}
