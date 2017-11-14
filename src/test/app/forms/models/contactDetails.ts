@@ -95,6 +95,20 @@ describe('ContactDetails', () => {
       expect(errors.length).to.equal(1)
       expectValidationError(errors, ValidationErrors.EMAIL_NOT_VALID)
     })
+
+    it('should reject invalid email address with missing domain', () => {
+      const errors = validator.validateSync(new ContactDetails('01269055505', 'email@example', randomstring.generate(255)))
+
+      expect(errors.length).to.equal(1)
+      expectValidationError(errors, ValidationErrors.EMAIL_NOT_VALID)
+    })
+
+    it('should reject invalid email address which is whitespace', () => {
+      const errors = validator.validateSync(new ContactDetails('01269055505', ' ', randomstring.generate(255)))
+
+      expect(errors.length).to.equal(1)
+      expectValidationError(errors, ValidationErrors.EMAIL_NOT_VALID)
+    })
   })
 
   describe('fromObject', () => {
