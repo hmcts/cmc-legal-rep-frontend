@@ -100,6 +100,20 @@ describe('Claim issue: Enter claim range page', () => {
               ValidationErrors.LOWER_VALUE_AMOUNT_NOT_VALID,
               ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID))
       })
+      it('valid lower value but no higher value', async () => {
+        await request(app)
+          .post(ClaimPaths.claimAmountPage.uri)
+          .set('Cookie', `${cookieName}=ABC`)
+          .send({
+            cannotState: '',
+            lowerValue: '45',
+            higherValue: ''
+          })
+          .expect(res => expect(res).to.be.successful
+            .withText('Enter claim value',
+              'div class="error-summary"',
+              ValidationErrors.VALID_SELECTION_REQUIRED))
+      })
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
