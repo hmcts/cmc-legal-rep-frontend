@@ -18,7 +18,8 @@ export class DocumentType implements Serializable<DocumentType> {
   otherDocuments?: string
 
   constructor (types?: string[], otherDocuments?: string) {
-    this.types = types
+    const defaultedValues = []
+    this.types = defaultedValues.concat(types)
     this.otherDocuments = otherDocuments
   }
 

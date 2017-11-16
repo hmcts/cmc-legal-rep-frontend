@@ -50,7 +50,8 @@
   },
   "featureToggles": {
     "idamOauth": false,
-    "dashboard": false
+    "dashboard": false,
+    "certificateOfService": false
   },
   "documentManagement" : {
     "url": "http://localhost:8085"

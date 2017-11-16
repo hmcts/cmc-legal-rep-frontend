@@ -75,3 +75,35 @@ ul {
   background-size: 50%;
   margin-left: -5px;
 }
+
+.multiple-choice {
+  .tick {
+    &::before {
+      background: transparent;
+      border: 0;
+      content: '';
+      height: 34px;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 34px;
+    }
+
+    &::after {
+      background: transparent;
+      border: solid;
+      border-top-color: transparent;
+      border-width: 0 0 5px 5px;
+      content: '';
+      filter: alpha(opacity=0);
+      height: 7px;
+      left: 8px;
+      opacity: 1;
+      position: absolute;
+      top: 10px;
+      transform: rotate(-45deg);
+      width: 17px;
+      zoom: 1;
+    }
+  }
+}

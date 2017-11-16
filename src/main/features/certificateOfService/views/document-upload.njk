@@ -10,6 +10,24 @@
     <div class="column-two-thirds">
       <form action="/legal/certificateOfService/document-upload?_csrf={{ csrf }}" novalidate method="post" enctype="multipart/form-data">
 
+        <p>{{ t('Use this page to send the County Court the following documents you’ve served on the defendant.') }}</p>
+
+        <div class="form-group">
+          <label class="bold-small">{{ t('Claim form') }}</label>
+          <label class="form-hint">{{ t('Not required') }}</label>
+        </div>
+
+        <div class="form-group">
+          <label class="bold-small">{{ t('Response pack') }}</label>
+          <label class="form-hint">{{ t('Not required') }}</label>
+        </div>
+
+        {% for type in types %}
+          {% if type == 'responsePack' %}
+
+          {% endif %}
+        {% endfor %}
+
         <div class="form-group">
           <label for="files"></label>
           <input type="file" id="files" name="files" multiple>

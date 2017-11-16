@@ -23,6 +23,14 @@ export default express.Router()
       } else {
         res.locals.user.legalCertificateOfServiceDraft.document.whatDocuments = form.model
         await new DraftService().save(res.locals.user.legalCertificateOfServiceDraft, res.locals.user.bearerToken)
+        // if (res.locals.user.legalCertificateOfServiceDraft && res.locals.user.legalCertificateOfServiceDraft['id']) {
+        //   console.log('deleted draft')
+        //   try {
+        //     await new DraftService().delete(res.locals.user.legalCertificateOfServiceDraft['id'], res.locals.user.bearerToken)
+        //   } catch (err) {
+        //     next(err)
+        //   }
+        // }
         res.redirect(Paths.documentUploadPage.uri)
       }
 

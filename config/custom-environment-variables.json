@@ -44,7 +44,8 @@
   },
   "featureToggles": {
     "idamOauth": "FEATURE_IDAM_OAUTH",
-    "dashboard": "FEATURE_DASHBOARD"
+    "dashboard": "FEATURE_DASHBOARD",
+    "certificateOfService": "FEATURE_CERTIFICATE_OF_SERVICE"
   },
   "documentManagement" : {
     "url": "DOCUMENT_MANAGEMENT_URL"

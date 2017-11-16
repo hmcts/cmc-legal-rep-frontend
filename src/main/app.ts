@@ -61,7 +61,9 @@ if (env !== 'mocha') {
 }
 
 new ClaimIssueFeature().enableFor(app)
-new CertificateOfServiceFeature().enableFor(app)
+if (toBoolean(config.get<boolean>('featureToggles.certificateOfService'))) {
+  new CertificateOfServiceFeature().enableFor(app)
+}
 if (toBoolean(config.get<boolean>('featureToggles.dashboard'))) {
   new DashboardFeature().enableFor(app)
 }
