@@ -1,7 +1,8 @@
 import { Serializable } from 'app/models/serializable'
 import { Search } from 'forms/models/search'
+import { DraftDocument } from '@hmcts/cmc-draft-store-middleware'
 
-export class DraftDashboard implements Serializable<DraftDashboard> {
+export class DraftDashboard extends DraftDocument implements Serializable<DraftDashboard> {
   search: Search = new Search()
 
   deserialize (input: any): DraftDashboard {

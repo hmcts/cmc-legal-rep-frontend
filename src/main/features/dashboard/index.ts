@@ -8,8 +8,9 @@ import { AuthorizationMiddleware } from 'idam/authorizationMiddleware'
 import { RouterFinder } from 'common/router/routerFinder'
 import { buildURL } from 'utils/callbackBuilder'
 import { OAuthHelper } from 'idam/oAuthHelper'
-import { DraftMiddleware } from 'common/draft/draftMiddleware'
 import { DraftDashboard } from 'drafts/models/draftDashboard'
+import { DraftService } from 'services/draftService'
+import { DraftMiddleware } from '@hmcts/cmc-draft-store-middleware'
 
 function dashboardRequestHandler (): express.RequestHandler {
   function accessDeniedCallback (req: express.Request, res: express.Response): void {
@@ -30,8 +31,8 @@ export class DashboardFeature {
   enableFor (app: express.Express) {
     app.all(/^\/(legal\/dashboard.*)$/, dashboardRequestHandler())
 
-    app.all(/^\/(legal\/dashboard.*)$/, DraftMiddleware.requestHandler<DraftDashboard>('dashboard',
-      (value: any): DraftDashboard => {
+    app.all(/^\/(legal\/dashboard.*)$/,
+      DraftMiddleware.requestHandler<DraftDashboard>(new DraftService(), 'dashboard', 100, (value: any): DraftDashboard => {
         return new DraftDashboard().deserialize(value)
       }))
 

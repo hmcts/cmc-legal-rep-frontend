@@ -26,7 +26,8 @@
   },
   "dependencies": {
     "@hmcts/cmc-common-frontend": "^1.18.1",
-    "@hmcts/draft-store-client": "^1.1.1",
+    "@hmcts/cmc-draft-store-middleware": "^1.0.0",
+    "@hmcts/draft-store-client": "^1.2.1",
     "@hmcts/nodejs-healthcheck": "^1.4.3",
     "@hmcts/nodejs-logging": "^1.4.2",
     "@types/config": "^0.0.33",
@@ -79,7 +80,8 @@
     "to-boolean": "^1.0.0",
     "ts-node": "^3.3.0",
     "tsconfig-paths": "^2.2.0",
-    "typescript": "^2.4.2"
+    "typescript": "^2.4.2",
+    "url-parse": "^1.2.0"
   },
   "devDependencies": {
     "@types/chai": "^4.0.4",

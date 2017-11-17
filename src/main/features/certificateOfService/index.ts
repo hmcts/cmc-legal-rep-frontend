@@ -8,8 +8,9 @@ import { AuthorizationMiddleware } from 'idam/authorizationMiddleware'
 import { RouterFinder } from 'common/router/routerFinder'
 import { buildURL } from 'utils/callbackBuilder'
 import { OAuthHelper } from 'idam/oAuthHelper'
-import { DraftMiddleware } from 'common/draft/draftMiddleware'
 import { DraftCertificateOfService } from 'drafts/models/draftCertificateOfService'
+import { DraftMiddleware } from '@hmcts/cmc-draft-store-middleware'
+import { DraftService } from 'services/draftService'
 import DraftUploadDocument from 'drafts/models/draftUploadDocument'
 
 function certificateOfServiceRequestHandler (): express.RequestHandler {
@@ -30,13 +31,13 @@ function certificateOfServiceRequestHandler (): express.RequestHandler {
 export class Feature {
   enableFor (app: express.Express) {
     app.all('/legal/certificateOfService/*', certificateOfServiceRequestHandler())
-    app.all(/^\/legal\/certificateOfService\/.*$/, DraftMiddleware.requestHandler<DraftCertificateOfService>('legalCertificateOfService',
-      (value: any): DraftCertificateOfService => {
+    app.all(/^\/legal\/certificateOfService\/.*$/,
+      DraftMiddleware.requestHandler<DraftCertificateOfService>(new DraftService(), 'legalCertificateOfService', 100, (value: any): DraftCertificateOfService => {
         return new DraftCertificateOfService().deserialize(value)
       }))
 
-    app.all(/^\/legal\/certificateOfService\/document-upload$/, DraftMiddleware.requestHandler<DraftUploadDocument>('legalUploadDocument',
-      (value: any): DraftUploadDocument => {
+    app.all(/^\/legal\/certificateOfService\/document-upload$/,
+      DraftMiddleware.requestHandler<DraftUploadDocument>(new DraftService(),'legalUploadDocument', 100, (value: any): DraftUploadDocument => {
         return new DraftUploadDocument().deserialize(value)
       }))
 

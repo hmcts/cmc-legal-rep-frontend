@@ -119,7 +119,7 @@ export function resolveFind (draftType: string, draftOverride?: object): mock.Sc
   }
 
   return mock(serviceBaseURL)
-    .get(new RegExp('/drafts(\\?|\\&)([^=]+)\\=([^&]+)'))
+    .get(new RegExp('/drafts.*'))
     .reply(HttpStatus.OK, {
       data: [{
         id: 100,
