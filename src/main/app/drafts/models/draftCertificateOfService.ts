@@ -1,16 +1,22 @@
 import { Serializable } from 'models/serializable'
 import { UploadedDocument } from 'claims/models/uploadedDocument'
-import { DocumentType } from 'app/forms/models/documentType'
+import { WhatDocuments } from 'app/forms/models/whatDocuments'
 import { DraftDocument } from '@hmcts/cmc-draft-store-middleware'
 
 export class DraftCertificateOfService extends DraftDocument implements Serializable<DraftCertificateOfService> {
-  uploadedDocuments: UploadedDocument = new UploadedDocument()
-  whatDocuments: DocumentType = new DocumentType()
+  uploadedDocuments: UploadedDocument[] = [new UploadedDocument()]
+  whatDocuments: WhatDocuments = new WhatDocuments()
 
   deserialize (input: any): DraftCertificateOfService {
     if (input) {
       this.uploadedDocuments = input.uploadedDocuments
       this.whatDocuments = input.whatDocuments
+
+      if (input.uploadedDocuments && input.uploadedDocuments.length > 0) {
+        let uploadedDocuments: UploadedDocument[] = []
+        input.uploadedDocuments.map((uploadedDocument) => uploadedDocuments.push(new UploadedDocument().deserialize(uploadedDocument)))
+        this.uploadedDocuments = uploadedDocuments
+      }
     }
 
     return this

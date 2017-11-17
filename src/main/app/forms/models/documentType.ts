@@ -1,41 +1,27 @@
-import { MaxLength, ValidateIf, IsDefined } from 'class-validator'
-import { IsNotBlank } from 'app/forms/validation/validators/isNotBlank'
-import { Serializable } from 'models/serializable'
+export class DocumentType {
+  static readonly PARTICULARS_OF_CLAIM = new DocumentType('PARTICULARS_OF_CLAIM', 'Particulars of claim', 'particularsOfClaim')
+  static readonly RESPONSE_PACK = new DocumentType('RESPONSE_PACK', 'Response pack', 'responsePack')
+  static readonly MEDICAL_REPORTS = new DocumentType('MEDICAL_REPORTS', 'Medical reports', 'medicalReports')
+  static readonly SCHEDULE_OF_LOSS = new DocumentType('SCHEDULE_OF_LOSS', 'Schedule of loss', 'scheduleOfLoss')
+  static readonly OTHER = new DocumentType('OTHER', 'Other documents', 'other')
 
-export class ValidationErrors {
-  static readonly OTHER_DOCUMENTS_TOO_LONG: string = 'You’ve entered too many characters'
-  static readonly OTHER_DOCUMENTS_REQUIRED: string = 'Enter a description'
-}
+  readonly value: string
+  readonly displayValue: string
+  readonly dataStoreValue: string
 
-export class DocumentType implements Serializable<DocumentType> {
-
-  types?: string[]
-
-  @ValidateIf(o => o.types.indexOf('other') !== -1)
-  @MaxLength(255, { message: ValidationErrors.OTHER_DOCUMENTS_TOO_LONG })
-  @IsDefined({ message: ValidationErrors.OTHER_DOCUMENTS_REQUIRED })
-  @IsNotBlank({ message: ValidationErrors.OTHER_DOCUMENTS_REQUIRED })
-  otherDocuments?: string
-
-  constructor (types?: string[], otherDocuments?: string) {
-    const defaultedValues = []
-    this.types = defaultedValues.concat(types)
-    this.otherDocuments = otherDocuments
+  constructor (value: string, displayValue: string, dataStoreValue: string) {
+    this.value = value
+    this.displayValue = displayValue
+    this.dataStoreValue = dataStoreValue
   }
 
-  static fromObject (value?: any): DocumentType {
-    if (value != null) {
-      return new DocumentType(value.types, value.otherDocuments)
-    }
-
-    return new DocumentType()
-  }
-
-  deserialize (input: any): DocumentType {
-    if (input) {
-      this.types = input.types
-      this.otherDocuments = input.otherDocuments
-    }
-    return this
+  static all (): DocumentType[] {
+    return [
+      DocumentType.PARTICULARS_OF_CLAIM,
+      DocumentType.RESPONSE_PACK,
+      DocumentType.MEDICAL_REPORTS,
+      DocumentType.SCHEDULE_OF_LOSS,
+      DocumentType.OTHER
+    ]
   }
 }
