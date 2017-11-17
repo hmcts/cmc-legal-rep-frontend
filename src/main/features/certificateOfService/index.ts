@@ -10,6 +10,7 @@ import { buildURL } from 'utils/callbackBuilder'
 import { OAuthHelper } from 'idam/oAuthHelper'
 import { DraftMiddleware } from 'common/draft/draftMiddleware'
 import { DraftCertificateOfService } from 'drafts/models/draftCertificateOfService'
+import DraftUploadDocument from 'drafts/models/draftUploadDocument'
 
 function certificateOfServiceRequestHandler (): express.RequestHandler {
   function accessDeniedCallback (req: express.Request, res: express.Response): void {
@@ -32,6 +33,11 @@ export class Feature {
     app.all(/^\/legal\/certificateOfService\/.*$/, DraftMiddleware.requestHandler<DraftCertificateOfService>('legalCertificateOfService',
       (value: any): DraftCertificateOfService => {
         return new DraftCertificateOfService().deserialize(value)
+      }))
+
+    app.all(/^\/legal\/certificateOfService\/document-upload$/, DraftMiddleware.requestHandler<DraftUploadDocument>('legalUploadDocument',
+      (value: any): DraftUploadDocument => {
+        return new DraftUploadDocument().deserialize(value)
       }))
 
     app.use('/', RouterFinder.findAll(path.join(__dirname, 'routes')))

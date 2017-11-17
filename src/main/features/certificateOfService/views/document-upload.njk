@@ -3,44 +3,69 @@
 {% set title = t('Money claim') %}
 {% set heading = t('Upload your documents') %}
 
-{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary %}
+{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, submitButton %}
 
 {% block content %}
   <div class="grid-row">
     <div class="column-two-thirds">
-      <form action="/legal/certificateOfService/document-upload?_csrf={{ csrf }}" novalidate method="post" enctype="multipart/form-data">
+      <form novalidate method="post">
+        {{ csrfProtection(csrf) }}
 
         <p>{{ t('Use this page to send the County Court the following documents you’ve served on the defendant.') }}</p>
 
         <div class="form-group">
-          <label class="bold-small">{{ t('Claim form') }}</label>
+          <label class="form-label-bold">{{ t('Claim form') }}</label>
           <label class="form-hint">{{ t('Not required') }}</label>
         </div>
 
         <div class="form-group">
-          <label class="bold-small">{{ t('Response pack') }}</label>
-          <label class="form-hint">{{ t('Not required') }}</label>
-        </div>
-
-        {% for type in types %}
-          {% if type == 'responsePack' %}
-
+          <label class="form-label-bold">{{ t('Particulars of claim') }}</label>
+          {% if fileToUpload == 'particularsOfClaim' %}
+              {% include "includes/file-upload-form.njk" %}
+          {% else %}
+            <input type="submit" name="particularsOfClaim" class="button button-secondary" value="{{ t('Add file') }}"{% if fileToUpload != '' %} disabled{% endif %} />
           {% endif %}
-        {% endfor %}
-
-        <div class="form-group">
-          <label for="files"></label>
-          <input type="file" id="files" name="files" multiple>
         </div>
 
         <div class="form-group">
-          <h2>Uploaded Documents</h2>
-          <a href="/legal/HO00004283.jpg">download file</a>
+          <label class="form-label-bold">{{ t('Response pack') }}</label>
+          <label class="form-hint">{{ t('Not required') }}</label>
         </div>
 
-        <div class="form-group">
-          {{ saveAndContinueButton() }}
-        </div>
+        {% if whatDocuments.types.indexOf('medicalReport') != -1 %}
+          <div class="form-group">
+            <label class="form-label-bold">{{ t('Medical reports') }}</label>
+            {% if fileToUpload == 'medicalReport' %}
+              {% include "includes/file-upload-form.njk" %}
+            {% else %}
+              <input type="submit" name="medicalReport" class="button button-secondary" value="{{ t('Add file') }}"{% if fileToUpload != '' %} disabled{% endif %} />
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if whatDocuments.types.indexOf('scheduleOfLoss') != -1 %}
+          <div class="form-group">
+            <label class="form-label-bold">{{ t('Schedule of loss') }}</label>
+            {% if fileToUpload == 'scheduleOfLoss' %}
+              {% include "includes/file-upload-form.njk" %}
+            {% else %}
+              <input type="submit" name="scheduleOfLoss" class="button button-secondary" value="{{ t('Add file') }}"{% if fileToUpload != '' %} disabled{% endif %} />
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if whatDocuments.types.indexOf('other') != -1 %}
+          <div class="form-group">
+            <label for="other" class="form-label-bold">{{ t('Other') }}</label>
+            <label for="other" class="form-hint">{{ whatDocuments.otherDocuments }}</label>
+            {% if fileToUpload == 'other' %}
+              {% include "includes/file-upload-form.njk" %}
+            {% else %}
+              <input type="submit" name="other" class="button button-secondary" value="{{ t('Add file') }}"{% if fileToUpload != '' %} disabled{% endif %} />
+            {% endif %}
+          </div>
+        {% endif %}
+
       </form>
     </div>
   </div>
