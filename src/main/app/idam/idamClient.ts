@@ -1,7 +1,7 @@
 import * as config from 'config'
 import * as otp from 'otp'
+import { request } from 'client/request'
 
-import request from 'client/request'
 import User from 'idam/user'
 import { AuthToken } from 'idam/authToken'
 import ServiceAuthToken from 'idam/serviceAuthToken'
@@ -17,6 +17,7 @@ class ServiceAuthRequest {
     this.oneTimePassword = oneTimePassword
   }
 }
+
 export default class IdamClient {
   static retrieveServiceToken (): Promise<ServiceAuthToken> {
     const oneTimePassword = otp({ secret: totpSecret }).totp()

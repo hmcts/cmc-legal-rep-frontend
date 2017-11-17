@@ -1,6 +1,6 @@
 import * as config from 'config'
 import ClaimValidator from 'app/utils/claimValidator'
-import request from 'client/request'
+import { request } from 'client/request'
 import { Amount } from 'forms/models/amount'
 import MoneyConverter from 'app/fees/moneyConverter'
 import { FeeResponse } from 'fees/model/feeResponse'

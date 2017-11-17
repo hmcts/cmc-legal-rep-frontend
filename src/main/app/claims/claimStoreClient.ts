@@ -1,4 +1,4 @@
-import request from 'client/request'
+import { request } from 'client/request'
 import * as config from 'config'
 import Claim from 'app/claims/models/claim'
 import User from 'app/idam/user'
