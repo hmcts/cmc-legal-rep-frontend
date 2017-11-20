@@ -22,11 +22,13 @@ export default express.Router()
         renderView(form, res)
       } else {
         res.locals.user.legalCertificateOfServiceDraft.document.whatDocuments = form.model
-        res.locals.user.legalCertificateOfServiceDraft.document.fileToUpload = undefined
+        res.locals.user.legalUploadDocumentDraft.document.fileToUpload = undefined
         await new DraftService().save(res.locals.user.legalCertificateOfServiceDraft, res.locals.user.bearerToken)
+        await new DraftService().save(res.locals.user.legalUploadDocumentDraft, res.locals.user.bearerToken)
         if (res.locals.user.legalCertificateOfServiceDraft && res.locals.user.legalCertificateOfServiceDraft['id']) {
           try {
             await new DraftService().delete(res.locals.user.legalCertificateOfServiceDraft['id'], res.locals.user.bearerToken)
+            await new DraftService().delete(res.locals.user.legalUploadDocumentDraft['id'], res.locals.user.bearerToken)
           } catch (err) {
             next(err)
           }

@@ -27,10 +27,10 @@
               <a href="">Remove</a>
             </div>
           {% endfor %}
-          {% if fileToUpload == 'PARTICULARS_OF_CLAIM' %}
+          {% if fileToUpload.value == 'PARTICULARS_OF_CLAIM' %}
               {% include "includes/file-upload-form.njk" %}
           {% else %}
-            <input type="submit" name="particularsOfClaim" class="button button-secondary" value="{{ t('Add file') }}"{% if fileToUpload == undefined %} disabled{% endif %} />
+            <input type="submit" name="particularsOfClaim" class="button button-secondary" value="{{ t('Add file') }}"{% if fileToUpload %} disabled{% endif %} />
           {% endif %}
         </div>
 
@@ -42,10 +42,16 @@
         {% if whatDocuments.types.indexOf('medicalReport') != -1 %}
           <div class="form-group">
             <label class="form-label-bold">{{ t('Medical reports') }}</label>
-            {% if fileToUpload == 'MEDICAL_REPORTS' %}
+            {% for file in medicalReports %}
+              <div class="form-group">
+                <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                <a href="">Remove</a>
+              </div>
+            {% endfor %}
+            {% if fileToUpload.value == 'MEDICAL_REPORTS' %}
               {% include "includes/file-upload-form.njk" %}
             {% else %}
-              <input type="submit" name="medicalReport" class="button button-secondary" value="{{ t('Add file') }}"{% if fileToUpload != '' %} disabled{% endif %} />
+              <input type="submit" name="medicalReport" class="button button-secondary" value="{{ t('Add file') }}"{% if fileToUpload %} disabled{% endif %} />
             {% endif %}
           </div>
         {% endif %}
@@ -53,10 +59,16 @@
         {% if whatDocuments.types.indexOf('scheduleOfLoss') != -1 %}
           <div class="form-group">
             <label class="form-label-bold">{{ t('Schedule of loss') }}</label>
-            {% if fileToUpload == 'SCHEDULE_OF_LOSS' %}
+            {% for file in scheduleOfLoss %}
+              <div class="form-group">
+                <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                <a href="">Remove</a>
+              </div>
+            {% endfor %}
+            {% if fileToUpload.value == 'SCHEDULE_OF_LOSS' %}
               {% include "includes/file-upload-form.njk" %}
             {% else %}
-              <input type="submit" name="scheduleOfLoss" class="button button-secondary" value="{{ t('Add file') }}"{% if fileToUpload != '' %} disabled{% endif %} />
+              <input type="submit" name="scheduleOfLoss" class="button button-secondary" value="{{ t('Add file') }}"{% if fileToUpload %} disabled{% endif %} />
             {% endif %}
           </div>
         {% endif %}
@@ -65,14 +77,20 @@
           <div class="form-group">
             <label for="other" class="form-label-bold">{{ t('Other') }}</label>
             <label for="other" class="form-hint">{{ whatDocuments.otherDocuments }}</label>
-            {% if fileToUpload == 'OTHER' %}
+            {% for file in other %}
+              <div class="form-group">
+                <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                <a href="">Remove</a>
+              </div>
+            {% endfor %}
+            {% if fileToUpload.value == 'OTHER' %}
               {% include "includes/file-upload-form.njk" %}
             {% else %}
-              <input type="submit" name="other" class="button button-secondary" value="{{ t('Add file') }}"{% if fileToUpload != '' %} disabled{% endif %} />
+              <input type="submit" name="other" class="button button-secondary" value="{{ t('Add file') }}"{% if fileToUpload %} disabled{% endif %} />
             {% endif %}
           </div>
         {% endif %}
-    {% if fileToUpload == undefined %}
+    {% if not fileToUpload %}
       </form>
     {% endif %}
     </div>

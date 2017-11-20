@@ -1,4 +1,5 @@
 import { Serializable } from 'models/serializable'
+import { DocumentType } from 'forms/models/documentType'
 
 export class UploadedDocument implements Serializable<UploadedDocument> {
   fileName: string
