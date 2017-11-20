@@ -21,12 +21,22 @@
 
         <div class="form-group">
           <label class="form-label-bold">{{ t('Particulars of claim') }}</label>
-          {% for file in particularsOfClaim %}
-            <div class="form-group">
-              <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
-              <a href="">Remove</a>
+          {% if particularsOfClaim.length > 0 %}
+            <div class="form-group task">
+              <ul class="list-number">
+                {% for file in particularsOfClaim %}
+                  <li>
+                    <div class="column-two-thirds">
+                      <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                    </div>
+                    <div class="column-third">
+                      <a class="" href="#">Remove</a>
+                    </div>
+                  </li>
+                {% endfor %}
+              </ul>
             </div>
-          {% endfor %}
+          {% endif %}
           {% if fileToUpload.value == 'PARTICULARS_OF_CLAIM' %}
               {% include "includes/file-upload-form.njk" %}
           {% else %}
@@ -42,12 +52,22 @@
         {% if whatDocuments.types.indexOf('medicalReport') != -1 %}
           <div class="form-group">
             <label class="form-label-bold">{{ t('Medical reports') }}</label>
-            {% for file in medicalReports %}
-              <div class="form-group">
-                <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
-                <a href="">Remove</a>
+            {% if medicalReport.length > 0 %}
+              <div class="form-group task">
+                <ul class="list-number">
+                  {% for file in medicalReport %}
+                    <li>
+                      <div class="column-two-thirds">
+                        <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                      </div>
+                      <div class="column-third">
+                        <a class="" href="#">Remove</a>
+                      </div>
+                    </li>
+                  {% endfor %}
+                </ul>
               </div>
-            {% endfor %}
+            {% endif %}
             {% if fileToUpload.value == 'MEDICAL_REPORTS' %}
               {% include "includes/file-upload-form.njk" %}
             {% else %}
@@ -59,12 +79,22 @@
         {% if whatDocuments.types.indexOf('scheduleOfLoss') != -1 %}
           <div class="form-group">
             <label class="form-label-bold">{{ t('Schedule of loss') }}</label>
-            {% for file in scheduleOfLoss %}
-              <div class="form-group">
-                <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
-                <a href="">Remove</a>
+            {% if scheduleOfLoss.length > 0 %}
+              <div class="form-group task">
+                <ul class="list-number">
+                  {% for file in scheduleOfLoss %}
+                    <li>
+                      <div class="column-two-thirds">
+                        <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                      </div>
+                      <div class="column-third">
+                        <a class="" href="#">Remove</a>
+                      </div>
+                    </li>
+                  {% endfor %}
+                </ul>
               </div>
-            {% endfor %}
+            {% endif %}
             {% if fileToUpload.value == 'SCHEDULE_OF_LOSS' %}
               {% include "includes/file-upload-form.njk" %}
             {% else %}
@@ -77,12 +107,22 @@
           <div class="form-group">
             <label for="other" class="form-label-bold">{{ t('Other') }}</label>
             <label for="other" class="form-hint">{{ whatDocuments.otherDocuments }}</label>
-            {% for file in other %}
-              <div class="form-group">
-                <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
-                <a href="">Remove</a>
+            {% if other.length > 0 %}
+              <div class="form-group task">
+                <ul class="list-number">
+                  {% for file in other %}
+                    <li>
+                      <div class="column-two-thirds">
+                        <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                      </div>
+                      <div class="column-third">
+                        <a class="" href="#">Remove</a>
+                      </div>
+                    </li>
+                  {% endfor %}
+                </ul>
               </div>
-            {% endfor %}
+            {% endif %}
             {% if fileToUpload.value == 'OTHER' %}
               {% include "includes/file-upload-form.njk" %}
             {% else %}

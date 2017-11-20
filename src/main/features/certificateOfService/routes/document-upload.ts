@@ -9,9 +9,9 @@ function renderView (res: express.Response): void {
   const particularsOfClaim = files.filter(function (file: UploadedDocument) {
     // console.log(file.documentType)
     // console.log(DocumentType.PARTICULARS_OF_CLAIM)
-    return file.documentType === DocumentType.PARTICULARS_OF_CLAIM
+    return file.documentType.value === DocumentType.PARTICULARS_OF_CLAIM.value
   })
-  const medicalReports = files.filter(function (file: UploadedDocument) {
+  const medicalReport = files.filter(function (file: UploadedDocument) {
     return file.documentType === DocumentType.MEDICAL_REPORTS
   })
   const scheduleOfLoss = files.filter(function (file: UploadedDocument) {
@@ -24,7 +24,7 @@ function renderView (res: express.Response): void {
   res.render(Paths.documentUploadPage.associatedView,
     {
       particularsOfClaim: particularsOfClaim,
-      medicalReports: medicalReports,
+      medicalReport: medicalReport,
       scheduleOfLoss: scheduleOfLoss,
       other: other,
       whatDocuments: res.locals.user.legalCertificateOfServiceDraft.document.whatDocuments,

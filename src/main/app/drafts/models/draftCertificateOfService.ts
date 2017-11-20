@@ -4,7 +4,7 @@ import { WhatDocuments } from 'app/forms/models/whatDocuments'
 import { DraftDocument } from '@hmcts/cmc-draft-store-middleware'
 
 export class DraftCertificateOfService extends DraftDocument implements Serializable<DraftCertificateOfService> {
-  uploadedDocuments: UploadedDocument[] = [new UploadedDocument()]
+  uploadedDocuments: UploadedDocument[] = []
   whatDocuments: WhatDocuments = new WhatDocuments()
 
   deserialize (input: any): DraftCertificateOfService {
