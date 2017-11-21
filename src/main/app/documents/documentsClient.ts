@@ -8,15 +8,18 @@ const claimStoreBaseUrl = config.get<string>('claim-store.url')
 export default class DocumentsClient {
 
   constructor (public documentsUrl: string = `${claimStoreBaseUrl}/documents`) {
+    this.documentsUrl = documentsUrl
   }
 
-  getSealedClaim (claimExternalId: string): http.IncomingMessage {
+  getSealedClaim (claimExternalId: string, bearerToken: string): http.IncomingMessage {
     if (StringUtils.isBlank(claimExternalId)) {
       throw new Error('Claim external ID cannot be blank')
     }
     return requestNonPromise.get({
-      uri: `${this.documentsUrl}/legalSealedClaim/${claimExternalId}`
+      uri: `${this.documentsUrl}/legalSealedClaim/${claimExternalId}`,
+      headers: {
+        Authorization: `Bearer ${bearerToken}`
+      }
     })
   }
-
 }
