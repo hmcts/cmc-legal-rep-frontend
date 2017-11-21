@@ -39,6 +39,11 @@ export default class Nunjucks {
       express: app
     })
 
+    app.use((req, res, next) => {
+      res.locals.pagePath = req.path
+      next()
+    })
+
     require('numeral/locales/en-gb')
     numeral.locale('en-gb')
     numeral.defaultFormat(NUMBER_FORMAT)
@@ -48,6 +53,8 @@ export default class Nunjucks {
     nunjucksEnv.addGlobal('development', this.developmentMode)
     nunjucksEnv.addGlobal('govuk_template_version', packageDotJson.dependencies.govuk_template_jinja)
     nunjucksEnv.addGlobal('customerSurveyUrl', config.get('feedback_legal_service_survey'))
+    nunjucksEnv.addGlobal('reportProblemSurveyUrl', config.get('feedback_legal_report_problem_survey'))
+    nunjucksEnv.addGlobal('betaFeedbackSurveyUrl', config.get('feedback_legal_survey'))
     nunjucksEnv.addGlobal('t', (key: string, options?: TranslationOptions): string => this.i18next.t(key, options))
     nunjucksEnv.addFilter('numeral', numeralFilter)
     nunjucksEnv.addFilter('date', dateFilter)
