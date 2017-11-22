@@ -25,7 +25,9 @@ export default express.Router()
 
           res.locals.user.legalUploadDocumentDraft.document.fileToUpload = undefined
           new DraftService().save(res.locals.user.legalUploadDocumentDraft, res.locals.user.bearerToken)
-          res.redirect(Paths.documentUploadPage.uri)
         })
+      })
+      .on('end', function () {
+        res.redirect(Paths.documentUploadPage.uri)
       })
   })

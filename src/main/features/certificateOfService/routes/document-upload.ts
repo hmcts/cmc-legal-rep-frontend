@@ -3,32 +3,48 @@ import { Paths } from 'certificateOfService/paths'
 import { DraftService } from '../../../services/draftService'
 import { UploadedDocument } from 'claims/models/uploadedDocument'
 import { DocumentType } from 'forms/models/documentType'
+import { WhatDocuments } from 'forms/models/whatDocuments'
 
 function renderView (res: express.Response): void {
   const files: UploadedDocument[] = res.locals.user.legalCertificateOfServiceDraft.document.uploadedDocuments
+  const fileToUpload: DocumentType = res.locals.user.legalUploadDocumentDraft.document.fileToUpload
+  const whatDocuments: WhatDocuments = res.locals.user.legalCertificateOfServiceDraft.document.whatDocuments
+
   const particularsOfClaim = files.filter(function (file: UploadedDocument) {
-    // console.log(file.documentType)
-    // console.log(DocumentType.PARTICULARS_OF_CLAIM)
     return file.documentType.value === DocumentType.PARTICULARS_OF_CLAIM.value
   })
   const medicalReport = files.filter(function (file: UploadedDocument) {
-    return file.documentType === DocumentType.MEDICAL_REPORTS
+    return file.documentType.value === DocumentType.MEDICAL_REPORTS.value
   })
   const scheduleOfLoss = files.filter(function (file: UploadedDocument) {
-    return file.documentType === DocumentType.SCHEDULE_OF_LOSS
+    return file.documentType.value === DocumentType.SCHEDULE_OF_LOSS.value
   })
   const other = files.filter(function (file: UploadedDocument) {
-    return file.documentType === DocumentType.OTHER
+    return file.documentType.value === DocumentType.OTHER.value
   })
-  const fileToUpload: DocumentType = res.locals.user.legalUploadDocumentDraft.document.fileToUpload
+
+  const minDifferentFilesRequired: number = whatDocuments.types.splice(whatDocuments.types.indexOf('responsePack'), 1).length
+  let differentFilesCount: number = 0
+  files.forEach(function (file: UploadedDocument) {
+    // console.log(file.documentType)
+    // console.log(whatDocuments)
+    if (whatDocuments.types.indexOf(file.documentType.value) !== -1 || file.documentType.value === DocumentType.PARTICULARS_OF_CLAIM.value) {
+      differentFilesCount++
+    }
+  })
+  const canContinue: boolean = minDifferentFilesRequired === differentFilesCount
+  // console.log(minDifferentFilesRequired)
+  // console.log(differentFilesCount)
+
   res.render(Paths.documentUploadPage.associatedView,
     {
       particularsOfClaim: particularsOfClaim,
       medicalReport: medicalReport,
       scheduleOfLoss: scheduleOfLoss,
       other: other,
-      whatDocuments: res.locals.user.legalCertificateOfServiceDraft.document.whatDocuments,
-      fileToUpload: fileToUpload
+      whatDocuments: whatDocuments,
+      fileToUpload: fileToUpload,
+      canContinue: canContinue
     })
 }
 
