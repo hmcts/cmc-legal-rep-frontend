@@ -22,16 +22,12 @@
         <div class="form-group">
           <label class="form-label-bold">{{ t('Particulars of claim') }}</label>
           {% if particularsOfClaim.length > 0 %}
-            <div class="form-group task">
-              <ul class="list-number">
+            <div class="form-group">
+              <ul class="list-number list-border">
                 {% for file in particularsOfClaim %}
                   <li>
-                    <div class="column-two-thirds">
-                      <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
-                    </div>
-                    <div class="column-third">
-                      <a class="" href="#">Remove</a>
-                    </div>
+                    <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                    <a class="" href="#">Remove</a>
                   </li>
                 {% endfor %}
               </ul>
@@ -53,16 +49,12 @@
           <div class="form-group">
             <label class="form-label-bold">{{ t('Medical reports') }}</label>
             {% if medicalReport.length > 0 %}
-              <div class="form-group task">
-                <ul class="list-number">
+              <div class="form-group">
+                <ul class="list-number list-border">
                   {% for file in medicalReport %}
                     <li>
-                      <div class="column-two-thirds">
-                        <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
-                      </div>
-                      <div class="column-third">
-                        <a class="" href="#">Remove</a>
-                      </div>
+                      <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                      <a class="" href="#">Remove</a>
                     </li>
                   {% endfor %}
                 </ul>
@@ -80,16 +72,12 @@
           <div class="form-group">
             <label class="form-label-bold">{{ t('Schedule of loss') }}</label>
             {% if scheduleOfLoss.length > 0 %}
-              <div class="form-group task">
-                <ul class="list-number">
+              <div class="form-group">
+                <ul class="list-number list-border">
                   {% for file in scheduleOfLoss %}
                     <li>
-                      <div class="column-two-thirds">
-                        <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
-                      </div>
-                      <div class="column-third">
-                        <a class="" href="#">Remove</a>
-                      </div>
+                      <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                      <a class="" href="#">Remove</a>
                     </li>
                   {% endfor %}
                 </ul>
@@ -108,16 +96,12 @@
             <label for="other" class="form-label-bold">{{ t('Other') }}</label>
             <label for="other" class="form-hint">{{ whatDocuments.otherDocuments }}</label>
             {% if other.length > 0 %}
-              <div class="form-group task">
-                <ul class="list-number">
+              <div class="form-group">
+                <ul class="list-number list-border">
                   {% for file in other %}
                     <li>
-                      <div class="column-two-thirds">
-                        <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
-                      </div>
-                      <div class="column-third">
-                        <a class="" href="#">Remove</a>
-                      </div>
+                      <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                      <a class="" href="#">Remove</a>
                     </li>
                   {% endfor %}
                 </ul>
@@ -131,6 +115,11 @@
           </div>
         {% endif %}
     {% if not fileToUpload %}
+        {% if canContinue %}
+          <div class="form-group">
+            {{ saveAndContinueButton() }}
+          </div>
+        {% endif %}
       </form>
     {% endif %}
     </div>
