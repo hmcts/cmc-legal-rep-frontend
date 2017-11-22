@@ -1,6 +1,6 @@
 import * as express from 'express'
 import { Paths } from 'certificateOfService/paths'
-import { DraftService } from '../../../services/draftService'
+import { DraftService } from 'services/draftService'
 import { UploadedDocument } from 'claims/models/uploadedDocument'
 import { DocumentType } from 'forms/models/documentType'
 

@@ -1,6 +1,13 @@
 <div class="phase-banner-beta">
   <p>
     <strong class="phase-tag">BETA</strong>
-    <span>This is a new service – your <a href="#">feedback</a> will help us to improve it.</span>
+    <span>
+      {{
+        t(
+        'This is a new service – your <a target="_blank" href="%s?pageurl=%s">feedback</a> will help us to improve it. (opens in a new window)',
+        { postProcess: 'sprintf', sprintf: [ betaFeedbackSurveyUrl, pagePath ] }
+        ) | safe
+      }}
+    </span>
   </p>
 </div>

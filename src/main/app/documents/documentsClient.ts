@@ -61,7 +61,7 @@ export default class DocumentsClient {
       })
   }
 
-  static getPdfFile (userAuthToken: string, path: string): http.IncomingMessage {
+  static getDocument (userAuthToken: string, path: string): http.IncomingMessage {
     const endpointURL: string = `${documentManagementUrl}${path}`
 
     return requestNonPromise.get(endpointURL, {
