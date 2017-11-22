@@ -3,15 +3,16 @@ import { expect } from 'chai'
 import DocumentsClient from 'app/documents/documentsClient'
 
 describe('DocumentsClient', () => {
-  const userAuthToken = 'bearerToken'
+  const client: DocumentsClient = new DocumentsClient()
+  const bearerToken: string = 'bearer token'
 
   describe('getSealedClaim', () => {
     it('shouldThrowErrorWhenGivenUndefinedExternalId', () => {
-      expect(() => DocumentsClient.getSealedClaim(undefined, userAuthToken)).to.throw(Error, 'Claim external ID cannot be blank')
+      expect(() => client.getSealedClaim(undefined, bearerToken)).to.throw(Error, 'Claim external ID cannot be blank')
     })
 
     it('shouldThrowErrorWhenGivenEmptyExternalId', () => {
-      expect(() => DocumentsClient.getSealedClaim('', userAuthToken)).to.throw(Error, 'Claim external ID cannot be blank')
+      expect(() => client.getSealedClaim('', bearerToken)).to.throw(Error, 'Claim external ID cannot be blank')
     })
   })
 })
