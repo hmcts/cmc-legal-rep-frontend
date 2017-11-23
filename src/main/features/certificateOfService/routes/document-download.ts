@@ -4,6 +4,7 @@ import DocumentsClient from 'app/documents/documentsClient'
 import * as http from 'http'
 import * as HttpStatus from 'http-status-codes'
 import { UploadedDocument } from 'claims/models/uploadedDocument'
+import User from 'idam/user'
 
 function getType (documents: UploadedDocument[], fileName: string): any {
 
@@ -30,7 +31,8 @@ export default express.Router()
             })
             response.on('end', () => {
               const fileBuffer = Buffer.concat(buffers)
-              const documents: UploadedDocument[] = res.locals.user.legalCertificateOfServiceDraft.document.uploadedDocuments
+              const user: User = res.locals.user
+              const documents: UploadedDocument[] = user.legalCertificateOfServiceDraft.document.uploadedDocuments
               const type = getType(documents, req.query.fileName)
 
               res.writeHead(HttpStatus.OK, {

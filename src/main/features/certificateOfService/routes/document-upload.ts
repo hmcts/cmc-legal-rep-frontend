@@ -10,16 +10,16 @@ function renderView (res: express.Response): void {
   const fileToUpload: DocumentType = res.locals.user.legalUploadDocumentDraft.document.fileToUpload
   const whatDocuments: WhatDocuments = res.locals.user.legalCertificateOfServiceDraft.document.whatDocuments
 
-  const particularsOfClaim = files.filter(function (file: UploadedDocument) {
+  const particularsOfClaim: UploadedDocument[] = files.filter(function (file: UploadedDocument) {
     return file.documentType.value === DocumentType.PARTICULARS_OF_CLAIM.value
   })
-  const medicalReport = files.filter(function (file: UploadedDocument) {
+  const medicalReport: UploadedDocument[] = files.filter(function (file: UploadedDocument) {
     return file.documentType.value === DocumentType.MEDICAL_REPORTS.value
   })
-  const scheduleOfLoss = files.filter(function (file: UploadedDocument) {
+  const scheduleOfLoss: UploadedDocument[] = files.filter(function (file: UploadedDocument) {
     return file.documentType.value === DocumentType.SCHEDULE_OF_LOSS.value
   })
-  const other = files.filter(function (file: UploadedDocument) {
+  const other: UploadedDocument[] = files.filter(function (file: UploadedDocument) {
     return file.documentType.value === DocumentType.OTHER.value
   })
 
