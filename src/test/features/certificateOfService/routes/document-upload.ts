@@ -41,16 +41,19 @@ describe('Certificate of Service: Document upload page', () => {
     it('should render page with file upload when fileToUpload is set to particularsOfClaim', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       idamServiceMock.resolveRetrieveServiceToken()
+      draftStoreServiceMock.resolveUpdate()
+
       await request(app)
         .post(CertificateOfServicePath.documentUploadPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({ fileToUpload: 'particularsOfClaim' })
-        .expect(res => expect(res).to.be.successful.withText(pageText, 'Upload file'))
+        .expect(res => expect(res).to.be.successful.withText(pageText, 'Upload your documents'))
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.rejectSave(100, 'HTTP error')
+      draftStoreServiceMock.resolveUpdate()
 
       await request(app)
         .post(CertificateOfServicePath.documentUploadPage.uri)
