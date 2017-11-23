@@ -16,6 +16,9 @@ export default express.Router()
 
     form.parse(req)
       .on('file', function (name, file) {
+        if (file.size === 0) {
+          res.redirect(Paths.documentUploadPage.uri)
+        }
         DocumentsClient.save(res.locals.user.bearerToken, file).then((documentManagementURI) => {
           let files: UploadedDocument[] = []
           const documentType: DocumentType = res.locals.user.legalUploadDocumentDraft.document.fileToUpload

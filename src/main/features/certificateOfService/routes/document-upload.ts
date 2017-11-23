@@ -27,7 +27,8 @@ function renderView (res: express.Response): void {
 
   let differentFilesCount: number = 0
   files.forEach(function (file: UploadedDocument) {
-    if (whatDocuments.types.indexOf(file.documentType.dataStoreValue) !== -1 || file.documentType.dataStoreValue === DocumentType.PARTICULARS_OF_CLAIM.dataStoreValue) {
+    if (whatDocuments.types.indexOf(file.documentType.dataStoreValue) !== -1 ||
+        file.documentType.dataStoreValue === DocumentType.PARTICULARS_OF_CLAIM.dataStoreValue) {
       differentFilesCount++
     }
   })
