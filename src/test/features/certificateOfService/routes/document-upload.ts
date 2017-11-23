@@ -38,13 +38,43 @@ describe('Certificate of Service: Document upload page', () => {
   describe('on POST', () => {
     checkAuthorizationGuards(app, 'post', CertificateOfServicePath.whatDocumentsPage.uri)
 
-    it('should render page with file upload when fileToUpload is set to particularsOfClaim', async () => {
+    it('should render page with file upload when fileToUpload is set to PARTICULARS_OF_CLAIM', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       idamServiceMock.resolveRetrieveServiceToken()
       await request(app)
         .post(CertificateOfServicePath.documentUploadPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .send({ fileToUpload: 'particularsOfClaim' })
+        .send({ fileToUpload: 'PARTICULARS_OF_CLAIM' })
+        .expect(res => expect(res).to.be.successful.withText(pageText, 'Upload file'))
+    })
+
+    it('should render page with file upload when fileToUpload is set to MEDICAL_REPORTS', async () => {
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+      await request(app)
+        .post(CertificateOfServicePath.documentUploadPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .send({ fileToUpload: 'MEDICAL_REPORTS' })
+        .expect(res => expect(res).to.be.successful.withText(pageText, 'Upload file'))
+    })
+
+    it('should render page with file upload when fileToUpload is set to SCHEDULE_OF_LOSS', async () => {
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+      await request(app)
+        .post(CertificateOfServicePath.documentUploadPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .send({ fileToUpload: 'SCHEDULE_OF_LOSS' })
+        .expect(res => expect(res).to.be.successful.withText(pageText, 'Upload file'))
+    })
+
+    it('should render page with file upload when fileToUpload is set to OTHER', async () => {
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+      await request(app)
+        .post(CertificateOfServicePath.documentUploadPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .send({ fileToUpload: 'OTHER' })
         .expect(res => expect(res).to.be.successful.withText(pageText, 'Upload file'))
     })
 
