@@ -45,21 +45,21 @@
                 name = 'types',
                 form = form,
                 value = 'medicalReport',
-                checked = (form.valueFor('types').indexOf('medicalReport') != -1)
+                checked = (form.valueFor('types').indexOf(DocumentType.MEDICAL_REPORTS.dataStoreValue) != -1)
               ) }}
               {{ checkboxOption(
                 label = 'Schedule of loss',
                 name = 'types',
                 form = form,
                 value = 'scheduleOfLoss',
-                checked = (form.valueFor('types').indexOf('scheduleOfLoss') != -1)
+                checked = (form.valueFor('types').indexOf(DocumentType.SCHEDULE_OF_LOSS.dataStoreValue) != -1)
               ) }}
               {{ checkboxOption(
                 label = 'Other',
                 name = 'types',
                 form = form,
                 value = 'other',
-                checked = (form.valueFor('types').indexOf('other') != -1)
+                checked = (form.valueFor('types').indexOf(DocumentType.OTHER.dataStoreValue) != -1)
               ) }}
           </fieldset>
         </div>
