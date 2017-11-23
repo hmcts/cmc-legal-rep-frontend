@@ -32,7 +32,7 @@
               </ul>
             </div>
           {% endif %}
-          {% if fileToUpload.value == 'PARTICULARS_OF_CLAIM' %}
+          {% if fileToUpload.value === DocumentType.PARTICULARS_OF_CLAIM.value %}
               {% include "includes/file-upload-form.njk" %}
           {% else %}
             <input type="submit" name="particularsOfClaim" class="button button-secondary" value="{{ t('Add file') }}"{% if fileToUpload %} disabled{% endif %} />
@@ -44,7 +44,7 @@
           <label class="form-hint">{{ t('Not required') }}</label>
         </div>
 
-        {% if whatDocuments.types.indexOf('medicalReport') != -1 %}
+        {% if whatDocuments.types.indexOf(DocumentType.MEDICAL_REPORTS.dataStoreValue) != -1 %}
           <div class="form-group">
             <label class="form-label-bold">{{ t('Medical reports') }}</label>
             {% if medicalReport.length > 0 %}
@@ -58,7 +58,7 @@
                 </ul>
               </div>
             {% endif %}
-            {% if fileToUpload.value == 'MEDICAL_REPORTS' %}
+            {% if fileToUpload.value === DocumentType.MEDICAL_REPORTS.value %}
               {% include "includes/file-upload-form.njk" %}
             {% else %}
               <input type="submit" name="medicalReport" class="button button-secondary" value="{{ t('Add file') }}"{% if fileToUpload %} disabled{% endif %} />
@@ -66,7 +66,7 @@
           </div>
         {% endif %}
 
-        {% if whatDocuments.types.indexOf('scheduleOfLoss') != -1 %}
+        {% if whatDocuments.types.indexOf(DocumentType.SCHEDULE_OF_LOSS.dataStoreValue) != -1 %}
           <div class="form-group">
             <label class="form-label-bold">{{ t('Schedule of loss') }}</label>
             {% if scheduleOfLoss.length > 0 %}
@@ -80,7 +80,7 @@
                 </ul>
               </div>
             {% endif %}
-            {% if fileToUpload.value == 'SCHEDULE_OF_LOSS' %}
+            {% if fileToUpload.value == DocumentType.SCHEDULE_OF_LOSS.value %}
               {% include "includes/file-upload-form.njk" %}
             {% else %}
               <input type="submit" name="scheduleOfLoss" class="button button-secondary" value="{{ t('Add file') }}"{% if fileToUpload %} disabled{% endif %} />
@@ -88,7 +88,7 @@
           </div>
         {% endif %}
 
-        {% if whatDocuments.types.indexOf('other') != -1 %}
+        {% if whatDocuments.types.indexOf(DocumentType.OTHER.dataStoreValue) != -1 %}
           <div class="form-group">
             <label for="other" class="form-label-bold">{{ t('Other') }}</label>
             <label for="other" class="form-hint">{{ whatDocuments.otherDocuments }}</label>
@@ -103,7 +103,7 @@
                 </ul>
               </div>
             {% endif %}
-            {% if fileToUpload.value == 'OTHER' %}
+            {% if fileToUpload.value === DocumentType.OTHER.value %}
               {% include "includes/file-upload-form.njk" %}
             {% else %}
               <input type="submit" name="other" class="button button-secondary" value="{{ t('Add file') }}"{% if fileToUpload %} disabled{% endif %} />

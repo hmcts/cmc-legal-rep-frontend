@@ -32,14 +32,16 @@ export class Feature {
   enableFor (app: express.Express) {
     app.all('/legal/certificateOfService/*', certificateOfServiceRequestHandler())
     app.all(/^\/legal\/certificateOfService\/.*$/,
-      DraftMiddleware.requestHandler<DraftCertificateOfService>(new DraftService(), 'legalCertificateOfService', 100, (value: any): DraftCertificateOfService => {
-        return new DraftCertificateOfService().deserialize(value)
-      }))
+      DraftMiddleware.requestHandler<DraftCertificateOfService>(new DraftService(), 'legalCertificateOfService',
+        100, (value: any): DraftCertificateOfService => {
+          return new DraftCertificateOfService().deserialize(value)
+        }))
 
     app.all(/^\/legal\/certificateOfService\/(what-documents|document-upload|file-upload)$/,
-      DraftMiddleware.requestHandler<DraftUploadDocument>(new DraftService(),'legalUploadDocument', 100, (value: any): DraftUploadDocument => {
-        return new DraftUploadDocument().deserialize(value)
-      }))
+      DraftMiddleware.requestHandler<DraftUploadDocument>(new DraftService(),'legalUploadDocument',
+        100, (value: any): DraftUploadDocument => {
+          return new DraftUploadDocument().deserialize(value)
+        }))
 
     app.use('/', RouterFinder.findAll(path.join(__dirname, 'routes')))
   }
