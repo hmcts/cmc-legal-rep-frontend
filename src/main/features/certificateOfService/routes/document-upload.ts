@@ -23,18 +23,15 @@ function renderView (res: express.Response): void {
     return file.documentType.value === DocumentType.OTHER.value
   })
 
-  const minDifferentFilesRequired: number = whatDocuments.types.splice(whatDocuments.types.indexOf('responsePack'), 1).length
+  const minDifferentFilesRequired: number = (whatDocuments.types.indexOf('responsePack') !== -1) ? whatDocuments.types.length : whatDocuments.types.length - 1
+
   let differentFilesCount: number = 0
   files.forEach(function (file: UploadedDocument) {
-    // console.log(file.documentType)
-    // console.log(whatDocuments)
-    if (whatDocuments.types.indexOf(file.documentType.value) !== -1 || file.documentType.value === DocumentType.PARTICULARS_OF_CLAIM.value) {
+    if (whatDocuments.types.indexOf(file.documentType.dataStoreValue) !== -1 || file.documentType.dataStoreValue === DocumentType.PARTICULARS_OF_CLAIM.dataStoreValue) {
       differentFilesCount++
     }
   })
   const canContinue: boolean = minDifferentFilesRequired === differentFilesCount
-  // console.log(minDifferentFilesRequired)
-  // console.log(differentFilesCount)
 
   res.render(Paths.documentUploadPage.associatedView,
     {
@@ -50,8 +47,6 @@ function renderView (res: express.Response): void {
 
 export default express.Router()
   .get(Paths.documentUploadPage.uri, (req: express.Request, res: express.Response) => {
-    // console.log(res.locals.user.legalCertificateOfServiceDraft.document.uploadedDocuments)
-    // console.log(res.locals.user.legalUploadDocumentDraft.document.fileToUpload)
     renderView(res)
   })
   .post(Paths.documentUploadPage.uri, async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {

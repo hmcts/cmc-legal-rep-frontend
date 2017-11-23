@@ -1,7 +1,7 @@
 export class DocumentType {
   static readonly PARTICULARS_OF_CLAIM = new DocumentType('PARTICULARS_OF_CLAIM', 'Particulars of claim', 'particularsOfClaim')
   static readonly RESPONSE_PACK = new DocumentType('RESPONSE_PACK', 'Response pack', 'responsePack')
-  static readonly MEDICAL_REPORTS = new DocumentType('MEDICAL_REPORTS', 'Medical reports', 'medicalReports')
+  static readonly MEDICAL_REPORTS = new DocumentType('MEDICAL_REPORTS', 'Medical reports', 'medicalReport')
   static readonly SCHEDULE_OF_LOSS = new DocumentType('SCHEDULE_OF_LOSS', 'Schedule of loss', 'scheduleOfLoss')
   static readonly OTHER = new DocumentType('OTHER', 'Other documents', 'other')
 
