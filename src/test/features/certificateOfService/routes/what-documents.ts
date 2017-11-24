@@ -62,6 +62,7 @@ describe('Certificate of Service: What documents page', () => {
     it('should redirect to document upload page when form is valid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.resolveUpdate()
+      draftStoreServiceMock.resolveUpdate()
       idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)

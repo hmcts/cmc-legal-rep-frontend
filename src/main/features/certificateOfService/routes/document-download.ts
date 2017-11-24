@@ -6,13 +6,8 @@ import * as HttpStatus from 'http-status-codes'
 import { UploadedDocument } from 'claims/models/uploadedDocument'
 import User from 'idam/user'
 
-function getType (documents: UploadedDocument[], fileName: string): any {
-
-  documents.forEach(document => {
-    if (document.fileName === fileName) {
-      return document.fileType
-    }
-  })
+function getType (documents: UploadedDocument[], fileName: string): string {
+  return documents.find((document) => document.fileName === fileName).fileType
 }
 
 export default express.Router()
