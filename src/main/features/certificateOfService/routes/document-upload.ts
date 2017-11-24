@@ -10,6 +10,8 @@ function renderView (res: express.Response): void {
   const fileToUpload: DocumentType = res.locals.user.legalUploadDocumentDraft.document.fileToUpload
   const whatDocuments: WhatDocuments = res.locals.user.legalCertificateOfServiceDraft.document.whatDocuments
 
+  console.log(files)
+
   const particularsOfClaim: UploadedDocument[] = files.filter(function (file: UploadedDocument) {
     return file.documentType.value === DocumentType.PARTICULARS_OF_CLAIM.value
   })

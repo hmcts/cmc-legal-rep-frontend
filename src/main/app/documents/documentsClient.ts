@@ -2,7 +2,6 @@ import * as config from 'config'
 import { request, requestNonPromise } from 'client/request'
 import * as http from 'http'
 import StringUtils from 'app/utils/stringUtils'
-import * as fs from 'fs'
 import * as URL from 'url-parse'
 
 const claimStoreBaseUrl = config.get<string>('claim-store.url')
@@ -22,7 +21,7 @@ export default class DocumentsClient {
     })
   }
 
-  static save (userAuthToken: string, file: any): Promise<string> {
+  static save (userAuthToken: string, fileName: string, file, contentType: string): Promise<string> {
 
     const endpointURL: string = `${documentManagementUrl}/documents`
 
@@ -33,8 +32,8 @@ export default class DocumentsClient {
       formData: {
         files: [
           {
-            value: fs.createReadStream(file.path),
-            options: { filename: file.name, contentType: file.type }
+            value: file,
+            options: { filename: fileName, contentType: contentType }
           }
         ],
         classification: 'PRIVATE'
