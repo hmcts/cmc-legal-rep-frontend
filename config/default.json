@@ -20,7 +20,11 @@
   },
   "draft-store": {
     "url": "http://localhost:8800",
-    "apiVersion": "v2"
+    "apiVersion": "v2",
+    "secrets": {
+      "primary": "not-a-real-primary-secret",
+      "secondary": "not-a-real-secondary-secret"
+    }
   },
   "session": {
     "cookieName": "T2_SESSION_ID",
@@ -53,5 +57,8 @@
   "featureToggles": {
     "idamOauth": false,
     "dashboard": false
+  },
+  "documentManagement" : {
+    "url": "http://localhost:8085"
   }
 }
