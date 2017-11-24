@@ -33,12 +33,52 @@ describe('Certificate of Service: Document upload page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .expect(res => expect(res).to.be.successful.withText(pageText))
     })
+
+    it('should render page when the user has selected to upload particulars of claim', async () => {
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+      await request(app)
+        .get(CertificateOfServicePath.documentUploadPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .send({ fileToUpload: 'PARTICULARS_OF_CLAIM' })
+        .expect(res => expect(res).to.be.successful.withText(pageText, 'Upload file'))
+    })
+
+    it('should render page when the user has selected to upload medical report', async () => {
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+      await request(app)
+        .get(CertificateOfServicePath.documentUploadPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .send({ fileToUpload: 'MEDICAL_REPORTS' })
+        .expect(res => expect(res).to.be.successful.withText(pageText, 'Upload file'))
+    })
+
+    it('should render page when the user has selected to upload Schedule of loss', async () => {
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+      await request(app)
+        .get(CertificateOfServicePath.documentUploadPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .send({ fileToUpload: 'SCHEDULE_OF_LOSS' })
+        .expect(res => expect(res).to.be.successful.withText(pageText, 'Upload file'))
+    })
+
+    it('should render page when the user has selected to upload Other files', async () => {
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+      await request(app)
+        .get(CertificateOfServicePath.documentUploadPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .send({ fileToUpload: 'OTHER' })
+        .expect(res => expect(res).to.be.successful.withText(pageText, 'Upload file'))
+    })
   })
 
   describe('on POST', () => {
     checkAuthorizationGuards(app, 'post', CertificateOfServicePath.whatDocumentsPage.uri)
 
-    it('should render page with file upload when fileToUpload is set to PARTICULARS_OF_CLAIM', async () => {
+    it('should reload the page when user clicks add files for particulars of claim', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       idamServiceMock.resolveRetrieveServiceToken()
       draftStoreServiceMock.resolveUpdate()
@@ -50,7 +90,7 @@ describe('Certificate of Service: Document upload page', () => {
         .expect(res => expect(res).to.be.redirect.toLocation(CertificateOfServicePath.documentUploadPage.uri))
     })
 
-    it('should render page with file upload when fileToUpload is set to MEDICAL_REPORTS', async () => {
+    it('should reload the page when user clicks add files for medical report', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       idamServiceMock.resolveRetrieveServiceToken()
       draftStoreServiceMock.resolveUpdate()
@@ -62,7 +102,7 @@ describe('Certificate of Service: Document upload page', () => {
         .expect(res => expect(res).to.be.redirect.toLocation(CertificateOfServicePath.documentUploadPage.uri))
     })
 
-    it('should render page with file upload when fileToUpload is set to SCHEDULE_OF_LOSS', async () => {
+    it('should reload the page when user clicks add files for schedule of loss', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       idamServiceMock.resolveRetrieveServiceToken()
       draftStoreServiceMock.resolveUpdate()
@@ -74,7 +114,7 @@ describe('Certificate of Service: Document upload page', () => {
         .expect(res => expect(res).to.be.redirect.toLocation(CertificateOfServicePath.documentUploadPage.uri))
     })
 
-    it('should render page with file upload when fileToUpload is set to OTHER', async () => {
+    it('should reload the page when user clicks add files for other', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       idamServiceMock.resolveRetrieveServiceToken()
       draftStoreServiceMock.resolveUpdate()
@@ -86,7 +126,7 @@ describe('Certificate of Service: Document upload page', () => {
         .expect(res => expect(res).to.be.redirect.toLocation(CertificateOfServicePath.documentUploadPage.uri))
     })
 
-    it.skip('should return 500 and render error page when form is valid and cannot save draft', async () => {
+    it('should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.rejectSave(100, 'HTTP error')
 
