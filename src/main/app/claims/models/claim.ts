@@ -41,10 +41,8 @@ export default class Claim implements Serializable<Claim> {
   }
 
   private deserializeDocuments (documents: any): UploadedDocument[] {
-    if (documents) {
-      return documents.map((document: any) => {
-        return new UploadedDocument().deserialize(document)
-      })
-    }
+    return documents.map((document: any) => {
+      return new UploadedDocument().deserialize(document)
+    })
   }
 }
