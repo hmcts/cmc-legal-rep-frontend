@@ -6,6 +6,7 @@ import { DraftService } from 'services/draftService'
 import DocumentsClient from 'app/documents/documentsClient'
 import { DocumentType } from 'forms/models/documentType'
 import * as fs from 'fs'
+import User from 'idam/user'
 
 export default express.Router()
   .post(Paths.fileUploadPage.uri, async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -19,21 +20,22 @@ export default express.Router()
         if (file.size === 0) {
           res.redirect(Paths.documentUploadPage.uri)
         }
-        DocumentsClient.save(res.locals.user.bearerToken, file).then((documentManagementURI) => {
+        const user: User = res.locals.user
+        DocumentsClient.save(user.bearerToken, file).then((documentManagementURI) => {
           let files: UploadedDocument[] = []
-          const documentType: DocumentType = res.locals.user.legalUploadDocumentDraft.document.fileToUpload
-          res.locals.user.legalCertificateOfServiceDraft.document.uploadedDocuments.map((file) => files.push(new UploadedDocument().deserialize(file)))
+          const documentType: DocumentType = user.legalUploadDocumentDraft.document.fileToUpload
+          user.legalCertificateOfServiceDraft.document.uploadedDocuments.map((file) => files.push(new UploadedDocument().deserialize(file)))
           files.push(new UploadedDocument(file.name, file.type, documentType, documentManagementURI))
 
           fs.unlink(file.path, function (err) {
             if (err) next(err)
           })
 
-          res.locals.user.legalCertificateOfServiceDraft.document.uploadedDocuments = files
-          new DraftService().save(res.locals.user.legalCertificateOfServiceDraft, res.locals.user.bearerToken)
+          user.legalCertificateOfServiceDraft.document.uploadedDocuments = files
+          new DraftService().save(user.legalCertificateOfServiceDraft, user.bearerToken)
 
-          res.locals.user.legalUploadDocumentDraft.document.fileToUpload = undefined
-          new DraftService().save(res.locals.user.legalUploadDocumentDraft, res.locals.user.bearerToken)
+          user.legalUploadDocumentDraft.document.fileToUpload = undefined
+          new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken)
           res.redirect(Paths.documentUploadPage.uri)
         })
       })
