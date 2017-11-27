@@ -128,7 +128,8 @@ describe('Certificate of Service: Document upload page', () => {
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      draftStoreServiceMock.rejectSave(100, 'HTTP error')
+      idamServiceMock.resolveRetrieveServiceToken()
+      draftStoreServiceMock.rejectSave()
 
       await request(app)
         .post(CertificateOfServicePath.documentUploadPage.uri)

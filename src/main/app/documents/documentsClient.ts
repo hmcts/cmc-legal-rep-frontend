@@ -2,8 +2,8 @@ import * as config from 'config'
 import { request, requestNonPromise } from 'client/request'
 import * as http from 'http'
 import StringUtils from 'app/utils/stringUtils'
-import * as URL from 'url-parse'
 import * as fs from 'fs'
+import * as URL from 'url-parse'
 
 const claimStoreBaseUrl = config.get<string>('claim-store.url')
 const documentManagementUrl = config.get<string>('documentManagement.url')
@@ -25,10 +25,10 @@ export default class DocumentsClient {
   static save (userAuthToken: string, file: any): Promise<string> {
 
     const endpointURL: string = `${documentManagementUrl}/documents`
+
     return request.post(endpointURL, {
       headers: {
-        Authorization: `Bearer ${userAuthToken}`,
-        'Content-Type': 'multipart/form-data'
+        Authorization: `Bearer ${userAuthToken}`
       },
       formData: {
         files: [

@@ -4,6 +4,7 @@ import { DraftService } from 'services/draftService'
 import { UploadedDocument } from 'claims/models/uploadedDocument'
 import { DocumentType } from 'forms/models/documentType'
 import { WhatDocuments } from 'forms/models/whatDocuments'
+import ErrorHandling from 'common/errorHandling'
 
 function renderView (res: express.Response): void {
   const files: UploadedDocument[] = res.locals.user.legalCertificateOfServiceDraft.document.uploadedDocuments
@@ -43,19 +44,22 @@ export default express.Router()
   .get(Paths.documentUploadPage.uri, (req: express.Request, res: express.Response) => {
     renderView(res)
   })
-  .post(Paths.documentUploadPage.uri, async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
-    const form = req.body
-    if (form.particularsOfClaim) {
-      res.locals.user.legalUploadDocumentDraft.document.fileToUpload = DocumentType.PARTICULARS_OF_CLAIM
-    } else if (form.medicalReport) {
-      res.locals.user.legalUploadDocumentDraft.document.fileToUpload = DocumentType.MEDICAL_REPORTS
-    } else if (form.scheduleOfLoss) {
-      res.locals.user.legalUploadDocumentDraft.document.fileToUpload = DocumentType.SCHEDULE_OF_LOSS
-    } else if (form.other) {
-      res.locals.user.legalUploadDocumentDraft.document.fileToUpload = DocumentType.OTHER
-    }
+  .post(Paths.documentUploadPage.uri,
+    ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+      const form = req.body
+      if (form.particularsOfClaim) {
+        res.locals.user.legalUploadDocumentDraft.document.fileToUpload = DocumentType.PARTICULARS_OF_CLAIM
+      } else if (form.medicalReport) {
+        res.locals.user.legalUploadDocumentDraft.document.fileToUpload = DocumentType.MEDICAL_REPORTS
+      } else if (form.scheduleOfLoss) {
+        res.locals.user.legalUploadDocumentDraft.document.fileToUpload = DocumentType.SCHEDULE_OF_LOSS
+      } else if (form.other) {
+        res.locals.user.legalUploadDocumentDraft.document.fileToUpload = DocumentType.OTHER
+      }
 
-    await new DraftService().save(res.locals.user.legalUploadDocumentDraft, res.locals.user.bearerToken)
+      await new DraftService().save(res.locals.user.legalUploadDocumentDraft, res.locals.user.bearerToken)
 
-    res.redirect(Paths.documentUploadPage.uri)
-  })
+      res.redirect(Paths.documentUploadPage.uri)
+
+    })
+  )

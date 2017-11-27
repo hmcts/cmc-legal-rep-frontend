@@ -63,6 +63,8 @@ describe('Certificate of Service: What documents page', () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.resolveUpdate()
       draftStoreServiceMock.resolveUpdate()
+      draftStoreServiceMock.resolveDelete()
+      draftStoreServiceMock.resolveDelete()
       idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)

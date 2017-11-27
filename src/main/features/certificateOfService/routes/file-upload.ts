@@ -11,9 +11,7 @@ import User from 'idam/user'
 export default express.Router()
   .post(Paths.fileUploadPage.uri, async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
     const form = new formidable.IncomingForm()
-    form.uploadDir = 'src/main/public/uploadedFiles/'
     form.keepExtensions = true
-    form.multiples = true
 
     form.parse(req)
       .on('file', function (name, file) {
