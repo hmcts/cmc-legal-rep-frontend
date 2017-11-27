@@ -2,7 +2,7 @@ import * as express from 'express'
 import { Paths } from 'claim/paths'
 import ErrorHandling from 'common/errorHandling'
 import { Claimants } from 'common/router/claimants'
-import { DraftService } from '../../../services/draftService'
+import { DraftService } from 'services/draftService'
 
 export default express.Router()
 
