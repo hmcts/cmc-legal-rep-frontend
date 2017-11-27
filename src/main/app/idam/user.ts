@@ -3,7 +3,7 @@ import DraftView from 'app/drafts/models/draftView'
 import { Draft } from '@hmcts/draft-store-client/dist/draft/draft'
 import { DraftDashboard } from 'drafts/models/draftDashboard'
 import { DraftCertificateOfService } from 'drafts/models/draftCertificateOfService'
-import DraftUploadDocument from 'drafts/models/draftUploadDocument'
+import { DraftUploadDocument } from 'drafts/models/draftUploadDocument'
 
 export default class User {
   id: string

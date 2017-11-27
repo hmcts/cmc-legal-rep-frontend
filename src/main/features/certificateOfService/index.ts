@@ -11,7 +11,7 @@ import { OAuthHelper } from 'idam/oAuthHelper'
 import { DraftCertificateOfService } from 'drafts/models/draftCertificateOfService'
 import { DraftMiddleware } from '@hmcts/cmc-draft-store-middleware'
 import { DraftService } from 'services/draftService'
-import DraftUploadDocument from 'drafts/models/draftUploadDocument'
+import { DraftUploadDocument } from 'drafts/models/draftUploadDocument'
 
 function certificateOfServiceRequestHandler (): express.RequestHandler {
   function accessDeniedCallback (req: express.Request, res: express.Response): void {
@@ -31,7 +31,7 @@ function certificateOfServiceRequestHandler (): express.RequestHandler {
 export class Feature {
   enableFor (app: express.Express) {
     app.all('/legal/certificateOfService/*', certificateOfServiceRequestHandler())
-    app.all(/^\/legal\/certificateOfService\/.*$/,
+    app.all('/legal/certificateOfService/*',
       DraftMiddleware.requestHandler<DraftCertificateOfService>(new DraftService(), 'legalCertificateOfService',
         100, (value: any): DraftCertificateOfService => {
           return new DraftCertificateOfService().deserialize(value)

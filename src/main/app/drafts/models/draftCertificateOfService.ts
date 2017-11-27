@@ -13,8 +13,7 @@ export class DraftCertificateOfService extends DraftDocument implements Serializ
       this.whatDocuments = input.whatDocuments
 
       if (input.uploadedDocuments && input.uploadedDocuments.length > 0) {
-        let uploadedDocuments: UploadedDocument[] = []
-        input.uploadedDocuments.map((uploadedDocument) => uploadedDocuments.push(new UploadedDocument().deserialize(uploadedDocument)))
+        const uploadedDocuments: UploadedDocument[] = input.uploadedDocuments.map((uploadedDocument) => uploadedDocuments.push(new UploadedDocument().deserialize(uploadedDocument)))
         this.uploadedDocuments = uploadedDocuments
       }
     }

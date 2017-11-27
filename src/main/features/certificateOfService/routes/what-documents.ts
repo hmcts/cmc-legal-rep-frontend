@@ -6,6 +6,7 @@ import { FormValidator } from 'app/forms/validation/formValidator'
 import { WhatDocuments } from 'app/forms/models/whatDocuments'
 import ErrorHandling from 'common/errorHandling'
 import { DraftService } from '../../../services/draftService'
+import User from 'idam/user'
 
 function renderView (form: Form<WhatDocuments>, res: express.Response): void {
   res.render(Paths.whatDocumentsPage.associatedView, { form: form })
@@ -21,10 +22,21 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        res.locals.user.legalCertificateOfServiceDraft.document.whatDocuments = form.model
-        res.locals.user.legalUploadDocumentDraft.document.fileToUpload = undefined
+        const user: User = res.locals.user
+
+        user.legalCertificateOfServiceDraft.document.whatDocuments = form.model
         await new DraftService().save(res.locals.user.legalCertificateOfServiceDraft, res.locals.user.bearerToken)
+
+        user.legalUploadDocumentDraft.document.fileToUpload = undefined
         await new DraftService().save(res.locals.user.legalUploadDocumentDraft, res.locals.user.bearerToken)
+
+        if (res.locals.user.legalCertificateOfServiceDraft && res.locals.user.legalCertificateOfServiceDraft['id']) {
+          await new DraftService()['delete'](res.locals.user.legalCertificateOfServiceDraft['id'], res.locals.user.bearerToken)
+        }
+
+        if (res.locals.user.legalUploadDocumentDraft && res.locals.user.legalUploadDocumentDraft['id']) {
+          await new DraftService()['delete'](res.locals.user.legalUploadDocumentDraft['id'], res.locals.user.bearerToken)
+        }
 
         res.redirect(Paths.documentUploadPage.uri)
       }

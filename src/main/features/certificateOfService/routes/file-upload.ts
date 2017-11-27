@@ -16,7 +16,6 @@ export default express.Router()
     let fileBuffer = ''
     let contentType = ''
     let fileName = ''
-    // console.log(form)
     // form.uploadDir = 'src/main/public/uploadedFiles/'
     // form.keepExtensions = true
     // form.multiples = true
@@ -25,15 +24,14 @@ export default express.Router()
       if (!part.filename) return
       contentType = part.headers['content-type']
       fileName = part.filename
-      part.on('data', function(buffer){
+      part.on('data', function (buffer) {
         fileBuffer += buffer
       })
     })
 
-    form.on('close', function ()
-    {
+    form.on('close', function () {
       const user: User = res.locals.user
-      DocumentsClient.save(user.bearerToken, fileName, new Buffer(fileBuffer, 'utf-8') , contentType).then((documentManagementURI) => {
+      DocumentsClient.save(user.bearerToken, fileName, Buffer.from(fileBuffer, 'binary') , contentType).then((documentManagementURI) => {
         let files: UploadedDocument[] = []
         const documentType: DocumentType = user.legalUploadDocumentDraft.document.fileToUpload
         user.legalCertificateOfServiceDraft.document.uploadedDocuments.map((file) => files.push(new UploadedDocument().deserialize(file)))

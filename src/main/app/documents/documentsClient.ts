@@ -24,10 +24,10 @@ export default class DocumentsClient {
   static save (userAuthToken: string, fileName: string, file, contentType: string): Promise<string> {
 
     const endpointURL: string = `${documentManagementUrl}/documents`
-
     return request.post(endpointURL, {
       headers: {
-        Authorization: `Bearer ${userAuthToken}`
+        Authorization: `Bearer ${userAuthToken}`,
+        'Content-Type': 'multipart/form-data'
       },
       formData: {
         files: [

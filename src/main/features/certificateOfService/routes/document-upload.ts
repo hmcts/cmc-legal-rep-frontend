@@ -10,8 +10,6 @@ function renderView (res: express.Response): void {
   const fileToUpload: DocumentType = res.locals.user.legalUploadDocumentDraft.document.fileToUpload
   const whatDocuments: WhatDocuments = res.locals.user.legalCertificateOfServiceDraft.document.whatDocuments
 
-  console.log(files)
-
   const particularsOfClaim: UploadedDocument[] = files.filter(function (file: UploadedDocument) {
     return file.documentType.value === DocumentType.PARTICULARS_OF_CLAIM.value
   })
@@ -26,14 +24,7 @@ function renderView (res: express.Response): void {
   })
 
   const minDifferentFilesRequired: number = (whatDocuments.types.indexOf('responsePack') !== -1) ? whatDocuments.types.length : whatDocuments.types.length - 1
-
-  let differentFilesCount: number = 0
-  files.forEach(function (file: UploadedDocument) {
-    if (whatDocuments.types.indexOf(file.documentType.dataStoreValue) !== -1 ||
-        file.documentType.dataStoreValue === DocumentType.PARTICULARS_OF_CLAIM.dataStoreValue) {
-      differentFilesCount++
-    }
-  })
+  const differentFilesCount: number = files.reduce((accumulator, currentValue) => accumulator + 1, 0)
   const canContinue: boolean = minDifferentFilesRequired === differentFilesCount
 
   res.render(Paths.documentUploadPage.associatedView,
