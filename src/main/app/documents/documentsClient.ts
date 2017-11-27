@@ -3,6 +3,7 @@ import { request, requestNonPromise } from 'client/request'
 import * as http from 'http'
 import StringUtils from 'app/utils/stringUtils'
 import * as URL from 'url-parse'
+import * as fs from 'fs'
 
 const claimStoreBaseUrl = config.get<string>('claim-store.url')
 const documentManagementUrl = config.get<string>('documentManagement.url')
@@ -21,7 +22,7 @@ export default class DocumentsClient {
     })
   }
 
-  static save (userAuthToken: string, fileName: string, file, contentType: string): Promise<string> {
+  static save (userAuthToken: string, file: any): Promise<string> {
 
     const endpointURL: string = `${documentManagementUrl}/documents`
     return request.post(endpointURL, {
@@ -32,8 +33,8 @@ export default class DocumentsClient {
       formData: {
         files: [
           {
-            value: file,
-            options: { filename: fileName, contentType: contentType }
+            value: fs.createReadStream(file.path),
+            options: { filename: file.name, contentType: file.type }
           }
         ],
         classification: 'PRIVATE'
