@@ -6,7 +6,7 @@ import { Amount } from 'app/forms/models/amount'
 import { FormValidator } from 'forms/validation/formValidator'
 
 import ErrorHandling from 'common/errorHandling'
-import { DraftService } from '../../../services/draftService'
+import { DraftService } from 'services/draftService'
 
 function renderView (form: Form<Amount>, res: express.Response): void {
   res.render(Paths.claimAmountPage.associatedView, {
