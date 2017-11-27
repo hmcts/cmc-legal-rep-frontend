@@ -2,7 +2,7 @@
 /* tslint:disable:no-unused-expression */
 
 import { expect } from 'chai'
-import DraftUploadDocument from 'drafts/models/draftUploadDocument'
+import { DraftUploadDocument } from 'drafts/models/draftUploadDocument'
 
 function verifyDefaultValues (initialValue: any) {
   const actualDraft: DraftUploadDocument = new DraftUploadDocument().deserialize(initialValue)
