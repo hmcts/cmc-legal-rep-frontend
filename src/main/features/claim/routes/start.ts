@@ -1,6 +1,6 @@
 import * as express from 'express'
 import { Paths } from 'claim/paths'
-import { DraftService } from '../../../services/draftService'
+import { DraftService } from 'services/draftService'
 
 export default express.Router()
 

@@ -1,9 +1,8 @@
 import * as config from 'config'
 import { request } from 'client/request'
+import { Draft, DraftService as BaseDraftService, Secrets } from '@hmcts/draft-store-client'
 
-import { DraftService as BaseDraftService } from '@hmcts/draft-store-client/dist/draft/draftService'
 import { ServiceAuthTokenFactoryImpl } from 'common/security/serviceTokenFactoryImpl'
-import { Draft, Secrets } from '@hmcts/draft-store-client'
 
 export class DraftService extends BaseDraftService {
   private secrets: Secrets
