@@ -30,14 +30,6 @@ export default express.Router()
         user.legalUploadDocumentDraft.document.fileToUpload = undefined
         await new DraftService().save(res.locals.user.legalUploadDocumentDraft, res.locals.user.bearerToken)
 
-        if (res.locals.user.legalCertificateOfServiceDraft && res.locals.user.legalCertificateOfServiceDraft['id']) {
-          await new DraftService()['delete'](res.locals.user.legalCertificateOfServiceDraft['id'], res.locals.user.bearerToken)
-        }
-
-        if (res.locals.user.legalUploadDocumentDraft && res.locals.user.legalUploadDocumentDraft['id']) {
-          await new DraftService()['delete'](res.locals.user.legalUploadDocumentDraft['id'], res.locals.user.bearerToken)
-        }
-
         res.redirect(Paths.documentUploadPage.uri)
       }
 
