@@ -45,7 +45,7 @@ describe('Certificate of Service: file upload', () => {
       await request(app)
         .post(CertificateOfServicePath.documentUploadPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .attach('file', 'src/test/features/certificateOfService/routes/000LR001.pdf')
+        .attach('file', 'src/test/resource/000LR012.pdf')
         .expect(res => expect(res).to.be.redirect.toLocation(CertificateOfServicePath.documentUploadPage.uri))
     })
 
@@ -57,7 +57,7 @@ describe('Certificate of Service: file upload', () => {
       await request(app)
         .post(CertificateOfServicePath.documentUploadPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .attach('file', 'src/test/features/certificateOfService/routes/000LR001.pdf')
+        .attach('file', 'src/test/resource/000LR012.pdf')
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
   })
