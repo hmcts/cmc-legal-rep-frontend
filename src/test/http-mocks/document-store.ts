@@ -62,6 +62,12 @@ export function resolveFind (): mock.Scope {
     .reply(HttpStatus.OK, document)
 }
 
+export function resolveGetBinary (): mock.Scope {
+  return mock(serviceBaseURL)
+    .get(new RegExp('/documents/*/binary'))
+    .reply(HttpStatus.OK, [])
+}
+
 export function resolveSave () {
   return mock(serviceBaseURL)
     .post(`/documents`)

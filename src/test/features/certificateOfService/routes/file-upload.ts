@@ -45,18 +45,19 @@ describe('Certificate of Service: file upload', () => {
       await request(app)
         .post(CertificateOfServicePath.documentUploadPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
+        .attach('file', 'src/test/features/certificateOfService/routes/000LR001.pdf')
         .expect(res => expect(res).to.be.redirect.toLocation(CertificateOfServicePath.documentUploadPage.uri))
     })
 
     it('should show error when unable to save a document', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       idamServiceMock.resolveRetrieveServiceToken()
-      draftStoreServiceMock.resolveUpdate()
       documentManagementMock.rejectSave()
 
       await request(app)
         .post(CertificateOfServicePath.documentUploadPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
+        .attach('file', 'src/test/features/certificateOfService/routes/000LR001.pdf')
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
   })
