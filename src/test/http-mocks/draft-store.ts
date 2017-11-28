@@ -40,7 +40,7 @@ const sampleUploadDocumentDraftObj = {
 
 const sampleCertificateOfServiceDraftObj = {
   uploadedDocuments: [ {
-    fileName: 'MedicalReport.pdf',
+    fileName: '000LR012.pdf',
     fileType: 'application/pdf',
     documentType: {
       value: 'PARTICULARS_OF_CLAIM',

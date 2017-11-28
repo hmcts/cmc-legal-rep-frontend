@@ -7,7 +7,7 @@ const serviceBaseURL: string = `${config.get('documentManagement.url')}`
 const document = {
   'size': 72552,
   'mimeType': 'application/pdf',
-  'originalDocumentName': '000LR002.pdf',
+  'originalDocumentName': '000LR012.pdf',
   'createdBy': '15',
   'lastModifiedBy': '15',
   'modifiedOn': '2017-11-01T10:23:55.120+0000',
@@ -56,16 +56,22 @@ const sampleDocumentObj = {
   }
 }
 
-export function resolveFind (): mock.Scope {
+export function resolveFindMetaData (): mock.Scope {
   return mock(serviceBaseURL)
     .get(new RegExp('/documents.*'))
     .reply(HttpStatus.OK, document)
 }
 
-export function resolveGetBinary (): mock.Scope {
+export function resolveGetDocument (): mock.Scope {
+  return mock(serviceBaseURL)
+    .get(new RegExp('/documents.*'))
+    .reply(HttpStatus.OK, [])
+}
+
+export function rejectGetDocument (reason: string = 'HTTP Error'): mock.Scope {
   return mock(serviceBaseURL)
     .get(new RegExp('/documents/*/binary'))
-    .reply(HttpStatus.OK, [])
+    .reply(HttpStatus.INTERNAL_SERVER_ERROR, reason)
 }
 
 export function resolveSave () {
