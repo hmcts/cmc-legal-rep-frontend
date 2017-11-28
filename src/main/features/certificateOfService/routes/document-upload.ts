@@ -60,6 +60,5 @@ export default express.Router()
       await new DraftService().save(res.locals.user.legalUploadDocumentDraft, res.locals.user.bearerToken)
 
       res.redirect(Paths.documentUploadPage.uri)
-
     })
   )

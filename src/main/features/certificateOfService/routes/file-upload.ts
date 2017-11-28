@@ -7,13 +7,15 @@ import DocumentsClient from 'app/documents/documentsClient'
 import { DocumentType } from 'forms/models/documentType'
 import * as fs from 'fs'
 import User from 'idam/user'
+import ErrorHandling from 'common/errorHandling'
 
 export default express.Router()
-  .post(Paths.fileUploadPage.uri, async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
-    const form = new formidable.IncomingForm()
-    form.keepExtensions = true
+  .post(Paths.fileUploadPage.uri,
+    ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+      const form = new formidable.IncomingForm()
+      form.keepExtensions = true
 
-    form.parse(req)
+      form.parse(req)
       .on('file', function (name, file) {
         if (file.size === 0) {
           res.redirect(Paths.documentUploadPage.uri)
@@ -37,4 +39,5 @@ export default express.Router()
           res.redirect(Paths.documentUploadPage.uri)
         })
       })
-  })
+    })
+  )

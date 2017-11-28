@@ -67,3 +67,9 @@ export function resolveSave () {
     .post(`/documents`)
     .reply(HttpStatus.OK, { ...sampleDocumentObj })
 }
+
+export function rejectSave (id: number = 100, reason: string = 'HTTP error') {
+  return mock(serviceBaseURL)
+    .put(`/documents/`)
+    .reply(HttpStatus.INTERNAL_SERVER_ERROR, reason)
+}
