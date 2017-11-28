@@ -3,10 +3,11 @@
 
 import { expect } from 'chai'
 import { Validator } from 'class-validator'
+import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 
 import { expectValidationError } from './validationUtils'
 
-import { YourReference, ValidationErrors } from 'forms/models/yourReference'
+import { YourReference } from 'forms/models/yourReference'
 
 describe('YourReference', () => {
 
@@ -53,7 +54,7 @@ describe('YourReference', () => {
       const errors = validator.validateSync(new YourReference('This reference is too long to accept'))
 
       expect(errors.length).to.equal(1)
-      expectValidationError(errors, ValidationErrors.YOUR_REFERENCE_TOO_LONG)
+      expectValidationError(errors, CommonValidationErrors.CONTENT_TOO_LONG)
     })
 
     it('should accept valid reference', () => {
