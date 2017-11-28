@@ -14,6 +14,7 @@ import I18Next from 'modules/i18n'
 import Nunjucks from 'modules/nunjucks'
 
 import { Feature as ClaimIssueFeature } from 'claim/index'
+import { Feature as CertificateOfServiceFeature } from 'certificateOfService/index'
 import { CsrfProtection } from 'modules/csrf'
 import { DashboardFeature } from 'dashboard/index'
 import CookieProperties from 'common/cookieProperties'
@@ -60,6 +61,9 @@ if (env !== 'mocha') {
 }
 
 new ClaimIssueFeature().enableFor(app)
+if (toBoolean(config.get<boolean>('featureToggles.certificateOfService'))) {
+  new CertificateOfServiceFeature().enableFor(app)
+}
 if (toBoolean(config.get<boolean>('featureToggles.dashboard'))) {
   new DashboardFeature().enableFor(app)
 }

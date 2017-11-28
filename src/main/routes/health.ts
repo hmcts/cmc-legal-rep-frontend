@@ -3,6 +3,7 @@ import * as config from 'config'
 import * as healthcheck from '@hmcts/nodejs-healthcheck'
 import * as fs from 'fs'
 import * as path from 'path'
+import { hostname } from 'os'
 
 export default express.Router()
   .get('/health', healthcheck.configure({
@@ -13,7 +14,12 @@ export default express.Router()
       'fees': basicHealthCheck('fees'),
       'idam-api': basicHealthCheck('idam.api'),
       'idam-authentication-web': basicHealthCheck('idam.authentication-web'),
-      'idam-service-2-service-auth': basicHealthCheck('idam.service-2-service-auth')
+      'idam-service-2-service-auth': basicHealthCheck('idam.service-2-service-auth'),
+      'document-management-web' : basicHealthCheck('documentManagement')
+    },
+    buildInfo: {
+      featureToggles: config.get('featureToggles'),
+      hostname: hostname()
     }
   }))
 

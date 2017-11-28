@@ -57,6 +57,9 @@
       "claim/*": [
         "features/claim/*"
       ],
+      "certificateOfService/*": [
+        "features/certificateOfService/*"
+      ],
       "dashboard/*": [
         "features/dashboard/*"
       ],
