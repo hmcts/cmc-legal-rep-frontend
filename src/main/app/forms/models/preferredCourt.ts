@@ -1,13 +1,10 @@
 import { IsOptional, MaxLength } from 'class-validator'
 import { Serializable } from 'models/serializable'
-
-export class ValidationErrors {
-  static readonly PREFERRED_COURT_TOO_LONG: string = 'You’ve entered too many characters'
-}
+import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 
 export default class PreferredCourt implements Serializable<PreferredCourt> {
 
-  @MaxLength(80, { message: ValidationErrors.PREFERRED_COURT_TOO_LONG })
+  @MaxLength(80, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   @IsOptional()
   name?: string
 
