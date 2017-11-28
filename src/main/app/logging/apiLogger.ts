@@ -1,8 +1,6 @@
 export class ApiLogger {
-  constructor (public logger = require('@hmcts/nodejs-logging').getLogger('apiLogger.js'),
-               public loggingConfig = require('@hmcts/nodejs-logging/log/config').logging) {
+  constructor (public logger = require('@hmcts/nodejs-logging').getLogger('apiLogger.js')) {
     this.logger = logger
-    this.loggingConfig = loggingConfig
   }
 
   logRequest (requestData) {
