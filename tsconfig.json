@@ -60,9 +60,6 @@
       "certificateOfService/*": [
         "features/certificateOfService/*"
       ],
-      "first-contact/*": [
-        "features/first-contact/*"
-      ],
       "dashboard/*": [
         "features/dashboard/*"
       ],
