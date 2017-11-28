@@ -28,7 +28,9 @@ export default express.Router()
           files.push(new UploadedDocument(file.name, file.type, documentType, documentManagementURI))
 
           fs.unlink(file.path, function (err) {
-            if (err) next(err)
+            if (err) {
+              next(err)
+            }
           })
 
           user.legalCertificateOfServiceDraft.document.uploadedDocuments = files
