@@ -1,0 +1,78 @@
+{% extends "layout.njk" %}
+
+{% set title = t('Money claim') %}
+{% set heading = t('What documents did you serve?') %}
+
+{% from "form.njk" import csrfProtection, textArea, checkboxOption, saveAndContinueButton, errorSummary %}
+
+{% block content %}
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <form novalidate method="post">
+        {{ csrfProtection(csrf) }}
+
+        {% set error = form.errorFor('types') %}
+        <div class="form-group {% if error %} form-group-error {% endif %}">
+          <fieldset name="types[label]" id="types[label]">
+            <legend>
+              <span class="form-label-bold visually-hidden">
+                {{ t('Which documents did you serve?') }}
+              </span>
+              <span class="error-message">{{ t(error) }}</span>
+            </legend>
+
+            <div class="multiple-choice">
+              <label class="tick" id="claimForm">
+                  {{ t('Claim form') }}
+              </label>
+            </div>
+
+            <div class="multiple-choice">
+              <label class="tick" id="particularsOfClaim">
+                {{ t('Particulars of claim') }}
+              </label>
+            </div>
+
+              {{ checkboxOption(
+                label = 'Response pack',
+                name = 'types',
+                form = form,
+                value = 'responsePack',
+                checked = (form.valueFor('types').indexOf('responsePack') != -1)
+              ) }}
+              {{ checkboxOption(
+                label = 'Medical reports',
+                name = 'types',
+                form = form,
+                value = 'medicalReport',
+                checked = (form.valueFor('types').indexOf(DocumentType.MEDICAL_REPORTS.dataStoreValue) != -1)
+              ) }}
+              {{ checkboxOption(
+                label = 'Schedule of loss',
+                name = 'types',
+                form = form,
+                value = 'scheduleOfLoss',
+                checked = (form.valueFor('types').indexOf(DocumentType.SCHEDULE_OF_LOSS.dataStoreValue) != -1)
+              ) }}
+              {{ checkboxOption(
+                label = 'Other',
+                name = 'types',
+                form = form,
+                value = 'other',
+                checked = (form.valueFor('types').indexOf(DocumentType.OTHER.dataStoreValue) != -1)
+              ) }}
+          </fieldset>
+        </div>
+
+        <div class="form-group panel panel-border-narrow js-hidden" id="types-other">
+          {{ textArea(t('List them here:'), 'otherDocuments', form) }}
+        </div>
+
+        <div class="form-group">
+          {{ saveAndContinueButton() }}
+        </div>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

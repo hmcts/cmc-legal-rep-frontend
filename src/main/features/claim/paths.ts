@@ -31,5 +31,4 @@ export class Paths {
   static readonly detailsSummaryPage = new RoutablePath('/legal/claim/details-summary')
   static readonly receiptReceiver = new RoutablePath('/legal/claim/:externalId/receipt')
   static readonly claimantChangePage = new RoutablePath('/legal/claim/claimant-change')
-
 }

@@ -48,9 +48,14 @@
   },
   "featureToggles": {
     "idamOauth": "FEATURE_IDAM_OAUTH",
-    "dashboard": "FEATURE_DASHBOARD"
+    "dashboard": "FEATURE_DASHBOARD",
+    "certificateOfService": "FEATURE_CERTIFICATE_OF_SERVICE"
+  },
+  "documentManagement" : {
+    "url": "DOCUMENT_MANAGEMENT_API_GATEWAY_URL"
   },
   "feedback_legal_service_survey": "FEEDBACK_SURVEY_URL",
   "feedback_legal_report_problem_survey": "FEEDBACK_REPORT_PROBLEM_URL",
   "feedback_legal_survey": "FEEDBACK_URL"
 }
+

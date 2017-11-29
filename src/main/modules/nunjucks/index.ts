@@ -9,6 +9,8 @@ import * as config from 'config'
 import { NUMBER_FORMAT } from 'app/utils/numberFormatter'
 import { convertToPoundsFilter } from 'modules/nunjucks/filters/convertToPounds'
 import dateFilter from 'modules/nunjucks/filters/dateFilter'
+import { DocumentType } from 'forms/models/documentType'
+import { Paths as CertificateOfServicePaths } from 'certificateOfService/paths'
 
 const packageDotJson = require('../../../../package.json')
 
@@ -32,7 +34,8 @@ export default class Nunjucks {
     const nunjucksEnv = nunjucks.configure([
       path.join(__dirname, '..', '..', 'views'),
       path.join(__dirname, '..', '..', 'public', 'macros'),
-      path.join(__dirname, '..', '..', 'features')
+      path.join(__dirname, '..', '..', 'features'),
+      path.join(__dirname, '..', '..', 'features', 'certificateOfService', 'views')
     ], {
       autoescape: true,
       express: app
@@ -58,5 +61,7 @@ export default class Nunjucks {
     nunjucksEnv.addFilter('numeral', numeralFilter)
     nunjucksEnv.addFilter('date', dateFilter)
     nunjucksEnv.addFilter('pennies2pounds', convertToPoundsFilter)
+    nunjucksEnv.addGlobal('DocumentType', DocumentType)
+    nunjucksEnv.addGlobal('CertificateOfServicePaths', CertificateOfServicePaths)
   }
 }

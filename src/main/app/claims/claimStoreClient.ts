@@ -1,4 +1,4 @@
-import request from 'client/request'
+import { request } from 'client/request'
 import * as config from 'config'
 import Claim from 'app/claims/models/claim'
 import User from 'app/idam/user'
@@ -11,7 +11,6 @@ const claimStoreApiUrl = `${claimApiBaseUrl}/claims`
 export default class ClaimStoreClient {
   static saveClaimForUser (user: User): Promise<Claim> {
     const convertedDraftClaim: object = ClaimModelConverter.convert(user.legalClaimDraft.document)
-
     return request.post(`${claimStoreApiUrl}/${user.id}`, {
       body: convertedDraftClaim,
       headers: {

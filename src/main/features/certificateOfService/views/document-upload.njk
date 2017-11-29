@@ -1,0 +1,124 @@
+{% extends "layout.njk" %}
+
+{% set title = t('Money claim') %}
+{% set heading = t('Upload your documents') %}
+
+{% from "form.njk" import csrfProtection, saveAndContinueButton, errorSummary, submitButton %}
+
+{% block content %}
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      {% if not fileToUpload %}
+        <form novalidate method="post">
+          {{ csrfProtection(csrf) }}
+      {% endif %}
+        <p>{{ t('Use this page to send the County Court the following documents you’ve served on the defendant.') }}</p>
+
+        <div class="form-group">
+          <label class="form-label-bold">{{ t('Claim form') }}</label>
+          <label class="form-hint">{{ t('Not required') }}</label>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label-bold">{{ t('Particulars of claim') }}</label>
+          {% if particularsOfClaim.length > 0 %}
+            <div class="form-group">
+              <ul class="list-number list-border">
+                {% for file in particularsOfClaim %}
+                  <li>
+                    <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+          {% if fileToUpload.value === DocumentType.PARTICULARS_OF_CLAIM.value %}
+              {% include "includes/file-upload-form.njk" %}
+          {% else %}
+            <input type="submit" name="particularsOfClaim" class="button button-secondary" value="{{ t('Add file') }}"{% if fileToUpload %} disabled{% endif %} />
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          <label class="form-label-bold">{{ t('Response pack') }}</label>
+          <label class="form-hint">{{ t('Not required') }}</label>
+        </div>
+
+        {% if whatDocuments.types.indexOf(DocumentType.MEDICAL_REPORTS.dataStoreValue) != -1 %}
+          <div class="form-group">
+            <label class="form-label-bold">{{ t('Medical reports') }}</label>
+            {% if medicalReport.length > 0 %}
+              <div class="form-group">
+                <ul class="list-number list-border">
+                  {% for file in medicalReport %}
+                    <li>
+                      <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+            {% if fileToUpload.value === DocumentType.MEDICAL_REPORTS.value %}
+              {% include "includes/file-upload-form.njk" %}
+            {% else %}
+              <input type="submit" name="medicalReport" class="button button-secondary" value="{{ t('Add file') }}"{% if fileToUpload %} disabled{% endif %} />
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if whatDocuments.types.indexOf(DocumentType.SCHEDULE_OF_LOSS.dataStoreValue) != -1 %}
+          <div class="form-group">
+            <label class="form-label-bold">{{ t('Schedule of loss') }}</label>
+            {% if scheduleOfLoss.length > 0 %}
+              <div class="form-group">
+                <ul class="list-number list-border">
+                  {% for file in scheduleOfLoss %}
+                    <li>
+                      <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+            {% if fileToUpload.value == DocumentType.SCHEDULE_OF_LOSS.value %}
+              {% include "includes/file-upload-form.njk" %}
+            {% else %}
+              <input type="submit" name="scheduleOfLoss" class="button button-secondary" value="{{ t('Add file') }}"{% if fileToUpload %} disabled{% endif %} />
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if whatDocuments.types.indexOf(DocumentType.OTHER.dataStoreValue) != -1 %}
+          <div class="form-group">
+            <label for="other" class="form-label-bold">{{ t('Other') }}</label>
+            <label for="other" class="form-hint">{{ whatDocuments.otherDocuments }}</label>
+            {% if other.length > 0 %}
+              <div class="form-group">
+                <ul class="list-number list-border">
+                  {% for file in other %}
+                    <li>
+                      <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+            {% if fileToUpload.value === DocumentType.OTHER.value %}
+              {% include "includes/file-upload-form.njk" %}
+            {% else %}
+              <input type="submit" name="other" class="button button-secondary" value="{{ t('Add file') }}"{% if fileToUpload %} disabled{% endif %} />
+            {% endif %}
+          </div>
+        {% endif %}
+    {% if not fileToUpload %}
+        {% if canContinue %}
+          <div class="form-group">
+            {{ saveAndContinueButton() }}
+          </div>
+        {% endif %}
+      </form>
+    {% endif %}
+    </div>
+  </div>
+
+{% endblock %}
