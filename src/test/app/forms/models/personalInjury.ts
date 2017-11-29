@@ -7,6 +7,8 @@ import { Validator } from 'class-validator'
 import { expectValidationError } from './validationUtils'
 
 import { PersonalInjury, ValidationErrors } from 'app/forms/models/personalInjury'
+import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
+
 import { YesNo } from 'app/forms/models/yesNo'
 import { GeneralDamages } from 'app/forms/models/generalDamages'
 
@@ -56,7 +58,7 @@ describe('Personal Injury', () => {
       const errors = validator.validateSync(new PersonalInjury(YesNo.YES, undefined))
 
       expect(errors.length).to.equal(1)
-      expectValidationError(errors, ValidationErrors.GENERAL_DAMAGES_REQUIRED)
+      expectValidationError(errors, CommonValidationErrors.GENERAL_DAMAGES_REQUIRED)
     })
 
     it('should accept personal injury with recognised general damages', () => {

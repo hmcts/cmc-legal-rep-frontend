@@ -4,32 +4,26 @@ import { IsNotBlank } from 'forms/validation/validators/isNotBlank'
 
 import { Serializable } from 'models/serializable'
 import { isUndefined } from 'util'
-
-export class ValidationErrors {
-  static readonly FIRST_LINE_REQUIRED: string = 'Enter address line 1'
-  static readonly CONTENT_TOO_LONG: string = 'You’ve entered too many characters'
-  static readonly CITY_REQUIRED: string = 'Enter a town or city'
-  static readonly POSTCODE_REQUIRED: string = 'Enter a postcode'
-}
+import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 
 export class Address implements Serializable<Address> {
 
-  @IsDefined({ message: ValidationErrors.FIRST_LINE_REQUIRED })
-  @IsNotBlank({ message: ValidationErrors.FIRST_LINE_REQUIRED })
-  @MaxLength(100, { message: ValidationErrors.CONTENT_TOO_LONG })
+  @IsDefined({ message: CommonValidationErrors.FIRST_LINE_REQUIRED })
+  @IsNotBlank({ message: CommonValidationErrors.FIRST_LINE_REQUIRED })
+  @MaxLength(100, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   line1?: string
 
-  @MaxLength(100, { message: ValidationErrors.CONTENT_TOO_LONG })
+  @MaxLength(100, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   line2?: string
 
-  @IsDefined({ message: ValidationErrors.CITY_REQUIRED })
-  @IsNotBlank({ message: ValidationErrors.CITY_REQUIRED })
-  @MaxLength(60, { message: ValidationErrors.CONTENT_TOO_LONG })
+  @IsDefined({ message: CommonValidationErrors.CITY_REQUIRED })
+  @IsNotBlank({ message: CommonValidationErrors.CITY_REQUIRED })
+  @MaxLength(60, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   city?: string
 
-  @IsDefined({ message: ValidationErrors.POSTCODE_REQUIRED })
-  @IsNotBlank({ message: ValidationErrors.POSTCODE_REQUIRED })
-  @MaxLength(8, { message: ValidationErrors.CONTENT_TOO_LONG })
+  @IsDefined({ message: CommonValidationErrors.POSTCODE_REQUIRED })
+  @IsNotBlank({ message: CommonValidationErrors.POSTCODE_REQUIRED })
+  @MaxLength(8, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   postcode?: string
 
   constructor (line1?: string, line2?: string, city?: string, postcode?: string) {
