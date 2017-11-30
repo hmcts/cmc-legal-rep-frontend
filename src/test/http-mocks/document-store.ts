@@ -12,7 +12,7 @@ const document = {
   'lastModifiedBy': '15',
   'modifiedOn': '2017-11-01T10:23:55.120+0000',
   'createdOn': '2017-11-01T10:23:55.271+0000',
-  'classification': 'PRIVATE',
+  'classification': 'RESTRICTED',
   'roles': null,
   '_links': {
     'self': {

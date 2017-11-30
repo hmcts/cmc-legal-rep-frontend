@@ -8,6 +8,8 @@ import { DocumentType } from 'forms/models/documentType'
 import * as fs from 'fs'
 import User from 'idam/user'
 import ErrorHandling from 'common/errorHandling'
+import { FileTypes } from 'forms/models/fileTypes'
+import { FileTypeErrors } from 'forms/models/fileTypeErrors'
 
 export default express.Router()
   .post(Paths.fileUploadPage.uri,
@@ -17,29 +19,47 @@ export default express.Router()
 
       form.parse(req)
       .on('file', function (name, file) {
-        if (file.size === 0) {
-          res.redirect(Paths.documentUploadPage.uri)
-        }
         const user: User = res.locals.user
-        DocumentsClient.save(user.bearerToken, file).then((documentManagementURI) => {
-          let files: UploadedDocument[] = []
-          const documentType: DocumentType = user.legalUploadDocumentDraft.document.fileToUpload
-          user.legalCertificateOfServiceDraft.document.uploadedDocuments.map((file) => files.push(new UploadedDocument().deserialize(file)))
-          files.push(new UploadedDocument(file.name, file.type, documentType, documentManagementURI))
-
-          fs.unlink(file.path, function (err) {
-            if (err) {
-              next(err)
-            }
+        if (file.size === 0) {
+          user.legalUploadDocumentDraft.document.fileToUploadError = FileTypeErrors.FILE_REQUIRED
+          new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
+            res.redirect(Paths.documentUploadPage.uri)
           })
+        } else if (file.size > 10000000) {
+          user.legalUploadDocumentDraft.document.fileToUploadError = FileTypeErrors.FILE_TOO_LARGE
+          new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
+            res.redirect(Paths.documentUploadPage.uri)
+          })
+        } else if (FileTypes.acceptedMimeTypes().indexOf(file.type) === -1) {
+          user.legalUploadDocumentDraft.document.fileToUploadError = FileTypeErrors.WRONG_FILE_TYPE
+          new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
+            res.redirect(Paths.documentUploadPage.uri)
+          })
+        } else {
+          DocumentsClient.save(user.bearerToken, file).then((documentManagementURI) => {
+            const documentType: DocumentType = user.legalUploadDocumentDraft.document.fileToUpload
+            let files: UploadedDocument[] = []
+            user.legalCertificateOfServiceDraft.document.uploadedDocuments.map((file) => files.push(new UploadedDocument().deserialize(file)))
 
-          user.legalCertificateOfServiceDraft.document.uploadedDocuments = files
-          new DraftService().save(user.legalCertificateOfServiceDraft, user.bearerToken)
+            const fileType = FileTypes.all().find(fileType => fileType.mimeType === file.type)
 
-          user.legalUploadDocumentDraft.document.fileToUpload = undefined
-          new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken)
-          res.redirect(Paths.documentUploadPage.uri)
-        })
+            files.push(new UploadedDocument(file.name, fileType, documentType, documentManagementURI))
+
+            fs.unlink(file.path, function (err) {
+              if (err) {
+                next(err)
+              }
+            })
+            user.legalCertificateOfServiceDraft.document.uploadedDocuments = files
+            new DraftService().save(user.legalCertificateOfServiceDraft, user.bearerToken)
+
+            user.legalUploadDocumentDraft.document.fileToUploadError = undefined
+            user.legalUploadDocumentDraft.document.fileToUpload = undefined
+            new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
+              res.redirect(Paths.documentUploadPage.uri)
+            })
+          })
+        }
       })
     })
   )
