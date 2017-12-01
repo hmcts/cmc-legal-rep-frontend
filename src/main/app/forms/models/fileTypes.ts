@@ -1,11 +1,11 @@
 export class FileTypes {
   static readonly PDF = new FileTypes('.pdf', 'Adobe Portable Document Format (PDF)', 'application/pdf')
   static readonly DOC = new FileTypes('.doc', 'Microsoft Word', 'application/msword')
-  static readonly DOCX = new FileTypes('.doc', 'Microsoft Word', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+  static readonly DOCX = new FileTypes('.docx', 'Microsoft Word', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
   static readonly JPEG = new FileTypes('.jpeg', 'JPEG images', 'image/jpeg')
   static readonly PNG = new FileTypes('.png', 'Portable Network Graphics', 'image/png')
   static readonly XLS = new FileTypes('.xls', 'Microsoft Excel', 'application/vnd.ms-excel')
-  static readonly XLSX = new FileTypes('.xlsX', 'Microsoft Excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+  static readonly XLSX = new FileTypes('.xlsx', 'Microsoft Excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 
   readonly extension: string
   readonly mimeType: string

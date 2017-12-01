@@ -36,7 +36,7 @@ describe('Certificate of Service: file upload', () => {
         .expect(res => expect(res).to.be.redirect.toLocation(CertificateOfServicePath.documentUploadPage.uri))
     })
 
-    it('should redirect to document upload page after sending a file to document management', async () => {
+    it('should redirect to document upload page after sending a .pdf file to document management', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       idamServiceMock.resolveRetrieveServiceToken()
       draftStoreServiceMock.resolveUpdate()
@@ -46,6 +46,84 @@ describe('Certificate of Service: file upload', () => {
         .post(CertificateOfServicePath.documentUploadPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .attach('file', 'src/test/resources/000LR012.pdf')
+        .expect(res => expect(res).to.be.redirect.toLocation(CertificateOfServicePath.documentUploadPage.uri))
+    })
+
+    it('should redirect to document upload page after sending a .doc file to document management', async () => {
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+      draftStoreServiceMock.resolveUpdate()
+      documentManagementMock.resolveSave()
+
+      await request(app)
+        .post(CertificateOfServicePath.documentUploadPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .attach('file', 'src/test/resources/TestFile.doc')
+        .expect(res => expect(res).to.be.redirect.toLocation(CertificateOfServicePath.documentUploadPage.uri))
+    })
+
+    it('should redirect to document upload page after sending a .docx file to document management', async () => {
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+      draftStoreServiceMock.resolveUpdate()
+      documentManagementMock.resolveSave()
+
+      await request(app)
+        .post(CertificateOfServicePath.documentUploadPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .attach('file', 'src/test/resources/TestFile.docx')
+        .expect(res => expect(res).to.be.redirect.toLocation(CertificateOfServicePath.documentUploadPage.uri))
+    })
+
+    it('should redirect to document upload page after sending a .png file to document management', async () => {
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+      draftStoreServiceMock.resolveUpdate()
+      documentManagementMock.resolveSave()
+
+      await request(app)
+        .post(CertificateOfServicePath.documentUploadPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .attach('file', 'src/test/resources/TestFile.png')
+        .expect(res => expect(res).to.be.redirect.toLocation(CertificateOfServicePath.documentUploadPage.uri))
+    })
+
+    it('should redirect to document upload page after sending a .jpg file to document management', async () => {
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+      draftStoreServiceMock.resolveUpdate()
+      documentManagementMock.resolveSave()
+
+      await request(app)
+        .post(CertificateOfServicePath.documentUploadPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .attach('file', 'src/test/resources/TestFile.jpg')
+        .expect(res => expect(res).to.be.redirect.toLocation(CertificateOfServicePath.documentUploadPage.uri))
+    })
+
+    it('should redirect to document upload page after sending a .xls file to document management', async () => {
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+      draftStoreServiceMock.resolveUpdate()
+      documentManagementMock.resolveSave()
+
+      await request(app)
+        .post(CertificateOfServicePath.documentUploadPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .attach('file', 'src/test/resources/TestFile.xls')
+        .expect(res => expect(res).to.be.redirect.toLocation(CertificateOfServicePath.documentUploadPage.uri))
+    })
+
+    it('should redirect to document upload page after sending a .xlsx file to document management', async () => {
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+      draftStoreServiceMock.resolveUpdate()
+      documentManagementMock.resolveSave()
+
+      await request(app)
+        .post(CertificateOfServicePath.documentUploadPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .attach('file', 'src/test/resources/TestFile.xlsx')
         .expect(res => expect(res).to.be.redirect.toLocation(CertificateOfServicePath.documentUploadPage.uri))
     })
 
