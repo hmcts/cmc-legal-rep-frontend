@@ -49,7 +49,7 @@
         {% for claimant in claimants %}
 
           <div class="task-list-item">
-            <div class="column-one-half">{{ claimant.claimantName.value }}</div>
+            <div class="column-one-half">{{ claimant.claimantName.fullName }}</div>
             <div class="column-one-quarter"><a class="link" href="/legal/claim/claimant-remove?index={{ loop.index }}">{{ t('Remove') }}</a></div>
             <div class="column-one-quarter"><a class="link" href="/legal/claim/claimant-change?index={{ loop.index }}">{{ t('Change') }}</a></div>
             <hr class="column-full">

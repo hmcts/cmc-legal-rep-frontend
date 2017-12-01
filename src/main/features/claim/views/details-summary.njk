@@ -45,7 +45,7 @@
         {{ tableStart('claimantName'+loop.index, 'Claimant ' + loop.index + ' details') }}
       {% endif %}
 
-      {{ row('Name', claimant.claimantName.value, changeClaimantLink) }}
+      {{ row('Name', claimant.claimantName.fullName, changeClaimantLink) }}
 
       {{ rowWithMultipleValue(
       label = 'Address',
