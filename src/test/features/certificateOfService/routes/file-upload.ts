@@ -101,6 +101,19 @@ describe('Certificate of Service: file upload', () => {
         .expect(res => expect(res).to.be.redirect.toLocation(CertificateOfServicePath.documentUploadPage.uri))
     })
 
+    it('should redirect to document upload page after sending an unsupported file to document management', async () => {
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+      draftStoreServiceMock.resolveUpdate()
+      documentManagementMock.resolveSave()
+
+      await request(app)
+        .post(CertificateOfServicePath.documentUploadPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .attach('file', 'src/test/resources/TestFile.zip')
+        .expect(res => expect(res).to.be.redirect.toLocation(CertificateOfServicePath.documentUploadPage.uri))
+    })
+
     it('should redirect to document upload page after sending a .xls file to document management', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       idamServiceMock.resolveRetrieveServiceToken()
