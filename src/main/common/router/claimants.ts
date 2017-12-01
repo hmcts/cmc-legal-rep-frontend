@@ -31,7 +31,7 @@ export class Claimants {
 
   static getCurrentClaimantName (res: express.Response): string {
     const claimants = res.locals.user.legalClaimDraft.document.claimants
-    const claimantName = claimants[Claimants.getIndex(res)].claimantName
+    const claimantName = claimants[Claimants.getIndex(res)].claimantName.fullName
     return claimantName
   }
 

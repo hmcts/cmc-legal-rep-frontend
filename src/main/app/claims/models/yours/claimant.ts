@@ -18,7 +18,9 @@ export class Claimant implements Serializable<Claimant> {
 
   deserialize (input: any): Claimant {
     if (input) {
-      this.name = input.name
+      if (input.name) {
+        this.name = new ClaimantName().deserialize(input.name)
+      }
       if (input.address) {
         this.address = new Address().deserialize(input.address)
       }

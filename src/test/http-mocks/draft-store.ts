@@ -70,7 +70,7 @@ const sampleClaimDraftObj = {
   } as Representative,
   claimants: [{
     claimantName: {
-      value: 'fullName'
+      fullName: 'Jan Clark'
     } as ClaimantName,
     address: {
       line1: 'Apt 99',

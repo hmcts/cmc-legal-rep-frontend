@@ -28,7 +28,7 @@ describe('Claimant', () => {
     })
 
     it('should return a Claimant instance with set fields from given object', () => {
-      const claimantName = new ClaimantName('Tom')
+      const claimantName = new ClaimantName('Full Name')
       const address = new Address('AddressLine1', 'AddressLine2', 'City', 'PostCode')
       const contactDetails = new ContactDetails('DX 123', 'me@email.com', '020810101010')
       const representative = new Representative('Org', address, contactDetails)
@@ -39,7 +39,7 @@ describe('Claimant', () => {
         representative: representative
       })
 
-      expect(result.name.value).to.deep.equals('Tom')
+      expect(result.name.fullName).to.deep.equals('Full Name')
       expect(result.address).to.deep.equals(address)
       expect(result.representative).to.deep.equals(representative)
     })

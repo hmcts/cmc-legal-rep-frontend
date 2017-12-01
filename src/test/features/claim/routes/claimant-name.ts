@@ -47,7 +47,7 @@ describe('Claim issue: claimant name page', () => {
         idamServiceMock.resolveRetrieveServiceToken()
       })
       it('name not entered', async () => {
-        const claimantName = { value: '' }
+        const claimantName = { fullName: '' }
         await request(app)
           .post(ClaimPaths.claimantNamePage.uri)
           .set('Cookie', `${cookieName}=ABC`)
@@ -64,7 +64,7 @@ describe('Claim issue: claimant name page', () => {
         .post(ClaimPaths.claimantNamePage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({
-          value: 'Peter Pan'
+          fullName: 'Peter Pan'
         })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
@@ -78,7 +78,7 @@ describe('Claim issue: claimant name page', () => {
         .post(ClaimPaths.claimantNamePage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({
-          value: 'Peter Pan'
+          fullName: 'Peter Pan'
         })
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimantAddressPage.uri))
     })

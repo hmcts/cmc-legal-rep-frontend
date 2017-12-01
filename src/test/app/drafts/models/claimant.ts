@@ -28,7 +28,7 @@ describe('Claimant', () => {
       const claimant = new Claimant().deserialize({
         address: { line1: 'line1', line2: 'line2', city: 'city', postcode: 'postcode' },
         claimantName: {
-          value: 'full name'
+          fullName: 'full name'
         }
       })
 

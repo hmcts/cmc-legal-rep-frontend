@@ -12,15 +12,15 @@ export class ClaimantName implements Serializable<ClaimantName> {
   @IsDefined({ message: ValidationErrors.NAME_REQUIRED })
   @IsNotBlank({ message: ValidationErrors.NAME_REQUIRED })
   @MaxLength(70, { message: ValidationErrors.CONTENT_TOO_LONG })
-  value?: string
+  fullName?: string
 
-  constructor (value?: string) {
-    this.value = value
+  constructor (fullName?: string) {
+    this.fullName = fullName
   }
 
-  static fromObject (name?: any): ClaimantName {
-    if (name != null) {
-      return new ClaimantName(name.value)
+  static fromObject (value?: any): ClaimantName {
+    if (value != null) {
+      return new ClaimantName(value.fullName)
     }
 
     return new ClaimantName()
@@ -28,7 +28,7 @@ export class ClaimantName implements Serializable<ClaimantName> {
 
   deserialize (input?: any): ClaimantName {
     if (input) {
-      this.value = input.value
+      this.fullName = input.fullName
     }
 
     return this
