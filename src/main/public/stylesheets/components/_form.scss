@@ -1,3 +1,10 @@
+button {
+  border: 0;
+  cursor: pointer;
+  overflow: visible; // removes padding in IE
+  padding: 0;
+}
+
 .link-button {
   background: none;
   border: 0;
@@ -33,4 +40,74 @@ ul {
 
 .error-min-height {
   min-height: 25px;
+}
+
+.search-submit {
+  background-color: $link-colour;
+  background-position: 16px;
+  border: 0;
+  box-sizing: content-box;
+  color: $white;
+  cursor: pointer;
+  height: 52px;
+  vertical-align: bottom;
+  width: 52px;
+}
+
+.search-input {
+  border: 1px solid $border-colour;
+  border-right: 0;
+  box-sizing: border-box;
+  font-size: 19px;
+  font-weight: 400;
+  height: 50px;
+  margin: 0;
+  padding: 0 0 0 10px;
+  width: 50%;
+
+  &:focus {
+    outline-offset: -3px;
+  }
+}
+
+.border-bottom {
+  border-bottom: 1px solid $border-colour;
+}
+
+.icon-search {
+  background-image: url('/legal/img/lib/icon-search.png');
+  background-size: 50%;
+  margin-left: -5px;
+}
+
+.multiple-choice {
+  .tick {
+    &::before {
+      background: transparent;
+      border: 0;
+      content: '';
+      height: 34px;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 34px;
+    }
+
+    &::after {
+      background: transparent;
+      border: solid;
+      border-top-color: transparent;
+      border-width: 0 0 5px 5px;
+      content: '';
+      filter: alpha(opacity=0);
+      height: 7px;
+      left: 8px;
+      opacity: 1;
+      position: absolute;
+      top: 10px;
+      transform: rotate(-45deg);
+      width: 17px;
+      zoom: 1;
+    }
+  }
 }

@@ -14,12 +14,45 @@ import { HousingDisrepair } from 'forms/models/housingDisrepair'
 import { PersonalInjury } from 'forms/models/personalInjury'
 import { OrganisationName } from 'forms/models/organisationName'
 import Representative from 'drafts/models/representative'
+import { Search } from 'app/forms/models/search'
+import { UploadedDocument } from 'claims/models/uploadedDocument'
+import { WhatDocuments } from 'forms/models/whatDocuments'
+import { DocumentType } from 'forms/models/documentType'
 
 const serviceBaseURL: string = `${config.get('draft-store.url')}`
 const sampleViewDraftObj = {
   viewFlowOption: true,
   defendantChangeIndex: undefined,
   claimantChangeIndex: undefined
+}
+
+const sampleDashboardDraftObj = {
+  search: { reference: '000LR001' } as Search
+}
+
+const sampleUploadDocumentDraftObj = {
+  fileToUpload: {
+    value: 'PARTICULARS_OF_CLAIM',
+    displayValue: 'Particulars of claim',
+    dataStoreValue: 'particularsOfClaim'
+  }
+}
+
+const sampleCertificateOfServiceDraftObj = {
+  uploadedDocuments: [ {
+    fileName: '000LR012.pdf',
+    fileType: 'application/pdf',
+    documentType: {
+      value: 'PARTICULARS_OF_CLAIM',
+      displayValue: 'Particulars of claim',
+      dataStoreValue: 'particularsOfClaim'
+    } as DocumentType,
+    documentManagementURI: '/documents/a7aa3eca-b0d1-4353-a53b-083bd767b819'
+  } as UploadedDocument ],
+  whatDocuments: {
+    types: ['scheduleOfLoss', 'medicalReport', 'other'],
+    otherDocuments: undefined
+  } as WhatDocuments
 }
 
 const sampleClaimDraftObj = {
@@ -106,12 +139,21 @@ export function resolveFind (draftType: string, draftOverride?: object): mock.Sc
     case 'view':
       documentDocument = { ...sampleViewDraftObj, ...draftOverride }
       break
+    case 'dashboard':
+      documentDocument = { ...sampleDashboardDraftObj, ...draftOverride }
+      break
+    case 'legalCertificateOfService':
+      documentDocument = { ...sampleCertificateOfServiceDraftObj, ...draftOverride }
+      break
+    case 'legalUploadDocument':
+      documentDocument = { ...sampleUploadDocumentDraftObj, ...draftOverride }
+      break
     default:
       throw new Error('Unsupported draft type')
   }
 
   return mock(serviceBaseURL)
-    .get(new RegExp('/drafts(\\?|\\&)([^=]+)\\=([^&]+)'))
+    .get(new RegExp('/drafts.*'))
     .reply(HttpStatus.OK, {
       data: [{
         id: 100,

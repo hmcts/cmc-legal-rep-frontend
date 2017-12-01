@@ -57,8 +57,11 @@
       "claim/*": [
         "features/claim/*"
       ],
-      "first-contact/*": [
-        "features/first-contact/*"
+      "certificateOfService/*": [
+        "features/certificateOfService/*"
+      ],
+      "dashboard/*": [
+        "features/dashboard/*"
       ],
       "views/*": [
         "features/view/*"

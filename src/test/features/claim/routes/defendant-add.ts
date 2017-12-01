@@ -49,7 +49,7 @@ describe('Claim issue: is defendant addition page', () => {
       await request(app)
         .post(ClaimPaths.defendantAdditionPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText(pageText, 'div class="error-summary"'))
+        .expect(res => expect(res).to.be.successful.withText(pageText, 'Choose yes if need to add another defendant'))
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {

@@ -33,7 +33,7 @@ describe('Logout receiver', () => {
       await request(app)
         .get('/legal/logout')
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.not.have.cookie(cookieName, 'ABC'))
+        .expect(res => expect(res).to.have.cookie(cookieName, ''))
     })
   })
 })

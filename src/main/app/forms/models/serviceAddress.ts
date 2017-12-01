@@ -3,13 +3,10 @@ import { Serializable } from 'models/serializable'
 import { YesNo } from 'forms/models/yesNo'
 import { IsNotBlank } from 'app/forms/validation/validators/isNotBlank'
 import { isUndefined } from 'util'
+import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 
 export class ValidationErrors {
   static readonly DEFENDANT_SERVICE_ADDRESS_REQUIRED: string = 'Choose which address to use'
-  static readonly FIRST_LINE_REQUIRED: string = 'Enter address line 1'
-  static readonly CONTENT_TOO_LONG: string = 'You’ve entered too many characters'
-  static readonly CITY_REQUIRED: string = 'Enter a valid city/town'
-  static readonly POSTCODE_REQUIRED: string = 'Enter a postcode'
 }
 
 export class ServiceAddress implements Serializable<ServiceAddress> {
@@ -19,25 +16,25 @@ export class ServiceAddress implements Serializable<ServiceAddress> {
   defendantsAddress?: YesNo
 
   @ValidateIf(o => o.defendantsAddress === YesNo.NO)
-  @IsDefined({ message: ValidationErrors.FIRST_LINE_REQUIRED })
-  @IsNotBlank({ message: ValidationErrors.FIRST_LINE_REQUIRED })
-  @MaxLength(100, { message: ValidationErrors.CONTENT_TOO_LONG })
+  @IsDefined({ message: CommonValidationErrors.FIRST_LINE_REQUIRED })
+  @IsNotBlank({ message: CommonValidationErrors.FIRST_LINE_REQUIRED })
+  @MaxLength(100, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   line1?: string
 
   @ValidateIf(o => o.defendantsAddress === YesNo.NO)
-  @MaxLength(100, { message: ValidationErrors.CONTENT_TOO_LONG })
+  @MaxLength(100, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   line2?: string
 
   @ValidateIf(o => o.defendantsAddress === YesNo.NO)
-  @IsDefined({ message: ValidationErrors.CITY_REQUIRED })
-  @IsNotBlank({ message: ValidationErrors.CITY_REQUIRED })
-  @MaxLength(60, { message: ValidationErrors.CONTENT_TOO_LONG })
+  @IsDefined({ message: CommonValidationErrors.CITY_REQUIRED })
+  @IsNotBlank({ message: CommonValidationErrors.CITY_REQUIRED })
+  @MaxLength(60, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   city?: string
 
   @ValidateIf(o => o.defendantsAddress === YesNo.NO)
-  @IsDefined({ message: ValidationErrors.POSTCODE_REQUIRED })
-  @IsNotBlank({ message: ValidationErrors.POSTCODE_REQUIRED })
-  @MaxLength(8, { message: ValidationErrors.CONTENT_TOO_LONG })
+  @IsDefined({ message: CommonValidationErrors.POSTCODE_REQUIRED })
+  @IsNotBlank({ message: CommonValidationErrors.POSTCODE_REQUIRED })
+  @MaxLength(8, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   postcode?: string
 
   constructor (defendantsAddress?: YesNo, line1?: string, line2?: string, city?: string, postcode?: string) {

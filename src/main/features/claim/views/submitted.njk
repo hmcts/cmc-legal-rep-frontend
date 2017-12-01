@@ -23,7 +23,7 @@
 
         <ol class="form-group" type="1">
           <li>1. <a target="_blank" href="{{ receiptPath }}">{{ t('Download the sealed claim form') }}</a>
-            {{ t('(this will open in a new window).') }}
+            {{ t('(opens in a new window).') }}
           </li>
           <li>2. {{ t('Send the form, particulars of claim and a response pack to the defendant within 4 months of the date of issue.') }}
           </li>
@@ -39,6 +39,8 @@
           <p class="form-group">M5 0BY</p>
           <p class="form-group-compound"><span class="bold">DX:</span> 702634 Salford 5</p>
         </div>
+
+        {% include "includes/service_survey_link.njk" %}
 
         {{ linkButton('Finish', 'start', 'button button-start') }}
       </form>

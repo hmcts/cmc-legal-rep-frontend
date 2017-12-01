@@ -1,0 +1,26 @@
+.list-border {
+  padding: 0;
+
+  li {
+    border-bottom: 1px solid $grey-2;
+    list-style-position: inside;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+
+    &:first-of-type {
+      border-top: 1px solid $grey-2;
+    }
+
+    a {
+      display: inline-block;
+      width: 60%;
+
+      &:last-of-type {
+        float: right;
+        padding-right: 15px;
+        text-align: right;
+        width: 33%;
+      }
+    }
+  }
+}

@@ -4,7 +4,8 @@
 import { expect } from 'chai'
 import { Validator } from 'class-validator'
 import { expectValidationError } from './validationUtils'
-import PreferredCourt, { ValidationErrors } from 'app/forms/models/preferredCourt'
+import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
+import PreferredCourt from 'app/forms/models/preferredCourt'
 
 import * as randomstring from 'randomstring'
 
@@ -68,7 +69,7 @@ describe('PreferredCourt', () => {
     it('should reject court name with more than 80 characters', () => {
       const errors = validator.validateSync(new PreferredCourt(randomstring.generate(81)))
       expect(errors.length).to.equal(1)
-      expectValidationError(errors, ValidationErrors.PREFERRED_COURT_TOO_LONG)
+      expectValidationError(errors, CommonValidationErrors.CONTENT_TOO_LONG)
     })
 
     it('should accept court name with 80 characters', () => {

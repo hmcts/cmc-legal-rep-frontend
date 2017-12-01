@@ -1,13 +1,10 @@
+import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 import { IsOptional, MaxLength } from 'class-validator'
 import { Serializable } from 'models/serializable'
 
-export class ValidationErrors {
-  static readonly YOUR_REFERENCE_TOO_LONG: string = 'You’ve entered too many characters'
-}
-
 export class YourReference implements Serializable<YourReference> {
 
-  @MaxLength(25, { message: ValidationErrors.YOUR_REFERENCE_TOO_LONG })
+  @MaxLength(25, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   @IsOptional()
   reference?: string
 

@@ -26,6 +26,8 @@
     "url": "http://localhost:15500"
   },
   "featureToggles": {
-    "idamOauth": true
+    "idamOauth": true,
+    "dashboard": true,
+    "certificateOfService": true
   }
 }

@@ -1,17 +1,17 @@
 import { IsDefined, MaxLength } from 'class-validator'
 import { Serializable } from 'models/serializable'
 import { IsNotBlank } from 'forms/validation/validators/isNotBlank'
+import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 
 export class ValidationErrors {
   static readonly ORGANISATION_NAME_REQUIRED: string = 'Enter your organisation name'
-  static readonly ORGANISATION_NAME_TOO_LONG: string = 'You’ve entered too many characters'
 }
 
 export class OrganisationName implements Serializable<OrganisationName> {
 
   @IsDefined({ message: ValidationErrors.ORGANISATION_NAME_REQUIRED })
   @IsNotBlank({ message: ValidationErrors.ORGANISATION_NAME_REQUIRED })
-  @MaxLength(255, { message: ValidationErrors.ORGANISATION_NAME_TOO_LONG })
+  @MaxLength(255, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   name?: string
 
   constructor (name?: string) {

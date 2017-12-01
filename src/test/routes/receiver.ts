@@ -28,6 +28,24 @@ describe('Claim issue: post login receiver', () => {
           .expect(res => expect(res).to.have.cookie(cookieName, token))
       })
 
+      it('should clear state token in cookie', async () => {
+        idamServiceMock.resolveRetrieveAuthTokenFor(token)
+
+        await request(app)
+          .get(`${AppPaths.receiver.uri}?code=ABC&state=123`)
+          .set('Cookie', 'state=123')
+          .expect(res => expect(res).to.have.cookie('state', ''))
+      })
+
+      it('should render error page when state doesn’t match', async () => {
+        idamServiceMock.resolveRetrieveAuthTokenFor(token)
+
+        await request(app)
+          .get(`${AppPaths.receiver.uri}?code=ABC&state=123`)
+          .set('Cookie', 'state=1234')
+          .expect(res => expect(res).to.be.serverError.withText('Error'))
+      })
+
       it('should not remove bearer token saved in cookie when code does not exist in query string', async () => {
 
         await request(app)

@@ -20,7 +20,11 @@
   },
   "draft-store": {
     "url": "http://localhost:8800",
-    "apiVersion": "v2"
+    "apiVersion": "v2",
+    "secrets": {
+      "primary": "not-a-real-primary-secret",
+      "secondary": "not-a-real-secondary-secret"
+    }
   },
   "session": {
     "cookieName": "T2_SESSION_ID",
@@ -40,6 +44,9 @@
     "url": "http://localhost:5500",
     "apiVersion": "v1"
   },
+  "feedback_legal_service_survey": "http://www.smartsurvey.co.uk/s/not-a-real-service-survey/",
+  "feedback_legal_report_problem_survey": "http://www.smartsurvey.co.uk/s/not-a-real-service-survey/",
+  "feedback_legal_survey": "http://www.smartsurvey.co.uk/s/not-a-real-service-survey/",
   "http": {
     "timeout": 10000
   },
@@ -48,6 +55,11 @@
     "clientSecret": "123456"
   },
   "featureToggles": {
-    "idamOauth": false
+    "idamOauth": false,
+    "dashboard": false,
+    "certificateOfService": false
+  },
+  "documentManagement" : {
+    "url": "http://localhost:8085"
   }
 }
