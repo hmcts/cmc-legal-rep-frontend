@@ -4,7 +4,7 @@
   "description": "Front end for legal representation journey within CMC",
   "private": true,
   "engines": {
-    "node": ">=7.8.0"
+    "node": ">=8.8.0"
   },
   "repository": "git@github.com:hmcts/cmc-legal-rep-frontend.git",
   "author": "HMCTS",
@@ -25,8 +25,9 @@
     "prepush": "yarn test && yarn test:routes"
   },
   "dependencies": {
-    "@hmcts/cmc-common-frontend": "^1.17.1",
-    "@hmcts/draft-store-client": "^1.1.1",
+    "@hmcts/cmc-common-frontend": "^1.24.0",
+    "@hmcts/cmc-draft-store-middleware": "^1.0.0",
+    "@hmcts/draft-store-client": "^1.2.1",
     "@hmcts/nodejs-healthcheck": "^1.4.3",
     "@hmcts/nodejs-logging": "^1.4.2",
     "@types/config": "^0.0.33",
@@ -50,6 +51,7 @@
     "cross-env": "^5.0.5",
     "csurf": "^1.9.0",
     "express": "^4.15.3",
+    "formidable": "^1.1.1",
     "fs": "0.0.2",
     "govuk-elements-sass": "^3.1.2",
     "govuk_template_jinja": "^0.23.0",
@@ -78,7 +80,8 @@
     "to-boolean": "^1.0.0",
     "ts-node": "^3.3.0",
     "tsconfig-paths": "^2.2.0",
-    "typescript": "^2.4.2"
+    "typescript": "^2.4.2",
+    "url-parse": "^1.2.0"
   },
   "devDependencies": {
     "@types/chai": "^4.0.4",

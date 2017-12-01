@@ -6,6 +6,7 @@ import { Validator } from 'class-validator'
 import { expectValidationError } from './validationUtils'
 
 import { PartyTypes as DefendantTypes } from 'forms/models/partyTypes'
+import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 import { DefendantDetails, ValidationErrors } from 'app/forms/models/defendantDetails'
 import * as randomstring from 'randomstring'
 
@@ -60,7 +61,7 @@ describe('Defendant Details', () => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.INDIVIDUAL, undefined, undefined, undefined, undefined))
 
         expect(errors.length).to.equal(1)
-        expectValidationError(errors, ValidationErrors.FULLNAME_REQUIRED)
+        expectValidationError(errors, CommonValidationErrors.FULLNAME_REQUIRED)
       })
     })
 
@@ -69,7 +70,7 @@ describe('Defendant Details', () => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.INDIVIDUAL, null, null, undefined, undefined))
 
         expect(errors.length).to.equal(1)
-        expectValidationError(errors, ValidationErrors.FULLNAME_REQUIRED)
+        expectValidationError(errors, CommonValidationErrors.FULLNAME_REQUIRED)
       })
     })
 
@@ -78,7 +79,7 @@ describe('Defendant Details', () => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.INDIVIDUAL, '', '', undefined, undefined))
 
         expect(errors.length).to.equal(1)
-        expectValidationError(errors, ValidationErrors.FULLNAME_REQUIRED)
+        expectValidationError(errors, CommonValidationErrors.FULLNAME_REQUIRED)
       })
     })
 
@@ -95,7 +96,7 @@ describe('Defendant Details', () => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.ORGANISATION, undefined, undefined, null, '12345678'))
 
         expect(errors.length).to.equal(1)
-        expectValidationError(errors, ValidationErrors.ORGANISATION_NAME_REQUIRED)
+        expectValidationError(errors, CommonValidationErrors.ORGANISATION_NAME_REQUIRED)
       })
     })
 
@@ -104,7 +105,7 @@ describe('Defendant Details', () => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.ORGANISATION, undefined, undefined, undefined, '12345678'))
 
         expect(errors.length).to.equal(1)
-        expectValidationError(errors, ValidationErrors.ORGANISATION_NAME_REQUIRED)
+        expectValidationError(errors, CommonValidationErrors.ORGANISATION_NAME_REQUIRED)
       })
     })
 
@@ -114,7 +115,7 @@ describe('Defendant Details', () => {
           undefined, undefined, randomstring.generate(256), '12345678'))
 
         expect(errors.length).to.equal(1)
-        expectValidationError(errors, ValidationErrors.CONTENT_TOO_LONG)
+        expectValidationError(errors, CommonValidationErrors.CONTENT_TOO_LONG)
       })
     })
 
@@ -133,7 +134,7 @@ describe('Defendant Details', () => {
           undefined, undefined, 'organisation', randomstring.generate(9)))
 
         expect(errors.length).to.equal(1)
-        expectValidationError(errors, ValidationErrors.CONTENT_TOO_LONG)
+        expectValidationError(errors, CommonValidationErrors.CONTENT_TOO_LONG)
       })
     })
 
@@ -152,7 +153,7 @@ describe('Defendant Details', () => {
           'title', randomstring.generate(71), undefined, undefined))
 
         expect(errors.length).to.equal(1)
-        expectValidationError(errors, ValidationErrors.CONTENT_TOO_LONG)
+        expectValidationError(errors, CommonValidationErrors.CONTENT_TOO_LONG)
       })
     })
 
@@ -162,7 +163,7 @@ describe('Defendant Details', () => {
           randomstring.generate(36), 'fullname', undefined, undefined))
 
         expect(errors.length).to.equal(1)
-        expectValidationError(errors, ValidationErrors.CONTENT_TOO_LONG)
+        expectValidationError(errors, CommonValidationErrors.CONTENT_TOO_LONG)
       })
     })
 

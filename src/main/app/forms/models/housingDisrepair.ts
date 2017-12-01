@@ -3,10 +3,10 @@ import { Serializable } from 'models/serializable'
 import { YesNo } from 'forms/models/yesNo'
 import { GeneralDamages } from 'forms/models/generalDamages'
 import { OtherDamages } from 'forms/models/otherDamages'
+import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 
 export class ValidationErrors {
   static readonly HOUSING_DISREPAIR_REQUIRED: string = 'Choose yes if the claim is for housing disrepair'
-  static readonly GENERAL_DAMAGES_REQUIRED: string = 'Choose an amount for general damages'
   static readonly OTHER_DAMAGES_REQUIRED: string = 'Choose an amount for other damages'
 }
 
@@ -17,8 +17,8 @@ export class HousingDisrepair implements Serializable<HousingDisrepair> {
   housingDisrepair?: YesNo
 
   @ValidateIf(o => o.housingDisrepair === YesNo.YES)
-  @IsDefined({ message: ValidationErrors.GENERAL_DAMAGES_REQUIRED })
-  @IsIn(GeneralDamages.all(), { message: ValidationErrors.GENERAL_DAMAGES_REQUIRED })
+  @IsDefined({ message: CommonValidationErrors.GENERAL_DAMAGES_REQUIRED })
+  @IsIn(GeneralDamages.all(), { message: CommonValidationErrors.GENERAL_DAMAGES_REQUIRED })
   generalDamages?: GeneralDamages
 
   @ValidateIf(o => o.housingDisrepair === YesNo.YES)

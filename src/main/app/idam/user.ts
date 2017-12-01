@@ -2,6 +2,8 @@ import DraftLegalClaim from 'drafts/models/draftLegalClaim'
 import DraftView from 'app/drafts/models/draftView'
 import { Draft } from '@hmcts/draft-store-client/dist/draft/draft'
 import { DraftDashboard } from 'drafts/models/draftDashboard'
+import { DraftCertificateOfService } from 'drafts/models/draftCertificateOfService'
+import { DraftUploadDocument } from 'drafts/models/draftUploadDocument'
 
 export default class User {
   id: string
@@ -14,6 +16,8 @@ export default class User {
   viewDraft: Draft<DraftView>
   legalClaimDraft: Draft<DraftLegalClaim>
   dashboardDraft: Draft<DraftDashboard>
+  legalCertificateOfServiceDraft: Draft<DraftCertificateOfService>
+  legalUploadDocumentDraft: Draft<DraftUploadDocument>
 
   constructor (id: string,
                email: string,

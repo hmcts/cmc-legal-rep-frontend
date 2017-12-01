@@ -6,6 +6,7 @@ import * as randomstring from 'randomstring'
 import { Validator } from 'class-validator'
 
 import { expectValidationError } from './validationUtils'
+import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 import { StatementOfTruth, ValidationErrors } from 'forms/models/statementOfTruth'
 
 describe('StatementOfTruth', () => {
@@ -68,7 +69,7 @@ describe('StatementOfTruth', () => {
       const errors = validator.validateSync(new StatementOfTruth(randomstring.generate(71), randomstring.generate(256)))
 
       expect(errors.length).to.equal(2)
-      expectValidationError(errors, ValidationErrors.CONTENT_TOO_LONG)
+      expectValidationError(errors, CommonValidationErrors.CONTENT_TOO_LONG)
     })
 
     it('should accept valid statementOfTruth upto to upper limit', () => {

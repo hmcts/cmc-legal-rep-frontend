@@ -2,14 +2,10 @@ import { Serializable } from 'app/models/serializable'
 import { IsDefined, IsIn, IsOptional, MaxLength, ValidateIf } from 'class-validator'
 import { PartyTypes as DefendantTypes } from 'app/forms/models/partyTypes'
 import { IsNotBlank } from 'app/forms/validation/validators/isNotBlank'
+import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 
 export class ValidationErrors {
   static readonly DEFENDANT_TYPE_REQUIRED: string = 'Choose a type of defendant'
-  static readonly TITLE_REQUIRED: string = 'Enter a title'
-  static readonly FULLNAME_REQUIRED: string = 'Enter a full name'
-  static readonly ORGANISATION_NAME_REQUIRED: string = 'Enter an organisation name'
-  static readonly COMPANY_HOUSE_NUMBER_REQUIRED: string = 'Enter a valid Companies House number'
-  static readonly CONTENT_TOO_LONG: string = 'You’ve entered too many characters'
 }
 
 export class DefendantDetails implements Serializable<DefendantDetails> {
@@ -20,26 +16,25 @@ export class DefendantDetails implements Serializable<DefendantDetails> {
 
   @ValidateIf(o => o.type === DefendantTypes.INDIVIDUAL)
   @IsOptional()
-  @IsDefined({ message: ValidationErrors.TITLE_REQUIRED })
-  @MaxLength(35, { message: ValidationErrors.CONTENT_TOO_LONG })
+  @IsDefined({ message: CommonValidationErrors.TITLE_REQUIRED })
+  @MaxLength(35, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   title?: string
 
   @ValidateIf(o => o.type === DefendantTypes.INDIVIDUAL)
-  @IsDefined({ message: ValidationErrors.FULLNAME_REQUIRED })
-  @IsNotBlank({ message: ValidationErrors.FULLNAME_REQUIRED })
-  @MaxLength(70, { message: ValidationErrors.CONTENT_TOO_LONG })
+  @IsDefined({ message: CommonValidationErrors.FULLNAME_REQUIRED })
+  @IsNotBlank({ message: CommonValidationErrors.FULLNAME_REQUIRED })
+  @MaxLength(70, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   fullName?: string
 
   @ValidateIf(o => o.type === DefendantTypes.ORGANISATION)
-  @IsDefined({ message: ValidationErrors.ORGANISATION_NAME_REQUIRED })
-  @IsNotBlank({ message: ValidationErrors.ORGANISATION_NAME_REQUIRED })
-  @MaxLength(255, { message: ValidationErrors.CONTENT_TOO_LONG })
+  @IsDefined({ message: CommonValidationErrors.ORGANISATION_NAME_REQUIRED })
+  @IsNotBlank({ message: CommonValidationErrors.ORGANISATION_NAME_REQUIRED })
+  @MaxLength(255, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   organisation?: string
 
   @ValidateIf(o => o.type === DefendantTypes.ORGANISATION)
   @IsOptional()
-  @IsDefined({ message: ValidationErrors.COMPANY_HOUSE_NUMBER_REQUIRED })
-  @MaxLength(8, { message: ValidationErrors.CONTENT_TOO_LONG })
+  @MaxLength(8, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   companyHouseNumber?: string
 
   constructor (type?: DefendantTypes, title?: string, fullName?: string, organisation?: string, companyHouseNumber?: string) {

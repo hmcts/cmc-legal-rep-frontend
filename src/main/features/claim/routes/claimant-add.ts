@@ -9,7 +9,7 @@ import { YesNo } from 'app/forms/models/yesNo'
 import { ValidationError } from 'class-validator'
 import { ClaimantAddition } from 'app/forms/models/claimantAddition'
 import { Claimants } from 'common/router/claimants'
-import { DraftService } from '../../../services/draftService'
+import { DraftService } from 'services/draftService'
 
 const MAX_CLAIMANTS_ALLOWED: number = 20
 const ERROR_MESSAGE: string = `You can't add more than ${MAX_CLAIMANTS_ALLOWED} claimants`

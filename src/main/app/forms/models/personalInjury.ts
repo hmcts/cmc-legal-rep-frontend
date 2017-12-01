@@ -2,10 +2,10 @@ import { IsDefined, IsIn, ValidateIf } from 'class-validator'
 import { Serializable } from 'models/serializable'
 import { YesNo } from 'forms/models/yesNo'
 import { GeneralDamages } from 'forms/models/generalDamages'
+import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 
 export class ValidationErrors {
   static readonly PERSONAL_INJURY_REQUIRED: string = 'Choose yes if it’s a personal injury claim'
-  static readonly GENERAL_DAMAGES_REQUIRED: string = 'Choose an amount'
 }
 
 export class PersonalInjury implements Serializable<PersonalInjury> {
@@ -15,8 +15,8 @@ export class PersonalInjury implements Serializable<PersonalInjury> {
   personalInjury?: YesNo
 
   @ValidateIf(o => o.personalInjury === YesNo.YES)
-  @IsDefined({ message: ValidationErrors.GENERAL_DAMAGES_REQUIRED })
-  @IsIn(GeneralDamages.all(), { message: ValidationErrors.GENERAL_DAMAGES_REQUIRED })
+  @IsDefined({ message: CommonValidationErrors.GENERAL_DAMAGES_REQUIRED })
+  @IsIn(GeneralDamages.all(), { message: CommonValidationErrors.GENERAL_DAMAGES_REQUIRED })
   generalDamages?: GeneralDamages
 
   constructor (personalInjury?: YesNo, generalDamages?: GeneralDamages) {

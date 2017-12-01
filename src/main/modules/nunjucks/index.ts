@@ -9,6 +9,8 @@ import * as config from 'config'
 import { NUMBER_FORMAT } from 'app/utils/numberFormatter'
 import { convertToPoundsFilter } from 'modules/nunjucks/filters/convertToPounds'
 import dateFilter from 'modules/nunjucks/filters/dateFilter'
+import { DocumentType } from 'forms/models/documentType'
+import { Paths as CertificateOfServicePaths } from 'certificateOfService/paths'
 
 const packageDotJson = require('../../../../package.json')
 
@@ -32,10 +34,16 @@ export default class Nunjucks {
     const nunjucksEnv = nunjucks.configure([
       path.join(__dirname, '..', '..', 'views'),
       path.join(__dirname, '..', '..', 'public', 'macros'),
-      path.join(__dirname, '..', '..', 'features')
+      path.join(__dirname, '..', '..', 'features'),
+      path.join(__dirname, '..', '..', 'features', 'certificateOfService', 'views')
     ], {
       autoescape: true,
       express: app
+    })
+
+    app.use((req, res, next) => {
+      res.locals.pagePath = req.path
+      next()
     })
 
     require('numeral/locales/en-gb')
@@ -47,9 +55,13 @@ export default class Nunjucks {
     nunjucksEnv.addGlobal('development', this.developmentMode)
     nunjucksEnv.addGlobal('govuk_template_version', packageDotJson.dependencies.govuk_template_jinja)
     nunjucksEnv.addGlobal('customerSurveyUrl', config.get('feedback_legal_service_survey'))
+    nunjucksEnv.addGlobal('reportProblemSurveyUrl', config.get('feedback_legal_report_problem_survey'))
+    nunjucksEnv.addGlobal('betaFeedbackSurveyUrl', config.get('feedback_legal_survey'))
     nunjucksEnv.addGlobal('t', (key: string, options?: TranslationOptions): string => this.i18next.t(key, options))
     nunjucksEnv.addFilter('numeral', numeralFilter)
     nunjucksEnv.addFilter('date', dateFilter)
     nunjucksEnv.addFilter('pennies2pounds', convertToPoundsFilter)
+    nunjucksEnv.addGlobal('DocumentType', DocumentType)
+    nunjucksEnv.addGlobal('CertificateOfServicePaths', CertificateOfServicePaths)
   }
 }

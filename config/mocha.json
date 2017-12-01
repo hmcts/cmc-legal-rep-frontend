@@ -27,6 +27,7 @@
   },
   "featureToggles": {
     "idamOauth": true,
-    "dashboard": true
+    "dashboard": true,
+    "certificateOfService": true
   }
 }

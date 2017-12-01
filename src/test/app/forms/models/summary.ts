@@ -4,6 +4,7 @@
 import { expect } from 'chai'
 import { Validator } from 'class-validator'
 import { expectValidationError } from './validationUtils'
+import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 import Summary, { ValidationErrors } from 'forms/models/summary'
 import * as randomstring from 'randomstring'
 
@@ -67,7 +68,7 @@ describe('Summary', () => {
     it('should reject claim summary with more than 700 characters', () => {
       const errors = validator.validateSync(new Summary(randomstring.generate(701)))
       expect(errors.length).to.equal(1)
-      expectValidationError(errors, ValidationErrors.SUMMARY_TOO_LONG.replace('$constraint1', '700'))
+      expectValidationError(errors, CommonValidationErrors.CONTENT_TOO_LONG.replace('$constraint1', '700'))
     })
 
     it('should accept claim summary with 700 characters', () => {

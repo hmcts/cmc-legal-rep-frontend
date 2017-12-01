@@ -23,7 +23,11 @@
   },
   "draft-store": {
     "url": "DRAFT_STORE_URL",
-    "apiVersion": "DRAFT_STORE_API_VERSION"
+    "apiVersion": "DRAFT_STORE_API_VERSION",
+    "secrets": {
+      "primary": "DRAFT_STORE_SECRET_PRIMARY",
+      "secondary": "DRAFT_STORE_SECRET_SECONDARY"
+    }
   },
   "legal_frontend_analytics": {
     "gaTrackingId": "GA_TRACKING_ID"
@@ -44,7 +48,14 @@
   },
   "featureToggles": {
     "idamOauth": "FEATURE_IDAM_OAUTH",
-    "dashboard": "FEATURE_DASHBOARD"
+    "dashboard": "FEATURE_DASHBOARD",
+    "certificateOfService": "FEATURE_CERTIFICATE_OF_SERVICE"
   },
-  "feedback_legal_service_survey": "FEEDBACK_SURVEY_URL"
+  "documentManagement" : {
+    "url": "DOCUMENT_MANAGEMENT_API_GATEWAY_URL"
+  },
+  "feedback_legal_service_survey": "FEEDBACK_SURVEY_URL",
+  "feedback_legal_report_problem_survey": "FEEDBACK_REPORT_PROBLEM_URL",
+  "feedback_legal_survey": "FEEDBACK_URL"
 }
+

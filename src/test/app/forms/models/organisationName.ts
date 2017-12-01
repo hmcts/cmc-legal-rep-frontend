@@ -4,6 +4,7 @@
 import { expect } from 'chai'
 import { Validator } from 'class-validator'
 import { expectValidationError } from './validationUtils'
+import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 import { OrganisationName, ValidationErrors } from 'forms/models/organisationName'
 import * as randomstring from 'randomstring'
 
@@ -68,7 +69,7 @@ describe('OrganisationName', () => {
     it('should reject organisation name with more than 255 characters', () => {
       const errors = validator.validateSync(new OrganisationName(randomstring.generate(256)))
       expect(errors.length).to.equal(1)
-      expectValidationError(errors, ValidationErrors.ORGANISATION_NAME_TOO_LONG)
+      expectValidationError(errors, CommonValidationErrors.CONTENT_TOO_LONG)
     })
 
     it('should accept organisation name with 255 characters', () => {
