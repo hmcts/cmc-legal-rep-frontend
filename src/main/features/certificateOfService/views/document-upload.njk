@@ -27,6 +27,7 @@
                 {% for file in particularsOfClaim %}
                   <li>
                     <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                    <a target="_blank" href="/legal/certificateOfService/document-remove?id={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ t('Remove') }}</a>
                   </li>
                 {% endfor %}
               </ul>
@@ -53,6 +54,7 @@
                   {% for file in medicalReport %}
                     <li>
                       <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                      <a target="_blank" href="/legal/certificateOfService/document-remove?id={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ t('Remove') }}</a>
                     </li>
                   {% endfor %}
                 </ul>
@@ -75,6 +77,7 @@
                   {% for file in scheduleOfLoss %}
                     <li>
                       <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                      <a target="_blank" href="/legal/certificateOfService/document-remove?id={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ t('Remove') }}</a>
                     </li>
                   {% endfor %}
                 </ul>
@@ -98,6 +101,7 @@
                   {% for file in other %}
                     <li>
                       <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                      <a target="_blank" href="/legal/certificateOfService/document-remove?id={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ t('Remove') }}</a>
                     </li>
                   {% endfor %}
                 </ul>

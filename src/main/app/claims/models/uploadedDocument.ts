@@ -23,4 +23,8 @@ export class UploadedDocument implements Serializable<UploadedDocument> {
     }
     return this
   }
+
+  getId (): string {
+    return this.documentManagementURI.slice(10)
+  }
 }
