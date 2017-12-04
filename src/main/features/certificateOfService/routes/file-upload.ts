@@ -15,7 +15,7 @@ export default express.Router()
   .post(Paths.fileUploadPage.uri,
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form = new formidable.IncomingForm()
-      const FILE_SIZE_LIMIT: number = 10000000
+      const FILE_SIZE_LIMIT: number = 10485760
       form.keepExtensions = true
 
       form.parse(req)
