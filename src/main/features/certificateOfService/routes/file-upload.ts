@@ -23,10 +23,19 @@ export default express.Router()
         const user: User = res.locals.user
         if (file.size === 0) {
           user.legalUploadDocumentDraft.document.fileToUploadError = FileTypeErrors.FILE_REQUIRED
+          new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
+            res.redirect(Paths.documentUploadPage.uri)
+          })
         } else if (file.size > FILE_SIZE_LIMIT) {
           user.legalUploadDocumentDraft.document.fileToUploadError = FileTypeErrors.FILE_TOO_LARGE
+          new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
+            res.redirect(Paths.documentUploadPage.uri)
+          })
         } else if (FileTypes.acceptedMimeTypes().indexOf(file.type) === -1) {
           user.legalUploadDocumentDraft.document.fileToUploadError = FileTypeErrors.WRONG_FILE_TYPE
+          new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
+            res.redirect(Paths.documentUploadPage.uri)
+          })
         } else {
           DocumentsClient.save(user.bearerToken, file).then((documentManagementURI) => {
             const documentType: DocumentType = user.legalUploadDocumentDraft.document.fileToUpload
@@ -47,11 +56,11 @@ export default express.Router()
 
             user.legalUploadDocumentDraft.document.fileToUploadError = undefined
             user.legalUploadDocumentDraft.document.fileToUpload = undefined
+            new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
+              res.redirect(Paths.documentUploadPage.uri)
+            })
           })
         }
-        new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
-          res.redirect(Paths.documentUploadPage.uri)
-        })
       })
     })
   )

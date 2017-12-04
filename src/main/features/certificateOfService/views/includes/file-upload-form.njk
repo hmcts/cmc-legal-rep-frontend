@@ -1,7 +1,7 @@
 <form action="/legal/certificateOfService/file-upload?_csrf={{ csrf }}" novalidate method="post" enctype="multipart/form-data">
   <div class="form-group">
     <label for="files[label]"></label>
-    <input type="file" id="files[label]" name="files" accept="{{ acceptedFiles }}">
+    <input type="file" id="files[label]" name="files[label]" accept="{{ acceptedFiles }}">
   </div>
 
   <div class="form-group">
