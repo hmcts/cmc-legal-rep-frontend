@@ -1,7 +1,8 @@
 {
   "featureToggles": {
     "idamOauth": true,
-    "dashboard": true
+    "dashboard": true,
+    "certificateOfService": true
   },
   "oauth": {
     "clientId": "cmc_legal",
