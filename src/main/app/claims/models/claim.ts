@@ -16,6 +16,7 @@ export default class Claim implements Serializable<Claim> {
   claimData: ClaimData
   submitterEmail: string
   files: UploadedDocument[]
+  sealedClaimDocumentSelfPath: string = undefined
 
   deserialize (input: any): Claim {
     if (input) {
@@ -28,6 +29,7 @@ export default class Claim implements Serializable<Claim> {
       this.issuedOn = MomentFactory.parse(input.issuedOn)
       this.claimData = new ClaimData().deserialize(input.claim)
       this.submitterEmail = input.submitterEmail
+      this.sealedClaimDocumentSelfPath = input.sealedClaimDocumentSelfPath
       if (input.files) {
         this.files = this.deserializeDocuments(input.files)
       }

@@ -12,6 +12,7 @@ import { app } from '../../../../main/app'
 
 import * as idamServiceMock from '../../../http-mocks/idam'
 import * as claimStoreServiceMock from '../../../http-mocks/claim-store'
+import * as documentManagementMock from '../../../http-mocks/document-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
 
@@ -50,10 +51,20 @@ describe('Get Sealed Claim copy', () => {
           .expect(res => expect(res).to.be.forbidden)
       })
 
-      it('should return sealed claim when everything is fine', async () => {
+      it('should return sealed claim from claim store when everything is fine', async () => {
         claimStoreServiceMock.resolveRetrieveClaimByExternalId()
         claimStoreServiceMock.resolveRetrieveSealedClaimCopy()
 
+        await request(app)
+          .get(ClaimPaths.receiptReceiver.uri.replace(':externalId', externalId))
+          .set('Cookie', `${cookieName}=ABC`)
+          .expect(res => expect(res).to.be.successful)
+      })
+
+      it('should return sealed claim from documents store when everything is fine', async () => {
+        claimStoreServiceMock.resolveRetrieveClaimByExternalId({ sealedClaimDocumentSelfPath: '/documents/85d97996-22a5-40d7-882e-3a382c8ae1b' })
+        documentManagementMock.resolveFindMetaData()
+        documentManagementMock.resolveGetDocument()
         await request(app)
           .get(ClaimPaths.receiptReceiver.uri.replace(':externalId', externalId))
           .set('Cookie', `${cookieName}=ABC`)
