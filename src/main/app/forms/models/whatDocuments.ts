@@ -5,7 +5,7 @@ import { DocumentType } from 'forms/models/documentType'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 
 export class ValidationErrors {
-  static readonly OTHER_DOCUMENTS_REQUIRED: string = 'Enter a description'
+  static readonly OTHER_DOCUMENTS_REQUIRED: string = 'Tell us which other documents you served'
 }
 
 export class WhatDocuments implements Serializable<WhatDocuments> {

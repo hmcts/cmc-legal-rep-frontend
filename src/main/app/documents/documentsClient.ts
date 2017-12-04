@@ -37,7 +37,7 @@ export default class DocumentsClient {
             options: { filename: file.name, contentType: file.type }
           }
         ],
-        classification: 'PRIVATE'
+        classification: 'RESTRICTED'
       }
     })
       .then((response: any) => {

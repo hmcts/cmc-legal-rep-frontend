@@ -14,7 +14,6 @@ export class DraftCertificateOfService extends DraftDocument implements Serializ
 
       if (input.uploadedDocuments && input.uploadedDocuments.length > 0) {
         const uploadedDocuments: UploadedDocument[] = input.uploadedDocuments.map((uploadedDocument) => new UploadedDocument().deserialize(uploadedDocument))
-        // input.uploadedDocuments.map((uploadedDocument) => uploadedDocuments.push(new UploadedDocument().deserialize(uploadedDocument)))
         this.uploadedDocuments = uploadedDocuments
       }
     }

@@ -4,9 +4,13 @@ import { DraftService } from 'services/draftService'
 import { UploadedDocument } from 'claims/models/uploadedDocument'
 import { DocumentType } from 'forms/models/documentType'
 import { WhatDocuments } from 'forms/models/whatDocuments'
+import { Form, FormValidationError } from 'app/forms/form'
+import { ValidationError } from 'class-validator'
 import ErrorHandling from 'common/errorHandling'
+import { FileTypes } from 'forms/models/fileTypes'
+import { DocumentUpload } from 'forms/models/documentUpload'
 
-function renderView (res: express.Response): void {
+function renderView (form: Form<DocumentUpload>, res: express.Response): void {
   const files: UploadedDocument[] = res.locals.user.legalCertificateOfServiceDraft.document.uploadedDocuments
   const fileToUpload: DocumentType = res.locals.user.legalUploadDocumentDraft.document.fileToUpload
   const whatDocuments: WhatDocuments = res.locals.user.legalCertificateOfServiceDraft.document.whatDocuments
@@ -30,19 +34,29 @@ function renderView (res: express.Response): void {
 
   res.render(Paths.documentUploadPage.associatedView,
     {
+      form: form,
       particularsOfClaim: particularsOfClaim,
       medicalReport: medicalReport,
       scheduleOfLoss: scheduleOfLoss,
       other: other,
       whatDocuments: whatDocuments,
       fileToUpload: fileToUpload,
-      canContinue: canContinue
+      canContinue: canContinue,
+      acceptedFiles: FileTypes.acceptedFiles()
     })
 }
 
 export default express.Router()
   .get(Paths.documentUploadPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(res)
+    const form = new Form(new DocumentUpload())
+    if (res.locals.user.legalUploadDocumentDraft.document.fileToUploadError) {
+      const validationError = new ValidationError()
+      validationError.property = 'files'
+      validationError.target = 'files'
+      validationError.constraints = { ['files']: res.locals.user.legalUploadDocumentDraft.document.fileToUploadError.displayValue }
+      form.errors.push(new FormValidationError(validationError, ''))
+    }
+    renderView(form, res)
   })
   .post(Paths.documentUploadPage.uri,
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -56,6 +70,8 @@ export default express.Router()
       } else if (form.other) {
         res.locals.user.legalUploadDocumentDraft.document.fileToUpload = DocumentType.OTHER
       }
+
+      res.locals.user.legalUploadDocumentDraft.document.wrongFileType = undefined
 
       await new DraftService().save(res.locals.user.legalUploadDocumentDraft, res.locals.user.bearerToken)
 
