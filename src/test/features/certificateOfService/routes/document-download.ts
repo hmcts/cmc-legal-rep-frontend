@@ -48,9 +48,21 @@ describe('Get saved document', () => {
         documentManagementMock.resolveGetDocument()
 
         await request(app)
-          .get(CertificateOfServicePath.documentDownloadPage.uri + '?selfPath=/documents/85d97996-22a5-40d7-882e-3a382c8ae1b4&fileName=000LR012.pdf')
+          .get(CertificateOfServicePath.documentDownloadPage.uri + '?id=/documents/85d97996-22a5-40d7-882e-3a382c8ae1b4')
           .set('Cookie', `${cookieName}=ABC`)
           .expect(res => expect(res).to.be.successful)
+      })
+
+      it('should throw forbidden error when trying to access a document not associated with the claim', async () => {
+        idamServiceMock.resolveRetrieveServiceToken()
+        draftStoreServiceMock.resolveFind('legalCertificateOfService')
+        documentManagementMock.resolveFindMetaData()
+        documentManagementMock.resolveGetDocument()
+
+        await request(app)
+          .get(CertificateOfServicePath.documentDownloadPage.uri + '?id=/documents/85d97996-22a5-40d7-882e-3a382c8ae1b5')
+          .set('Cookie', `${cookieName}=ABC`)
+          .expect(res => expect(res).to.be.forbidden)
       })
     })
   })

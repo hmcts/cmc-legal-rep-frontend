@@ -5,14 +5,17 @@ import * as http from 'http'
 import * as HttpStatus from 'http-status-codes'
 import { UploadedDocument } from 'claims/models/uploadedDocument'
 import User from 'idam/user'
-
-function getType (documents: UploadedDocument[], fileName: string): string {
-  return documents.find((document) => document.fileName === fileName).fileType
-}
+import { ForbiddenError } from '../../../errors'
 
 export default express.Router()
   .get(Paths.documentDownloadPage.uri, (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    DocumentsClient.getBinaryUrl(res.locals.user.bearerToken, req.query.selfPath)
+    const user: User = res.locals.user
+    const documents: UploadedDocument[] = user.legalCertificateOfServiceDraft.document.uploadedDocuments
+    const document: UploadedDocument = documents.find(document => document.documentManagementURI === req.query.id)
+    if (document === undefined) {
+      throw new ForbiddenError()
+    }
+    DocumentsClient.getBinaryUrl(res.locals.user.bearerToken, req.query.id)
       .then(binaryPath => {
 
         DocumentsClient.getDocument(res.locals.user.bearerToken, binaryPath)
@@ -26,13 +29,11 @@ export default express.Router()
             })
             response.on('end', () => {
               const fileBuffer = Buffer.concat(buffers)
-              const user: User = res.locals.user
-              const documents: UploadedDocument[] = user.legalCertificateOfServiceDraft.document.uploadedDocuments
-              const type = getType(documents, req.query.fileName)
+              const type = document.fileType
 
               res.writeHead(HttpStatus.OK, {
                 'Content-Type': `${type}`,
-                'Content-Disposition': `attachment; filename=${req.query.fileName}`,
+                'Content-Disposition': `attachment; filename=${document.fileName}`,
                 'Content-Length': fileBuffer.length
               })
 

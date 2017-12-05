@@ -13,6 +13,7 @@
           {{ csrfProtection(csrf) }}
       {% endif %}
         <p>{{ t('Use this page to send the County Court the following documents you’ve served on the defendant.') }}</p>
+        <p>{{ t('We accept files sized no larger than 10MB in these formats: pdf, doc, docx, jpg, jpef, xls, xlsx, png.') }}</p>
 
         <div class="form-group">
           <label class="form-label-bold">{{ t('Claim form') }}</label>
@@ -26,7 +27,7 @@
               <ul class="list-number list-border">
                 {% for file in particularsOfClaim %}
                   <li>
-                    <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                    <a target="_blank" href="/legal/certificateOfService/document-download?id={{ file.documentManagementURI }}">{{ file.fileName }}</a>
                     <a target="_blank" href="/legal/certificateOfService/document-remove?id={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ t('Remove') }}</a>
                   </li>
                 {% endfor %}
@@ -53,7 +54,7 @@
                 <ul class="list-number list-border">
                   {% for file in medicalReport %}
                     <li>
-                      <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                      <a target="_blank" href="/legal/certificateOfService/document-download?id={{ file.documentManagementURI }}">{{ file.fileName }}</a>
                       <a target="_blank" href="/legal/certificateOfService/document-remove?id={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ t('Remove') }}</a>
                     </li>
                   {% endfor %}
@@ -76,7 +77,7 @@
                 <ul class="list-number list-border">
                   {% for file in scheduleOfLoss %}
                     <li>
-                      <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                      <a target="_blank" href="/legal/certificateOfService/document-download?id={{ file.documentManagementURI }}">{{ file.fileName }}</a>
                       <a target="_blank" href="/legal/certificateOfService/document-remove?id={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ t('Remove') }}</a>
                     </li>
                   {% endfor %}
@@ -100,7 +101,7 @@
                 <ul class="list-number list-border">
                   {% for file in other %}
                     <li>
-                      <a target="_blank" href="/legal/certificateOfService/document-download?selfPath={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ file.fileName }}</a>
+                      <a target="_blank" href="/legal/certificateOfService/document-download?id={{ file.documentManagementURI }}">{{ file.fileName }}</a>
                       <a target="_blank" href="/legal/certificateOfService/document-remove?id={{ file.documentManagementURI }}&fileName={{ file.fileName }}">{{ t('Remove') }}</a>
                     </li>
                   {% endfor %}
