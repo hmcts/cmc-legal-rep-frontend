@@ -46,20 +46,6 @@ export default class DocumentsClient {
       })
   }
 
-  static delete (userAuthToken: string, id: string): Promise<number> {
-
-    const endpointURL: string = `${documentManagementUrl}/documents/` + id
-
-    return request.delete(endpointURL, {
-      headers: {
-        Authorization: `Bearer ${userAuthToken}`
-      }
-    })
-      .then((response: any) => {
-        return response.statusCode
-      })
-  }
-
   static getBinaryUrl (userAuthToken: string, path: string): Promise<string> {
 
     const endpointURL: string = `${documentManagementUrl}${path}`
