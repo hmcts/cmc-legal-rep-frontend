@@ -6,7 +6,7 @@ import { Validator } from 'class-validator'
 import { expectValidationError } from './validationUtils'
 
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
-import { PartyTypes as ClaimantTypes } from 'forms/models/partyTypes'
+import { PartyType as ClaimantTypes } from 'forms/../../../../main/app/common/partyType'
 import { ClaimantDetails, ValidationErrors } from 'app/forms/models/claimantDetails'
 import * as randomstring from 'randomstring'
 

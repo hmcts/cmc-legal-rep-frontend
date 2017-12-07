@@ -1,6 +1,6 @@
 import { Serializable } from 'app/models/serializable'
 import { IsDefined, IsIn, IsOptional, MaxLength, ValidateIf } from 'class-validator'
-import { PartyTypes as DefendantTypes } from 'app/forms/models/partyTypes'
+import { PartyType as DefendantTypes } from 'app/common/partyType'
 import { IsNotBlank } from 'app/forms/validation/validators/isNotBlank'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 
@@ -37,12 +37,26 @@ export class DefendantDetails implements Serializable<DefendantDetails> {
   @MaxLength(8, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   companyHouseNumber?: string
 
-  constructor (type?: DefendantTypes, title?: string, fullName?: string, organisation?: string, companyHouseNumber?: string) {
+  @ValidateIf(o => o.type === DefendantTypes.SOLE_TRADER)
+  @IsDefined({ message: CommonValidationErrors.FULLNAME_REQUIRED })
+  @IsNotBlank({ message: CommonValidationErrors.FULLNAME_REQUIRED })
+  @MaxLength(70, { message: CommonValidationErrors.CONTENT_TOO_LONG })
+  soleTraderName?: string
+
+  @ValidateIf(o => o.type === DefendantTypes.SOLE_TRADER)
+  @IsOptional()
+  @MaxLength(255, { message: CommonValidationErrors.CONTENT_TOO_LONG })
+  businessName?: string
+
+  constructor (type?: DefendantTypes, title?: string, fullName?: string, organisation?: string, companyHouseNumber?: string,
+               soleTraderName?: string, businessName?: string) {
     this.type = type
     this.title = title
     this.fullName = fullName
     this.organisation = organisation
     this.companyHouseNumber = companyHouseNumber
+    this.soleTraderName = soleTraderName
+    this.businessName = businessName
   }
 
   static fromObject (value?: any): DefendantDetails {
@@ -57,7 +71,8 @@ export class DefendantDetails implements Serializable<DefendantDetails> {
           .pop()
       }
 
-      return new DefendantDetails(type, value.title, value.fullName, value.organisation, value.companyHouseNumber)
+      return new DefendantDetails(type, value.title, value.fullName, value.organisation, value.companyHouseNumber,
+                                  value.soleTraderName, value.businessName)
     }
 
     return new DefendantDetails()
@@ -70,13 +85,23 @@ export class DefendantDetails implements Serializable<DefendantDetails> {
       this.fullName = input.fullName
       this.organisation = input.organisation
       this.companyHouseNumber = input.companyHouseNumber
+      this.businessName = input.businessName
+      this.soleTraderName = input.soleTraderName
     }
 
     return this
   }
 
   toString (): string {
-    return this.type.value === DefendantTypes.INDIVIDUAL.value ? (this.title ? this.title + ' ' : '') + this.fullName : this.organisation
+    return 'hello'
+    // switch (this.type.value) {
+    //   case DefendantTypes.INDIVIDUAL.value:
+    //     return (this.title ? this.title + ' ' : '') + this.fullName
+    //   case DefendantTypes.ORGANISATION.value:
+    //     return this.organisation
+    //   case DefendantTypes.SOLE_TRADER.value:
+    //     return this.businessName ? this.soleTraderName + ' trading as ' + this.businessName : this.soleTraderName
+    // }
   }
 
 }

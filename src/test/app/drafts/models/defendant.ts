@@ -7,7 +7,7 @@ import { DefendantDetails } from 'forms/models/defendantDetails'
 import { DefendantRepresented } from 'app/forms/models/defendantRepresented'
 import { ContactDetails } from 'app/forms/models/contactDetails'
 import { OrganisationName } from 'app/forms/models/organisationName'
-import { PartyTypes } from 'app/forms/models/partyTypes'
+import { PartyType } from 'app/common/partyType'
 import { YesNo } from 'app/forms/models/yesNo'
 import { ServiceAddress } from 'forms/models/serviceAddress'
 
@@ -37,7 +37,7 @@ describe('Defendant', () => {
       const organisationName = new OrganisationName('organisationName')
       const address = new Address('line1', 'line2', 'city', 'postcode')
       const representative = new Representative(organisationName, address, contactDetails)
-      const defendantDetails = new DefendantDetails(PartyTypes.INDIVIDUAL, 'title', 'full name')
+      const defendantDetails = new DefendantDetails(PartyType.INDIVIDUAL, 'title', 'full name')
       const defendantRepresented = new DefendantRepresented(YesNo.YES, organisationName.name)
       const serviceAddress = new ServiceAddress(YesNo.NO, 'line1', 'line2', 'city', 'postcode')
 

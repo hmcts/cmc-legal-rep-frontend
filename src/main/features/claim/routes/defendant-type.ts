@@ -3,7 +3,7 @@ import { Paths } from 'claim/paths'
 
 import { Form } from 'app/forms/form'
 import { FormValidator } from 'app/forms/validation/formValidator'
-import { PartyTypes as DefendantTypes } from 'app/forms/models/partyTypes'
+import { PartyType as DefendantTypes } from 'app/common/partyType'
 import { DefendantDetails } from 'app/forms/models/defendantDetails'
 
 import { DraftService } from 'services/draftService'

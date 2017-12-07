@@ -21,7 +21,7 @@
           {% if errorType %}<span class="error-message">{{ t(errorType) }}</span>{% endif %}
           <div class="multiple-choice" data-target="type-organisation">
             <input id="organisationType" type="radio" name="type" value="ORGANISATION" {% if form.valueFor('type.value')  == 'ORGANISATION'%} checked="checked" {% endif %}>
-            <label for="organisationType">{{ t('An organisation') }} </label>
+            <label for="organisationType">{{ t('An organisation') }}</label>
           </div>
 
           <div class="form-group panel panel-border-narrow js-hidden " id="type-organisation" aria-hidden="false">
@@ -29,9 +29,19 @@
             {{ textInput(t('Companies House number (optional)'), 'companyHouseNumber', form) }}
           </div>
 
+          <div class="multiple-choice" data-target="type-sole">
+            <input id="soleTraderType" type="radio" name="type" value="SOLE_TRADER" {% if form.valueFor('type.value')  == 'SOLE_TRADER'%} checked="checked" {% endif %}>
+            <label for="soleTraderType">{{ t('A sole trader') }}</label>
+          </div>
+          <div
+            class="form-group panel panel-border-narrow js-hidden" id="type-sole" aria-hidden="false">
+            {{ textInput(t('Full name (include title)'), 'soleTraderName', form) }}
+            {{ textInput(t('Trading as (optional)'), 'businessName', form) }}
+          </div>
+
           <div class="multiple-choice" data-target="type-individual">
             <input id="individualType" type="radio" name="type" value="INDIVIDUAL" {% if form.valueFor('type.value')  == 'INDIVIDUAL'%} checked="checked" {% endif %}>
-            <label for="individualType">{{ t('An individual') }} </label>
+            <label for="individualType">{{ t('An individual') }}</label>
           </div>
           <div
             class="form-group panel panel-border-narrow js-hidden" id="type-individual" aria-hidden="false">

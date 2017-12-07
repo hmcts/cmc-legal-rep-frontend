@@ -1,7 +1,7 @@
 import * as config from 'config'
 import * as mock from 'nock'
 import * as HttpStatus from 'http-status-codes'
-import { PartyTypes } from 'forms/models/partyTypes'
+import { PartyType } from 'forms/../../main/app/common/partyType'
 
 const serviceBaseURL: string = config.get<string>('claim-store.url')
 
@@ -22,7 +22,7 @@ export const sampleClaimObj = {
       },
       claimantDetails: {
         type: {
-          value: PartyTypes.INDIVIDUAL.dataStoreValue,
+          value: PartyType.INDIVIDUAL.dataStoreValue,
           displayValue: 'An individual',
           dataStoreValue: 'individual'
         },
@@ -30,7 +30,7 @@ export const sampleClaimObj = {
         organisation: null,
         companyHouseNumber: null
       },
-      type: PartyTypes.INDIVIDUAL.dataStoreValue,
+      type: PartyType.INDIVIDUAL.dataStoreValue,
       title: 'Mr',
       name: 'Full Name',
       representative: {
@@ -63,7 +63,7 @@ export const sampleClaimObj = {
       },
       defendantDetails: {
         type: {
-          value: PartyTypes.ORGANISATION.dataStoreValue,
+          value: PartyType.ORGANISATION.dataStoreValue,
           displayValue: 'An organisation',
           dataStoreValue: 'organisation'
         },
@@ -73,7 +73,7 @@ export const sampleClaimObj = {
         companyHouseNumber: ''
       },
       name: 'defendant org',
-      type: PartyTypes.ORGANISATION.dataStoreValue
+      type: PartyType.ORGANISATION.dataStoreValue
     }],
     reason: 'Because I can',
     feeAmountInPennies: 7000

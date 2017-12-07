@@ -1,5 +1,5 @@
 import * as express from 'express'
-import { PartyTypes } from 'app/forms/models/partyTypes'
+import { PartyType } from 'app/common/partyType'
 import Claimant from 'app/drafts/models/claimant'
 import { Paths as ClaimPaths } from 'claim/paths'
 
@@ -33,7 +33,7 @@ export class Claimants {
   static getCurrentClaimantName (res: express.Response): string {
     const claimants = res.locals.user.legalClaimDraft.document.claimants
     const claimantDetails = claimants[Claimants.getIndex(res)].claimantDetails
-    const isIndividual = claimantDetails.type.value === PartyTypes.INDIVIDUAL.value
+    const isIndividual = claimantDetails.type.value === PartyType.INDIVIDUAL.value
     const title = claimantDetails.title != null ? `${claimantDetails.title} ` : claimantDetails.title
     return isIndividual ? `${title}${claimantDetails.fullName}` : claimantDetails.organisation
   }

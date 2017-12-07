@@ -1,6 +1,6 @@
 import { Serializable } from 'app/models/serializable'
 import { IsDefined, IsIn, IsOptional, MaxLength, ValidateIf } from 'class-validator'
-import { PartyTypes, PartyTypes as ClaimantTypes } from 'app/forms/models/partyTypes'
+import { PartyType, PartyType as ClaimantTypes } from 'app/common/partyType'
 import { IsNotBlank } from 'app/forms/validation/validators/isNotBlank'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 
@@ -77,6 +77,6 @@ export class ClaimantDetails implements Serializable<ClaimantDetails> {
   }
 
   toString (): string {
-    return this.type.value === PartyTypes.INDIVIDUAL.value ? (this.title ? this.title + ' ' : '') + this.fullName : this.organisation
+    return this.type.value === PartyType.INDIVIDUAL.value ? (this.title ? this.title + ' ' : '') + this.fullName : this.organisation
   }
 }

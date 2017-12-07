@@ -1,8 +1,8 @@
-import { PartyTypes } from 'forms/models/partyTypes'
+import { PartyType } from 'forms/../../../main/app/common/partyType'
 
 export const individualDetails = {
   type: {
-    value: PartyTypes.INDIVIDUAL.value,
+    value: PartyType.INDIVIDUAL.value,
     displayValue: 'An individual',
     dataStoreValue: 'individual'
   },
@@ -14,7 +14,7 @@ export const individualDetails = {
 
 export const organisationDetails = {
   type: {
-    value: PartyTypes.ORGANISATION.value,
+    value: PartyType.ORGANISATION.value,
     displayValue: 'An organisation',
     dataStoreValue: 'organisation'
   },

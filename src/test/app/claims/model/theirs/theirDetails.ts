@@ -3,7 +3,7 @@
 
 import { expect } from 'chai'
 import { Address } from 'app/claims/models/address'
-import { PartyTypes } from 'forms/models/partyTypes'
+import { PartyType } from 'forms/../../../../../main/app/common/partyType'
 import { ContactDetails } from 'claims/models/contactDetails'
 import { Representative } from 'claims/models/representative'
 import { TheirDetails } from 'claims/models/theirs/theirDetails'
@@ -34,13 +34,13 @@ describe('TheirDetails', () => {
       const representative = new Representative('Org', address, contactDetails)
 
       const result = new TheirDetails().deserialize({
-        type: PartyTypes.ORGANISATION.dataStoreValue,
+        type: PartyType.ORGANISATION.dataStoreValue,
         name: 'Tom',
         address: address,
         representative: representative
       })
 
-      expect(result.type).to.be.equals(PartyTypes.ORGANISATION.dataStoreValue)
+      expect(result.type).to.be.equals(PartyType.ORGANISATION.dataStoreValue)
       expect(result.name).to.be.equals('Tom')
       expect(result.address).to.deep.equals(address)
       expect(result.representative).to.deep.equals(representative)
