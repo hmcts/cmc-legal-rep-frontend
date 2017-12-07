@@ -15,12 +15,18 @@ export default express.Router()
   .post(Paths.fileUploadPage.uri,
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form = new formidable.IncomingForm()
+      const user: User = res.locals.user
       const FILE_SIZE_LIMIT: number = 10485760
       form.keepExtensions = true
+      req.setTimeout(7200000,function () {
+        user.legalUploadDocumentDraft.document.fileToUploadError = FileTypeErrors.FILE_REQUIRED
+        new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
+          res.redirect(Paths.documentUploadPage.uri)
+        })
+      })
 
       form.parse(req)
       .on('file', function (name, file) {
-        const user: User = res.locals.user
         if (file.size === 0) {
           user.legalUploadDocumentDraft.document.fileToUploadError = FileTypeErrors.FILE_REQUIRED
           new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
