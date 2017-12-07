@@ -18,6 +18,7 @@ import { Search } from 'app/forms/models/search'
 import { UploadedDocument } from 'claims/models/uploadedDocument'
 import { WhatDocuments } from 'forms/models/whatDocuments'
 import { DocumentType } from 'forms/models/documentType'
+import { FileTypes } from 'forms/models/fileTypes'
 
 const serviceBaseURL: string = `${config.get('draft-store.url')}`
 const sampleViewDraftObj = {
@@ -41,13 +42,13 @@ const sampleUploadDocumentDraftObj = {
 const sampleCertificateOfServiceDraftObj = {
   uploadedDocuments: [ {
     fileName: '000LR012.pdf',
-    fileType: 'application/pdf',
+    fileType: FileTypes.PDF,
     documentType: {
       value: 'PARTICULARS_OF_CLAIM',
       displayValue: 'Particulars of claim',
       dataStoreValue: 'particularsOfClaim'
     } as DocumentType,
-    documentManagementURI: '/documents/a7aa3eca-b0d1-4353-a53b-083bd767b819'
+    documentManagementURI: '/documents/85d97996-22a5-40d7-882e-3a382c8ae1b4'
   } as UploadedDocument ],
   whatDocuments: {
     types: ['scheduleOfLoss', 'medicalReport', 'other'],
