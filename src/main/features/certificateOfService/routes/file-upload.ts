@@ -19,7 +19,7 @@ export default express.Router()
       const FILE_SIZE_LIMIT: number = 10485760
       form.keepExtensions = true
       req.setTimeout(7200000,function () {
-        user.legalUploadDocumentDraft.document.fileToUploadError = FileTypeErrors.FILE_REQUIRED
+        user.legalUploadDocumentDraft.document.fileToUploadError = FileTypeErrors.FILE_UPLOAD_TIMEOUT
         new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
           res.redirect(Paths.documentUploadPage.uri)
         })
