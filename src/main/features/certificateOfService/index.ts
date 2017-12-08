@@ -37,7 +37,7 @@ export class Feature {
           return new DraftCertificateOfService().deserialize(value)
         }))
 
-    app.all(/^\/legal\/certificateOfService\/(what-documents|document-upload|file-upload)$/,
+    app.all(/^\/legal\/certificateOfService\/(what-documents|document-upload|file-upload|document-remove)$/,
       DraftMiddleware.requestHandler<DraftUploadDocument>(new DraftService(),'legalUploadDocument',
         100, (value: any): DraftUploadDocument => {
           return new DraftUploadDocument().deserialize(value)
