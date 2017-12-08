@@ -3,6 +3,7 @@ import { Paths as DashboardPaths } from 'dashboard/paths'
 import ClaimStoreClient from 'claims/claimStoreClient'
 import Claim from 'app/claims/models/claim'
 import ErrorHandling from 'common/errorHandling'
+import { Paths } from 'claim/paths'
 
 async function renderView (req: express.Request, res: express.Response): Promise<void> {
   const claim: Claim = await ClaimStoreClient.retrieveByClaimReference(res.locals.user.dashboardDraft.document.search.reference, res.locals.user.bearerToken)
@@ -13,7 +14,8 @@ async function renderView (req: express.Request, res: express.Response): Promise
     dateIssued: claim.issuedOn,
     claimants: claim.claimData.claimants,
     defendants: claim.claimData.defendants,
-    externalReference: claim.claimData.externalReferenceNumber
+    externalReference: claim.claimData.externalReferenceNumber,
+    sealedClaimPath: Paths.receiptReceiver.uri.replace(':externalId', claim.externalId)
   })
 }
 
