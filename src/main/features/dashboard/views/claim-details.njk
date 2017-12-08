@@ -40,10 +40,11 @@
     </div>
     <div class="column-one-third {% if externalReference %}govuk-related-items{% endif %}">
       {% if externalReference %}
-        <h3 class="heading-medium">Your reference
+        <h3 class="heading-medium">{{ t('Your reference') }}
           <div class="form-label">{{ externalReference }}</div>
         </h3>
       {% endif %}
+      <p><a target="_blank" href="{{ sealedClaimPath }}" class="download">{{ t('Download the sealed claim form') }}</a> </p>
     </div>
   </div>
 {% endblock %}
