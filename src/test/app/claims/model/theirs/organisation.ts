@@ -3,7 +3,7 @@
 
 import { expect } from 'chai'
 import { Address } from 'app/claims/models/address'
-import { PartyType } from 'forms/../../../../../main/app/common/partyType'
+import { PartyType } from '../../../../../main/app/common/partyType'
 import { Organisation } from 'claims/models/theirs/organisation'
 
 describe('Organisation', () => {

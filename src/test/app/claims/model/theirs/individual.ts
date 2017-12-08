@@ -4,7 +4,7 @@
 import { expect } from 'chai'
 import { Address } from 'app/claims/models/address'
 import { Individual } from 'claims/models/theirs/individual'
-import { PartyType } from 'forms/../../../../../main/app/common/partyType'
+import { PartyType } from '../../../../../main/app/common/partyType'
 import { ContactDetails } from 'claims/models/contactDetails'
 import { Representative } from 'claims/models/representative'
 
