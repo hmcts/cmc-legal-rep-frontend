@@ -1,4 +1,4 @@
-import { PartyType } from 'forms/../../../main/app/common/partyType'
+import { PartyType } from '../../../main/app/common/partyType'
 
 export const individualDetails = {
   type: {

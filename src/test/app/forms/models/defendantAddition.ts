@@ -5,7 +5,7 @@ import { Validator } from 'class-validator'
 
 import { expectValidationError } from './validationUtils'
 
-import { PartyType as DefendantTypes } from 'forms/../../../../main/app/common/partyType'
+import { PartyType as DefendantTypes } from '../../../../main/app/common/partyType'
 import { DefendantAddition, ValidationErrors } from 'app/forms/models/defendantAddition'
 import { YesNo } from 'app/forms/models/yesNo'
 

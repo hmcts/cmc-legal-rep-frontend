@@ -1,7 +1,7 @@
 import * as config from 'config'
 import * as mock from 'nock'
 import * as HttpStatus from 'http-status-codes'
-import { PartyType } from 'forms/../../main/app/common/partyType'
+import { PartyType } from '../../main/app/common/partyType'
 
 const serviceBaseURL: string = config.get<string>('claim-store.url')
 
