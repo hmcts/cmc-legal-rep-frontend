@@ -96,9 +96,9 @@
         {{ row('Name', defendantFullName, changeDefendantLink) }}
       {% elseif defendant.defendantDetails.type.value == 'SOLE_TRADER' %}
         {% if defendant.defendantDetails.businessName %}
-          {{ row('Name', defendant.defendantDetails.soleTraderName + ' trading as ' + defendant.defendantDetails.businessName, changeDefendantLink) }}
+          {{ row('Name (trading as)', defendant.defendantDetails.soleTraderName + ' trading as ' + defendant.defendantDetails.businessName, changeDefendantLink) }}
         {% else %}
-          {{ row('Name', defendant.defendantDetails.soleTraderName, changeDefendantLink) }}
+          {{ row('Name (trading as)', defendant.defendantDetails.soleTraderName, changeDefendantLink) }}
         {% endif %}
       {% else %}
         {{ row('Organisation name', defendant.defendantDetails.organisation, changeDefendantLink) }}

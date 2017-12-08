@@ -3,7 +3,6 @@ import { PartyType } from '../../../main/app/common/partyType'
 export const individualDetails = {
   type: {
     value: PartyType.INDIVIDUAL.value,
-    displayValue: 'An individual',
     dataStoreValue: 'individual'
   },
   title: 'Mr',
@@ -15,7 +14,6 @@ export const individualDetails = {
 export const organisationDetails = {
   type: {
     value: PartyType.ORGANISATION.value,
-    displayValue: 'An organisation',
     dataStoreValue: 'organisation'
   },
   title: null,

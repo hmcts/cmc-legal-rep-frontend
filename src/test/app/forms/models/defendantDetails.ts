@@ -74,7 +74,7 @@ describe('Defendant Details', () => {
       })
     })
 
-    it('should reject defendant details for defendant type when individual details are null', () => {
+    it('should reject defendant details for defendant type when individual details are empty strings', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.INDIVIDUAL, '', '', undefined, undefined))
 
@@ -93,7 +93,7 @@ describe('Defendant Details', () => {
 
     it('should reject defendant details for organisation type when organisation name is null', () => {
       DefendantTypes.all().forEach(type => {
-        const errors = validator.validateSync(new DefendantDetails(DefendantTypes.ORGANISATION, undefined, undefined, null, '12345678'))
+        const errors = validator.validateSync(new DefendantDetails(DefendantTypes.ORGANISATION, undefined, undefined, null, null))
 
         expect(errors.length).to.equal(1)
         expectValidationError(errors, CommonValidationErrors.ORGANISATION_NAME_REQUIRED)
@@ -102,7 +102,16 @@ describe('Defendant Details', () => {
 
     it('should reject defendant details for organisation type when organisation name is undefined', () => {
       DefendantTypes.all().forEach(type => {
-        const errors = validator.validateSync(new DefendantDetails(DefendantTypes.ORGANISATION, undefined, undefined, undefined, '12345678'))
+        const errors = validator.validateSync(new DefendantDetails(DefendantTypes.ORGANISATION, undefined, undefined, undefined, undefined))
+
+        expect(errors.length).to.equal(1)
+        expectValidationError(errors, CommonValidationErrors.ORGANISATION_NAME_REQUIRED)
+      })
+    })
+
+    it('should reject defendant details for organisation type when organisation name is empty string', () => {
+      DefendantTypes.all().forEach(type => {
+        const errors = validator.validateSync(new DefendantDetails(DefendantTypes.ORGANISATION, undefined, undefined, '', ''))
 
         expect(errors.length).to.equal(1)
         expectValidationError(errors, CommonValidationErrors.ORGANISATION_NAME_REQUIRED)
@@ -119,7 +128,7 @@ describe('Defendant Details', () => {
       })
     })
 
-    it('should accept defendant details for organisation type when organisation name length is 255', () => {
+    it('should accept defendant details for party type when name length is 255', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.ORGANISATION,
           undefined, undefined, randomstring.generate(255), '12345678'))
@@ -184,6 +193,77 @@ describe('Defendant Details', () => {
         expect(errors.length).to.equal(0)
       })
     })
+
+    it('should accept defendant details for organisation type when sole trader details are valid', () => {
+      DefendantTypes.all().forEach(type => {
+        const errors = validator.validateSync(new DefendantDetails(DefendantTypes.SOLE_TRADER, undefined, undefined, undefined, undefined, 'Sole Trader', 'businessName'))
+
+        expect(errors.length).to.equal(0)
+      })
+    })
+
+    it('should reject defendant details when sole trader details are null', () => {
+      DefendantTypes.all().forEach(type => {
+        const errors = validator.validateSync(new DefendantDetails(DefendantTypes.ORGANISATION, undefined, undefined, null, null))
+
+        expect(errors.length).to.equal(1)
+        expectValidationError(errors, CommonValidationErrors.ORGANISATION_NAME_REQUIRED)
+      })
+    })
+
+    it('should reject defendant details when sole trader details are undefined', () => {
+      DefendantTypes.all().forEach(type => {
+        const errors = validator.validateSync(new DefendantDetails(DefendantTypes.SOLE_TRADER, undefined, undefined, undefined, undefined, undefined, undefined))
+
+        expect(errors.length).to.equal(1)
+        expectValidationError(errors, CommonValidationErrors.FULLNAME_REQUIRED)
+      })
+    })
+
+    it('should reject defendant details when sole trader details are empty strings', () => {
+      DefendantTypes.all().forEach(type => {
+        const errors = validator.validateSync(new DefendantDetails(DefendantTypes.SOLE_TRADER, undefined, undefined, '', ''))
+
+        expect(errors.length).to.equal(1)
+        expectValidationError(errors, CommonValidationErrors.FULLNAME_REQUIRED)
+      })
+    })
+
+    it('should accept defendant details for defendant type when businessName length is 255', () => {
+      DefendantTypes.all().forEach(type => {
+        const errors = validator.validateSync(new DefendantDetails(DefendantTypes.SOLE_TRADER,
+          undefined, undefined, undefined, undefined, 'soleTraderName', randomstring.generate(255)))
+
+        expect(errors.length).to.equal(0)
+      })
+    })
+
+    it('should reject defendant details for defendant type when businessName length is greater than 255', () => {
+      DefendantTypes.all().forEach(type => {
+        const errors = validator.validateSync(new DefendantDetails(DefendantTypes.SOLE_TRADER,
+          undefined, undefined, undefined, undefined, 'soleTraderName', randomstring.generate(256)))
+
+        expect(errors.length).to.equal(1)
+      })
+    })
+
+    it('should accept defendant details when sole trader name length is 70', () => {
+      DefendantTypes.all().forEach(type => {
+        const errors = validator.validateSync(new DefendantDetails(DefendantTypes.SOLE_TRADER,
+          undefined, undefined, undefined, undefined, randomstring.generate(70), 'businessName'))
+
+        expect(errors.length).to.equal(0)
+      })
+    })
+
+    it('should reject defendant details when sole trader name length is greater than 70', () => {
+      DefendantTypes.all().forEach(type => {
+        const errors = validator.validateSync(new DefendantDetails(DefendantTypes.SOLE_TRADER,
+          undefined, undefined, undefined, undefined, randomstring.generate(71), 'businessName'))
+
+        expect(errors.length).to.equal(1)
+      })
+    })
   })
 
   describe('fromObject', () => {
@@ -196,6 +276,8 @@ describe('Defendant Details', () => {
       expect(defendantDetails.fullName).to.equal(undefined)
       expect(defendantDetails.organisation).to.equal(undefined)
       expect(defendantDetails.companyHouseNumber).to.equal(undefined)
+      expect(defendantDetails.businessName).to.equal(undefined)
+      expect(defendantDetails.soleTraderName).to.equal(undefined)
     })
 
     it('should have defendant details elements undefined when input has undefined element value', () => {
@@ -204,7 +286,9 @@ describe('Defendant Details', () => {
         title: undefined,
         fullName: undefined,
         organisation: undefined,
-        companyHouseNumber: undefined
+        companyHouseNumber: undefined,
+        businessName: undefined,
+        soleTraderName: undefined
       })
 
       expect(defendantDetails.type).to.equal(undefined)
@@ -212,6 +296,8 @@ describe('Defendant Details', () => {
       expect(defendantDetails.fullName).to.equal(undefined)
       expect(defendantDetails.organisation).to.equal(undefined)
       expect(defendantDetails.companyHouseNumber).to.equal(undefined)
+      expect(defendantDetails.businessName).to.equal(undefined)
+      expect(defendantDetails.soleTraderName).to.equal(undefined)
     })
 
     it('should have valid defendant details elements', () => {
@@ -220,7 +306,9 @@ describe('Defendant Details', () => {
         title: 'title',
         fullName: 'full name',
         organisation: undefined,
-        companyHouseNumber: undefined
+        companyHouseNumber: undefined,
+        businessName: undefined,
+        soleTraderName: undefined
       })
 
       expect(defendantDetails.type).to.eql(DefendantTypes.INDIVIDUAL)
@@ -228,6 +316,8 @@ describe('Defendant Details', () => {
       expect(defendantDetails.fullName).to.equal('full name')
       expect(defendantDetails.organisation).to.equal(undefined)
       expect(defendantDetails.companyHouseNumber).to.equal(undefined)
+      expect(defendantDetails.businessName).to.equal(undefined)
+      expect(defendantDetails.soleTraderName).to.equal(undefined)
     })
   })
 })

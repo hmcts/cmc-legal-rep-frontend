@@ -23,7 +23,6 @@ export const sampleClaimObj = {
       claimantDetails: {
         type: {
           value: PartyType.INDIVIDUAL.dataStoreValue,
-          displayValue: 'An individual',
           dataStoreValue: 'individual'
         },
         fullName: 'no name',
