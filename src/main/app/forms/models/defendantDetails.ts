@@ -93,15 +93,14 @@ export class DefendantDetails implements Serializable<DefendantDetails> {
   }
 
   toString (): string {
-    return 'hello'
-    // switch (this.type.value) {
-    //   case DefendantTypes.INDIVIDUAL.value:
-    //     return (this.title ? this.title + ' ' : '') + this.fullName
-    //   case DefendantTypes.ORGANISATION.value:
-    //     return this.organisation
-    //   case DefendantTypes.SOLE_TRADER.value:
-    //     return this.businessName ? this.soleTraderName + ' trading as ' + this.businessName : this.soleTraderName
-    // }
+    switch (this.type.value) {
+      case DefendantTypes.INDIVIDUAL.value:
+        return (this.title ? this.title + ' ' : '') + this.fullName
+      case DefendantTypes.ORGANISATION.value:
+        return this.organisation
+      case DefendantTypes.SOLE_TRADER.value:
+        return this.businessName ? this.soleTraderName + ' trading as ' + this.businessName : this.soleTraderName
+    }
   }
 
 }

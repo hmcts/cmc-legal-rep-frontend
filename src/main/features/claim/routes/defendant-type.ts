@@ -28,13 +28,27 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        if (form.model.type === DefendantTypes.INDIVIDUAL) {
-          form.model.organisation = null
-          form.model.companyHouseNumber = null
-        } else {
-          form.model.title = null
-          form.model.fullName = null
+        switch (form.model.type) {
+          case DefendantTypes.INDIVIDUAL:
+            form.model.organisation = undefined
+            form.model.companyHouseNumber = undefined
+            form.model.soleTraderName = undefined
+            form.model.businessName = undefined
+            break
+          case DefendantTypes.ORGANISATION:
+            form.model.fullName = undefined
+            form.model.title = undefined
+            form.model.soleTraderName = undefined
+            form.model.businessName = undefined
+            break
+          case DefendantTypes.SOLE_TRADER:
+            form.model.fullName = undefined
+            form.model.title = undefined
+            form.model.organisation = undefined
+            form.model.companyHouseNumber = undefined
+            break
         }
+
         const index: number = Defendants.getIndex(res)
         res.locals.user.legalClaimDraft.document.defendants[index].defendantDetails = form.model
         await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)

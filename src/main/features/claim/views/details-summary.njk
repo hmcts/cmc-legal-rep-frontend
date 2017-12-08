@@ -86,12 +86,22 @@
         {% set changeServiceAddressLink = '/legal/claim/defendant-change?index='+ loop.index  + '&page=service-address' %}
         {{ tableStart('defendantDetails'+loop.index, 'Defendant ' + loop.index + ' details') }}
       {% endif %}
+
       {% if defendant.defendantDetails.type.value == 'INDIVIDUAL' %}
-        {{ row('Name', defendant.defendantDetails.type.toString(), changeDefendantLink) }}
+        {% if defendant.defendantDetails.title %}
+          {% set defendantFullName = defendant.defendantDetails.title + ' ' + defendant.defendantDetails.fullName %}
+        {% else %}
+          {% set defendantFullName = defendant.defendantDetails.fullName %}
+        {% endif %}
+        {{ row('Name', defendantFullName, changeDefendantLink) }}
       {% elseif defendant.defendantDetails.type.value == 'SOLE_TRADER' %}
-        {{ row('Name', defendant.defendantDetails.type.toString(), changeDefendantLink) }}
+        {% if defendant.defendantDetails.businessName %}
+          {{ row('Name', defendant.defendantDetails.soleTraderName + ' trading as ' + defendant.defendantDetails.businessName, changeDefendantLink) }}
+        {% else %}
+          {{ row('Name', defendant.defendantDetails.soleTraderName, changeDefendantLink) }}
+        {% endif %}
       {% else %}
-        {{ row('Organisation name', defendant.defendantDetails.type.toString(), changeDefendantLink) }}
+        {{ row('Organisation name', defendant.defendantDetails.organisation, changeDefendantLink) }}
         {{ row('Companies House number', defendant.defendantDetails.companyHouseNumber, changeDefendantLink) }}
       {% endif %}
 

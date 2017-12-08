@@ -7,6 +7,7 @@ import { Organisation as ClaimantAsOrganisation } from 'claims/models/yours/orga
 import { Individual as ClaimantAsIndividual } from 'claims/models/yours/individual'
 import { Individual as DefendantAsIndividual } from 'claims/models/theirs/individual'
 import { Organisation as DefendantAsOrganisation } from 'claims/models/theirs/organisation'
+import { SoleTrader as DefendantAsSoleTrader } from 'claims/models/theirs/soleTrader'
 import { Amount } from 'claims/models/amount'
 
 export default class ClaimData implements Serializable<ClaimData> {
@@ -68,6 +69,8 @@ export default class ClaimData implements Serializable<ClaimData> {
             return new DefendantAsIndividual().deserialize(defendant)
           case PartyType.ORGANISATION.dataStoreValue:
             return new DefendantAsOrganisation().deserialize(defendant)
+          case PartyType.SOLE_TRADER.dataStoreValue:
+            return new DefendantAsSoleTrader().deserialize(defendant)
           default:
             throw Error('Something went wrong, No defendant type is set')
         }
