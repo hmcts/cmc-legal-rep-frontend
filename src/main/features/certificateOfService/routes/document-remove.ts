@@ -6,7 +6,7 @@ import { ForbiddenError } from '../../../errors'
 import { DraftService } from 'services/draftService'
 
 export default express.Router()
-  .get(Paths.documentRemovePage.uri, (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  .get(Paths.documentRemovePage.uri, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const user: User = res.locals.user
     const documentToDelete: UploadedDocument = user.legalCertificateOfServiceDraft.document.uploadedDocuments.find(document => document.documentManagementURI === req.query.id)
     if (documentToDelete === undefined) {
@@ -16,8 +16,7 @@ export default express.Router()
         return document.documentManagementURI !== documentToDelete.documentManagementURI
       })
       user.legalCertificateOfServiceDraft.document.uploadedDocuments = updatedDocumentsList
-      new DraftService().save(user.legalCertificateOfServiceDraft, user.bearerToken).then(() => {
-        res.redirect(Paths.documentUploadPage.uri)
-      })
+      await new DraftService().save(res.locals.user.legalCertificateOfServiceDraft, res.locals.user.bearerToken)
+      res.redirect(Paths.documentUploadPage.uri)
     }
   })
