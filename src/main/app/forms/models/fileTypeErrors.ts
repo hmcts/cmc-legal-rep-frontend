@@ -1,7 +1,8 @@
-export class FileTypeErrors {
-  static readonly WRONG_FILE_TYPE = new FileTypeErrors('WRONG_FILE_TYPE', 'We can’t accept the file type you chose.', 'wrongFileType')
-  static readonly FILE_TOO_LARGE = new FileTypeErrors('FILE_TOO_LARGE', 'Choose a file sized 10MB or smaller', 'fileTooLarge')
-  static readonly FILE_REQUIRED = new FileTypeErrors('FILE_REQUIRED', 'Select ‘choose file’ before you upload', 'fileRequired')
+export class FileUploadErrors {
+  static readonly WRONG_FILE_TYPE = new FileUploadErrors('WRONG_FILE_TYPE', 'We can’t accept the file type you chose.', 'wrongFileType')
+  static readonly FILE_TOO_LARGE = new FileUploadErrors('FILE_TOO_LARGE', 'Choose a file sized 10MB or smaller', 'fileTooLarge')
+  static readonly FILE_REQUIRED = new FileUploadErrors('FILE_REQUIRED', 'Select ‘choose file’ before you upload', 'fileRequired')
+  static readonly FILE_UPLOAD_TIMEOUT = new FileUploadErrors('FILE_UPLOAD_TIMEOUT', 'File took too long to upload', 'fileUploadTimeout')
 
   readonly value: string
   readonly displayValue: string
@@ -13,10 +14,12 @@ export class FileTypeErrors {
     this.dataStoreValue = dataStoreValue
   }
 
-  static all (): FileTypeErrors[] {
+  static all (): FileUploadErrors[] {
     return [
-      FileTypeErrors.WRONG_FILE_TYPE,
-      FileTypeErrors.FILE_TOO_LARGE
+      FileUploadErrors.WRONG_FILE_TYPE,
+      FileUploadErrors.FILE_TOO_LARGE,
+      FileUploadErrors.FILE_REQUIRED,
+      FileUploadErrors.FILE_UPLOAD_TIMEOUT
     ]
   }
 }
