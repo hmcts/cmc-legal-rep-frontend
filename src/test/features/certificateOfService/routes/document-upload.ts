@@ -10,7 +10,7 @@ import { app } from '../../../../main/app'
 import * as idamServiceMock from '../../../http-mocks/idam'
 import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 import { checkAuthorizationGuards } from './checks/authorization-check'
-import { FileTypeErrors } from 'forms/models/fileTypeErrors'
+import { FileUploadErrors } from 'forms/models/fileTypeErrors'
 
 const cookieName: string = config.get<string>('session.cookieName')
 const pageText = 'Upload your documents'
@@ -88,7 +88,7 @@ describe('Certificate of Service: Document upload page', () => {
       await request(app)
         .get(CertificateOfServicePath.documentUploadPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText(FileTypeErrors.FILE_REQUIRED.displayValue))
+        .expect(res => expect(res).to.be.successful.withText(FileUploadErrors.FILE_REQUIRED.displayValue))
     })
 
     it('should show an error when the user clicks Upload file with a file that is too large', async () => {
@@ -100,7 +100,7 @@ describe('Certificate of Service: Document upload page', () => {
       await request(app)
         .get(CertificateOfServicePath.documentUploadPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText(FileTypeErrors.FILE_TOO_LARGE.displayValue))
+        .expect(res => expect(res).to.be.successful.withText(FileUploadErrors.FILE_TOO_LARGE.displayValue))
     })
 
     it('should show an error when the user clicks Upload file with a file that is not supported', async () => {
@@ -112,7 +112,7 @@ describe('Certificate of Service: Document upload page', () => {
       await request(app)
         .get(CertificateOfServicePath.documentUploadPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText(FileTypeErrors.WRONG_FILE_TYPE.displayValue))
+        .expect(res => expect(res).to.be.successful.withText(FileUploadErrors.WRONG_FILE_TYPE.displayValue))
     })
   })
 

@@ -9,30 +9,37 @@ import * as fs from 'fs'
 import User from 'idam/user'
 import ErrorHandling from 'common/errorHandling'
 import { FileTypes } from 'forms/models/fileTypes'
-import { FileTypeErrors } from 'forms/models/fileTypeErrors'
+import { FileUploadErrors } from 'forms/models/fileTypeErrors'
 
 export default express.Router()
   .post(Paths.fileUploadPage.uri,
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form = new formidable.IncomingForm()
+      const user: User = res.locals.user
       const FILE_SIZE_LIMIT: number = 10485760
+      const TIME_OUT: number = 7200000
       form.keepExtensions = true
+      req.setTimeout(TIME_OUT,function () {
+        user.legalUploadDocumentDraft.document.fileToUploadError = FileUploadErrors.FILE_UPLOAD_TIMEOUT
+        new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
+          res.redirect(Paths.documentUploadPage.uri)
+        })
+      })
 
       form.parse(req)
       .on('file', function (name, file) {
-        const user: User = res.locals.user
         if (file.size === 0) {
-          user.legalUploadDocumentDraft.document.fileToUploadError = FileTypeErrors.FILE_REQUIRED
+          user.legalUploadDocumentDraft.document.fileToUploadError = FileUploadErrors.FILE_REQUIRED
           new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
             res.redirect(Paths.documentUploadPage.uri)
           })
         } else if (file.size > FILE_SIZE_LIMIT) {
-          user.legalUploadDocumentDraft.document.fileToUploadError = FileTypeErrors.FILE_TOO_LARGE
+          user.legalUploadDocumentDraft.document.fileToUploadError = FileUploadErrors.FILE_TOO_LARGE
           new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
             res.redirect(Paths.documentUploadPage.uri)
           })
         } else if (FileTypes.acceptedMimeTypes().indexOf(file.type) === -1) {
-          user.legalUploadDocumentDraft.document.fileToUploadError = FileTypeErrors.WRONG_FILE_TYPE
+          user.legalUploadDocumentDraft.document.fileToUploadError = FileUploadErrors.WRONG_FILE_TYPE
           new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
             res.redirect(Paths.documentUploadPage.uri)
           })
