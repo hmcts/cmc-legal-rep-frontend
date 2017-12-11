@@ -1,11 +1,11 @@
 import { Serializable } from 'app/models/serializable'
 import { DraftDocument } from '@hmcts/cmc-draft-store-middleware'
 import { DocumentType } from 'forms/models/documentType'
-import { FileTypeErrors } from 'forms/models/fileTypeErrors'
+import { FileUploadErrors } from 'forms/models/fileTypeErrors'
 
 export class DraftUploadDocument extends DraftDocument implements Serializable<DraftUploadDocument> {
   fileToUpload: DocumentType
-  fileToUploadError: FileTypeErrors
+  fileToUploadError: FileUploadErrors
 
   deserialize (input: any): DraftUploadDocument {
     if (input) {
