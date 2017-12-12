@@ -82,6 +82,6 @@ export function resolveSave () {
 
 export function rejectSave (id: number = 100, reason: string = 'HTTP error') {
   return mock(serviceBaseURL)
-    .put(`/documents/`)
+    .post(`/documents`)
     .reply(HttpStatus.INTERNAL_SERVER_ERROR, reason)
 }
