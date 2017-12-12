@@ -17,6 +17,14 @@ export default express.Router()
       if (res.locals.user.viewDraft && res.locals.user.viewDraft['id']) {
         await new DraftService()['delete'](res.locals.user.viewDraft['id'], res.locals.user.bearerToken)
       }
+
+      if (res.locals.user.legalCertificateOfServiceDraft && res.locals.user.legalCertificateOfServiceDraft['id']) {
+        await new DraftService()['delete'](res.locals.user.legalCertificateOfServiceDraft['id'], res.locals.user.bearerToken)
+      }
+
+      if (res.locals.user.legalUploadDocumentDraft && res.locals.user.legalUploadDocumentDraft['id']) {
+        await new DraftService()['delete'](res.locals.user.legalUploadDocumentDraft['id'], res.locals.user.bearerToken)
+      }
       res.redirect(Paths.representativeNamePage.uri)
     } catch (err) {
       next(err)
