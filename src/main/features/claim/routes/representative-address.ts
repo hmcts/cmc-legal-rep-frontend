@@ -8,6 +8,7 @@ import { Address } from 'forms/models/address'
 import { DraftService } from 'services/draftService'
 import ErrorHandling from 'common/errorHandling'
 import { RepresentativeDetails } from 'forms/models/representativeDetails'
+import { Cookie } from 'forms/models/cookie'
 
 function renderView (form: Form<Address>, res: express.Response): void {
   res.render(Paths.representativeAddressPage.associatedView, { form: form })
@@ -15,7 +16,7 @@ function renderView (form: Form<Address>, res: express.Response): void {
 
 export default express.Router()
   .get(Paths.representativeAddressPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(RepresentativeDetails.getCookie(req).address), res)
+    renderView(new Form(Cookie.getCookie(req, res.locals.user).address), res)
   })
   .post(Paths.representativeAddressPage.uri, FormValidator.requestHandler(Address, Address.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -27,9 +28,9 @@ export default express.Router()
         res.locals.user.legalClaimDraft.document.representative.address = form.model
         await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
 
-        const legalRepDetails: RepresentativeDetails = RepresentativeDetails.getCookie(req)
+        const legalRepDetails: RepresentativeDetails = Cookie.getCookie(req, res.locals.user)
         legalRepDetails.address = form.model
-        RepresentativeDetails.saveCookie(res, legalRepDetails)
+        Cookie.saveCookie(req, res, legalRepDetails)
 
         res.redirect(Paths.representativeContactsPage.uri)
       }
