@@ -66,7 +66,7 @@ export default express.Router()
             new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
               res.redirect(Paths.documentUploadPage.uri)
             })
-          })
+          }).catch(next)
         }
       })
     })
