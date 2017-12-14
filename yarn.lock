@@ -6,14 +6,14 @@
   version "1.24.0"
   resolved "https://registry.yarnpkg.com/@hmcts/cmc-common-frontend/-/cmc-common-frontend-1.24.0.tgz#ff933037eecd325b963d9ccaae5d061581b5a967"
 
-"@hmcts/cmc-draft-store-middleware@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@hmcts/cmc-draft-store-middleware/-/cmc-draft-store-middleware-1.0.0.tgz#a242cabbb9d8baea1066aadf5d9327bc7bf5f853"
+"@hmcts/cmc-draft-store-middleware@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@hmcts/cmc-draft-store-middleware/-/cmc-draft-store-middleware-2.0.0.tgz#6900c3ed23ac1173ef4b68b88623704fc92be377"
   dependencies:
-    "@hmcts/draft-store-client" "^1.1.1"
+    "@hmcts/draft-store-client" "^1.2.1"
     moment "^2.19.1"
 
-"@hmcts/draft-store-client@^1.1.1", "@hmcts/draft-store-client@^1.2.1":
+"@hmcts/draft-store-client@^1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@hmcts/draft-store-client/-/draft-store-client-1.2.1.tgz#0406d7d772b5a29b75caf957738763c6a3c1ee62"
   dependencies:
@@ -229,11 +229,11 @@
   dependencies:
     "@types/superagent" "*"
 
-"@types/v8flags@github:types/npm-v8flags#de224ae1cd5fd7dbb4e7158a6cc7a29e5315930d":
+"@types/v8flags@types/npm-v8flags#de224ae1cd5fd7dbb4e7158a6cc7a29e5315930d":
   version "2.0.0"
   resolved "https://codeload.github.com/types/npm-v8flags/tar.gz/de224ae1cd5fd7dbb4e7158a6cc7a29e5315930d"
 
-"@types/yn@github:types/npm-yn#ca75f6c82940fae6a06fb41d2d37a6aa9b4ea8e9":
+"@types/yn@types/npm-yn#ca75f6c82940fae6a06fb41d2d37a6aa9b4ea8e9":
   version "2.0.0"
   resolved "https://codeload.github.com/types/npm-yn/tar.gz/ca75f6c82940fae6a06fb41d2d37a6aa9b4ea8e9"
 
