@@ -105,9 +105,9 @@ timestamps {
           legalFrontendRPMVersion = packager.nodeRPM('legal-frontend')
           version = "{legal_frontend_buildnumber: ${legalFrontendRPMVersion}}"
 
-          onMaster {
+          //onMaster {
             packager.publishNodeRPM('legal-frontend')
-          }
+          //}
         }
 
         //stage('Package application (Docker)') {
