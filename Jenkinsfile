@@ -110,16 +110,16 @@ timestamps {
           }
         }
 
-        stage('Package application (Docker)') {
-          legalFrontendVersion = dockerImage imageName: 'cmc/legal-frontend'
-        }
+        //stage('Package application (Docker)') {
+          //legalFrontendVersion = dockerImage imageName: 'cmc/legal-frontend'
+        //}
 
-        stage('Integration Tests') {
-          integrationTests.execute([
-            'LEGAL_FRONTEND_VERSION': legalFrontendVersion,
-            'TESTS_TAG'             : '@legal'
-          ])
-        }
+        //stage('Integration Tests') {
+          //integrationTests.execute([
+            //'LEGAL_FRONTEND_VERSION': legalFrontendVersion,
+            //'TESTS_TAG'             : '@legal'
+          //])
+        //}
 
         //noinspection GroovyVariableNotAssigned It is guaranteed to be assigned
         RPMTagger rpmTagger = new RPMTagger(this,
