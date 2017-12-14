@@ -1,5 +1,6 @@
 {
   "featureToggles": {
-    "idamOauth": true
+    "idamOauth": true,
+    "certificateOfService": true
   }
 }
