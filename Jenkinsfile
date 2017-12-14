@@ -155,6 +155,10 @@ timestamps {
       } catch (Throwable err) {
         notifyBuildFailure channel: '#cmc-tech-notification'
         throw err
+      } finally {
+        step([$class: 'InfluxDbPublisher',
+               customProjectName: 'CMC Legal Rep Frontend',
+               target: 'Jenkins Data'])
       }
     }
     milestone()
