@@ -1,6 +1,6 @@
 {% extends "layout.njk" %}
 {% from "form.njk" import errorSummary, csrfProtection, saveAndContinueButton %}
-{% from "address.njk" import addressFields %}
+{% from "address.njk" import addressFragment %}
 
 {% set title = t('Money claim') %}
 {% set heading = t('Address for service') %}
@@ -33,7 +33,7 @@
           </div>
 
           <div class="form-group panel panel-border-narrow js-hidden" id="defendantsAddress-NO" aria-hidden="false">
-            {{ addressFields(form) }}
+            {{ addressFragment(form) }}
           </div>
         </fieldset>
 
