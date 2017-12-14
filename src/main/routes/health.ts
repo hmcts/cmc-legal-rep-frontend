@@ -12,7 +12,7 @@ const checks = {
   'fees': basicHealthCheck('fees'),
   'idam-api': basicHealthCheck('idam.api'),
   'idam-authentication-web': basicHealthCheck('idam.authentication-web'),
-  'idam-service-2-service-auth': basicHealthCheck('idam.service-2-service-auth'),
+  'idam-service-2-service-auth': basicHealthCheck('idam.service-2-service-auth')
 }
 
 if (toBoolean(config.get('featureToggles.certificateOfService'))) {
