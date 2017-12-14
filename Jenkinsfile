@@ -105,21 +105,21 @@ timestamps {
           legalFrontendRPMVersion = packager.nodeRPM('legal-frontend')
           version = "{legal_frontend_buildnumber: ${legalFrontendRPMVersion}}"
 
-          onMaster {
+          //onMaster {
             packager.publishNodeRPM('legal-frontend')
-          }
+          //}
         }
 
-        stage('Package application (Docker)') {
-          legalFrontendVersion = dockerImage imageName: 'cmc/legal-frontend'
-        }
+        //stage('Package application (Docker)') {
+          //legalFrontendVersion = dockerImage imageName: 'cmc/legal-frontend'
+        //}
 
-        stage('Integration Tests') {
-          integrationTests.execute([
-            'LEGAL_FRONTEND_VERSION': legalFrontendVersion,
-            'TESTS_TAG'             : '@legal'
-          ])
-        }
+        //stage('Integration Tests') {
+          //integrationTests.execute([
+            //'LEGAL_FRONTEND_VERSION': legalFrontendVersion,
+            //'TESTS_TAG'             : '@legal'
+          //])
+        //}
 
         //noinspection GroovyVariableNotAssigned It is guaranteed to be assigned
         RPMTagger rpmTagger = new RPMTagger(this,
@@ -128,30 +128,21 @@ timestamps {
           'cmc-local'
         )
 
-        onMaster {
+        //onMaster {
           milestone()
-          lock(resource: "CMC-deploy-dev", inversePrecedence: true) {
-            stage('Deploy (Dev)') {
-              ansibleCommitId = ansible.runDeployPlaybook(version, 'dev')
-              rpmTagger.tagDeploymentSuccessfulOn('dev')
+          lock(resource: "CMC-deploy-test", inversePrecedence: true) {
+            stage('Deploy (Test)') {
+              ansibleCommitId = ansible.runDeployPlaybook(version, 'test')
+              rpmTagger.tagDeploymentSuccessfulOn('test')
               rpmTagger.tagAnsibleCommit(ansibleCommitId)
             }
-            stage('Smoke test (Dev)') {
+            stage('Smoke test (test)') {
               smokeTests.executeAgainst(env.CMC_LEGAL_DEV_APPLICATION_URL)
-              rpmTagger.tagTestingPassedOn('dev')
+              rpmTagger.tagTestingPassedOn('test')
             }
           }
           milestone()
-          lock(resource: "CMC-deploy-demo", inversePrecedence: true) {
-            stage('Deploy (Demo)') {
-              ansible.runDeployPlaybook(version, 'demo')
-            }
-            stage('Smoke test (Demo)') {
-              smokeTests.executeAgainst(env.CMC_DEMO_APPLICATION_URL)
-            }
-          }
-          milestone()
-        }
+        //}
       } catch (Throwable err) {
         notifyBuildFailure channel: '#cmc-tech-notification'
         throw err
