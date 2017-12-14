@@ -16,6 +16,8 @@ describe('Claim issue: start page', () => {
   beforeEach(() => {
     mock.cleanAll()
     DraftStoreServiceMock.resolveFind('legalClaim')
+    DraftStoreServiceMock.resolveFind('legalCertificateOfService')
+    DraftStoreServiceMock.resolveFind('legalUploadDocument')
   })
 
   describe('on GET', () => {
@@ -47,6 +49,8 @@ describe('Claim issue: start page', () => {
 
     it('should redirect to representative-name page when delete previous draft is successful', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      DraftStoreServiceMock.resolveDelete()
+      DraftStoreServiceMock.resolveDelete()
       DraftStoreServiceMock.resolveDelete()
       DraftStoreServiceMock.resolveDelete()
       idamServiceMock.resolveRetrieveServiceToken()

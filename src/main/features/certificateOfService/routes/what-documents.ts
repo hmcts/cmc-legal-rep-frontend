@@ -5,7 +5,7 @@ import { Form } from 'app/forms/form'
 import { FormValidator } from 'app/forms/validation/formValidator'
 import { WhatDocuments } from 'app/forms/models/whatDocuments'
 import ErrorHandling from 'common/errorHandling'
-import { DraftService } from '../../../services/draftService'
+import { DraftService } from 'services/draftService'
 import User from 'idam/user'
 
 function renderView (form: Form<WhatDocuments>, res: express.Response): void {
