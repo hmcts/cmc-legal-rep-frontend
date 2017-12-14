@@ -1,18 +1,14 @@
-import * as express from 'express'
-import CookieProperties from 'common/cookieProperties'
 import { RepresentativeDetails } from 'forms/models/representativeDetails'
-import User from 'idam/user'
 
 export class Cookie {
   representativeDetails: RepresentativeDetails[]
 
-  public static getCookie (req: express.Request, user: User): RepresentativeDetails {
-    if (req.signedCookies.legalRepresentativeDetails === undefined) {
+  public static getCookie (legalRepresentativeDetails: RepresentativeDetails[], id: string): RepresentativeDetails {
+    if (legalRepresentativeDetails === undefined) {
       return new RepresentativeDetails()
     } else {
-      const representativeDetails: RepresentativeDetails[] = req.signedCookies.legalRepresentativeDetails
-      const representativeDetail: RepresentativeDetails = representativeDetails.find(function (representativeDetail: RepresentativeDetails) {
-        return representativeDetail.id === user.id
+      const representativeDetail: RepresentativeDetails = legalRepresentativeDetails.find(function (representativeDetail: RepresentativeDetails) {
+        return representativeDetail.id === id
       })
 
       if (representativeDetail === undefined) {
@@ -23,14 +19,18 @@ export class Cookie {
     }
   }
 
-  public static saveCookie (req: express.Request, res: express.Response, legalRepDetails: RepresentativeDetails) {
-    let representativeDetails: RepresentativeDetails[] = req.signedCookies.legalRepresentativeDetails === undefined ? [] : req.signedCookies.legalRepresentativeDetails
+  public static saveCookie (legalRepresentativeDetails: RepresentativeDetails[], id: string, legalRepDetails: RepresentativeDetails): RepresentativeDetails[] {
+    let representativeDetails: RepresentativeDetails[] = legalRepresentativeDetails === undefined ? [] : legalRepresentativeDetails
     representativeDetails = representativeDetails.filter(function (representativeDetail: RepresentativeDetails) {
-      return representativeDetail.id !== res.locals.user.id
+      return representativeDetail.id !== id
     })
-    legalRepDetails.id = res.locals.user.id
-    representativeDetails.push(legalRepDetails)
-    res.cookie(legalRepDetails.cookieName, representativeDetails, CookieProperties.getCookieParameters())
+
+    if (legalRepDetails !== undefined) {
+      legalRepDetails.id = id
+      representativeDetails.push(legalRepDetails)
+    }
+
+    return representativeDetails
   }
 
   deserialize (input: any): Cookie {
