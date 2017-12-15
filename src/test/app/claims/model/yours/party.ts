@@ -3,7 +3,7 @@
 
 import { expect } from 'chai'
 import { Address } from 'app/claims/models/address'
-import { PartyType } from '../../../../../main/app/common/partyType'
+import { PartyType } from 'app/common/partyType'
 import { ContactDetails } from 'claims/models/contactDetails'
 import { Representative } from 'claims/models/representative'
 import { Party } from 'claims/models/yours/party'

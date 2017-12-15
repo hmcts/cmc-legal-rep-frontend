@@ -1,4 +1,4 @@
-import { PartyType } from '../../../main/app/common/partyType'
+import { PartyType } from 'app/common/partyType'
 
 export const individual = {
   type: {
