@@ -3,19 +3,25 @@ import * as config from 'config'
 import * as healthcheck from '@hmcts/nodejs-healthcheck'
 import * as fs from 'fs'
 import * as path from 'path'
+import * as toBoolean from 'to-boolean'
+
+const checks = {
+  'claim-store': basicHealthCheck('claim-store'),
+  'pdf-service': basicHealthCheck('pdf-service'),
+  'draft-store': basicHealthCheck('draft-store'),
+  'fees': basicHealthCheck('fees'),
+  'idam-api': basicHealthCheck('idam.api'),
+  'idam-authentication-web': basicHealthCheck('idam.authentication-web'),
+  'idam-service-2-service-auth': basicHealthCheck('idam.service-2-service-auth')
+}
+
+if (toBoolean(config.get('featureToggles.certificateOfService'))) {
+  checks['document-management-web'] = basicHealthCheck('documentManagement')
+}
 
 export default express.Router()
   .get('/health', healthcheck.configure({
-    checks: {
-      'claim-store': basicHealthCheck('claim-store'),
-      'pdf-service': basicHealthCheck('pdf-service'),
-      'draft-store': basicHealthCheck('draft-store'),
-      'fees': basicHealthCheck('fees'),
-      'idam-api': basicHealthCheck('idam.api'),
-      'idam-authentication-web': basicHealthCheck('idam.authentication-web'),
-      'idam-service-2-service-auth': basicHealthCheck('idam.service-2-service-auth'),
-      'document-management-web' : basicHealthCheck('documentManagement')
-    }
+    checks: checks
   }))
 
 function basicHealthCheck (serviceName) {
