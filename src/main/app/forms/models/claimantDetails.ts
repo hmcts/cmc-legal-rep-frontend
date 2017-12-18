@@ -15,12 +15,6 @@ export class ClaimantDetails implements Serializable<ClaimantDetails> {
   type?: ClaimantTypes
 
   @ValidateIf(o => o.type === ClaimantTypes.INDIVIDUAL)
-  @IsOptional()
-  @IsDefined({ message: CommonValidationErrors.TITLE_REQUIRED })
-  @MaxLength(35, { message: CommonValidationErrors.CONTENT_TOO_LONG })
-  title?: string
-
-  @ValidateIf(o => o.type === ClaimantTypes.INDIVIDUAL)
   @IsDefined({ message: CommonValidationErrors.FULLNAME_REQUIRED })
   @IsNotBlank({ message: CommonValidationErrors.FULLNAME_REQUIRED })
   @MaxLength(70, { message: CommonValidationErrors.CONTENT_TOO_LONG })
@@ -38,9 +32,8 @@ export class ClaimantDetails implements Serializable<ClaimantDetails> {
   @MaxLength(8, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   companyHouseNumber?: string
 
-  constructor (type?: ClaimantTypes, title?: string, fullName?: string, organisation?: string, companyHouseNumber?: string) {
+  constructor (type?: ClaimantTypes, fullName?: string, organisation?: string, companyHouseNumber?: string) {
     this.type = type
-    this.title = title
     this.fullName = fullName
     this.organisation = organisation
     this.companyHouseNumber = companyHouseNumber
@@ -58,7 +51,7 @@ export class ClaimantDetails implements Serializable<ClaimantDetails> {
           .pop()
       }
 
-      return new ClaimantDetails(type, value.title, value.fullName, value.organisation, value.companyHouseNumber)
+      return new ClaimantDetails(type, value.fullName, value.organisation, value.companyHouseNumber)
     }
 
     return new ClaimantDetails()
@@ -67,7 +60,6 @@ export class ClaimantDetails implements Serializable<ClaimantDetails> {
   deserialize (input?: any): ClaimantDetails {
     if (input) {
       this.type = input.type
-      this.title = input.title
       this.fullName = input.fullName
       this.organisation = input.organisation
       this.companyHouseNumber = input.companyHouseNumber
@@ -77,6 +69,6 @@ export class ClaimantDetails implements Serializable<ClaimantDetails> {
   }
 
   toString (): string {
-    return this.type.value === PartyType.INDIVIDUAL.value ? (this.title ? this.title + ' ' : '') + this.fullName : this.organisation
+    return this.type.value === PartyType.INDIVIDUAL.value ? this.fullName : this.organisation
   }
 }

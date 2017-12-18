@@ -45,14 +45,8 @@
         {{ tableStart('claimantDetails'+loop.index, 'Claimant ' + loop.index + ' details') }}
       {% endif %}
 
-      {% if claimant.claimantDetails.title %}
-        {% set claimantFullName = claimant.claimantDetails.title + ' ' + claimant.claimantDetails.fullName %}
-      {% else %}
-        {% set claimantFullName = claimant.claimantDetails.fullName %}
-      {% endif %}
-
       {% if claimant.claimantDetails.type.value === 'INDIVIDUAL' %}
-        {{ row('Name', claimantFullName, changeClaimantLink) }}
+        {{ row('Name', claimant.claimantDetails.fullName, changeClaimantLink) }}
       {% else %}
         {{ row('Organisation name', claimant.claimantDetails.organisation, changeClaimantLink) }}
         {{ row('Companies House number', claimant.claimantDetails.companyHouseNumber, changeClaimantLink) }}
@@ -88,12 +82,7 @@
       {% endif %}
 
       {% if defendant.defendantDetails.type.value == 'INDIVIDUAL' %}
-        {% if defendant.defendantDetails.title %}
-          {% set defendantFullName = defendant.defendantDetails.title + ' ' + defendant.defendantDetails.fullName %}
-        {% else %}
-          {% set defendantFullName = defendant.defendantDetails.fullName %}
-        {% endif %}
-        {{ row('Name', defendantFullName, changeDefendantLink) }}
+        {{ row('Name', defendant.defendantDetails.fullName, changeDefendantLink) }}
       {% elseif defendant.defendantDetails.type.value == 'SOLE_TRADER' %}
         {% if defendant.defendantDetails.businessName %}
           {{ row('Name (trading as)', defendant.defendantDetails.soleTraderName + ' trading as ' + defendant.defendantDetails.businessName, changeDefendantLink) }}

@@ -37,7 +37,7 @@ describe('Defendant', () => {
       const organisationName = new OrganisationName('organisationName')
       const address = new Address('line1', 'line2', 'city', 'postcode')
       const representative = new Representative(organisationName, address, contactDetails)
-      const defendantDetails = new DefendantDetails(PartyType.INDIVIDUAL, 'title', 'full name')
+      const defendantDetails = new DefendantDetails(PartyType.INDIVIDUAL, 'full name')
       const defendantRepresented = new DefendantRepresented(YesNo.YES, organisationName.name)
       const serviceAddress = new ServiceAddress(YesNo.NO, 'line1', 'line2', 'city', 'postcode')
 
@@ -50,7 +50,6 @@ describe('Defendant', () => {
         },
         defendantDetails: {
           type: { value: 'INDIVIDUAL', dataStoreValue: 'individual' },
-          title: 'title',
           fullName: 'full name',
           organisation: undefined,
           companyHouseNumber: undefined

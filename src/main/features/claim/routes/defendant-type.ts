@@ -43,7 +43,6 @@ export default express.Router()
             break
           case DefendantTypes.SOLE_TRADER:
             form.model.fullName = undefined
-            form.model.title = undefined
             form.model.organisation = undefined
             form.model.companyHouseNumber = undefined
             break

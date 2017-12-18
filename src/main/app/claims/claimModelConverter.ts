@@ -77,10 +77,6 @@ export class ClaimModelConverter {
 
       claimant['type'] = claimant.claimantDetails.type.dataStoreValue
 
-      if (claimant.claimantDetails.title) {
-        claimant['title'] = claimant.claimantDetails.title
-      }
-
       if (claimant.claimantDetails.organisation) {
         claimant['name'] = claimant.claimantDetails.organisation
       } else {
@@ -115,9 +111,6 @@ export class ClaimModelConverter {
 
       switch (defendant.defendantDetails.type.value) {
         case DefendantTypes.INDIVIDUAL.value:
-          if (defendant.defendantDetails.title) {
-            defendant['title'] = defendant.defendantDetails.title
-          }
           defendant['name'] = defendant.defendantDetails.fullName
           break
         case DefendantTypes.ORGANISATION.value:

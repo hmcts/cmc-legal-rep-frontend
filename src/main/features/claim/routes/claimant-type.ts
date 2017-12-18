@@ -32,7 +32,6 @@ export default express.Router()
           form.model.organisation = null
           form.model.companyHouseNumber = null
         } else {
-          form.model.title = null
           form.model.fullName = null
         }
         const index = Claimants.getIndex(res)
