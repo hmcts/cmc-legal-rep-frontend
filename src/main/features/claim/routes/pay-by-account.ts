@@ -12,6 +12,8 @@ import ClaimStoreClient from 'claims/claimStoreClient'
 import MoneyConverter from 'app/fees/moneyConverter'
 import { FeeResponse } from 'fees/model/feeResponse'
 import { RepresentativeDetails } from 'forms/models/representativeDetails'
+import { Draft } from '@hmcts/draft-store-client'
+import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 
 const logger = require('@hmcts/nodejs-logging').getLogger('router/pay-by-account')
 
@@ -20,12 +22,14 @@ function logError (id: number, message: string) {
 }
 
 async function deleteDraftAndRedirect (res, next, externalId: string) {
-  await new DraftService()['delete'](res.locals.user.legalClaimDraft['id'], res.locals.user.bearerToken)
+  const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+  await new DraftService()['delete'](draft['id'], res.locals.user.bearerToken)
   res.redirect(Paths.claimSubmittedPage.evaluateUri({ externalId: externalId }))
 }
 
 async function saveClaimHandler (res, next) {
-  const externalId = res.locals.user.legalClaimDraft.document.externalId
+  const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+  const externalId = draft.document.externalId
 
   let claimStatus: boolean
   try {
@@ -44,7 +48,7 @@ async function saveClaimHandler (res, next) {
   if (claimStatus) {
     deleteDraftAndRedirect(res, next, externalId)
   } else {
-    ClaimStoreClient.saveClaimForUser(res.locals.user)
+    ClaimStoreClient.saveClaimForUser(res.locals.user, res.locals.legalClaimDraft)
       .then(claim => {
         deleteDraftAndRedirect(res, next, externalId)
       })
@@ -59,7 +63,8 @@ async function saveClaimHandler (res, next) {
 }
 
 function renderView (form: Form<FeeAccount>, res: express.Response, next: express.NextFunction): void {
-  FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.document.amount)
+  const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+  FeesClient.getFeeAmount(draft.document.amount)
     .then((feeResponse: FeeResponse) => {
       res.render(Paths.payByAccountPage.associatedView,
         {
@@ -78,18 +83,19 @@ export default express.Router()
 
   .post(Paths.payByAccountPage.uri, FormValidator.requestHandler(FeeAccount, FeeAccount.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+      const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
       const form: Form<FeeAccount> = req.body
 
       if (form.hasErrors()) {
         renderView(form, res, next)
       } else {
-        res.locals.user.legalClaimDraft.document.feeAccount = form.model
+        draft.document.feeAccount = form.model
 
-        const feeResponse: FeeResponse = await FeesClient.getFeeAmount(res.locals.user.legalClaimDraft.document.amount)
-        res.locals.user.legalClaimDraft.document.feeAmountInPennies = feeResponse.amount
-        res.locals.user.legalClaimDraft.document.feeCode = feeResponse.fee.code
+        const feeResponse: FeeResponse = await FeesClient.getFeeAmount(draft.document.amount)
+        draft.document.feeAmountInPennies = feeResponse.amount
+        draft.document.feeCode = feeResponse.fee.code
 
-        await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+        await new DraftService().save(draft, res.locals.user.bearerToken)
 
         const legalRepDetails: RepresentativeDetails = RepresentativeDetails.getCookie(req)
         legalRepDetails.feeAccount = form.model

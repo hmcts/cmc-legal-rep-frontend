@@ -1,7 +1,7 @@
 import { Serializable } from 'app/models/serializable'
 import { DraftDocument } from '@hmcts/cmc-draft-store-middleware'
 
-export default class DraftView extends DraftDocument implements Serializable<DraftView> {
+export class DraftView extends DraftDocument implements Serializable<DraftView> {
   isDefendantDeleted: boolean = false
   isClaimantDeleted: boolean = false
   defendantChangeIndex?: number
