@@ -81,7 +81,6 @@ describe('Claim issue: defendant type page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .send({
           type: 'INDIVIDUAL',
-          title: 'title',
           fullName: 'fullName'
         })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
@@ -97,7 +96,6 @@ describe('Claim issue: defendant type page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .send({
           type: 'INDIVIDUAL',
-          title: 'title',
           fullName: 'fullName'
         })
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantAddressPage.uri))

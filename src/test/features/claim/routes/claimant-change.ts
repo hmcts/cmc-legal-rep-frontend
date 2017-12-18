@@ -20,7 +20,6 @@ const claimants = {
   claimants: [{
     claimantDetails: {
       type: 'INDIVIDUAL',
-      title: 'title',
       fullName: 'fullName'
     },
     address: {
@@ -32,7 +31,6 @@ const claimants = {
     {
       claimantDetails: {
         type: 'INDIVIDUAL',
-        title: 'title',
         fullName: 'fullName'
       },
       address: {
