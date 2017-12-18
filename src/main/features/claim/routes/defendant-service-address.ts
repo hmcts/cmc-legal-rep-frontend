@@ -9,9 +9,13 @@ import { ServiceAddress } from 'app/forms/models/serviceAddress'
 import ErrorHandling from 'common/errorHandling'
 import { Defendants } from 'common/router/defendants'
 import { DraftService } from 'services/draftService'
+import { Draft } from '@hmcts/draft-store-client'
+import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
+import { DraftView } from 'app/drafts/models/draftView'
 
 function renderView (form: Form<ServiceAddress>, res: express.Response) {
-  const defendants = res.locals.user.legalClaimDraft.document.defendants
+  const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+  const defendants = draft.document.defendants
 
   res.render(Paths.defendantServiceAddressPage.associatedView, {
     form: form,
@@ -23,11 +27,14 @@ function renderView (form: Form<ServiceAddress>, res: express.Response) {
 
 export default express.Router()
   .get(Paths.defendantServiceAddressPage.uri, (req: express.Request, res: express.Response) => {
+    const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
     const index: number = Defendants.getIndex(res)
-    renderView(new Form(res.locals.user.legalClaimDraft.document.defendants[index].serviceAddress), res)
+    renderView(new Form(draft.document.defendants[index].serviceAddress), res)
   })
   .post(Paths.defendantServiceAddressPage.uri, FormValidator.requestHandler(ServiceAddress, ServiceAddress.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+      const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+      const viewDraft: Draft<DraftView> = res.locals.viewDraft
       const form: Form<ServiceAddress> = req.body
 
       if (form.hasErrors()) {
@@ -40,10 +47,10 @@ export default express.Router()
           form.model.postcode = undefined
         }
         const index: number = Defendants.getIndex(res)
-        res.locals.user.legalClaimDraft.document.defendants[index].serviceAddress = form.model
-        res.locals.user.viewDraft.document.defendantChangeIndex = undefined
-        await new DraftService().save(res.locals.user.viewDraft, res.locals.user.bearerToken)
-        await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+        draft.document.defendants[index].serviceAddress = form.model
+        viewDraft.document.defendantChangeIndex = undefined
+        await new DraftService().save(viewDraft, res.locals.user.bearerToken)
+        await new DraftService().save(draft, res.locals.user.bearerToken)
         res.redirect(Paths.defendantAdditionPage.uri)
       }
     })

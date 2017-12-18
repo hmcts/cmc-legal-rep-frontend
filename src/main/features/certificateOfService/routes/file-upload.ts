@@ -10,18 +10,23 @@ import User from 'idam/user'
 import ErrorHandling from 'common/errorHandling'
 import { FileTypes } from 'forms/models/fileTypes'
 import { FileUploadErrors } from 'forms/models/fileTypeErrors'
+import { Draft } from '@hmcts/draft-store-client'
+import { DraftCertificateOfService } from 'drafts/models/draftCertificateOfService'
+import { DraftUploadDocument } from 'drafts/models/draftUploadDocument'
 
 export default express.Router()
   .post(Paths.fileUploadPage.uri,
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+      const viewDraft: Draft<DraftUploadDocument> = res.locals.legalUploadDocumentDraft
+      const draft: Draft<DraftCertificateOfService> = res.locals.legalCertificateOfServiceDraft
       const form = new formidable.IncomingForm()
       const user: User = res.locals.user
       const FILE_SIZE_LIMIT: number = 10485760
       const TIME_OUT: number = 7200000
       form.keepExtensions = true
       req.setTimeout(TIME_OUT,function () {
-        user.legalUploadDocumentDraft.document.fileToUploadError = FileUploadErrors.FILE_UPLOAD_TIMEOUT
-        new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
+        viewDraft.document.fileToUploadError = FileUploadErrors.FILE_UPLOAD_TIMEOUT
+        new DraftService().save(viewDraft, user.bearerToken).then(() => {
           res.redirect(Paths.documentUploadPage.uri)
         })
       })
@@ -29,25 +34,25 @@ export default express.Router()
       form.parse(req)
       .on('file', function (name, file) {
         if (file.size === 0) {
-          user.legalUploadDocumentDraft.document.fileToUploadError = FileUploadErrors.FILE_REQUIRED
-          new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
+          viewDraft.document.fileToUploadError = FileUploadErrors.FILE_REQUIRED
+          new DraftService().save(viewDraft, user.bearerToken).then(() => {
             res.redirect(Paths.documentUploadPage.uri)
           })
         } else if (file.size > FILE_SIZE_LIMIT) {
-          user.legalUploadDocumentDraft.document.fileToUploadError = FileUploadErrors.FILE_TOO_LARGE
-          new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
+          viewDraft.document.fileToUploadError = FileUploadErrors.FILE_TOO_LARGE
+          new DraftService().save(viewDraft, user.bearerToken).then(() => {
             res.redirect(Paths.documentUploadPage.uri)
           })
         } else if (FileTypes.acceptedMimeTypes().indexOf(file.type) === -1) {
-          user.legalUploadDocumentDraft.document.fileToUploadError = FileUploadErrors.WRONG_FILE_TYPE
-          new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
+          viewDraft.document.fileToUploadError = FileUploadErrors.WRONG_FILE_TYPE
+          new DraftService().save(viewDraft, user.bearerToken).then(() => {
             res.redirect(Paths.documentUploadPage.uri)
           })
         } else {
           DocumentsClient.save(user.bearerToken, file).then((documentManagementURI) => {
-            const documentType: DocumentType = user.legalUploadDocumentDraft.document.fileToUpload
+            const documentType: DocumentType = viewDraft.document.fileToUpload
             let files: UploadedDocument[] = []
-            user.legalCertificateOfServiceDraft.document.uploadedDocuments.map((file) => files.push(new UploadedDocument().deserialize(file)))
+            draft.document.uploadedDocuments.map((file) => files.push(new UploadedDocument().deserialize(file)))
 
             const fileType = FileTypes.all().find(fileType => fileType.mimeType === file.type)
 
@@ -58,12 +63,12 @@ export default express.Router()
                 next(err)
               }
             })
-            user.legalCertificateOfServiceDraft.document.uploadedDocuments = files
-            new DraftService().save(user.legalCertificateOfServiceDraft, user.bearerToken)
+            draft.document.uploadedDocuments = files
+            new DraftService().save(draft, user.bearerToken)
 
-            user.legalUploadDocumentDraft.document.fileToUploadError = undefined
-            user.legalUploadDocumentDraft.document.fileToUpload = undefined
-            new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
+            viewDraft.document.fileToUploadError = undefined
+            viewDraft.document.fileToUpload = undefined
+            new DraftService().save(viewDraft, user.bearerToken).then(() => {
               res.redirect(Paths.documentUploadPage.uri)
             })
           }).catch(next)

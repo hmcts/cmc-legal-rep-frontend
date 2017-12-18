@@ -2,7 +2,7 @@
 /* tslint:disable:no-unused-expression */
 
 import { expect } from 'chai'
-import DraftView from 'app/drafts/models/draftView'
+import { DraftView } from 'app/drafts/models/draftView'
 
 function verifyDefaultValues (initialValue: any) {
   const actualDraft: DraftView = new DraftView().deserialize(initialValue)

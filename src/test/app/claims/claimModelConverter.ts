@@ -9,7 +9,7 @@ import { claimants, defendants } from '../../data/draft/partyDetails'
 
 import { claimants as claimantsEntity, defendants as defendantsEntity } from '../../data/entity/party'
 
-import DraftLegalClaim from 'drafts/models/draftLegalClaim'
+import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 import ClaimData from 'claims/models/claimData'
 
 function prepareClaimDraft (claimants: object, defendants: object): DraftLegalClaim {

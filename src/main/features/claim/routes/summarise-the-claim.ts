@@ -7,6 +7,8 @@ import Summary from 'app/forms/models/summary'
 
 import ErrorHandling from 'common/errorHandling'
 import { DraftService } from 'services/draftService'
+import { Draft } from '@hmcts/draft-store-client'
+import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 
 function renderView (form: Form<Summary>, res: express.Response) {
   res.render(Paths.summariseTheClaimPage.associatedView, { form: form })
@@ -14,17 +16,19 @@ function renderView (form: Form<Summary>, res: express.Response) {
 
 export default express.Router()
   .get(Paths.summariseTheClaimPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.legalClaimDraft.document.summary), res)
+    const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+    renderView(new Form(draft.document.summary), res)
   })
   .post(Paths.summariseTheClaimPage.uri, FormValidator.requestHandler(Summary),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+      const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
       const form: Form<Summary> = req.body
 
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        res.locals.user.legalClaimDraft.document.summary = form.model
-        await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+        draft.document.summary = form.model
+        await new DraftService().save(draft, res.locals.user.bearerToken)
         res.redirect(Paths.claimAmountPage.uri)
       }
     }))
