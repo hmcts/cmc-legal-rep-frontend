@@ -12,7 +12,7 @@ import { DocumentUpload } from 'forms/models/documentUpload'
 
 function renderView (form: Form<DocumentUpload>, res: express.Response): void {
   const files: UploadedDocument[] = res.locals.user.legalCertificateOfServiceDraft.document.uploadedDocuments
-  const fileToUpload: DocumentType = res.locals.user.legalUploadDocumentDraft.document.fileToUpload
+  const fileToUpload: DocumentType = res.locals.user.legalCertificateOfServiceDraft.document.fileToUpload
   const whatDocuments: WhatDocuments = res.locals.user.legalCertificateOfServiceDraft.document.whatDocuments
 
   const particularsOfClaim: UploadedDocument[] = files.filter(function (file: UploadedDocument) {
@@ -49,11 +49,11 @@ function renderView (form: Form<DocumentUpload>, res: express.Response): void {
 export default express.Router()
   .get(Paths.documentUploadPage.uri, (req: express.Request, res: express.Response) => {
     const form = new Form(new DocumentUpload())
-    if (res.locals.user.legalUploadDocumentDraft.document.fileToUploadError) {
+    if (res.locals.user.legalCertificateOfServiceDraft.document.fileToUploadError) {
       const validationError = new ValidationError()
       validationError.property = 'files'
       validationError.target = 'files'
-      validationError.constraints = { ['files']: res.locals.user.legalUploadDocumentDraft.document.fileToUploadError.displayValue }
+      validationError.constraints = { ['files']: res.locals.user.legalCertificateOfServiceDraft.document.fileToUploadError.displayValue }
       form.errors.push(new FormValidationError(validationError, ''))
     }
     renderView(form, res)
@@ -62,18 +62,18 @@ export default express.Router()
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form = req.body
       if (form.particularsOfClaim) {
-        res.locals.user.legalUploadDocumentDraft.document.fileToUpload = DocumentType.PARTICULARS_OF_CLAIM
+        res.locals.user.legalCertificateOfServiceDraft.document.fileToUpload = DocumentType.PARTICULARS_OF_CLAIM
       } else if (form.medicalReport) {
-        res.locals.user.legalUploadDocumentDraft.document.fileToUpload = DocumentType.MEDICAL_REPORTS
+        res.locals.user.legalCertificateOfServiceDraft.document.fileToUpload = DocumentType.MEDICAL_REPORTS
       } else if (form.scheduleOfLoss) {
-        res.locals.user.legalUploadDocumentDraft.document.fileToUpload = DocumentType.SCHEDULE_OF_LOSS
+        res.locals.user.legalCertificateOfServiceDraft.document.fileToUpload = DocumentType.SCHEDULE_OF_LOSS
       } else if (form.other) {
-        res.locals.user.legalUploadDocumentDraft.document.fileToUpload = DocumentType.OTHER
+        res.locals.user.legalCertificateOfServiceDraft.document.fileToUpload = DocumentType.OTHER
       }
 
-      res.locals.user.legalUploadDocumentDraft.document.wrongFileType = undefined
+      res.locals.user.legalCertificateOfServiceDraft.document.wrongFileType = undefined
 
-      await new DraftService().save(res.locals.user.legalUploadDocumentDraft, res.locals.user.bearerToken)
+      await new DraftService().save(res.locals.user.legalCertificateOfServiceDraft, res.locals.user.bearerToken)
 
       res.redirect(Paths.documentUploadPage.uri)
     })

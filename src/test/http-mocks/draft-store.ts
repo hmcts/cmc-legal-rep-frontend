@@ -31,14 +31,6 @@ const sampleDashboardDraftObj = {
   search: { reference: '000LR001' } as Search
 }
 
-const sampleUploadDocumentDraftObj = {
-  fileToUpload: {
-    value: 'PARTICULARS_OF_CLAIM',
-    displayValue: 'Particulars of claim',
-    dataStoreValue: 'particularsOfClaim'
-  }
-}
-
 const sampleCertificateOfServiceDraftObj = {
   uploadedDocuments: [ {
     fileName: '000LR012.pdf',
@@ -53,7 +45,12 @@ const sampleCertificateOfServiceDraftObj = {
   whatDocuments: {
     types: ['scheduleOfLoss', 'medicalReport', 'other'],
     otherDocuments: undefined
-  } as WhatDocuments
+  } as WhatDocuments,
+  fileToUpload: {
+    value: 'PARTICULARS_OF_CLAIM',
+    displayValue: 'Particulars of claim',
+    dataStoreValue: 'particularsOfClaim'
+  }
 }
 
 const sampleClaimDraftObj = {
@@ -143,9 +140,6 @@ export function resolveFind (draftType: string, draftOverride?: object): mock.Sc
       break
     case 'legalCertificateOfService':
       documentDocument = { ...sampleCertificateOfServiceDraftObj, ...draftOverride }
-      break
-    case 'legalUploadDocument':
-      documentDocument = { ...sampleUploadDocumentDraftObj, ...draftOverride }
       break
     default:
       throw new Error('Unsupported draft type')

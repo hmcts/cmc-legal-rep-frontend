@@ -19,7 +19,6 @@ describe('Certificate of Service: What documents page', () => {
   beforeEach(() => {
     mock.cleanAll()
     draftStoreServiceMock.resolveFind('legalCertificateOfService')
-    draftStoreServiceMock.resolveFind('legalUploadDocument')
   })
 
   describe('on GET', () => {

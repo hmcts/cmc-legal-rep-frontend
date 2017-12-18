@@ -20,8 +20,8 @@ export default express.Router()
       const TIME_OUT: number = 7200000
       form.keepExtensions = true
       req.setTimeout(TIME_OUT,function () {
-        user.legalUploadDocumentDraft.document.fileToUploadError = FileUploadErrors.FILE_UPLOAD_TIMEOUT
-        new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
+        user.legalCertificateOfServiceDraft.document.fileToUploadError = FileUploadErrors.FILE_UPLOAD_TIMEOUT
+        new DraftService().save(user.legalCertificateOfServiceDraft, user.bearerToken).then(() => {
           res.redirect(Paths.documentUploadPage.uri)
         })
       })
@@ -29,23 +29,23 @@ export default express.Router()
       form.parse(req)
       .on('file', function (name, file) {
         if (file.size === 0) {
-          user.legalUploadDocumentDraft.document.fileToUploadError = FileUploadErrors.FILE_REQUIRED
-          new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
+          user.legalCertificateOfServiceDraft.document.fileToUploadError = FileUploadErrors.FILE_REQUIRED
+          new DraftService().save(user.legalCertificateOfServiceDraft, user.bearerToken).then(() => {
             res.redirect(Paths.documentUploadPage.uri)
           })
         } else if (file.size > FILE_SIZE_LIMIT) {
-          user.legalUploadDocumentDraft.document.fileToUploadError = FileUploadErrors.FILE_TOO_LARGE
-          new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
+          user.legalCertificateOfServiceDraft.document.fileToUploadError = FileUploadErrors.FILE_TOO_LARGE
+          new DraftService().save(user.legalCertificateOfServiceDraft, user.bearerToken).then(() => {
             res.redirect(Paths.documentUploadPage.uri)
           })
         } else if (FileTypes.acceptedMimeTypes().indexOf(file.type) === -1) {
-          user.legalUploadDocumentDraft.document.fileToUploadError = FileUploadErrors.WRONG_FILE_TYPE
-          new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
+          user.legalCertificateOfServiceDraft.document.fileToUploadError = FileUploadErrors.WRONG_FILE_TYPE
+          new DraftService().save(user.legalCertificateOfServiceDraft, user.bearerToken).then(() => {
             res.redirect(Paths.documentUploadPage.uri)
           })
         } else {
           DocumentsClient.save(user.bearerToken, file).then((documentManagementURI) => {
-            const documentType: DocumentType = user.legalUploadDocumentDraft.document.fileToUpload
+            const documentType: DocumentType = user.legalCertificateOfServiceDraft.document.fileToUpload
             let files: UploadedDocument[] = []
             user.legalCertificateOfServiceDraft.document.uploadedDocuments.map((file) => files.push(new UploadedDocument().deserialize(file)))
 
@@ -61,9 +61,9 @@ export default express.Router()
             user.legalCertificateOfServiceDraft.document.uploadedDocuments = files
             new DraftService().save(user.legalCertificateOfServiceDraft, user.bearerToken)
 
-            user.legalUploadDocumentDraft.document.fileToUploadError = undefined
-            user.legalUploadDocumentDraft.document.fileToUpload = undefined
-            new DraftService().save(user.legalUploadDocumentDraft, user.bearerToken).then(() => {
+            user.legalCertificateOfServiceDraft.document.fileToUploadError = undefined
+            user.legalCertificateOfServiceDraft.document.fileToUpload = undefined
+            new DraftService().save(user.legalCertificateOfServiceDraft, user.bearerToken).then(() => {
               res.redirect(Paths.documentUploadPage.uri)
             })
           }).catch(next)

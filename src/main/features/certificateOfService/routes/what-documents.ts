@@ -25,10 +25,9 @@ export default express.Router()
         const user: User = res.locals.user
 
         user.legalCertificateOfServiceDraft.document.whatDocuments = form.model
-        await new DraftService().save(res.locals.user.legalCertificateOfServiceDraft, res.locals.user.bearerToken)
+        user.legalCertificateOfServiceDraft.document.fileToUpload = undefined
 
-        user.legalUploadDocumentDraft.document.fileToUpload = undefined
-        await new DraftService().save(res.locals.user.legalUploadDocumentDraft, res.locals.user.bearerToken)
+        await new DraftService().save(res.locals.user.legalCertificateOfServiceDraft, res.locals.user.bearerToken)
 
         res.redirect(Paths.documentUploadPage.uri)
       }
