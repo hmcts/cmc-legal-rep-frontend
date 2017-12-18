@@ -76,10 +76,6 @@ export class ClaimModelConverter {
 
       claimant['type'] = claimant.claimantDetails.type.dataStoreValue
 
-      if (claimant.claimantDetails.title) {
-        claimant['title'] = claimant.claimantDetails.title
-      }
-
       if (claimant.claimantDetails.organisation) {
         claimant['name'] = claimant.claimantDetails.organisation
       } else {
@@ -110,9 +106,6 @@ export class ClaimModelConverter {
 
   private static convertDefendantDetails (draftClaim: DraftLegalClaim): void {
     draftClaim.defendants.map((defendant: Defendant) => {
-      if (defendant.defendantDetails.title) {
-        defendant['title'] = defendant.defendantDetails.title
-      }
       if (defendant.defendantDetails.organisation) {
         defendant['name'] = defendant.defendantDetails.organisation
       } else {
