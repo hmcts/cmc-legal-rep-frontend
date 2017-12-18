@@ -13,7 +13,7 @@ import { Amount } from 'app/forms/models/amount'
 import { FeeAccount } from 'forms/models/feeAccount'
 import { DraftDocument } from '@hmcts/cmc-draft-store-middleware'
 
-export default class DraftLegalClaim extends DraftDocument implements Serializable<DraftLegalClaim> {
+export class DraftLegalClaim extends DraftDocument implements Serializable<DraftLegalClaim> {
   externalId = uuid()
   claimants: Claimant[] = [new Claimant()]
   summary: Summary = new Summary()

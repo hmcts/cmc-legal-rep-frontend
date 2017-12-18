@@ -4,13 +4,15 @@ import Claim from 'app/claims/models/claim'
 import User from 'app/idam/user'
 import { ClaimModelConverter } from 'claims/claimModelConverter'
 import { ForbiddenError } from '../../errors'
+import { Draft } from '@hmcts/draft-store-client'
+import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 
 const claimApiBaseUrl = `${config.get<string>('claim-store.url')}`
 const claimStoreApiUrl = `${claimApiBaseUrl}/claims`
 
 export default class ClaimStoreClient {
-  static saveClaimForUser (user: User): Promise<Claim> {
-    const convertedDraftClaim: object = ClaimModelConverter.convert(user.legalClaimDraft.document)
+  static saveClaimForUser (user: User, draft: Draft<DraftLegalClaim>): Promise<Claim> {
+    const convertedDraftClaim: object = ClaimModelConverter.convert(draft.document)
     return request.post(`${claimStoreApiUrl}/${user.id}`, {
       body: convertedDraftClaim,
       headers: {

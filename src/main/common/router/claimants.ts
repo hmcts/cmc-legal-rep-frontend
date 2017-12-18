@@ -2,36 +2,43 @@ import * as express from 'express'
 import { PartyTypes } from 'app/forms/models/partyTypes'
 import Claimant from 'app/drafts/models/claimant'
 import { Paths as ClaimPaths } from 'claim/paths'
+import { Draft } from '@hmcts/draft-store-client'
+import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
+import { DraftView } from 'app/drafts/models/draftView'
 
 export class Claimants {
 
   static addClaimant (res: express.Response) {
     let claimants: Claimant[] = []
 
-    res.locals.user.legalClaimDraft.document.claimants.map((claimant) => claimants.push(new Claimant().deserialize(claimant)))
+    const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+    draft.document.claimants.map((claimant) => claimants.push(new Claimant().deserialize(claimant)))
     claimants.push(new Claimant())
 
-    res.locals.user.legalClaimDraft.document.claimants = claimants
+    draft.document.claimants = claimants
   }
 
   static removeClaimant (res: express.Response, id: string) {
     let claimants: Claimant[] = []
 
-    res.locals.user.legalClaimDraft.document.claimants.forEach((claimant, index) => {
+    const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+    draft.document.claimants.forEach((claimant, index) => {
       if (Number(index + 1) !== Number(id)) {
         claimants.push(new Claimant().deserialize(claimant))
       }
     })
 
-    res.locals.user.legalClaimDraft.document.claimants = claimants
+    draft.document.claimants = claimants
   }
 
   static getCurrentIndex (res: express.Response): number {
-    return res.locals.user.legalClaimDraft.document.claimants.length - 1
+    const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+    return draft.document.claimants.length - 1
   }
 
   static getCurrentClaimantName (res: express.Response): string {
-    const claimants = res.locals.user.legalClaimDraft.document.claimants
+    const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+    const claimants = draft.document.claimants
     const claimantDetails = claimants[Claimants.getIndex(res)].claimantDetails
     const isIndividual = claimantDetails.type.value === PartyTypes.INDIVIDUAL.value
     const title = claimantDetails.title != null ? `${claimantDetails.title} ` : claimantDetails.title
@@ -39,7 +46,8 @@ export class Claimants {
   }
 
   static getIndex (res: express.Response): number {
-    const changeIndex = res.locals.user.viewDraft.document.claimantChangeIndex
+    const viewDraft: Draft<DraftView> = res.locals.viewDraft
+    const changeIndex = viewDraft.document.claimantChangeIndex
     return changeIndex !== undefined ? changeIndex : Claimants.getCurrentIndex(res)
   }
 

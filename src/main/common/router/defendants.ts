@@ -2,32 +2,38 @@ import * as express from 'express'
 import Defendant from 'app/drafts/models/defendant'
 import { PartyTypes } from 'app/forms/models/partyTypes'
 import { Paths as ClaimPaths } from 'claim/paths'
+import { Draft } from '@hmcts/draft-store-client'
+import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
+import { DraftView } from 'app/drafts/models/draftView'
 
 export class Defendants {
 
   static addDefendant (res: express.Response) {
+    const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
     let defendants: Defendant[] = []
 
-    res.locals.user.legalClaimDraft.document.defendants.map((defendant) => defendants.push(new Defendant().deserialize(defendant)))
+    draft.document.defendants.map((defendant) => defendants.push(new Defendant().deserialize(defendant)))
     defendants.push(new Defendant())
 
-    res.locals.user.legalClaimDraft.document.defendants = defendants
+    draft.document.defendants = defendants
   }
 
   static removeDefendant (res: express.Response, id: string) {
+    const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
     let defendants: Defendant[] = []
 
-    res.locals.user.legalClaimDraft.document.defendants.forEach((defendant, index) => {
+    draft.document.defendants.forEach((defendant, index) => {
       if (Number(index + 1) !== Number(id)) {
         defendants.push(new Defendant().deserialize(defendant))
       }
     })
 
-    res.locals.user.legalClaimDraft.document.defendants = defendants
+    draft.document.defendants = defendants
   }
 
   static getIndex (res: express.Response): number {
-    const changeIndex = res.locals.user.viewDraft.document.defendantChangeIndex
+    const viewDraft: Draft<DraftView> = res.locals.viewDraft
+    const changeIndex = viewDraft.document.defendantChangeIndex
     return changeIndex !== undefined ? changeIndex : Defendants.getCurrentIndex(res)
   }
 
@@ -61,11 +67,13 @@ export class Defendants {
   }
 
   static getCurrentIndex (res: express.Response): number {
-    return res.locals.user.legalClaimDraft.document.defendants.length - 1
+    const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+    return draft.document.defendants.length - 1
   }
 
   static getCurrentDefendantName (res: express.Response): string {
-    const defendants = res.locals.user.legalClaimDraft.document.defendants
+    const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+    const defendants = draft.document.defendants
     const defendantDetails = defendants[Defendants.getIndex(res)].defendantDetails
     const isIndividual = defendantDetails.type.value === PartyTypes.INDIVIDUAL.value
     const title = defendantDetails.title != null ? `${defendantDetails.title} ` : defendantDetails.title

@@ -1,4 +1,4 @@
-import DraftLegalClaim from 'drafts/models/draftLegalClaim'
+import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 import Defendant from 'drafts/models/defendant'
 import { OtherDamages } from 'forms/models/otherDamages'
 import { YesNo } from 'forms/models/yesNo'
