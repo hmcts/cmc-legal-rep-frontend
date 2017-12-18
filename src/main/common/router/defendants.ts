@@ -68,8 +68,7 @@ export class Defendants {
     const defendants = res.locals.user.legalClaimDraft.document.defendants
     const defendantDetails = defendants[Defendants.getIndex(res)].defendantDetails
     const isIndividual = defendantDetails.type.value === PartyTypes.INDIVIDUAL.value
-    const title = defendantDetails.title != null ? `${defendantDetails.title} ` : defendantDetails.title
-    return isIndividual ? `${title}${defendantDetails.fullName}` : defendantDetails.organisation
+    return isIndividual ? defendantDetails.fullName : defendantDetails.organisation
   }
 
   static getPartyStrip (res: express.Response): string {
