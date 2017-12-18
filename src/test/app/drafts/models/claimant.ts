@@ -24,13 +24,12 @@ describe('Claimant', () => {
 
     it('should return an instance from given object', () => {
       const address = new Address('line1', 'line2', 'city', 'postcode')
-      const claimantDetails = new ClaimantDetails(PartyTypes.INDIVIDUAL, 'title', 'full name')
+      const claimantDetails = new ClaimantDetails(PartyTypes.INDIVIDUAL, 'full name')
 
       const claimant = new Claimant().deserialize({
         address: { line1: 'line1', line2: 'line2', city: 'city', postcode: 'postcode' },
         claimantDetails: {
           type: { value: 'INDIVIDUAL', displayValue: 'An individual', dataStoreValue: 'individual' },
-          title: 'title',
           fullName: 'full name',
           organisation: undefined,
           companyHouseNumber: undefined

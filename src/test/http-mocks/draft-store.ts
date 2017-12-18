@@ -72,7 +72,6 @@ const sampleClaimDraftObj = {
   claimants: [{
     claimantDetails: {
       type: { value: 'INDIVIDUAL' },
-      title: 'title',
       fullName: 'fullName'
     } as ClaimantDetails,
     address: {
@@ -102,7 +101,6 @@ const sampleClaimDraftObj = {
     },
     defendantDetails: {
       type: { value: 'INDIVIDUAL' },
-      title: 'title',
       fullName: 'fullName'
     } as DefendantDetails
   }],
