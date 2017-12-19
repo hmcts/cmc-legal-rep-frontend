@@ -34,10 +34,8 @@ export class Cookie {
   }
 
   deserialize (input: any): Cookie {
-    if (input) {
-      if (input.files) {
-        this.representativeDetails = this.deserializeRepresentativeDetails(input.files)
-      }
+    if (input && input.files) {
+      this.representativeDetails = this.deserializeRepresentativeDetails(input.files)
     }
     return this
   }
