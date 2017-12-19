@@ -193,7 +193,7 @@ describe('Defendant Details', () => {
 
     it('should reject defendant details when sole trader details are undefined', () => {
       DefendantTypes.all().forEach(type => {
-        const errors = validator.validateSync(new DefendantDetails(DefendantTypes.SOLE_TRADER, undefined, undefined, undefined, undefined, undefined, undefined))
+        const errors = validator.validateSync(new DefendantDetails(DefendantTypes.SOLE_TRADER, undefined, undefined, undefined, undefined, undefined))
 
         expect(errors.length).to.equal(1)
         expectValidationError(errors, CommonValidationErrors.FULLNAME_REQUIRED)
@@ -239,7 +239,7 @@ describe('Defendant Details', () => {
     it('should reject defendant details when sole trader name length is greater than 70', () => {
       DefendantTypes.all().forEach(type => {
         const errors = validator.validateSync(new DefendantDetails(DefendantTypes.SOLE_TRADER,
-          undefined, undefined, undefined, undefined, randomstring.generate(71), 'businessName'))
+          undefined, undefined, undefined, randomstring.generate(71), 'businessName'))
 
         expect(errors.length).to.equal(1)
       })

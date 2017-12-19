@@ -8,6 +8,8 @@ import { ContactDetails } from 'app/forms/models/contactDetails'
 import { DraftService } from 'services/draftService'
 import ErrorHandling from 'common/errorHandling'
 import { RepresentativeDetails } from 'forms/models/representativeDetails'
+import { Cookie } from 'forms/models/cookie'
+import CookieProperties from 'common/cookieProperties'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 
@@ -17,7 +19,7 @@ function renderView (form: Form<ContactDetails>, res: express.Response): void {
 
 export default express.Router()
   .get(Paths.representativeContactsPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(RepresentativeDetails.getCookie(req).contactDetails), res)
+    renderView(new Form(Cookie.getCookie(req.signedCookies.legalRepresentativeDetails, res.locals.user.id).contactDetails), res)
   })
   .post(Paths.representativeContactsPage.uri, FormValidator.requestHandler(ContactDetails, ContactDetails.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -29,9 +31,11 @@ export default express.Router()
         draft.document.representative.contactDetails = form.model
         await new DraftService().save(draft, res.locals.user.bearerToken)
 
-        const legalRepDetails: RepresentativeDetails = RepresentativeDetails.getCookie(req)
+        const legalRepDetails: RepresentativeDetails = Cookie.getCookie(req.signedCookies.legalRepresentativeDetails, res.locals.user.id)
         legalRepDetails.contactDetails = form.model
-        RepresentativeDetails.saveCookie(res, legalRepDetails)
+        res.cookie(legalRepDetails.cookieName,
+          Cookie.saveCookie(req.signedCookies.legalRepresentativeDetails, res.locals.user.id, legalRepDetails),
+          CookieProperties.getCookieParameters())
 
         res.redirect(Paths.yourReferencePage.uri)
       }
