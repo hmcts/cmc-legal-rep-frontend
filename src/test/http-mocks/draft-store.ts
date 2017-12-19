@@ -100,7 +100,6 @@ const sampleClaimDraftObj = {
     },
     defendantDetails: {
       type: { value: 'INDIVIDUAL' },
-      title: 'title',
       fullName: 'fullName'
     } as DefendantDetails
   }],

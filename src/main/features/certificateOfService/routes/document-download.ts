@@ -4,13 +4,14 @@ import DocumentsClient from 'app/documents/documentsClient'
 import * as http from 'http'
 import * as HttpStatus from 'http-status-codes'
 import { UploadedDocument } from 'claims/models/uploadedDocument'
-import User from 'idam/user'
 import { ForbiddenError } from '../../../errors'
+import { Draft } from '@hmcts/draft-store-client'
+import { DraftCertificateOfService } from 'drafts/models/draftCertificateOfService'
 
 export default express.Router()
   .get(Paths.documentDownloadPage.uri, (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    const user: User = res.locals.user
-    const documents: UploadedDocument[] = user.legalCertificateOfServiceDraft.document.uploadedDocuments
+    const draft: Draft<DraftCertificateOfService> = res.locals.legalCertificateOfServiceDraft
+    const documents: UploadedDocument[] = draft.document.uploadedDocuments
     const document: UploadedDocument = documents.find(document => document.documentManagementURI === req.query.id)
     if (document === undefined) {
       throw new ForbiddenError()

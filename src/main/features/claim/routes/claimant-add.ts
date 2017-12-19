@@ -10,16 +10,22 @@ import { ValidationError } from 'class-validator'
 import { ClaimantAddition } from 'app/forms/models/claimantAddition'
 import { Claimants } from 'common/router/claimants'
 import { DraftService } from 'services/draftService'
+import { Draft } from '@hmcts/draft-store-client'
+import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
+import { DraftView } from 'app/drafts/models/draftView'
 
 const MAX_CLAIMANTS_ALLOWED: number = 20
 const ERROR_MESSAGE: string = `You can't add more than ${MAX_CLAIMANTS_ALLOWED} claimants`
 
 function renderView (form: Form<ClaimantAddition>, res: express.Response) {
-  const claimants = res.locals.user.legalClaimDraft.document.claimants
+  const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+  const viewDraft: Draft<DraftView> = res.locals.viewDraft
+
+  const claimants = draft.document.claimants
 
   res.render(Paths.claimantAdditionPage.associatedView, {
     form: form,
-    claimants: res.locals.user.viewDraft.document.isClaimantDeleted || claimants.length > 1 ? claimants : null,
+    claimants: viewDraft.document.isClaimantDeleted || claimants.length > 1 ? claimants : null,
     maxAllowedLimit: MAX_CLAIMANTS_ALLOWED
   })
 }
@@ -39,8 +45,9 @@ export default express.Router()
   .post(Paths.claimantAdditionPage.uri, FormValidator.requestHandler(ClaimantAddition, ClaimantAddition.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form: Form<ClaimantAddition> = req.body
+      const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
 
-      if (form.model.isAddClaimant === YesNo.YES && res.locals.user.legalClaimDraft.document.claimants.length === MAX_CLAIMANTS_ALLOWED) {
+      if (form.model.isAddClaimant === YesNo.YES && draft.document.claimants.length === MAX_CLAIMANTS_ALLOWED) {
         addErrorMessage(form)
       }
 
@@ -49,9 +56,9 @@ export default express.Router()
       } else {
         if (form.model.isAddClaimant === YesNo.YES) {
           Claimants.addClaimant(res)
-          await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+          await new DraftService().save(draft, res.locals.user.bearerToken)
           res.redirect(Paths.claimantNamePage.uri)
-        } else if (res.locals.user.legalClaimDraft.document.defendants.length > 1) {
+        } else if (draft.document.defendants.length > 1) {
           res.redirect(Paths.defendantAdditionPage.uri)
         } else {
           res.redirect(Paths.defendantTypePage.uri)
