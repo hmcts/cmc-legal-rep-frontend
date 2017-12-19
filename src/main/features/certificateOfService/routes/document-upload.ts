@@ -9,11 +9,14 @@ import { ValidationError } from 'class-validator'
 import ErrorHandling from 'common/errorHandling'
 import { FileTypes } from 'forms/models/fileTypes'
 import { DocumentUpload } from 'forms/models/documentUpload'
+import { Draft } from '@hmcts/draft-store-client'
+import { DraftCertificateOfService } from 'drafts/models/draftCertificateOfService'
 
 function renderView (form: Form<DocumentUpload>, res: express.Response): void {
-  const files: UploadedDocument[] = res.locals.user.legalCertificateOfServiceDraft.document.uploadedDocuments
-  const fileToUpload: DocumentType = res.locals.user.legalCertificateOfServiceDraft.document.fileToUpload
-  const whatDocuments: WhatDocuments = res.locals.user.legalCertificateOfServiceDraft.document.whatDocuments
+  const draft: Draft<DraftCertificateOfService> = res.locals.legalCertificateOfServiceDraft
+  const files: UploadedDocument[] = draft.document.uploadedDocuments
+  const fileToUpload: DocumentType = draft.document.fileToUpload
+  const whatDocuments: WhatDocuments = draft.document.whatDocuments
 
   const particularsOfClaim: UploadedDocument[] = files.filter(function (file: UploadedDocument) {
     return file.documentType.value === DocumentType.PARTICULARS_OF_CLAIM.value
@@ -48,32 +51,34 @@ function renderView (form: Form<DocumentUpload>, res: express.Response): void {
 
 export default express.Router()
   .get(Paths.documentUploadPage.uri, (req: express.Request, res: express.Response) => {
+    const draft: Draft<DraftCertificateOfService> = res.locals.legalCertificateOfServiceDraft
     const form = new Form(new DocumentUpload())
-    if (res.locals.user.legalCertificateOfServiceDraft.document.fileToUploadError) {
+    if (draft.document.fileToUploadError) {
       const validationError = new ValidationError()
       validationError.property = 'files'
       validationError.target = 'files'
-      validationError.constraints = { ['files']: res.locals.user.legalCertificateOfServiceDraft.document.fileToUploadError.displayValue }
+      validationError.constraints = { ['files']: draft.document.fileToUploadError.displayValue }
       form.errors.push(new FormValidationError(validationError, ''))
     }
     renderView(form, res)
   })
   .post(Paths.documentUploadPage.uri,
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+      const draft: Draft<DraftCertificateOfService> = res.locals.legalCertificateOfServiceDraft
       const form = req.body
       if (form.particularsOfClaim) {
-        res.locals.user.legalCertificateOfServiceDraft.document.fileToUpload = DocumentType.PARTICULARS_OF_CLAIM
+        draft.document.fileToUpload = DocumentType.PARTICULARS_OF_CLAIM
       } else if (form.medicalReport) {
-        res.locals.user.legalCertificateOfServiceDraft.document.fileToUpload = DocumentType.MEDICAL_REPORTS
+        draft.document.fileToUpload = DocumentType.MEDICAL_REPORTS
       } else if (form.scheduleOfLoss) {
-        res.locals.user.legalCertificateOfServiceDraft.document.fileToUpload = DocumentType.SCHEDULE_OF_LOSS
+        draft.document.fileToUpload = DocumentType.SCHEDULE_OF_LOSS
       } else if (form.other) {
-        res.locals.user.legalCertificateOfServiceDraft.document.fileToUpload = DocumentType.OTHER
+        draft.document.fileToUpload = DocumentType.OTHER
       }
 
-      res.locals.user.legalCertificateOfServiceDraft.document.wrongFileType = undefined
+      draft.document.fileToUploadError = undefined
 
-      await new DraftService().save(res.locals.user.legalCertificateOfServiceDraft, res.locals.user.bearerToken)
+      await new DraftService().save(draft, res.locals.user.bearerToken)
 
       res.redirect(Paths.documentUploadPage.uri)
     })

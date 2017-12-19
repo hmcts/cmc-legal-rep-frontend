@@ -10,18 +10,21 @@ import User from 'idam/user'
 import ErrorHandling from 'common/errorHandling'
 import { FileTypes } from 'forms/models/fileTypes'
 import { FileUploadErrors } from 'forms/models/fileTypeErrors'
+import { Draft } from '@hmcts/draft-store-client'
+import { DraftCertificateOfService } from 'drafts/models/draftCertificateOfService'
 
 export default express.Router()
   .post(Paths.fileUploadPage.uri,
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+      const draft: Draft<DraftCertificateOfService> = res.locals.legalCertificateOfServiceDraft
       const form = new formidable.IncomingForm()
       const user: User = res.locals.user
       const FILE_SIZE_LIMIT: number = 10485760
       const TIME_OUT: number = 7200000
       form.keepExtensions = true
       req.setTimeout(TIME_OUT,function () {
-        user.legalCertificateOfServiceDraft.document.fileToUploadError = FileUploadErrors.FILE_UPLOAD_TIMEOUT
-        new DraftService().save(user.legalCertificateOfServiceDraft, user.bearerToken).then(() => {
+        draft.document.fileToUploadError = FileUploadErrors.FILE_UPLOAD_TIMEOUT
+        new DraftService().save(draft, user.bearerToken).then(() => {
           res.redirect(Paths.documentUploadPage.uri)
         })
       })
@@ -29,25 +32,25 @@ export default express.Router()
       form.parse(req)
       .on('file', function (name, file) {
         if (file.size === 0) {
-          user.legalCertificateOfServiceDraft.document.fileToUploadError = FileUploadErrors.FILE_REQUIRED
-          new DraftService().save(user.legalCertificateOfServiceDraft, user.bearerToken).then(() => {
+          draft.document.fileToUploadError = FileUploadErrors.FILE_REQUIRED
+          new DraftService().save(draft, user.bearerToken).then(() => {
             res.redirect(Paths.documentUploadPage.uri)
           })
         } else if (file.size > FILE_SIZE_LIMIT) {
-          user.legalCertificateOfServiceDraft.document.fileToUploadError = FileUploadErrors.FILE_TOO_LARGE
-          new DraftService().save(user.legalCertificateOfServiceDraft, user.bearerToken).then(() => {
+          draft.document.fileToUploadError = FileUploadErrors.FILE_TOO_LARGE
+          new DraftService().save(draft, user.bearerToken).then(() => {
             res.redirect(Paths.documentUploadPage.uri)
           })
         } else if (FileTypes.acceptedMimeTypes().indexOf(file.type) === -1) {
-          user.legalCertificateOfServiceDraft.document.fileToUploadError = FileUploadErrors.WRONG_FILE_TYPE
-          new DraftService().save(user.legalCertificateOfServiceDraft, user.bearerToken).then(() => {
+          draft.document.fileToUploadError = FileUploadErrors.WRONG_FILE_TYPE
+          new DraftService().save(draft, user.bearerToken).then(() => {
             res.redirect(Paths.documentUploadPage.uri)
           })
         } else {
           DocumentsClient.save(user.bearerToken, file).then((documentManagementURI) => {
-            const documentType: DocumentType = user.legalCertificateOfServiceDraft.document.fileToUpload
+            const documentType: DocumentType = draft.document.fileToUpload
             let files: UploadedDocument[] = []
-            user.legalCertificateOfServiceDraft.document.uploadedDocuments.map((file) => files.push(new UploadedDocument().deserialize(file)))
+            draft.document.uploadedDocuments.map((file) => files.push(new UploadedDocument().deserialize(file)))
 
             const fileType = FileTypes.all().find(fileType => fileType.mimeType === file.type)
 
@@ -58,12 +61,10 @@ export default express.Router()
                 next(err)
               }
             })
-            user.legalCertificateOfServiceDraft.document.uploadedDocuments = files
-            new DraftService().save(user.legalCertificateOfServiceDraft, user.bearerToken)
-
-            user.legalCertificateOfServiceDraft.document.fileToUploadError = undefined
-            user.legalCertificateOfServiceDraft.document.fileToUpload = undefined
-            new DraftService().save(user.legalCertificateOfServiceDraft, user.bearerToken).then(() => {
+            draft.document.uploadedDocuments = files
+            draft.document.fileToUploadError = undefined
+            draft.document.fileToUpload = undefined
+            new DraftService().save(draft, user.bearerToken).then(() => {
               res.redirect(Paths.documentUploadPage.uri)
             })
           }).catch(next)

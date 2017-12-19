@@ -8,6 +8,8 @@ import { ContactDetails } from 'app/forms/models/contactDetails'
 import { DraftService } from 'services/draftService'
 import ErrorHandling from 'common/errorHandling'
 import { RepresentativeDetails } from 'forms/models/representativeDetails'
+import { Draft } from '@hmcts/draft-store-client'
+import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 
 function renderView (form: Form<ContactDetails>, res: express.Response): void {
   res.render(Paths.representativeContactsPage.associatedView, { form: form })
@@ -23,8 +25,9 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        res.locals.user.legalClaimDraft.document.representative.contactDetails = form.model
-        await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+        const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+        draft.document.representative.contactDetails = form.model
+        await new DraftService().save(draft, res.locals.user.bearerToken)
 
         const legalRepDetails: RepresentativeDetails = RepresentativeDetails.getCookie(req)
         legalRepDetails.contactDetails = form.model
