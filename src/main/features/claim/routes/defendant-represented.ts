@@ -9,6 +9,8 @@ import { DefendantRepresented } from 'app/forms/models/defendantRepresented'
 import ErrorHandling from 'common/errorHandling'
 import { Defendants } from 'common/router/defendants'
 import { DraftService } from 'services/draftService'
+import { Draft } from '@hmcts/draft-store-client'
+import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 
 function renderView (form: Form<DefendantRepresented>, res: express.Response) {
 
@@ -21,11 +23,13 @@ function renderView (form: Form<DefendantRepresented>, res: express.Response) {
 
 export default express.Router()
   .get(Paths.defendantRepresentedPage.uri, (req: express.Request, res: express.Response) => {
+    const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
     const index: number = Defendants.getIndex(res)
-    renderView(new Form(res.locals.user.legalClaimDraft.document.defendants[index].defendantRepresented), res)
+    renderView(new Form(draft.document.defendants[index].defendantRepresented), res)
   })
   .post(Paths.defendantRepresentedPage.uri, FormValidator.requestHandler(DefendantRepresented, DefendantRepresented.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+      const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
       const form: Form<DefendantRepresented> = req.body
 
       if (form.hasErrors()) {
@@ -33,16 +37,16 @@ export default express.Router()
       } else {
         const index: number = Defendants.getIndex(res)
 
-        res.locals.user.legalClaimDraft.document.defendants[index].defendantRepresented = form.model
+        draft.document.defendants[index].defendantRepresented = form.model
         if (form.model.isDefendantRepresented === YesNo.NO) {
           form.model.organisationName = undefined
-          res.locals.user.legalClaimDraft.document.defendants[index].representative = undefined
+          draft.document.defendants[index].representative = undefined
         } else if (form.model.isDefendantRepresented === YesNo.YES) {
-          res.locals.user.legalClaimDraft.document.defendants[index].serviceAddress = undefined
+          draft.document.defendants[index].serviceAddress = undefined
         }
 
-        await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
-        if (res.locals.user.legalClaimDraft.document.defendants[index].defendantRepresented.isDefendantRepresented === YesNo.NO) {
+        await new DraftService().save(draft, res.locals.user.bearerToken)
+        if (draft.document.defendants[index].defendantRepresented.isDefendantRepresented === YesNo.NO) {
           res.redirect(Paths.defendantServiceAddressPage.uri)
         } else {
           res.redirect(Paths.defendantRepAddressPage.uri)

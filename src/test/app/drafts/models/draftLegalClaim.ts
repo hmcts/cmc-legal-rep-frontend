@@ -3,7 +3,7 @@
 
 import { expect } from 'chai'
 import Claimant from 'drafts/models/claimant'
-import DraftLegalClaim from 'app/drafts/models/draftLegalClaim'
+import { DraftLegalClaim } from 'app/drafts/models/draftLegalClaim'
 import { StatementOfTruth } from 'app/forms/models/statementOfTruth'
 import Defendant from 'app/drafts/models/defendant'
 import Representative from 'app/drafts/models/representative'
