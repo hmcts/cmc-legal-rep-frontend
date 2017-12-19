@@ -8,6 +8,8 @@ import { Address } from 'forms/models/address'
 import { DraftService } from 'services/draftService'
 import ErrorHandling from 'common/errorHandling'
 import { Defendants } from 'common/router/defendants'
+import { Draft } from '@hmcts/draft-store-client'
+import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 
 function renderView (form: Form<Address>, res: express.Response): void {
 
@@ -20,19 +22,21 @@ function renderView (form: Form<Address>, res: express.Response): void {
 
 export default express.Router()
   .get(Paths.defendantAddressPage.uri, (req: express.Request, res: express.Response) => {
+    const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
     const index: number = Defendants.getIndex(res)
-    renderView(new Form(res.locals.user.legalClaimDraft.document.defendants[index].address), res)
+    renderView(new Form(draft.document.defendants[index].address), res)
   })
   .post(Paths.defendantAddressPage.uri, FormValidator.requestHandler(Address, Address.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+      const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
       const form: Form<Address> = req.body
 
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
         const index: number = Defendants.getIndex(res)
-        res.locals.user.legalClaimDraft.document.defendants[index].address = form.model
-        await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+        draft.document.defendants[index].address = form.model
+        await new DraftService().save(draft, res.locals.user.bearerToken)
         res.redirect(Paths.defendantRepresentedPage.uri)
       }
     })

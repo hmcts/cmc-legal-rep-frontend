@@ -4,9 +4,12 @@ import ClaimStoreClient from 'claims/claimStoreClient'
 import Claim from 'app/claims/models/claim'
 import ErrorHandling from 'common/errorHandling'
 import { Paths } from 'claim/paths'
+import { Draft } from '@hmcts/draft-store-client'
+import { DraftDashboard } from 'drafts/models/draftDashboard'
 
 async function renderView (req: express.Request, res: express.Response): Promise<void> {
-  const claim: Claim = await ClaimStoreClient.retrieveByClaimReference(res.locals.user.dashboardDraft.document.search.reference, res.locals.user.bearerToken)
+  const dashboardDraft: Draft<DraftDashboard> = res.locals.dashboardDraft
+  const claim: Claim = await ClaimStoreClient.retrieveByClaimReference(dashboardDraft.document.search.reference, res.locals.user.bearerToken)
   res.render(DashboardPaths.claimDetailsPage.associatedView, {
     claimNumber: claim.claimNumber,
     partyStripeValue: claim.claimNumber,

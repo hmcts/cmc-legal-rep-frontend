@@ -7,6 +7,8 @@ import { FormValidator } from 'forms/validation/formValidator'
 
 import ErrorHandling from 'common/errorHandling'
 import { DraftService } from 'services/draftService'
+import { Draft } from '@hmcts/draft-store-client'
+import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 
 function renderView (form: Form<Amount>, res: express.Response): void {
   res.render(Paths.claimAmountPage.associatedView, {
@@ -16,7 +18,8 @@ function renderView (form: Form<Amount>, res: express.Response): void {
 
 export default express.Router()
   .get(Paths.claimAmountPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.legalClaimDraft.document.amount), res)
+    const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+    renderView(new Form(draft.document.amount), res)
   })
   .post(Paths.claimAmountPage.uri, FormValidator.requestHandler(Amount, Amount.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -32,8 +35,9 @@ export default express.Router()
           form.model.cannotState = undefined
         }
 
-        res.locals.user.legalClaimDraft.document.amount = form.model
-        await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+        const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+        draft.document.amount = form.model
+        await new DraftService().save(draft, res.locals.user.bearerToken)
         res.redirect(Paths.claimTotalPage.uri)
       }
     })

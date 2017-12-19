@@ -8,6 +8,8 @@ import { YesNo } from 'app/forms/models/yesNo'
 
 import { DraftService } from 'services/draftService'
 import ErrorHandling from 'common/errorHandling'
+import { Draft } from '@hmcts/draft-store-client'
+import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 
 function renderView (form: Form<HousingDisrepair>, res: express.Response) {
   res.render(Paths.housingDisrepairPage.associatedView, { form: form })
@@ -15,10 +17,12 @@ function renderView (form: Form<HousingDisrepair>, res: express.Response) {
 
 export default express.Router()
   .get(Paths.housingDisrepairPage.uri, (req: express.Request, res: express.Response) => {
-    renderView(new Form(res.locals.user.legalClaimDraft.document.housingDisrepair), res)
+    const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+    renderView(new Form(draft.document.housingDisrepair), res)
   })
   .post(Paths.housingDisrepairPage.uri, FormValidator.requestHandler(HousingDisrepair, HousingDisrepair.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+      const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
       const form: Form<HousingDisrepair> = req.body
 
       if (form.hasErrors()) {
@@ -29,8 +33,8 @@ export default express.Router()
           form.model.otherDamages = undefined
         }
 
-        res.locals.user.legalClaimDraft.document.housingDisrepair = form.model
-        await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+        draft.document.housingDisrepair = form.model
+        await new DraftService().save(draft, res.locals.user.bearerToken)
         res.redirect(Paths.summariseTheClaimPage.uri)
 
       }
