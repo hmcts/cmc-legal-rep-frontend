@@ -21,11 +21,6 @@ import { DocumentType } from 'forms/models/documentType'
 import { FileTypes } from 'forms/models/fileTypes'
 
 const serviceBaseURL: string = `${config.get('draft-store.url')}`
-const sampleViewDraftObj = {
-  viewFlowOption: true,
-  defendantChangeIndex: undefined,
-  claimantChangeIndex: undefined
-}
 
 const sampleDashboardDraftObj = {
   search: { reference: '000LR001' } as Search
@@ -122,7 +117,10 @@ const sampleClaimDraftObj = {
   personalInjury: {
     personalInjury: { value: YesNo.NO.value, displayValue: YesNo.NO.value },
     generalDamages: undefined
-  } as PersonalInjury
+  } as PersonalInjury,
+  viewFlowOption: true,
+  defendantChangeIndex: undefined,
+  claimantChangeIndex: undefined
 }
 
 export function resolveFind (draftType: string, draftOverride?: object): mock.Scope {
@@ -131,9 +129,6 @@ export function resolveFind (draftType: string, draftOverride?: object): mock.Sc
   switch (draftType) {
     case 'legalClaim':
       documentDocument = { ...sampleClaimDraftObj, ...draftOverride }
-      break
-    case 'view':
-      documentDocument = { ...sampleViewDraftObj, ...draftOverride }
       break
     case 'dashboard':
       documentDocument = { ...sampleDashboardDraftObj, ...draftOverride }
@@ -168,12 +163,6 @@ export function resolveFindAllDrafts (): mock.Scope {
         document: sampleClaimDraftObj,
         created: '2017-10-01T12:00:00.000',
         updated: '2017-10-01T12:01:00.000'
-      }, {
-        id: 101,
-        type: 'view',
-        document: sampleViewDraftObj,
-        created: '2017-10-02T12:00:00.000',
-        updated: '2017-10-02T12:01:00.000'
       }]
     })
 }

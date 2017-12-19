@@ -9,7 +9,6 @@ import { RouterFinder } from 'common/router/routerFinder'
 import { buildURL } from 'utils/callbackBuilder'
 import { OAuthHelper } from 'idam/oAuthHelper'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
-import { DraftView } from 'drafts/models/draftView'
 import { DraftMiddleware } from '@hmcts/cmc-draft-store-middleware'
 import { DraftService } from 'services/draftService'
 import { DraftCertificateOfService } from 'drafts/models/draftCertificateOfService'
@@ -35,16 +34,6 @@ export class Feature {
     app.all(/^\/legal\/claim\/(?!.+submitted|.+\/receipt).*$/,
       DraftMiddleware.requestHandler<DraftLegalClaim>(new DraftService(), 'legalClaim', 100, (value: any): DraftLegalClaim => {
         return new DraftLegalClaim().deserialize(value)
-      }))
-
-    app.all(/^\/legal\/claim\/(claimant)-(add|remove|address|type|change)$/,
-      DraftMiddleware.requestHandler<DraftView>(new DraftService(), 'view', 100, (value: any): DraftView => {
-        return new DraftView().deserialize(value)
-      }))
-
-    app.all(/^\/legal\/claim\/(defendant)-.*$/,
-      DraftMiddleware.requestHandler<DraftView>(new DraftService(), 'view', 100, (value: any): DraftView => {
-        return new DraftView().deserialize(value)
       }))
 
     app.all('/legal/claim/start',

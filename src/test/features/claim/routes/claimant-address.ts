@@ -21,7 +21,6 @@ describe('Claim issue: claimant address page', () => {
   beforeEach(() => {
     mock.cleanAll()
     draftStoreServiceMock.resolveFind('legalClaim')
-    draftStoreServiceMock.resolveFind('view')
   })
 
   describe('on GET', () => {
