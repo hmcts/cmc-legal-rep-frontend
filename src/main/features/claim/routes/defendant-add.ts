@@ -10,17 +10,22 @@ import { YesNo } from 'app/forms/models/yesNo'
 
 import { DraftService } from 'services/draftService'
 import { ValidationError } from 'class-validator'
+import { Draft } from '@hmcts/draft-store-client'
+import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
+import { DraftView } from 'app/drafts/models/draftView'
 
 const MAX_DEFENDANTS_ALLOWED: number = 20
 const ERROR_MESSAGE: string = `You can't add more than ${MAX_DEFENDANTS_ALLOWED} defendants`
 
 function renderView (form: Form<DefendantAddition>, res: express.Response) {
-  const defendants = res.locals.user.legalClaimDraft.document.defendants
+  const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+  const viewDraft: Draft<DraftView> = res.locals.viewDraft
+  const defendants = draft.document.defendants
 
   res.render(Paths.defendantAdditionPage.associatedView, {
     form: form,
     maxAllowedLimit: MAX_DEFENDANTS_ALLOWED,
-    defendants: res.locals.user.viewDraft.document.isDefendantDeleted || defendants.length > 1 ? defendants : null
+    defendants: viewDraft.document.isDefendantDeleted || defendants.length > 1 ? defendants : null
   })
 }
 
@@ -40,9 +45,10 @@ export default express.Router()
   )
   .post(Paths.defendantAdditionPage.uri, FormValidator.requestHandler(DefendantAddition, DefendantAddition.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+      const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
       const form: Form<DefendantAddition> = req.body
 
-      if (form.model.isAddDefendant === YesNo.YES && res.locals.user.legalClaimDraft.document.defendants.length === MAX_DEFENDANTS_ALLOWED) {
+      if (form.model.isAddDefendant === YesNo.YES && draft.document.defendants.length === MAX_DEFENDANTS_ALLOWED) {
         addErrorMessage(form)
       }
 
@@ -51,7 +57,7 @@ export default express.Router()
       } else {
         if (form.model.isAddDefendant === YesNo.YES) {
           Defendants.addDefendant(res)
-          await new DraftService().save(res.locals.user.legalClaimDraft, res.locals.user.bearerToken)
+          await new DraftService().save(draft, res.locals.user.bearerToken)
           res.redirect(Paths.defendantTypePage.uri)
         } else {
           res.redirect(Paths.personalInjuryPage.uri)

@@ -15,12 +15,6 @@ export class DefendantDetails implements Serializable<DefendantDetails> {
   type?: DefendantTypes
 
   @ValidateIf(o => o.type === DefendantTypes.INDIVIDUAL)
-  @IsOptional()
-  @IsDefined({ message: CommonValidationErrors.TITLE_REQUIRED })
-  @MaxLength(35, { message: CommonValidationErrors.CONTENT_TOO_LONG })
-  title?: string
-
-  @ValidateIf(o => o.type === DefendantTypes.INDIVIDUAL)
   @IsDefined({ message: CommonValidationErrors.FULLNAME_REQUIRED })
   @IsNotBlank({ message: CommonValidationErrors.FULLNAME_REQUIRED })
   @MaxLength(70, { message: CommonValidationErrors.CONTENT_TOO_LONG })
@@ -37,9 +31,8 @@ export class DefendantDetails implements Serializable<DefendantDetails> {
   @MaxLength(8, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   companyHouseNumber?: string
 
-  constructor (type?: DefendantTypes, title?: string, fullName?: string, organisation?: string, companyHouseNumber?: string) {
+  constructor (type?: DefendantTypes, fullName?: string, organisation?: string, companyHouseNumber?: string) {
     this.type = type
-    this.title = title
     this.fullName = fullName
     this.organisation = organisation
     this.companyHouseNumber = companyHouseNumber
@@ -57,7 +50,7 @@ export class DefendantDetails implements Serializable<DefendantDetails> {
           .pop()
       }
 
-      return new DefendantDetails(type, value.title, value.fullName, value.organisation, value.companyHouseNumber)
+      return new DefendantDetails(type, value.fullName, value.organisation, value.companyHouseNumber)
     }
 
     return new DefendantDetails()
@@ -66,7 +59,6 @@ export class DefendantDetails implements Serializable<DefendantDetails> {
   deserialize (input?: any): DefendantDetails {
     if (input) {
       this.type = input.type
-      this.title = input.title
       this.fullName = input.fullName
       this.organisation = input.organisation
       this.companyHouseNumber = input.companyHouseNumber
@@ -76,7 +68,7 @@ export class DefendantDetails implements Serializable<DefendantDetails> {
   }
 
   toString (): string {
-    return this.type.value === DefendantTypes.INDIVIDUAL.value ? (this.title ? this.title + ' ' : '') + this.fullName : this.organisation
+    return this.type.value === DefendantTypes.INDIVIDUAL.value ? this.fullName : this.organisation
   }
 
 }

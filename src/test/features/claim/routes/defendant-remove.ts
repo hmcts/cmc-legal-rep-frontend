@@ -34,7 +34,6 @@ const twoDefendants = {
     },
     defendantDetails: {
       type: 'INDIVIDUAL',
-      title: 'title',
       fullName: 'fullName'
     }
   },
@@ -55,7 +54,6 @@ const twoDefendants = {
       },
       defendantDetails: {
         type: 'INDIVIDUAL',
-        title: 'title',
         fullName: 'fullName'
       }
     }]
