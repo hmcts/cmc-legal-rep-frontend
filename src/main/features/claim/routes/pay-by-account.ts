@@ -14,6 +14,8 @@ import { FeeResponse } from 'fees/model/feeResponse'
 import { RepresentativeDetails } from 'forms/models/representativeDetails'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
+import { Cookie } from 'forms/models/cookie'
+import CookieProperties from 'common/cookieProperties'
 
 const logger = require('@hmcts/nodejs-logging').getLogger('router/pay-by-account')
 
@@ -78,7 +80,7 @@ function renderView (form: Form<FeeAccount>, res: express.Response, next: expres
 export default express.Router()
   .get(Paths.payByAccountPage.uri,
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
-      renderView(new Form(RepresentativeDetails.getCookie(req).feeAccount), res, next)
+      renderView(new Form(Cookie.getCookie(req.signedCookies.legalRepresentativeDetails, res.locals.user.id).feeAccount), res, next)
     }))
 
   .post(Paths.payByAccountPage.uri, FormValidator.requestHandler(FeeAccount, FeeAccount.fromObject),
@@ -97,9 +99,11 @@ export default express.Router()
 
         await new DraftService().save(draft, res.locals.user.bearerToken)
 
-        const legalRepDetails: RepresentativeDetails = RepresentativeDetails.getCookie(req)
+        const legalRepDetails: RepresentativeDetails = Cookie.getCookie(req.signedCookies.legalRepresentativeDetails, res.locals.user.id)
         legalRepDetails.feeAccount = form.model
-        RepresentativeDetails.saveCookie(res, legalRepDetails)
+        res.cookie(legalRepDetails.cookieName,
+          Cookie.saveCookie(req.signedCookies.legalRepresentativeDetails, res.locals.user.id, legalRepDetails),
+          CookieProperties.getCookieParameters())
 
         await saveClaimHandler(res, next)
       }

@@ -3,20 +3,17 @@
 
 import { expect } from 'chai'
 import { RepresentativeDetails } from 'forms/models/representativeDetails'
-import { Address } from 'forms/models/address'
-import { ContactDetails } from 'forms/models/contactDetails'
-import { FeeAccount } from 'forms/models/feeAccount'
-import { OrganisationName } from 'forms/models/organisationName'
 
 describe('RepresentativeDetails', () => {
 
   describe('constructor', () => {
-    it('should set the objects to default values', () => {
+    it('should set the objects to undefined and set the cookie name', () => {
       const representativeDetails = new RepresentativeDetails()
-      expect(representativeDetails.organisationName).to.eql(new OrganisationName())
-      expect(representativeDetails.address).to.eql(new Address())
-      expect(representativeDetails.contactDetails).to.eql(new ContactDetails())
-      expect(representativeDetails.feeAccount).to.eql(new FeeAccount())
+      expect(representativeDetails.id).to.be.undefined
+      expect(representativeDetails.organisationName).to.be.undefined
+      expect(representativeDetails.address).to.be.undefined
+      expect(representativeDetails.contactDetails).to.be.undefined
+      expect(representativeDetails.feeAccount).to.be.undefined
       expect(representativeDetails.cookieName).to.eql('legalRepresentativeDetails')
     })
   })
