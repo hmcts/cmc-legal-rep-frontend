@@ -1,0 +1,68 @@
+{% extends "layout.njk" %}
+
+{% set title = t('Money claim') %}
+
+{% from "form.njk" import csrfProtection, radioGroupWithMoreOptions, saveAndContinueButton, errorSummary %}
+
+{% block content %}
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <form novalidate method="post">
+        {{ csrfProtection(csrf) }}
+
+        <h2 class="heading-medium">{{ t('How did you serve the documents?') }}</h2>
+
+        {% set name = 'serviceMethod' %}
+        {% if defendantType === 'individual' %}
+          {{
+          radioGroupWithMoreOptions(
+          "Choose one method only - we'll use this to calculate date of service.",
+          name,
+          [
+          {label: ServiceMethod.FIRST_CLASS_POST.displayValue, value: ServiceMethod.FIRST_CLASS_POST.value},
+          {label: ServiceMethod.FAX.displayValue, value: ServiceMethod.FAX.value}
+          ],
+          [
+          {label: ServiceMethod.OTHER_NEXT_DAY.displayValue, value: ServiceMethod.OTHER_NEXT_DAY.value},
+          {label: ServiceMethod.DOCUMENT_EXCHANGE.displayValue, value: ServiceMethod.DOCUMENT_EXCHANGE.value},
+          {label: ServiceMethod.DELIVERED_OR_LEFT.displayValue, value: ServiceMethod.DELIVERED_OR_LEFT.value},
+          {label: ServiceMethod.PERSONALLY_HANDED.displayValue, value: ServiceMethod.PERSONALLY_HANDED.value},
+          {label: ServiceMethod.EMAIL.displayValue, value: ServiceMethod.EMAIL.value},
+          {label: ServiceMethod.OTHER_ELECTRONIC.displayValue, value: ServiceMethod.OTHER_ELECTRONIC.value, withHiddenControl: 'Enter the method'},
+          {label: ServiceMethod.OTHER.displayValue, value: ServiceMethod.OTHER.value, withHiddenControl: 'Enter the method'}
+          ],
+          form = form
+          )
+          }}
+        {% elseif defendantType === 'organisation' %}
+          {{
+          radioGroupWithMoreOptions(
+          "Choose one method only - we'll use this to calculate date of service.",
+          name,
+          [
+          {label: ServiceMethod.FIRST_CLASS_POST.displayValue, value: ServiceMethod.FIRST_CLASS_POST.value},
+          {label: ServiceMethod.DOCUMENT_EXCHANGE.displayValue, value: ServiceMethod.DOCUMENT_EXCHANGE.value}
+          ],
+          [
+          {label: ServiceMethod.FAX.displayValue, value: ServiceMethod.FAX.value},
+          {label: ServiceMethod.OTHER_NEXT_DAY.displayValue, value: ServiceMethod.OTHER_NEXT_DAY.value},
+          {label: ServiceMethod.DELIVERED_OR_LEFT.displayValue, value: ServiceMethod.DELIVERED_OR_LEFT.value},
+          {label: ServiceMethod.PERSONALLY_HANDED.displayValue, value: ServiceMethod.PERSONALLY_HANDED.value},
+          {label: ServiceMethod.EMAIL.displayValue, value: ServiceMethod.EMAIL.value},
+          {label: ServiceMethod.OTHER_ELECTRONIC.displayValue, value: ServiceMethod.OTHER_ELECTRONIC.value, withHiddenControl: 'Enter the method'},
+          {label: ServiceMethod.OTHER.displayValue, value: ServiceMethod.OTHER.value, withHiddenControl: 'Enter the method'}
+          ],
+          form = form
+          )
+          }}
+        {% elseif defendantType === 'soleTrader' %}
+        {% endif %}
+
+        <div class="form-group">
+          {{ saveAndContinueButton() }}
+        </div>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

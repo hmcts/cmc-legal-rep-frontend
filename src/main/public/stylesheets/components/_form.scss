@@ -111,3 +111,20 @@ ul {
     }
   }
 }
+
+.form-group-compound,
+.form-group-related {
+  &::after {
+    clear: both;
+    content: '';
+    display: block;
+  }
+}
+
+details {
+  margin-left: 15px;
+}
+
+.panel-border-none {
+  border-left: 0;
+}

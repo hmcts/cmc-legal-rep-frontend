@@ -12,6 +12,7 @@ import { DraftCertificateOfService } from 'drafts/models/draftCertificateOfServi
 import { DraftMiddleware } from '@hmcts/cmc-draft-store-middleware'
 import { DraftService } from 'services/draftService'
 import { DraftUploadDocument } from 'drafts/models/draftUploadDocument'
+import { DraftDashboard } from 'drafts/models/draftDashboard'
 
 function certificateOfServiceRequestHandler (): express.RequestHandler {
   function accessDeniedCallback (req: express.Request, res: express.Response): void {
@@ -36,6 +37,11 @@ export class Feature {
         100, (value: any): DraftCertificateOfService => {
           return new DraftCertificateOfService().deserialize(value)
         }))
+
+    app.all('/legal/certificateOfService/*',
+      DraftMiddleware.requestHandler<DraftDashboard>(new DraftService(), 'dashboard', 100, (value: any): DraftDashboard => {
+        return new DraftDashboard().deserialize(value)
+      }))
 
     app.all(/^\/legal\/certificateOfService\/(what-documents|document-upload|file-upload|document-remove)$/,
       DraftMiddleware.requestHandler<DraftUploadDocument>(new DraftService(),'legalUploadDocument',

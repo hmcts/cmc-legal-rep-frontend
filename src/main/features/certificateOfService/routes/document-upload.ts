@@ -35,7 +35,7 @@ function renderView (form: Form<DocumentUpload>, res: express.Response): void {
 
   const minDifferentFilesRequired: number = (whatDocuments.types.indexOf('responsePack') !== -1) ? whatDocuments.types.length : whatDocuments.types.length - 1
   const differentFilesCount: number = files.reduce((accumulator, currentValue) => accumulator + 1, 0)
-  const canContinue: boolean = minDifferentFilesRequired === differentFilesCount
+  const canContinue: boolean = minDifferentFilesRequired < differentFilesCount
 
   res.render(Paths.documentUploadPage.associatedView,
     {
@@ -77,11 +77,14 @@ export default express.Router()
       } else if (form.other) {
         viewDraft.document.fileToUpload = DocumentType.OTHER
       }
-
       viewDraft.document.fileToUploadError = undefined
 
       await new DraftService().save(viewDraft, res.locals.user.bearerToken)
 
-      res.redirect(Paths.documentUploadPage.uri)
+      if (form.saveAndContinue) {
+        res.redirect(Paths.howDidYouServePage.uri)
+      } else {
+        res.redirect(Paths.documentUploadPage.uri)
+      }
     })
   )

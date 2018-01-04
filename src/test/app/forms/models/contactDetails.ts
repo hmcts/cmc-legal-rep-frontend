@@ -5,7 +5,8 @@ import { expect } from 'chai'
 import { Validator } from 'class-validator'
 
 import { expectValidationError } from './validationUtils'
-import { ContactDetails, ValidationErrors } from 'app/forms/models/contactDetails'
+import { ContactDetails } from 'app/forms/models/contactDetails'
+import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 
 import * as randomstring from 'randomstring'
 
@@ -86,28 +87,28 @@ describe('ContactDetails', () => {
       const errors = validator.validateSync(new ContactDetails('01269055505', 'email@example.com', randomstring.generate(256)))
 
       expect(errors.length).to.equal(1)
-      expectValidationError(errors, ValidationErrors.DX_ADDRESS_TOO_LONG)
+      expectValidationError(errors, CommonValidationErrors.DX_ADDRESS_TOO_LONG)
     })
 
     it('should reject invalid email address', () => {
       const errors = validator.validateSync(new ContactDetails('01269055505', 'email.example.com', randomstring.generate(255)))
 
       expect(errors.length).to.equal(1)
-      expectValidationError(errors, ValidationErrors.EMAIL_NOT_VALID)
+      expectValidationError(errors, CommonValidationErrors.EMAIL_NOT_VALID)
     })
 
     it('should reject invalid email address with missing domain', () => {
       const errors = validator.validateSync(new ContactDetails('01269055505', 'email@example', randomstring.generate(255)))
 
       expect(errors.length).to.equal(1)
-      expectValidationError(errors, ValidationErrors.EMAIL_NOT_VALID)
+      expectValidationError(errors, CommonValidationErrors.EMAIL_NOT_VALID)
     })
 
     it('should reject invalid email address which is whitespace', () => {
       const errors = validator.validateSync(new ContactDetails('01269055505', ' ', randomstring.generate(255)))
 
       expect(errors.length).to.equal(1)
-      expectValidationError(errors, ValidationErrors.EMAIL_NOT_VALID)
+      expectValidationError(errors, CommonValidationErrors.EMAIL_NOT_VALID)
     })
   })
 

@@ -2,25 +2,20 @@ import { Serializable } from 'app/models/serializable'
 import { IsOptional, MaxLength } from 'class-validator'
 import { IsEmail } from 'app/forms/validation/validators/isEmail'
 import { IsPhone } from 'app/forms/validation/validators/phone'
-
-export class ValidationErrors {
-  static readonly EMAIL_NOT_VALID: string = 'Enter a valid email address'
-  static readonly DX_ADDRESS_TOO_LONG: string = 'You’ve entered too many characters'
-  static readonly PHONE_NUMBER_NOT_VALID: string = 'Enter a valid phone number'
-}
+import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 
 export class ContactDetails implements Serializable<ContactDetails> {
 
   @IsOptional()
-  @IsPhone({ message: ValidationErrors.PHONE_NUMBER_NOT_VALID })
+  @IsPhone({ message: CommonValidationErrors.PHONE_NUMBER_NOT_VALID })
   phoneNumber?: string
 
   @IsOptional()
-  @IsEmail({ message: ValidationErrors.EMAIL_NOT_VALID })
+  @IsEmail({ message: CommonValidationErrors.EMAIL_NOT_VALID })
   email?: string
 
   @IsOptional()
-  @MaxLength(255, { message: ValidationErrors.DX_ADDRESS_TOO_LONG })
+  @MaxLength(255, { message: CommonValidationErrors.DX_ADDRESS_TOO_LONG })
   dxAddress?: string
 
   constructor (phoneNumber?: string, email?: string, dxAddress?: string) {
