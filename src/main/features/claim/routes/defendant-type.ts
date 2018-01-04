@@ -3,7 +3,7 @@ import { Paths } from 'claim/paths'
 
 import { Form } from 'app/forms/form'
 import { FormValidator } from 'app/forms/validation/formValidator'
-import { PartyType as DefendantTypes } from 'app/common/partyType'
+import { PartyType as DefendantType } from 'app/common/partyType'
 import { DefendantDetails } from 'app/forms/models/defendantDetails'
 
 import { DraftService } from 'services/draftService'
@@ -33,18 +33,18 @@ export default express.Router()
         renderView(form, res)
       } else {
         switch (form.model.type) {
-          case DefendantTypes.INDIVIDUAL:
+          case DefendantType.INDIVIDUAL:
             form.model.organisation = undefined
             form.model.companyHouseNumber = undefined
             form.model.soleTraderName = undefined
             form.model.businessName = undefined
             break
-          case DefendantTypes.ORGANISATION:
+          case DefendantType.ORGANISATION:
             form.model.fullName = undefined
             form.model.soleTraderName = undefined
             form.model.businessName = undefined
             break
-          case DefendantTypes.SOLE_TRADER:
+          case DefendantType.SOLE_TRADER:
             form.model.fullName = undefined
             form.model.organisation = undefined
             form.model.companyHouseNumber = undefined

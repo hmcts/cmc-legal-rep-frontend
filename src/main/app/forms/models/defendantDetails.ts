@@ -1,6 +1,6 @@
 import { Serializable } from 'app/models/serializable'
 import { IsDefined, IsIn, IsOptional, MaxLength, ValidateIf } from 'class-validator'
-import { PartyType as DefendantTypes } from 'app/common/partyType'
+import { PartyType as DefendantType } from 'app/common/partyType'
 import { IsNotBlank } from 'app/forms/validation/validators/isNotBlank'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 
@@ -11,38 +11,38 @@ export class ValidationErrors {
 export class DefendantDetails implements Serializable<DefendantDetails> {
 
   @IsDefined({ message: ValidationErrors.DEFENDANT_TYPE_REQUIRED })
-  @IsIn(DefendantTypes.all(), { message: ValidationErrors.DEFENDANT_TYPE_REQUIRED })
-  type?: DefendantTypes
+  @IsIn(DefendantType.all(), { message: ValidationErrors.DEFENDANT_TYPE_REQUIRED })
+  type?: DefendantType
 
-  @ValidateIf(o => o.type === DefendantTypes.INDIVIDUAL)
+  @ValidateIf(o => o.type === DefendantType.INDIVIDUAL)
   @IsDefined({ message: CommonValidationErrors.FULLNAME_REQUIRED })
   @IsNotBlank({ message: CommonValidationErrors.FULLNAME_REQUIRED })
   @MaxLength(70, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   fullName?: string
 
-  @ValidateIf(o => o.type === DefendantTypes.ORGANISATION)
+  @ValidateIf(o => o.type === DefendantType.ORGANISATION)
   @IsDefined({ message: CommonValidationErrors.ORGANISATION_NAME_REQUIRED })
   @IsNotBlank({ message: CommonValidationErrors.ORGANISATION_NAME_REQUIRED })
   @MaxLength(255, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   organisation?: string
 
-  @ValidateIf(o => o.type === DefendantTypes.ORGANISATION)
+  @ValidateIf(o => o.type === DefendantType.ORGANISATION)
   @IsOptional()
   @MaxLength(8, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   companyHouseNumber?: string
 
-  @ValidateIf(o => o.type === DefendantTypes.SOLE_TRADER)
+  @ValidateIf(o => o.type === DefendantType.SOLE_TRADER)
   @IsDefined({ message: CommonValidationErrors.FULLNAME_REQUIRED })
   @IsNotBlank({ message: CommonValidationErrors.FULLNAME_REQUIRED })
   @MaxLength(70, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   soleTraderName?: string
 
-  @ValidateIf(o => o.type === DefendantTypes.SOLE_TRADER)
+  @ValidateIf(o => o.type === DefendantType.SOLE_TRADER)
   @IsOptional()
   @MaxLength(255, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   businessName?: string
 
-  constructor (type?: DefendantTypes, fullName?: string, organisation?: string, companyHouseNumber?: string,
+  constructor (type?: DefendantType, fullName?: string, organisation?: string, companyHouseNumber?: string,
                soleTraderName?: string, businessName?: string) {
     this.type = type
     this.fullName = fullName
@@ -57,7 +57,7 @@ export class DefendantDetails implements Serializable<DefendantDetails> {
       let type
 
       if (value.type) {
-        type = DefendantTypes.all()
+        type = DefendantType.all()
           .filter(type => {
             return type.value === value.type
           })
@@ -86,11 +86,11 @@ export class DefendantDetails implements Serializable<DefendantDetails> {
 
   toString (): string {
     switch (this.type.value) {
-      case DefendantTypes.INDIVIDUAL.value:
+      case DefendantType.INDIVIDUAL.value:
         return this.fullName
-      case DefendantTypes.ORGANISATION.value:
+      case DefendantType.ORGANISATION.value:
         return this.organisation
-      case DefendantTypes.SOLE_TRADER.value:
+      case DefendantType.SOLE_TRADER.value:
         return this.businessName ? this.soleTraderName + ' trading as ' + this.businessName : this.soleTraderName
     }
   }

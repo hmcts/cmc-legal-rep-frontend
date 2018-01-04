@@ -4,7 +4,7 @@ import { OtherDamages } from 'forms/models/otherDamages'
 import { YesNo } from 'forms/models/yesNo'
 import Claimant from 'app/drafts/models/claimant'
 import Representative from 'app/drafts/models/representative'
-import { PartyType as DefendantTypes } from 'app/common/partyType'
+import { PartyType as DefendantType } from 'app/common/partyType'
 
 export class ClaimModelConverter {
 
@@ -110,16 +110,16 @@ export class ClaimModelConverter {
       defendant['type'] = defendant.defendantDetails.type.dataStoreValue
 
       switch (defendant.defendantDetails.type.value) {
-        case DefendantTypes.INDIVIDUAL.value:
+        case DefendantType.INDIVIDUAL.value:
           defendant['name'] = defendant.defendantDetails.fullName
           break
-        case DefendantTypes.ORGANISATION.value:
+        case DefendantType.ORGANISATION.value:
           defendant['name'] = defendant.defendantDetails.organisation
           if (defendant.defendantDetails.companyHouseNumber) {
             defendant['companiesHouseNumber'] = defendant.defendantDetails.companyHouseNumber
           }
           break
-        case DefendantTypes.SOLE_TRADER.value:
+        case DefendantType.SOLE_TRADER.value:
           defendant['name'] = defendant.defendantDetails.soleTraderName
           if (defendant.defendantDetails.businessName) {
             defendant['businessName'] = defendant.defendantDetails.businessName
