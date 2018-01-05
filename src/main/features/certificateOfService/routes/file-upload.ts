@@ -36,7 +36,6 @@ export default express.Router()
       form.parse(req)
       .on('file', function (name, file) {
         const buffer = readChunk.sync(file.path, 0, 4100)
-        console.log(fileType(buffer))
         if (file.size === 0) {
           viewDraft.document.fileToUploadError = FileUploadErrors.FILE_REQUIRED
           new DraftService().save(viewDraft, user.bearerToken).then(() => {
@@ -47,7 +46,7 @@ export default express.Router()
           new DraftService().save(viewDraft, user.bearerToken).then(() => {
             res.redirect(Paths.documentUploadPage.uri)
           })
-        } else if (FileTypes.acceptedMimeTypes().indexOf(file.type) === -1) {
+        } else if (FileTypes.acceptedMimeTypes().indexOf(fileType(buffer).mime) === -1) {
           viewDraft.document.fileToUploadError = FileUploadErrors.WRONG_FILE_TYPE
           new DraftService().save(viewDraft, user.bearerToken).then(() => {
             res.redirect(Paths.documentUploadPage.uri)
