@@ -74,7 +74,7 @@ export class ClaimModelConverter {
 
     draftClaim.claimants.map((claimant: Claimant) => {
 
-      claimant['type'] = 'claimant'
+      claimant['type'] = 'party'
       claimant['name'] = claimant.claimantName.fullName
 
       delete claimant.claimantName
