@@ -12,7 +12,8 @@
 
         <h2 class="heading-medium">{{ t('How did you serve the documents?') }}</h2>
 
-        {% set name = 'serviceMethod' %}
+        {% set name = 'serviceMethod[value]' %}
+        {% set fieldName = 'serviceMethod' %}
         {% if defendantType === 'individual' %}
           {{
           radioGroupWithMoreOptions(
@@ -31,7 +32,8 @@
           {label: ServiceMethod.OTHER_ELECTRONIC.displayValue, value: ServiceMethod.OTHER_ELECTRONIC.value, withHiddenControl: 'Enter the method'},
           {label: ServiceMethod.OTHER.displayValue, value: ServiceMethod.OTHER.value, withHiddenControl: 'Enter the method'}
           ],
-          form = form
+          form = form,
+          fieldName = fieldName
           )
           }}
         {% elseif defendantType === 'organisation' %}
@@ -52,7 +54,8 @@
           {label: ServiceMethod.OTHER_ELECTRONIC.displayValue, value: ServiceMethod.OTHER_ELECTRONIC.value, withHiddenControl: 'Enter the method'},
           {label: ServiceMethod.OTHER.displayValue, value: ServiceMethod.OTHER.value, withHiddenControl: 'Enter the method'}
           ],
-          form = form
+          form = form,
+          fieldName = fieldName
           )
           }}
         {% elseif defendantType === 'soleTrader' %}
