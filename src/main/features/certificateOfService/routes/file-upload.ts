@@ -1,4 +1,6 @@
 import * as express from 'express'
+import * as fileType from 'file-type'
+import * as readChunk from 'read-chunk'
 import { Paths } from 'certificateOfService/paths'
 import * as formidable from 'formidable'
 import { UploadedDocument } from 'claims/models/uploadedDocument'
@@ -33,6 +35,8 @@ export default express.Router()
 
       form.parse(req)
       .on('file', function (name, file) {
+        const buffer = readChunk.sync(file.path, 0, 4100)
+        console.log(fileType(buffer))
         if (file.size === 0) {
           viewDraft.document.fileToUploadError = FileUploadErrors.FILE_REQUIRED
           new DraftService().save(viewDraft, user.bearerToken).then(() => {
