@@ -1,14 +1,13 @@
 import { Serializable } from 'models/serializable'
 import { Address } from 'claims/models/address'
 import { Representative } from 'claims/models/representative'
-import { ClaimantName } from 'forms/models/claimantName'
 
 export class Claimant implements Serializable<Claimant> {
-  name: ClaimantName
+  name: string
   address: Address
   representative: Representative
 
-  constructor (name?: ClaimantName,
+  constructor (name?: string,
                address?: Address,
                representative?: Representative) {
     this.name = name
@@ -18,9 +17,7 @@ export class Claimant implements Serializable<Claimant> {
 
   deserialize (input: any): Claimant {
     if (input) {
-      if (input.name) {
-        this.name = new ClaimantName().deserialize(input.name)
-      }
+      this.name = input.name
       if (input.address) {
         this.address = new Address().deserialize(input.address)
       }

@@ -6,7 +6,6 @@ import { Address } from 'app/claims/models/address'
 import { ContactDetails } from 'claims/models/contactDetails'
 import { Representative } from 'claims/models/representative'
 import { Claimant } from 'claims/models/yours/claimant'
-import { ClaimantName } from 'forms/models/claimantName'
 
 describe('Claimant', () => {
   describe('constructor', () => {
@@ -28,7 +27,7 @@ describe('Claimant', () => {
     })
 
     it('should return a Claimant instance with set fields from given object', () => {
-      const claimantName = new ClaimantName('Full Name')
+      const claimantName = 'Full Name'
       const address = new Address('AddressLine1', 'AddressLine2', 'City', 'PostCode')
       const contactDetails = new ContactDetails('DX 123', 'me@email.com', '020810101010')
       const representative = new Representative('Org', address, contactDetails)
@@ -39,7 +38,7 @@ describe('Claimant', () => {
         representative: representative
       })
 
-      expect(result.name.fullName).to.deep.equals('Full Name')
+      expect(result.name).to.equals('Full Name')
       expect(result.address).to.deep.equals(address)
       expect(result.representative).to.deep.equals(representative)
     })
