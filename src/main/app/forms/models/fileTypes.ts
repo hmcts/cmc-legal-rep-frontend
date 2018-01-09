@@ -53,7 +53,7 @@ export class FileTypes {
     return new Promise(accept => {
       const buffer = readChunk.sync(filePath, 0, 4100)
       // file-type package returns null if it does not find a mime type in the first 4100kb
-      if (fileType(buffer) !== null && fileType(buffer).mime === 'application/x-msi') {
+      if (fileType(buffer) && fileType(buffer).mime === 'application/x-msi') {
         let mimeType = ''
         const cfb = CFB.read(filePath, { type: 'file' })
         if (CFB.find(cfb, '/Workbook') !== null) {
@@ -62,7 +62,7 @@ export class FileTypes {
           mimeType = 'application/msword'
         }
         accept(this.acceptedMimeTypes().indexOf(mimeType) >= 0)
-      } else if (fileType(buffer) !== null) {
+      } else if (fileType(buffer)) {
         accept(this.acceptedMimeTypes().indexOf(fileType(buffer).mime) >= 0)
       }
     })
