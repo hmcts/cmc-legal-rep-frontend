@@ -52,6 +52,7 @@ export class FileTypes {
   static isOfAcceptedMimeType (filePath: string): Promise<boolean> {
     return new Promise(accept => {
       const buffer = readChunk.sync(filePath, 0, 4100)
+      // file-type package returns null if it does not find a mime type in the first 4100kb
       if (fileType(buffer) !== null && fileType(buffer).mime === 'application/x-msi') {
         let mimeType = ''
         const cfb = CFB.read(filePath, { type: 'file' })

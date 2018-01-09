@@ -32,7 +32,8 @@ export default express.Router()
       })
 
       form.parse(req)
-      .on('file', function (name, file) {
+      .on('file', async (name, file) => {
+        const acceptedFileType: boolean = await FileTypes.isOfAcceptedMimeType(file.path)
         if (file.size === 0) {
           viewDraft.document.fileToUploadError = FileUploadErrors.FILE_REQUIRED
           new DraftService().save(viewDraft, user.bearerToken).then(() => {
@@ -43,39 +44,35 @@ export default express.Router()
           new DraftService().save(viewDraft, user.bearerToken).then(() => {
             res.redirect(Paths.documentUploadPage.uri)
           })
-        } else {
-          FileTypes.isOfAcceptedMimeType(file.path).then(function (accepted) {
-            if (accepted) {
-              DocumentsClient.save(user.bearerToken, file).then((documentManagementURI) => {
-                const documentType: DocumentType = viewDraft.document.fileToUpload
-                let files: UploadedDocument[] = []
-                draft.document.uploadedDocuments.map((file) => files.push(new UploadedDocument().deserialize(file)))
-
-                const fileType = FileTypes.all().find(fileType => fileType.mimeType === file.type)
-
-                files.push(new UploadedDocument(file.name, fileType, documentType, documentManagementURI))
-
-                fs.unlink(file.path, function (err) {
-                  if (err) {
-                    next(err)
-                  }
-                })
-                draft.document.uploadedDocuments = files
-                new DraftService().save(draft, user.bearerToken)
-
-                viewDraft.document.fileToUploadError = undefined
-                viewDraft.document.fileToUpload = undefined
-                new DraftService().save(viewDraft, user.bearerToken).then(() => {
-                  res.redirect(Paths.documentUploadPage.uri)
-                })
-              }).catch(next)
-            } else {
-              viewDraft.document.fileToUploadError = FileUploadErrors.WRONG_FILE_TYPE
-              new DraftService().save(viewDraft, user.bearerToken).then(() => {
-                res.redirect(Paths.documentUploadPage.uri)
-              })
-            }
+        } else if (!acceptedFileType) {
+          viewDraft.document.fileToUploadError = FileUploadErrors.WRONG_FILE_TYPE
+          new DraftService().save(viewDraft, user.bearerToken).then(() => {
+            res.redirect(Paths.documentUploadPage.uri)
           })
+        } else {
+          DocumentsClient.save(user.bearerToken, file).then((documentManagementURI) => {
+            const documentType: DocumentType = viewDraft.document.fileToUpload
+            let files: UploadedDocument[] = []
+            draft.document.uploadedDocuments.map((file) => files.push(new UploadedDocument().deserialize(file)))
+
+            const fileType = FileTypes.all().find(fileType => fileType.mimeType === file.type)
+
+            files.push(new UploadedDocument(file.name, fileType, documentType, documentManagementURI))
+
+            fs.unlink(file.path, function (err) {
+              if (err) {
+                next(err)
+              }
+            })
+            draft.document.uploadedDocuments = files
+            new DraftService().save(draft, user.bearerToken)
+
+            viewDraft.document.fileToUploadError = undefined
+            viewDraft.document.fileToUpload = undefined
+            new DraftService().save(viewDraft, user.bearerToken).then(() => {
+              res.redirect(Paths.documentUploadPage.uri)
+            })
+          }).catch(next)
         }
       })
     })
