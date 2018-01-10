@@ -61,9 +61,9 @@ export class FileTypes {
         } else if (CFB.find(cfb, '/WordDocument') !== null) {
           mimeType = 'application/msword'
         }
-        accept(this.acceptedMimeTypes().indexOf(mimeType) >= 0)
+        accept(this.acceptedMimeTypes().includes(mimeType))
       } else if (fileType(buffer)) {
-        accept(this.acceptedMimeTypes().indexOf(fileType(buffer).mime) >= 0)
+        accept(this.acceptedMimeTypes().includes(fileType(buffer).mime))
       }
     })
   }
