@@ -48,7 +48,7 @@
   "feedback_legal_report_problem_survey": "http://www.smartsurvey.co.uk/s/not-a-real-service-survey/",
   "feedback_legal_survey": "http://www.smartsurvey.co.uk/s/not-a-real-service-survey/",
   "http": {
-    "timeout": 10000
+    "timeout": 20000
   },
   "oauth": {
     "clientId": "cmc_legal",
