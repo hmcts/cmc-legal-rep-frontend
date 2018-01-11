@@ -3,8 +3,8 @@
 
 
 "@hmcts/cmc-common-frontend@^1.29.0":
-  version "1.29.0"
-  resolved "https://registry.yarnpkg.com/@hmcts/cmc-common-frontend/-/cmc-common-frontend-1.29.0.tgz#ab35f94fa402caf04a03ed0e2e2a7087caf712cd"
+  version "1.31.2"
+  resolved "https://registry.yarnpkg.com/@hmcts/cmc-common-frontend/-/cmc-common-frontend-1.31.2.tgz#c1249b1918ae95610ad0ce95610d63c227234a13"
 
 "@hmcts/cmc-draft-store-middleware@^2.0.0":
   version "2.0.0"

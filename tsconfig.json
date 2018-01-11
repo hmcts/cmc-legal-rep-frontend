@@ -25,6 +25,9 @@
       "claims/*": [
         "app/claims/*"
       ],
+      "common/*": [
+        "app/common/*"
+      ],
       "fees/*": [
         "app/fees/*"
       ],

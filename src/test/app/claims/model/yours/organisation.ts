@@ -3,7 +3,7 @@
 
 import { expect } from 'chai'
 import { Address } from 'app/claims/models/address'
-import { PartyTypes } from 'forms/models/partyTypes'
+import { PartyType } from 'app/common/partyType'
 import { Organisation } from 'claims/models/yours/organisation'
 
 describe('Organisation', () => {
@@ -13,7 +13,7 @@ describe('Organisation', () => {
       expect(organisation.name).to.be.undefined
       expect(organisation.companiesHouseNumber).to.be.undefined
       expect(organisation.address).to.be.undefined
-      expect(organisation.type).to.eql(PartyTypes.ORGANISATION.dataStoreValue)
+      expect(organisation.type).to.eql(PartyType.ORGANISATION.dataStoreValue)
     })
   })
 
