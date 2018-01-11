@@ -12,6 +12,7 @@ import dateFilter from 'modules/nunjucks/filters/dateFilter'
 import { DocumentType } from 'forms/models/documentType'
 import { Paths as CertificateOfServicePaths } from 'certificateOfService/paths'
 import { FileTypes } from 'forms/models/fileTypes'
+import { DefendantDetails } from 'forms/models/defendantDetails'
 import { ServiceMethod } from 'forms/models/ServiceMethod'
 
 const packageDotJson = require('../../../../package.json')
@@ -67,5 +68,6 @@ export default class Nunjucks {
     nunjucksEnv.addGlobal('CertificateOfServicePaths', CertificateOfServicePaths)
     nunjucksEnv.addGlobal('FileTypes', FileTypes)
     nunjucksEnv.addGlobal('ServiceMethod', ServiceMethod)
+    nunjucksEnv.addGlobal('defendantDetails', DefendantDetails)
   }
 }
