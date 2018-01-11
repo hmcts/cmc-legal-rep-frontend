@@ -4,7 +4,9 @@ import { app } from './app'
 import * as fs from 'fs'
 import * as path from 'path'
 import * as https from 'https'
-const logger = require('@hmcts/nodejs-logging').getLogger('server')
+import { Logger } from '@hmcts/nodejs-logging'
+
+const logger = Logger.getLogger('server')
 
 const port: number = parseInt(process.env.PORT, 10) || 4000
 
