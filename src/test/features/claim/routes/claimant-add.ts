@@ -21,7 +21,6 @@ describe('Claim issue: is claimant addition page', () => {
   beforeEach(() => {
     mock.cleanAll()
     draftStoreServiceMock.resolveFind('legalClaim')
-    draftStoreServiceMock.resolveFind('view')
   })
 
   describe('on GET', () => {
@@ -29,7 +28,6 @@ describe('Claim issue: is claimant addition page', () => {
 
     it('should render page when everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      draftStoreServiceMock.resolveFind('view')
       idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
@@ -44,7 +42,6 @@ describe('Claim issue: is claimant addition page', () => {
 
     it('should render page when form is invalid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      draftStoreServiceMock.resolveFind('view')
       idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)

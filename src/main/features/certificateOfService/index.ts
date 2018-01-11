@@ -11,7 +11,6 @@ import { OAuthHelper } from 'idam/oAuthHelper'
 import { DraftCertificateOfService } from 'drafts/models/draftCertificateOfService'
 import { DraftMiddleware } from '@hmcts/cmc-draft-store-middleware'
 import { DraftService } from 'services/draftService'
-import { DraftUploadDocument } from 'drafts/models/draftUploadDocument'
 
 function certificateOfServiceRequestHandler (): express.RequestHandler {
   function accessDeniedCallback (req: express.Request, res: express.Response): void {
@@ -35,12 +34,6 @@ export class Feature {
       DraftMiddleware.requestHandler<DraftCertificateOfService>(new DraftService(), 'legalCertificateOfService',
         100, (value: any): DraftCertificateOfService => {
           return new DraftCertificateOfService().deserialize(value)
-        }))
-
-    app.all(/^\/legal\/certificateOfService\/(what-documents|document-upload|file-upload|document-remove)$/,
-      DraftMiddleware.requestHandler<DraftUploadDocument>(new DraftService(),'legalUploadDocument',
-        100, (value: any): DraftUploadDocument => {
-          return new DraftUploadDocument().deserialize(value)
         }))
 
     app.use('/', RouterFinder.findAll(path.join(__dirname, 'routes')))

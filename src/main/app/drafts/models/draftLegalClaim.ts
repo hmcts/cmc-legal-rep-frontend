@@ -28,6 +28,11 @@ export class DraftLegalClaim extends DraftDocument implements Serializable<Draft
   feeAccount: FeeAccount = new FeeAccount()
   feeAmountInPennies: number
   feeCode: string
+  // View Draft items
+  isDefendantDeleted: boolean = false
+  isClaimantDeleted: boolean = false
+  defendantChangeIndex?: number
+  claimantChangeIndex?: number
 
   deserialize (input: any): DraftLegalClaim {
     if (input) {
@@ -62,6 +67,10 @@ export class DraftLegalClaim extends DraftDocument implements Serializable<Draft
         this.defendants = defendants
       }
       this.feeCode = input.feeCode
+      this.isDefendantDeleted = input.isDefendantDeleted
+      this.isClaimantDeleted = input.isClaimantDeleted
+      this.defendantChangeIndex = input.defendantChangeIndex
+      this.claimantChangeIndex = input.claimantChangeIndex
     }
 
     return this
