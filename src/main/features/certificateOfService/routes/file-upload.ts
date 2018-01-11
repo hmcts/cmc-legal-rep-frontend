@@ -32,7 +32,8 @@ export default express.Router()
       })
 
       form.parse(req)
-      .on('file', function (name, file) {
+      .on('file', async (name, file) => {
+        const acceptedFileType: boolean = await FileTypes.isOfAcceptedMimeType(file.path)
         if (file.size === 0) {
           viewDraft.document.fileToUploadError = FileUploadErrors.FILE_REQUIRED
           new DraftService().save(viewDraft, user.bearerToken).then(() => {
@@ -43,7 +44,7 @@ export default express.Router()
           new DraftService().save(viewDraft, user.bearerToken).then(() => {
             res.redirect(Paths.documentUploadPage.uri)
           })
-        } else if (FileTypes.acceptedMimeTypes().indexOf(file.type) === -1) {
+        } else if (!acceptedFileType) {
           viewDraft.document.fileToUploadError = FileUploadErrors.WRONG_FILE_TYPE
           new DraftService().save(viewDraft, user.bearerToken).then(() => {
             res.redirect(Paths.documentUploadPage.uri)

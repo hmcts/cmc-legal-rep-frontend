@@ -4,7 +4,7 @@ export class Cookie {
   representativeDetails: RepresentativeDetails[]
 
   public static getCookie (legalRepresentativeDetails: RepresentativeDetails[], id: string): RepresentativeDetails {
-    if (legalRepresentativeDetails === undefined) {
+    if (legalRepresentativeDetails === undefined || legalRepresentativeDetails.length === undefined) {
       return new RepresentativeDetails()
     } else {
       const representativeDetail: RepresentativeDetails = legalRepresentativeDetails.find(function (representativeDetail: RepresentativeDetails) {
