@@ -3,7 +3,7 @@ import { Paths } from 'claim/paths'
 
 import { Form } from 'app/forms/form'
 import { FormValidator } from 'app/forms/validation/formValidator'
-import { PartyTypes as ClaimantTypes } from 'app/forms/models/partyTypes'
+import { PartyType as ClaimantType } from 'app/common/partyType'
 import { ClaimantDetails } from 'app/forms/models/claimantDetails'
 
 import { DraftService } from 'services/draftService'
@@ -32,7 +32,7 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        if (form.model.type === ClaimantTypes.INDIVIDUAL) {
+        if (form.model.type === ClaimantType.INDIVIDUAL) {
           form.model.organisation = null
           form.model.companyHouseNumber = null
         } else {

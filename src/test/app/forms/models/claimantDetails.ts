@@ -6,7 +6,7 @@ import { Validator } from 'class-validator'
 import { expectValidationError } from './validationUtils'
 
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
-import { PartyTypes as ClaimantTypes } from 'forms/models/partyTypes'
+import { PartyType as ClaimantType } from 'app/common/partyType'
 import { ClaimantDetails, ValidationErrors } from 'app/forms/models/claimantDetails'
 import * as randomstring from 'randomstring'
 
@@ -27,13 +27,13 @@ describe('Claimant Details', () => {
 
     it('should return am instance from given object', () => {
       let deserialized = new ClaimantDetails().deserialize({
-        type: ClaimantTypes.INDIVIDUAL,
+        type: ClaimantType.INDIVIDUAL,
         fullName: 'full name',
         organisation: undefined,
         companyHouseNumber: undefined
       })
 
-      expect(deserialized).to.eql(new ClaimantDetails(ClaimantTypes.INDIVIDUAL, 'full name', undefined, undefined))
+      expect(deserialized).to.eql(new ClaimantDetails(ClaimantType.INDIVIDUAL, 'full name', undefined, undefined))
     })
   })
 
@@ -48,16 +48,16 @@ describe('Claimant Details', () => {
     })
 
     it('should accept claimant details for claimant type when individual details are valid', () => {
-      ClaimantTypes.all().forEach(type => {
-        const errors = validator.validateSync(new ClaimantDetails(ClaimantTypes.INDIVIDUAL, 'full name', undefined, undefined))
+      ClaimantType.all().forEach(type => {
+        const errors = validator.validateSync(new ClaimantDetails(ClaimantType.INDIVIDUAL, 'full name', undefined, undefined))
 
         expect(errors.length).to.equal(0)
       })
     })
 
     it('should reject claimant details for claimant type when individual details are undefined', () => {
-      ClaimantTypes.all().forEach(type => {
-        const errors = validator.validateSync(new ClaimantDetails(ClaimantTypes.INDIVIDUAL, undefined, undefined, undefined))
+      ClaimantType.all().forEach(type => {
+        const errors = validator.validateSync(new ClaimantDetails(ClaimantType.INDIVIDUAL, undefined, undefined, undefined))
 
         expect(errors.length).to.equal(1)
         expectValidationError(errors, CommonValidationErrors.FULLNAME_REQUIRED)
@@ -65,8 +65,8 @@ describe('Claimant Details', () => {
     })
 
     it('should reject claimant details for claimant type when individual details are null', () => {
-      ClaimantTypes.all().forEach(type => {
-        const errors = validator.validateSync(new ClaimantDetails(ClaimantTypes.INDIVIDUAL, null, undefined, undefined))
+      ClaimantType.all().forEach(type => {
+        const errors = validator.validateSync(new ClaimantDetails(ClaimantType.INDIVIDUAL, null, undefined, undefined))
 
         expect(errors.length).to.equal(1)
         expectValidationError(errors, CommonValidationErrors.FULLNAME_REQUIRED)
@@ -74,8 +74,8 @@ describe('Claimant Details', () => {
     })
 
     it('should reject claimant details for claimant type when individual details are empty', () => {
-      ClaimantTypes.all().forEach(type => {
-        const errors = validator.validateSync(new ClaimantDetails(ClaimantTypes.INDIVIDUAL, '', undefined, undefined))
+      ClaimantType.all().forEach(type => {
+        const errors = validator.validateSync(new ClaimantDetails(ClaimantType.INDIVIDUAL, '', undefined, undefined))
 
         expect(errors.length).to.equal(1)
         expectValidationError(errors, CommonValidationErrors.FULLNAME_REQUIRED)
@@ -83,16 +83,16 @@ describe('Claimant Details', () => {
     })
 
     it('should accept claimant details for organisation type when organisation details are valid', () => {
-      ClaimantTypes.all().forEach(type => {
-        const errors = validator.validateSync(new ClaimantDetails(ClaimantTypes.ORGANISATION, undefined, 'organisation name', '12345678'))
+      ClaimantType.all().forEach(type => {
+        const errors = validator.validateSync(new ClaimantDetails(ClaimantType.ORGANISATION, undefined, 'organisation name', '12345678'))
 
         expect(errors.length).to.equal(0)
       })
     })
 
     it('should reject claimant details for organisation type when organisation name is null', () => {
-      ClaimantTypes.all().forEach(type => {
-        const errors = validator.validateSync(new ClaimantDetails(ClaimantTypes.ORGANISATION, undefined, null, '12345678'))
+      ClaimantType.all().forEach(type => {
+        const errors = validator.validateSync(new ClaimantDetails(ClaimantType.ORGANISATION, undefined, null, '12345678'))
 
         expect(errors.length).to.equal(1)
         expectValidationError(errors, CommonValidationErrors.ORGANISATION_NAME_REQUIRED)
@@ -100,8 +100,8 @@ describe('Claimant Details', () => {
     })
 
     it('should reject claimant details for organisation type when organisation name is undefined', () => {
-      ClaimantTypes.all().forEach(type => {
-        const errors = validator.validateSync(new ClaimantDetails(ClaimantTypes.ORGANISATION, undefined, undefined, '12345678'))
+      ClaimantType.all().forEach(type => {
+        const errors = validator.validateSync(new ClaimantDetails(ClaimantType.ORGANISATION, undefined, undefined, '12345678'))
 
         expect(errors.length).to.equal(1)
         expectValidationError(errors, CommonValidationErrors.ORGANISATION_NAME_REQUIRED)
@@ -109,8 +109,8 @@ describe('Claimant Details', () => {
     })
 
     it('should reject claimant details for organisation type when organisation name length is more than 255', () => {
-      ClaimantTypes.all().forEach(type => {
-        const errors = validator.validateSync(new ClaimantDetails(ClaimantTypes.ORGANISATION,
+      ClaimantType.all().forEach(type => {
+        const errors = validator.validateSync(new ClaimantDetails(ClaimantType.ORGANISATION,
           undefined, randomstring.generate(256), '12345678'))
 
         expect(errors.length).to.equal(1)
@@ -119,8 +119,8 @@ describe('Claimant Details', () => {
     })
 
     it('should accept claimant details for organisation type when organisation name length is 255', () => {
-      ClaimantTypes.all().forEach(type => {
-        const errors = validator.validateSync(new ClaimantDetails(ClaimantTypes.ORGANISATION,
+      ClaimantType.all().forEach(type => {
+        const errors = validator.validateSync(new ClaimantDetails(ClaimantType.ORGANISATION,
           undefined, randomstring.generate(255), '12345678'))
 
         expect(errors.length).to.equal(0)
@@ -128,8 +128,8 @@ describe('Claimant Details', () => {
     })
 
     it('should reject claimant details for organisation type when companyHouseNumber length is more than 8', () => {
-      ClaimantTypes.all().forEach(type => {
-        const errors = validator.validateSync(new ClaimantDetails(ClaimantTypes.ORGANISATION,
+      ClaimantType.all().forEach(type => {
+        const errors = validator.validateSync(new ClaimantDetails(ClaimantType.ORGANISATION,
           undefined, 'organisation', randomstring.generate(9)))
 
         expect(errors.length).to.equal(1)
@@ -138,8 +138,8 @@ describe('Claimant Details', () => {
     })
 
     it('should accept claimant details for organisation type when companyHouseNumber length is 8', () => {
-      ClaimantTypes.all().forEach(type => {
-        const errors = validator.validateSync(new ClaimantDetails(ClaimantTypes.ORGANISATION,
+      ClaimantType.all().forEach(type => {
+        const errors = validator.validateSync(new ClaimantDetails(ClaimantType.ORGANISATION,
           undefined, 'organisation', randomstring.generate(8)))
 
         expect(errors.length).to.equal(0)
@@ -147,8 +147,8 @@ describe('Claimant Details', () => {
     })
 
     it('should reject claimant details for claimant type when full name length is more than 70', () => {
-      ClaimantTypes.all().forEach(type => {
-        const errors = validator.validateSync(new ClaimantDetails(ClaimantTypes.INDIVIDUAL,
+      ClaimantType.all().forEach(type => {
+        const errors = validator.validateSync(new ClaimantDetails(ClaimantType.INDIVIDUAL,
           randomstring.generate(71), undefined, undefined))
 
         expect(errors.length).to.equal(1)
@@ -157,8 +157,8 @@ describe('Claimant Details', () => {
     })
 
     it('should accept claimant details for claimant type when fullName length is 70', () => {
-      ClaimantTypes.all().forEach(type => {
-        const errors = validator.validateSync(new ClaimantDetails(ClaimantTypes.INDIVIDUAL,
+      ClaimantType.all().forEach(type => {
+        const errors = validator.validateSync(new ClaimantDetails(ClaimantType.INDIVIDUAL,
               randomstring.generate(70), undefined, undefined))
 
         expect(errors.length).to.equal(0)
@@ -199,7 +199,7 @@ describe('Claimant Details', () => {
         companyHouseNumber: undefined
       })
 
-      expect(claimantDetails.type).to.eql(ClaimantTypes.INDIVIDUAL)
+      expect(claimantDetails.type).to.eql(ClaimantType.INDIVIDUAL)
       expect(claimantDetails.fullName).to.equal('full name')
       expect(claimantDetails.organisation).to.equal(undefined)
       expect(claimantDetails.companyHouseNumber).to.equal(undefined)
