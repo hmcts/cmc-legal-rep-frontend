@@ -75,8 +75,15 @@
         {% set changeServiceAddressLink = '/legal/claim/defendant-change?index='+ loop.index  + '&page=service-address' %}
         {{ tableStart('defendantDetails'+loop.index, 'Defendant ' + loop.index + ' details') }}
       {% endif %}
+
       {% if defendant.defendantDetails.type.value == 'INDIVIDUAL' %}
         {{ row('Name', defendant.defendantDetails.fullName, changeDefendantLink) }}
+      {% elseif defendant.defendantDetails.type.value == 'SOLE_TRADER' %}
+        {% if defendant.defendantDetails.businessName %}
+          {{ row('Name (trading as)', defendant.defendantDetails.soleTraderName + ' trading as ' + defendant.defendantDetails.businessName, changeDefendantLink) }}
+        {% else %}
+          {{ row('Name', defendant.defendantDetails.soleTraderName, changeDefendantLink) }}
+        {% endif %}
       {% else %}
         {{ row('Organisation name', defendant.defendantDetails.organisation, changeDefendantLink) }}
         {{ row('Companies House number', defendant.defendantDetails.companyHouseNumber, changeDefendantLink) }}

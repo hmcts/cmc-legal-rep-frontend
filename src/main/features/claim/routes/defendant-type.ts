@@ -3,7 +3,7 @@ import { Paths } from 'claim/paths'
 
 import { Form } from 'app/forms/form'
 import { FormValidator } from 'app/forms/validation/formValidator'
-import { PartyTypes as DefendantTypes } from 'app/forms/models/partyTypes'
+import { PartyType as DefendantType } from 'app/common/partyType'
 import { DefendantDetails } from 'app/forms/models/defendantDetails'
 
 import { DraftService } from 'services/draftService'
@@ -32,12 +32,25 @@ export default express.Router()
       if (form.hasErrors()) {
         renderView(form, res)
       } else {
-        if (form.model.type === DefendantTypes.INDIVIDUAL) {
-          form.model.organisation = null
-          form.model.companyHouseNumber = null
-        } else {
-          form.model.fullName = null
+        switch (form.model.type) {
+          case DefendantType.INDIVIDUAL:
+            form.model.organisation = undefined
+            form.model.companyHouseNumber = undefined
+            form.model.soleTraderName = undefined
+            form.model.businessName = undefined
+            break
+          case DefendantType.ORGANISATION:
+            form.model.fullName = undefined
+            form.model.soleTraderName = undefined
+            form.model.businessName = undefined
+            break
+          case DefendantType.SOLE_TRADER:
+            form.model.fullName = undefined
+            form.model.organisation = undefined
+            form.model.companyHouseNumber = undefined
+            break
         }
+
         const index: number = Defendants.getIndex(res)
         draft.document.defendants[index].defendantDetails = form.model
         await new DraftService().save(draft, res.locals.user.bearerToken)

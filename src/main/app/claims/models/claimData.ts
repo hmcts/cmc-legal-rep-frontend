@@ -2,9 +2,10 @@ import { Serializable } from 'app/models/serializable'
 import { Claimant } from 'claims/models/yours/claimant'
 import { TheirDetails } from 'claims/models/theirs/theirDetails'
 import { StatementOfTruth } from 'claims/models/statementOfTruth'
-import { PartyTypes } from 'forms/models/partyTypes'
+import { PartyType } from 'app/common/partyType'
 import { Individual as DefendantAsIndividual } from 'claims/models/theirs/individual'
 import { Organisation as DefendantAsOrganisation } from 'claims/models/theirs/organisation'
+import { SoleTrader as DefendantAsSoleTrader } from 'claims/models/theirs/soleTrader'
 import { Amount } from 'claims/models/amount'
 
 export default class ClaimData implements Serializable<ClaimData> {
@@ -55,10 +56,12 @@ export default class ClaimData implements Serializable<ClaimData> {
     if (defendants) {
       return defendants.map((defendant: any) => {
         switch (defendant.type) {
-          case PartyTypes.INDIVIDUAL.dataStoreValue:
+          case PartyType.INDIVIDUAL.dataStoreValue:
             return new DefendantAsIndividual().deserialize(defendant)
-          case PartyTypes.ORGANISATION.dataStoreValue:
+          case PartyType.ORGANISATION.dataStoreValue:
             return new DefendantAsOrganisation().deserialize(defendant)
+          case PartyType.SOLE_TRADER.dataStoreValue:
+            return new DefendantAsSoleTrader().deserialize(defendant)
           default:
             throw Error('Something went wrong, No defendant type is set')
         }

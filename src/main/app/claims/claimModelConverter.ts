@@ -4,6 +4,7 @@ import { OtherDamages } from 'forms/models/otherDamages'
 import { YesNo } from 'forms/models/yesNo'
 import Claimant from 'app/drafts/models/claimant'
 import Representative from 'app/drafts/models/representative'
+import { PartyType as DefendantType } from 'app/common/partyType'
 
 export class ClaimModelConverter {
 
@@ -98,15 +99,25 @@ export class ClaimModelConverter {
 
   private static convertDefendantDetails (draftClaim: DraftLegalClaim): void {
     draftClaim.defendants.map((defendant: Defendant) => {
-      if (defendant.defendantDetails.organisation) {
-        defendant['name'] = defendant.defendantDetails.organisation
-      } else {
-        defendant['name'] = defendant.defendantDetails.fullName
-      }
-      if (defendant.defendantDetails.companyHouseNumber) {
-        defendant['companiesHouseNumber'] = defendant.defendantDetails.companyHouseNumber
-      }
       defendant['type'] = defendant.defendantDetails.type.dataStoreValue
+
+      switch (defendant.defendantDetails.type.value) {
+        case DefendantType.INDIVIDUAL.value:
+          defendant['name'] = defendant.defendantDetails.fullName
+          break
+        case DefendantType.ORGANISATION.value:
+          defendant['name'] = defendant.defendantDetails.organisation
+          if (defendant.defendantDetails.companyHouseNumber) {
+            defendant['companiesHouseNumber'] = defendant.defendantDetails.companyHouseNumber
+          }
+          break
+        case DefendantType.SOLE_TRADER.value:
+          defendant['name'] = defendant.defendantDetails.soleTraderName
+          if (defendant.defendantDetails.businessName) {
+            defendant['businessName'] = defendant.defendantDetails.businessName
+          }
+          break
+      }
 
       delete defendant.defendantDetails
 

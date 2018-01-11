@@ -1,4 +1,4 @@
-import { PartyTypes } from 'forms/models/partyTypes'
+import { PartyType } from 'app/common/partyType'
 
 export const claimantName = {
   value: 'no name'
@@ -6,8 +6,7 @@ export const claimantName = {
 
 export const organisationDetails = {
   type: {
-    value: PartyTypes.ORGANISATION.value,
-    displayValue: 'An organisation',
+    value: PartyType.ORGANISATION.value,
     dataStoreValue: 'organisation'
   },
   title: null,
