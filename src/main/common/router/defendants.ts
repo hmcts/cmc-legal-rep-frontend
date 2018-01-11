@@ -1,6 +1,6 @@
 import * as express from 'express'
 import Defendant from 'app/drafts/models/defendant'
-import { PartyTypes } from 'app/forms/models/partyTypes'
+import { PartyType } from 'app/common/partyType'
 import { Paths as ClaimPaths } from 'claim/paths'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
@@ -74,7 +74,7 @@ export class Defendants {
     const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
     const defendants = draft.document.defendants
     const defendantDetails = defendants[Defendants.getIndex(res)].defendantDetails
-    const isIndividual = defendantDetails.type.value === PartyTypes.INDIVIDUAL.value
+    const isIndividual = defendantDetails.type.value === PartyType.INDIVIDUAL.value
     return isIndividual ? defendantDetails.fullName : defendantDetails.organisation
   }
 

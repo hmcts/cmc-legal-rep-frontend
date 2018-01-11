@@ -5,7 +5,7 @@ import { Validator } from 'class-validator'
 
 import { expectValidationError } from './validationUtils'
 
-import { PartyTypes as DefendantTypes } from 'forms/models/partyTypes'
+import { PartyType as DefendantType } from 'app/common/partyType'
 import { DefendantAddition, ValidationErrors } from 'app/forms/models/defendantAddition'
 import { YesNo } from 'app/forms/models/yesNo'
 
@@ -44,7 +44,7 @@ describe('Defendant Addition', () => {
     })
 
     it('should accept defendant addition for valid Yes isAddDefendant', () => {
-      DefendantTypes.all().forEach(type => {
+      DefendantType.all().forEach(type => {
         const errors = validator.validateSync(new DefendantAddition(YesNo.YES))
 
         expect(errors.length).to.equal(0)
@@ -52,7 +52,7 @@ describe('Defendant Addition', () => {
     })
 
     it('should accept defendant addition for valid No isAddDefendant', () => {
-      DefendantTypes.all().forEach(type => {
+      DefendantType.all().forEach(type => {
         const errors = validator.validateSync(new DefendantAddition(YesNo.NO))
 
         expect(errors.length).to.equal(0)
@@ -60,7 +60,7 @@ describe('Defendant Addition', () => {
     })
 
     it('should reject defendant addition for null isAddDefendant', () => {
-      DefendantTypes.all().forEach(type => {
+      DefendantType.all().forEach(type => {
         const errors = validator.validateSync(new DefendantAddition(null))
 
         expect(errors.length).to.equal(1)

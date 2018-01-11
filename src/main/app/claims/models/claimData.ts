@@ -2,11 +2,12 @@ import { Serializable } from 'app/models/serializable'
 import { Party } from 'claims/models/yours/party'
 import { TheirDetails } from 'claims/models/theirs/theirDetails'
 import { StatementOfTruth } from 'claims/models/statementOfTruth'
-import { PartyTypes } from 'forms/models/partyTypes'
+import { PartyType } from 'app/common/partyType'
 import { Organisation as ClaimantAsOrganisation } from 'claims/models/yours/organisation'
 import { Individual as ClaimantAsIndividual } from 'claims/models/yours/individual'
 import { Individual as DefendantAsIndividual } from 'claims/models/theirs/individual'
 import { Organisation as DefendantAsOrganisation } from 'claims/models/theirs/organisation'
+import { SoleTrader as DefendantAsSoleTrader } from 'claims/models/theirs/soleTrader'
 import { Amount } from 'claims/models/amount'
 
 export default class ClaimData implements Serializable<ClaimData> {
@@ -49,9 +50,9 @@ export default class ClaimData implements Serializable<ClaimData> {
     if (claimants) {
       return claimants.map((claimant: any) => {
         switch (claimant.type) {
-          case PartyTypes.INDIVIDUAL.dataStoreValue:
+          case PartyType.INDIVIDUAL.dataStoreValue:
             return new ClaimantAsIndividual().deserialize(claimant)
-          case PartyTypes.ORGANISATION.dataStoreValue:
+          case PartyType.ORGANISATION.dataStoreValue:
             return new ClaimantAsOrganisation().deserialize(claimant)
           default:
             throw Error('Something went wrong, No claimant type is set')
@@ -64,10 +65,12 @@ export default class ClaimData implements Serializable<ClaimData> {
     if (defendants) {
       return defendants.map((defendant: any) => {
         switch (defendant.type) {
-          case PartyTypes.INDIVIDUAL.dataStoreValue:
+          case PartyType.INDIVIDUAL.dataStoreValue:
             return new DefendantAsIndividual().deserialize(defendant)
-          case PartyTypes.ORGANISATION.dataStoreValue:
+          case PartyType.ORGANISATION.dataStoreValue:
             return new DefendantAsOrganisation().deserialize(defendant)
+          case PartyType.SOLE_TRADER.dataStoreValue:
+            return new DefendantAsSoleTrader().deserialize(defendant)
           default:
             throw Error('Something went wrong, No defendant type is set')
         }

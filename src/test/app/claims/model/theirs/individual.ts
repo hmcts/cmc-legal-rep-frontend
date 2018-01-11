@@ -4,7 +4,7 @@
 import { expect } from 'chai'
 import { Address } from 'app/claims/models/address'
 import { Individual } from 'claims/models/theirs/individual'
-import { PartyTypes } from 'forms/models/partyTypes'
+import { PartyType } from 'app/common/partyType'
 import { ContactDetails } from 'claims/models/contactDetails'
 import { Representative } from 'claims/models/representative'
 
@@ -14,7 +14,7 @@ describe('Individual', () => {
       let individual = new Individual()
       expect(individual.name).to.be.undefined
       expect(individual.address).to.be.undefined
-      expect(individual.type).to.eql(PartyTypes.INDIVIDUAL.dataStoreValue)
+      expect(individual.type).to.eql(PartyType.INDIVIDUAL.dataStoreValue)
       expect(individual.representative).to.be.undefined
     })
   })
