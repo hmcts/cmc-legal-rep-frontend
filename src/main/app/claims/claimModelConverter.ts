@@ -4,7 +4,7 @@ import { OtherDamages } from 'forms/models/otherDamages'
 import { YesNo } from 'forms/models/yesNo'
 import Claimant from 'app/drafts/models/claimant'
 import Representative from 'app/drafts/models/representative'
-import { PartyType as DefendantType } from 'app/common/partyType'
+import { PartyType, PartyType as DefendantType } from 'app/common/partyType'
 
 export class ClaimModelConverter {
 
@@ -75,7 +75,7 @@ export class ClaimModelConverter {
 
     draftClaim.claimants.map((claimant: Claimant) => {
 
-      claimant['type'] = 'party'
+      claimant['type'] = PartyType.CLAIMANT.dataStoreValue
       claimant['name'] = claimant.claimantName.fullName
 
       delete claimant.claimantName
