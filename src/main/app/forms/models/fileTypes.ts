@@ -1,3 +1,7 @@
+import * as fileType from 'file-type'
+import * as readChunk from 'read-chunk'
+import * as CFB from 'cfb'
+
 export class FileTypes {
   static readonly PDF = new FileTypes('.pdf', 'Adobe Portable Document Format (PDF)', 'application/pdf')
   static readonly DOC = new FileTypes('.doc', 'Microsoft Word', 'application/msword')
@@ -43,5 +47,24 @@ export class FileTypes {
       acceptedFileExtensions.push(fileType.mimeType)
     })
     return acceptedFileExtensions
+  }
+
+  static isOfAcceptedMimeType (filePath: string): Promise<boolean> {
+    return new Promise(accept => {
+      const buffer = readChunk.sync(filePath, 0, 4100)
+      // file-type package returns null if it does not find a mime type in the first 4100kb
+      if (fileType(buffer) && fileType(buffer).mime === 'application/x-msi') {
+        let mimeType = ''
+        const cfb = CFB.read(filePath, { type: 'file' })
+        if (CFB.find(cfb, '/Workbook') !== null) {
+          mimeType = 'application/vnd.ms-excel'
+        } else if (CFB.find(cfb, '/WordDocument') !== null) {
+          mimeType = 'application/msword'
+        }
+        accept(this.acceptedMimeTypes().includes(mimeType))
+      } else if (fileType(buffer)) {
+        accept(this.acceptedMimeTypes().includes(fileType(buffer).mime))
+      }
+    })
   }
 }
