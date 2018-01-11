@@ -59,6 +59,27 @@
           )
           }}
         {% elseif defendantType === 'soleTrader' %}
+          {{
+          radioGroupWithMoreOptions(
+          "Choose one method only - we'll use this to calculate date of service.",
+          name,
+          [
+          {label: ServiceMethod.FIRST_CLASS_POST.displayValue, value: ServiceMethod.FIRST_CLASS_POST.value},
+          {label: ServiceMethod.FAX.displayValue, value: ServiceMethod.FAX.value},
+          ],
+          [
+          {label: ServiceMethod.OTHER_NEXT_DAY.displayValue, value: ServiceMethod.OTHER_NEXT_DAY.value},
+          {label: ServiceMethod.DOCUMENT_EXCHANGE.displayValue, value: ServiceMethod.DOCUMENT_EXCHANGE.value},
+          {label: ServiceMethod.DELIVERED_OR_LEFT.displayValue, value: ServiceMethod.DELIVERED_OR_LEFT.value},
+          {label: ServiceMethod.PERSONALLY_HANDED.displayValue, value: ServiceMethod.PERSONALLY_HANDED.value},
+          {label: ServiceMethod.EMAIL.displayValue, value: ServiceMethod.EMAIL.value},
+          {label: ServiceMethod.OTHER_ELECTRONIC.displayValue, value: ServiceMethod.OTHER_ELECTRONIC.value, withHiddenControl: 'Enter the method'},
+          {label: ServiceMethod.OTHER.displayValue, value: ServiceMethod.OTHER.value, withHiddenControl: 'Enter the method'}
+          ],
+          form = form,
+          fieldName = fieldName
+          )
+          }}
         {% endif %}
 
         <div class="form-group">
