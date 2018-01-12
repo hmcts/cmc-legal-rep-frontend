@@ -12,20 +12,18 @@ import { Claimants } from 'common/router/claimants'
 import { DraftService } from 'services/draftService'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
-import { DraftView } from 'app/drafts/models/draftView'
 
 const MAX_CLAIMANTS_ALLOWED: number = 20
 const ERROR_MESSAGE: string = `You can't add more than ${MAX_CLAIMANTS_ALLOWED} claimants`
 
 function renderView (form: Form<ClaimantAddition>, res: express.Response) {
   const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
-  const viewDraft: Draft<DraftView> = res.locals.viewDraft
 
   const claimants = draft.document.claimants
 
   res.render(Paths.claimantAdditionPage.associatedView, {
     form: form,
-    claimants: viewDraft.document.isClaimantDeleted || claimants.length > 1 ? claimants : null,
+    claimants: draft.document.isClaimantDeleted || claimants.length > 1 ? claimants : null,
     maxAllowedLimit: MAX_CLAIMANTS_ALLOWED
   })
 }

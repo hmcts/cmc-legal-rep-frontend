@@ -21,7 +21,6 @@ describe('Claim issue: is defendant represented page', () => {
   beforeEach(() => {
     mock.cleanAll()
     draftStoreServiceMock.resolveFind('legalClaim')
-    draftStoreServiceMock.resolveFind('view')
   })
 
   describe('on GET', () => {
@@ -29,6 +28,8 @@ describe('Claim issue: is defendant represented page', () => {
 
     it('should render page when everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
+
       await request(app)
         .get(ClaimPaths.defendantRepresentedPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -77,6 +78,7 @@ describe('Claim issue: is defendant represented page', () => {
 
     it('should redirect to defendant rep address page when form is valid and user has selected yes', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      idamServiceMock.resolveRetrieveServiceToken()
       draftStoreServiceMock.resolveUpdate()
 
       await request(app)

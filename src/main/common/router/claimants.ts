@@ -3,7 +3,6 @@ import Claimant from 'app/drafts/models/claimant'
 import { Paths as ClaimPaths } from 'claim/paths'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
-import { DraftView } from 'app/drafts/models/draftView'
 
 export class Claimants {
 
@@ -43,8 +42,8 @@ export class Claimants {
   }
 
   static getIndex (res: express.Response): number {
-    const viewDraft: Draft<DraftView> = res.locals.viewDraft
-    const changeIndex = viewDraft.document.claimantChangeIndex
+    const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+    const changeIndex = draft.document.claimantChangeIndex
     return changeIndex !== undefined ? changeIndex : Claimants.getCurrentIndex(res)
   }
 

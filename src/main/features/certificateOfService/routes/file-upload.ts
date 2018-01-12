@@ -12,12 +12,10 @@ import { FileTypes } from 'forms/models/fileTypes'
 import { FileUploadErrors } from 'forms/models/fileTypeErrors'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftCertificateOfService } from 'drafts/models/draftCertificateOfService'
-import { DraftUploadDocument } from 'drafts/models/draftUploadDocument'
 
 export default express.Router()
   .post(Paths.fileUploadPage.uri,
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
-      const viewDraft: Draft<DraftUploadDocument> = res.locals.legalUploadDocumentDraft
       const draft: Draft<DraftCertificateOfService> = res.locals.legalCertificateOfServiceDraft
       const form = new formidable.IncomingForm()
       const user: User = res.locals.user
@@ -25,8 +23,8 @@ export default express.Router()
       const TIME_OUT: number = 7200000
       form.keepExtensions = true
       req.setTimeout(TIME_OUT,function () {
-        viewDraft.document.fileToUploadError = FileUploadErrors.FILE_UPLOAD_TIMEOUT
-        new DraftService().save(viewDraft, user.bearerToken).then(() => {
+        draft.document.fileToUploadError = FileUploadErrors.FILE_UPLOAD_TIMEOUT
+        new DraftService().save(draft, user.bearerToken).then(() => {
           res.redirect(Paths.documentUploadPage.uri)
         })
       })
@@ -35,23 +33,23 @@ export default express.Router()
       .on('file', async (name, file) => {
         const acceptedFileType: boolean = await FileTypes.isOfAcceptedMimeType(file.path)
         if (file.size === 0) {
-          viewDraft.document.fileToUploadError = FileUploadErrors.FILE_REQUIRED
-          new DraftService().save(viewDraft, user.bearerToken).then(() => {
+          draft.document.fileToUploadError = FileUploadErrors.FILE_REQUIRED
+          new DraftService().save(draft, user.bearerToken).then(() => {
             res.redirect(Paths.documentUploadPage.uri)
           })
         } else if (file.size > FILE_SIZE_LIMIT) {
-          viewDraft.document.fileToUploadError = FileUploadErrors.FILE_TOO_LARGE
-          new DraftService().save(viewDraft, user.bearerToken).then(() => {
+          draft.document.fileToUploadError = FileUploadErrors.FILE_TOO_LARGE
+          new DraftService().save(draft, user.bearerToken).then(() => {
             res.redirect(Paths.documentUploadPage.uri)
           })
         } else if (!acceptedFileType) {
-          viewDraft.document.fileToUploadError = FileUploadErrors.WRONG_FILE_TYPE
-          new DraftService().save(viewDraft, user.bearerToken).then(() => {
+          draft.document.fileToUploadError = FileUploadErrors.WRONG_FILE_TYPE
+          new DraftService().save(draft, user.bearerToken).then(() => {
             res.redirect(Paths.documentUploadPage.uri)
           })
         } else {
           DocumentsClient.save(user.bearerToken, file).then((documentManagementURI) => {
-            const documentType: DocumentType = viewDraft.document.fileToUpload
+            const documentType: DocumentType = draft.document.fileToUpload
             let files: UploadedDocument[] = []
             draft.document.uploadedDocuments.map((file) => files.push(new UploadedDocument().deserialize(file)))
 
@@ -65,11 +63,9 @@ export default express.Router()
               }
             })
             draft.document.uploadedDocuments = files
-            new DraftService().save(draft, user.bearerToken)
-
-            viewDraft.document.fileToUploadError = undefined
-            viewDraft.document.fileToUpload = undefined
-            new DraftService().save(viewDraft, user.bearerToken).then(() => {
+            draft.document.fileToUploadError = undefined
+            draft.document.fileToUpload = undefined
+            new DraftService().save(draft, user.bearerToken).then(() => {
               res.redirect(Paths.documentUploadPage.uri)
             })
           }).catch(next)

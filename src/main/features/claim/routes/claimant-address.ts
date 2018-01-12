@@ -10,7 +10,6 @@ import ErrorHandling from 'common/errorHandling'
 import { Claimants } from 'common/router/claimants'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
-import { DraftView } from 'app/drafts/models/draftView'
 
 function renderView (form: Form<Address>, res: express.Response): void {
 
@@ -32,7 +31,6 @@ export default express.Router()
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const form: Form<Address> = req.body
       const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
-      const viewDraft: Draft<DraftView> = res.locals.viewDraft
 
       if (form.hasErrors()) {
         renderView(form, res)
@@ -40,8 +38,8 @@ export default express.Router()
         const index: number = Claimants.getIndex(res)
         draft.document.claimants[index].address = form.model
         await new DraftService().save(draft, res.locals.user.bearerToken)
-        viewDraft.document.claimantChangeIndex = undefined
-        await new DraftService().save(viewDraft, res.locals.user.bearerToken)
+        draft.document.claimantChangeIndex = undefined
+        await new DraftService().save(draft, res.locals.user.bearerToken)
         res.redirect(Paths.claimantAdditionPage.uri)
       }
     })

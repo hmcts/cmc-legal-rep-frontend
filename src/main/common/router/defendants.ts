@@ -4,7 +4,6 @@ import { PartyType } from 'app/common/partyType'
 import { Paths as ClaimPaths } from 'claim/paths'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
-import { DraftView } from 'app/drafts/models/draftView'
 
 export class Defendants {
 
@@ -32,8 +31,8 @@ export class Defendants {
   }
 
   static getIndex (res: express.Response): number {
-    const viewDraft: Draft<DraftView> = res.locals.viewDraft
-    const changeIndex = viewDraft.document.defendantChangeIndex
+    const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+    const changeIndex = draft.document.defendantChangeIndex
     return changeIndex !== undefined ? changeIndex : Defendants.getCurrentIndex(res)
   }
 
@@ -75,8 +74,23 @@ export class Defendants {
     const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
     const defendants = draft.document.defendants
     const defendantDetails = defendants[Defendants.getIndex(res)].defendantDetails
-    const isIndividual = defendantDetails.type.value === PartyType.INDIVIDUAL.value
-    return isIndividual ? defendantDetails.fullName : defendantDetails.organisation
+    let defendantName
+    switch (defendantDetails.type.value) {
+      case PartyType.INDIVIDUAL.value:
+        defendantName = defendantDetails.fullName
+        break
+      case PartyType.ORGANISATION.value:
+        defendantName = defendantDetails.organisation
+        break
+      case PartyType.SOLE_TRADER.value:
+        if (defendantDetails.businessName) {
+          defendantName = defendantDetails.soleTraderName + ' trading as ' + defendantDetails.businessName
+        } else {
+          defendantName = defendantDetails.soleTraderName
+        }
+        break
+    }
+    return defendantName
   }
 
   static getPartyStrip (res: express.Response): string {

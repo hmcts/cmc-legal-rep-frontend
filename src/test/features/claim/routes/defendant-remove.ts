@@ -65,7 +65,6 @@ describe('Claim issue: is defendant removal page, single defendant', () => {
     draftStoreServiceMock.resolveFind('legalClaim')
     idamServiceMock.resolveRetrieveServiceToken()
     idamServiceMock.resolveRetrieveServiceToken()
-    draftStoreServiceMock.resolveFind('view')
     idamServiceMock.resolveRetrieveUserFor('1', ...roles)
   })
 
@@ -89,7 +88,6 @@ describe('Claim issue: is defendant removal page, multiple defendants', () => {
     draftStoreServiceMock.resolveFind('legalClaim', twoDefendants)
     idamServiceMock.resolveRetrieveServiceToken()
     idamServiceMock.resolveRetrieveServiceToken()
-    draftStoreServiceMock.resolveFind('view')
     idamServiceMock.resolveRetrieveUserFor('1', ...roles)
   })
   describe('on GET', () => {

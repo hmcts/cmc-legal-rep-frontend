@@ -39,7 +39,7 @@ export default class FeesClient {
    */
   static calculateMaxIssueFee (): Promise<FeeResponse> {
     return request.get(`${feesUrl}/range-groups/${issueFeeCode}/calculations/unspecified`)
-      .then((body: any) => plainToClass(FeeResponse, body))
+      .then((body: object) => plainToClass(FeeResponse, body))
   }
 
   /**
@@ -56,7 +56,7 @@ export default class FeesClient {
     }
 
     return request.get(`${feesUrl}/range-groups/${feeCode}/calculations?value=${amountInPennies}`)
-      .then((body: any) => plainToClass(FeeResponse, body))
+      .then((body: object) => plainToClass(FeeResponse, body))
   }
 
 }

@@ -63,8 +63,6 @@ describe('Claim issue: Defendant change page', () => {
   beforeEach(() => {
     mock.cleanAll()
     draftStoreServiceMock.resolveUpdate()
-    draftStoreServiceMock.resolveFind('view')
-    draftStoreServiceMock.resolveSave()
     idamServiceMock.resolveRetrieveUserFor('1', ...roles)
   })
 
