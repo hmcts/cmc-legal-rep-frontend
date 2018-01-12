@@ -14,7 +14,7 @@
 
         {% set name = 'serviceMethod[value]' %}
         {% set fieldName = 'serviceMethod' %}
-        {% if defendantType === 'individual' %}
+        {% if defendantType === 'INDIVIDUAL' %}
           {{
           radioGroupWithMoreOptions(
           "Choose one method only - we'll use this to calculate date of service.",
@@ -36,7 +36,7 @@
           fieldName = fieldName
           )
           }}
-        {% elseif defendantType === 'organisation' %}
+        {% elseif defendantType === 'ORGANISATION' %}
           {{
           radioGroupWithMoreOptions(
           "Choose one method only - we'll use this to calculate date of service.",
@@ -58,14 +58,14 @@
           fieldName = fieldName
           )
           }}
-        {% elseif defendantType === 'soleTrader' %}
+        {% elseif defendantType === 'SOLE_TRADER' %}
           {{
           radioGroupWithMoreOptions(
           "Choose one method only - we'll use this to calculate date of service.",
           name,
           [
           {label: ServiceMethod.FIRST_CLASS_POST.displayValue, value: ServiceMethod.FIRST_CLASS_POST.value},
-          {label: ServiceMethod.FAX.displayValue, value: ServiceMethod.FAX.value},
+          {label: ServiceMethod.FAX.displayValue, value: ServiceMethod.FAX.value}
           ],
           [
           {label: ServiceMethod.OTHER_NEXT_DAY.displayValue, value: ServiceMethod.OTHER_NEXT_DAY.value},

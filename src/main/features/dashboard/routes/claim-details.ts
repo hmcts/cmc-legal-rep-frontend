@@ -6,10 +6,18 @@ import ErrorHandling from 'common/errorHandling'
 import { Paths } from 'claim/paths'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftDashboard } from 'drafts/models/draftDashboard'
+import { DraftCertificateOfService } from 'drafts/models/draftCertificateOfService'
+import { DraftService } from 'services/draftService'
 
 async function renderView (req: express.Request, res: express.Response): Promise<void> {
   const dashboardDraft: Draft<DraftDashboard> = res.locals.dashboardDraft
   const claim: Claim = await ClaimStoreClient.retrieveByClaimReference(dashboardDraft.document.search.reference, res.locals.user.bearerToken)
+
+  // TODO move to certificate of service post request
+  const draft: Draft<DraftCertificateOfService> = res.locals.legalCertificateOfServiceDraft
+  draft.document.defendants = claim.claimData.defendants
+  await new DraftService().save(draft, res.locals.user.bearerToken)
+
   res.render(DashboardPaths.claimDetailsPage.associatedView, {
     claimNumber: claim.claimNumber,
     partyStripeValue: claim.claimNumber,

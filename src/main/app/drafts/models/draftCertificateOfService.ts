@@ -11,7 +11,7 @@ export class DraftCertificateOfService extends DraftDocument implements Serializ
   whatDocuments: WhatDocuments = new WhatDocuments()
   fileToUpload: DocumentType
   fileToUploadError: FileUploadErrors
-  defendants: TheirDetails[] = []
+  defendants: TheirDetails[] = [new TheirDetails()]
   currentDefendant: number = 1
 
   deserialize (input: any): DraftCertificateOfService {
