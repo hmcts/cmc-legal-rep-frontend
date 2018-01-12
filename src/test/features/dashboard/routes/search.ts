@@ -19,6 +19,7 @@ describe('Dashboard: search page', () => {
   beforeEach(() => {
     mock.cleanAll()
     draftStoreServiceMock.resolveFind('dashboard')
+    draftStoreServiceMock.resolveFind('legalCertificateOfService')
   })
 
   describe('on GET', () => {

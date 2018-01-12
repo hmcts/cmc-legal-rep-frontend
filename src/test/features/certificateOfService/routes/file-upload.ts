@@ -20,6 +20,7 @@ describe('Certificate of Service: file upload', () => {
     mock.cleanAll()
     draftStoreServiceMock.resolveFind('legalCertificateOfService')
     draftStoreServiceMock.resolveUpdate().persist()
+    draftStoreServiceMock.resolveFind('dashboard')
   })
 
   describe('on POST', () => {

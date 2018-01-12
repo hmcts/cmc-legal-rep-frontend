@@ -28,6 +28,9 @@ describe('Dashboard: claim details page', () => {
       idamServiceMock.resolveRetrieveServiceToken()
       draftStoreServiceMock.resolveFind('dashboard')
       claimStoreServiceMock.resolveRetrieveClaimByClaimNumber()
+      draftStoreServiceMock.resolveFind('legalCertificateOfService')
+      draftStoreServiceMock.resolveUpdate()
+
       await request(app)
         .get(DashboardPaths.claimDetailsPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
