@@ -96,7 +96,7 @@
     "@types/supertest": "*",
     "chai": "^4.1.1",
     "chai-as-promised": "^7.1.1",
-    "chai-spies": "^0.7.1",
+    "chai-spies": "^1.0.0",
     "es6-promisify": "^5.0.0",
     "gulp": "^3.9.1",
     "gulp-livereload": "^3.8.1",
