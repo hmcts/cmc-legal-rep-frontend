@@ -20,7 +20,7 @@ export class Cookie {
   }
 
   public static saveCookie (legalRepresentativeDetails: RepresentativeDetails[], id: string, legalRepDetails: RepresentativeDetails): RepresentativeDetails[] {
-    let representativeDetails: RepresentativeDetails[] = legalRepresentativeDetails === undefined ? [] : legalRepresentativeDetails
+    let representativeDetails: RepresentativeDetails[] = (legalRepresentativeDetails === undefined || legalRepresentativeDetails.length === undefined) ? [] : legalRepresentativeDetails
     representativeDetails = representativeDetails.filter(function (representativeDetail: RepresentativeDetails) {
       return representativeDetail.id !== id
     })
