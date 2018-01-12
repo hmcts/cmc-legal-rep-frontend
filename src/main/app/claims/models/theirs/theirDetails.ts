@@ -8,7 +8,7 @@ export class TheirDetails implements Serializable<TheirDetails> {
   name: string
   address: Address
   representative: Representative
-  howWereYouServed: HowDidYouServe
+  howWereYouServed: HowDidYouServe = new HowDidYouServe()
 
   constructor (type?: string, name?: string, address?: Address, representative?: Representative, howWereYouServed?: HowDidYouServe) {
     this.type = type
