@@ -11,13 +11,11 @@ import { FileTypes } from 'forms/models/fileTypes'
 import { DocumentUpload } from 'forms/models/documentUpload'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftCertificateOfService } from 'drafts/models/draftCertificateOfService'
-import { DraftUploadDocument } from 'drafts/models/draftUploadDocument'
 
 function renderView (form: Form<DocumentUpload>, res: express.Response): void {
   const draft: Draft<DraftCertificateOfService> = res.locals.legalCertificateOfServiceDraft
-  const viewDraft: Draft<DraftUploadDocument> = res.locals.legalUploadDocumentDraft
   const files: UploadedDocument[] = draft.document.uploadedDocuments
-  const fileToUpload: DocumentType = viewDraft.document.fileToUpload
+  const fileToUpload: DocumentType = draft.document.fileToUpload
   const whatDocuments: WhatDocuments = draft.document.whatDocuments
 
   const particularsOfClaim: UploadedDocument[] = files.filter(function (file: UploadedDocument) {
@@ -32,10 +30,9 @@ function renderView (form: Form<DocumentUpload>, res: express.Response): void {
   const other: UploadedDocument[] = files.filter(function (file: UploadedDocument) {
     return file.documentType.value === DocumentType.OTHER.value
   })
-
-  const minDifferentFilesRequired: number = (whatDocuments.types.indexOf('responsePack') !== -1) ? whatDocuments.types.length : whatDocuments.types.length - 1
+  const minDifferentFilesRequired: number = (whatDocuments.types.includes('responsePack')) ? whatDocuments.types.length - 1 : whatDocuments.types.length
   const differentFilesCount: number = files.reduce((accumulator, currentValue) => accumulator + 1, 0)
-  const canContinue: boolean = minDifferentFilesRequired < differentFilesCount
+  const canContinue: boolean = minDifferentFilesRequired <= differentFilesCount
 
   res.render(Paths.documentUploadPage.associatedView,
     {
@@ -53,33 +50,34 @@ function renderView (form: Form<DocumentUpload>, res: express.Response): void {
 
 export default express.Router()
   .get(Paths.documentUploadPage.uri, (req: express.Request, res: express.Response) => {
-    const viewDraft: Draft<DraftUploadDocument> = res.locals.legalUploadDocumentDraft
+    const draft: Draft<DraftCertificateOfService> = res.locals.legalCertificateOfServiceDraft
     const form = new Form(new DocumentUpload())
-    if (viewDraft.document.fileToUploadError) {
+    if (draft.document.fileToUploadError) {
       const validationError = new ValidationError()
       validationError.property = 'files'
       validationError.target = 'files'
-      validationError.constraints = { ['files']: viewDraft.document.fileToUploadError.displayValue }
+      validationError.constraints = { ['files']: draft.document.fileToUploadError.displayValue }
       form.errors.push(new FormValidationError(validationError, ''))
     }
     renderView(form, res)
   })
   .post(Paths.documentUploadPage.uri,
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
-      const viewDraft: Draft<DraftUploadDocument> = res.locals.legalUploadDocumentDraft
+      const draft: Draft<DraftCertificateOfService> = res.locals.legalCertificateOfServiceDraft
       const form = req.body
       if (form.particularsOfClaim) {
-        viewDraft.document.fileToUpload = DocumentType.PARTICULARS_OF_CLAIM
+        draft.document.fileToUpload = DocumentType.PARTICULARS_OF_CLAIM
       } else if (form.medicalReport) {
-        viewDraft.document.fileToUpload = DocumentType.MEDICAL_REPORTS
+        draft.document.fileToUpload = DocumentType.MEDICAL_REPORTS
       } else if (form.scheduleOfLoss) {
-        viewDraft.document.fileToUpload = DocumentType.SCHEDULE_OF_LOSS
+        draft.document.fileToUpload = DocumentType.SCHEDULE_OF_LOSS
       } else if (form.other) {
-        viewDraft.document.fileToUpload = DocumentType.OTHER
+        draft.document.fileToUpload = DocumentType.OTHER
       }
-      viewDraft.document.fileToUploadError = undefined
 
-      await new DraftService().save(viewDraft, res.locals.user.bearerToken)
+      draft.document.fileToUploadError = undefined
+
+      await new DraftService().save(draft, res.locals.user.bearerToken)
 
       if (form.saveAndContinue) {
         res.redirect(Paths.howDidYouServePage.uri)

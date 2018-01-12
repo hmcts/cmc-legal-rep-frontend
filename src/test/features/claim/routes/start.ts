@@ -17,7 +17,6 @@ describe('Claim issue: start page', () => {
     mock.cleanAll()
     DraftStoreServiceMock.resolveFind('legalClaim')
     DraftStoreServiceMock.resolveFind('legalCertificateOfService')
-    DraftStoreServiceMock.resolveFind('legalUploadDocument')
   })
 
   describe('on GET', () => {

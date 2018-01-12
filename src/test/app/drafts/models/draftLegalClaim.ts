@@ -28,6 +28,10 @@ function verifyDefaultValues (initialValue: any) {
   expect(actualDraft.defendants).to.eql(expected.defendants)
   expect(actualDraft.statementOfTruth).to.eql(expected.statementOfTruth)
   expect(actualDraft.feeAccount).to.eql(expected.feeAccount)
+  expect(actualDraft.isDefendantDeleted).to.eql(expected.isDefendantDeleted)
+  expect(actualDraft.isClaimantDeleted).to.eql(expected.isClaimantDeleted)
+  expect(actualDraft.defendantChangeIndex).to.eql(expected.defendantChangeIndex)
+  expect(actualDraft.claimantChangeIndex).to.eql(expected.claimantChangeIndex)
 }
 
 describe('DraftLegalClaim', () => {

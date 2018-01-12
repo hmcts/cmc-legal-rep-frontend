@@ -16,11 +16,7 @@ function createDefendants (res: express.Response, defendantChangeIndex?: number)
   }
   res.locals.legalClaimDraft = {
     document: {
-      defendants: []
-    }
-  }
-  res.locals.viewDraft = {
-    document: {
+      defendants: [],
       defendantChangeIndex: defendantChangeIndex
     }
   }
@@ -94,7 +90,7 @@ describe('Defendants', () => {
   })
 
   describe('getIndex', () => {
-    it('should give change index from view draft', async () => {
+    it('should give change index from draft', async () => {
       const res: express.Response = mockRes()
       createDefendants(res, 1)
 

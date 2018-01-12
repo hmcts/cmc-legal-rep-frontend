@@ -4,7 +4,6 @@ import { PartyType } from 'app/common/partyType'
 import { Paths as ClaimPaths } from 'claim/paths'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
-import { DraftView } from 'app/drafts/models/draftView'
 
 export class Defendants {
 
@@ -32,8 +31,8 @@ export class Defendants {
   }
 
   static getIndex (res: express.Response): number {
-    const viewDraft: Draft<DraftView> = res.locals.viewDraft
-    const changeIndex = viewDraft.document.defendantChangeIndex
+    const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+    const changeIndex = draft.document.defendantChangeIndex
     return changeIndex !== undefined ? changeIndex : Defendants.getCurrentIndex(res)
   }
 

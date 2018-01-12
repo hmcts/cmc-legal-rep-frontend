@@ -19,7 +19,6 @@ describe('Certificate of Service: file upload', () => {
   beforeEach(() => {
     mock.cleanAll()
     draftStoreServiceMock.resolveFind('legalCertificateOfService')
-    draftStoreServiceMock.resolveFind('legalUploadDocument')
     draftStoreServiceMock.resolveUpdate().persist()
   })
 

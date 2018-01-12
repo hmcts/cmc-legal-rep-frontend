@@ -9,11 +9,9 @@ import { RouterFinder } from 'common/router/routerFinder'
 import { buildURL } from 'utils/callbackBuilder'
 import { OAuthHelper } from 'idam/oAuthHelper'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
-import { DraftView } from 'drafts/models/draftView'
 import { DraftMiddleware } from '@hmcts/cmc-draft-store-middleware'
 import { DraftService } from 'services/draftService'
 import { DraftCertificateOfService } from 'drafts/models/draftCertificateOfService'
-import { DraftUploadDocument } from 'drafts/models/draftUploadDocument'
 
 function claimIssueRequestHandler (): express.RequestHandler {
   function accessDeniedCallback (req: express.Request, res: express.Response): void {
@@ -38,26 +36,10 @@ export class Feature {
         return new DraftLegalClaim().deserialize(value)
       }))
 
-    app.all(/^\/legal\/claim\/(claimant)-(add|remove|address|type|change)$/,
-      DraftMiddleware.requestHandler<DraftView>(new DraftService(), 'view', 100, (value: any): DraftView => {
-        return new DraftView().deserialize(value)
-      }))
-
-    app.all(/^\/legal\/claim\/(defendant)-.*$/,
-      DraftMiddleware.requestHandler<DraftView>(new DraftService(), 'view', 100, (value: any): DraftView => {
-        return new DraftView().deserialize(value)
-      }))
-
     app.all('/legal/claim/start',
       DraftMiddleware.requestHandler<DraftCertificateOfService>(new DraftService(), 'legalCertificateOfService',
         100, (value: any): DraftCertificateOfService => {
           return new DraftCertificateOfService().deserialize(value)
-        }))
-
-    app.all('/legal/claim/start',
-      DraftMiddleware.requestHandler<DraftUploadDocument>(new DraftService(),'legalUploadDocument',
-        100, (value: any): DraftUploadDocument => {
-          return new DraftUploadDocument().deserialize(value)
         }))
 
     app.use('/', RouterFinder.findAll(path.join(__dirname, 'routes')))

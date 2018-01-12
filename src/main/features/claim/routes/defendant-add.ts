@@ -12,20 +12,18 @@ import { DraftService } from 'services/draftService'
 import { ValidationError } from 'class-validator'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
-import { DraftView } from 'app/drafts/models/draftView'
 
 const MAX_DEFENDANTS_ALLOWED: number = 20
 const ERROR_MESSAGE: string = `You can't add more than ${MAX_DEFENDANTS_ALLOWED} defendants`
 
 function renderView (form: Form<DefendantAddition>, res: express.Response) {
   const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
-  const viewDraft: Draft<DraftView> = res.locals.viewDraft
   const defendants = draft.document.defendants
 
   res.render(Paths.defendantAdditionPage.associatedView, {
     form: form,
     maxAllowedLimit: MAX_DEFENDANTS_ALLOWED,
-    defendants: viewDraft.document.isDefendantDeleted || defendants.length > 1 ? defendants : null
+    defendants: draft.document.isDefendantDeleted || defendants.length > 1 ? defendants : null
   })
 }
 

@@ -21,7 +21,6 @@ describe('Claim issue: defendant type page', () => {
   beforeEach(() => {
     mock.cleanAll()
     draftStoreServiceMock.resolveFind('legalClaim')
-    draftStoreServiceMock.resolveFind('view')
   })
 
   describe('on GET', () => {
