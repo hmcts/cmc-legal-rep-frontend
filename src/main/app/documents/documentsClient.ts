@@ -1,6 +1,6 @@
 import * as config from 'config'
 import { request, requestNonPromise } from 'client/request'
-import * as http from 'http'
+import { Request } from 'request'
 import StringUtils from 'app/utils/stringUtils'
 import * as fs from 'fs'
 import * as URL from 'url-parse'
@@ -10,7 +10,7 @@ const documentManagementUrl = config.get<string>('documentManagement.url')
 
 export default class DocumentsClient {
 
-  static getSealedClaim (claimExternalId: string, userAuthToken: string): http.IncomingMessage {
+  static getSealedClaim (claimExternalId: string, userAuthToken: string): Request {
     if (StringUtils.isBlank(claimExternalId)) {
       throw new Error('Claim external ID cannot be blank')
     }
@@ -61,7 +61,7 @@ export default class DocumentsClient {
       })
   }
 
-  static getDocument (userAuthToken: string, path: string): http.IncomingMessage {
+  static getDocument (userAuthToken: string, path: string): Request {
     const endpointURL: string = `${documentManagementUrl}${path}`
 
     return requestNonPromise.get(endpointURL, {

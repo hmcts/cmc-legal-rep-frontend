@@ -16,8 +16,9 @@ import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 import { Cookie } from 'forms/models/cookie'
 import CookieProperties from 'common/cookieProperties'
+import { Logger } from '@hmcts/nodejs-logging'
 
-const logger = require('@hmcts/nodejs-logging').getLogger('router/pay-by-account')
+const logger = Logger.getLogger('router/pay-by-account')
 
 function logError (id: number, message: string) {
   logger.error(`${message} (User Id : ${id})`)
