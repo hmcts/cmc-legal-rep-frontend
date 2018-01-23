@@ -21,16 +21,20 @@ export default class ClaimStoreClient {
     })
   }
 
-  static retrieveByExternalId (externalId: string, userId: string): Promise<Claim> {
-    if (!externalId) {
-      return Promise.reject(new Error('External id must be set'))
+  static retrieveByExternalId (externalId: string, user: User): Promise<Claim> {
+    if (!externalId || !user) {
+      return Promise.reject(new Error('External id must be set and user must be set'))
     }
 
     return request
-      .get(`${claimStoreApiUrl}/${externalId}`)
+      .get(`${claimStoreApiUrl}/${externalId}`, {
+        headers: {
+          Authorization: `Bearer ${user.bearerToken}`
+        }
+      })
       .then(claim => {
         if (claim) {
-          if (userId !== claim.submitterId) {
+          if (user.id !== claim.submitterId) {
             throw new ForbiddenError()
           }
 

@@ -17,7 +17,7 @@ export default express.Router()
   .get(Paths.receiptReceiver.uri, async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const { externalId } = req.params
     try {
-      const claim: Claim = await ClaimStoreClient.retrieveByExternalId(externalId, res.locals.user.id)
+      const claim: Claim = await ClaimStoreClient.retrieveByExternalId(externalId, res.locals.user)
 
       const sealedClaim = claim.sealedClaimDocumentSelfPath === undefined
         ? DocumentsClient.getSealedClaim(externalId, res.locals.user.bearerToken)
