@@ -8,7 +8,7 @@ import { MomentFormatter } from 'app/utils/momentFormatter'
 async function renderView (req: express.Request, res: express.Response): Promise<void> {
   const { externalId } = req.params
 
-  const claim: Claim = await ClaimStoreClient.retrieveByExternalId(externalId, res.locals.user.id)
+  const claim: Claim = await ClaimStoreClient.retrieveByExternalId(externalId, res.locals.user)
 
   res.render(Paths.claimSubmittedPage.associatedView, {
     claimNumber: claim.claimNumber,
