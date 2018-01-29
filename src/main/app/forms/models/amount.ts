@@ -1,5 +1,5 @@
 import * as _ from 'lodash'
-import { IsEmpty, IsNumber, IsOptional, Min, ValidateIf } from 'class-validator'
+import { IsEmpty, IsPositive, IsOptional, Min, ValidateIf } from 'class-validator'
 import { Fractions } from 'forms/validation/validators/fractions'
 import { Serializable } from 'app/models/serializable'
 import { IsLowerThan } from 'app/forms/validation/validators/isLowerThan'
@@ -28,7 +28,7 @@ export class Amount implements Serializable<Amount> {
   cannotState?: string
 
   @IsOptional()
-  @IsNumber({ message: ValidationErrors.LOWER_VALUE_AMOUNT_NOT_VALID })
+  @IsPositive({ message: ValidationErrors.LOWER_VALUE_AMOUNT_NOT_VALID })
   @Fractions(0, 2, { message: ValidationErrors.AMOUNT_INVALID_DECIMALS })
   @Min(Amount.MIN_ALLOWED, { message: ValidationErrors.LOWER_VALUE_AMOUNT_NOT_VALID })
   @IsLowerThan('higherValue', { message: ValidationErrors.LOWER_VALUE_LESS_THAN_UPPER_NOT_VALID })
