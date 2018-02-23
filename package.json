@@ -18,8 +18,10 @@
     "test": "NODE_ENV=mocha LOG_LEVEL=OFF mocha --opts mocha.opts $(find src/test \\( -name '*.ts' -or -name '*.js' \\) ! -path '*a11y*' ! -path '*/routes/*') --reporter mochawesome --reporter-options reportFilename=unit,inlineAssets=true,reportTitle=legal-rep-frontend-unit",
     "test:routes": "NODE_ENV=mocha LOG_LEVEL=OFF mocha --opts mocha.opts $(find src/test \\( -name '*.ts' -or -name '*.js' \\) -path '*/routes/*') --reporter mochawesome --reporter-options reportFilename=routes,inlineAssets=true,reportTitle=legal-rep-frontend-routes",
     "test:a11y": "LOG_LEVEL=OFF mocha --exit --opts mocha.opts -r tsconfig-paths/register src/test/a11y/a11y.ts --timeout 60000 --reporter mochawesome --reporter-options reportFilename=a11y,inlineAssets=true,reportTitle=legal-rep-frontend-a11y",
+    "test:functional": "./bin/run-functional-tests.sh",
     "test:nsp": "nsp check",
     "test:coverage": "cross-env NODE_PATH=. NODE_ENV=mocha LOG_LEVEL=OFF nyc mocha --compilers ts:ts-node/register -r tsconfig-paths/register $(find src/test \\( -name '*.ts' -or -name '*.js' \\) ! -path '*a11y*')",
+    "test:smoke": "./bin/run-smoke-tests.sh",
     "sonar-scanner": "cross-env NODE_PATH=. sonar-scanner -Dsonar.projectKey='CMCLFE' -Dsonar.projectName='CMC :: Legal Frontend' -Dsonar.sources=src/main -Dsonar.tests=src/test -Dsonar.exclusions=src/main/public/**,src/main/modules/** -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info",
     "precommit": "yarn lint",
     "prepush": "yarn test && yarn test:routes"
