@@ -18,6 +18,7 @@ import { Feature as CertificateOfServiceFeature } from 'certificateOfService/ind
 import { CsrfProtection } from 'modules/csrf'
 import { DashboardFeature } from 'dashboard/index'
 import CookieProperties from 'common/cookieProperties'
+import healthEndpoint from 'routes/health'
 import * as toBoolean from 'to-boolean'
 
 export const app: express.Express = express()
@@ -70,6 +71,7 @@ if (toBoolean(config.get<boolean>('featureToggles.dashboard'))) {
   new DashboardFeature().enableFor(app)
 }
 
+app.use('/', healthEndpoint)
 app.use('/legal', RouterFinder.findAll(path.join(__dirname, 'routes')))
 
 // Below will match all routes not covered by the router, which effectively translates to a 404 response
