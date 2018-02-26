@@ -34,7 +34,9 @@ module "legal-frontend" {
   location = "${var.location}"
   env = "${var.env}"
   ilbIp = "${var.ilbIp}"
-
+  is_frontend  = true
+  subscription = "${var.subscription}"
+  
   app_settings = {
     WEBSITE_NODE_DEFAULT_VERSION = "8.9.0"
 
