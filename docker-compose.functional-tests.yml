@@ -6,7 +6,7 @@ services:
       command: test --grep '@legal($$| )'
       environment:
         - WEB_DRIVER_HOST=remote-webdriver
-        - LEGAL_APP_URL=${TEST_URL}
+        - LEGAL_APP_URL=${TEST_URL}/legal
         - IDAM_URL
         - CLAIM_STORE_URL
         - HEALTHCHECK_LEGAL=true
