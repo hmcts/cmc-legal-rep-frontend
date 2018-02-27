@@ -84,6 +84,9 @@ module "legal-frontend" {
 
     // Feature toggles
     FEATURE_TESTING_SUPPORT = "${var.env == "prod" ? "false" : "true"}" // Enabled everywhere except prod
+    FEATURE_DASHBOARD = "${var.feature_dashboard}"
+    FEATURE_IDAMOAUTH = "${var.feature_idamOauth}"
+    FEATURE_CERTIFICATEOFSERVICE = "${var.feature_certificateOfService}"
   }
 }
 

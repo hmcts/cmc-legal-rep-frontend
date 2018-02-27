@@ -45,6 +45,19 @@ variable "vault_section" {
   default = "test"
 }
 
+// feature toggles
+variable "feature_dashboard" {
+  default = "false"
+}
+
+variable "feature_idamOauth" {
+  default = "false"
+}
+
+variable "feature_certificateOfService" {
+  default = "false"
+}
+
 variable "jenkins_AAD_objectId" {
   type                        = "string"
   description                 = "(Required) The Azure AD object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault. The object ID must be unique for the list of access policies."
