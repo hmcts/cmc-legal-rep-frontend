@@ -1,3 +1,3 @@
-feature_dashboard = "true"
+feature_dashboard = "false"
 feature_idamOauth = "true"
-feature_certificateOfService = "true"
+feature_certificateOfService = "false"

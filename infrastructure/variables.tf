@@ -1,6 +1,6 @@
 // Infrastructural variables
 variable "product" {
-  default = "cmc"
+  default = "cmc-legal"
 }
 
 variable "microservice" {
