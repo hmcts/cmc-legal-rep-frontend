@@ -51,7 +51,7 @@ variable "feature_dashboard" {
 }
 
 variable "feature_idamOauth" {
-  default = "false"
+  default = "true"
 }
 
 variable "feature_certificateOfService" {
