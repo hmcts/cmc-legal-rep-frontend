@@ -3,10 +3,13 @@ version: '2.1'
 services:
     integration-tests:
       image: docker.artifactory.reform.hmcts.net/cmc/integration-tests:${INTEGRATION_TESTS_VERSION:-latest}
-      command: test --grep '@legal($$| )'
+      command: test --grep 'I can fill in Organisation details for Claimant, Defendant, Claim amount and Submit the claim @legal'
       environment:
         - WEB_DRIVER_HOST=remote-webdriver
         - LEGAL_APP_URL=${TEST_URL}/legal
+        - http_proxy
+        - https_proxy
+        - no_proxy=remote-webdriver
         - IDAM_URL
         - CLAIM_STORE_URL
         - HEALTHCHECK_LEGAL=true
