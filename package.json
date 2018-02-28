@@ -25,7 +25,7 @@
     "test:codacy-upload": "cat ./coverage/lcov.info | codacy-coverage",
     "test:codecov-upload": "codecov -f ./coverage/lcov.info",
     "test:smoke": "./bin/run-smoke-tests.sh",
-    "sonar-scan": "sonar-scanner -Dsonar.projectKey='CMCLFE' -Dsonar.projectName='CMC :: Legal Frontend' -Dsonar.sources=src/main -Dsonar.tests=src/test -Dsonar.exclusions=src/main/public/** -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info",
+    "sonar-scan": "sonar-scanner -Dsonar.projectKey='CMCLFE' -Dsonar.projectName='CMC :: Legal Frontend' -Dsonar.sources=src/main -Dsonar.tests=src/test -Dsonar.exclusions=src/main/public/**,src/main/features/dashboard/routes/** -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info",
 
     "precommit": "yarn lint",
     "prepush": "yarn test && yarn test:routes"
