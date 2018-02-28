@@ -38,8 +38,6 @@ module "legal-frontend" {
   subscription = "${var.subscription}"
 
   app_settings = {
-    WEBSITE_NODE_DEFAULT_VERSION = "8.9.0"
-
     // Node specific vars
     NODE_ENV = "${var.env == "prod" ? "prod" : "dev"}"
     UV_THREADPOOL_SIZE = "64"
