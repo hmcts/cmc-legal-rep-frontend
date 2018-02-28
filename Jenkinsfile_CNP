@@ -1,6 +1,6 @@
 #!groovy
 
-@Library("Infrastructure")
+@Library("Infrastructure@skip-static")
 
 String product = "cmc"
 String component = "legal-frontend"
