@@ -55,7 +55,6 @@
     "clientSecret": "123456"
   },
   "featureToggles": {
-    "clusterMode": false,
     "idamOauth": false,
     "dashboard": false,
     "certificateOfService": false
