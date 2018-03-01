@@ -29,5 +29,8 @@
     "idamOauth": true,
     "dashboard": true,
     "certificateOfService": true
+  },
+  "appInsights": {
+    "instrumentationKey": "dummy-app-insights-instrumentation-key"
   }
 }

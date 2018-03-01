@@ -1,5 +1,8 @@
 {
   "featureToggles": {
     "idamOauth": true
+  },
+  "appInsights": {
+    "instrumentationKey": "dummy-app-insights-instrumentation-key"
   }
 }

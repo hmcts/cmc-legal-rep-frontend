@@ -56,6 +56,9 @@
   },
   "feedback_legal_service_survey": "FEEDBACK_SURVEY_URL",
   "feedback_legal_report_problem_survey": "FEEDBACK_REPORT_PROBLEM_URL",
-  "feedback_legal_survey": "FEEDBACK_URL"
+  "feedback_legal_survey": "FEEDBACK_URL",
+  "appInsights": {
+    "instrumentationKey": "APPINSIGHTS_INSTRUMENTATIONKEY"
+  }
 }
 
