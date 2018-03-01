@@ -118,5 +118,15 @@ describe('Claim issue: Defendant change page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantServiceAddressPage.uri))
     })
+
+    it('should return 500 and render error page when cannot save draft', async () => {
+      draftStoreServiceMock.resolveFind('legalClaim', defendants)
+      draftStoreServiceMock.rejectSave()
+
+      await request(app)
+        .get(ClaimPaths.defendantChangePage.uri + '?index=1')
+        .set('Cookie', `${cookieName}=ABC`)
+        .expect(res => expect(res).to.be.serverError.withText('Error'))
+    })
   })
 })

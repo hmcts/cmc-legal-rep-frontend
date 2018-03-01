@@ -16,8 +16,8 @@ import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 const cookieName: string = config.get<string>('session.cookieName')
 const roles: string[] = ['solicitor']
 
-const twoDefendants = {
-  defendants: [{
+const twoClaimants = {
+  claimants: [{
     address: {
       line1: 'Apt 99',
       city: 'London',
@@ -32,7 +32,7 @@ const twoDefendants = {
         postcode: 'E1'
       }
     },
-    defendantDetails: {
+    claimantDetails: {
       type: 'INDIVIDUAL',
       fullName: 'fullName'
     }
@@ -52,14 +52,14 @@ const twoDefendants = {
           postcode: 'E1'
         }
       },
-      defendantDetails: {
+      claimantDetails: {
         type: 'INDIVIDUAL',
         fullName: 'fullName'
       }
     }]
 }
 
-describe('Claim issue: is defendant removal page, single defendant', () => {
+describe('Claim issue: is claimant removal page, single claimant', () => {
   beforeEach(() => {
     mock.cleanAll()
     draftStoreServiceMock.resolveFind('legalClaim')
@@ -69,47 +69,47 @@ describe('Claim issue: is defendant removal page, single defendant', () => {
   })
 
   describe('on GET', () => {
-    checkAuthorizationGuards(app, 'get', ClaimPaths.defendantRemovePage.uri)
+    checkAuthorizationGuards(app, 'get', ClaimPaths.claimantRemovePage.uri)
 
-    it('should redirect to defendant type page for one existing defendant when everything is fine', async () => {
+    it('should redirect to claimant type page for one claimant defendant when everything is fine', async () => {
       draftStoreServiceMock.resolveUpdate()
       draftStoreServiceMock.resolveUpdate()
 
       await request(app)
-        .get(ClaimPaths.defendantRemovePage.uri + '?index=1')
+        .get(ClaimPaths.claimantRemovePage.uri + '?index=1')
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantTypePage.uri))
+        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimantTypePage.uri))
     })
 
     it('should return 500 and render error page when cannot save draft', async () => {
       draftStoreServiceMock.rejectSave()
 
       await request(app)
-        .get(ClaimPaths.defendantRemovePage.uri + '?index=1')
+        .get(ClaimPaths.claimantRemovePage.uri + '?index=1')
         .set('Cookie', `${cookieName}=ABC`)
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
   })
 })
-describe('Claim issue: is defendant removal page, multiple defendants', () => {
+describe('Claim issue: is claimant removal page, multiple claimants', () => {
   beforeEach(() => {
     mock.cleanAll()
-    draftStoreServiceMock.resolveFind('legalClaim', twoDefendants)
+    draftStoreServiceMock.resolveFind('legalClaim', twoClaimants)
     idamServiceMock.resolveRetrieveServiceToken()
     idamServiceMock.resolveRetrieveServiceToken()
     idamServiceMock.resolveRetrieveUserFor('1', ...roles)
   })
   describe('on GET', () => {
-    checkAuthorizationGuards(app, 'get', ClaimPaths.defendantRemovePage.uri)
+    checkAuthorizationGuards(app, 'get', ClaimPaths.claimantRemovePage.uri)
 
-    it('should redirect to defendant add page for more than one existing defendants when everything is fine', async () => {
+    it('should redirect to claimant add page for more than one existing claimants when everything is fine', async () => {
       draftStoreServiceMock.resolveUpdate()
       draftStoreServiceMock.resolveUpdate()
 
       await request(app)
-        .get(ClaimPaths.defendantRemovePage.uri + '?index=1')
+        .get(ClaimPaths.claimantRemovePage.uri + '?index=1')
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantAdditionPage.uri))
+        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimantAdditionPage.uri))
     })
   })
 })
