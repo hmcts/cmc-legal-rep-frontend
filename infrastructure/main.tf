@@ -39,7 +39,7 @@ module "legal-frontend" {
 
   app_settings = {
     // Node specific vars
-    NODE_ENV = "${var.env == "prod" ? "prod" : "dev"}"
+    NODE_ENV = "${var.env == "prod" ? "production" : "dev"}"
     UV_THREADPOOL_SIZE = "64"
     NODE_CONFIG_DIR = "D:\\home\\site\\wwwroot\\config"
     TS_BASE_URL = "./src/main"
