@@ -62,7 +62,6 @@ const defendants = {
 describe('Claim issue: Defendant change page', () => {
   beforeEach(() => {
     mock.cleanAll()
-    draftStoreServiceMock.resolveUpdate()
     idamServiceMock.resolveRetrieveUserFor('1', ...roles)
   })
 
@@ -72,6 +71,7 @@ describe('Claim issue: Defendant change page', () => {
     it('should redirect to defendant type page for one existing defendant when everything is fine', async () => {
       draftStoreServiceMock.resolveFind('legalClaim')
       idamServiceMock.resolveRetrieveServiceToken()
+      draftStoreServiceMock.resolveUpdate()
 
       await request(app)
         .get(ClaimPaths.defendantChangePage.uri + '?index=1')
@@ -82,6 +82,7 @@ describe('Claim issue: Defendant change page', () => {
     it('should redirect to defendant address page when everything is fine', async () => {
       draftStoreServiceMock.resolveFind('legalClaim', defendants)
       idamServiceMock.resolveRetrieveServiceToken()
+      draftStoreServiceMock.resolveUpdate()
 
       await request(app)
         .get(ClaimPaths.defendantChangePage.uri + '?index=1&page=address')
@@ -92,6 +93,7 @@ describe('Claim issue: Defendant change page', () => {
     it('should redirect to defendant represented page when everything is fine', async () => {
       draftStoreServiceMock.resolveFind('legalClaim', defendants)
       idamServiceMock.resolveRetrieveServiceToken()
+      draftStoreServiceMock.resolveUpdate()
 
       await request(app)
         .get(ClaimPaths.defendantChangePage.uri + '?index=1&page=represented')
@@ -102,6 +104,7 @@ describe('Claim issue: Defendant change page', () => {
     it('should redirect to defendant represented address page when everything is fine', async () => {
       draftStoreServiceMock.resolveFind('legalClaim', defendants)
       idamServiceMock.resolveRetrieveServiceToken()
+      draftStoreServiceMock.resolveUpdate()
 
       await request(app)
         .get(ClaimPaths.defendantChangePage.uri + '?index=1&page=reps-address')
@@ -112,11 +115,22 @@ describe('Claim issue: Defendant change page', () => {
     it('should redirect to defendant service address page when everything is fine', async () => {
       draftStoreServiceMock.resolveFind('legalClaim', defendants)
       idamServiceMock.resolveRetrieveServiceToken()
+      draftStoreServiceMock.resolveUpdate()
 
       await request(app)
         .get(ClaimPaths.defendantChangePage.uri + '?index=1&page=service-address')
         .set('Cookie', `${cookieName}=ABC`)
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantServiceAddressPage.uri))
+    })
+
+    it('should return 500 and render error page when cannot save draft', async () => {
+      draftStoreServiceMock.resolveFind('legalClaim', defendants)
+      draftStoreServiceMock.rejectSave()
+
+      await request(app)
+        .get(ClaimPaths.defendantChangePage.uri + '?index=1')
+        .set('Cookie', `${cookieName}=ABC`)
+        .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
   })
 })

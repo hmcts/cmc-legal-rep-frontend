@@ -27,3 +27,6 @@ npm-debug.log.*
 
 coverage
 .scannerwork
+!.gitkeep
+smoke-output/
+functional-output/
