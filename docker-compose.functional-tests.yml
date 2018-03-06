@@ -1,8 +1,8 @@
 version: '2.1'
 
 services:
-    integration-tests:
-      image: docker.artifactory.reform.hmcts.net/cmc/integration-tests:${INTEGRATION_TESTS_VERSION:-latest}
+    legal-integration-tests:
+      image: docker.artifactory.reform.hmcts.net/cmc/legal-integration-tests:${LEGAL_INTEGRATION_TESTS_VERSION:-latest}
       command: test --grep '@legal($$| )'
       environment:
         - WEB_DRIVER_HOST=remote-webdriver
@@ -12,7 +12,6 @@ services:
         - no_proxy=remote-webdriver
         - IDAM_URL
         - CLAIM_STORE_URL
-        - HEALTHCHECK_LEGAL=true
       volumes:
         - ./functional-output:/usr/src/app/output
     remote-webdriver:

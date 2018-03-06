@@ -1,8 +1,8 @@
 version: '2.1'
 
 services:
-    integration-tests:
-      image: docker.artifactory.reform.hmcts.net/cmc/integration-tests:${INTEGRATION_TESTS_VERSION:-latest}
+    legal-integration-tests:
+      image: docker.artifactory.reform.hmcts.net/cmc/legal-integration-tests:${LEGAL_INTEGRATION_TESTS_VERSION:-latest}
       command: test --grep @legal-smoke-test
       environment:
         - WEB_DRIVER_HOST=remote-webdriver
@@ -13,7 +13,6 @@ services:
         - IDAM_URL
         - SMOKE_TEST_SOLICITOR_USERNAME
         - SMOKE_TEST_USER_PASSWORD
-        - HEALTHCHECK_LEGAL=true
       volumes:
         - ./smoke-output:/usr/src/app/output
     remote-webdriver:

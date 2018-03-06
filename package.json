@@ -4,7 +4,7 @@
   "description": "Front end for legal representation journey within CMC",
   "private": true,
   "engines": {
-    "node": ">=8.8.0"
+    "node": ">=8.9.0"
   },
   "repository": "git@github.com:hmcts/cmc-legal-rep-frontend.git",
   "author": "HMCTS",
@@ -26,6 +26,7 @@
     "test:codecov-upload": "codecov -f ./coverage/lcov.info",
     "sonar-scan": "sonar-scanner -Dsonar.projectKey='CMCLFE' -Dsonar.projectName='CMC :: Legal Frontend' -Dsonar.sources=src/main -Dsonar.tests=src/test -Dsonar.exclusions=src/main/public/**,src/main/features/dashboard/**,src/main/features/certificateOfService/** -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info",
     "test:smoke": "./bin/run-smoke-tests.sh",
+    "test:integration": "ts-node --require tsconfig-paths/register ./node_modules/.bin/codeceptjs run --config default.conf.js --reporter mocha-multi",
     "precommit": "yarn lint",
     "prepush": "yarn test && yarn test:routes"
   },
@@ -103,6 +104,7 @@
     "chai": "^4.1.1",
     "chai-as-promised": "^7.1.1",
     "chai-spies": "^1.0.0",
+    "codeceptjs": "1.0.3",
     "es6-promisify": "^5.0.0",
     "gulp": "^3.9.1",
     "gulp-livereload": "^3.8.1",
@@ -112,6 +114,8 @@
     "gulp-sass": "^3.1.0",
     "husky": "^0.14.1",
     "mocha": "^5.0.0",
+    "mocha-junit-reporter": "^1.17.0",
+    "mocha-multi": "^1.0.1",
     "mochawesome": "^3.0.0",
     "mock-require": "^3.0.0",
     "nsp": "^3.1.0",
@@ -124,7 +128,8 @@
     "sonarqube-scanner": "^2.0.1",
     "supertest": "^3.0.0",
     "tslint": "^5.5.0",
-    "tslint-config-standard": "^7.0.0"
+    "tslint-config-standard": "^7.0.0",
+    "webdriverio": "^4.11.0"
   },
   "nyc": {
     "include": [

@@ -28,6 +28,7 @@ timestamps {
         def version
         def legalFrontendRPMVersion
         def legalFrontendVersion
+        def legalIntegrationTestsVersion
 
         stage('Checkout') {
           deleteDir()
@@ -45,12 +46,16 @@ timestamps {
 
         stage('Package application (Docker)') {
           legalFrontendVersion = dockerImage imageName: 'cmc/legal-frontend'
+          legalIntegrationTestsVersion = dockerImage imageName: 'cmc/legal-integration-tests',
+            dockerArgs: '--file integration-tests.Dockerfile'
         }
 
         onPR {
           stage('Integration Tests') {
             integrationTests.execute([
               'LEGAL_FRONTEND_VERSION': legalFrontendVersion,
+              'LEGAL_INTEGRATION_TESTS': legalIntegrationTestsVersion,
+              'INTEGRATION_TESTS_BRANCH': 'feature/ROC-3269-Move-integration-tests-to-frontend-repos',
               'TESTS_TAG'               : '@legal'
             ])
           }
