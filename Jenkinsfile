@@ -52,7 +52,7 @@ timestamps {
 
         onPR {
           stage('Integration Tests') {
-            integrationTests.execute([
+            integrationTests.executeLegalTests([
               'LEGAL_FRONTEND_VERSION': legalFrontendVersion,
               'LEGAL_INTEGRATION_TESTS': legalIntegrationTestsVersion,
               'INTEGRATION_TESTS_BRANCH': 'feature/ROC-3269-Move-integration-tests-to-frontend-repos',
