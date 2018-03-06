@@ -54,7 +54,7 @@ timestamps {
           stage('Integration Tests') {
             integrationTests.executeLegalTests([
               'LEGAL_FRONTEND_VERSION': legalFrontendVersion,
-              'LEGAL_INTEGRATION_TESTS': legalIntegrationTestsVersion,
+              'LEGAL_INTEGRATION_TESTS_VERSION': legalIntegrationTestsVersion,
               'INTEGRATION_TESTS_BRANCH': 'feature/ROC-3269-Move-integration-tests-to-frontend-repos',
               'TESTS_TAG'               : '@legal'
             ])
