@@ -9,7 +9,6 @@ import ErrorHandling from 'common/errorHandling'
 import { FeeAccount } from 'forms/models/feeAccount'
 import FeesClient from 'fees/feesClient'
 import ClaimStoreClient from 'claims/claimStoreClient'
-import MoneyConverter from 'app/fees/moneyConverter'
 import { FeeResponse } from 'fees/model/feeResponse'
 import { RepresentativeDetails } from 'forms/models/representativeDetails'
 import { Draft } from '@hmcts/draft-store-client'
@@ -17,6 +16,7 @@ import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 import { Cookie } from 'forms/models/cookie'
 import CookieProperties from 'common/cookieProperties'
 import { Logger } from '@hmcts/nodejs-logging'
+import MoneyConverter from 'fees/moneyConverter'
 
 const logger = Logger.getLogger('router/pay-by-account')
 
@@ -72,7 +72,7 @@ function renderView (form: Form<FeeAccount>, res: express.Response, next: expres
       res.render(Paths.payByAccountPage.associatedView,
         {
           form: form,
-          feeAmount: MoneyConverter.convertPenniesToPounds(feeResponse.amount)
+          feeAmount: feeResponse.amount
         })
     })
     .catch(next)
@@ -95,8 +95,8 @@ export default express.Router()
         draft.document.feeAccount = form.model
 
         const feeResponse: FeeResponse = await FeesClient.getFeeAmount(draft.document.amount)
-        draft.document.feeAmountInPennies = feeResponse.amount
-        draft.document.feeCode = feeResponse.fee.code
+        draft.document.feeAmountInPennies = MoneyConverter.convertPoundsToPennies(feeResponse.amount)
+        draft.document.feeCode = feeResponse.code
 
         await new DraftService().save(draft, res.locals.user.bearerToken)
 

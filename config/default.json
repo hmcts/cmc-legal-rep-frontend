@@ -35,7 +35,16 @@
   },
   "fees": {
     "url": "http://localhost:4182",
-    "issueFeeCode": "cmc-paper"
+    "service": "civil money claims",
+    "jurisdiction1": "civil",
+    "jurisdiction2": "county court",
+    "channel": {
+      "online" : "online",
+      "paper" : "default"
+    },
+    "issueFee": {
+      "event": "issue"
+    }
   },
   "pay": {
     "url": "http://localhost:4421"
