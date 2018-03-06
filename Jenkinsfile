@@ -1,5 +1,5 @@
 #!groovy
-@Library(['CMC', 'Reform'])
+@Library(['CMC@feature/ROC-3269-Move-integration-tests-to-frontend-repos', 'Reform'])
 import uk.gov.hmcts.Ansible
 import uk.gov.hmcts.Packager
 import uk.gov.hmcts.cmc.integrationtests.IntegrationTests
