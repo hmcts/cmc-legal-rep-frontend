@@ -21,6 +21,6 @@ if [[ "${1}" != "--no-pull" ]]; then
   docker-compose -f ${ADDITIONAL_COMPOSE_FILE} pull
 fi
 docker-compose -f ${ADDITIONAL_COMPOSE_FILE} up --no-color -d remote-webdriver
-docker-compose -f ${ADDITIONAL_COMPOSE_FILE} run integration-tests
+docker-compose -f ${ADDITIONAL_COMPOSE_FILE} run legal-integration-tests
 docker-compose -f ${ADDITIONAL_COMPOSE_FILE} down
 
