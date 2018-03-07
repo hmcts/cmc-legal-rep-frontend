@@ -4,7 +4,6 @@ import FeesClient from 'fees/feesClient'
 import { Amount } from 'forms/models/amount'
 import ErrorHandling from 'common/errorHandling'
 import { FeeResponse } from 'fees/model/feeResponse'
-import MoneyConverter from 'fees/moneyConverter'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 
@@ -23,7 +22,7 @@ export default express.Router()
       const claimAmount: Amount = draft.document.amount
       FeesClient.getFeeAmount(claimAmount)
         .then((feeResponse: FeeResponse) => {
-          renderView(res, MoneyConverter.convertPenniesToPounds(feeResponse.amount), claimAmount)
+          renderView(res, feeResponse.amount, claimAmount)
         })
         .catch(next)
     }))
