@@ -5,7 +5,6 @@ import ErrorHandling from 'common/errorHandling'
 import { Amount } from 'forms/models/amount'
 import { YesNo } from 'forms/models/yesNo'
 import { FeeResponse } from 'fees/model/feeResponse'
-import MoneyConverter from 'fees/moneyConverter'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 
@@ -19,7 +18,7 @@ function renderView (res: express.Response, next: express.NextFunction) {
 
       res.render(Paths.detailsSummaryPage.associatedView, {
         legalClaimDraft: draft.document,
-        feeAmount: MoneyConverter.convertPenniesToPounds(feeResponse.amount),
+        feeAmount: feeResponse.amount,
         isHousingDisrepair: isHousingDisrepair,
         isPersonalInjury: isPersonalInjury,
         paths: Paths
