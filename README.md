@@ -64,6 +64,29 @@ For code coverage:
 ```bash
 $ yarn test:coverage
 ```
+
+### Running end to end tests
+
+Integration tests are written using [CodeceptJS](https://codecept.io/) framework and reside in [`src/integration-test`](src/integration-test) directory. They are executed using Docker.
+
+If you want to run them to see if your changes work, you will need to build a docker image containing your updates:
+
+```bash
+$ docker-compose build legal-integration-tests
+```
+
+Then you can go to the [integration-tests](https://github.com/hmcts/cmc-integration-tests) project and run them with:
+
+```bash
+$ ./bin/run-local-legal-tests.sh
+```
+
+If you didn't have a dockerized environment running it will be started up for you. If you prefer to start it up yourself beforehand, do:
+
+```bash
+$ ./bin/start-local-environment.sh
+```
+
 ## Troubleshooting
 
 ### Warnings while running ```yarn install``` on yarn version 1.0.1
