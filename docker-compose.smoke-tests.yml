@@ -3,7 +3,7 @@ version: '2.1'
 services:
     legal-integration-tests:
       image: docker.artifactory.reform.hmcts.net/cmc/legal-integration-tests:${LEGAL_INTEGRATION_TESTS_VERSION:-latest}
-      command: test --grep @legal-smoke-test
+      command: test:integration --grep @legal-smoke-test
       environment:
         - WEB_DRIVER_HOST=remote-webdriver
         - LEGAL_APP_URL=${TEST_URL}/legal
