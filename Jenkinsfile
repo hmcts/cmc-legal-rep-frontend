@@ -1,5 +1,5 @@
 #!groovy
-@Library(['CMC@feature/ROC-3269-Move-integration-tests-to-frontend-repos', 'Reform'])
+@Library(['CMC', 'Reform'])
 import uk.gov.hmcts.Ansible
 import uk.gov.hmcts.Packager
 import uk.gov.hmcts.cmc.integrationtests.IntegrationTests
@@ -55,7 +55,6 @@ timestamps {
             integrationTests.executeLegalTests([
               'LEGAL_FRONTEND_VERSION': legalFrontendVersion,
               'LEGAL_INTEGRATION_TESTS_VERSION': legalIntegrationTestsVersion,
-              'INTEGRATION_TESTS_BRANCH': 'feature/ROC-3269-Move-integration-tests-to-frontend-repos',
               'TESTS_TAG'               : '@legal'
             ])
           }
