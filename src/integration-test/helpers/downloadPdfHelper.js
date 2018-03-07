@@ -20,7 +20,7 @@ class DownloadPdfHelper extends Helper {
     return request.get({
       uri: url,
       jar: j
-    }).pipe(fs.createWriteStream(path.join(__dirname, '..', '..', 'output', 'legalClaim.pdf')))
+    }).pipe(fs.createWriteStream(path.join(__dirname, '..', '..', '..', 'output', 'legalClaim.pdf')))
   }
 }
 
