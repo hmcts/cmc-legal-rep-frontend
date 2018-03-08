@@ -28,6 +28,7 @@ timestamps {
         def version
         def legalFrontendRPMVersion
         def legalFrontendVersion
+        def legalIntegrationTestsVersion
 
         stage('Checkout') {
           deleteDir()
@@ -45,12 +46,15 @@ timestamps {
 
         stage('Package application (Docker)') {
           legalFrontendVersion = dockerImage imageName: 'cmc/legal-frontend'
+          legalIntegrationTestsVersion = dockerImage imageName: 'cmc/legal-integration-tests',
+            dockerArgs: '--file integration-tests.Dockerfile'
         }
 
         onPR {
           stage('Integration Tests') {
-            integrationTests.execute([
+            integrationTests.executeLegalTests([
               'LEGAL_FRONTEND_VERSION': legalFrontendVersion,
+              'LEGAL_INTEGRATION_TESTS_VERSION': legalIntegrationTestsVersion,
               'TESTS_TAG'               : '@legal'
             ])
           }
