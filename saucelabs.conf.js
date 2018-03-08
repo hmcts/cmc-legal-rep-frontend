@@ -1,4 +1,4 @@
-import { supportedBrowsers } from '@hmcts/cmc-supported-browsers'
+const supportedBrowsers = require('@hmcts/cmc-supported-browsers').supportedBrowsers
 
 const legalPageDefinitions = require('./src/integration-test/tests/legal/page-definitions')
 
