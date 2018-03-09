@@ -12,7 +12,7 @@ class IdamHelper extends codecept_helper {
   }
 
   private generateRandomEmailAddress (): string {
-    return `civilmoneyclaims+${require('randomstring').generate(7)}@gmail.com`
+    return `civilmoneyclaims+${require('randomstring').generate(7).toLowerCase()}@gmail.com`
   }
 }
 
