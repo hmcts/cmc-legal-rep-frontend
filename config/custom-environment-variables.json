@@ -39,6 +39,9 @@
   "fees": {
     "url": "FEES_URL"
   },
+  "pay": {
+    "url": "PAY_URL"
+  },
   "pdf-service": {
     "url": "PDF_SERVICE_URL"
   },
