@@ -85,6 +85,7 @@ module "legal-frontend" {
     FEATURE_DASHBOARD = "${var.feature_dashboard}"
     FEATURE_IDAM_OAUTH = "${var.feature_idamOauth}"
     FEATURE_CERTIFICATE_OF_SERVICE = "${var.feature_certificateOfService}"
+    FEATURE_RETURN_ERROR_TO_USER = "${var.feature_return_error_to_user}"
   }
 }
 

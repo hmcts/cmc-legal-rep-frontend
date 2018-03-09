@@ -20,6 +20,7 @@ import { DashboardFeature } from 'dashboard/index'
 import CookieProperties from 'common/cookieProperties'
 import healthEndpoint from 'routes/health'
 import * as toBoolean from 'to-boolean'
+import { FeatureToggles } from 'utils/featureToggles'
 
 export const app: express.Express = express()
 
@@ -85,7 +86,7 @@ app.use((err, req, res, next) => {
   } else if (err.statusCode === 403) {
     res.render(new ForbiddenError().associatedView)
   } else {
-    const view = (env === 'mocha' || env === 'development' || env === 'dockertests' || env === 'dev' || env === 'demo') ? 'error_dev' : 'error'
+    const view = FeatureToggles.isEnabled('returnErrorToUser') ? 'error_dev' : 'error'
     res.render(view, {
       error: err,
       title: 'error'
