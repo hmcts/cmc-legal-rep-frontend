@@ -1,5 +1,6 @@
+const supportedBrowsers = require('@hmcts/cmc-supported-browsers').supportedBrowsers
+
 const legalPageDefinitions = require('./src/integration-test/tests/legal/page-definitions')
-const supportedBrowsers = require('./src/integration-test/config/saucelabs/supported-browsers').supportedBrowsers
 
 const browser = requiredValue(process.env.SAUCELABS_BROWSER, 'SAUCELABS_BROWSER')
 const saucelabsTunnelIdentifier = requiredValue(process.env.SAUCELABS_TUNNEL_IDENTIFIER, 'SAUCELABS_TUNNEL_IDENTIFIER')

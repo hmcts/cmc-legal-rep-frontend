@@ -27,6 +27,8 @@
     "sonar-scan": "sonar-scanner -Dsonar.projectKey='CMCLFE' -Dsonar.projectName='CMC :: Legal Frontend' -Dsonar.sources=src/main -Dsonar.tests=src/test -Dsonar.exclusions=src/main/public/**,src/main/features/dashboard/**,src/main/features/certificateOfService/** -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info",
     "test:smoke": "./bin/run-smoke-tests.sh",
     "test:integration": "ts-node --require tsconfig-paths/register ./node_modules/.bin/codeceptjs run --verbose --config default.conf.js --reporter mocha-multi",
+    "test:cross-browser": "ts-node --require tsconfig-paths/register ./node_modules/.bin/codeceptjs run --verbose --config saucelabs.conf.js --reporter mocha-multi",
+    "list-supported-browsers": "node -e 'Object.keys(require(\"@hmcts/cmc-supported-browsers\").supportedBrowsers).forEach(key => console.log(key))'",
     "precommit": "yarn lint",
     "prepush": "yarn test && yarn test:routes"
   },
@@ -96,6 +98,7 @@
     "url-parse": "^1.2.0"
   },
   "devDependencies": {
+    "@hmcts/cmc-supported-browsers": "^1.0.1",
     "@types/chai": "^4.0.4",
     "@types/chai-as-promised": "^7.1.0",
     "@types/mocha": "*",
