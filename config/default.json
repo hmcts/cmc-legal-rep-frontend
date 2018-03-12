@@ -64,6 +64,9 @@
   "http": {
     "timeout": 20000
   },
+  "requestRetry": {
+    "maxAttempts": 3
+  },
   "oauth": {
     "clientId": "cmc_legal",
     "clientSecret": "123456"
