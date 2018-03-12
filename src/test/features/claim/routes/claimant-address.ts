@@ -52,7 +52,7 @@ describe('Claim issue: claimant address page', () => {
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      draftStoreServiceMock.rejectSave(1000, 'HTTP error')
+      draftStoreServiceMock.rejectSave(100, 'HTTP error')
 
       await request(app)
         .post(ClaimPaths.claimantAddressPage.uri)
