@@ -61,7 +61,7 @@
     "instrumentationKey": "APPINSIGHTS_INSTRUMENTATIONKEY"
   },
   "requestRetry": {
-    "maxAttempts": 1
+    "maxAttempts": "REQUEST_RETRY_MAX_ATTEMPTS"
   }
 }
 
