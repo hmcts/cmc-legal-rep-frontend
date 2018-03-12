@@ -59,6 +59,9 @@
   "feedback_legal_survey": "FEEDBACK_URL",
   "appInsights": {
     "instrumentationKey": "APPINSIGHTS_INSTRUMENTATIONKEY"
+  },
+  "requestRetry": {
+    "maxAttempts": 1
   }
 }
 

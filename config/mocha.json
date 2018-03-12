@@ -32,5 +32,8 @@
   },
   "appInsights": {
     "instrumentationKey": "dummy-app-insights-instrumentation-key"
+  },
+  "requestRetry": {
+    "maxAttempts": 1
   }
 }
