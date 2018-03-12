@@ -9,7 +9,7 @@ provider "vault" {
 }
 
 data "vault_generic_secret" "s2s_secret" {
-  path = "secret/${var.vault_section}/ccidam/service-auth-provider/api/microservice-keys/cmcLegalFrontend"
+  path = "secret/${var.vault_section}/ccidam/service-auth-provider/api/microservice-keys/cmc"
 }
 
 data "vault_generic_secret" "draft_store_secret" {
