@@ -12,7 +12,7 @@
     "service-2-service-auth": {
       "url": "http://localhost:4552",
       "totpSecret": "AAAAAAAAAAAAAAAA",
-      "microservice": "cmc_legal_frontend"
+      "microservice": "cmc"
     }
   },
   "claim-store": {
@@ -46,7 +46,13 @@
     }
   },
   "pay": {
-    "url": "http://localhost:4421"
+    "url": "http://localhost:4421",
+    "path": "credit-account-payments",
+    "service-name": "CMC",
+    "currency": "GBP",
+    "site-id": "AA00",
+    "organisation_name": "HMCTS",
+    "description": "Money Claim issue fee"
   },
   "pdf-service": {
     "url": "http://localhost:5500",

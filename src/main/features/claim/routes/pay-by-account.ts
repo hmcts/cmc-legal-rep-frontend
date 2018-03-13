@@ -17,11 +17,25 @@ import { Cookie } from 'forms/models/cookie'
 import CookieProperties from 'common/cookieProperties'
 import { Logger } from '@hmcts/nodejs-logging'
 import MoneyConverter from 'fees/moneyConverter'
+import { PayClient } from 'app/pay/payClient'
+import { PaymentResponse } from 'app/pay/model/paymentResponse'
+import { ServiceAuthTokenFactoryImpl } from 'common/security/serviceTokenFactoryImpl'
 
 const logger = Logger.getLogger('router/pay-by-account')
 
 function logError (id: number, message: string) {
   logger.error(`${message} (User Id : ${id})`)
+}
+
+const getPayClient = async (): Promise<PayClient> => {
+  const authToken = await new ServiceAuthTokenFactoryImpl().get()
+
+  return new PayClient(authToken)
+}
+
+function logPaymentError (id: string, payment: PaymentResponse) {
+  const message: string = 'Payment have failed, see payment information: '
+  logger.error(`${message} (User Id : ${id}, Payment: ${JSON.stringify(payment)})`)
 }
 
 async function deleteDraftAndRedirect (res, next, externalId: string) {
@@ -106,6 +120,21 @@ export default express.Router()
           Cookie.saveCookie(req.signedCookies.legalRepresentativeDetails, res.locals.user.id, legalRepDetails),
           CookieProperties.getCookieParameters())
 
-        await saveClaimHandler(res, next)
+        const payClient: PayClient = await getPayClient()
+
+        const paymentResponse: PaymentResponse = await payClient.create(
+          res.locals.user,
+          draft.document.feeAccount.reference,
+          draft.document.externalId,
+          draft.document.yourReference.reference,
+          feeResponse
+        )
+
+        if (paymentResponse.isSuccess) {
+          await saveClaimHandler(res, next)
+        } else {
+          logPaymentError(res.locals.user.id, paymentResponse)
+          res.redirect(Paths.payByAccountPage.uri)
+        }
       }
     }))
