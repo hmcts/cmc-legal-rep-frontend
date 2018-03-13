@@ -7,7 +7,7 @@ const payPath = '/' + config.get<string>('pay.path')
 
 const paymentSuccessResponse: object = {
   reference: 'RC-1520-4276-0065-8715',
-  status: 'Success',
+  status: 'Pending',
   date_created: '18-02-2018 17:24:46.477Z'
 }
 
