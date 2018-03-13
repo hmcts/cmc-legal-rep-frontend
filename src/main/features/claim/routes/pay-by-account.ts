@@ -109,10 +109,6 @@ export default express.Router()
         draft.document.feeAccount = form.model
 
         const feeResponse: FeeResponse = await FeesClient.getFeeAmount(draft.document.amount)
-        draft.document.feeAmountInPennies = MoneyConverter.convertPoundsToPennies(feeResponse.amount)
-        draft.document.feeCode = feeResponse.code
-
-        await new DraftService().save(draft, res.locals.user.bearerToken)
 
         const legalRepDetails: RepresentativeDetails = Cookie.getCookie(req.signedCookies.legalRepresentativeDetails, res.locals.user.id)
         legalRepDetails.feeAccount = form.model
@@ -134,6 +130,8 @@ export default express.Router()
           )
 
           if (paymentResponse.isSuccess) {
+            draft.document.feeAmountInPennies = MoneyConverter.convertPoundsToPennies(feeResponse.amount)
+            draft.document.feeCode = feeResponse.code
             draft.document.paymentResponse = paymentResponse
             await new DraftService().save(draft, res.locals.user.bearerToken)
             await saveClaimHandler(res, next)
