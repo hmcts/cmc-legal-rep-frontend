@@ -1,17 +1,18 @@
 import { Serializable } from 'models/serializable'
 import Claimant from 'drafts/models/claimant'
-import { YourReference } from 'app/forms/models/yourReference'
-import { HousingDisrepair } from 'app/forms/models/housingDisrepair'
-import { PersonalInjury } from 'app/forms/models/personalInjury'
-import PreferredCourt from 'app/forms/models/preferredCourt'
+import { YourReference } from 'forms/models/yourReference'
+import { HousingDisrepair } from 'forms/models/housingDisrepair'
+import { PersonalInjury } from 'forms/models/personalInjury'
+import PreferredCourt from 'forms/models/preferredCourt'
 import Representative from 'drafts/models/representative'
-import Defendant from 'app/drafts/models/defendant'
-import Summary from 'app/forms/models/summary'
+import Defendant from 'drafts/models/defendant'
+import Summary from 'forms/models/summary'
 import * as uuid from 'uuid'
-import { StatementOfTruth } from 'app/forms/models/statementOfTruth'
-import { Amount } from 'app/forms/models/amount'
+import { StatementOfTruth } from 'forms/models/statementOfTruth'
+import { Amount } from 'forms/models/amount'
 import { FeeAccount } from 'forms/models/feeAccount'
 import { DraftDocument } from '@hmcts/cmc-draft-store-middleware'
+import { PaymentResponse } from 'app/pay/model/paymentResponse'
 
 export class DraftLegalClaim extends DraftDocument implements Serializable<DraftLegalClaim> {
   externalId = uuid()
@@ -28,6 +29,7 @@ export class DraftLegalClaim extends DraftDocument implements Serializable<Draft
   feeAccount: FeeAccount = new FeeAccount()
   feeAmountInPennies: number
   feeCode: string
+  paymentResponse: PaymentResponse
   // View Draft items
   isDefendantDeleted: boolean = false
   isClaimantDeleted: boolean = false
@@ -71,6 +73,7 @@ export class DraftLegalClaim extends DraftDocument implements Serializable<Draft
       this.isClaimantDeleted = input.isClaimantDeleted
       this.defendantChangeIndex = input.defendantChangeIndex
       this.claimantChangeIndex = input.claimantChangeIndex
+      this.paymentResponse = input.paymentResponse
     }
 
     return this
