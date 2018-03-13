@@ -11,6 +11,6 @@ export class PaymentResponse {
   readonly status: string
 
   get isSuccess (): boolean {
-    return this.status === 'Success' || this.status === 'Initiated'
+    return this.status === 'Success' || this.status === 'Initiated' || this.status === 'Pending'
   }
 }
