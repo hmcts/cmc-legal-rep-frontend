@@ -94,6 +94,7 @@ describe('Claim : Pay by Fee Account page', () => {
       feesServiceMock.resolveCalculateIssueFee()
       idamServiceMock.resolveRetrieveServiceToken()
       payClientMock.resolveCreate()
+      draftStoreServiceMock.resolveUpdate()
 
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
@@ -113,6 +114,7 @@ describe('Claim : Pay by Fee Account page', () => {
       feesServiceMock.resolveCalculateIssueFee()
       idamServiceMock.resolveRetrieveServiceToken()
       payClientMock.resolveCreate()
+      draftStoreServiceMock.resolveUpdate()
 
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)

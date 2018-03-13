@@ -120,21 +120,27 @@ export default express.Router()
           Cookie.saveCookie(req.signedCookies.legalRepresentativeDetails, res.locals.user.id, legalRepDetails),
           CookieProperties.getCookieParameters())
 
-        const payClient: PayClient = await getPayClient()
-
-        const paymentResponse: PaymentResponse = await payClient.create(
-          res.locals.user,
-          draft.document.feeAccount.reference,
-          draft.document.externalId,
-          draft.document.yourReference.reference,
-          feeResponse
-        )
-
-        if (paymentResponse.isSuccess) {
+        const paymentReference: string = draft.document.paymentResponse ? draft.document.paymentResponse.reference : undefined
+        if (paymentReference) {
           await saveClaimHandler(res, next)
         } else {
-          logPaymentError(res.locals.user.id, paymentResponse)
-          res.redirect(Paths.payByAccountPage.uri)
+          const payClient: PayClient = await getPayClient()
+          const paymentResponse: PaymentResponse = await payClient.create(
+            res.locals.user,
+            draft.document.feeAccount.reference,
+            draft.document.externalId,
+            draft.document.yourReference.reference,
+            feeResponse
+          )
+
+          if (paymentResponse.isSuccess) {
+            draft.document.paymentResponse = paymentResponse
+            await new DraftService().save(draft, res.locals.user.bearerToken)
+            await saveClaimHandler(res, next)
+          } else {
+            logPaymentError(res.locals.user.id, paymentResponse)
+            res.redirect(Paths.payByAccountPage.uri)
+          }
         }
       }
     }))

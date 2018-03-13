@@ -12,6 +12,7 @@ import { StatementOfTruth } from 'app/forms/models/statementOfTruth'
 import { Amount } from 'app/forms/models/amount'
 import { FeeAccount } from 'forms/models/feeAccount'
 import { DraftDocument } from '@hmcts/cmc-draft-store-middleware'
+import { PaymentResponse } from 'app/pay/model/paymentResponse'
 
 export class DraftLegalClaim extends DraftDocument implements Serializable<DraftLegalClaim> {
   externalId = uuid()
@@ -28,6 +29,7 @@ export class DraftLegalClaim extends DraftDocument implements Serializable<Draft
   feeAccount: FeeAccount = new FeeAccount()
   feeAmountInPennies: number
   feeCode: string
+  paymentResponse: PaymentResponse
   // View Draft items
   isDefendantDeleted: boolean = false
   isClaimantDeleted: boolean = false
@@ -71,6 +73,7 @@ export class DraftLegalClaim extends DraftDocument implements Serializable<Draft
       this.isClaimantDeleted = input.isClaimantDeleted
       this.defendantChangeIndex = input.defendantChangeIndex
       this.claimantChangeIndex = input.claimantChangeIndex
+      this.paymentResponse = input.paymentResponse
     }
 
     return this
