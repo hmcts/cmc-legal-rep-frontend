@@ -51,7 +51,6 @@
     "service-name": "CMC",
     "currency": "GBP",
     "site-id": "AA00",
-    "organisation_name": "HMCTS",
     "description": "Money Claim issue fee"
   },
   "pdf-service": {

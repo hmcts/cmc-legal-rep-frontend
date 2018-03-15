@@ -14,7 +14,6 @@ const serviceName = config.get<string>('pay.service-name')
 const currency = config.get<string>('pay.currency')
 const siteId = config.get<string>('pay.site-id')
 const description = config.get<string>('pay.description')
-const organisationName = config.get<string>('pay.organisation_name')
 
 export class PayClient {
   constructor (public serviceAuthToken: ServiceAuthToken) {
@@ -25,8 +24,9 @@ export class PayClient {
                 pbaAccount: string,
                 caseReference: string,
                 customerReference: string,
+                organisationName: string,
                 fee: FeeResponse): Promise<PaymentResponse> {
-    const paymentReq: object = this.preparePaymentRequest(pbaAccount, caseReference, customerReference, fee)
+    const paymentReq: object = this.preparePaymentRequest(pbaAccount, caseReference, customerReference, organisationName, fee)
     const response: object = await request.post({
       uri: `${payUrl}/${payPath}`,
       body: paymentReq,
@@ -41,6 +41,7 @@ export class PayClient {
   private preparePaymentRequest (pbaAccount: string,
                                  caseReference: string,
                                  customerReference: string,
+                                 organisationName: string,
                                  fee: FeeResponse): object {
     if (StringUtils.isBlank(pbaAccount)) {
       throw new Error('Missing required parameter pbaAccount')

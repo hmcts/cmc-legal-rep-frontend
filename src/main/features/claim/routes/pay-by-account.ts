@@ -126,6 +126,7 @@ export default express.Router()
             draft.document.feeAccount.reference,
             draft.document.externalId,
             draft.document.yourReference.reference,
+            draft.document.representative.organisationName.name,
             feeResponse
           )
 
