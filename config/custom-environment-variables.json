@@ -39,6 +39,9 @@
   "fees": {
     "url": "FEES_URL"
   },
+  "pay": {
+    "url": "PAY_URL"
+  },
   "pdf-service": {
     "url": "PDF_SERVICE_URL"
   },
@@ -60,6 +63,9 @@
   "feedback_legal_survey": "FEEDBACK_URL",
   "appInsights": {
     "instrumentationKey": "APPINSIGHTS_INSTRUMENTATIONKEY"
+  },
+  "requestRetry": {
+    "maxAttempts": "REQUEST_RETRY_MAX_ATTEMPTS"
   }
 }
 

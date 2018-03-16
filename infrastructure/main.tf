@@ -1,3 +1,7 @@
+provider "azurerm" {
+  version = "<= 1.2.0"
+}
+
 provider "vault" {
   //  # It is strongly recommended to configure this provider through the
   //  # environment variables described above, so that each user can have
@@ -9,7 +13,7 @@ provider "vault" {
 }
 
 data "vault_generic_secret" "s2s_secret" {
-  path = "secret/${var.vault_section}/ccidam/service-auth-provider/api/microservice-keys/cmcLegalFrontend"
+  path = "secret/${var.vault_section}/ccidam/service-auth-provider/api/microservice-keys/cmc"
 }
 
 data "vault_generic_secret" "draft_store_secret" {
@@ -90,7 +94,7 @@ module "legal-frontend" {
 }
 
 module "legal-frontend-vault" {
-  source              = "git@github.com:contino/moj-module-key-vault?ref=master"
+  source              = "git@github.com:contino/moj-module-key-vault?ref=try-fix-eof"
   name                = "cmc-legal-fe-${var.env}"
   product             = "${var.product}"
   env                 = "${var.env}"
