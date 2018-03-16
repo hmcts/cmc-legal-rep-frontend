@@ -40,6 +40,7 @@ module "legal-frontend" {
   ilbIp = "${var.ilbIp}"
   is_frontend  = true
   subscription = "${var.subscription}"
+  additional_host_name = "${var.external_host_name}"
 
   app_settings = {
     // Node specific vars
@@ -103,4 +104,3 @@ module "legal-frontend-vault" {
   resource_group_name = "${module.legal-frontend.resource_group_name}"
   product_group_object_id = "68839600-92da-4862-bb24-1259814d1384"
 }
-
