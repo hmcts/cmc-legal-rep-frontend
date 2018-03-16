@@ -10,7 +10,7 @@ import { ForbiddenError, NotFoundError } from './errors'
 import { ErrorLogger } from 'logging/errorLogger'
 import { RouterFinder } from 'common/router/routerFinder'
 import { Config as HelmetConfig, Helmet } from 'modules/helmet'
-import I18Next from 'modules/i18n'
+import { I18Next } from 'modules/i18n'
 import Nunjucks from 'modules/nunjucks'
 
 import { Feature as ClaimIssueFeature } from 'claim/index'
