@@ -73,7 +73,8 @@
   "featureToggles": {
     "idamOauth": false,
     "dashboard": false,
-    "certificateOfService": false
+    "certificateOfService": false,
+    "returnErrorToUser": false
   },
   "documentManagement" : {
     "url": "http://localhost:8085"

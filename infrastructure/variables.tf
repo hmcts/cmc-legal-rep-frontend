@@ -58,6 +58,10 @@ variable "feature_certificateOfService" {
   default = "false"
 }
 
+variable "feature_return_error_to_user" {
+  default = "false"
+}
+
 variable "jenkins_AAD_objectId" {
   type                        = "string"
   description                 = "(Required) The Azure AD object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault. The object ID must be unique for the list of access policies."
@@ -69,4 +73,8 @@ variable "tenant_id" {
 
 variable "client_id" {
   description = "(Required) The object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault. The object ID must be unique for the list of access policies. This is usually sourced from environment variables and not normally required to be specified."
+}
+
+variable "external_host_name" {
+  default = "moneyclaims-legal.sandbox.platform.hmcts.net"
 }

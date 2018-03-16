@@ -40,6 +40,7 @@ module "legal-frontend" {
   ilbIp = "${var.ilbIp}"
   is_frontend  = true
   subscription = "${var.subscription}"
+  additional_host_name = "${var.external_host_name}"
 
   app_settings = {
     // Node specific vars
@@ -89,6 +90,7 @@ module "legal-frontend" {
     FEATURE_DASHBOARD = "${var.feature_dashboard}"
     FEATURE_IDAM_OAUTH = "${var.feature_idamOauth}"
     FEATURE_CERTIFICATE_OF_SERVICE = "${var.feature_certificateOfService}"
+    FEATURE_RETURN_ERROR_TO_USER = "${var.feature_return_error_to_user}"
   }
 }
 
@@ -102,4 +104,3 @@ module "legal-frontend-vault" {
   resource_group_name = "${module.legal-frontend.resource_group_name}"
   product_group_object_id = "68839600-92da-4862-bb24-1259814d1384"
 }
-
