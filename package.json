@@ -126,7 +126,7 @@
     "nyc": "^11.2.1",
     "pa11y": "^4.11.0",
     "sass-lint": "^1.10.2",
-    "sinon": "^4.0.2",
+    "sinon": "^5.0.0",
     "sinon-chai": "^2.14.0",
     "sinon-express-mock": "^2.0.0",
     "sonarqube-scanner": "^2.0.1",
