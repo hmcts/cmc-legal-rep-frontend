@@ -54,6 +54,7 @@ app.use(cookieParser(config.get('session.encryptionKey')))
 app.use(cookieEncrypter(config.get('session.encryptionKey'), CookieProperties.getCookieConfig()))
 
 app.use('/legal', express.static(path.join(__dirname, 'public')))
+app.use('/robots.txt', express.static(path.join(__dirname, 'public/robots.txt')))
 
 if (env !== 'mocha') {
   new CsrfProtection().enableFor(app)
