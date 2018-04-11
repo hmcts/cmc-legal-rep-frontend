@@ -95,7 +95,7 @@ module "legal-frontend" {
 }
 
 module "legal-frontend-vault" {
-  source              = "git@github.com:contino/moj-module-key-vault?ref=try-fix-eof"
+  source              = "git@github.com:contino/moj-module-key-vault?ref=master"
   name                = "cmc-legal-fe-${var.env}"
   product             = "${var.product}"
   env                 = "${var.env}"
