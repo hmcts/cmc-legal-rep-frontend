@@ -52,7 +52,8 @@
   "featureToggles": {
     "idamOauth": "FEATURE_IDAM_OAUTH",
     "dashboard": "FEATURE_DASHBOARD",
-    "certificateOfService": "FEATURE_CERTIFICATE_OF_SERVICE"
+    "certificateOfService": "FEATURE_CERTIFICATE_OF_SERVICE",
+    "returnErrorToUser": "FEATURE_RETURN_ERROR_TO_USER"
   },
   "documentManagement" : {
     "url": "DOCUMENT_MANAGEMENT_API_GATEWAY_URL"

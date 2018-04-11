@@ -28,7 +28,8 @@
   "featureToggles": {
     "idamOauth": true,
     "dashboard": true,
-    "certificateOfService": true
+    "certificateOfService": true,
+    "returnErrorToUser": true
   },
   "appInsights": {
     "instrumentationKey": "dummy-app-insights-instrumentation-key"
