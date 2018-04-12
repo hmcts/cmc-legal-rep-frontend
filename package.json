@@ -38,7 +38,7 @@
     "@hmcts/draft-store-client": "^1.2.1",
     "@hmcts/info-provider": "^1.0.0",
     "@hmcts/nodejs-healthcheck": "^1.4.3",
-    "@hmcts/nodejs-logging": "^2.2.0",
+    "@hmcts/nodejs-logging": "^3.0.0",
     "@hmcts/requestretry": "^1.1.0",
     "@types/config": "^0.0.33",
     "@types/cookies": "^0.7.1",
