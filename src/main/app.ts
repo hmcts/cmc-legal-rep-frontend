@@ -5,7 +5,6 @@ import * as favicon from 'serve-favicon'
 import * as cookieParser from 'cookie-parser'
 import * as cookieEncrypter from 'cookie-encrypter'
 import * as bodyParser from 'body-parser'
-import { RequestTracing, Logger } from '@hmcts/nodejs-logging'
 import { ForbiddenError, NotFoundError } from './errors'
 import { ErrorLogger } from 'logging/errorLogger'
 import { RouterFinder } from 'common/router/routerFinder'
@@ -24,18 +23,10 @@ import { FeatureToggles } from 'utils/featureToggles'
 
 export const app: express.Express = express()
 
-Logger.config({
-  microservice: 'cmc-legal-rep-frontend',
-  team: 'cmc',
-  environment: process.env.NODE_ENV
-})
-
 const env = process.env.NODE_ENV || 'development'
 app.locals.ENV = env
 
 const developmentMode = env === 'development'
-
-app.use(RequestTracing.middleware)
 
 const i18next = I18Next.enableFor(app)
 
