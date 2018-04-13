@@ -78,3 +78,8 @@ variable "client_id" {
 variable "external_host_name" {
   default = "moneyclaims-legal.sandbox.platform.hmcts.net"
 }
+
+variable "appinsights_instrumentation_key" {
+  description = "Instrumentation key of the App Insights instance this webapp should use. Module will create own App Insights resource if this is not provided"
+  default = ""
+}

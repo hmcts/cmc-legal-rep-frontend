@@ -78,5 +78,8 @@
   },
   "documentManagement" : {
     "url": "http://localhost:8085"
+  },
+  "appInsights": {
+    "roleName": "legal-frontend"
   }
 }
