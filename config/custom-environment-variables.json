@@ -62,7 +62,8 @@
   "feedback_legal_report_problem_survey": "FEEDBACK_REPORT_PROBLEM_URL",
   "feedback_legal_survey": "FEEDBACK_URL",
   "appInsights": {
-    "instrumentationKey": "APPINSIGHTS_INSTRUMENTATIONKEY"
+    "instrumentationKey": "APPINSIGHTS_INSTRUMENTATIONKEY",
+    "roleName": "APPINSIGHTS_ROLE_NAME"
   },
   "requestRetry": {
     "maxAttempts": "REQUEST_RETRY_MAX_ATTEMPTS"
