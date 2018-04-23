@@ -66,35 +66,35 @@ describe('Address', () => {
     })
 
     it('should reject address with first line longer then upper limit', () => {
-      const errors = validator.validateSync(new Address(randomstring.generate(101), '', 'town', 'SA1'))
+      const errors = validator.validateSync(new Address(randomstring.generate(101), '', 'town', 'SW1A 1AA'))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, CommonValidationErrors.CONTENT_TOO_LONG)
     })
 
     it('should reject address with second line longer then upper limit', () => {
-      const errors = validator.validateSync(new Address('Apartment 99', randomstring.generate(101), 'town', 'SA1'))
+      const errors = validator.validateSync(new Address('Apartment 99', randomstring.generate(101), 'town', 'SW1A 1AA'))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, CommonValidationErrors.CONTENT_TOO_LONG)
     })
 
     it('should reject address with city longer then upper limit', () => {
-      const errors = validator.validateSync(new Address('Apartment 99', '', randomstring.generate(61), 'SA1'))
+      const errors = validator.validateSync(new Address('Apartment 99', '', randomstring.generate(61), 'SW1A 1AA'))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, CommonValidationErrors.CONTENT_TOO_LONG)
     })
 
-    it('should reject address with postcode longer then upper limit', () => {
-      const errors = validator.validateSync(new Address('Apartment 99', '', 'town', randomstring.generate(9)))
+    it('should reject address with postcode is invalid', () => {
+      const errors = validator.validateSync(new Address('Apartment 99', '', 'town', randomstring.generate(8)))
 
       expect(errors.length).to.equal(1)
-      expectValidationError(errors, CommonValidationErrors.CONTENT_TOO_LONG)
+      expectValidationError(errors, CommonValidationErrors.POSTCODE_INVALID)
     })
 
     it('should accept valid address', () => {
-      const errors = validator.validateSync(new Address('Apartment 99', '', 'London', 'SA1'))
+      const errors = validator.validateSync(new Address('Apartment 99', '', 'London', 'SW1A 1AA'))
 
       expect(errors.length).to.equal(0)
     })
@@ -130,13 +130,13 @@ describe('Address', () => {
         line1: 'line1',
         line2: 'line2',
         city: 'city',
-        postcode: 'postcode'
+        postcode: 'sw1a 1aa'
       })
 
       expect(address.line1).to.equal('LINE1')
       expect(address.line2).to.equal('LINE2')
       expect(address.city).to.equal('CITY')
-      expect(address.postcode).to.equal('POSTCODE')
+      expect(address.postcode).to.equal('SW1A 1AA')
     })
   })
 
@@ -147,10 +147,10 @@ describe('Address', () => {
         line1: 'line1',
         line2: 'line2',
         city: 'city',
-        postcode: 'postcode'
+        postcode: 'sw1a 1aa'
       }).toString()
 
-      expect(address).to.equal('LINE1 LINE2 CITY POSTCODE')
+      expect(address).to.equal('LINE1 LINE2 CITY SW1A 1AA')
     })
 
   })
