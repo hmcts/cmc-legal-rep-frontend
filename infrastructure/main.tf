@@ -46,7 +46,7 @@ module "legal-frontend" {
   location = "${var.location}"
   env = "${var.env}"
   ilbIp = "${var.ilbIp}"
-  is_frontend  = true
+  is_frontend = "${var.env != "preview" ? 1: 0}"
   appinsights_instrumentation_key = "${var.appinsights_instrumentation_key}"
   subscription = "${var.subscription}"
   additional_host_name = "${var.external_host_name}"
