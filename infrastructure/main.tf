@@ -30,6 +30,14 @@ data "vault_generic_secret" "oauth-client-secret" {
 
 locals {
   aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
+
+  previewVaultName = "${var.product}-legal-fe"
+  nonPreviewVaultName = "${var.product}-legal-fe-${var.env}"
+  vaultName = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultName : local.nonPreviewVaultName}"
+
+  nonPreviewVaultUri = "${module.legal-frontend-vault.key_vault_uri}"
+  previewVaultUri = "https://cmc-legal-fe-aat.vault.azure.net/"
+  vaultUri = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultUri : local.nonPreviewVaultUri}"
 }
 
 module "legal-frontend" {
@@ -97,7 +105,7 @@ module "legal-frontend" {
 
 module "legal-frontend-vault" {
   source              = "git@github.com:contino/moj-module-key-vault?ref=master"
-  name                = "cmc-legal-fe-${var.env}"
+  name                = "${local.vaultName}"
   product             = "${var.product}"
   env                 = "${var.env}"
   tenant_id           = "${var.tenant_id}"
