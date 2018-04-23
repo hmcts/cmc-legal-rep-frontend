@@ -87,7 +87,7 @@ describe('Address', () => {
     })
 
     it('should reject address with postcode is invalid', () => {
-      const errors = validator.validateSync(new Address('Apartment 99', '', 'town', randomstring.generate(8)))
+      const errors = validator.validateSync(new Address('Apartment 99', '', 'town', 'invalid pst'))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, CommonValidationErrors.POSTCODE_INVALID)
