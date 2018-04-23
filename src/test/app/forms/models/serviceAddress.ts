@@ -91,7 +91,7 @@ describe('Service Address', () => {
     })
 
     it('should reject address with invalid postcode', () => {
-      const errors = validator.validateSync(new ServiceAddress(YesNo.NO, 'Apartment 99', '', 'town', randomstring.generate(9)))
+      const errors = validator.validateSync(new ServiceAddress(YesNo.NO, 'Apartment 99', '', 'town', '123456789'))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, CommonValidationErrors.POSTCODE_INVALID)
