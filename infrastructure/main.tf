@@ -31,13 +31,19 @@ data "vault_generic_secret" "oauth-client-secret" {
 locals {
   aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
 
-  previewVaultName = "${var.product}-legal-fe"
-  nonPreviewVaultName = "${var.product}-legal-fe-${var.env}"
+  local_env = "${(var.env == "preview" || var.env == "spreview") ? (var.env == "preview" ) ? "aat" : "saat" : var.env}"
+  local_ase = "${(var.env == "preview" || var.env == "spreview") ? (var.env == "preview" ) ? "core-compute-aat" : "core-compute-saat" : local.aseName}"
+
+  previewVaultName = "${var.product}-citizen-fe"
+  nonPreviewVaultName = "${var.product}-citizen-fe-${var.env}"
   vaultName = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultName : local.nonPreviewVaultName}"
 
   nonPreviewVaultUri = "${module.legal-frontend-vault.key_vault_uri}"
   previewVaultUri = "https://cmc-legal-fe-aat.vault.azure.net/"
   vaultUri = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultUri : local.nonPreviewVaultUri}"
+
+  s2sUrl = "http://rpe-service-auth-provider-${local.local_env}.service.${local.local_ase}.internal"
+  claimStoreUrl = "http://cmc-claim-store-${local.local_env}.service.${local.local_ase}.internal"
 }
 
 module "legal-frontend" {
@@ -70,7 +76,7 @@ module "legal-frontend" {
     // IDAM
     IDAM_API_URL = "${var.idam_api_url}"
     IDAM_AUTHENTICATION_WEB_URL = "${var.authentication_web_url}"
-    IDAM_S2S_AUTH = "${var.s2s_url}"
+    IDAM_S2S_AUTH = "${local.s2sUrl}"
     IDAM_S2S_TOTP_SECRET = "${data.vault_generic_secret.s2s_secret.data["value"]}"
     OAUTH_CLIENT_SECRET = "${data.vault_generic_secret.oauth-client-secret.data["value"]}"
 
