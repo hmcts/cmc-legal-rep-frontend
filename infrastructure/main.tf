@@ -92,7 +92,7 @@ module "legal-frontend" {
     DRAFT_STORE_SECRET_SECONDARY = "${data.vault_generic_secret.draft_store_secret.data["secondary"]}"
 
     // Our service dependencies
-    CLAIM_STORE_URL = "http://cmc-claim-store-${var.env}.service.${local.aseName}.internal"
+    CLAIM_STORE_URL = "${local.claimStoreUrl}"
     PDF_SERVICE_URL = "http://cmc-pdf-service-${var.env}.service.${local.aseName}.internal"
 
     // Surveys
