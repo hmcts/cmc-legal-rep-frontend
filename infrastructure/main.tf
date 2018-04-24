@@ -38,6 +38,9 @@ locals {
   nonPreviewVaultUri = "${module.legal-frontend-vault.key_vault_uri}"
   previewVaultUri = "https://cmc-legal-fe-aat.vault.azure.net/"
   vaultUri = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultUri : local.nonPreviewVaultUri}"
+
+  localClaimStoreUrl = "http://cmc-claim-store-${var.env}.service.${local.aseName}.internal"
+  claimStoreUrl = "${var.env == "preview" ? "http://cmc-claim-store-aat.service.core-compute-aat.internal" : local.localClaimStoreUrl}"
 }
 
 module "legal-frontend" {
@@ -86,7 +89,7 @@ module "legal-frontend" {
     DRAFT_STORE_SECRET_SECONDARY = "${data.vault_generic_secret.draft_store_secret.data["secondary"]}"
 
     // Our service dependencies
-    CLAIM_STORE_URL = "http://cmc-claim-store-${var.env}.service.${local.aseName}.internal"
+    CLAIM_STORE_URL = "${local.claimStoreUrl}"
     PDF_SERVICE_URL = "http://cmc-pdf-service-${var.env}.service.${local.aseName}.internal"
 
     // Surveys
