@@ -93,7 +93,6 @@ module "legal-frontend" {
 
     // Our service dependencies
     CLAIM_STORE_URL = "${local.claimStoreUrl}"
-    PDF_SERVICE_URL = "http://cmc-pdf-service-${var.env}.service.${local.aseName}.internal"
 
     // Surveys
     SERVICE_SURVEY_URL = "http://www.smartsurvey.co.uk/s/CMCMVPT1/"

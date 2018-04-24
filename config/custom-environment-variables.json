@@ -42,9 +42,6 @@
   "pay": {
     "url": "PAY_URL"
   },
-  "pdf-service": {
-    "url": "PDF_SERVICE_URL"
-  },
   "oauth": {
     "clientId": "OAUTH_CLIENT_ID",
     "clientSecret": "OAUTH_CLIENT_SECRET"
