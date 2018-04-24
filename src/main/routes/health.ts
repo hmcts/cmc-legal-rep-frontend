@@ -7,7 +7,6 @@ import * as toBoolean from 'to-boolean'
 
 const checks = {
   'claim-store': basicHealthCheck('claim-store'),
-  'pdf-service': basicHealthCheck('pdf-service'),
   'draft-store': basicHealthCheck('draft-store'),
   'fees': basicHealthCheck('fees'),
   'pay': basicHealthCheck('pay'),
