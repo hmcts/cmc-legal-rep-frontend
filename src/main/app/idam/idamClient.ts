@@ -24,8 +24,7 @@ export default class IdamClient {
 
     return request.post({
       uri: `${s2sUrl}/lease`,
-      form: new ServiceAuthRequest(microserviceName, oneTimePassword),
-      json: false
+      body: new ServiceAuthRequest(microserviceName, oneTimePassword)
     }).then(token => {
       return new ServiceAuthToken(token)
     })
