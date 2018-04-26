@@ -25,7 +25,10 @@ export default express.Router()
   }))
 
 function basicHealthCheck (serviceName) {
-  const options = {}
+  const options = {
+    timeout: 5000,
+    deadline: 15000
+  }
   if (process.env.NODE_ENV === 'development' || !process.env.NODE_ENV || process.env.NODE_ENV === 'dockertests') {
     const sslDirectory = path.join(__dirname, '..', 'resources', 'localhost-ssl')
     options['ca'] = fs.readFileSync(path.join(sslDirectory, 'localhost-ca.crt'))
