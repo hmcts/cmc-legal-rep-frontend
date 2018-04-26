@@ -1,10 +1,8 @@
 import { Serializable } from 'app/models/serializable'
-import { Party } from 'claims/models/yours/party'
+import { Claimant } from 'claims/models/yours/claimant'
 import { TheirDetails } from 'claims/models/theirs/theirDetails'
 import { StatementOfTruth } from 'claims/models/statementOfTruth'
 import { PartyType } from 'app/common/partyType'
-import { Organisation as ClaimantAsOrganisation } from 'claims/models/yours/organisation'
-import { Individual as ClaimantAsIndividual } from 'claims/models/yours/individual'
 import { Individual as DefendantAsIndividual } from 'claims/models/theirs/individual'
 import { Organisation as DefendantAsOrganisation } from 'claims/models/theirs/organisation'
 import { SoleTrader as DefendantAsSoleTrader } from 'claims/models/theirs/soleTrader'
@@ -13,7 +11,7 @@ import { Amount } from 'claims/models/amount'
 export default class ClaimData implements Serializable<ClaimData> {
 
   externalId: string
-  claimants: Party[]
+  claimants: Claimant[]
   defendants: TheirDetails[]
   feeAmountInPennies: number
   reason: string
@@ -46,17 +44,10 @@ export default class ClaimData implements Serializable<ClaimData> {
     return this
   }
 
-  private deserializeClaimants (claimants: any): Party[] {
+  private deserializeClaimants (claimants: any): Claimant[] {
     if (claimants) {
       return claimants.map((claimant: any) => {
-        switch (claimant.type) {
-          case PartyType.INDIVIDUAL.dataStoreValue:
-            return new ClaimantAsIndividual().deserialize(claimant)
-          case PartyType.ORGANISATION.dataStoreValue:
-            return new ClaimantAsOrganisation().deserialize(claimant)
-          default:
-            throw Error('Something went wrong, No claimant type is set')
-        }
+        return new Claimant().deserialize(claimant)
       })
     }
   }
@@ -78,11 +69,11 @@ export default class ClaimData implements Serializable<ClaimData> {
     }
   }
 
-  get primaryClaimant (): Party {
+  get primaryClaimant (): Claimant {
     return this.claimants[0]
   }
 
-  get primaryDefendant (): Party {
+  get primaryDefendant (): TheirDetails {
     return this.defendants[0]
   }
 }

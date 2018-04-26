@@ -1,13 +1,7 @@
 import { PartyType } from 'app/common/partyType'
 
-export const individual = {
-  type: {
-    value: PartyType.INDIVIDUAL.dataStoreValue,
-    dataStoreValue: 'individual'
-  },
-  fullName: 'no name',
-  organisation: null,
-  companyHouseNumber: null
+export const claimantName = {
+  value: 'no name'
 }
 
 export const organisation = {
@@ -43,10 +37,8 @@ export const claimants = [{
     city: 'City',
     postcode: 'NE83BA'
   },
-  claimantDetails: individual,
-  type: PartyType.INDIVIDUAL.dataStoreValue,
-  title: 'Mr',
-  name: 'no name',
+  claimantName: claimantName,
+  type: PartyType.CLAIMANT.dataStoreValue,
   representative: {
     organisationName: 'test',
     organisationAddress: {

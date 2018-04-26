@@ -36,21 +36,16 @@
 
       {% if loop.length == 1 %}
 
-        {{ tableStart('claimantDetails', 'Claimant details') }}
+        {{ tableStart('claimantName', 'Claimant details') }}
         {% set changeClaimantLink = paths.claimantTypePage.uri %}
         {% set changeClaimantAddressPageLink = paths.claimantAddressPage.uri %}
       {% else %}
         {% set changeClaimantLink = '/legal/claim/claimant-change?index='+ loop.index %}
         {% set changeClaimantAddressPageLink = '/legal/claim/claimant-change?index='+ loop.index + '&page=address' %}
-        {{ tableStart('claimantDetails'+loop.index, 'Claimant ' + loop.index + ' details') }}
+        {{ tableStart('claimantName'+loop.index, 'Claimant ' + loop.index + ' details') }}
       {% endif %}
 
-      {% if claimant.claimantDetails.type.value === 'INDIVIDUAL' %}
-        {{ row('Name', claimant.claimantDetails.fullName, changeClaimantLink) }}
-      {% else %}
-        {{ row('Organisation name', claimant.claimantDetails.organisation, changeClaimantLink) }}
-        {{ row('Companies House number', claimant.claimantDetails.companyHouseNumber, changeClaimantLink) }}
-      {% endif %}
+      {{ row('Name', claimant.claimantName.fullName, changeClaimantLink) }}
 
       {{ rowWithMultipleValue(
       label = 'Address',

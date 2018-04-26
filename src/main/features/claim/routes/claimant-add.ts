@@ -55,7 +55,7 @@ export default express.Router()
         if (form.model.isAddClaimant === YesNo.YES) {
           Claimants.addClaimant(res)
           await new DraftService().save(draft, res.locals.user.bearerToken)
-          res.redirect(Paths.claimantTypePage.uri)
+          res.redirect(Paths.claimantNamePage.uri)
         } else if (draft.document.defendants.length > 1) {
           res.redirect(Paths.defendantAdditionPage.uri)
         } else {

@@ -70,7 +70,7 @@ describe('Claim issue: preferred court page', () => {
         .post(ClaimPaths.preferredCourtPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({ name: 'name' })
-        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimantTypePage.uri))
+        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimantNamePage.uri))
     })
   })
 })

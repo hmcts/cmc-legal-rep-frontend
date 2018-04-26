@@ -6,7 +6,7 @@ import { OtherDamages } from 'forms/models/otherDamages'
 import { YesNo } from 'forms/models/yesNo'
 import { GeneralDamages } from 'forms/models/generalDamages'
 import { Address } from 'forms/models/address'
-import { ClaimantDetails } from 'forms/models/claimantDetails'
+import { ClaimantName } from 'forms/models/claimantName'
 import Claimant from 'drafts/models/claimant'
 import { DefendantDetails } from 'forms/models/defendantDetails'
 import { Amount } from 'app/forms/models/amount'
@@ -62,10 +62,9 @@ const sampleClaimDraftObj = {
     } as Address
   } as Representative,
   claimants: [{
-    claimantDetails: {
-      type: { value: 'INDIVIDUAL' },
-      fullName: 'fullName'
-    } as ClaimantDetails,
+    claimantName: {
+      fullName: 'Jan Clark'
+    } as ClaimantName,
     address: {
       line1: 'Apt 99',
       city: 'London',

@@ -138,7 +138,7 @@ describe('Claimants', () => {
 
     it('should give claimant type page if no query parameter', async () => {
       const req: express.Request = mockReq()
-      expect(Claimants.getNextPage(req)).eq(ClaimPaths.claimantTypePage.uri)
+      expect(Claimants.getNextPage(req)).eq(ClaimPaths.claimantNamePage.uri)
     })
   })
 })

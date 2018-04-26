@@ -30,7 +30,7 @@ export default express.Router()
       } else {
         draft.document.preferredCourt = form.model
         await new DraftService().save(draft, res.locals.user.bearerToken)
-        res.redirect(Paths.claimantTypePage.uri)
+        res.redirect(Paths.claimantNamePage.uri)
       }
 
     })

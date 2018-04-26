@@ -20,7 +20,7 @@ export default express.Router()
       if (draft.document.claimants.length > 0) {
         res.redirect(Paths.claimantAdditionPage.uri)
       } else {
-        res.redirect(Paths.claimantTypePage.uri)
+        res.redirect(Paths.claimantNamePage.uri)
       }
 
     })

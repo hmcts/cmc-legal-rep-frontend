@@ -1,14 +1,14 @@
 import { Address } from 'app/forms/models/address'
-import { ClaimantDetails } from 'app/forms/models/claimantDetails'
+import { ClaimantName } from 'app/forms/models/claimantName'
 
 export default class Claimant {
   address: Address = new Address()
-  claimantDetails: ClaimantDetails = new ClaimantDetails()
+  claimantName: ClaimantName = new ClaimantName()
 
   deserialize (input: any): Claimant {
     if (input) {
       this.address = new Address().deserialize(input.address)
-      this.claimantDetails = new ClaimantDetails().deserialize(input.claimantDetails)
+      this.claimantName = new ClaimantName().deserialize(input.claimantName)
     }
     return this
   }

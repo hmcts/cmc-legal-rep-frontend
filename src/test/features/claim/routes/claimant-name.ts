@@ -14,60 +14,44 @@ import * as idamServiceMock from '../../../http-mocks/idam'
 import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
-const pageText = 'Choose claimant type'
+const pageText = 'Enter claimant name'
 const roles: string[] = ['solicitor']
 
-describe('Claim issue: claimant type page', () => {
+describe('Claim issue: claimant name page', () => {
   beforeEach(() => {
     mock.cleanAll()
     draftStoreServiceMock.resolveFind('legalClaim')
   })
 
   describe('on GET', () => {
-    checkAuthorizationGuards(app, 'get', ClaimPaths.claimantTypePage.uri)
+    checkAuthorizationGuards(app, 'get', ClaimPaths.claimantNamePage.uri)
 
     it('should render page when everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
-        .get(ClaimPaths.claimantTypePage.uri)
+        .get(ClaimPaths.claimantNamePage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .expect(res => expect(res).to.be.successful.withText(pageText))
     })
   })
 
   describe('on POST', () => {
-    checkAuthorizationGuards(app, 'post', ClaimPaths.claimantTypePage.uri)
+    checkAuthorizationGuards(app, 'post', ClaimPaths.claimantNamePage.uri)
 
-    describe('should render page with error when claimant type is invalid', async () => {
+    describe('should render page with error when claimant name is invalid', async () => {
       beforeEach(() => {
         idamServiceMock.resolveRetrieveUserFor('1', ...roles)
         idamServiceMock.resolveRetrieveServiceToken()
       })
-      it('type is not selected', async () => {
-        const claimantType = { type: '', title: '', fullName: '', organisation: '', companyHouseNumber: '' }
+      it('name not entered', async () => {
+        const claimantName = { fullName: '' }
         await request(app)
-          .post(ClaimPaths.claimantTypePage.uri)
+          .post(ClaimPaths.claimantNamePage.uri)
           .set('Cookie', `${cookieName}=ABC`)
-          .send(claimantType)
-          .expect(res => expect(res).to.be.successful.withText(pageText, 'Choose a type of claimant'))
-      })
-      it('type is INDIVIDUAL and full name not entered', async () => {
-        const claimantType = { type: 'INDIVIDUAL', title: '', fullName: '', organisation: '', companyHouseNumber: '' }
-        await request(app)
-          .post(ClaimPaths.claimantTypePage.uri)
-          .set('Cookie', `${cookieName}=ABC`)
-          .send(claimantType)
-          .expect(res => expect(res).to.be.successful.withText(pageText, 'Enter a full name'))
-      })
-      it('type is ORGANISATION and organisation not entered', async () => {
-        const claimantType = { type: 'ORGANISATION', title: '', fullName: '', organisation: '', companyHouseNumber: '' }
-        await request(app)
-          .post(ClaimPaths.claimantTypePage.uri)
-          .set('Cookie', `${cookieName}=ABC`)
-          .send(claimantType)
-          .expect(res => expect(res).to.be.successful.withText(pageText, 'Enter an organisation name'))
+          .send(claimantName)
+          .expect(res => expect(res).to.be.successful.withText(pageText, 'Enter a name'))
       })
     })
 
@@ -76,11 +60,9 @@ describe('Claim issue: claimant type page', () => {
       draftStoreServiceMock.rejectSave(100, 'HTTP error')
 
       await request(app)
-        .post(ClaimPaths.claimantTypePage.uri)
+        .post(ClaimPaths.claimantNamePage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({
-          type: 'INDIVIDUAL',
-          title: 'Mr',
           fullName: 'Peter Pan'
         })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
@@ -92,11 +74,9 @@ describe('Claim issue: claimant type page', () => {
       idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
-        .post(ClaimPaths.claimantTypePage.uri)
+        .post(ClaimPaths.claimantNamePage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({
-          type: 'INDIVIDUAL',
-          title: 'Mr',
           fullName: 'Peter Pan'
         })
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimantAddressPage.uri))

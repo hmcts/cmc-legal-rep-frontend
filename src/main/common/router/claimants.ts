@@ -1,5 +1,4 @@
 import * as express from 'express'
-import { PartyType } from 'app/common/partyType'
 import Claimant from 'app/drafts/models/claimant'
 import { Paths as ClaimPaths } from 'claim/paths'
 import { Draft } from '@hmcts/draft-store-client'
@@ -38,9 +37,8 @@ export class Claimants {
   static getCurrentClaimantName (res: express.Response): string {
     const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
     const claimants = draft.document.claimants
-    const claimantDetails = claimants[Claimants.getIndex(res)].claimantDetails
-    const isIndividual = claimantDetails.type.value === PartyType.INDIVIDUAL.value
-    return isIndividual ? claimantDetails.fullName : claimantDetails.organisation
+    const claimantName = claimants[Claimants.getIndex(res)].claimantName.fullName
+    return claimantName
   }
 
   static getIndex (res: express.Response): number {
@@ -64,7 +62,7 @@ export class Claimants {
         pagePath = ClaimPaths.claimantAddressPage.uri
         break
       default:
-        pagePath = ClaimPaths.claimantTypePage.uri
+        pagePath = ClaimPaths.claimantNamePage.uri
     }
     return pagePath
   }
