@@ -11,6 +11,7 @@ import { OAuthHelper } from 'idam/oAuthHelper'
 import { DraftDashboard } from 'drafts/models/draftDashboard'
 import { DraftService } from 'services/draftService'
 import { DraftMiddleware } from '@hmcts/cmc-draft-store-middleware'
+import { DraftCertificateOfService } from 'drafts/models/draftCertificateOfService'
 
 function dashboardRequestHandler (): express.RequestHandler {
   function accessDeniedCallback (req: express.Request, res: express.Response): void {
@@ -35,6 +36,12 @@ export class DashboardFeature {
       DraftMiddleware.requestHandler<DraftDashboard>(new DraftService(), 'dashboard', 100, (value: any): DraftDashboard => {
         return new DraftDashboard().deserialize(value)
       }))
+
+    app.all('/legal/dashboard/*',
+      DraftMiddleware.requestHandler<DraftCertificateOfService>(new DraftService(), 'legalCertificateOfService',
+        100, (value: any): DraftCertificateOfService => {
+          return new DraftCertificateOfService().deserialize(value)
+        }))
 
     app.use('/', RouterFinder.findAll(path.join(__dirname, 'routes')))
   }

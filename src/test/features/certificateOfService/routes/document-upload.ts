@@ -24,6 +24,8 @@ describe('Certificate of Service: Document upload page', () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       idamServiceMock.resolveRetrieveServiceToken()
       draftStoreServiceMock.resolveFind('legalCertificateOfService')
+      draftStoreServiceMock.resolveFind('dashboard')
+
       await request(app)
         .get(CertificateOfServicePath.documentUploadPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -34,6 +36,8 @@ describe('Certificate of Service: Document upload page', () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       idamServiceMock.resolveRetrieveServiceToken()
       draftStoreServiceMock.resolveFind('legalCertificateOfService')
+      draftStoreServiceMock.resolveFind('dashboard')
+
       await request(app)
         .get(CertificateOfServicePath.documentUploadPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -45,6 +49,8 @@ describe('Certificate of Service: Document upload page', () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       idamServiceMock.resolveRetrieveServiceToken()
       draftStoreServiceMock.resolveFind('legalCertificateOfService')
+      draftStoreServiceMock.resolveFind('dashboard')
+
       await request(app)
         .get(CertificateOfServicePath.documentUploadPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -56,6 +62,8 @@ describe('Certificate of Service: Document upload page', () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       idamServiceMock.resolveRetrieveServiceToken()
       draftStoreServiceMock.resolveFind('legalCertificateOfService')
+      draftStoreServiceMock.resolveFind('dashboard')
+
       await request(app)
         .get(CertificateOfServicePath.documentUploadPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -67,6 +75,8 @@ describe('Certificate of Service: Document upload page', () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       idamServiceMock.resolveRetrieveServiceToken()
       draftStoreServiceMock.resolveFind('legalCertificateOfService')
+      draftStoreServiceMock.resolveFind('dashboard')
+
       await request(app)
         .get(CertificateOfServicePath.documentUploadPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -80,6 +90,8 @@ describe('Certificate of Service: Document upload page', () => {
       draftStoreServiceMock.resolveFind('legalCertificateOfService', {
         fileToUploadError: { value: 'FILE_REQUIRED', displayValue: 'Select ‘choose file’ before you upload', dataStoreValue: 'fileRequired' }
       })
+      draftStoreServiceMock.resolveFind('dashboard')
+
       await request(app)
         .get(CertificateOfServicePath.documentUploadPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -92,6 +104,8 @@ describe('Certificate of Service: Document upload page', () => {
       draftStoreServiceMock.resolveFind('legalCertificateOfService', {
         fileToUploadError: { value: 'FILE_TOO_LARGE', displayValue: 'Choose a file sized 10MB or smaller', dataStoreValue: 'fileTooLarge' }
       })
+      draftStoreServiceMock.resolveFind('dashboard')
+
       await request(app)
         .get(CertificateOfServicePath.documentUploadPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -104,6 +118,8 @@ describe('Certificate of Service: Document upload page', () => {
       draftStoreServiceMock.resolveFind('legalCertificateOfService', {
         fileToUploadError: { value: 'WRONG_FILE_TYPE', displayValue: 'We can’t accept the file type you chose.', dataStoreValue: 'wrongFileType' }
       })
+      draftStoreServiceMock.resolveFind('dashboard')
+
       await request(app)
         .get(CertificateOfServicePath.documentUploadPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
@@ -119,6 +135,7 @@ describe('Certificate of Service: Document upload page', () => {
       idamServiceMock.resolveRetrieveServiceToken()
       draftStoreServiceMock.resolveUpdate()
       draftStoreServiceMock.resolveFind('legalCertificateOfService')
+      draftStoreServiceMock.resolveFind('dashboard')
 
       await request(app)
         .post(CertificateOfServicePath.documentUploadPage.uri)
@@ -132,6 +149,7 @@ describe('Certificate of Service: Document upload page', () => {
       idamServiceMock.resolveRetrieveServiceToken()
       draftStoreServiceMock.resolveUpdate()
       draftStoreServiceMock.resolveFind('legalCertificateOfService')
+      draftStoreServiceMock.resolveFind('dashboard')
 
       await request(app)
         .post(CertificateOfServicePath.documentUploadPage.uri)
@@ -145,6 +163,7 @@ describe('Certificate of Service: Document upload page', () => {
       idamServiceMock.resolveRetrieveServiceToken()
       draftStoreServiceMock.resolveUpdate()
       draftStoreServiceMock.resolveFind('legalCertificateOfService')
+      draftStoreServiceMock.resolveFind('dashboard')
 
       await request(app)
         .post(CertificateOfServicePath.documentUploadPage.uri)
@@ -158,6 +177,7 @@ describe('Certificate of Service: Document upload page', () => {
       idamServiceMock.resolveRetrieveServiceToken()
       draftStoreServiceMock.resolveUpdate()
       draftStoreServiceMock.resolveFind('legalCertificateOfService')
+      draftStoreServiceMock.resolveFind('dashboard')
 
       await request(app)
         .post(CertificateOfServicePath.documentUploadPage.uri)
@@ -171,6 +191,7 @@ describe('Certificate of Service: Document upload page', () => {
       idamServiceMock.resolveRetrieveServiceToken()
       draftStoreServiceMock.rejectSave()
       draftStoreServiceMock.resolveFind('legalCertificateOfService')
+      draftStoreServiceMock.resolveFind('dashboard')
 
       await request(app)
         .post(CertificateOfServicePath.documentUploadPage.uri)

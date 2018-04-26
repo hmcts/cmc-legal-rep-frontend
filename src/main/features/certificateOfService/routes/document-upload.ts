@@ -30,10 +30,9 @@ function renderView (form: Form<DocumentUpload>, res: express.Response): void {
   const other: UploadedDocument[] = files.filter(function (file: UploadedDocument) {
     return file.documentType.value === DocumentType.OTHER.value
   })
-
-  const minDifferentFilesRequired: number = (whatDocuments.types.indexOf('responsePack') !== -1) ? whatDocuments.types.length : whatDocuments.types.length - 1
+  const minDifferentFilesRequired: number = (whatDocuments.types.includes('responsePack')) ? whatDocuments.types.length - 1 : whatDocuments.types.length
   const differentFilesCount: number = files.reduce((accumulator, currentValue) => accumulator + 1, 0)
-  const canContinue: boolean = minDifferentFilesRequired === differentFilesCount
+  const canContinue: boolean = minDifferentFilesRequired <= differentFilesCount
 
   res.render(Paths.documentUploadPage.associatedView,
     {
@@ -80,6 +79,10 @@ export default express.Router()
 
       await new DraftService().save(draft, res.locals.user.bearerToken)
 
-      res.redirect(Paths.documentUploadPage.uri)
+      if (form.saveAndContinue) {
+        res.redirect(Paths.howDidYouServePage.uri)
+      } else {
+        res.redirect(Paths.documentUploadPage.uri)
+      }
     })
   )

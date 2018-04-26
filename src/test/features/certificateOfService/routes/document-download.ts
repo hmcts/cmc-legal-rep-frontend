@@ -46,6 +46,7 @@ describe('Get saved document', () => {
         draftStoreServiceMock.resolveFind('legalCertificateOfService')
         documentManagementMock.resolveFindMetaData()
         documentManagementMock.resolveGetDocument()
+        draftStoreServiceMock.resolveFind('dashboard')
 
         await request(app)
           .get(CertificateOfServicePath.documentDownloadPage.uri + '?id=/documents/85d97996-22a5-40d7-882e-3a382c8ae1b4')
@@ -58,6 +59,7 @@ describe('Get saved document', () => {
         draftStoreServiceMock.resolveFind('legalCertificateOfService')
         documentManagementMock.resolveFindMetaData()
         documentManagementMock.resolveGetDocument()
+        draftStoreServiceMock.resolveFind('dashboard')
 
         await request(app)
           .get(CertificateOfServicePath.documentDownloadPage.uri + '?id=/documents/85d97996-22a5-40d7-882e-3a382c8ae1b5')

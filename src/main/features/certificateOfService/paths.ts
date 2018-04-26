@@ -5,5 +5,6 @@ export class Paths {
   static readonly documentRemovePage = new RoutablePath('/legal/certificateOfService/document-remove')
   static readonly documentDownloadPage = new RoutablePath('/legal/certificateOfService/document-download')
   static readonly whatDocumentsPage = new RoutablePath('/legal/certificateOfService/what-documents')
+  static readonly howDidYouServePage = new RoutablePath('/legal/certificateOfService/how-did-you-serve')
   static readonly fileUploadPage = new RoutablePath('/legal/certificateOfService/file-upload')
 }
