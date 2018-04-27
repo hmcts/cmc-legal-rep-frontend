@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import { ValidationArguments } from 'class-validator'
-import { IsSelectedAlongConstraint } from 'app/forms/validation/validators/isSelectedAlong'
+import { IsSelectedAlongConstraint } from 'forms/validation/validators/isSelectedAlong'
 
 /**
  * The tests below error out when multiple selection.

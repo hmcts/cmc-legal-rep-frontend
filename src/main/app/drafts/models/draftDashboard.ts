@@ -1,4 +1,4 @@
-import { Serializable } from 'app/models/serializable'
+import { Serializable } from 'models/serializable'
 import { Search } from 'forms/models/search'
 import { DraftDocument } from '@hmcts/cmc-draft-store-middleware'
 

@@ -1,7 +1,7 @@
 import * as express from 'express'
 import { Paths } from 'claim/paths'
 import FeesClient from 'fees/feesClient'
-import ErrorHandling from 'common/errorHandling'
+import ErrorHandling from 'shared/errorHandling'
 import { Amount } from 'forms/models/amount'
 import { YesNo } from 'forms/models/yesNo'
 import { FeeResponse } from 'fees/model/feeResponse'

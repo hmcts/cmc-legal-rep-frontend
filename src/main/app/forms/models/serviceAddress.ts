@@ -1,7 +1,7 @@
 import { IsDefined, IsIn, MaxLength, ValidateIf } from 'class-validator'
 import { Serializable } from 'models/serializable'
 import { YesNo } from 'forms/models/yesNo'
-import { IsNotBlank } from 'app/forms/validation/validators/isNotBlank'
+import { IsNotBlank } from 'forms/validation/validators/isNotBlank'
 import { isUndefined } from 'util'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 

@@ -1,7 +1,7 @@
-import { Serializable } from 'app/models/serializable'
+import { Serializable } from 'models/serializable'
 import { IsDefined, IsIn, IsOptional, MaxLength, ValidateIf } from 'class-validator'
-import { PartyType as ClaimantType } from 'app/common/partyType'
-import { IsNotBlank } from 'app/forms/validation/validators/isNotBlank'
+import { PartyType as ClaimantType } from 'common/partyType'
+import { IsNotBlank } from 'forms/validation/validators/isNotBlank'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 
 export class ValidationErrors {

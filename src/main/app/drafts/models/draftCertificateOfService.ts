@@ -1,6 +1,6 @@
 import { Serializable } from 'models/serializable'
 import { UploadedDocument } from 'claims/models/uploadedDocument'
-import { WhatDocuments } from 'app/forms/models/whatDocuments'
+import { WhatDocuments } from 'forms/models/whatDocuments'
 import { DraftDocument } from '@hmcts/cmc-draft-store-middleware'
 import { FileUploadErrors } from 'forms/models/fileTypeErrors'
 import { DocumentType } from 'forms/models/documentType'

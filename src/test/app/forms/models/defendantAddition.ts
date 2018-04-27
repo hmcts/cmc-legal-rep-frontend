@@ -5,9 +5,9 @@ import { Validator } from 'class-validator'
 
 import { expectValidationError } from './validationUtils'
 
-import { PartyType as DefendantType } from 'app/common/partyType'
-import { DefendantAddition, ValidationErrors } from 'app/forms/models/defendantAddition'
-import { YesNo } from 'app/forms/models/yesNo'
+import { PartyType as DefendantType } from 'common/partyType'
+import { DefendantAddition, ValidationErrors } from 'forms/models/defendantAddition'
+import { YesNo } from 'forms/models/yesNo'
 
 describe('Defendant Addition', () => {
   describe('deserialize', () => {

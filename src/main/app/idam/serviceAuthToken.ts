@@ -1,5 +1,5 @@
 import moment = require('moment')
-import { JwtUtils } from 'common/utils/jwtUtils'
+import { JwtUtils } from 'shared/utils/jwtUtils'
 
 export class ServiceAuthToken {
   constructor (public bearerToken: string) {

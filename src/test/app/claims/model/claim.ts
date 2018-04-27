@@ -1,5 +1,5 @@
 import Claim from 'claims/models/claim'
-import { MomentFactory } from 'common/momentFactory'
+import { MomentFactory } from 'shared/momentFactory'
 import { expect } from 'chai'
 
 const claim = new Claim()

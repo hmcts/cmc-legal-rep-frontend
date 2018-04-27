@@ -5,7 +5,7 @@ import { expect } from 'chai'
 import { Validator } from 'class-validator'
 import { expectValidationError } from './validationUtils'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
-import PreferredCourt from 'app/forms/models/preferredCourt'
+import PreferredCourt from 'forms/models/preferredCourt'
 
 import * as randomstring from 'randomstring'
 

@@ -1,5 +1,5 @@
 import { MaxLength, ValidateIf, IsDefined } from 'class-validator'
-import { IsNotBlank } from 'app/forms/validation/validators/isNotBlank'
+import { IsNotBlank } from 'forms/validation/validators/isNotBlank'
 import { Serializable } from 'models/serializable'
 import { DocumentType } from 'forms/models/documentType'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'

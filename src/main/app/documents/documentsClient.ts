@@ -1,7 +1,7 @@
 import * as config from 'config'
 import { request, requestNonPromise } from 'client/request'
 import { Request } from 'request'
-import StringUtils from 'app/utils/stringUtils'
+import StringUtils from 'utils/stringUtils'
 import * as fs from 'fs'
 import * as URL from 'url-parse'
 

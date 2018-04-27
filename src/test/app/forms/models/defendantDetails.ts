@@ -5,9 +5,9 @@ import { Validator } from 'class-validator'
 
 import { expectValidationError } from './validationUtils'
 
-import { PartyType as DefendantType } from 'app/common/partyType'
+import { PartyType as DefendantType } from 'common/partyType'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
-import { DefendantDetails, ValidationErrors } from 'app/forms/models/defendantDetails'
+import { DefendantDetails, ValidationErrors } from 'forms/models/defendantDetails'
 import * as randomstring from 'randomstring'
 
 describe('Defendant Details', () => {

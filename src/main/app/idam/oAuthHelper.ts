@@ -3,7 +3,7 @@ import * as config from 'config'
 import * as uuid from 'uuid'
 import * as Cookies from 'cookies'
 import { buildURL } from 'utils/callbackBuilder'
-import { Paths as AppPaths } from 'app/paths'
+import { Paths as AppPaths } from 'paths'
 
 export class OAuthHelper {
   static getRedirectUri (req: express.Request, res: express.Response): string {

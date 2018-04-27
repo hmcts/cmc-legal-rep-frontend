@@ -1,6 +1,6 @@
 import * as express from 'express'
 import { Paths } from 'certificateOfService/paths'
-import DocumentsClient from 'app/documents/documentsClient'
+import DocumentsClient from 'documents/documentsClient'
 import * as http from 'http'
 import * as HttpStatus from 'http-status-codes'
 import { UploadedDocument } from 'claims/models/uploadedDocument'

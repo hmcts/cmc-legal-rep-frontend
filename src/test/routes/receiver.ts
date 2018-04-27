@@ -4,7 +4,7 @@ import * as config from 'config'
 
 import './expectations'
 
-import { Paths as AppPaths } from 'app/paths'
+import { Paths as AppPaths } from 'paths'
 import { Paths as ClaimPaths } from 'claim/paths'
 import { app } from '../../main/app'
 import * as idamServiceMock from '../http-mocks/idam'

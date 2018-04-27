@@ -6,7 +6,7 @@ import * as numeralFilter from 'nunjucks-numeral-filter'
 import * as numeral from 'numeral'
 import * as config from 'config'
 
-import { NUMBER_FORMAT } from 'app/utils/numberFormatter'
+import { NUMBER_FORMAT } from 'utils/numberFormatter'
 import { convertToPoundsFilter } from 'modules/nunjucks/filters/convertToPounds'
 import { dateFilter } from 'modules/nunjucks/filters/dateFilter'
 import { DocumentType } from 'forms/models/documentType'

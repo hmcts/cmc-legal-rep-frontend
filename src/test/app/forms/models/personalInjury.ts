@@ -6,11 +6,11 @@ import { Validator } from 'class-validator'
 
 import { expectValidationError } from './validationUtils'
 
-import { PersonalInjury, ValidationErrors } from 'app/forms/models/personalInjury'
+import { PersonalInjury, ValidationErrors } from 'forms/models/personalInjury'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 
-import { YesNo } from 'app/forms/models/yesNo'
-import { GeneralDamages } from 'app/forms/models/generalDamages'
+import { YesNo } from 'forms/models/yesNo'
+import { GeneralDamages } from 'forms/models/generalDamages'
 
 describe('Personal Injury', () => {
   describe('deserialize', () => {

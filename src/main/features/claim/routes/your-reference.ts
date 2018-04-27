@@ -1,12 +1,12 @@
 import * as express from 'express'
 import { Paths } from 'claim/paths'
 
-import { Form } from 'app/forms/form'
-import { FormValidator } from 'app/forms/validation/formValidator'
-import { YourReference } from 'app/forms/models/yourReference'
+import { Form } from 'forms/form'
+import { FormValidator } from 'forms/validation/formValidator'
+import { YourReference } from 'forms/models/yourReference'
 
 import { DraftService } from 'services/draftService'
-import ErrorHandling from 'common/errorHandling'
+import ErrorHandling from 'shared/errorHandling'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 

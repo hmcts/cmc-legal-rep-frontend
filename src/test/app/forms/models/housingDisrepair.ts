@@ -9,7 +9,7 @@ import { HousingDisrepair, ValidationErrors } from 'forms/models/housingDisrepai
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 import { GeneralDamages } from 'forms/models/generalDamages'
 import { OtherDamages } from 'forms/models/otherDamages'
-import { YesNo } from 'app/forms/models/yesNo'
+import { YesNo } from 'forms/models/yesNo'
 
 describe('Housing Disrepair', () => {
   describe('deserialize', () => {

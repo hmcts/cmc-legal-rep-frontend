@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { ValidationArguments } from 'class-validator'
-import { MinAmountRangeConstraint } from 'app/forms/validation/validators/minAmountRange'
-import { Amount } from 'app/forms/models/amount'
+import { MinAmountRangeConstraint } from 'forms/validation/validators/minAmountRange'
+import { Amount } from 'forms/models/amount'
 
 describe('MinAmountConstraint', () => {
   const constraint: MinAmountRangeConstraint = new MinAmountRangeConstraint()

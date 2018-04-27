@@ -5,8 +5,8 @@ import { Form } from 'forms/form'
 import { FormValidator } from 'forms/validation/formValidator'
 
 import { DraftService } from 'services/draftService'
-import ErrorHandling from 'common/errorHandling'
-import { StatementOfTruth } from 'app/forms/models/statementOfTruth'
+import ErrorHandling from 'shared/errorHandling'
+import { StatementOfTruth } from 'forms/models/statementOfTruth'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 

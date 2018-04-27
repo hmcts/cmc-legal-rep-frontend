@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { IsFeeAccountConstraint } from 'app/forms/validation/validators/isFeeAccount'
+import { IsFeeAccountConstraint } from 'forms/validation/validators/isFeeAccount'
 
 describe('IsFeeAccountConstraint', () => {
   const constraint: IsFeeAccountConstraint = new IsFeeAccountConstraint()

@@ -6,10 +6,10 @@ import { Validator } from 'class-validator'
 
 import { expectValidationError } from './validationUtils'
 
-import { YesNo } from 'app/forms/models/yesNo'
-import { GeneralDamages } from 'app/forms/models/generalDamages'
-import { DefendantRepresented, ValidationErrors } from 'app/forms/models/defendantRepresented'
-import { OrganisationName } from 'app/forms/models/organisationName'
+import { YesNo } from 'forms/models/yesNo'
+import { GeneralDamages } from 'forms/models/generalDamages'
+import { DefendantRepresented, ValidationErrors } from 'forms/models/defendantRepresented'
+import { OrganisationName } from 'forms/models/organisationName'
 
 describe('Defendant Represented', () => {
   describe('deserialize', () => {

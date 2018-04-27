@@ -1,5 +1,5 @@
-import { Address } from 'app/forms/models/address'
-import { ClaimantDetails } from 'app/forms/models/claimantDetails'
+import { Address } from 'forms/models/address'
+import { ClaimantDetails } from 'forms/models/claimantDetails'
 
 export default class Claimant {
   address: Address = new Address()

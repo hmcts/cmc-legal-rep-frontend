@@ -4,7 +4,7 @@ import { RepresentativeDetails } from 'forms/models/representativeDetails'
 import { OrganisationName } from 'forms/models/organisationName'
 import { FeeAccount } from 'forms/models/feeAccount'
 import { Address } from 'claims/models/address'
-import { ContactDetails } from 'app/forms/models/contactDetails'
+import { ContactDetails } from 'forms/models/contactDetails'
 
 const firstCompany: RepresentativeDetails = new RepresentativeDetails('1',
   new OrganisationName('First Company'),
