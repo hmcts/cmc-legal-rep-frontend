@@ -5,7 +5,7 @@ import { IsNotBlank } from 'forms/validation/validators/isNotBlank'
 import { Serializable } from 'models/serializable'
 import { isUndefined } from 'util'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
-import { IsValidPostcode } from 'forms/validation/validators/isValidPostcode'
+import { IsValidPostcode } from '@hmcts/cmc-validators/dist/isValidPostcode'
 
 export class Address implements Serializable<Address> {
 
