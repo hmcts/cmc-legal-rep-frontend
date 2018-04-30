@@ -31,7 +31,7 @@ describe('Claim issue: Submitted page', () => {
       await request(app)
         .get(ClaimPaths.claimSubmittedPage.uri.replace(':externalId', claimStoreServiceMock.sampleClaimObj.externalId))
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText(pageHeading))
+        .expect(res => expect(res).to.be.successful.withText(pageHeading, claimStoreServiceMock.sampleClaimObj.referenceNumber))
     })
 
     it('should fail page when user is not owner of claim with given external reference', async () => {

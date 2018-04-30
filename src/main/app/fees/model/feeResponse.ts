@@ -1,14 +1,9 @@
-import 'reflect-metadata'
-import { Type } from 'class-transformer'
-import { Fee } from 'fees/model/fee'
+import { Expose } from 'class-transformer'
 
 export class FeeResponse {
+  readonly code: string
+  readonly description: string
+  @Expose({ name: 'fee_amount' })
   readonly amount: number
-  @Type(() => Fee)
-  readonly fee: Fee
-
-  constructor (amount: number, fee: Fee) {
-    this.amount = amount
-    this.fee = fee
-  }
+  readonly version: number
 }

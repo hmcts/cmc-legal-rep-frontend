@@ -11,6 +11,7 @@ import { Paths as ClaimPaths } from 'claim/paths'
 import { app } from '../../../../main/app'
 
 import * as idamServiceMock from '../../../http-mocks/idam'
+import * as payClientMock from '../../../http-mocks/pay'
 import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
 import * as claimStoreServiceMock from '../../../http-mocks/claim-store'
 
@@ -92,6 +93,7 @@ describe('Claim : Pay by Fee Account page', () => {
       draftStoreServiceMock.resolveDelete()
       feesServiceMock.resolveCalculateIssueFee()
       idamServiceMock.resolveRetrieveServiceToken()
+      payClientMock.resolveCreate()
 
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
@@ -110,6 +112,7 @@ describe('Claim : Pay by Fee Account page', () => {
       draftStoreServiceMock.resolveDelete()
       feesServiceMock.resolveCalculateIssueFee()
       idamServiceMock.resolveRetrieveServiceToken()
+      payClientMock.resolveCreate()
 
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
@@ -117,6 +120,21 @@ describe('Claim : Pay by Fee Account page', () => {
         .send({ reference: 'PBA1234567' })
         .expect(res => expect(res).to.be.redirect
           .toLocation(ClaimPaths.claimSubmittedPage.uri.replace(':externalId', claimStoreServiceMock.sampleClaimObj.externalId)))
+    })
+
+    it('should not issue claim if pay by account is failed', async () => {
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      draftStoreServiceMock.resolveUpdate()
+      feesServiceMock.resolveCalculateIssueFee()
+      idamServiceMock.resolveRetrieveServiceToken()
+      payClientMock.rejectCreate()
+
+      await request(app)
+        .post(ClaimPaths.payByAccountPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .send({ reference: 'PBA1234567' })
+        .expect(res => expect(res).to.be.serverError.withText('Error'))
+
     })
   })
 })

@@ -73,5 +73,15 @@ describe('Claim issue: Claimant change page', () => {
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimantAddressPage.uri))
     })
 
+    it('should return 500 and render error page when cannot save draft', async () => {
+      idamServiceMock.resolveRetrieveServiceToken()
+      draftStoreServiceMock.resolveFind('legalClaim', claimants)
+      draftStoreServiceMock.rejectSave()
+
+      await request(app)
+        .get(ClaimPaths.claimantChangePage.uri + '?index=1')
+        .set('Cookie', `${cookieName}=ABC`)
+        .expect(res => expect(res).to.be.serverError.withText('Error'))
+    })
   })
 })

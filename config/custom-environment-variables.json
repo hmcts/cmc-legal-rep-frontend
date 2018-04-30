@@ -39,8 +39,8 @@
   "fees": {
     "url": "FEES_URL"
   },
-  "pdf-service": {
-    "url": "PDF_SERVICE_URL"
+  "pay": {
+    "url": "PAY_URL"
   },
   "oauth": {
     "clientId": "OAUTH_CLIENT_ID",
@@ -49,13 +49,21 @@
   "featureToggles": {
     "idamOauth": "FEATURE_IDAM_OAUTH",
     "dashboard": "FEATURE_DASHBOARD",
-    "certificateOfService": "FEATURE_CERTIFICATE_OF_SERVICE"
+    "certificateOfService": "FEATURE_CERTIFICATE_OF_SERVICE",
+    "returnErrorToUser": "FEATURE_RETURN_ERROR_TO_USER"
   },
   "documentManagement" : {
     "url": "DOCUMENT_MANAGEMENT_API_GATEWAY_URL"
   },
   "feedback_legal_service_survey": "FEEDBACK_SURVEY_URL",
   "feedback_legal_report_problem_survey": "FEEDBACK_REPORT_PROBLEM_URL",
-  "feedback_legal_survey": "FEEDBACK_URL"
+  "feedback_legal_survey": "FEEDBACK_URL",
+  "appInsights": {
+    "instrumentationKey": "APPINSIGHTS_INSTRUMENTATIONKEY",
+    "roleName": "APPINSIGHTS_ROLE_NAME"
+  },
+  "requestRetry": {
+    "maxAttempts": "REQUEST_RETRY_MAX_ATTEMPTS"
+  }
 }
 

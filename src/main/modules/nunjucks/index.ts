@@ -8,7 +8,7 @@ import * as config from 'config'
 
 import { NUMBER_FORMAT } from 'app/utils/numberFormatter'
 import { convertToPoundsFilter } from 'modules/nunjucks/filters/convertToPounds'
-import dateFilter from 'modules/nunjucks/filters/dateFilter'
+import { dateFilter } from 'modules/nunjucks/filters/dateFilter'
 import { DocumentType } from 'forms/models/documentType'
 import { Paths as CertificateOfServicePaths } from 'certificateOfService/paths'
 import { FileTypes } from 'forms/models/fileTypes'
