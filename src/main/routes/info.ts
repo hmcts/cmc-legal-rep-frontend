@@ -12,9 +12,9 @@ export default express.Router()
   .get('/info', infoRequestHandler({
     info: {
       'claimstore': basicInfoContributor('claim-store'),
-      'pdf-service': basicInfoContributor('pdf-service'),
       'draft-store': basicInfoContributor('draft-store'),
       'fees': basicInfoContributor('fees'),
+      'pay': basicInfoContributor('pay'),
       'idam-api': basicInfoContributor('idam.api'),
       'idam-authentication-web': caCertRequiredLocallyInfoContributor('idam.authentication-web'),
       'idam-service-2-service-auth': basicInfoContributor('idam.service-2-service-auth')

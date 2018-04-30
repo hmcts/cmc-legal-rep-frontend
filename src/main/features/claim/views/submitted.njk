@@ -10,10 +10,10 @@
         {{ csrfProtection(csrf) }}
         <div class="govuk-box-highlight">
           <h1 class="bold-large">{{ t('Your claim has been issued') }}</h1>
-          <h2 class="bold-medium reference-number">{{ t('Claim number: %s', { postProcess: 'sprintf', sprintf: [claimNumber]}) }}</h2>
-          <div class="confirmation-detail">{{ t('Submitted: %s', { postProcess: 'sprintf', sprintf: [submittedDate ]}) }}</div>
-          <div class="confirmation-detail">{{ t('Issued: %s', { postProcess: 'sprintf', sprintf: [issueDate]}) }}</div>
-          <div class="confirmation-detail">{{ t('Fee paid: %s', { postProcess: 'sprintf', sprintf: [feePaid | pennies2pounds | numeral]}) }}</div>
+          <h2 class="bold-medium reference-number">{{ t('Claim number: {{ claimNumber }}', { claimNumber: claim.claimNumber }) }}</h2>
+          <div class="confirmation-detail">{{ t('Submitted: {{ submittedAt }}', { submittedAt: claim.createdAt | date }) }}</div>
+          <div class="confirmation-detail">{{ t('Issued: {{ issuedOn }}', { issuedOn: claim.issuedOn | date }) }}</div>
+          <div class="confirmation-detail">{{ t('Fee paid: {{ fee }}', { fee: claim.claimData.feeAmountInPennies | pennies2pounds | numeral }) }}</div>
         </div>
         <div class="form-group">{{ t("We've emailed confirmation to: ") }}
           <span class="bold-small">{{ repEmail }}</span>
