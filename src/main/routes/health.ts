@@ -7,9 +7,9 @@ import * as toBoolean from 'to-boolean'
 
 const checks = {
   'claim-store': basicHealthCheck('claim-store'),
-  'pdf-service': basicHealthCheck('pdf-service'),
   'draft-store': basicHealthCheck('draft-store'),
   'fees': basicHealthCheck('fees'),
+  'pay': basicHealthCheck('pay'),
   'idam-api': basicHealthCheck('idam.api'),
   'idam-authentication-web': basicHealthCheck('idam.authentication-web'),
   'idam-service-2-service-auth': basicHealthCheck('idam.service-2-service-auth')
@@ -25,7 +25,10 @@ export default express.Router()
   }))
 
 function basicHealthCheck (serviceName) {
-  const options = {}
+  const options = {
+    timeout: 5000,
+    deadline: 15000
+  }
   if (process.env.NODE_ENV === 'development' || !process.env.NODE_ENV || process.env.NODE_ENV === 'dockertests') {
     const sslDirectory = path.join(__dirname, '..', 'resources', 'localhost-ssl')
     options['ca'] = fs.readFileSync(path.join(sslDirectory, 'localhost-ca.crt'))
