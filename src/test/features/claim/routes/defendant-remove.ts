@@ -80,6 +80,15 @@ describe('Claim issue: is defendant removal page, single defendant', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantTypePage.uri))
     })
+
+    it('should return 500 and render error page when cannot save draft', async () => {
+      draftStoreServiceMock.rejectSave()
+
+      await request(app)
+        .get(ClaimPaths.defendantRemovePage.uri + '?index=1')
+        .set('Cookie', `${cookieName}=ABC`)
+        .expect(res => expect(res).to.be.serverError.withText('Error'))
+    })
   })
 })
 describe('Claim issue: is defendant removal page, multiple defendants', () => {

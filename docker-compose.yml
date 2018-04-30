@@ -10,7 +10,7 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
-    image: docker.artifactory.reform.hmcts.net/cmc/legal-frontend
+    image: hmcts/cmc-legal-frontend
     environment:
         - PORT=3401
         - IDAM_AUTHENTICATION_WEB_URL=https://idam-test.dev.ccidam.reform.hmcts.net
@@ -23,3 +23,12 @@ services:
         - NODE_ENV=dev
     ports:
         - 3401:3401
+  legal-integration-tests:
+    build:
+      context: .
+      dockerfile: integration-tests.Dockerfile
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    image: hmcts/cmc-legal-integration-tests

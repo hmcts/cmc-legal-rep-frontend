@@ -1,34 +1,45 @@
 import * as config from 'config'
 import * as mock from 'nock'
 import * as HttpStatus from 'http-status-codes'
-import { Fee } from 'fees/model/fee'
 
-const issueFeeCode: string = config.get<string>('fees.issueFeeCode')
-const serviceURL: string = `${config.get('fees.url')}/range-groups/${issueFeeCode}/calculations?value=`
+const service = config.get<string>('fees.service')
+const jurisdiction1 = config.get<string>('fees.jurisdiction1')
+const jurisdiction2 = config.get<string>('fees.jurisdiction2')
+const defaultChannel = config.get<string>('fees.channel.paper')
+const issueEvent = config.get<string>('fees.issueFee.event')
+const baseFeeUri = config.get<string>('fees.url')
 
-const body = {
-  amount: 1000000,
-  fee: {
-    code: 'X0012'
-  } as Fee
+const feeResponse = {
+  code: 'X0008-1',
+  description: 'Civil Court fees - Money Claims - Claim Amount - 10000.01 up to 200000 GBP.',
+  version: 1,
+  fee_amount: 10000
 }
 
 export function resolveCalculateIssueFee (): mock.Scope {
-  return resolveCallFeesRegister()
+  return mock(baseFeeUri)
+    .get(`/fees-register/fees/lookup`)
+    .query({
+      service: `${service}`,
+      jurisdiction1: `${jurisdiction1}`,
+      jurisdiction2: `${jurisdiction2}`,
+      channel: `${defaultChannel}`,
+      event: `${issueEvent}`,
+      amount_or_volume: new RegExp(`[\\d]+`)
+    })
+    .reply(HttpStatus.OK, feeResponse)
 }
 
 export function rejectCalculateIssueFee (reason: string = 'HTTP error') {
-  rejectCallFeesRegister(reason)
-}
-
-export function resolveCallFeesRegister (): mock.Scope {
-  return mock(serviceURL)
-    .get(new RegExp(`[0-9]+`))
-    .reply(HttpStatus.OK, body)
-}
-
-export function rejectCallFeesRegister (reason: string = 'HTTP error') {
-  mock(serviceURL)
-    .get(new RegExp(`[0-9]+`))
+  return mock(baseFeeUri)
+    .get(`/fees-register/fees/lookup`)
+    .query({
+      service: `${service}`,
+      jurisdiction1: `${jurisdiction1}`,
+      jurisdiction2: `${jurisdiction2}`,
+      channel: `${defaultChannel}`,
+      event: `${issueEvent}`,
+      amount_or_volume: new RegExp(`[\\d]+`)
+    })
     .reply(HttpStatus.INTERNAL_SERVER_ERROR, reason)
 }

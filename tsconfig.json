@@ -10,7 +10,8 @@
       "es2016.array.include",
       "dom"
     ],
-    "target": "es5",
+    "target": "es6",
+    "module": "commonjs",
     "baseUrl": "src/main",
     "paths": {
       "app/*": [
@@ -72,6 +73,9 @@
       ],
       "services/*": [
         "services/*"
+      ],
+      "integration-test/*": [
+        "../integration-test/*"
       ]
     },
     "typeRoots": [
