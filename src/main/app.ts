@@ -5,7 +5,6 @@ import * as favicon from 'serve-favicon'
 import * as cookieParser from 'cookie-parser'
 import * as cookieEncrypter from 'cookie-encrypter'
 import * as bodyParser from 'body-parser'
-import { RequestTracing, Logger } from '@hmcts/nodejs-logging'
 import { ForbiddenError, NotFoundError } from './errors'
 import { ErrorLogger } from 'logging/errorLogger'
 import { RouterFinder } from 'common/router/routerFinder'
@@ -20,21 +19,14 @@ import { DashboardFeature } from 'dashboard/index'
 import CookieProperties from 'common/cookieProperties'
 import healthEndpoint from 'routes/health'
 import * as toBoolean from 'to-boolean'
+import { FeatureToggles } from 'utils/featureToggles'
 
 export const app: express.Express = express()
-
-Logger.config({
-  microservice: 'cmc-legal-rep-frontend',
-  team: 'cmc',
-  environment: process.env.NODE_ENV
-})
 
 const env = process.env.NODE_ENV || 'development'
 app.locals.ENV = env
 
 const developmentMode = env === 'development'
-
-app.use(RequestTracing.middleware)
 
 const i18next = I18Next.enableFor(app)
 
@@ -54,6 +46,7 @@ app.use(cookieParser(config.get('session.encryptionKey')))
 app.use(cookieEncrypter(config.get('session.encryptionKey'), CookieProperties.getCookieConfig()))
 
 app.use('/legal', express.static(path.join(__dirname, 'public')))
+app.use('/robots.txt', express.static(path.join(__dirname, 'public/robots.txt')))
 
 if (env !== 'mocha') {
   new CsrfProtection().enableFor(app)
@@ -85,7 +78,7 @@ app.use((err, req, res, next) => {
   } else if (err.statusCode === 403) {
     res.render(new ForbiddenError().associatedView)
   } else {
-    const view = (env === 'mocha' || env === 'development' || env === 'dockertests' || env === 'dev' || env === 'demo') ? 'error_dev' : 'error'
+    const view = FeatureToggles.isEnabled('returnErrorToUser') ? 'error_dev' : 'error'
     res.render(view, {
       error: err,
       title: 'error'

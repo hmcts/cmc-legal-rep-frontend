@@ -31,10 +31,6 @@ variable "idam_api_url" {
   default = "http://betaDevBccidamAppLB.reform.hmcts.net"
 }
 
-variable "s2s_url" {
-  default = "http://betaDevBccidamS2SLB.reform.hmcts.net"
-}
-
 variable "authentication_web_url" {
   default = "https://idam-test.dev.ccidam.reform.hmcts.net"
 }
@@ -58,6 +54,10 @@ variable "feature_certificateOfService" {
   default = "false"
 }
 
+variable "feature_return_error_to_user" {
+  default = "false"
+}
+
 variable "jenkins_AAD_objectId" {
   type                        = "string"
   description                 = "(Required) The Azure AD object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault. The object ID must be unique for the list of access policies."
@@ -73,4 +73,9 @@ variable "client_id" {
 
 variable "external_host_name" {
   default = "moneyclaims-legal.sandbox.platform.hmcts.net"
+}
+
+variable "appinsights_instrumentation_key" {
+  description = "Instrumentation key of the App Insights instance this webapp should use. Module will create own App Insights resource if this is not provided"
+  default = ""
 }

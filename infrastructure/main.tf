@@ -30,6 +30,20 @@ data "vault_generic_secret" "oauth-client-secret" {
 
 locals {
   aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
+
+  local_env = "${(var.env == "preview" || var.env == "spreview") ? (var.env == "preview" ) ? "aat" : "saat" : var.env}"
+  local_ase = "${(var.env == "preview" || var.env == "spreview") ? (var.env == "preview" ) ? "core-compute-aat" : "core-compute-saat" : local.aseName}"
+
+  previewVaultName = "${var.product}-legal-fe"
+  nonPreviewVaultName = "${var.product}-legal-fe-${var.env}"
+  vaultName = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultName : local.nonPreviewVaultName}"
+
+  nonPreviewVaultUri = "${module.legal-frontend-vault.key_vault_uri}"
+  previewVaultUri = "https://cmc-legal-fe-aat.vault.azure.net/"
+  vaultUri = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultUri : local.nonPreviewVaultUri}"
+
+  s2sUrl = "http://rpe-service-auth-provider-${local.local_env}.service.${local.local_ase}.internal"
+  claimStoreUrl = "http://cmc-claim-store-${local.local_env}.service.${local.local_ase}.internal"
 }
 
 module "legal-frontend" {
@@ -38,7 +52,8 @@ module "legal-frontend" {
   location = "${var.location}"
   env = "${var.env}"
   ilbIp = "${var.ilbIp}"
-  is_frontend  = true
+  is_frontend = "${var.env != "preview" ? 1: 0}"
+  appinsights_instrumentation_key = "${var.appinsights_instrumentation_key}"
   subscription = "${var.subscription}"
   additional_host_name = "${var.external_host_name}"
 
@@ -61,7 +76,7 @@ module "legal-frontend" {
     // IDAM
     IDAM_API_URL = "${var.idam_api_url}"
     IDAM_AUTHENTICATION_WEB_URL = "${var.authentication_web_url}"
-    IDAM_S2S_AUTH = "${var.s2s_url}"
+    IDAM_S2S_AUTH = "${local.s2sUrl}"
     IDAM_S2S_TOTP_SECRET = "${data.vault_generic_secret.s2s_secret.data["value"]}"
     OAUTH_CLIENT_SECRET = "${data.vault_generic_secret.oauth-client-secret.data["value"]}"
 
@@ -77,8 +92,7 @@ module "legal-frontend" {
     DRAFT_STORE_SECRET_SECONDARY = "${data.vault_generic_secret.draft_store_secret.data["secondary"]}"
 
     // Our service dependencies
-    CLAIM_STORE_URL = "http://cmc-claim-store-${var.env}.service.${local.aseName}.internal"
-    PDF_SERVICE_URL = "http://cmc-pdf-service-${var.env}.service.${local.aseName}.internal"
+    CLAIM_STORE_URL = "${local.claimStoreUrl}"
 
     // Surveys
     SERVICE_SURVEY_URL = "http://www.smartsurvey.co.uk/s/CMCMVPT1/"
@@ -90,12 +104,13 @@ module "legal-frontend" {
     FEATURE_DASHBOARD = "${var.feature_dashboard}"
     FEATURE_IDAM_OAUTH = "${var.feature_idamOauth}"
     FEATURE_CERTIFICATE_OF_SERVICE = "${var.feature_certificateOfService}"
+    FEATURE_RETURN_ERROR_TO_USER = "${var.feature_return_error_to_user}"
   }
 }
 
 module "legal-frontend-vault" {
-  source              = "git@github.com:contino/moj-module-key-vault?ref=try-fix-eof"
-  name                = "cmc-legal-fe-${var.env}"
+  source              = "git@github.com:contino/moj-module-key-vault?ref=master"
+  name                = "${local.vaultName}"
   product             = "${var.product}"
   env                 = "${var.env}"
   tenant_id           = "${var.tenant_id}"
