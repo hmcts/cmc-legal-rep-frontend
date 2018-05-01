@@ -21,7 +21,7 @@ const defendants = {
     address: {
       line1: 'Apt 99',
       city: 'London',
-      postcode: 'E1'
+      postcode: 'SW1A 1AA'
     },
     representative: {
       organisationName: 'Defendant Organisation Name',
@@ -29,7 +29,7 @@ const defendants = {
         line1: 'Apt 99',
         line2: 'Building A',
         city: 'London',
-        postcode: 'E1'
+        postcode: 'SW1A 1AA'
       }
     },
     defendantDetails: {
@@ -41,7 +41,7 @@ const defendants = {
       address: {
         line1: 'Apt 99',
         city: 'London',
-        postcode: 'E1'
+        postcode: 'SW1A 1AA'
       },
       representative: {
         organisationName: 'Defendant Organisation Name',
@@ -49,7 +49,7 @@ const defendants = {
           line1: 'Apt 99',
           line2: 'Building A',
           city: 'London',
-          postcode: 'E1'
+          postcode: 'SW1A 1AA'
         }
       },
       defendantDetails: {

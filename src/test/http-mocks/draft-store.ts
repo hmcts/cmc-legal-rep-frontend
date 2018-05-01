@@ -58,7 +58,7 @@ const sampleClaimDraftObj = {
       line1: 'Apt 99',
       line2: 'Building A',
       city: 'London',
-      postcode: 'E1'
+      postcode: 'SW1A 1AA'
     } as Address
   } as Representative,
   claimants: [{
@@ -69,14 +69,14 @@ const sampleClaimDraftObj = {
     address: {
       line1: 'Apt 99',
       city: 'London',
-      postcode: 'E1'
+      postcode: 'SW1A 1AA'
     }as Address
   } as Claimant],
   defendants: [{
     address: {
       line1: 'Apt 99',
       city: 'London',
-      postcode: 'E1'
+      postcode: 'SW1A 1AA'
     } as Address,
     representative: {
       organisationName: 'Defendant Company Name',
@@ -84,7 +84,7 @@ const sampleClaimDraftObj = {
         line1: 'Apt 99',
         line2: 'Building A',
         city: 'London',
-        postcode: 'E1'
+        postcode: 'SW1A 1AA'
       }as Address
     },
     defendantRepresented: {

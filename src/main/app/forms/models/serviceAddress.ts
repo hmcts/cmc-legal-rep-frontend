@@ -4,6 +4,7 @@ import { YesNo } from 'forms/models/yesNo'
 import { IsNotBlank } from 'forms/validation/validators/isNotBlank'
 import { isUndefined } from 'util'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
+import { IsValidPostcode } from '@hmcts/cmc-validators'
 
 export class ValidationErrors {
   static readonly DEFENDANT_SERVICE_ADDRESS_REQUIRED: string = 'Choose which address to use'
@@ -34,7 +35,7 @@ export class ServiceAddress implements Serializable<ServiceAddress> {
   @ValidateIf(o => o.defendantsAddress === YesNo.NO)
   @IsDefined({ message: CommonValidationErrors.POSTCODE_REQUIRED })
   @IsNotBlank({ message: CommonValidationErrors.POSTCODE_REQUIRED })
-  @MaxLength(8, { message: CommonValidationErrors.CONTENT_TOO_LONG })
+  @IsValidPostcode({ message: CommonValidationErrors.POSTCODE_INVALID })
   postcode?: string
 
   constructor (defendantsAddress?: YesNo, line1?: string, line2?: string, city?: string, postcode?: string) {

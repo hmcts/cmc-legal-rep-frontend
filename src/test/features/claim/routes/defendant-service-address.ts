@@ -98,7 +98,7 @@ describe("Claim issue: Defendant's service address page", () => {
       await request(app)
         .post(ClaimPaths.defendantServiceAddressPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .send({ defendantsAddress: 'NO', line1: 'Apt 99', line2: '', city: 'London', postcode: 'E1' })
+        .send({ defendantsAddress: 'NO', line1: 'Apt 99', line2: '', city: 'London', postcode: 'SW1A 1AA' })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
 
@@ -124,7 +124,7 @@ describe("Claim issue: Defendant's service address page", () => {
       await request(app)
         .post(ClaimPaths.defendantServiceAddressPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .send({ defendantsAddress: 'NO', line1: 'Apt 99', line2: '', city: 'London', postcode: 'E1' })
+        .send({ defendantsAddress: 'NO', line1: 'Apt 99', line2: '', city: 'London', postcode: 'SW1A 1AA' })
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.defendantAdditionPage.uri))
     })
   })

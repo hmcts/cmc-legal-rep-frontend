@@ -57,7 +57,7 @@ describe('Claim issue: claimant address page', () => {
       await request(app)
         .post(ClaimPaths.claimantAddressPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .send({ line1: 'Apt 99', line2: '', city: 'London', postcode: 'E1' })
+        .send({ line1: 'Apt 99', line2: '', city: 'London', postcode: 'SW1A 1AA' })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
 
@@ -103,7 +103,7 @@ describe('Claim issue: claimant address page', () => {
       await request(app)
         .post(ClaimPaths.claimantAddressPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .send({ line1: 'Apt 99', line2: '', city: 'London', postcode: 'E1' })
+        .send({ line1: 'Apt 99', line2: '', city: 'London', postcode: 'SW1A 1AA' })
         .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.claimantAdditionPage.uri))
     })
   })
