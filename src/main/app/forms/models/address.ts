@@ -5,6 +5,7 @@ import { IsNotBlank } from 'forms/validation/validators/isNotBlank'
 import { Serializable } from 'models/serializable'
 import { isUndefined } from 'util'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
+import { IsValidPostcode } from '@hmcts/cmc-validators'
 
 export class Address implements Serializable<Address> {
 
@@ -23,7 +24,7 @@ export class Address implements Serializable<Address> {
 
   @IsDefined({ message: CommonValidationErrors.POSTCODE_REQUIRED })
   @IsNotBlank({ message: CommonValidationErrors.POSTCODE_REQUIRED })
-  @MaxLength(8, { message: CommonValidationErrors.CONTENT_TOO_LONG })
+  @IsValidPostcode({ message: CommonValidationErrors.POSTCODE_INVALID })
   postcode?: string
 
   constructor (line1?: string, line2?: string, city?: string, postcode?: string) {

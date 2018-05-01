@@ -37,14 +37,14 @@ describe('Service Address', () => {
         line1: 'AddressLine1',
         line2: 'AddressLine2',
         city: 'City',
-        postcode: 'PostCode'
+        postcode: 'SW1H 9AJ'
       })
 
       expect(result.defendantsAddress).to.be.equals('NO')
       expect(result.line1).to.be.equals('AddressLine1')
       expect(result.line2).to.be.equals('AddressLine2')
       expect(result.city).to.be.equals('City')
-      expect(result.postcode).to.be.equals('PostCode')
+      expect(result.postcode).to.be.equals('SW1H 9AJ')
     })
   })
 
@@ -70,35 +70,35 @@ describe('Service Address', () => {
     })
 
     it('should reject address with first line longer then upper limit', () => {
-      const errors = validator.validateSync(new ServiceAddress(YesNo.NO, randomstring.generate(101), '', 'town', 'SA1'))
+      const errors = validator.validateSync(new ServiceAddress(YesNo.NO, randomstring.generate(101), '', 'town', 'SW1H 9AJ'))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, CommonValidationErrors.CONTENT_TOO_LONG)
     })
 
     it('should reject address with second line longer then upper limit', () => {
-      const errors = validator.validateSync(new ServiceAddress(YesNo.NO, 'Apartment 99', randomstring.generate(101), 'town', 'SA1'))
+      const errors = validator.validateSync(new ServiceAddress(YesNo.NO, 'Apartment 99', randomstring.generate(101), 'town', 'SW1H 9AJ'))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, CommonValidationErrors.CONTENT_TOO_LONG)
     })
 
     it('should reject address with city longer then upper limit', () => {
-      const errors = validator.validateSync(new ServiceAddress(YesNo.NO, 'Apartment 99', '', randomstring.generate(61), 'SA1'))
+      const errors = validator.validateSync(new ServiceAddress(YesNo.NO, 'Apartment 99', '', randomstring.generate(61), 'SW1H 9AJ'))
 
       expect(errors.length).to.equal(1)
       expectValidationError(errors, CommonValidationErrors.CONTENT_TOO_LONG)
     })
 
-    it('should reject address with postcode longer then upper limit', () => {
-      const errors = validator.validateSync(new ServiceAddress(YesNo.NO, 'Apartment 99', '', 'town', randomstring.generate(9)))
+    it('should reject address with invalid postcode', () => {
+      const errors = validator.validateSync(new ServiceAddress(YesNo.NO, 'Apartment 99', '', 'town', '123456789'))
 
       expect(errors.length).to.equal(1)
-      expectValidationError(errors, CommonValidationErrors.CONTENT_TOO_LONG)
+      expectValidationError(errors, CommonValidationErrors.POSTCODE_INVALID)
     })
 
     it('should accept valid service address', () => {
-      const errors = validator.validateSync(new ServiceAddress(YesNo.NO, 'Apartment 99', '', 'London', 'SA1'))
+      const errors = validator.validateSync(new ServiceAddress(YesNo.NO, 'Apartment 99', '', 'London', 'SW1H 9AJ'))
 
       expect(errors.length).to.equal(0)
     })
@@ -144,14 +144,14 @@ describe('Service Address', () => {
         line1: 'line1',
         line2: 'line2',
         city: 'city',
-        postcode: 'postcode'
+        postcode: 'SW1H 9AJ'
       })
 
       expect(address.defendantsAddress).to.equal(YesNo.NO)
       expect(address.line1).to.equal('LINE1')
       expect(address.line2).to.equal('LINE2')
       expect(address.city).to.equal('CITY')
-      expect(address.postcode).to.equal('POSTCODE')
+      expect(address.postcode).to.equal('SW1H 9AJ')
     })
   })
 })
