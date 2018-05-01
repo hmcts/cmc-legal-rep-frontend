@@ -31,9 +31,9 @@ module.exports = {
     I.see(verifyPageData.feesPaid)
     I.see(verifyPageData.emailConfirmation + userEmail)
     // verify submit date text present or not
-    expect(dateCheck[0].length).to.be.greaterThan(22)
+    expect(dateCheck[0].length).to.be.greaterThan(21)
     // verify issue date text present or not
-    expect(dateCheck[1].length).to.be.greaterThan(19)
+    expect(dateCheck[1].length).to.be.greaterThan(18)
   },
 
   selectSubmitButton () {
