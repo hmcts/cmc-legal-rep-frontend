@@ -25,7 +25,7 @@ const claimants = {
     address: {
       line1: 'Apt 99',
       city: 'London',
-      postcode: 'E1'
+      postcode: 'SW1A 1AA'
     }
   },
     {
@@ -36,7 +36,7 @@ const claimants = {
       address: {
         line1: 'Apt 99',
         city: 'London',
-        postcode: 'E1'
+        postcode: 'SW1A 1AA'
       }
     }]
 }
