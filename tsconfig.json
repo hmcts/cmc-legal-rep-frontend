@@ -14,7 +14,6 @@
     "module": "commonjs",
     "baseUrl": "src",
     "paths": {
-
       "client/*": [
         "main/app/client/*"
       ],
@@ -54,7 +53,6 @@
       "utils/*": [
         "main/app/utils/*"
       ],
-
       "paths": [
         "main/app/paths"
       ],
@@ -68,7 +66,7 @@
         "main/modules/*"
       ],
       "shared/*": [
-      "main/common/*"
+        "main/common/*"
       ],
       "claim/*": [
         "main/features/claim/*"
