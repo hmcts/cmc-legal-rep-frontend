@@ -56,9 +56,6 @@
       "paths": [
         "main/app/paths"
       ],
-      "modules/*": [
-        "main/app/modules/*"
-      ],
       "routes/*": [
         "main/routes/*"
       ],
