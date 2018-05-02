@@ -1,8 +1,8 @@
 import { Serializable } from 'models/serializable'
 
 import { Moment } from 'moment'
-import ClaimData from 'app/claims/models/claimData'
-import { MomentFactory } from 'common/momentFactory'
+import ClaimData from 'claims/models/claimData'
+import { MomentFactory } from 'shared/momentFactory'
 import { UploadedDocument } from 'claims/models/uploadedDocument'
 
 export default class Claim implements Serializable<Claim> {

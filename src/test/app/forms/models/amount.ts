@@ -4,7 +4,7 @@ import { expect } from 'chai'
 import { Validator } from 'class-validator'
 
 import { expectValidationError } from './validationUtils'
-import { Amount, ValidationErrors } from 'app/forms/models/amount'
+import { Amount, ValidationErrors } from 'forms/models/amount'
 
 describe('Amount', () => {
   describe('constructor', () => {

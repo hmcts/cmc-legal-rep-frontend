@@ -1,6 +1,6 @@
 import * as express from 'express'
 import * as config from 'config'
-import { Paths } from 'app/paths'
+import { Paths } from 'paths'
 
 export default express.Router()
   .get(Paths.analyticsReceiver.uri, (req: express.Request, res: express.Response) => {

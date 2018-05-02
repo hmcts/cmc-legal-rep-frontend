@@ -1,8 +1,8 @@
 import { expect } from 'chai'
 import { Address } from 'forms/models/address'
-import Claimant from 'app/drafts/models/claimant'
-import { ClaimantDetails } from 'app/forms/models/claimantDetails'
-import { PartyType } from 'app/common/partyType'
+import Claimant from 'drafts/models/claimant'
+import { ClaimantDetails } from 'forms/models/claimantDetails'
+import { PartyType } from 'common/partyType'
 
 describe('Claimant', () => {
   describe('constructor', () => {

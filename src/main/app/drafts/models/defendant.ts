@@ -1,7 +1,7 @@
 import { Address } from 'forms/models/address'
 import Representative from 'drafts/models/representative'
-import { DefendantDetails } from 'app/forms/models/defendantDetails'
-import { DefendantRepresented } from 'app/forms/models/defendantRepresented'
+import { DefendantDetails } from 'forms/models/defendantDetails'
+import { DefendantRepresented } from 'forms/models/defendantRepresented'
 import { ServiceAddress } from 'forms/models/serviceAddress'
 
 export default class Defendant {

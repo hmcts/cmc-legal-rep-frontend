@@ -2,8 +2,8 @@
 /* tslint:disable:no-unused-expression */
 
 import { expect } from 'chai'
-import { Address } from 'app/claims/models/address'
-import { PartyType } from 'app/common/partyType'
+import { Address } from 'claims/models/address'
+import { PartyType } from 'common/partyType'
 import { ContactDetails } from 'claims/models/contactDetails'
 import { Representative } from 'claims/models/representative'
 import { TheirDetails } from 'claims/models/theirs/theirDetails'

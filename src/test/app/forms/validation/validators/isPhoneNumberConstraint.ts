@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { IsPhoneNumberConstraint } from 'app/forms/validation/validators/phone'
+import { IsPhoneNumberConstraint } from 'forms/validation/validators/phone'
 
 /**
  * The tests below are aligned to what GOV.UK Notify is accepting and not how we would like to validate phone numbers.

@@ -12,7 +12,7 @@ import { StatementOfTruth } from 'forms/models/statementOfTruth'
 import { Amount } from 'forms/models/amount'
 import { FeeAccount } from 'forms/models/feeAccount'
 import { DraftDocument } from '@hmcts/cmc-draft-store-middleware'
-import { PaymentResponse } from 'app/pay/model/paymentResponse'
+import { PaymentResponse } from 'pay/model/paymentResponse'
 
 export class DraftLegalClaim extends DraftDocument implements Serializable<DraftLegalClaim> {
   externalId = uuid()

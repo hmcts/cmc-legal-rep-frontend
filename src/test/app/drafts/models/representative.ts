@@ -2,7 +2,7 @@
 /* tslint:disable:no-unused-expression */
 
 import { expect } from 'chai'
-import { ContactDetails } from 'app/forms/models/contactDetails'
+import { ContactDetails } from 'forms/models/contactDetails'
 import Representative from 'drafts/models/representative'
 import { OrganisationName } from 'forms/models/organisationName'
 import { Address } from 'forms/models/address'

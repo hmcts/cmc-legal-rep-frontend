@@ -2,8 +2,8 @@ import * as chai from 'chai'
 import * as spies from 'sinon-chai'
 import { mockReq, mockRes } from 'sinon-express-mock'
 import * as express from 'express'
-import { Defendants } from 'common/router/defendants'
-import Defendant from 'app/drafts/models/defendant'
+import { Defendants } from 'shared/router/defendants'
+import Defendant from 'drafts/models/defendant'
 import { Paths as ClaimPaths } from 'claim/paths'
 
 chai.use(spies)

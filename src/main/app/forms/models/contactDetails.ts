@@ -1,7 +1,7 @@
-import { Serializable } from 'app/models/serializable'
+import { Serializable } from 'models/serializable'
 import { IsOptional, MaxLength } from 'class-validator'
-import { IsEmail } from 'app/forms/validation/validators/isEmail'
-import { IsPhone } from 'app/forms/validation/validators/phone'
+import { IsEmail } from 'forms/validation/validators/isEmail'
+import { IsPhone } from 'forms/validation/validators/phone'
 
 export class ValidationErrors {
   static readonly EMAIL_NOT_VALID: string = 'Enter a valid email address'

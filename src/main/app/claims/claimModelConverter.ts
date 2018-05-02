@@ -2,9 +2,9 @@ import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 import Defendant from 'drafts/models/defendant'
 import { OtherDamages } from 'forms/models/otherDamages'
 import { YesNo } from 'forms/models/yesNo'
-import Claimant from 'app/drafts/models/claimant'
-import Representative from 'app/drafts/models/representative'
-import { PartyType as DefendantType } from 'app/common/partyType'
+import Claimant from 'drafts/models/claimant'
+import Representative from 'drafts/models/representative'
+import { PartyType as DefendantType } from 'common/partyType'
 
 export class ClaimModelConverter {
 

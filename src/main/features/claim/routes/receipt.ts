@@ -4,9 +4,9 @@ import * as HttpStatus from 'http-status-codes'
 
 import { Paths } from 'claim/paths'
 
-import DocumentsClient from 'app/documents/documentsClient'
-import ClaimStoreClient from 'app/claims/claimStoreClient'
-import Claim from 'app/claims/models/claim'
+import DocumentsClient from 'documents/documentsClient'
+import ClaimStoreClient from 'claims/claimStoreClient'
+import Claim from 'claims/models/claim'
 
 async function getSealedClaimFromDocumentStore (res: express.Response, claim: Claim) {
   const binaryUrl: string = await DocumentsClient.getBinaryUrl(res.locals.user.bearerToken, claim.sealedClaimDocumentSelfPath)

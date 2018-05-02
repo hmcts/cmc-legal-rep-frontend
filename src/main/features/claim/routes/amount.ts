@@ -2,10 +2,10 @@ import * as express from 'express'
 import { Paths } from 'claim/paths'
 
 import { Form } from 'forms/form'
-import { Amount } from 'app/forms/models/amount'
+import { Amount } from 'forms/models/amount'
 import { FormValidator } from 'forms/validation/formValidator'
 
-import ErrorHandling from 'common/errorHandling'
+import ErrorHandling from 'shared/errorHandling'
 import { DraftService } from 'services/draftService'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'

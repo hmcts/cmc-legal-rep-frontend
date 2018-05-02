@@ -5,10 +5,10 @@ import { Paths } from 'claim/paths'
 import { Form } from 'forms/form'
 import { FormValidator } from 'forms/validation/formValidator'
 import { PersonalInjury } from 'forms/models/personalInjury'
-import { YesNo } from 'app/forms/models/yesNo'
+import { YesNo } from 'forms/models/yesNo'
 
 import { DraftService } from 'services/draftService'
-import ErrorHandling from 'common/errorHandling'
+import ErrorHandling from 'shared/errorHandling'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 

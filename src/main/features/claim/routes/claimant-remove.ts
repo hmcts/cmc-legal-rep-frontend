@@ -1,9 +1,9 @@
 import * as express from 'express'
 import { Paths } from 'claim/paths'
-import ErrorHandling from 'common/errorHandling'
+import ErrorHandling from 'shared/errorHandling'
 
 import { DraftService } from 'services/draftService'
-import { Claimants } from 'common/router/claimants'
+import { Claimants } from 'shared/router/claimants'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 

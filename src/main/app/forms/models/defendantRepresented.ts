@@ -1,7 +1,7 @@
 import { IsDefined, IsIn, MaxLength, ValidateIf } from 'class-validator'
 import { Serializable } from 'models/serializable'
 import { YesNo } from 'forms/models/yesNo'
-import { IsNotBlank } from 'app/forms/validation/validators/isNotBlank'
+import { IsNotBlank } from 'forms/validation/validators/isNotBlank'
 
 export class ValidationErrors {
   static readonly DEFENDANT_IS_REPRESENTED_REQUIRED: string = 'Choose yes if defendant is represented'

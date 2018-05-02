@@ -6,8 +6,8 @@ import { FormValidator } from 'forms/validation/formValidator'
 import { Address } from 'forms/models/address'
 
 import { DraftService } from 'services/draftService'
-import ErrorHandling from 'common/errorHandling'
-import { Claimants } from 'common/router/claimants'
+import ErrorHandling from 'shared/errorHandling'
+import { Claimants } from 'shared/router/claimants'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 

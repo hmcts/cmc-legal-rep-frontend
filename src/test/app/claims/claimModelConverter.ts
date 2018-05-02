@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import { ClaimModelConverter } from 'app/claims/claimModelConverter'
+import { ClaimModelConverter } from 'claims/claimModelConverter'
 
 import { claimDraft as draftTemplate } from '../../data/draft/claimDraft'
 import { claimData as entityTemplate } from '../../data/entity/claimData'

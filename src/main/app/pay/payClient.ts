@@ -1,11 +1,11 @@
 import * as config from 'config'
 
-import { ServiceAuthToken } from 'app/idam/serviceAuthToken'
-import { User } from 'app/idam/user'
+import { ServiceAuthToken } from 'idam/serviceAuthToken'
+import { User } from 'idam/user'
 import { request } from 'client/request'
 import { FeeResponse } from 'fees/model/feeResponse'
 import StringUtils from 'utils/stringUtils'
-import { PaymentResponse } from 'app/pay/model/paymentResponse'
+import { PaymentResponse } from 'pay/model/paymentResponse'
 import { plainToClass } from 'class-transformer'
 
 const payUrl = config.get<string>('pay.url')

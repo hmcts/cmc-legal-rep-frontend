@@ -2,7 +2,7 @@
 /* tslint:disable:no-unused-expression */
 
 import { expect } from 'chai'
-import { Amount } from 'app/claims/models/amount'
+import { Amount } from 'claims/models/amount'
 
 describe('Amount', () => {
   describe('constructor', () => {

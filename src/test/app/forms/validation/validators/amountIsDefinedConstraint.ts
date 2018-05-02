@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { ValidationArguments } from 'class-validator'
-import { IsAmountRangeDefinedConstraint } from 'app/forms/validation/validators/isAmountRangeDefined'
-import { Amount } from 'app/forms/models/amount'
+import { IsAmountRangeDefinedConstraint } from 'forms/validation/validators/isAmountRangeDefined'
+import { Amount } from 'forms/models/amount'
 
 describe('AmountIsDefinedConstraint', () => {
   const constraint: IsAmountRangeDefinedConstraint = new IsAmountRangeDefinedConstraint()

@@ -12,7 +12,7 @@ import { app } from '../../../../main/app'
 
 import * as idamServiceMock from '../../../http-mocks/idam'
 import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
-import { Amount, ValidationErrors } from 'app/forms/models/amount'
+import { Amount, ValidationErrors } from 'forms/models/amount'
 
 const cookieName: string = config.get<string>('session.cookieName')
 const roles: string[] = ['solicitor']

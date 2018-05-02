@@ -5,10 +5,10 @@ import * as Cookies from 'cookies'
 import { AuthToken } from 'idam/authToken'
 import * as toBoolean from 'to-boolean'
 import { OAuthHelper } from 'idam/oAuthHelper'
-import { Paths as AppPaths } from 'app/paths'
+import { Paths as AppPaths } from 'paths'
 import IdamClient from 'idam/idamClient'
 import { buildURL } from 'utils/callbackBuilder'
-import ErrorHandling from 'common/errorHandling'
+import ErrorHandling from 'shared/errorHandling'
 
 export default express.Router()
   .get('/receiver', ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {

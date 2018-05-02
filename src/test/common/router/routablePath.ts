@@ -3,7 +3,7 @@
 import * as chai from 'chai'
 import * as spies from 'sinon-chai'
 import { Paths as ClaimPaths } from 'claim/paths'
-import { RoutablePath } from 'common/router/routablePath'
+import { RoutablePath } from 'shared/router/routablePath'
 
 chai.use(spies)
 const expect = chai.expect

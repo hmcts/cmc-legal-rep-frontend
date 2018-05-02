@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { IsLowerThanConstraint } from 'app/forms/validation/validators/isLowerThan'
+import { IsLowerThanConstraint } from 'forms/validation/validators/isLowerThan'
 import { ValidationArguments } from 'class-validator'
 
 /**

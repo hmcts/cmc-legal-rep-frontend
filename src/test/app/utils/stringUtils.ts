@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import StringUtils from 'app/utils/stringUtils'
+import StringUtils from 'utils/stringUtils'
 
 describe('StringUtils', () => {
 

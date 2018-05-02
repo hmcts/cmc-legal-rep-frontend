@@ -2,9 +2,9 @@
 /* tslint:disable:no-unused-expression */
 
 import { expect } from 'chai'
-import { Address } from 'app/claims/models/address'
+import { Address } from 'claims/models/address'
 import { Individual } from 'claims/models/theirs/individual'
-import { PartyType } from 'app/common/partyType'
+import { PartyType } from 'common/partyType'
 import { ContactDetails } from 'claims/models/contactDetails'
 import { Representative } from 'claims/models/representative'
 

@@ -1,12 +1,12 @@
 import * as express from 'express'
 import { Paths } from 'claim/paths'
 
-import { Form, FormValidationError } from 'app/forms/form'
-import { FormValidator } from 'app/forms/validation/formValidator'
-import ErrorHandling from 'common/errorHandling'
-import { Defendants } from 'common/router/defendants'
-import { DefendantAddition } from 'app/forms/models/defendantAddition'
-import { YesNo } from 'app/forms/models/yesNo'
+import { Form, FormValidationError } from 'forms/form'
+import { FormValidator } from 'forms/validation/formValidator'
+import ErrorHandling from 'shared/errorHandling'
+import { Defendants } from 'shared/router/defendants'
+import { DefendantAddition } from 'forms/models/defendantAddition'
+import { YesNo } from 'forms/models/yesNo'
 
 import { DraftService } from 'services/draftService'
 import { ValidationError } from 'class-validator'

@@ -12,70 +12,76 @@
     ],
     "target": "es6",
     "module": "commonjs",
-    "baseUrl": "src/main",
+    "baseUrl": "src",
     "paths": {
-      "app/*": [
-        "app/*"
-      ],
       "client/*": [
-        "app/client/*"
+        "main/app/client/*"
       ],
       "drafts/*": [
-        "app/drafts/*"
+        "main/app/drafts/*"
       ],
       "claims/*": [
-        "app/claims/*"
+        "main/app/claims/*"
       ],
       "common/*": [
-        "app/common/*"
+        "main/app/common/*"
+      ],
+      "documents/*":[
+        "main/app/documents/*"
       ],
       "fees/*": [
-        "app/fees/*"
+        "main/app/fees/*"
       ],
       "forms/*": [
-        "app/forms/*"
+        "main/app/forms/*"
       ],
       "health/*": [
-        "app/health/*"
+        "main/app/health/*"
       ],
       "idam/*": [
-        "app/idam/*"
+        "main/app/idam/*"
       ],
       "logging/*": [
-        "app/logging/*"
+        "main/app/logging/*"
       ],
       "models/*": [
-        "app/models/*"
+        "main/app/models/*"
+      ],
+      "pay/*": [
+        "main/app/pay/*"
       ],
       "utils/*": [
-        "app/utils/*"
+        "main/app/utils/*"
       ],
-      "modules/*": [
-        "modules/*"
+      "paths": [
+        "main/app/paths"
       ],
       "routes/*": [
-        "routes/*"
+        "main/routes/*"
       ],
-      "common/*": [
-        "common/*"
+      "modules/*": [
+        "main/modules/*"
+      ],
+      "shared/*": [
+        "main/common/*"
       ],
       "claim/*": [
-        "features/claim/*"
+        "main/features/claim/*"
       ],
       "certificateOfService/*": [
-        "features/certificateOfService/*"
+        "main/features/certificateOfService/*"
       ],
       "dashboard/*": [
-        "features/dashboard/*"
+        "main/features/dashboard/*"
       ],
       "views/*": [
-        "features/view/*"
+        "main/features/view/*"
       ],
       "services/*": [
-        "services/*"
+        "main/services/*"
       ],
       "integration-test/*": [
-        "../integration-test/*"
+        "integration-test/*"
       ]
     },
     "typeRoots": [

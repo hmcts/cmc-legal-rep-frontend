@@ -1,15 +1,15 @@
 import * as express from 'express'
 import { Paths } from 'claim/paths'
 
-import { Form } from 'app/forms/form'
-import { FormValidator } from 'app/forms/validation/formValidator'
+import { Form } from 'forms/form'
+import { FormValidator } from 'forms/validation/formValidator'
 import { OrganisationName } from 'forms/models/organisationName'
 
 import { DraftService } from 'services/draftService'
-import ErrorHandling from 'common/errorHandling'
+import ErrorHandling from 'shared/errorHandling'
 import { RepresentativeDetails } from 'forms/models/representativeDetails'
 import { Cookie } from 'forms/models/cookie'
-import CookieProperties from 'common/cookieProperties'
+import CookieProperties from 'shared/cookieProperties'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 

@@ -1,11 +1,11 @@
 import * as express from 'express'
 import * as config from 'config'
 import * as path from 'path'
-import { Paths as AppPaths } from 'app/paths'
+import { Paths as AppPaths } from 'paths'
 import * as toBoolean from 'to-boolean'
 
 import { AuthorizationMiddleware } from 'idam/authorizationMiddleware'
-import { RouterFinder } from 'common/router/routerFinder'
+import { RouterFinder } from 'shared/router/routerFinder'
 import { buildURL } from 'utils/callbackBuilder'
 import { OAuthHelper } from 'idam/oAuthHelper'
 import { DraftDashboard } from 'drafts/models/draftDashboard'

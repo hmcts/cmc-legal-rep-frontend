@@ -1,7 +1,7 @@
 import { Serializable } from 'models/serializable'
-import { IsFeeAccount } from 'app/forms/validation/validators/isFeeAccount'
+import { IsFeeAccount } from 'forms/validation/validators/isFeeAccount'
 import { IsDefined } from 'class-validator'
-import { IsNotBlank } from 'app/forms/validation/validators/isNotBlank'
+import { IsNotBlank } from 'forms/validation/validators/isNotBlank'
 
 export class ValidationErrors {
   static readonly FEE_ACCOUNT_INVALID: string = 'Enter a valid Fee Account number'

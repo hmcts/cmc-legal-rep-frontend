@@ -1,14 +1,14 @@
 import * as express from 'express'
 import { Paths } from 'claim/paths'
 
-import { Form } from 'app/forms/form'
-import { FormValidator } from 'app/forms/validation/formValidator'
-import { PartyType as ClaimantType } from 'app/common/partyType'
-import { ClaimantDetails } from 'app/forms/models/claimantDetails'
+import { Form } from 'forms/form'
+import { FormValidator } from 'forms/validation/formValidator'
+import { PartyType as ClaimantType } from 'common/partyType'
+import { ClaimantDetails } from 'forms/models/claimantDetails'
 
 import { DraftService } from 'services/draftService'
-import ErrorHandling from 'common/errorHandling'
-import { Claimants } from 'common/router/claimants'
+import ErrorHandling from 'shared/errorHandling'
+import { Claimants } from 'shared/router/claimants'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 

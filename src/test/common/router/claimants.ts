@@ -2,7 +2,7 @@ import * as chai from 'chai'
 import * as spies from 'sinon-chai'
 import { mockReq, mockRes } from 'sinon-express-mock'
 import * as express from 'express'
-import { Claimants } from 'common/router/claimants'
+import { Claimants } from 'shared/router/claimants'
 import Claimant from 'drafts/models/claimant'
 import { Paths as ClaimPaths } from 'claim/paths'
 

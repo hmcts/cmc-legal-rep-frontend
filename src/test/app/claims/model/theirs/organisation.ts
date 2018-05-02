@@ -2,8 +2,8 @@
 /* tslint:disable:no-unused-expression */
 
 import { expect } from 'chai'
-import { Address } from 'app/claims/models/address'
-import { PartyType } from 'app/common/partyType'
+import { Address } from 'claims/models/address'
+import { PartyType } from 'common/partyType'
 import { Organisation } from 'claims/models/theirs/organisation'
 
 describe('Organisation', () => {

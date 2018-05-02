@@ -1,6 +1,6 @@
 import * as express from 'express'
-import Defendant from 'app/drafts/models/defendant'
-import { PartyType } from 'app/common/partyType'
+import Defendant from 'drafts/models/defendant'
+import { PartyType } from 'common/partyType'
 import { Paths as ClaimPaths } from 'claim/paths'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
