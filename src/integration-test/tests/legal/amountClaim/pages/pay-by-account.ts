@@ -1,5 +1,5 @@
+import { verifyPageData } from 'integration-test/data/legal-test-data'
 import I = CodeceptJS.I
-const verifyPageData = require('../../../../data/legal-test-data').verifyPageData
 
 const I: I = actor()
 

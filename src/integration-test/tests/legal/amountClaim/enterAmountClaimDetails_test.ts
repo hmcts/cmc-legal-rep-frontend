@@ -1,8 +1,8 @@
 import I = CodeceptJS.I
 
-const verifyPageData = require('../../../data/legal-test-data').verifyPageData
-const SMOKE_TEST_SOLICITOR_USERNAME = require('../../../data/test-data').SMOKE_TEST_SOLICITOR_USERNAME
-const SMOKE_TEST_USER_PASSWORD = require('../../../data/test-data').SMOKE_TEST_USER_PASSWORD
+import { verifyPageData } from 'integration-test/data/legal-test-data'
+
+import { SMOKE_TEST_SOLICITOR_USERNAME, SMOKE_TEST_USER_PASSWORD } from 'integration-test/data/test-data'
 
 import { AmountClaimSteps } from 'integration-test/tests/legal/amountClaim/steps/amountClaims'
 import { UserSteps } from 'integration-test/tests/legal/home/steps/user'

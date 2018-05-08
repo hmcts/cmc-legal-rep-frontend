@@ -1,4 +1,4 @@
-const verifyPageData = require('../../../../data/legal-test-data').verifyPageData
+import { verifyPageData } from 'integration-test/data/legal-test-data'
 
 import I = CodeceptJS.I
 
