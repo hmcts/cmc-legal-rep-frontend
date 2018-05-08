@@ -1,5 +1,4 @@
-'use strict'
-
+// todo probably more can be done here in terms of moving towards TypeScript ways
 const event = require('codeceptjs/lib/event')
 const container = require('codeceptjs/lib/container')
 const request = require('request-promise-native')
