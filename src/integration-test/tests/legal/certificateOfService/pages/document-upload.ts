@@ -24,7 +24,7 @@ export class DocumentUploadPage {
 
   // todo not used, remove?
   selectSaveAndContinueButton () {
-    //I.click(buttons.saveAndContinue)
+    // I.click(buttons.saveAndContinue)
   }
 
 }
