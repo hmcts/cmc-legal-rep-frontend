@@ -1,6 +1,6 @@
 import * as _ from 'lodash'
 import { IsEmpty, IsPositive, IsOptional, Min, ValidateIf } from 'class-validator'
-import { Fractions } from 'forms/validation/validators/fractions'
+import { Fractions } from '@hmcts/cmc-validators'
 import { Serializable } from 'models/serializable'
 import { IsLowerThan } from 'forms/validation/validators/isLowerThan'
 import { IsSelectedAlong } from 'forms/validation/validators/isSelectedAlong'
