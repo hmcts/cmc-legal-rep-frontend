@@ -1,8 +1,7 @@
 import * as _ from 'lodash'
 import { IsEmpty, IsPositive, IsOptional, Min, ValidateIf } from 'class-validator'
-import { Fractions } from '@hmcts/cmc-validators'
+import { Fractions, IsLessThanOrEqualTo } from '@hmcts/cmc-validators'
 import { Serializable } from 'models/serializable'
-import { IsLowerThan } from 'forms/validation/validators/isLowerThan'
 import { IsSelectedAlong } from 'forms/validation/validators/isSelectedAlong'
 import { MinAmountRange } from 'forms/validation/validators/minAmountRange'
 import { MaxRangeAmount } from 'forms/validation/validators/maxAmountRange'
@@ -31,7 +30,7 @@ export class Amount implements Serializable<Amount> {
   @IsPositive({ message: ValidationErrors.LOWER_VALUE_AMOUNT_NOT_VALID })
   @Fractions(0, 2, { message: ValidationErrors.AMOUNT_INVALID_DECIMALS })
   @Min(Amount.MIN_ALLOWED, { message: ValidationErrors.LOWER_VALUE_AMOUNT_NOT_VALID })
-  @IsLowerThan('higherValue', { message: ValidationErrors.LOWER_VALUE_LESS_THAN_UPPER_NOT_VALID })
+  @IsLessThanOrEqualTo('higherValue', { message: ValidationErrors.LOWER_VALUE_LESS_THAN_UPPER_NOT_VALID })
   lowerValue?: number
 
   @IsAmountRangeDefined('cannotState', { message: ValidationErrors.VALID_SELECTION_REQUIRED })

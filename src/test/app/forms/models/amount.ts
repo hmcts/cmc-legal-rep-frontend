@@ -114,7 +114,7 @@ describe('Amount', () => {
     it('should reject Nan Upper value', () => {
       const errors = validator.validateSync(new Amount(100, Number.NaN, ''))
 
-      expect(errors.length).to.equal(1)
+      expect(errors).to.not.be.empty
       expectValidationError(errors, ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID)
     })
 
