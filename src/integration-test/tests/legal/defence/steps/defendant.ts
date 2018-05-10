@@ -65,6 +65,7 @@ export class DefendantSteps {
   defendantAddressAsServiceAddress () {
     defendantServiceAddressPage.useDefendantAddressAsServiceAddress()
   }
+
   verifyAndChangeDefendantDetails () {
     defendantTypePage.verifyDefendantOrganisationDetails()
     defendantTypePage.changeRemoveIndividualDefendantDetails()

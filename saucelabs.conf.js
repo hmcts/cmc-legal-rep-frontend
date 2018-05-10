@@ -57,7 +57,6 @@ exports.config = {
       require: './src/integration-test/helpers/saucelabsReporter'
     }
   },
-  include: Object.assign({ }),
   mocha: {
     reporterOptions: {
       'codeceptjs-cli-reporter': {

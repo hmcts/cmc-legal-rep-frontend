@@ -5,14 +5,7 @@ const dashboardSearchPage: ClaimSearchPage = new ClaimSearchPage()
 const dashboardClaimDetailsPage: ClaimDetailsPage = new ClaimDetailsPage()
 
 export class DashboardSteps {
-  // todo, not used
-  openPage () {
-    dashboardSearchPage.open()
-    dashboardClaimDetailsPage.open()
-  }
-
-  // todo, not used
-  searchAndVerifyClaimDetails (legalClaimNumberText) {
+  searchAndVerifyClaimDetails (legalClaimNumberText: string): void {
     const extractClaimNumber = legalClaimNumberText.split(' ').pop()
     dashboardSearchPage.open()
     dashboardSearchPage.searchForClaim(extractClaimNumber)

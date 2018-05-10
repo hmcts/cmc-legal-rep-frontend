@@ -7,10 +7,6 @@ const buttons = {
 }
 
 export class ClaimantStartClaimPage {
-  buttons: {
-    startNow: 'input.button.button-start'
-  }
-
   open () {
     I.amOnLegalAppPage('/claim/start')
   }

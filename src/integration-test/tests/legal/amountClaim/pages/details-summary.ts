@@ -1,8 +1,7 @@
 import I = CodeceptJS.I
+import { verifyPageData } from 'integration-test/data/legal-test-data'
 
 const I: I = actor()
-
-import { verifyPageData } from 'integration-test/data/legal-test-data'
 
 const buttons = {
   saveAndContinue: 'input.button'

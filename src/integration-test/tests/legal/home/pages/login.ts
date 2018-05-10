@@ -16,7 +16,7 @@ export class LoginPage {
     I.amOnLegalAppPage('/')
   }
 
-  login (email, password) {
+  login (email: string, password: string): void {
     I.fillField(fields.username, email)
     I.fillField(fields.password, password)
     I.click(buttons.submit)

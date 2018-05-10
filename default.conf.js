@@ -27,7 +27,6 @@ exports.config = {
       require: './src/integration-test/helpers/downloadPdfHelper'
     }
   },
-  include: Object.assign({ }),
   mocha: {
     reporterOptions: {
       'codeceptjs-cli-reporter': {

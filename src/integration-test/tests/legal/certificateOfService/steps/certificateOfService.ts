@@ -5,12 +5,6 @@ const whatDocumentsPage: WhatDocumentsPage = new WhatDocumentsPage()
 const documentUploadPage: DocumentUploadPage = new DocumentUploadPage()
 
 export class CertificateOfServiceSteps {
-  // todo not used, remove?
-  open () {
-    documentUploadPage.open()
-  }
-
-  // todo not used, remove?
   uploadDocument () {
     whatDocumentsPage.open()
     whatDocumentsPage.selectFileUploadCheckBox()

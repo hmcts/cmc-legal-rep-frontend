@@ -19,19 +19,6 @@ const payByAccountPage: ClaimPayByAccountPage = new ClaimPayByAccountPage()
 const submittedPage: ClaimSubmittedPage = new ClaimSubmittedPage()
 
 export class AmountClaimSteps {
-  // todo never used? remove
-  openPage () {
-    personalInjuryPage.open()
-    housingDisrepairPage.open()
-    summariseTheClaimPage.open()
-    amountPage.open()
-    totalPage.open()
-    detailsSummaryPage.open()
-    statementOfTruthPage.open()
-    payByAccountPage.open()
-    submittedPage.open()
-  }
-
   personalInjuryLessThan1000 () {
     personalInjuryPage.enterPersonalInjuryLessThan1000()
   }
@@ -148,6 +135,7 @@ export class AmountClaimSteps {
     detailsSummaryPage.aboutThisClaim()
     detailsSummaryPage.selectSubmitButton()
   }
+
   verifyNoClaimSummaryDetails () {
     detailsSummaryPage.verifyOrganizationDetails()
     detailsSummaryPage.claimantDetails()
@@ -155,6 +143,7 @@ export class AmountClaimSteps {
     detailsSummaryPage.aboutThisClaimWithNoClaimValue()
     detailsSummaryPage.selectSubmitButton()
   }
+
   verifyIndividualSummaryDetails () {
     detailsSummaryPage.verifyOrganizationDetails()
     detailsSummaryPage.individualClaimDetails()
