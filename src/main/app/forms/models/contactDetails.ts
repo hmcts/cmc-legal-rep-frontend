@@ -1,7 +1,6 @@
 import { Serializable } from 'models/serializable'
 import { IsNotEmpty, IsOptional, MaxLength } from 'class-validator'
-import { IsEmail } from '@hmcts/cmc-validators'
-import { IsPhone } from 'forms/validation/validators/phone'
+import { IsEmail, IsPhoneNumber } from '@hmcts/cmc-validators'
 
 export class ValidationErrors {
   static readonly EMAIL_NOT_VALID: string = 'Enter a valid email address'
@@ -12,7 +11,7 @@ export class ValidationErrors {
 export class ContactDetails implements Serializable<ContactDetails> {
 
   @IsOptional()
-  @IsPhone({ message: ValidationErrors.PHONE_NUMBER_NOT_VALID })
+  @IsPhoneNumber({ message: ValidationErrors.PHONE_NUMBER_NOT_VALID })
   phoneNumber?: string
 
   @IsOptional()
