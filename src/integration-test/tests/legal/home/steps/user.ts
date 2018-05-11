@@ -23,7 +23,7 @@ const claimantAddressPage: ClaimantAddressPage = new ClaimantAddressPage()
 const claimantAddPage: ClaimantAddPage = new ClaimantAddPage()
 
 export class UserSteps {
-  loginUser (userEmail: string, password: string): void {
+  loginUser (userEmail: string, password?: string): void {
     loginPage.open()
     loginPage.login(userEmail, password || DEFAULT_PASSWORD)
   }
@@ -33,7 +33,7 @@ export class UserSteps {
     startClaimPage.startClaim()
   }
 
-  loginAndStartClaim (userEmail: string, password: string): void {
+  loginAndStartClaim (userEmail: string, password?: string): void {
     this.loginUser(userEmail, password)
     this.startClaim()
   }
