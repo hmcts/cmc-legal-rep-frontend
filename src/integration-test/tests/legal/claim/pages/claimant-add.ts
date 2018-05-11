@@ -12,16 +12,16 @@ const buttons = {
 }
 
 export class ClaimantAddPage {
-  open () {
+  open (): void {
     I.amOnLegalAppPage('/claim/claimant-add')
   }
 
-  enterAdditionalClaimant () {
+  enterAdditionalClaimant (): void {
     I.checkOption(fields.isAddClaimantYes)
     I.click(buttons.saveAndContinue)
   }
 
-  chooseNoAdditionalClaimant () {
+  chooseNoAdditionalClaimant (): void {
     I.checkOption(fields.isAddClaimantNo)
     I.click(buttons.saveAndContinue)
   }

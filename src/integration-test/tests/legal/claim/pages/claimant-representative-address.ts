@@ -24,11 +24,11 @@ const data = {
 }
 
 export class ClaimantRepresentativeAddressPage {
-  open () {
+  open (): void {
     I.amOnLegalAppPage('/claim/representative-address')
   }
 
-  enterYourOrganisationAddress () {
+  enterYourOrganisationAddress (): void {
     I.fillField(fields.addressLine1, data.addressLine1Text)
     I.fillField(fields.addressLine2, data.addressLine2Text)
     I.fillField(fields.cityName, data.cityNameText)
@@ -36,7 +36,7 @@ export class ClaimantRepresentativeAddressPage {
     I.click(buttons.saveAndContinue)
   }
 
-  verifyOrganizationAddress () {
+  verifyOrganizationAddress (): void {
     I.seeInField(fields.addressLine1, data.verifyAddressLine1Text)
     I.seeInField(fields.addressLine2, data.verifyAddressLine2Text)
     I.seeInField(fields.cityName, data.verifyCityNameText)
@@ -44,7 +44,7 @@ export class ClaimantRepresentativeAddressPage {
     I.click(buttons.saveAndContinue)
   }
 
-  enterOnlyMandatoryOrganisationAddress () {
+  enterOnlyMandatoryOrganisationAddress (): void {
     I.fillField(fields.addressLine1, data.addressLine1Text)
     I.fillField(fields.cityName, data.cityNameText)
     I.fillField(fields.postcode, data.postcodeText)

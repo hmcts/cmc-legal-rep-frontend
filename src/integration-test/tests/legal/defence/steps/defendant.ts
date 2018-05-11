@@ -13,60 +13,60 @@ const defendantAddAnotherDefendantPage: DefendantAddPage = new DefendantAddPage(
 const defendantServiceAddressPage: DefendantServiceAddressPage = new DefendantServiceAddressPage()
 
 export class DefendantSteps {
-  enterDefendantTypeIndividual () {
+  enterDefendantTypeIndividual (): void {
     defendantTypePage.enterDefendantTypeIndividual()
   }
 
-  enterDefendantTypeOrganisation () {
+  enterDefendantTypeOrganisation (): void {
     defendantTypePage.enterDefendantTypeOrganisation()
   }
 
-  enterMandatoryDefendantDetails () {
+  enterMandatoryDefendantDetails (): void {
     defendantTypePage.enterOnlyMandatoryDefendantTypeDetails()
     defendantAddressPage.enterOnlyMandatoryDefendantOrganisationAddress()
   }
 
-  enterAnotherDefendantTypeIndividual () {
+  enterAnotherDefendantTypeIndividual (): void {
     defendantTypePage.enterAnotherDefendantTypeIndividual()
   }
 
-  enterAnotherDefendantTypeOrganisation () {
+  enterAnotherDefendantTypeOrganisation (): void {
     defendantTypePage.enterAnotherDefendantTypeOrganisation()
   }
 
-  enterDefendantAddress () {
+  enterDefendantAddress (): void {
     defendantAddressPage.enterYourOrganisationAddress()
   }
 
-  enterDefendantRepsCompanyName () {
+  enterDefendantRepsCompanyName (): void {
     defendantRepresentativePage.enterDefendantCompanyName()
   }
 
-  noDefendantCompanyName () {
+  noDefendantCompanyName (): void {
     defendantRepresentativePage.noDefendantCompanyName()
   }
 
-  enterDefendantRepsAddress () {
+  enterDefendantRepsAddress (): void {
     defendantRepresentativeAddressPage.enterDefendantRepsCompanyAddress()
   }
 
-  enterAnotherDefendant () {
+  enterAnotherDefendant (): void {
     defendantAddAnotherDefendantPage.enterAnotherDefendant()
   }
 
-  noAnotherDefendant () {
+  noAnotherDefendant (): void {
     defendantAddAnotherDefendantPage.noAnotherDefendant()
   }
 
-  enterServiceAddress () {
+  enterServiceAddress (): void {
     defendantServiceAddressPage.enterAnotherServiceAddress()
   }
 
-  defendantAddressAsServiceAddress () {
+  defendantAddressAsServiceAddress (): void {
     defendantServiceAddressPage.useDefendantAddressAsServiceAddress()
   }
 
-  verifyAndChangeDefendantDetails () {
+  verifyAndChangeDefendantDetails (): void {
     defendantTypePage.verifyDefendantOrganisationDetails()
     defendantTypePage.changeRemoveIndividualDefendantDetails()
   }

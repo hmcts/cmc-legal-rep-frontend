@@ -19,24 +19,24 @@ const data = {
 }
 
 export class ClaimantRepresentativeContactsPage {
-  open () {
+  open (): void {
     I.amOnLegalAppPage('/claim/representative-contacts')
   }
 
-  enterYourOrganisationContactDetails () {
+  enterYourOrganisationContactDetails (): void {
     I.fillField(fields.phoneNumber, data.phoneNumberText)
     I.fillField(fields.email, data.emailText)
     I.fillField(fields.dxAddress, data.dxAddressText)
     I.click(buttons.saveAndContinue)
   }
 
-  verifyContactDetails () {
+  verifyContactDetails (): void {
     I.seeInField(fields.phoneNumber, data.phoneNumberText)
     I.seeInField(fields.email, data.emailText)
     I.seeInField(fields.dxAddress, data.dxAddressText)
   }
 
-  submitOnlyMandatoryData () {
+  submitOnlyMandatoryData (): void {
     I.click(buttons.saveAndContinue)
   }
 }

@@ -11,6 +11,7 @@ export class IdamClient {
    *
    * @param {string} email
    * @param {string} userGroupCode
+   * @param {string} password
    * @returns {Promise<void>}
    */
   static createUser (email: string, userGroupCode: string, password: string = undefined): Promise<void> {
@@ -35,6 +36,7 @@ export class IdamClient {
    * Authorizes user with default password
    *
    * @param {string} email
+   * @param {string} password
    * @returns {Promise<string>}
    */
   static async authorizeUser (email: string, password: string = undefined): Promise<string> {

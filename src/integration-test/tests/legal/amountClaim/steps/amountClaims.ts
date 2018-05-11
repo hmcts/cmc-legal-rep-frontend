@@ -19,66 +19,66 @@ const payByAccountPage: ClaimPayByAccountPage = new ClaimPayByAccountPage()
 const submittedPage: ClaimSubmittedPage = new ClaimSubmittedPage()
 
 export class AmountClaimSteps {
-  personalInjuryLessThan1000 () {
+  personalInjuryLessThan1000 (): void {
     personalInjuryPage.enterPersonalInjuryLessThan1000()
   }
 
-  personalInjuryMoreThan1000 () {
+  personalInjuryMoreThan1000 (): void {
     personalInjuryPage.open()
     personalInjuryPage.enterPersonalInjuryMoreThan1000()
   }
 
-  noPersonalInjuryClaim () {
+  noPersonalInjuryClaim (): void {
     personalInjuryPage.noPersonalInjury()
   }
 
-  housingDisrepairLessThan1000 () {
+  housingDisrepairLessThan1000 (): void {
     housingDisrepairPage.enterHousingDisrepairGeneralDamagesLessThan1000()
     housingDisrepairPage.enterHousingDisrepairOtherDamagesLessThan1000()
   }
 
-  housingDisrepairMoreThan1000 () {
+  housingDisrepairMoreThan1000 (): void {
     housingDisrepairPage.open()
     housingDisrepairPage.enterHousingDisrepairGeneralDamagesMoreThan1000()
     housingDisrepairPage.enterHousingDisrepairOtherDamagesMoreThan1000()
   }
 
-  housingDisrepairLessThan1000AndNoOtherDamages () {
+  housingDisrepairLessThan1000AndNoOtherDamages (): void {
     housingDisrepairPage.open()
     housingDisrepairPage.enterHousingDisrepairGeneralDamagesLessThan1000()
     housingDisrepairPage.enterHousingDisrepairNoOtherDamages()
   }
 
-  noHousingDisrepairClaim () {
+  noHousingDisrepairClaim (): void {
     housingDisrepairPage.noHousingDisrepair()
   }
 
-  summariseTheClaim () {
+  summariseTheClaim (): void {
     summariseTheClaimPage.enterBriefDescriptionOfTheClaim()
   }
 
-  enterRangeOfTheClaim () {
+  enterRangeOfTheClaim (): void {
     amountPage.enterRangeOfTheClaim()
   }
 
-  enterOnlyHigherValueAmount () {
+  enterOnlyHigherValueAmount (): void {
     amountPage.open()
     amountPage.enterHigherValueOfTheClaim()
   }
 
-  canNotStateTheClaimValue () {
+  canNotStateTheClaimValue (): void {
     amountPage.canNotStateTheClaim()
   }
 
-  feeCheckForRangeTotal () {
+  feeCheckForRangeTotal (): void {
     totalPage.checkFeeTotalForRange()
   }
 
-  feeCheckForCanNotStateTheClaimValue () {
+  feeCheckForCanNotStateTheClaimValue (): void {
     totalPage.checkFeeTotalForCanNotStateValue()
   }
 
-  addRangeDetailsAndVerifyIndividualDetails () {
+  addRangeDetailsAndVerifyIndividualDetails (): void {
     this.personalInjuryLessThan1000()
     this.housingDisrepairLessThan1000()
     this.summariseTheClaim()
@@ -89,7 +89,7 @@ export class AmountClaimSteps {
     this.addPayByAccountFeeNumber()
   }
 
-  addRangeDetailsAndVerifyOrganisationDetails () {
+  addRangeDetailsAndVerifyOrganisationDetails (): void {
     this.personalInjuryLessThan1000()
     this.housingDisrepairLessThan1000()
     this.summariseTheClaim()
@@ -100,7 +100,7 @@ export class AmountClaimSteps {
     this.addPayByAccountFeeNumber()
   }
 
-  addMandatoryClaimDataAndSubmitClaim () {
+  addMandatoryClaimDataAndSubmitClaim (): void {
     this.personalInjuryLessThan1000()
     this.housingDisrepairLessThan1000()
     this.summariseTheClaim()
@@ -111,7 +111,7 @@ export class AmountClaimSteps {
     this.addPayByAccountFeeNumber()
   }
 
-  addNoClaimDataAndVerifyData () {
+  addNoClaimDataAndVerifyData (): void {
     this.noPersonalInjuryClaim()
     this.noHousingDisrepairClaim()
     this.summariseTheClaim()
@@ -120,7 +120,7 @@ export class AmountClaimSteps {
     this.verifyNoClaimSummaryDetails()
   }
 
-  verifySummaryDetails () {
+  verifySummaryDetails (): void {
     detailsSummaryPage.verifyOrganizationDetails()
     detailsSummaryPage.claimantDetails()
     detailsSummaryPage.defendantDetails()
@@ -128,7 +128,7 @@ export class AmountClaimSteps {
     detailsSummaryPage.selectSubmitButton()
   }
 
-  verifySummaryDetailsForMultipleClaimants () {
+  verifySummaryDetailsForMultipleClaimants (): void {
     detailsSummaryPage.verifyOrganizationDetails()
     detailsSummaryPage.multipleClaimantsDetails()
     detailsSummaryPage.defendantDetails()
@@ -136,7 +136,7 @@ export class AmountClaimSteps {
     detailsSummaryPage.selectSubmitButton()
   }
 
-  verifyNoClaimSummaryDetails () {
+  verifyNoClaimSummaryDetails (): void {
     detailsSummaryPage.verifyOrganizationDetails()
     detailsSummaryPage.claimantDetails()
     detailsSummaryPage.defendantDetails()
@@ -144,7 +144,7 @@ export class AmountClaimSteps {
     detailsSummaryPage.selectSubmitButton()
   }
 
-  verifyIndividualSummaryDetails () {
+  verifyIndividualSummaryDetails (): void {
     detailsSummaryPage.verifyOrganizationDetails()
     detailsSummaryPage.individualClaimDetails()
     detailsSummaryPage.individualDefendantDetails()
@@ -152,7 +152,7 @@ export class AmountClaimSteps {
     detailsSummaryPage.selectSubmitButton()
   }
 
-  addAmountAndVerifyDetails () {
+  addAmountAndVerifyDetails (): void {
     this.personalInjuryLessThan1000()
     this.housingDisrepairLessThan1000()
     this.summariseTheClaim()
@@ -162,14 +162,15 @@ export class AmountClaimSteps {
     this.addStatementOfTruthSignerNameAndRole()
   }
 
-  addStatementOfTruthSignerNameAndRole () {
+  addStatementOfTruthSignerNameAndRole (): void {
     statementOfTruthPage.enterStatementOfTruthSignerNameAndRole()
   }
-  addPayByAccountFeeNumber () {
+
+  addPayByAccountFeeNumber (): void {
     payByAccountPage.enterFeeAccountNumber()
   }
 
-  verifySubmittedPage (userEmail, dateCheck) {
+  verifySubmittedPage (userEmail: string, dateCheck: string): void {
     submittedPage.verifyTextInSubmittedPage(userEmail, dateCheck)
   }
 

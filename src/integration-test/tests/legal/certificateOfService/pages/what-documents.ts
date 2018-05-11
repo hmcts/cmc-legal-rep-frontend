@@ -11,15 +11,15 @@ const fields = {
 }
 
 export class WhatDocumentsPage {
-  open () {
+  open (): void {
     I.amOnLegalAppPage('/certificateOfService/what-documents')
   }
 
-  selectFileUploadCheckBox () {
+  selectFileUploadCheckBox (): void {
     I.checkOption(fields.typesResponsePack)
   }
 
-  selectSaveAndContinueButton () {
+  selectSaveAndContinueButton (): void {
     I.click(buttons.saveAndContinue)
   }
 }

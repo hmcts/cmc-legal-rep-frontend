@@ -5,7 +5,7 @@ const whatDocumentsPage: WhatDocumentsPage = new WhatDocumentsPage()
 const documentUploadPage: DocumentUploadPage = new DocumentUploadPage()
 
 export class CertificateOfServiceSteps {
-  uploadDocument () {
+  uploadDocument (): void {
     whatDocumentsPage.open()
     whatDocumentsPage.selectFileUploadCheckBox()
     whatDocumentsPage.selectSaveAndContinueButton()

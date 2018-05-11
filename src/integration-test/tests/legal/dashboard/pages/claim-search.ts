@@ -11,11 +11,11 @@ const buttons = {
 }
 
 export class ClaimSearchPage {
-  open () {
+  open (): void {
     I.amOnLegalAppPage('/dashboard/search')
   }
 
-  searchForClaim (legalClaimNumber) {
+  searchForClaim (legalClaimNumber: string): void {
     I.fillField(fields.search, legalClaimNumber)
     I.click(buttons.searchButton)
   }

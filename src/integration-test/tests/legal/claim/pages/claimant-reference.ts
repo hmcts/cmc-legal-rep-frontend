@@ -13,16 +13,16 @@ const buttons = {
 }
 
 export class ClaimantReferencePage {
-  open () {
+  open (): void {
     I.amOnLegalAppPage('/claim/your-reference')
   }
 
-  enterYourReferenceForClaim () {
+  enterYourReferenceForClaim (): void {
     I.fillField(fields.referenceNumber, verifyPageData.organizationRefNumber)
     I.click(buttons.saveAndContinue)
   }
 
-  submitOnlyMandatoryData () {
+  submitOnlyMandatoryData (): void {
     I.click(buttons.saveAndContinue)
   }
 }

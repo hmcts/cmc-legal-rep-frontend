@@ -13,17 +13,17 @@ const buttons = {
 }
 
 export class DefendantRepresentedPage {
-  open () {
+  open (): void {
     I.amOnLegalAppPage('/claim/defendant-represented')
   }
 
-  enterDefendantCompanyName () {
+  enterDefendantCompanyName (): void {
     I.checkOption(fields.defendantRepresentedYes)
     I.fillField(fields.companyName, 'Defendant Rep Ltd')
     I.click(buttons.saveAndContinue)
   }
 
-  noDefendantCompanyName () {
+  noDefendantCompanyName (): void {
     I.checkOption(fields.defendantRepresentedNo)
     I.click(buttons.saveAndContinue)
   }

@@ -3,7 +3,7 @@ const path = require('path')
 const request = require('request-promise-native')
 
 class DownloadPdfHelper extends codecept_helper {
-  downloadPDF (url, sessionId) {
+  downloadPDF (url: string, sessionId: string) {
     // couldn't get loading the CA cert to verify correctly for some reason
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 

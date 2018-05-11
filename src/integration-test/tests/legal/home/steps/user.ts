@@ -23,42 +23,42 @@ const claimantAddressPage: ClaimantAddressPage = new ClaimantAddressPage()
 const claimantAddPage: ClaimantAddPage = new ClaimantAddPage()
 
 export class UserSteps {
-  loginUser (userEmail, password) {
+  loginUser (userEmail: string, password: string): void {
     loginPage.open()
     loginPage.login(userEmail, password || DEFAULT_PASSWORD)
   }
 
-  startClaim () {
+  startClaim (): void {
     startClaimPage.open()
     startClaimPage.startClaim()
   }
 
-  loginAndStartClaim (userEmail, password) {
+  loginAndStartClaim (userEmail: string, password: string): void {
     this.loginUser(userEmail, password)
     this.startClaim()
   }
 
-  enterYourOrganisationNamePage () {
+  enterYourOrganisationNamePage (): void {
     yourOrganisationNamePage.enterYourOrganisationName()
   }
 
-  enterYourOrganisationAddress () {
+  enterYourOrganisationAddress (): void {
     yourOrganisationAddressPage.enterYourOrganisationAddress()
   }
 
-  enterYourOrganisationContactDetails () {
+  enterYourOrganisationContactDetails (): void {
     yourContactDetailsPage.enterYourOrganisationContactDetails()
   }
 
-  enterYourReferenceNumber () {
+  enterYourReferenceNumber (): void {
     yourReferencePage.enterYourReferenceForClaim()
   }
 
-  enterYourPreferredCountyCourt () {
+  enterYourPreferredCountyCourt (): void {
     yourCountyCourtPage.enterYourPreferredCountyCourt()
   }
 
-  enterClaimantServiceDetails () {
+  enterClaimantServiceDetails (): void {
     yourOrganisationNamePage.enterYourOrganisationName()
     yourOrganisationAddressPage.enterYourOrganisationAddress()
     yourContactDetailsPage.enterYourOrganisationContactDetails()
@@ -66,7 +66,7 @@ export class UserSteps {
     yourCountyCourtPage.enterYourPreferredCountyCourt()
   }
 
-  enterMandatoryClaimantServiceDetails () {
+  enterMandatoryClaimantServiceDetails (): void {
     yourOrganisationNamePage.enterYourOrganisationName()
     yourOrganisationAddressPage.enterOnlyMandatoryOrganisationAddress()
     yourContactDetailsPage.submitOnlyMandatoryData()
@@ -75,37 +75,37 @@ export class UserSteps {
     claimantTypePage.enterOnlyMandatoryClaimantTypeData()
   }
 
-  enterMandatoryClaimantAddressDetails () {
+  enterMandatoryClaimantAddressDetails (): void {
     claimantAddressPage.enterMandatoryClaimantOrganisationAddress()
   }
 
-  enterClaimantTypeIndividual () {
+  enterClaimantTypeIndividual (): void {
     claimantTypePage.enterClaimantTypeIndividual()
   }
 
-  enterClaimantTypeOrganisation () {
+  enterClaimantTypeOrganisation (): void {
     claimantTypePage.enterClaimantTypeOrganisation()
   }
 
-  enterClaimantAddress () {
+  enterClaimantAddress (): void {
     claimantAddressPage.enterYourOrganisationAddress()
   }
 
-  addAdditionalClaimant () {
+  addAdditionalClaimant (): void {
     claimantAddPage.enterAdditionalClaimant()
   }
 
-  noAdditionalClaimant () {
+  noAdditionalClaimant (): void {
     claimantAddPage.chooseNoAdditionalClaimant()
   }
 
-  verifyOrganizationDetails () {
+  verifyOrganizationDetails (): void {
     yourOrganisationNamePage.verifyOrganizationName()
     yourOrganisationAddressPage.verifyOrganizationAddress()
     yourContactDetailsPage.verifyContactDetails()
   }
 
-  verifyAndChangeClaimantDetails () {
+  verifyAndChangeClaimantDetails (): void {
     claimantTypePage.verifyClaimantIndividualDetails()
     claimantTypePage.changeRemoveIndividualClaimantDetails()
   }

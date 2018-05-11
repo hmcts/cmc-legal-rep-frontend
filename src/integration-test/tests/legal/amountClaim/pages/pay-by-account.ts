@@ -17,7 +17,7 @@ export class ClaimPayByAccountPage {
     I.amOnLegalAppPage('/claim/pay-by-account')
   }
 
-  enterFeeAccountNumber () {
+  enterFeeAccountNumber (): void {
     I.see(verifyPageData.feesPaid)
     I.fillField(fields.feeAccountReference, verifyPageData.feeAccountNumber)
     I.click(buttons.saveAndContinue)

@@ -26,24 +26,24 @@ const data = {
 }
 
 export class ClaimantTypePage {
-  open () {
+  open (): void {
     I.amOnLegalAppPage('/claim/claimant-type')
   }
 
-  enterClaimantTypeIndividual () {
+  enterClaimantTypeIndividual (): void {
     I.checkOption(fields.individualType)
     I.fillField(fields.individualFullName, data.individualFullNameText)
     I.click(buttons.saveAndContinue)
   }
 
-  verifyClaimantIndividualDetails () {
+  verifyClaimantIndividualDetails (): void {
     I.see('Claimant')
     I.see(data.individualFullNameText)
     I.see(data.removeButtonText)
     I.see(data.changeButtonText)
   }
 
-  changeRemoveIndividualClaimantDetails () {
+  changeRemoveIndividualClaimantDetails (): void {
     I.click(fields.removeSecondClaimant)
     I.click(fields.changeFirstClaimant)
     I.checkOption(fields.organisationType)
@@ -53,14 +53,14 @@ export class ClaimantTypePage {
     I.see(data.updatedNameText)
   }
 
-  enterClaimantTypeOrganisation () {
+  enterClaimantTypeOrganisation (): void {
     I.checkOption(fields.organisationType)
     I.fillField(fields.organisationName, verifyPageData.claimantOrganization)
     I.fillField(fields.companyHouseNumber, '12345')
     I.click(buttons.saveAndContinue)
   }
 
-  enterOnlyMandatoryClaimantTypeData () {
+  enterOnlyMandatoryClaimantTypeData (): void {
     I.checkOption(fields.organisationType)
     I.fillField(fields.organisationName, verifyPageData.claimantOrganization)
     I.click(buttons.saveAndContinue)

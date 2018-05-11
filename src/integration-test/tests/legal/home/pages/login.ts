@@ -12,7 +12,7 @@ const buttons = {
 }
 
 export class LoginPage {
-  open () {
+  open (): void {
     I.amOnLegalAppPage('/')
   }
 

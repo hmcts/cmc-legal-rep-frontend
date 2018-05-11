@@ -14,11 +14,11 @@ const buttons = {
 }
 
 export class DefendantAddressPage {
-  open () {
+  open (): void {
     I.amOnLegalAppPage('/claim/defendant-address')
   }
 
-  enterYourOrganisationAddress () {
+  enterYourOrganisationAddress (): void {
     I.fillField(fields.addressLine1, 'CMC T2 Defendant')
     I.fillField(fields.addressLine2, 'Westminster')
     I.fillField(fields.cityName, 'London')
@@ -26,7 +26,7 @@ export class DefendantAddressPage {
     I.click(buttons.saveAndContinue)
   }
 
-  enterOnlyMandatoryDefendantOrganisationAddress () {
+  enterOnlyMandatoryDefendantOrganisationAddress (): void {
     I.fillField(fields.addressLine1, 'CMC T2 Defendant')
     I.fillField(fields.cityName, 'London')
     I.fillField(fields.postcode, 'SW1H 9BJ')

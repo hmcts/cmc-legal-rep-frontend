@@ -11,16 +11,16 @@ const buttons = {
 }
 
 export class ClaimantPreferredCourtPage {
-  open () {
+  open (): void {
     I.amOnLegalAppPage('/claim/preferred-court')
   }
 
-  enterYourPreferredCountyCourt () {
+  enterYourPreferredCountyCourt (): void {
     I.fillField(fields.courtName, 'Dartford County Court')
     I.click(buttons.saveAndContinue)
   }
 
-  submitOnlyMandatoryData () {
+  submitOnlyMandatoryData (): void {
     I.click(buttons.saveAndContinue)
   }
 }

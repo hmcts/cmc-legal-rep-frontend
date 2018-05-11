@@ -5,11 +5,11 @@ import I = CodeceptJS.I
 const I: I = actor()
 
 export class ClaimDetailsPage {
-  open () {
+  open (): void {
     I.amOnLegalAppPage('/dashboard/claim-details')
   }
 
-  verifyClaimDetails (legalClaimNumber) {
+  verifyClaimDetails (legalClaimNumber: string): void {
     I.see(legalClaimNumber)
     I.see(verifyPageData.claimantOrganization)
     I.see(verifyPageData.defendantOrganization)

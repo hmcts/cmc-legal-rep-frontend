@@ -16,11 +16,11 @@ const buttons = {
 }
 
 export class DefendantServiceAddressPage {
-  open () {
+  open (): void {
     I.amOnLegalAppPage('/claim/defendant-service-address')
   }
 
-  enterAnotherServiceAddress () {
+  enterAnotherServiceAddress (): void {
     I.checkOption(fields.useAnotherAddress)
     I.fillField(fields.addressLine1, 'CMC T2')
     I.fillField(fields.addressLine2, 'Westminster')
@@ -29,7 +29,7 @@ export class DefendantServiceAddressPage {
     I.click(buttons.saveAndContinue)
   }
 
-  useDefendantAddressAsServiceAddress () {
+  useDefendantAddressAsServiceAddress (): void {
     I.checkOption(fields.useDefendantsAddress)
     I.see('CMC T2 DEFENDANT WESTMINSTER LONDON SW1H 9BJ')
     I.click(buttons.saveAndContinue)

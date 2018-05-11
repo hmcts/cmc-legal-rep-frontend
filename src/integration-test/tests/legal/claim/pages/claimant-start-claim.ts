@@ -7,11 +7,11 @@ const buttons = {
 }
 
 export class ClaimantStartClaimPage {
-  open () {
+  open (): void {
     I.amOnLegalAppPage('/claim/start')
   }
 
-  startClaim () {
+  startClaim (): void {
     I.click(buttons.startNow)
   }
 }

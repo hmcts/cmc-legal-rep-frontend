@@ -28,43 +28,43 @@ const data = {
 }
 
 export class DefendantTypePage {
-  open () {
+  open (): void {
     I.amOnLegalAppPage('/claim/defendant-type')
   }
 
-  enterDefendantTypeIndividual () {
+  enterDefendantTypeIndividual (): void {
     I.checkOption(fields.individualType)
     I.fillField(fields.individualFullName, data.individualFullNameText)
     I.click(buttons.saveAndContinue)
   }
 
-  enterDefendantTypeOrganisation () {
+  enterDefendantTypeOrganisation (): void {
     I.checkOption(fields.organisationType)
     I.fillField(fields.organisationName, verifyPageData.defendantOrganization)
     I.fillField(fields.companyHouseNumber, '678910')
     I.click(buttons.saveAndContinue)
   }
 
-  enterOnlyMandatoryDefendantTypeDetails () {
+  enterOnlyMandatoryDefendantTypeDetails (): void {
     I.checkOption(fields.organisationType)
     I.fillField(fields.organisationName, verifyPageData.defendantOrganization)
     I.click(buttons.saveAndContinue)
   }
 
-  enterAnotherDefendantTypeIndividual () {
+  enterAnotherDefendantTypeIndividual (): void {
     I.checkOption(fields.individualType)
     I.fillField(fields.individualFullName, 'Mrs Orange')
     I.click(buttons.saveAndContinue)
   }
 
-  enterAnotherDefendantTypeOrganisation () {
+  enterAnotherDefendantTypeOrganisation (): void {
     I.checkOption(fields.organisationType)
     I.fillField(fields.organisationName, data.defendantTwoOrganisationNameText)
     I.fillField(fields.companyHouseNumber, '111213')
     I.click(buttons.saveAndContinue)
   }
 
-  verifyDefendantOrganisationDetails () {
+  verifyDefendantOrganisationDetails (): void {
     I.see('Defendant')
     I.see(verifyPageData.defendantOrganization)
     I.see('Mrs Orange')
@@ -73,7 +73,7 @@ export class DefendantTypePage {
     I.see(data.changeButtonText)
   }
 
-  changeRemoveIndividualDefendantDetails () {
+  changeRemoveIndividualDefendantDetails (): void {
     I.click(fields.removeSecondDefendant)
     I.click(fields.changeFirstDefendant)
     I.checkOption(fields.individualType)

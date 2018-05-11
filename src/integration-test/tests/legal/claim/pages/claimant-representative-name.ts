@@ -15,16 +15,16 @@ const data = {
 }
 
 export class ClaimantRepresentativeNamePage {
-  open () {
+  open (): void {
     I.amOnLegalAppPage('/claim/representative-name')
   }
 
-  enterYourOrganisationName () {
+  enterYourOrganisationName (): void {
     I.fillField(fields.organisationName, data.organisationNameText)
     I.click(buttons.saveAndContinue)
   }
 
-  verifyOrganizationName () {
+  verifyOrganizationName (): void {
     I.seeInField(fields.organisationName, data.organisationNameText)
     I.click(buttons.saveAndContinue)
   }

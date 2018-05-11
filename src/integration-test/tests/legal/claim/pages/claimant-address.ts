@@ -14,11 +14,11 @@ const buttons = {
 }
 
 export class ClaimantAddressPage {
-  open () {
+  open (): void {
     I.amOnLegalAppPage('/claim/claimant-address')
   }
 
-  enterYourOrganisationAddress () {
+  enterYourOrganisationAddress (): void {
     I.fillField(fields.addressLine1, 'CMC T2')
     I.fillField(fields.addressLine2, 'Westminster')
     I.fillField(fields.cityName, 'London')
@@ -26,7 +26,7 @@ export class ClaimantAddressPage {
     I.click(buttons.saveAndContinue)
   }
 
-  enterMandatoryClaimantOrganisationAddress () {
+  enterMandatoryClaimantOrganisationAddress (): void {
     I.fillField(fields.addressLine1, 'CMC T2')
     I.fillField(fields.cityName, 'London')
     I.fillField(fields.postcode, 'SW1H 9AJ')

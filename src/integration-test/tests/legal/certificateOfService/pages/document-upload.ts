@@ -9,12 +9,12 @@ const buttons = {
 }
 
 export class DocumentUploadPage {
-  open () {
+  open (): void {
     I.amOnLegalAppPage('/certificateOfService/what-documents')
   }
 
   // todo not used, remove?
-  selectParticularsOfClaimFile () {
+  selectParticularsOfClaimFile (): void {
     I.click(buttons.particularsOfClaim)
     I.attachFile(buttons.particularsOfClaimFile, 'src/data/legalUpload.pdf')
     I.click(buttons.uploadFileButton)
@@ -23,7 +23,7 @@ export class DocumentUploadPage {
   }
 
   // todo not used, remove?
-  selectSaveAndContinueButton () {
+  selectSaveAndContinueButton (): void {
     // I.click(buttons.saveAndContinue)
   }
 
