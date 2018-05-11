@@ -1,15 +1,15 @@
-const DEFAULT_PASSWORD = require('../../../../data/test-data').DEFAULT_PASSWORD
+const DEFAULT_PASSWORD = require('integration-test/data/test-data').DEFAULT_PASSWORD
 
-import { LoginPage } from '../pages/login'
-import { ClaimantStartClaimPage } from '../../claim/pages/claimant-start-claim'
-import { ClaimantRepresentativeNamePage } from '../../claim/pages/claimant-representative-name'
-import { ClaimantRepresentativeAddressPage } from '../../claim/pages/claimant-representative-address'
-import { ClaimantRepresentativeContactsPage } from '../../claim/pages/claimant-representative-contacts'
-import { ClaimantReferencePage } from '../../claim/pages/claimant-reference'
-import { ClaimantPreferredCourtPage } from '../../claim/pages/claimant-preferred-court'
-import { ClaimantTypePage } from '../../claim/pages/claimant-type'
-import { ClaimantAddressPage } from '../../claim/pages/claimant-address'
-import { ClaimantAddPage } from '../../claim/pages/claimant-add'
+import { LoginPage } from 'integration-test/tests/legal/home/pages/login'
+import { ClaimantStartClaimPage } from 'integration-test/tests/legal/claim/pages/claimant-start-claim'
+import { ClaimantRepresentativeNamePage } from 'integration-test/tests/legal/claim/pages/claimant-representative-name'
+import { ClaimantRepresentativeAddressPage } from 'integration-test/tests/legal/claim/pages/claimant-representative-address'
+import { ClaimantRepresentativeContactsPage } from 'integration-test/tests/legal/claim/pages/claimant-representative-contacts'
+import { ClaimantReferencePage } from 'integration-test/tests/legal/claim/pages/claimant-reference'
+import { ClaimantPreferredCourtPage } from 'integration-test/tests/legal/claim/pages/claimant-preferred-court'
+import { ClaimantTypePage } from 'integration-test/tests/legal/claim/pages/claimant-type'
+import { ClaimantAddressPage } from 'integration-test/tests/legal/claim/pages/claimant-address'
+import { ClaimantAddPage } from 'integration-test/tests/legal/claim/pages/claimant-add'
 
 const loginPage: LoginPage = new LoginPage()
 const startClaimPage: ClaimantStartClaimPage = new ClaimantStartClaimPage()

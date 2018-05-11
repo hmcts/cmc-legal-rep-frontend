@@ -1,5 +1,5 @@
-import { WhatDocumentsPage } from '../pages/what-documents'
-import { DocumentUploadPage } from '../pages/document-upload'
+import { WhatDocumentsPage } from 'integration-test/tests/legal/certificateOfService/pages/what-documents'
+import { DocumentUploadPage } from 'integration-test/tests/legal/certificateOfService/pages/document-upload'
 
 const whatDocumentsPage: WhatDocumentsPage = new WhatDocumentsPage()
 const documentUploadPage: DocumentUploadPage = new DocumentUploadPage()
