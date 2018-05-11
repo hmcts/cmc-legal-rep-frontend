@@ -111,13 +111,6 @@ describe('Amount', () => {
       expectValidationError(errors, ValidationErrors.VALID_SELECTION_REQUIRED)
     })
 
-    it('should reject Nan Upper value', () => {
-      const errors = validator.validateSync(new Amount(100, Number.NaN, ''))
-
-      expect(errors).to.not.be.empty
-      expectValidationError(errors, ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID)
-    })
-
     it('should accept when higher value and lower value are undefined and cannot state is selected', () => {
       const errors = validator.validateSync(new Amount(undefined, undefined, Amount.CANNOT_STATE_VALUE))
 
