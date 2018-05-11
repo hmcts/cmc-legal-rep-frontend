@@ -1,7 +1,5 @@
 const supportedBrowsers = require('@hmcts/cmc-supported-browsers').supportedBrowsers
 
-const legalPageDefinitions = require('./src/integration-test/tests/legal/page-definitions')
-
 const browser = requiredValue(process.env.SAUCELABS_BROWSER, 'SAUCELABS_BROWSER')
 const saucelabsTunnelIdentifier = requiredValue(process.env.SAUCELABS_TUNNEL_IDENTIFIER, 'SAUCELABS_TUNNEL_IDENTIFIER')
 const saucelabsUsername = requiredValue(process.env.SAUCELABS_USERNAME, 'SAUCELABS_USERNAME')
@@ -59,7 +57,6 @@ exports.config = {
       require: './src/integration-test/helpers/saucelabsReporter'
     }
   },
-  include: Object.assign({ }, legalPageDefinitions),
   mocha: {
     reporterOptions: {
       'codeceptjs-cli-reporter': {
