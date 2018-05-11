@@ -2,8 +2,8 @@ import { expect } from 'chai'
 import * as request from 'supertest'
 import * as config from 'config'
 
-import './expectations'
-import { app } from '../../main/app'
+import 'test/routes/expectations'
+import { app } from 'main/app'
 import { Paths } from 'paths'
 
 const site: string = config.get<string>('legal_frontend_analytics')

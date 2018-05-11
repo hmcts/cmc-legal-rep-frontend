@@ -5,7 +5,7 @@ import { expect } from 'chai'
 import { Validator } from 'class-validator'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 
-import { expectValidationError } from './validationUtils'
+import { expectValidationError } from 'test/app/forms/models/validationUtils'
 
 import { YourReference } from 'forms/models/yourReference'
 

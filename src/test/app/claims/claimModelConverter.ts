@@ -2,12 +2,12 @@ import { expect } from 'chai'
 
 import { ClaimModelConverter } from 'claims/claimModelConverter'
 
-import { claimDraft as draftTemplate } from '../../data/draft/claimDraft'
-import { claimData as entityTemplate } from '../../data/entity/claimData'
+import { claimDraft as draftTemplate } from 'test/data/draft/claimDraft'
+import { claimData as entityTemplate } from 'test/data/entity/claimData'
 
-import { claimants, defendants } from '../../data/draft/partyDetails'
+import { claimants, defendants } from 'test/data/draft/partyDetails'
 
-import { claimants as claimantsEntity, defendants as defendantsEntity } from '../../data/entity/party'
+import { claimants as claimantsEntity, defendants as defendantsEntity } from 'test/data/entity/party'
 
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 import ClaimData from 'claims/models/claimData'
