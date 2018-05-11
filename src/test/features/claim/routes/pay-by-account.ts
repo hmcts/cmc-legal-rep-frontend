@@ -3,17 +3,17 @@ import * as request from 'supertest'
 import * as config from 'config'
 import * as mock from 'nock'
 
-import '../../../routes/expectations'
+import 'test/routes/expectations'
 import { checkAuthorizationGuards } from './checks/authorization-check'
-import * as feesServiceMock from '../../../http-mocks/fees'
+import * as feesServiceMock from 'test/http-mocks/fees'
 import { Paths as ClaimPaths } from 'claim/paths'
 
-import { app } from '../../../../main/app'
+import { app } from 'main/app'
 
-import * as idamServiceMock from '../../../http-mocks/idam'
-import * as payClientMock from '../../../http-mocks/pay'
-import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
-import * as claimStoreServiceMock from '../../../http-mocks/claim-store'
+import * as idamServiceMock from 'test/http-mocks/idam'
+import * as payClientMock from 'test/http-mocks/pay'
+import * as draftStoreServiceMock from 'test/http-mocks/draft-store'
+import * as claimStoreServiceMock from 'test/http-mocks/claim-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
 const pageHeading = 'Pay by Fee Account'

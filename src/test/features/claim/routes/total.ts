@@ -2,15 +2,15 @@ import { expect } from 'chai'
 import * as request from 'supertest'
 import * as config from 'config'
 
-import '../../../routes/expectations'
+import 'test/routes/expectations'
 import { checkAuthorizationGuards } from './checks/authorization-check'
 
 import { Paths as ClaimPaths } from 'claim/paths'
-import { app } from '../../../../main/app'
+import { app } from 'main/app'
 
-import * as idamServiceMock from '../../../http-mocks/idam'
-import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
-import * as feesServiceMock from '../../../http-mocks/fees'
+import * as idamServiceMock from 'test/http-mocks/idam'
+import * as draftStoreServiceMock from 'test/http-mocks/draft-store'
+import * as feesServiceMock from 'test/http-mocks/fees'
 
 const cookieName: string = config.get<string>('session.cookieName')
 const pageHeading: string = 'Your issue fee'

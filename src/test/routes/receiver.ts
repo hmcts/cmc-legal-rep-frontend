@@ -6,8 +6,8 @@ import './expectations'
 
 import { Paths as AppPaths } from 'paths'
 import { Paths as ClaimPaths } from 'claim/paths'
-import { app } from '../../main/app'
-import * as idamServiceMock from '../http-mocks/idam'
+import { app } from 'main/app'
+import * as idamServiceMock from 'test/http-mocks/idam'
 
 const cookieName: string = config.get<string>('session.cookieName')
 const token = 'I am dummy access token'

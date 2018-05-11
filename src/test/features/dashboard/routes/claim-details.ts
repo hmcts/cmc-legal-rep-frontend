@@ -5,11 +5,11 @@ import * as mock from 'nock'
 
 import { Paths as DashboardPaths } from 'dashboard/paths'
 
-import { app } from '../../../../main/app'
+import { app } from 'main/app'
 
-import * as idamServiceMock from '../../../http-mocks/idam'
-import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
-import * as claimStoreServiceMock from '../../../http-mocks/claim-store'
+import * as idamServiceMock from 'test/http-mocks/idam'
+import * as draftStoreServiceMock from 'test/http-mocks/draft-store'
+import * as claimStoreServiceMock from 'test/http-mocks/claim-store'
 import { checkAuthorizationGuards } from './checks/authorization-check'
 
 const cookieName: string = config.get<string>('session.cookieName')

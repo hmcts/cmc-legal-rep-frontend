@@ -4,11 +4,11 @@ import * as config from 'config'
 import * as mock from 'nock'
 
 import { Paths as ClaimPaths } from 'claim/paths'
-import { app } from '../../../../main/app'
-import * as idamServiceMock from '../../../http-mocks/idam'
+import { app } from 'main/app'
+import * as idamServiceMock from 'test/http-mocks/idam'
 import { checkAuthorizationGuards } from './checks/authorization-check'
-import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
-import * as claimStoreServiceMock from '../../../http-mocks/claim-store'
+import * as draftStoreServiceMock from 'test/http-mocks/draft-store'
+import * as claimStoreServiceMock from 'test/http-mocks/claim-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
 const roles: string[] = ['solicitor']
