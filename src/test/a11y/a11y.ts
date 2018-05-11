@@ -9,7 +9,7 @@ import { expect } from 'chai'
 import { RoutablePath } from 'shared/router/routablePath'
 import { Paths as ClaimIssuePaths } from 'claim/paths'
 
-import 'mocks'
+import 'test/a11y/mocks'
 import { app } from 'main/app'
 
 app.locals.csrf = 'dummy-token'
