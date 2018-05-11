@@ -1,4 +1,4 @@
-import { defendants, claimants } from './partyDetails'
+import { defendants, claimants } from 'test/data/draft/partyDetails'
 
 export const claimDraft = {
   externalId: 'b5503a41-bfb0-4087-a076-f6e66c803674',

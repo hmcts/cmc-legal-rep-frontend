@@ -5,11 +5,11 @@ import * as mock from 'nock'
 
 import { Paths as CertificateOfServicePath } from 'certificateOfService/paths'
 
-import { app } from '../../../../main/app'
+import { app } from 'main/app'
 
-import * as idamServiceMock from '../../../http-mocks/idam'
-import * as draftStoreServiceMock from '../../../http-mocks/draft-store'
-import { checkAuthorizationGuards } from './checks/authorization-check'
+import * as idamServiceMock from 'test/http-mocks/idam'
+import * as draftStoreServiceMock from 'test/http-mocks/draft-store'
+import { checkAuthorizationGuards } from 'test/features/certificateOfService/routes/checks/authorization-check'
 
 const cookieName: string = config.get<string>('session.cookieName')
 const pageText = 'What documents did you serve?'

@@ -5,7 +5,7 @@ import { expect } from 'chai'
 import * as randomstring from 'randomstring'
 import { Validator } from 'class-validator'
 
-import { expectValidationError } from './validationUtils'
+import { expectValidationError } from 'test/app/forms/models/validationUtils'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 import { ServiceAddress } from 'forms/models/serviceAddress'
 import { YesNo } from 'forms/models/yesNo'

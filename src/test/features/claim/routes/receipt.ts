@@ -3,16 +3,16 @@ import * as request from 'supertest'
 import * as config from 'config'
 import * as mock from 'nock'
 
-import '../../../routes/expectations'
-import { checkAuthorizationGuards } from './checks/authorization-check'
+import 'test/routes/expectations'
+import { checkAuthorizationGuards } from 'test/features/claim/routes/checks/authorization-check'
 
 import { Paths as ClaimPaths } from 'claim/paths'
 
-import { app } from '../../../../main/app'
+import { app } from 'main/app'
 
-import * as idamServiceMock from '../../../http-mocks/idam'
-import * as claimStoreServiceMock from '../../../http-mocks/claim-store'
-import * as documentManagementMock from '../../../http-mocks/document-store'
+import * as idamServiceMock from 'test/http-mocks/idam'
+import * as claimStoreServiceMock from 'test/http-mocks/claim-store'
+import * as documentManagementMock from 'test/http-mocks/document-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
 
