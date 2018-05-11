@@ -79,12 +79,6 @@
       ],
       "services/*": [
         "main/services/*"
-      ],
-      "integration-test/*": [
-        "integration-test/*"
-      ],
-      "test/*": [
-        "test/*"
       ]
     },
     "typeRoots": [
