@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import * as request from 'supertest'
 import * as config from 'config'
 
-import 'expectations'
+import 'test/routes/expectations'
 import { app } from 'main/app'
 import { Paths } from 'paths'
 
