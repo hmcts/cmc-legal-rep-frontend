@@ -4,7 +4,7 @@ import * as config from 'config'
 import * as mock from 'nock'
 
 import 'test/routes/expectations'
-import { checkAuthorizationGuards } from './checks/authorization-check'
+import { checkAuthorizationGuards } from 'test/features/certificateOfService/routes/checks/authorization-check'
 
 import { Paths as CertificateOfServicePath } from 'certificateOfService/paths'
 import * as draftStoreServiceMock from 'test/http-mocks/draft-store'

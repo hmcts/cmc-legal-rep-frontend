@@ -6,7 +6,7 @@ import * as mock from 'nock'
 import { Paths as ClaimPaths } from 'claim/paths'
 import { app } from 'main/app'
 import * as idamServiceMock from 'test/http-mocks/idam'
-import { checkAuthorizationGuards } from './checks/authorization-check'
+import { checkAuthorizationGuards } from 'test/features/claim/routes/checks/authorization-check'
 import * as DraftStoreServiceMock from 'test/http-mocks/draft-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
