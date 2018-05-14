@@ -1,10 +1,9 @@
 import { IsDefined, IsIn, MaxLength, ValidateIf } from 'class-validator'
 import { Serializable } from 'models/serializable'
 import { YesNo } from 'forms/models/yesNo'
-import { IsNotBlank } from 'forms/validation/validators/isNotBlank'
+import { IsNotBlank, IsValidPostcode } from '@hmcts/cmc-validators'
 import { isUndefined } from 'util'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
-import { IsValidPostcode } from '@hmcts/cmc-validators'
 
 export class ValidationErrors {
   static readonly DEFENDANT_SERVICE_ADDRESS_REQUIRED: string = 'Choose which address to use'

@@ -1,7 +1,6 @@
 import { Serializable } from 'models/serializable'
-import { IsFeeAccount } from 'forms/validation/validators/isFeeAccount'
 import { IsDefined } from 'class-validator'
-import { IsNotBlank } from 'forms/validation/validators/isNotBlank'
+import { IsNotBlank, IsFeeAccount } from '@hmcts/cmc-validators'
 
 export class ValidationErrors {
   static readonly FEE_ACCOUNT_INVALID: string = 'Enter a valid Fee Account number'

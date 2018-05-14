@@ -40,7 +40,7 @@
     "@hmcts/nodejs-healthcheck": "^1.4.3",
     "@hmcts/nodejs-logging": "^3.0.0",
     "@hmcts/requestretry": "^1.1.0",
-    "@hmcts/cmc-validators": "^0.1.2",
+    "@hmcts/cmc-validators": "^0.1.8",
     "@types/config": "^0.0.34",
     "@types/cookies": "^0.7.1",
     "@types/csurf": "^1.9.33",

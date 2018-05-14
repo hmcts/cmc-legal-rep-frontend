@@ -77,11 +77,6 @@ describe('ContactDetails', () => {
       expect(errors.length).to.equal(1)
     })
 
-    it('should reject empty string for email address', () => {
-      const errors = validator.validateSync(new ContactDetails('08905550', '', 'any dx address'))
-      expect(errors.length).to.equal(1)
-    })
-
     it('should reject dx address greater than 255', () => {
       const errors = validator.validateSync(new ContactDetails('01269055505', 'email@example.com', randomstring.generate(256)))
 

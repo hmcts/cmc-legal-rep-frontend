@@ -1,6 +1,6 @@
 import { IsDefined, Matches } from 'class-validator'
 import { Serializable } from 'models/serializable'
-import { IsNotBlank } from 'forms/validation/validators/isNotBlank'
+import { IsNotBlank } from '@hmcts/cmc-validators'
 import { isUndefined } from 'util'
 
 export class ValidationErrors {
