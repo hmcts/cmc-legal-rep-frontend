@@ -1,7 +1,7 @@
-import * as idamServiceMock from '../http-mocks/idam'
-import * as draftStoreMock from '../http-mocks/draft-store'
-import * as claimStoreMock from '../http-mocks/claim-store'
-import * as feesMock from '../http-mocks/fees'
+import * as idamServiceMock from 'test/http-mocks/idam'
+import * as draftStoreMock from 'test/http-mocks/draft-store'
+import * as claimStoreMock from 'test/http-mocks/claim-store'
+import * as feesMock from 'test/http-mocks/fees'
 
 idamServiceMock.resolveRetrieveUserFor('1', 'solicitor').persist()
 idamServiceMock.resolveRetrieveServiceToken().persist()

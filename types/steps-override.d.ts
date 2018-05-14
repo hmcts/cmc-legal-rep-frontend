@@ -6,7 +6,10 @@ declare namespace CodeceptJS {
     linkDefendantToClaim: (referenceNumber: string, ownerEmail: string, defendantEmail: string) => void
     respondToClaim: (referenceNumber: string, ownerEmail: string, responseData: ResponseData, defendantEmail: string) => void
 
-    amOnCitizenAppPage: (path: string) => void
+    amOnLegalAppPage: (path: string) => void
+    downloadPDF: (pdfUrl: string, sessionCookie: string) => void
+    attachFile: (locator: string, path: string) => any
+    grabAttributeFrom: (locator: string, attr: string) => void
 
     fillField: (locator: string, value: string) => any
     selectOption: (select: string, option: string) => any

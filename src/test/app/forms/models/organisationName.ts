@@ -3,7 +3,7 @@
 
 import { expect } from 'chai'
 import { Validator } from 'class-validator'
-import { expectValidationError } from './validationUtils'
+import { expectValidationError } from 'test/app/forms/models/validationUtils'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 import { OrganisationName, ValidationErrors } from 'forms/models/organisationName'
 import * as randomstring from 'randomstring'

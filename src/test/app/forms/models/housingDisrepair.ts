@@ -3,7 +3,7 @@
 import { expect } from 'chai'
 import { Validator } from 'class-validator'
 
-import { expectValidationError } from './validationUtils'
+import { expectValidationError } from 'test/app/forms/models/validationUtils'
 
 import { HousingDisrepair, ValidationErrors } from 'forms/models/housingDisrepair'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
