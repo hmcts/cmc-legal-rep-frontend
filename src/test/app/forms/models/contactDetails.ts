@@ -4,7 +4,7 @@
 import { expect } from 'chai'
 import { Validator } from 'class-validator'
 
-import { expectValidationError } from './validationUtils'
+import { expectValidationError } from 'test/app/forms/models/validationUtils'
 import { ContactDetails, ValidationErrors } from 'forms/models/contactDetails'
 
 import * as randomstring from 'randomstring'
@@ -74,11 +74,6 @@ describe('ContactDetails', () => {
 
     it('should reject empty string for phone number', () => {
       const errors = validator.validateSync(new ContactDetails('', 'email@example.com', 'any dx address'))
-      expect(errors.length).to.equal(1)
-    })
-
-    it('should reject empty string for email address', () => {
-      const errors = validator.validateSync(new ContactDetails('08905550', '', 'any dx address'))
       expect(errors.length).to.equal(1)
     })
 

@@ -4,7 +4,7 @@
   "description": "Front end for legal representation journey within CMC",
   "private": true,
   "engines": {
-    "node": ">=8.9.4"
+    "node": ">=8.9.4 <10.0.0"
   },
   "repository": "git@github.com:hmcts/cmc-legal-rep-frontend.git",
   "author": "HMCTS",
@@ -65,7 +65,7 @@
     "cross-env": "^5.0.5",
     "csurf": "^1.9.0",
     "express": "^4.15.3",
-    "file-type": "^7.4.0",
+    "file-type": "^8.0.0",
     "formidable": "^1.1.1",
     "fs": "0.0.2",
     "govuk-elements-sass": "^3.1.2",

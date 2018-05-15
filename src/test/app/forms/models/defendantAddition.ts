@@ -3,7 +3,7 @@
 import { expect } from 'chai'
 import { Validator } from 'class-validator'
 
-import { expectValidationError } from './validationUtils'
+import { expectValidationError } from 'test/app/forms/models/validationUtils'
 
 import { PartyType as DefendantType } from 'common/partyType'
 import { DefendantAddition, ValidationErrors } from 'forms/models/defendantAddition'

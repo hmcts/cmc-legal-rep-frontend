@@ -1,5 +1,3 @@
-'use strict'
-
 const event = require('codeceptjs/lib/event')
 const container = require('codeceptjs/lib/container')
 const request = require('request-promise-native')
