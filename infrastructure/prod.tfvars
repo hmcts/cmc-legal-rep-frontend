@@ -7,3 +7,4 @@ draft_store_api_url = "https://proddraftstorelb.moneyclaim.reform.hmcts.net:4301
 feature_dashboard = "false"
 feature_certificateOfService = "false"
 external_host_name = "www.moneyclaim-legal.platform.hmcts.net"
+ga_tracking_id = "UA-97111056-4"
