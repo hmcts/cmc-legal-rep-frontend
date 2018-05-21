@@ -71,7 +71,6 @@ module "legal-frontend" {
 
     // Application vars
     GA_TRACKING_ID = "${var.ga_tracking_id}"
-    POSTCODE_LOOKUP_API_KEY = "${data.vault_generic_secret.postcode-lookup-api-key.data["value"]}"
 
     // IDAM
     IDAM_API_URL = "${var.idam_api_url}"
