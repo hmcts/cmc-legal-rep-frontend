@@ -8,7 +8,7 @@ import { Paths } from 'paths'
 
 const site: string = config.get<string>('legal_frontend_analytics')
 
-describe('Logout receiver', () => {
+describe('Analytics', () => {
   describe('on GET', () => {
     it('should send analytics config', () =>
       request(app)

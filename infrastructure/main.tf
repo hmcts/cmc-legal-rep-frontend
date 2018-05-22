@@ -70,8 +70,7 @@ module "legal-frontend" {
     REFORM_ENVIRONMENT = "${var.env}"
 
     // Application vars
-    GA_TRACKING_ID = "UA-97111056-1"
-    POSTCODE_LOOKUP_API_KEY = "${data.vault_generic_secret.postcode-lookup-api-key.data["value"]}"
+    GA_TRACKING_ID = "${var.ga_tracking_id}"
 
     // IDAM
     IDAM_API_URL = "${var.idam_api_url}"
