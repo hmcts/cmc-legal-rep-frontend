@@ -15,10 +15,6 @@ variable "env" { }
 
 variable "ilbIp" { }
 
-variable "draft_store_api_url" {
-  default = "https://testdraftstorelb.moneyclaim.reform.hmcts.net:4302"
-}
-
 variable "payments_api_url" {
   default = "https://test.payments.reform.hmcts.net:4421"
 }
@@ -78,4 +74,9 @@ variable "external_host_name" {
 variable "appinsights_instrumentation_key" {
   description = "Instrumentation key of the App Insights instance this webapp should use. Module will create own App Insights resource if this is not provided"
   default = ""
+}
+
+variable "ga_tracking_id" {
+  description = "Google Analytics tracking ID"
+  default = "UA-97111056-3"
 }
