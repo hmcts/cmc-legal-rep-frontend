@@ -96,7 +96,6 @@ describe('Claim : Pay by Fee Account page', () => {
       claimStoreServiceMock.resolveRetrievePaymentReference()
       claimStoreServiceMock.saveClaimForUser()
       draftStoreServiceMock.resolveDelete()
-      feesServiceMock.resolveCalculateIssueFee()
       idamServiceMock.resolveRetrieveServiceToken()
       payClientMock.resolveCreate()
 
@@ -114,7 +113,6 @@ describe('Claim : Pay by Fee Account page', () => {
       feesServiceMock.resolveCalculateIssueFee()
       claimStoreServiceMock.resolveRetrieveClaimByExternalId()
       claimStoreServiceMock.rejectRetrievePaymentReference()
-      feesServiceMock.resolveCalculateIssueFee()
       idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
@@ -133,7 +131,6 @@ describe('Claim : Pay by Fee Account page', () => {
       claimStoreServiceMock.resolveRetrievePaymentReference()
       claimStoreServiceMock.saveClaimForUserFailedWithUniqueConstraint('Duplicate Claim')
       draftStoreServiceMock.resolveDelete()
-      feesServiceMock.resolveCalculateIssueFee()
       idamServiceMock.resolveRetrieveServiceToken()
       payClientMock.resolveCreate()
 
