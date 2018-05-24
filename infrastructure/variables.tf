@@ -15,10 +15,6 @@ variable "env" { }
 
 variable "ilbIp" { }
 
-variable "draft_store_api_url" {
-  default = "https://testdraftstorelb.moneyclaim.reform.hmcts.net:4302"
-}
-
 variable "payments_api_url" {
   default = "https://test.payments.reform.hmcts.net:4421"
 }
