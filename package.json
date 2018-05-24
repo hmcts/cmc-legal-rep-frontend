@@ -40,7 +40,7 @@
     "@hmcts/nodejs-healthcheck": "^1.4.3",
     "@hmcts/nodejs-logging": "^3.0.0",
     "@hmcts/requestretry": "^1.1.0",
-    "@hmcts/cmc-validators": "^0.1.8",
+    "@hmcts/cmc-validators": "^0.1.9",
     "@types/config": "^0.0.34",
     "@types/cookies": "^0.7.1",
     "@types/csurf": "^1.9.33",
@@ -94,7 +94,7 @@
     "require-directory": "^2.1.1",
     "serve-favicon": "^2.4.3",
     "to-boolean": "^1.0.0",
-    "ts-node": "^5.0.0",
+    "ts-node": "^6.0.4",
     "tsconfig-paths": "^3.1.1",
     "typescript": "^2.4.2",
     "url-parse": "^1.2.0"
