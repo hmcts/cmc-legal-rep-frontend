@@ -44,6 +44,7 @@ locals {
 
   s2sUrl = "http://rpe-service-auth-provider-${local.local_env}.service.${local.local_ase}.internal"
   claimStoreUrl = "http://cmc-claim-store-${local.local_env}.service.${local.local_ase}.internal"
+  draftStoreUrl = "http://draft-store-service-${local.local_env}.service.${local.local_ase}.internal"
 }
 
 module "legal-frontend" {
@@ -70,8 +71,7 @@ module "legal-frontend" {
     REFORM_ENVIRONMENT = "${var.env}"
 
     // Application vars
-    GA_TRACKING_ID = "UA-97111056-1"
-    POSTCODE_LOOKUP_API_KEY = "${data.vault_generic_secret.postcode-lookup-api-key.data["value"]}"
+    GA_TRACKING_ID = "${var.ga_tracking_id}"
 
     // IDAM
     IDAM_API_URL = "${var.idam_api_url}"
@@ -87,7 +87,7 @@ module "legal-frontend" {
     FEES_URL = "${var.fees_api_url}"
 
     // Draft Store API
-    DRAFT_STORE_URL = "${var.draft_store_api_url}"
+    DRAFT_STORE_URL = "${local.draftStoreUrl}"
     DRAFT_STORE_SECRET_PRIMARY = "${data.vault_generic_secret.draft_store_secret.data["primary"]}"
     DRAFT_STORE_SECRET_SECONDARY = "${data.vault_generic_secret.draft_store_secret.data["secondary"]}"
 
