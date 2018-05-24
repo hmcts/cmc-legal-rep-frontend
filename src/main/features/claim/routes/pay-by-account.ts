@@ -20,6 +20,7 @@ import MoneyConverter from 'fees/moneyConverter'
 import { PayClient } from 'pay/payClient'
 import { PaymentResponse } from 'pay/model/paymentResponse'
 import { ServiceAuthTokenFactoryImpl } from 'shared/security/serviceTokenFactoryImpl'
+import { User } from 'idam/user'
 
 const logger = Logger.getLogger('router/pay-by-account')
 
@@ -40,7 +41,7 @@ function logPaymentError (id: string, payment: PaymentResponse) {
 
 async function deleteDraftAndRedirect (res, next, externalId: string) {
   const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
-  await new DraftService()['delete'](draft['id'], res.locals.user.bearerToken)
+  await new DraftService().delete(draft.id, res.locals.user.bearerToken)
   res.redirect(Paths.claimSubmittedPage.evaluateUri({ externalId: externalId }))
 }
 
@@ -110,10 +111,11 @@ export default express.Router()
 
         const feeResponse: FeeResponse = await FeesClient.getFeeAmount(draft.document.amount)
 
-        const legalRepDetails: RepresentativeDetails = Cookie.getCookie(req.signedCookies.legalRepresentativeDetails, res.locals.user.id)
+        const user: User = res.locals.user
+        const legalRepDetails: RepresentativeDetails = Cookie.getCookie(req.signedCookies.legalRepresentativeDetails, user.id)
         legalRepDetails.feeAccount = form.model
         res.cookie(legalRepDetails.cookieName,
-          Cookie.saveCookie(req.signedCookies.legalRepresentativeDetails, res.locals.user.id, legalRepDetails),
+          Cookie.saveCookie(req.signedCookies.legalRepresentativeDetails, user.id, legalRepDetails),
           CookieProperties.getCookieParameters())
 
         const paymentReference: string = draft.document.paymentResponse ? draft.document.paymentResponse.reference : undefined
@@ -122,9 +124,9 @@ export default express.Router()
         } else {
           const payClient: PayClient = await getPayClient()
           const paymentResponse: PaymentResponse = await payClient.create(
-            res.locals.user,
+            user,
             draft.document.feeAccount.reference,
-            draft.document.externalId,
+            await ClaimStoreClient.retrievePaymentReference(draft.document.externalId, user),
             draft.document.yourReference.reference,
             draft.document.representative.organisationName.name,
             feeResponse
@@ -134,10 +136,10 @@ export default express.Router()
             draft.document.feeAmountInPennies = MoneyConverter.convertPoundsToPennies(feeResponse.amount)
             draft.document.feeCode = feeResponse.code
             draft.document.paymentResponse = paymentResponse
-            await new DraftService().save(draft, res.locals.user.bearerToken)
+            await new DraftService().save(draft, user.bearerToken)
             await saveClaimHandler(res, next)
           } else {
-            logPaymentError(res.locals.user.id, paymentResponse)
+            logPaymentError(user.id, paymentResponse)
             res.redirect(Paths.payByAccountPage.uri)
           }
         }

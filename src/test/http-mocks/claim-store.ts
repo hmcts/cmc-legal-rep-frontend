@@ -82,7 +82,7 @@ export const sampleClaimObj = {
 
 export function resolveRetrieveClaimByExternalId (claimOverride?: object): mock.Scope {
   return mock(`${serviceBaseURL}/claims`)
-    .get(new RegExp('/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}'))
+    .get(new RegExp('/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$'))
     .reply(HttpStatus.OK, { ...sampleClaimObj, ...claimOverride })
 }
 
@@ -94,7 +94,7 @@ export function resolveRetrieveClaimByClaimNumber (claimOverride?: object): mock
 
 export function rejectRetrieveClaimByExternalIdWithNotFound (reason: string) {
   mock(`${serviceBaseURL}/claims`)
-    .get(new RegExp('/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}'))
+    .get(new RegExp('/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$'))
     .reply(HttpStatus.NOT_FOUND, reason)
 }
 
@@ -102,6 +102,12 @@ export function saveClaimForUser () {
   mock(`${serviceBaseURL}/claims`)
     .post(new RegExp('/[0-9]+'))
     .reply(HttpStatus.OK, { ...sampleClaimObj })
+}
+
+export function resolveRetrievePaymentReference () {
+  mock(`${serviceBaseURL}/claims`)
+    .get(new RegExp('/.+/pre-payment'))
+    .reply(HttpStatus.OK, { case_reference: sampleClaimObj.externalId })
 }
 
 export function saveClaimForUserFailedWithUniqueConstraint (reason: string) {

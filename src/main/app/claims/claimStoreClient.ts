@@ -82,4 +82,22 @@ export default class ClaimStoreClient {
         return new Claim().deserialize(claim)
       })
   }
+
+  static retrievePaymentReference (externalId: string, user: User): Promise<string> {
+    if (!externalId) {
+      throw new Error('External ID is required')
+    }
+
+    if (!user || !user.bearerToken) {
+      throw new Error('User is required')
+    }
+
+    return request
+      .get(`${claimStoreApiUrl}/${externalId}/pre-payment`, {
+        headers: {
+          Authorization: `Bearer ${user.bearerToken}`
+        }
+      })
+      .then((caseReference: any) => caseReference.case_reference)
+  }
 }
