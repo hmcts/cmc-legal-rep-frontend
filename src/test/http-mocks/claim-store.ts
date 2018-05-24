@@ -110,6 +110,12 @@ export function resolveRetrievePaymentReference () {
     .reply(HttpStatus.OK, { case_reference: sampleClaimObj.externalId })
 }
 
+export function rejectRetrievePaymentReference () {
+  mock(`${serviceBaseURL}/claims`)
+    .post(new RegExp('/.+/pre-payment'))
+    .reply(HttpStatus.INTERNAL_SERVER_ERROR, 'Error')
+}
+
 export function saveClaimForUserFailedWithUniqueConstraint (reason: string) {
   mock(`${serviceBaseURL}/claims`)
     .post(new RegExp('/[0-9]+'))
