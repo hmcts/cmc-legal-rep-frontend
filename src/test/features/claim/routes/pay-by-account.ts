@@ -109,9 +109,7 @@ describe('Claim : Pay by Fee Account page', () => {
 
     it('should return 500 and render error page when form is valid and cannot retrieve case reference', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      draftStoreServiceMock.resolveUpdate()
       feesServiceMock.resolveCalculateIssueFee()
-      claimStoreServiceMock.resolveRetrieveClaimByExternalId()
       claimStoreServiceMock.rejectRetrievePaymentReference()
       idamServiceMock.resolveRetrieveServiceToken()
 
