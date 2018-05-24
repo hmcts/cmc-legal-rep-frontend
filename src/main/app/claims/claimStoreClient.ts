@@ -93,7 +93,7 @@ export default class ClaimStoreClient {
     }
 
     return request
-      .get(`${claimStoreApiUrl}/${externalId}/pre-payment`, {
+      .post(`${claimStoreApiUrl}/${externalId}/pre-payment`, {
         headers: {
           Authorization: `Bearer ${user.bearerToken}`
         }

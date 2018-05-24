@@ -106,7 +106,7 @@ export function saveClaimForUser () {
 
 export function resolveRetrievePaymentReference () {
   mock(`${serviceBaseURL}/claims`)
-    .get(new RegExp('/.+/pre-payment'))
+    .post(new RegExp('/.+/pre-payment'))
     .reply(HttpStatus.OK, { case_reference: sampleClaimObj.externalId })
 }
 
