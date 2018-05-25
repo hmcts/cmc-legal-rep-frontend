@@ -126,10 +126,11 @@ export default express.Router()
           const paymentResponse: PaymentResponse = await payClient.create(
             user,
             draft.document.feeAccount.reference,
-            await ClaimStoreClient.retrievePaymentReference(draft.document.externalId, user),
+            draft.document.externalId,
             draft.document.yourReference.reference,
             draft.document.representative.organisationName.name,
-            feeResponse
+            feeResponse,
+            await ClaimStoreClient.retrievePaymentReference(draft.document.externalId, user)
           )
 
           if (paymentResponse.isSuccess) {
