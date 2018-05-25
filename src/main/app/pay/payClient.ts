@@ -22,11 +22,19 @@ export class PayClient {
 
   async create (user: User,
                 pbaAccount: string,
-                caseReference: string,
+                externalId: string,
                 customerReference: string,
                 organisationName: string,
-                fee: FeeResponse): Promise<PaymentResponse> {
-    const paymentReq: object = this.preparePaymentRequest(pbaAccount, caseReference, customerReference, organisationName, fee)
+                fee: FeeResponse,
+                caseReference: string): Promise<PaymentResponse> {
+    const paymentReq: object = this.preparePaymentRequest(
+      pbaAccount,
+      externalId,
+      customerReference,
+      organisationName,
+      fee,
+      caseReference
+    )
     const response: object = await request.post({
       uri: `${payUrl}/${payPath}`,
       body: paymentReq,
@@ -39,12 +47,16 @@ export class PayClient {
   }
 
   private preparePaymentRequest (pbaAccount: string,
-                                 caseReference: string,
+                                 externalId: string,
                                  customerReference: string,
                                  organisationName: string,
-                                 fee: FeeResponse): object {
+                                 fee: FeeResponse,
+                                 caseReference: string): object {
     if (StringUtils.isBlank(pbaAccount)) {
       throw new Error('Missing required parameter pbaAccount')
+    }
+    if (StringUtils.isBlank(externalId)) {
+      throw new Error('Missing required parameter externalId')
     }
     if (StringUtils.isBlank(caseReference)) {
       throw new Error('Missing required parameter caseReference')
@@ -58,8 +70,8 @@ export class PayClient {
     return {
       amount: fee.amount,
       description: description,
-      case_reference: caseReference,
-      ccd_case_number: 'UNKNOWN',
+      case_reference: externalId,
+      ccd_case_number: caseReference === externalId ? 'UNKNOWN' : caseReference,
       service: serviceName,
       currency: currency,
       customer_reference: customerReference,
