@@ -95,9 +95,9 @@ module "legal-frontend" {
     CLAIM_STORE_URL = "${local.claimStoreUrl}"
 
     // Surveys
-    SERVICE_SURVEY_URL = "http://www.smartsurvey.co.uk/s/CMCMVPT1/"
-    FEEDBACK_SURVEY_URL = "http://www.smartsurvey.co.uk/s/CMCMVPFB/"
-    REPORT_PROBLEM_SURVEY_URL = "http://www.smartsurvey.co.uk/s/CMCMVPPB/"
+    SERVICE_SURVEY_URL = "http://www.smartsurvey.co.uk/s/CMCEST2/"
+    FEEDBACK_SURVEY_URL = "http://www.smartsurvey.co.uk/s/CMCFBT2/"
+    REPORT_PROBLEM_SURVEY_URL = "http://www.smartsurvey.co.uk/s/CMCPPT2/"
 
     // Feature toggles
     FEATURE_TESTING_SUPPORT = "${var.env == "prod" ? "false" : "true"}" // Enabled everywhere except prod
