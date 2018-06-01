@@ -80,3 +80,18 @@ variable "ga_tracking_id" {
   description = "Google Analytics tracking ID"
   default = "UA-97111056-3"
 }
+
+variable "feedback_legal_service_survey" {
+  description = "End of service survey link"
+  default = "http://www.smartsurvey.co.uk/s/not-a-real-legal-service-survey/"
+}
+
+variable "feedback_legal_report_problem_survey" {
+  description = "Report a problem survey link"
+  default = "http://www.smartsurvey.co.uk/s/not-a-real-legal-service-survey/"
+}
+
+variable "feedback_legal_survey" {
+  description = "Report a problem survey link"
+  default = "http://www.smartsurvey.co.uk/s/not-a-real-legal-service-survey/"
+}
