@@ -57,6 +57,7 @@ module "legal-frontend" {
   appinsights_instrumentation_key = "${var.appinsights_instrumentation_key}"
   subscription = "${var.subscription}"
   additional_host_name = "${var.external_host_name}"
+  capacity = "${var.capacity}"
 
   app_settings = {
     // Node specific vars
