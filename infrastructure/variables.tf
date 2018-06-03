@@ -95,3 +95,7 @@ variable "feedback_legal_survey" {
   description = "Report a problem survey link"
   default = "http://www.smartsurvey.co.uk/s/not-a-real-legal-service-survey/"
 }
+
+variable "capacity" {
+  default = "1"
+}
