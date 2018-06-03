@@ -28,7 +28,7 @@
   },
   "session": {
     "cookieName": "T2_SESSION_ID",
-    "encryptionKey": "COOKIE_KEY"
+    "encryptionKey": "not-a-real-32-bit-encryption-key"
   },
   "legal_frontend_analytics": {
     "gaTrackingId": ""
