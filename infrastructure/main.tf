@@ -96,9 +96,9 @@ module "legal-frontend" {
     CLAIM_STORE_URL = "${local.claimStoreUrl}"
 
     // Surveys
-    SERVICE_SURVEY_URL = "${var.feedback_legal_service_survey}"
-    FEEDBACK_SURVEY_URL = "${var.feedback_legal_survey}"
-    REPORT_PROBLEM_SURVEY_URL = "${var.feedback_legal_report_problem_survey}"
+    FEEDBACK_SURVEY_URL = "${var.feedback_legal_service_survey}"
+    FEEDBACK_URL = "${var.feedback_legal_survey}"
+    FEEDBACK_REPORT_PROBLEM_URL = "${var.feedback_legal_report_problem_survey}"
 
     // Feature toggles
     FEATURE_TESTING_SUPPORT = "${var.env == "prod" ? "false" : "true"}" // Enabled everywhere except prod
