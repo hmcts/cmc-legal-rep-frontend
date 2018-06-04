@@ -9,6 +9,7 @@ import { Paths as AppPaths } from 'paths'
 import IdamClient from 'idam/idamClient'
 import { buildURL } from 'utils/callbackBuilder'
 import ErrorHandling from 'shared/errorHandling'
+import * as appInsights from 'applicationinsights'
 
 export default express.Router()
   .get('/receiver', ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
@@ -22,7 +23,13 @@ export default express.Router()
     } else if (useOauth && req.query.code) {
       cookies.set('state', '', { sameSite: 'lax' })
       if (req.query.state !== OAuthHelper.getStateCookie(req)) {
-        throw new Error('Invalid state')
+        appInsights.defaultClient.trackEvent({
+          name: 'State cookie mismatch (legal)',
+          properties: {
+            requestValue: req.query.state,
+            cookieValue: OAuthHelper.getStateCookie(req)
+          }
+        })
       }
 
       const authToken: AuthToken = await IdamClient.exchangeCode(req.query.code, buildURL(req, AppPaths.receiver.uri.substring(1)))
