@@ -53,9 +53,9 @@
     "site-id": "AA00",
     "description": "Money Claim issue fee"
   },
-  "feedback_legal_service_survey": "http://www.smartsurvey.co.uk/s/not-a-real-service-survey/",
-  "feedback_legal_report_problem_survey": "http://www.smartsurvey.co.uk/s/not-a-real-service-survey/",
-  "feedback_legal_survey": "http://www.smartsurvey.co.uk/s/not-a-real-service-survey/",
+  "feedback_legal_service_survey": "http://www.smartsurvey.co.uk/s/not-a-real-legal-service-survey/",
+  "feedback_legal_report_problem_survey": "http://www.smartsurvey.co.uk/s/not-a-real-legal-service-survey/",
+  "feedback_legal_survey": "http://www.smartsurvey.co.uk/s/not-a-real-legal-service-survey/",
   "http": {
     "timeout": 20000
   },
