@@ -104,7 +104,7 @@
     "@types/chai": "^4.0.4",
     "@types/chai-as-promised": "^7.1.0",
     "@types/mocha": "*",
-    "@types/sinon-chai": "^2.7.29",
+    "@types/sinon-chai": "^3.2.0",
     "@types/supertest": "*",
     "chai": "^4.1.1",
     "chai-as-promised": "^7.1.1",
