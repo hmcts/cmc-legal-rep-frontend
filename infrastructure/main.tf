@@ -12,6 +12,10 @@ provider "vault" {
   address = "https://vault.reform.hmcts.net:6200"
 }
 
+data "vault_generic_secret" "cookie-encryption-key" {
+  path = "secret/${var.vault_section}/cmc/cookie/encryption-key"
+}
+
 data "vault_generic_secret" "s2s_secret" {
   path = "secret/${var.vault_section}/ccidam/service-auth-provider/api/microservice-keys/cmc"
 }
@@ -72,6 +76,7 @@ module "legal-frontend" {
     REFORM_ENVIRONMENT = "${var.env}"
 
     // Application vars
+    COOKIE_ENCRYPTION_KEY = "${data.vault_generic_secret.cookie-encryption-key.data["value"]}"
     GA_TRACKING_ID = "${var.ga_tracking_id}"
 
     // IDAM
