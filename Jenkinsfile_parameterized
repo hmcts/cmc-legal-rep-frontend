@@ -10,8 +10,8 @@ properties([
 ])
 
 List<LinkedHashMap<String, Object>> secrets = [
-  secret('AatTestUserUsername', 'SMOKE_TEST_SOLICITOR_USERNAME'),
-  secret('AatTestUserPassword', 'SMOKE_TEST_USER_PASSWORD')
+  secret('smoke-test-solicitor-username', 'SMOKE_TEST_SOLICITOR_USERNAME'),
+  secret('smoke-test-user-password', 'SMOKE_TEST_USER_PASSWORD')
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
@@ -22,7 +22,6 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
    envVariable: envVar
   ]
 }
-
 
 withParameterizedPipeline('nodejs', 'cmc', 'legal-frontend', params.ENVIRONMENT, 'sandbox') {
   after('build') {
