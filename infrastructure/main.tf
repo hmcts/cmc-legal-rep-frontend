@@ -115,14 +115,3 @@ module "legal-frontend" {
     FEATURE_RETURN_ERROR_TO_USER = "${var.feature_return_error_to_user}"
   }
 }
-
-module "legal-frontend-vault" {
-  source              = "git@github.com:hmcts/moj-module-key-vault?ref=master"
-  name                = "${local.vaultName}"
-  product             = "${var.product}"
-  env                 = "${var.env}"
-  tenant_id           = "${var.tenant_id}"
-  object_id           = "${var.jenkins_AAD_objectId}"
-  resource_group_name = "${module.legal-frontend.resource_group_name}"
-  product_group_object_id = "68839600-92da-4862-bb24-1259814d1384"
-}
