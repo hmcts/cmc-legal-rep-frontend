@@ -6,8 +6,8 @@ String product = "cmc"
 String component = "legal-frontend"
 
 List<LinkedHashMap<String, Object>> secrets = [
-  secret('AatTestUserUsername', 'SMOKE_TEST_SOLICITOR_USERNAME'),
-  secret('AatTestUserPassword', 'SMOKE_TEST_USER_PASSWORD')
+  secret('smoke-test-solicitor-username', 'SMOKE_TEST_SOLICITOR_USERNAME'),
+  secret('smoke-test-user-password', 'SMOKE_TEST_USER_PASSWORD')
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {

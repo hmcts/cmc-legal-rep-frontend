@@ -1,7 +1,3 @@
-provider "azurerm" {
-  version = "<= 1.2.0"
-}
-
 provider "vault" {
   //  # It is strongly recommended to configure this provider through the
   //  # environment variables described above, so that each user can have
@@ -12,24 +8,34 @@ provider "vault" {
   address = "https://vault.reform.hmcts.net:6200"
 }
 
-data "vault_generic_secret" "cookie-encryption-key" {
-  path = "secret/${var.vault_section}/cmc/cookie/encryption-key"
+data "azurerm_key_vault" "cmc_key_vault" {
+  name = "${local.vaultName}"
+  resource_group_name = "${local.vaultName}"
 }
 
-data "vault_generic_secret" "s2s_secret" {
-  path = "secret/${var.vault_section}/ccidam/service-auth-provider/api/microservice-keys/cmc"
+data "azurerm_key_vault_secret" "cookie_encryption_key" {
+  name = "legal-cookie-encryption-key"
+  vault_uri = "${data.azurerm_key_vault.cmc_key_vault.vault_uri}"
 }
 
-data "vault_generic_secret" "draft_store_secret" {
-  path = "secret/${var.vault_section}/cmc/draft-store/encryption-secrets/legal-frontend"
+data "azurerm_key_vault_secret" "s2s_secret" {
+  name = "cmc-s2s-secret"
+  vault_uri = "${data.azurerm_key_vault.cmc_key_vault.vault_uri}"
 }
 
-data "vault_generic_secret" "postcode-lookup-api-key" {
-  path = "secret/${var.vault_section}/cmc/postcode-lookup/api-key"
+data "azurerm_key_vault_secret" "draft_store_primary" {
+  name = "draft-store-primary"
+  vault_uri = "${data.azurerm_key_vault.cmc_key_vault.vault_uri}"
 }
 
-data "vault_generic_secret" "oauth-client-secret" {
-  path = "secret/${var.vault_section}/ccidam/idam-api/oauth2/client-secrets/cmc-legal"
+data "azurerm_key_vault_secret" "draft_store_secondary" {
+  name = "draft-store-secondary"
+  vault_uri = "${data.azurerm_key_vault.cmc_key_vault.vault_uri}"
+}
+
+data "azurerm_key_vault_secret" "oauth_client_secret" {
+  name = "legal-oauth-client-secret"
+  vault_uri = "${data.azurerm_key_vault.cmc_key_vault.vault_uri}"
 }
 
 locals {
@@ -38,13 +44,9 @@ locals {
   local_env = "${(var.env == "preview" || var.env == "spreview") ? (var.env == "preview" ) ? "aat" : "saat" : var.env}"
   local_ase = "${(var.env == "preview" || var.env == "spreview") ? (var.env == "preview" ) ? "core-compute-aat" : "core-compute-saat" : local.aseName}"
 
-  previewVaultName = "${var.product}-legal-fe"
-  nonPreviewVaultName = "${var.product}-legal-fe-${var.env}"
+  previewVaultName = "${var.raw_product}-aat"
+  nonPreviewVaultName = "${var.raw_product}-${var.env}"
   vaultName = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultName : local.nonPreviewVaultName}"
-
-  nonPreviewVaultUri = "${module.legal-frontend-vault.key_vault_uri}"
-  previewVaultUri = "https://cmc-legal-fe-aat.vault.azure.net/"
-  vaultUri = "${(var.env == "preview" || var.env == "spreview") ? local.previewVaultUri : local.nonPreviewVaultUri}"
 
   s2sUrl = "http://rpe-service-auth-provider-${local.local_env}.service.${local.local_ase}.internal"
   claimStoreUrl = "http://cmc-claim-store-${local.local_env}.service.${local.local_ase}.internal"
@@ -76,15 +78,15 @@ module "legal-frontend" {
     REFORM_ENVIRONMENT = "${var.env}"
 
     // Application vars
-    COOKIE_ENCRYPTION_KEY = "${data.vault_generic_secret.cookie-encryption-key.data["value"]}"
+    COOKIE_ENCRYPTION_KEY = "${data.azurerm_key_vault_secret.cookie_encryption_key.value}"
     GA_TRACKING_ID = "${var.ga_tracking_id}"
 
     // IDAM
     IDAM_API_URL = "${var.idam_api_url}"
     IDAM_AUTHENTICATION_WEB_URL = "${var.authentication_web_url}"
     IDAM_S2S_AUTH = "${local.s2sUrl}"
-    IDAM_S2S_TOTP_SECRET = "${data.vault_generic_secret.s2s_secret.data["value"]}"
-    OAUTH_CLIENT_SECRET = "${data.vault_generic_secret.oauth-client-secret.data["value"]}"
+    IDAM_S2S_TOTP_SECRET = "${data.azurerm_key_vault_secret.s2s_secret.value}"
+    OAUTH_CLIENT_SECRET = "${data.azurerm_key_vault_secret.oauth_client_secret.value}"
 
     // Payments API
     PAY_URL = "${var.payments_api_url}"
@@ -94,8 +96,8 @@ module "legal-frontend" {
 
     // Draft Store API
     DRAFT_STORE_URL = "${local.draftStoreUrl}"
-    DRAFT_STORE_SECRET_PRIMARY = "${data.vault_generic_secret.draft_store_secret.data["primary"]}"
-    DRAFT_STORE_SECRET_SECONDARY = "${data.vault_generic_secret.draft_store_secret.data["secondary"]}"
+    DRAFT_STORE_SECRET_PRIMARY = "${data.azurerm_key_vault_secret.draft_store_primary.value}"
+    DRAFT_STORE_SECRET_SECONDARY = "${data.azurerm_key_vault_secret.draft_store_secondary.value}"
 
     // Our service dependencies
     CLAIM_STORE_URL = "${local.claimStoreUrl}"
