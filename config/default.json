@@ -50,7 +50,7 @@
     "path": "credit-account-payments",
     "service-name": "CMC",
     "currency": "GBP",
-    "site-id": "AA00",
+    "site-id": "Y689",
     "description": "Money Claim issue fee"
   },
   "feedback_legal_service_survey": "http://www.smartsurvey.co.uk/s/not-a-real-legal-service-survey/",
