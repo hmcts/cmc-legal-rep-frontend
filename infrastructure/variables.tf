@@ -18,7 +18,7 @@ variable "env" { }
 variable "ilbIp" { }
 
 variable "payments_api_url" {
-  default = "https://test.payments.reform.hmcts.net:4421"
+  default = "http://payment-api-saat-staging.service.core-compute-saat.internal"
 }
 
 variable "fees_api_url" {
@@ -26,11 +26,11 @@ variable "fees_api_url" {
 }
 
 variable "idam_api_url" {
-  default = "http://betaDevBccidamAppLB.reform.hmcts.net"
+  default = "http://idam-api-idam-saat.service.core-compute-saat.internal"
 }
 
 variable "authentication_web_url" {
-  default = "https://idam-test.dev.ccidam.reform.hmcts.net"
+  default = "http://idam-web-public-idam-saat.service.core-compute-saat.internal"
 }
 
 variable "subscription" {}
