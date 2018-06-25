@@ -33,6 +33,7 @@ function handleError (error) {
     return error && error.response ? error.response.body : error
   }
   console.log('Error during bootstrap, exiting', errorBody())
+  console.log(error)
   process.exit(1)
 }
 

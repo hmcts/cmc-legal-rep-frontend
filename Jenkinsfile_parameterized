@@ -29,5 +29,4 @@ withParameterizedPipeline('nodejs', 'cmc', 'legal-frontend', params.ENVIRONMENT,
   }
 
   loadVaultSecrets(secrets)
-  enableSlackNotifications('#cmc-tech-notification')
 }
