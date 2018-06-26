@@ -75,18 +75,18 @@ async function waitTillHealthy (appURL: string) {
 }
 
 async function createSmokeTestsUserIfDoesntExist (username: string, userGroup: string, password: string): Promise<void | string> {
+  if (!(username || password)) {
+    console.log('Username or password not set, skipping create')
+    return undefined
+  }
+
   try {
     console.log('Attempting to authenticate user: ',
-      username.substring(0, username.length - 1), password.substring(0, password.length - 1))
+      username.substring(0, username.length - 1))
+
     return await IdamClient.authenticateUser(username, password)
   } catch (err) {
-    console.log(err)
-
-    if (!(username || password)) {
-      console.log('Username or password not set, skipping create')
-      return undefined
-    }
-    console.log('About to create user')
+    console.log('Failed to authenticate user because of: ', `${err.response.statusCode - err.response.body}`)
     return IdamClient.createUser(
       username,
       userGroup,
