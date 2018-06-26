@@ -12,6 +12,7 @@ services:
         - no_proxy=remote-webdriver
         - IDAM_URL
         - CLAIM_STORE_URL
+        - OAUTH2_CLIENT_SECRET
       volumes:
         - ./functional-output:/usr/src/app/output
     remote-webdriver:

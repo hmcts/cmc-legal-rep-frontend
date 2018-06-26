@@ -11,7 +11,8 @@ properties([
 
 List<LinkedHashMap<String, Object>> secrets = [
   secret('smoke-test-solicitor-username', 'SMOKE_TEST_SOLICITOR_USERNAME'),
-  secret('smoke-test-user-password', 'SMOKE_TEST_USER_PASSWORD')
+  secret('smoke-test-user-password', 'SMOKE_TEST_USER_PASSWORD'),
+  secret('legal-oauth-client-secret', 'OAUTH2_CLIENT_SECRET')
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
@@ -29,5 +30,4 @@ withParameterizedPipeline('nodejs', 'cmc', 'legal-frontend', params.ENVIRONMENT,
   }
 
   loadVaultSecrets(secrets)
-  enableSlackNotifications('#cmc-tech-notification')
 }

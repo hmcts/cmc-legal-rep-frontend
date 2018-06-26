@@ -19,6 +19,7 @@ class Client {
     })
   }
 }
+
 // TS:no-
 function logStartupProblem (response) {
   if (response.body) {
@@ -30,7 +31,12 @@ function logStartupProblem (response) {
 
 function handleError (error) {
   const errorBody = () => {
-    return error && error.response ? error.response.body : error
+    if (error && error.response) {
+      const response = error.response
+      return `${response.statusCode} - ${response.statusMessage} - ${response.body}`
+    } else {
+      return error
+    }
   }
   console.log('Error during bootstrap, exiting', errorBody())
   process.exit(1)
@@ -69,12 +75,18 @@ async function waitTillHealthy (appURL: string) {
 }
 
 async function createSmokeTestsUserIfDoesntExist (username: string, userGroup: string, password: string): Promise<void | string> {
+  if (!(username || password)) {
+    console.log('Username or password not set, skipping create')
+    return undefined
+  }
+
   try {
-    return await IdamClient.authorizeUser(username, password)
-  } catch {
-    if (!(username || password)) {
-      return undefined
-    }
+    console.log('Attempting to authenticate user: ',
+      username.substring(0, username.length - 1))
+
+    return await IdamClient.authenticateUser(username, password)
+  } catch (err) {
+    console.log('Failed to authenticate user because of: ', `${err.response.statusCode} - ${err.response.body}`)
     return IdamClient.createUser(
       username,
       userGroup,
