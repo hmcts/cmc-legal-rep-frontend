@@ -88,7 +88,7 @@ async function createSmokeTestsUserIfDoesntExist (username: string, userGroup: s
   } catch (err) {
     console.log(err)
 
-    console.log('Failed to authenticate user because of: ', `${err.response.statusCode - err.response.body}`)
+    console.log('Failed to authenticate user because of: ', `${err.response.statusCode} - ${err.response.body}`)
     return IdamClient.createUser(
       username,
       userGroup,
