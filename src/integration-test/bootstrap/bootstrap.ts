@@ -19,6 +19,7 @@ class Client {
     })
   }
 }
+
 // TS:no-
 function logStartupProblem (response) {
   if (response.body) {
@@ -32,7 +33,7 @@ function handleError (error) {
   const errorBody = () => {
     if (error && error.response) {
       const response = error.response
-      return `${response.statusCode} - ${response.message} - ${response.body}`
+      return `${response.statusCode} - ${response.statusMessage} - ${response.body}`
     } else {
       return error
     }
@@ -75,11 +76,17 @@ async function waitTillHealthy (appURL: string) {
 
 async function createSmokeTestsUserIfDoesntExist (username: string, userGroup: string, password: string): Promise<void | string> {
   try {
+    console.log('Attempting to authenticate user: ',
+      username.substring(0, username.length - 1), password.substring(0, password.length - 1))
     return await IdamClient.authenticateUser(username, password)
-  } catch {
+  } catch (err) {
+    console.log(err)
+
     if (!(username || password)) {
+      console.log('Username or password not set, skipping create')
       return undefined
     }
+    console.log('About to create user')
     return IdamClient.createUser(
       username,
       userGroup,
