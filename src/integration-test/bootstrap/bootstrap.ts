@@ -30,10 +30,14 @@ function logStartupProblem (response) {
 
 function handleError (error) {
   const errorBody = () => {
-    return error && error.response ? error.response.body : error
+    if (error && error.response) {
+      const response = error.response
+      return `${response.statusCode} - ${response.message} - ${response.body}`
+    } else {
+      return error
+    }
   }
   console.log('Error during bootstrap, exiting', errorBody())
-  console.log(error)
   process.exit(1)
 }
 
@@ -71,7 +75,7 @@ async function waitTillHealthy (appURL: string) {
 
 async function createSmokeTestsUserIfDoesntExist (username: string, userGroup: string, password: string): Promise<void | string> {
   try {
-    return await IdamClient.authorizeUser(username, password)
+    return await IdamClient.authenticateUser(username, password)
   } catch {
     if (!(username || password)) {
       return undefined
