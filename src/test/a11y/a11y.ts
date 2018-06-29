@@ -3,7 +3,6 @@
 import * as config from 'config'
 import * as supertest from 'supertest'
 import * as pa11y from 'pa11y'
-import * as promisify from 'es6-promisify'
 import { expect } from 'chai'
 
 import { RoutablePath } from 'shared/router/routablePath'
@@ -17,42 +16,46 @@ app.locals.csrf = 'dummy-token'
 const cookieName: string = config.get<string>('session.cookieName')
 
 const agent = supertest.agent(app)
-const pa11yTest = pa11y({
-  page: {
+
+interface Issue {
+  type
+}
+
+async function runPa11y (url: string): Promise<Issue[]> {
+  const result = await pa11y(url, {
     headers: {
       Cookie: `${cookieName}=ABC`
+    },
+    chromeLaunchConfig: {
+      args: ['--no-sandbox']
     }
-  }
-})
-const test = promisify(pa11yTest.run, pa11yTest)
+  })
+  return result.issues
+}
 
-function check (url: string): void {
-  describe(`Page ${url}`, () => {
+function check (uri: string): void {
+  describe(`Page ${uri}`, () => {
 
-    it('should have no accessibility errors', (done) => {
-      ensurePageCallWillSucceed(url)
-        .then(() =>
-          test(agent.get(url).url)
-        )
-        .then((messages) => {
-          const errors = messages.filter((m) => m.type === 'error')
-          expect(errors, `\n${JSON.stringify(errors, null, 2)}\n`).to.be.empty
-          done()
-        })
-        .catch((err) => done(err))
+    it('should have no accessibility errors', async () => {
+      await ensurePageCallWillSucceed(uri)
+
+      const issues: Issue[] = await runPa11y(agent.get(uri).url)
+
+      const errors: Issue[] = issues.filter((issue: Issue) => issue.type === 'error')
+      expect(errors, `\n${JSON.stringify(errors, null, 2)}\n`).to.be.empty
     })
   })
 }
 
-function ensurePageCallWillSucceed (url: string): Promise<void> {
-  return agent.get(url)
+function ensurePageCallWillSucceed (uri: string): Promise<void> {
+  return agent.get(uri)
     .set('Cookie', `${cookieName}=ABC;state=000LR000`)
     .then((res: supertest.Response) => {
       if (res.redirect) {
-        throw new Error(`Call to ${url} resulted in a redirect to ${res.get('Location')}`)
+        throw new Error(`Call to ${uri} resulted in a redirect to ${res.get('Location')}`)
       }
       if (res.serverError) {
-        throw new Error(`Call to ${url} resulted in internal server error`)
+        throw new Error(`Call to ${uri} resulted in internal server error`)
       }
     })
 }
