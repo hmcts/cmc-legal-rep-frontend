@@ -139,3 +139,15 @@ export function resolveRetrieveSealedClaimCopy () {
     .get(new RegExp('/legalSealedClaim/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}'))
     .reply(HttpStatus.OK, [])
 }
+
+export function resolveRetrieveBySubmitterId (claimOverride?: object) {
+  mock(`${serviceBaseURL}/claims`)
+    .get(new RegExp('/claimant/[0-9]+'))
+    .reply(HttpStatus.OK, [{ ...sampleClaimObj, ...claimOverride }])
+}
+
+export function resolveRetrieveBySubmitterIdToEmptyList () {
+  mock(`${serviceBaseURL}/claims`)
+    .get(new RegExp('/claimant/[0-9]+'))
+    .reply(HttpStatus.OK, [])
+}

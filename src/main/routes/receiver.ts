@@ -9,28 +9,70 @@ import IdamClient from 'idam/idamClient'
 import { buildURL } from 'utils/callbackBuilder'
 import ErrorHandling from 'shared/errorHandling'
 import * as appInsights from 'applicationinsights'
+import ClaimStoreClient from 'claims/claimStoreClient'
+import { RoutablePath } from 'shared/router/routablePath'
+import JwtExtractor from 'idam/jwtExtractor'
+import { FeatureToggles } from 'utils/featureToggles'
+import { Paths as DashboardPaths } from 'dashboard/paths'
+
+async function getOAuthAccessToken (req: express.Request, receiver: RoutablePath): Promise<string> {
+  if (req.query.state !== OAuthHelper.getStateCookie(req)) {
+    appInsights.defaultClient.trackEvent({
+      name: 'State cookie mismatch (citizen)',
+      properties: {
+        requestValue: req.query.state,
+        cookieValue: OAuthHelper.getStateCookie(req)
+      }
+    })
+  }
+
+  const authToken: AuthToken = await IdamClient.exchangeCode(
+    req.query.code,
+    buildURL(req, receiver.uri)
+  )
+  return authToken.accessToken
+}
+
+async function getAuthToken (req: express.Request,
+                             receiver: RoutablePath = AppPaths.receiver,
+                             checkCookie = true): Promise<string> {
+  let authenticationToken
+  if (req.query.code) {
+    authenticationToken = await getOAuthAccessToken(req, receiver)
+  } else if (checkCookie) {
+    authenticationToken = JwtExtractor.extract(req)
+  }
+  return authenticationToken
+}
+
+function setAuthCookie (cookies: Cookies, authenticationToken: string): void {
+  const sessionCookie = config.get<string>('session.cookieName')
+
+  cookies.set(sessionCookie, authenticationToken, { sameSite: 'lax' })
+  cookies.set('state', '', { sameSite: 'lax' })
+}
 
 export default express.Router()
   .get('/receiver', ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
-
-    const sessionCookie = config.get<string>('session.cookieName')
     const cookies = new Cookies(req, res)
 
-    if (req.query.code) {
-      cookies.set('state', '', { sameSite: 'lax' })
-      if (req.query.state !== OAuthHelper.getStateCookie(req)) {
-        appInsights.defaultClient.trackEvent({
-          name: 'State cookie mismatch (legal)',
-          properties: {
-            requestValue: req.query.state,
-            cookieValue: OAuthHelper.getStateCookie(req)
-          }
-        })
-      }
-
-      const authToken: AuthToken = await IdamClient.exchangeCode(req.query.code, buildURL(req, AppPaths.receiver.uri.substring(1)))
-      cookies.set(sessionCookie, authToken.accessToken, { sameSite: 'lax' })
+    const authenticationToken: string = await getAuthToken(req)
+    let user
+    if (authenticationToken) {
+      user = await IdamClient.retrieveUserFor(authenticationToken)
+      res.locals.isLoggedIn = true
+      res.locals.user = user
+      setAuthCookie(cookies, authenticationToken)
     }
 
-    res.redirect(ClaimPaths.startPage.uri)
+    if (res.locals.isLoggedIn) {
+      const hasClaims = (await ClaimStoreClient.getBySubmitterId(user)).length > 0
+      if (hasClaims && FeatureToggles.isEnabled('dashboard')) {
+        res.redirect(DashboardPaths.searchPage.uri)
+      } else {
+        res.redirect(ClaimPaths.startPage.uri)
+      }
+    } else {
+      res.redirect(OAuthHelper.getRedirectUri(req, res))
+    }
   }))

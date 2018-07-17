@@ -100,4 +100,20 @@ export default class ClaimStoreClient {
       })
       .then((caseReference: any) => caseReference.case_reference)
   }
+
+  static getBySubmitterId (user: User): Promise<Claim[]> {
+    if (!user) {
+      return Promise.reject(new Error('User is required'))
+    }
+
+    return request
+      .get(`${claimStoreApiUrl}/claimant/${user.id}`, {
+        headers: {
+          Authorization: `Bearer ${user.bearerToken}`
+        }
+      })
+      .then((claims: object[]) => {
+        return claims.map((claim: object) => new Claim().deserialize(claim))
+      })
+  }
 }
