@@ -3,7 +3,6 @@ import * as config from 'config'
 import { Paths as ClaimPaths } from 'claim/paths'
 import * as Cookies from 'cookies'
 import { AuthToken } from 'idam/authToken'
-import * as toBoolean from 'to-boolean'
 import { OAuthHelper } from 'idam/oAuthHelper'
 import { Paths as AppPaths } from 'paths'
 import IdamClient from 'idam/idamClient'
@@ -16,11 +15,8 @@ export default express.Router()
 
     const sessionCookie = config.get<string>('session.cookieName')
     const cookies = new Cookies(req, res)
-    const useOauth = toBoolean(config.get<boolean>('featureToggles.idamOauth'))
 
-    if (!useOauth && req.query.jwt) {
-      cookies.set(sessionCookie, req.query.jwt, { sameSite: 'lax' })
-    } else if (useOauth && req.query.code) {
+    if (req.query.code) {
       cookies.set('state', '', { sameSite: 'lax' })
       if (req.query.state !== OAuthHelper.getStateCookie(req)) {
         appInsights.defaultClient.trackEvent({

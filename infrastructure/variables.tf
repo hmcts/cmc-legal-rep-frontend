@@ -40,10 +40,6 @@ variable "feature_dashboard" {
   default = "false"
 }
 
-variable "feature_idamOauth" {
-  default = "true"
-}
-
 variable "feature_certificateOfService" {
   default = "false"
 }

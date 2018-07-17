@@ -1,6 +1,5 @@
 {
   "featureToggles": {
-    "idamOauth": true,
     "returnErrorToUser": true,
     "dashboard": true
   },

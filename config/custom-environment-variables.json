@@ -47,7 +47,6 @@
     "clientSecret": "OAUTH_CLIENT_SECRET"
   },
   "featureToggles": {
-    "idamOauth": "FEATURE_IDAM_OAUTH",
     "dashboard": "FEATURE_DASHBOARD",
     "certificateOfService": "FEATURE_CERTIFICATE_OF_SERVICE",
     "returnErrorToUser": "FEATURE_RETURN_ERROR_TO_USER"

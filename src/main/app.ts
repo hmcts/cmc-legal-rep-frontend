@@ -18,7 +18,6 @@ import { CsrfProtection } from 'modules/csrf'
 import { DashboardFeature } from 'dashboard/index'
 import CookieProperties from 'shared/cookieProperties'
 import healthEndpoint from 'routes/health'
-import * as toBoolean from 'to-boolean'
 import { FeatureToggles } from 'utils/featureToggles'
 
 export const app: express.Express = express()
@@ -53,10 +52,10 @@ if (env !== 'mocha') {
 }
 
 new ClaimIssueFeature().enableFor(app)
-if (toBoolean(config.get<boolean>('featureToggles.certificateOfService'))) {
+if (FeatureToggles.isEnabled('certificateOfService')) {
   new CertificateOfServiceFeature().enableFor(app)
 }
-if (toBoolean(config.get<boolean>('featureToggles.dashboard'))) {
+if (FeatureToggles.isEnabled('dashboard')) {
   new DashboardFeature().enableFor(app)
 }
 
