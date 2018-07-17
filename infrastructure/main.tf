@@ -54,6 +54,7 @@ module "legal-frontend" {
   subscription = "${var.subscription}"
   additional_host_name = "${var.external_host_name}"
   capacity = "${var.capacity}"
+  common_tags = "${var.common_tags}"
 
   app_settings = {
     // Node specific vars

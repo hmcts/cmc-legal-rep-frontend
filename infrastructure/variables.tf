@@ -93,3 +93,7 @@ variable "feedback_legal_survey" {
 variable "capacity" {
   default = "1"
 }
+
+variable "common_tags" {
+  type = "map"
+}
