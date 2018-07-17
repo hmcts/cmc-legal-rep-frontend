@@ -7,10 +7,12 @@ import { SMOKE_TEST_SOLICITOR_USERNAME, SMOKE_TEST_USER_PASSWORD } from 'integra
 import { AmountClaimSteps } from 'integration-test/tests/legal/amountClaim/steps/amountClaims'
 import { UserSteps } from 'integration-test/tests/legal/home/steps/user'
 import { DefendantSteps } from 'integration-test/tests/legal/defence/steps/defendant'
+import { DashboardSteps } from 'integration-test/tests/legal/dashboard/steps/dashboard'
 
 const amountClaimSteps: AmountClaimSteps = new AmountClaimSteps()
 const userSteps: UserSteps = new UserSteps()
 const defendantSteps: DefendantSteps = new DefendantSteps()
+const dashboardSteps: DashboardSteps = new DashboardSteps()
 
 Feature('Enter claim amount and submit claim')
 
@@ -32,8 +34,8 @@ Scenario('I can fill in Organisation details for Claimant, Defendant, Claim amou
   amountClaimSteps.addRangeDetailsAndVerifyOrganisationDetails()
   let dateCheck = yield I.grabTextFrom('div.confirmation-detail')
   amountClaimSteps.verifySubmittedPage(userEmail, dateCheck)
-  // let legalClaimNumberText = yield I.grabTextFrom('h2.bold-medium.reference-number')
-  // legalDashboardSteps.searchAndVerifyClaimDetails(legalClaimNumberText)
+  let legalClaimNumberText = yield I.grabTextFrom('h2.bold-medium.reference-number')
+  dashboardSteps.searchAndVerifyClaimDetails(legalClaimNumberText)
 })
 
 Scenario('I can fill only mandatory fields and submit the claim @legal', function* (I: I) {

@@ -25,16 +25,6 @@ describe('Certificate of Service: file upload', () => {
   describe('on POST', () => {
     checkAuthorizationGuards(app, 'post', CertificateOfServicePath.fileUploadPage.uri)
 
-    it.skip('should redirect to document upload page when no file is sent', async () => {
-      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      idamServiceMock.resolveRetrieveServiceToken()
-
-      await request(app)
-        .post(CertificateOfServicePath.fileUploadPage.uri)
-        .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.redirect.toLocation(CertificateOfServicePath.documentUploadPage.uri))
-    })
-
     it('should redirect to document upload page after sending a .pdf file to document management', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       idamServiceMock.resolveRetrieveServiceToken()

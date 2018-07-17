@@ -6,8 +6,10 @@ import 'test/routes/expectations'
 
 import { Paths as AppPaths } from 'paths'
 import { Paths as ClaimPaths } from 'claim/paths'
+import { Paths as DashboardPaths } from 'dashboard/paths'
 import { app } from 'main/app'
 import * as idamServiceMock from 'test/http-mocks/idam'
+import * as claimStoreMock from 'test/http-mocks/claim-store'
 
 const cookieName: string = config.get<string>('session.cookieName')
 const token = 'I am dummy access token'
@@ -56,10 +58,20 @@ describe('Claim issue: post login receiver', () => {
 
       it('should redirect to start page for authToken when everything is fine', async () => {
         idamServiceMock.resolveRetrieveAuthTokenFor(token)
+        claimStoreMock.resolveRetrieveBySubmitterIdToEmptyList()
 
         await request(app)
           .get(`${AppPaths.receiver.uri}?code=code`)
           .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.startPage.uri))
+      })
+
+      it('should redirect to dashboard page when claim exists', async () => {
+        idamServiceMock.resolveRetrieveAuthTokenFor(token)
+        claimStoreMock.resolveRetrieveBySubmitterId()
+
+        await request(app)
+          .get(`${AppPaths.receiver.uri}?code=code`)
+          .expect(res => expect(res).to.be.redirect.toLocation(DashboardPaths.searchPage.uri))
       })
 
     })

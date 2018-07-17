@@ -67,7 +67,6 @@
     "clientSecret": "123456"
   },
   "featureToggles": {
-    "idamOauth": false,
     "dashboard": false,
     "certificateOfService": false,
     "returnErrorToUser": false

@@ -35,17 +35,9 @@ variable "authentication_web_url" {
 
 variable "subscription" {}
 
-variable "vault_section" {
-  default = "test"
-}
-
 // feature toggles
 variable "feature_dashboard" {
   default = "false"
-}
-
-variable "feature_idamOauth" {
-  default = "true"
 }
 
 variable "feature_certificateOfService" {
@@ -100,4 +92,8 @@ variable "feedback_legal_survey" {
 
 variable "capacity" {
   default = "1"
+}
+
+variable "common_tags" {
+  type = "map"
 }

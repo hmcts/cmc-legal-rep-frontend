@@ -44,7 +44,7 @@ locals {
 }
 
 module "legal-frontend" {
-  source = "git@github.com:hmcts/moj-module-webapp.git?ref=RPE-389/local-cache"
+  source = "git@github.com:hmcts/moj-module-webapp.git?ref=master"
   product = "${var.product}-${var.microservice}"
   location = "${var.location}"
   env = "${var.env}"
@@ -54,6 +54,7 @@ module "legal-frontend" {
   subscription = "${var.subscription}"
   additional_host_name = "${var.external_host_name}"
   capacity = "${var.capacity}"
+  common_tags = "${var.common_tags}"
 
   app_settings = {
     // Node specific vars
@@ -100,7 +101,6 @@ module "legal-frontend" {
     // Feature toggles
     FEATURE_TESTING_SUPPORT = "${var.env == "prod" ? "false" : "true"}" // Enabled everywhere except prod
     FEATURE_DASHBOARD = "${var.feature_dashboard}"
-    FEATURE_IDAM_OAUTH = "${var.feature_idamOauth}"
     FEATURE_CERTIFICATE_OF_SERVICE = "${var.feature_certificateOfService}"
     FEATURE_RETURN_ERROR_TO_USER = "${var.feature_return_error_to_user}"
   }
