@@ -5,10 +5,6 @@
     "certificateOfService": false,
     "returnErrorToUser": true
   },
-  "oauth": {
-    "clientId": "cmc_legal",
-    "clientSecret": "123456"
-  },
   "appInsights": {
     "instrumentationKey": "dummy-app-insights-instrumentation-key"
   }
