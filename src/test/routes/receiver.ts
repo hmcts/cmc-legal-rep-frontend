@@ -14,7 +14,7 @@ import * as claimStoreMock from 'test/http-mocks/claim-store'
 const cookieName: string = config.get<string>('session.cookieName')
 const token = 'I am dummy access token'
 
-describe.only('Claim issue: post login receiver', () => {
+describe('Claim issue: post login receiver', () => {
 
   describe('on GET', () => {
     describe('for authorized user', () => {
