@@ -44,7 +44,7 @@ locals {
 }
 
 module "legal-frontend" {
-  source = "git@github.com:hmcts/moj-module-webapp.git?ref=RPE-389/local-cache"
+  source = "git@github.com:hmcts/moj-module-webapp.git?ref=master"
   product = "${var.product}-${var.microservice}"
   location = "${var.location}"
   env = "${var.env}"
