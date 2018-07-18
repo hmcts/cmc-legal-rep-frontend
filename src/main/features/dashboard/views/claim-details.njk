@@ -1,50 +1,53 @@
 {% extends "layout.njk" %}
 {% from "form.njk" import linkButton, csrfProtection %}
 
-{% set title = t('Money claim') %}
+{% set title = claimantVDefendant %}
 
 {% block content %}
   <div class="grid-row">
+    <div class="column-full">
+      <a class="link-back pointer" href="search">{{ t('Back') }}</a>
+    </div>
     <div class="column-two-thirds">
+
+
       <h1 class="heading-large">
         <span class="form-hint">{{ claimNumber }}</span>
         {{ claimantVDefendant }}
       </h1>
-      <h3 class="heading-medium">{{ t('Date issued') }}
-        <div class="form-label">{{ dateIssued | date }}</div>
-      </h3>
 
-      <h3 class="heading-medium">{% if claimants.length > 1 %}{{ t('Claimants') }} {% else %} {{ t('Claimant') }}{% endif %}
+      <h2 class="heading-medium">{{ t('Claim form') }}</h2>
+      <p class="download certificate">
+        <a target="_blank" href="{{ sealedClaimPath }}">{{ t('Download the sealed claim form') }}</a>
+        {{ t('(PDF)') }}
+      </p>
+
+      <h2 class="heading-medium no-margin-bottom">{{ t('Parties') }}</h2>
+      <hr class="no-margin-top"/>
+
+      <h3 class="heading-small">{{ t('Claimants') if claimants.length > 1 else t('Claimant') }}</h3>
+      <ol class="list{{ ' list-number' if claimants.length > 1 }}">
         {% for claimant in claimants %}
-          <div class="form-label">{{ claimant.name }}</div>
+          <li>{{ claimant.name }}</li>
         {% endfor %}
-      </h3>
+      </ol>
 
-      {% if defendants.length > 1 %}
-        <h3 class="heading-medium">{{ t('Defendants') }}</h3>
-      {% else %}
-        <h3 class="heading-medium">{{ t('Defendant') }}</h3>
-      {% endif %}
+      <h3 class="heading-small">{{ t('Defendants') if defendants.length > 1 else t('Defendant') }}</h3>
 
-      <div class="border-bottom column-full">
-        <div class="column-one-third form-label-bold">{{ t('Names') }}</div>
-        <div class="column-one-third form-label-bold"></div>
-        <div class="column-one-third form-label-bold"></div>
-      </div>
-      <div class="column-one-third">
+      <ol class="list{{ ' list-number' if defendants.length > 1 }}">
         {% for defendant in defendants %}
-          <div class="form-label">{{ defendant.name }}</div>
+          <li>{{ defendant.name }}</li>
         {% endfor %}
-      </div>
+      </ol>
 
     </div>
-    <div class="column-one-third {% if externalReference %}govuk-related-items{% endif %}">
-      {% if externalReference %}
-        <h3 class="heading-medium">{{ t('Your reference') }}
-          <div class="form-label">{{ externalReference }}</div>
-        </h3>
-      {% endif %}
-      <p><a target="_blank" href="{{ sealedClaimPath }}" class="download">{{ t('Download the sealed claim form') }}</a> </p>
-    </div>
+    {% if externalReference %}
+      <div class="column-one-third">
+        <aside class="govuk-related-items mobile-indent" role="complementary">
+          <h3 class="heading-small">{{ t('Your reference') }}</h3>
+          <p class="form-label">{{ externalReference }}</p>
+        </aside>
+      </div>
+    {% endif %}
   </div>
 {% endblock %}

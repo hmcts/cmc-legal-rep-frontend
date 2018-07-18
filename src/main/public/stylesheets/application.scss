@@ -17,6 +17,7 @@ $path: '/legal/img/lib/';
 @import 'components/layout';
 @import 'components/document-upload';
 @import 'components/document-download';
+@import 'components/mobile';
 
 .notice {
   margin-bottom: 1.5rem;
@@ -28,4 +29,12 @@ $path: '/legal/img/lib/';
 
 .no-padding {
   padding: 0;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0;
+}
+
+.no-margin-top {
+  margin-top: 0;
 }

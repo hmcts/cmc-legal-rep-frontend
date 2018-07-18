@@ -40,7 +40,8 @@ export default class Nunjucks {
       path.join(__dirname, '..', '..', 'features', 'certificateOfService', 'views')
     ], {
       autoescape: true,
-      express: app
+      express: app,
+      watch: this.developmentMode
     })
 
     app.use((req, res, next) => {

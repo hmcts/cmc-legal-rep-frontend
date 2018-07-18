@@ -5,7 +5,7 @@ import { isUndefined } from 'util'
 
 export class ValidationErrors {
   static readonly REFERENCE_REQUIRED: string = 'Enter your claim number'
-  static readonly CLAIM_REFERENCE_INVALID: string = 'You need to enter valid claim number'
+  static readonly CLAIM_REFERENCE_INVALID: string = 'You need to enter a valid claim number'
 }
 
 export class Search implements Serializable<Search> {

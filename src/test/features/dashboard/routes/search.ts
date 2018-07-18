@@ -9,6 +9,7 @@ import { app } from 'main/app'
 
 import * as idamServiceMock from 'test/http-mocks/idam'
 import * as draftStoreServiceMock from 'test/http-mocks/draft-store'
+import * as claimStoreMock from 'test/http-mocks/claim-store'
 import { checkAuthorizationGuards } from 'test/features/claim/routes/checks/authorization-check'
 
 const cookieName: string = config.get<string>('session.cookieName')
@@ -49,7 +50,7 @@ describe('Dashboard: search page', () => {
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      draftStoreServiceMock.rejectSave(100, 'HTTP error')
+      claimStoreMock.rejectRetrieveClaimByClaimNumber()
 
       await request(app)
         .post(DashboardPaths.searchPage.uri)
@@ -62,6 +63,7 @@ describe('Dashboard: search page', () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.resolveUpdate()
       idamServiceMock.resolveRetrieveServiceToken()
+      claimStoreMock.resolveRetrieveClaimByClaimNumber()
 
       await request(app)
         .post(DashboardPaths.searchPage.uri)

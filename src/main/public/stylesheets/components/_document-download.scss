@@ -1,7 +1,6 @@
 .download {
-  background-image: url('/legal/img/lib/download-bullet.png');
-  background-position-y: center;
-  background-repeat: no-repeat;
-  line-height: 32px;
-  padding-left: 30px;
+  background: $grey-3 url('/legal/img/download.png') no-repeat 15px center;
+  height: 40px;
+  line-height: 40px;
+  padding: 15px 15px 15px 60px;
 }

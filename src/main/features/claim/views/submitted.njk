@@ -1,7 +1,8 @@
 {% extends "layout.njk" %}
 {% from "form.njk" import linkButton, csrfProtection %}
 
-{% set title = t('Money claim') %}
+{% set header = t('Your claim has been issued') %}
+{% set title = header + t(' - Money claims') %}
 
 {% block content %}
   <div class="grid-row">
@@ -9,7 +10,7 @@
       <form novalidate method="post">
         {{ csrfProtection(csrf) }}
         <div class="govuk-box-highlight">
-          <h1 class="bold-large">{{ t('Your claim has been issued') }}</h1>
+          <h1 class="bold-large">{{ header }}</h1>
           <h2 class="bold-medium reference-number">{{ t('Claim number: {{ claimNumber }}', { claimNumber: claim.claimNumber }) }}</h2>
           <div class="confirmation-detail">{{ t('Submitted: {{ submittedAt }}', { submittedAt: claim.createdAt | date }) }}</div>
           <div class="confirmation-detail">{{ t('Issued: {{ issuedOn }}', { issuedOn: claim.issuedOn | date }) }}</div>
