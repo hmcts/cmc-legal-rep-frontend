@@ -51,7 +51,7 @@ export default express.Router()
             .retrieveByClaimReference(dashboardDraft.document.search.reference, res.locals.user.bearerToken)
         } catch (err) {
           if (err.statusCode === HttpStatus.NOT_FOUND) {
-            form.errors.push(createFormValidationError('Placeholder content: Claim not found'))
+            form.errors.push(createFormValidationError('Enter a valid number for this claim'))
           } else {
             return next(err)
           }

@@ -23,10 +23,10 @@
       </p>
 
       <h2 class="heading-medium no-margin-bottom">{{ t('Parties') }}</h2>
-      <hr class="no-margin-top" />
+      <hr class="no-margin-top"/>
 
       <h3 class="heading-small">{{ t('Claimants') if claimants.length > 1 else t('Claimant') }}</h3>
-      <ol class="list list-number">
+      <ol class="list{{ ' list-number' if claimants.length > 1 }}">
         {% for claimant in claimants %}
           <li>{{ claimant.name }}</li>
         {% endfor %}
@@ -34,7 +34,7 @@
 
       <h3 class="heading-small">{{ t('Defendants') if defendants.length > 1 else t('Defendant') }}</h3>
 
-      <ol class="list list-number">
+      <ol class="list{{ ' list-number' if defendants.length > 1 }}">
         {% for defendant in defendants %}
           <li>{{ defendant.name }}</li>
         {% endfor %}
@@ -43,10 +43,9 @@
     </div>
     {% if externalReference %}
       <div class="column-one-third">
-        <aside class="govuk-related-items" role="complementary">
-            <h3 class="heading-small">{{ t('Your reference') }}
-              <div class="form-label">{{ externalReference }}</div>
-            </h3>
+        <aside class="govuk-related-items mobile-indent" role="complementary">
+          <h3 class="heading-small">{{ t('Your reference') }}</h3>
+          <p class="form-label">{{ externalReference }}</p>
         </aside>
       </div>
     {% endif %}
