@@ -31,7 +31,7 @@ describe('Dashboard: claim details page', () => {
       await request(app)
         .get(DashboardPaths.claimDetailsPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText('Date issued'))
+        .expect(res => expect(res).to.be.successful.withText('Full Name v defendant org'))
     })
   })
 })
