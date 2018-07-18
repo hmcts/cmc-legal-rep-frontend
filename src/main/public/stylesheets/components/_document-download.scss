@@ -1,9 +1,6 @@
 .download {
-  background-image: url('/legal/img/download.png');
-  background-repeat: no-repeat;
-  background-position: 15px center;
+  background: $grey-3 url('/legal/img/download.png') no-repeat 15px center;
   height: 40px;
   line-height: 40px;
-  background-color: #dee0e2;
   padding: 15px 15px 15px 60px;
 }
