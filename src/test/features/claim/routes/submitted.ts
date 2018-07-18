@@ -4,6 +4,7 @@ import * as config from 'config'
 import * as mock from 'nock'
 
 import { Paths as ClaimPaths } from 'claim/paths'
+import { Paths as DashboardPaths } from 'dashboard/paths'
 import { app } from 'main/app'
 import * as idamServiceMock from 'test/http-mocks/idam'
 import { checkAuthorizationGuards } from 'test/features/claim/routes/checks/authorization-check'
@@ -49,14 +50,14 @@ describe('Claim issue: Submitted page', () => {
   describe('on POST', () => {
     checkAuthorizationGuards(app, 'post', ClaimPaths.claimSubmittedPage.uri)
 
-    it('should redirect to start page when is successful', async () => {
+    it('should redirect to dashboard page when is successful', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.resolveFind(draftType)
 
       await request(app)
         .post(ClaimPaths.claimSubmittedPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.startPage.uri))
+        .expect(res => expect(res).to.be.redirect.toLocation(DashboardPaths.searchPage.uri))
     })
   })
 })
