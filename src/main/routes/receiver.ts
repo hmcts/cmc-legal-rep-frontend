@@ -14,6 +14,11 @@ import { RoutablePath } from 'shared/router/routablePath'
 import JwtExtractor from 'idam/jwtExtractor'
 import { FeatureToggles } from 'utils/featureToggles'
 import { Paths as DashboardPaths } from 'dashboard/paths'
+import * as HttpStatus from 'http-status-codes'
+import { Logger } from '@hmcts/nodejs-logging'
+
+const sessionCookie = config.get<string>('session.cookieName')
+const logger = Logger.getLogger('receiver')
 
 async function getOAuthAccessToken (req: express.Request, receiver: RoutablePath): Promise<string> {
   if (req.query.state !== OAuthHelper.getStateCookie(req)) {
@@ -46,23 +51,50 @@ async function getAuthToken (req: express.Request,
 }
 
 function setAuthCookie (cookies: Cookies, authenticationToken: string): void {
-  const sessionCookie = config.get<string>('session.cookieName')
-
   cookies.set(sessionCookie, authenticationToken, { sameSite: 'lax' })
   cookies.set('state', '', { sameSite: 'lax' })
+}
+
+/**
+ * IDAM doesn't tell us what is wrong
+ * But most likely if we get 401 or 403 then the user's token has expired
+ * So make them login again
+ */
+export function hasTokenExpired (err) {
+  return (err.statusCode === HttpStatus.FORBIDDEN || err.statusCode === HttpStatus.UNAUTHORIZED)
+}
+
+function loginErrorHandler (
+  req: express.Request,
+  res: express.Response,
+  cookies: Cookies,
+  next: express.NextFunction,
+  err: Error
+) {
+  if (hasTokenExpired(err)) {
+    cookies.set(sessionCookie, '', { sameSite: 'lax' })
+    logger.debug(`Protected path - expired auth token - access to ${req.path} rejected`)
+    return res.redirect(OAuthHelper.getRedirectUri(req, res))
+  }
+  cookies.set('state', '', { sameSite: 'lax' })
+  return next(err)
 }
 
 export default express.Router()
   .get('/receiver', ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
     const cookies = new Cookies(req, res)
 
-    const authenticationToken: string = await getAuthToken(req)
     let user
-    if (authenticationToken) {
-      user = await IdamClient.retrieveUserFor(authenticationToken)
-      res.locals.isLoggedIn = true
-      res.locals.user = user
-      setAuthCookie(cookies, authenticationToken)
+    try {
+      const authenticationToken: string = await getAuthToken(req)
+      if (authenticationToken) {
+        user = await IdamClient.retrieveUserFor(authenticationToken)
+        res.locals.isLoggedIn = true
+        res.locals.user = user
+        setAuthCookie(cookies, authenticationToken)
+      }
+    } catch (err) {
+      return loginErrorHandler(req, res, cookies, next, err)
     }
 
     if (res.locals.isLoggedIn) {
