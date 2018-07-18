@@ -1,7 +1,8 @@
 {% extends "layout.njk" %}
 {% from "form.njk" import csrfProtection, errorSummary, searchInput %}
 
-{% set title = t('Money claim') %}
+{% set header = t('Manage your claims') %}
+{% set title = header + t(' - Money claims') %}
 
 {% block content %}
   <div class="grid-row">
@@ -9,13 +10,12 @@
       <form novalidate method="post">
         {{ csrfProtection(csrf) }}
 
-        <h1 class="heading-large">{{ t('Manage your claims') }}</h1>
+        <h1 class="heading-large">{{ header }}</h1>
 
         <h2 class="heading-medium form-group-compound">{{ t('Find a claim') }}</h2>
         <p>{{ t('Once you’ve found a claim you can:') }}</p>
 
         <ul class="list-bullet form-group">
-          <li>{{ t('confirm you’ve served the claim form on the defendant') }}</li>
           <li>{{ t('download any documents related to the claim') }}</li>
         </ul>
 
