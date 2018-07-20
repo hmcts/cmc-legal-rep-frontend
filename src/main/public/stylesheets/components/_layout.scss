@@ -2,6 +2,7 @@
   border-top: 10px solid $govuk-blue;
   margin-top: $gutter;
   padding-top: 5px;
+  width: 95%;
 
   .heading-medium {
     margin-bottom: .5em;
@@ -11,6 +12,10 @@
   li {
     list-style-type: none;
     margin-bottom: 10px;
+  }
+
+  @include media (mobile) {
+    width: 100%;
   }
 }
 

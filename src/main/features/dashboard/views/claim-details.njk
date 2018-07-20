@@ -36,7 +36,7 @@
 
       <ol class="list{{ ' list-number' if defendants.length > 1 }}">
         {% for defendant in defendants %}
-          <li>{{ defendant.name }}</li>
+          <li>{{ defendant.name }}{{ t(' trading as ') + defendant.businessName if defendant.type === 'SOLE_TRADER'  }}</li>
         {% endfor %}
       </ol>
 
