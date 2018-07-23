@@ -37,7 +37,7 @@ variable "subscription" {}
 
 // feature toggles
 variable "feature_dashboard" {
-  default = "false"
+  default = "true"
 }
 
 variable "feature_certificateOfService" {
