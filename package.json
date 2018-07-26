@@ -97,7 +97,8 @@
     "ts-node": "^7.0.0",
     "tsconfig-paths": "^3.1.1",
     "typescript": "^2.4.2",
-    "url-parse": "^1.2.0"
+    "url-parse": "^1.2.0",
+    "nodelist-foreach-polyfill": "^1.2.0"
   },
   "devDependencies": {
     "@hmcts/cmc-supported-browsers": "^1.0.1",
