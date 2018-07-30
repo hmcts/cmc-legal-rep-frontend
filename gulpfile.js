@@ -6,6 +6,7 @@ const sass = require('gulp-sass')
 const path = require('path')
 const replace = require('gulp-replace')
 const fs = require('fs')
+const rename = require('gulp-rename')
 
 const repoRoot = path.join(__dirname, '/')
 const govUkFrontendToolkitRoot = path.join(repoRoot, 'node_modules/govuk_frontend_toolkit/stylesheets')
@@ -77,6 +78,10 @@ gulp.task('copy-files', () => {
   ])
   .pipe(replace('images/', '/legal/stylesheets/lib/images/', { skipBinary: true }))
   .pipe(gulp.dest(`${assetsDirectory}/stylesheets/lib/`))
+
+  gulp.src('./node_modules/nodelist-foreach-polyfill/index.js')
+    .pipe(rename('nodelist-foreach-polyfill.js'))
+    .pipe(gulp.dest(`${assetsDirectory}/js/lib/`))
 })
 
 gulp.task('watch', () => {
