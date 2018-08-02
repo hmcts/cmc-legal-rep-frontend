@@ -58,7 +58,7 @@
     "cfb": "^1.0.1",
     "class-transformer": "^0.1.7",
     "class-validator": "^0.8.1",
-    "config": "^1.26.1",
+    "config": "^2.0.0",
     "continuation-local-storage": "^3.2.1",
     "cookie-encrypter": "^1.0.1",
     "cookie-parser": "^1.4.3",
