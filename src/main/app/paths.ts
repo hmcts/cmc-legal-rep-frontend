@@ -5,5 +5,6 @@ export class Paths {
   static readonly logoutReceiver = new RoutablePath('/logout', false)
   static readonly receiver = new RoutablePath('/legal/receiver', false)
   static readonly analyticsReceiver = new RoutablePath('/analytics', false)
+  static readonly cmcLegalFrontendMaintenancePage = new RoutablePath('/cmc-legal-frontend-maintenance', false)
 
 }

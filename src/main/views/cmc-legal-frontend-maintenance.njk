@@ -1,0 +1,14 @@
+{% extends 'layout.njk' %}
+{% from "support.njk" import supportWidget %}
+
+{% set heading = 'Sorry, there’s a problem with this service' %}
+
+{% block content %}
+
+  <p> {{ t('We’re working on fixing the problem. Please try again later.') }}</p>
+
+  <p> {{ t('You can contact us if you need help.') }}</p>
+
+  {{ supportWidget() }}
+
+{% endblock %}
