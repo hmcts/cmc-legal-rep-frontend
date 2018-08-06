@@ -7,8 +7,6 @@ class IdamHelper extends codecept_helper {
 
   private async createRandomUser (userGroupCode: string): Promise<string> {
     const email: string = this.generateRandomEmailAddress()
-    /* tslint:disable:no-console */
-    console.log('Creating user: ' + email + ' with userGroupCode: ' + userGroupCode)
     await IdamClient.createUser(email, userGroupCode)
     return email
   }
