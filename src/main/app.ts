@@ -18,6 +18,7 @@ import { CsrfProtection } from 'modules/csrf'
 import { DashboardFeature } from 'dashboard/index'
 import CookieProperties from 'shared/cookieProperties'
 import { FeatureToggles } from 'utils/featureToggles'
+import { removeLegalPrefixMiddleware } from 'common/removeLegalPrefixMiddleware'
 
 export const app: express.Express = express()
 
@@ -57,6 +58,8 @@ if (FeatureToggles.isEnabled('certificateOfService')) {
 if (FeatureToggles.isEnabled('dashboard')) {
   new DashboardFeature().enableFor(app)
 }
+
+app.use(removeLegalPrefixMiddleware)
 
 app.use(RouterFinder.findAll(path.join(__dirname, 'routes')))
 
