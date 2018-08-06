@@ -12,7 +12,7 @@ describe('RoutablePath', () => {
   it('should add external id in uri', async () => {
     const externalId = '12321343345'
     const uri = ClaimPaths.claimSubmittedPage.evaluateUri({ externalId: externalId })
-    expect(uri === `'/legal/claim/${externalId}/submitted'`)
+    expect(uri === `'/claim/${externalId}/submitted'`)
 
   })
 
@@ -44,7 +44,7 @@ describe('RoutablePath', () => {
   it('should throw when uri does not have parameter', async () => {
     try {
       const externalId = '12321343345'
-      new RoutablePath('/legal/claim/:externalId/:missingParam').evaluateUri({ externalId: externalId })
+      new RoutablePath('/claim/:externalId/:missingParam').evaluateUri({ externalId: externalId })
     } catch (err) {
       expect(err.message).to.eql('Path parameter substitutions for :missingParam are missing')
     }

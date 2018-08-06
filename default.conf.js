@@ -36,16 +36,16 @@ exports.config = {
         }
       },
       'mocha-junit-reporter': {
-        stdout: './output/legal-mocha-stdout.log',
+        stdout: './output/mocha-stdout.log',
         options: {
-          mochaFile: process.env.MOCHA_JUNIT_FILE_LOCATION || './output/legal-integration-result.xml'
+          mochaFile: process.env.MOCHA_JUNIT_FILE_LOCATION || './output/integration-result.xml'
         }
       },
       'mochawesome': {
-        stdout: `./output/legal-mochawesome-stdout.log`,
+        stdout: `./output/mochawesome-stdout.log`,
         options: {
           reportDir: 'output',
-          reportFilename: 'legal-e2e-result',
+          reportFilename: 'e2e-result',
           inlineAssets: true,
           reportTitle: `Legal E2E tests result`
         }

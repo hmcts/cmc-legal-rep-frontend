@@ -9,7 +9,7 @@ function normalizeURL (url) {
   }
 }
 
-const legalAppBaseURL = normalizeURL(process.env.LEGAL_APP_URL || 'https://localhost:4000/legal')
+const legalAppBaseURL = normalizeURL(process.env.LEGAL_APP_URL || 'https://localhost:4000')
 
 // eslint-disable-next-line camelcase
 let Helper = codecept_helper

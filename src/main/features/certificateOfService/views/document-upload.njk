@@ -27,8 +27,8 @@
               <ul class="list-number list-border">
                 {% for file in particularsOfClaim %}
                   <li>
-                    <a target="_blank" href="/legal/certificateOfService/document-download?id={{ file.documentManagementURI }}">{{ file.fileName }}</a>
-                    <a target="_self" href="/legal/certificateOfService/document-remove?id={{ file.documentManagementURI }}">{{ t('Remove') }}</a>
+                    <a target="_blank" href="/certificateOfService/document-download?id={{ file.documentManagementURI }}">{{ file.fileName }}</a>
+                    <a target="_self" href="/certificateOfService/document-remove?id={{ file.documentManagementURI }}">{{ t('Remove') }}</a>
                   </li>
                 {% endfor %}
               </ul>
@@ -54,8 +54,8 @@
                 <ul class="list-number list-border">
                   {% for file in medicalReport %}
                     <li>
-                      <a target="_blank" href="/legal/certificateOfService/document-download?id={{ file.documentManagementURI }}">{{ file.fileName }}</a>
-                      <a target="_self" href="/legal/certificateOfService/document-remove?id={{ file.documentManagementURI }}">{{ t('Remove') }}</a>
+                      <a target="_blank" href="/certificateOfService/document-download?id={{ file.documentManagementURI }}">{{ file.fileName }}</a>
+                      <a target="_self" href="/certificateOfService/document-remove?id={{ file.documentManagementURI }}">{{ t('Remove') }}</a>
                     </li>
                   {% endfor %}
                 </ul>
@@ -77,8 +77,8 @@
                 <ul class="list-number list-border">
                   {% for file in scheduleOfLoss %}
                     <li>
-                      <a target="_blank" href="/legal/certificateOfService/document-download?id={{ file.documentManagementURI }}">{{ file.fileName }}</a>
-                      <a target="_self" href="/legal/certificateOfService/document-remove?id={{ file.documentManagementURI }}">{{ t('Remove') }}</a>
+                      <a target="_blank" href="/certificateOfService/document-download?id={{ file.documentManagementURI }}">{{ file.fileName }}</a>
+                      <a target="_self" href="/certificateOfService/document-remove?id={{ file.documentManagementURI }}">{{ t('Remove') }}</a>
                     </li>
                   {% endfor %}
                 </ul>
@@ -101,8 +101,8 @@
                 <ul class="list-number list-border">
                   {% for file in other %}
                     <li>
-                      <a target="_blank" href="/legal/certificateOfService/document-download?id={{ file.documentManagementURI }}">{{ file.fileName }}</a>
-                      <a target="_self" href="/legal/certificateOfService/document-remove?id={{ file.documentManagementURI }}">{{ t('Remove') }}</a>
+                      <a target="_blank" href="/certificateOfService/document-download?id={{ file.documentManagementURI }}">{{ file.fileName }}</a>
+                      <a target="_self" href="/certificateOfService/document-remove?id={{ file.documentManagementURI }}">{{ t('Remove') }}</a>
                     </li>
                   {% endfor %}
                 </ul>

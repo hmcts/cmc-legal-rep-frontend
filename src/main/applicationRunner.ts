@@ -12,11 +12,11 @@ export class ApplicationRunner {
     if (app.locals.ENV === 'development' || app.locals.ENV === 'dockertests') {
       const server = https.createServer(ApplicationRunner.getSSLOptions(), app)
       server.listen(port, () => {
-        logger.info(`Listener started (PID ${process.pid}): https://localhost:${port}/legal`)
+        logger.info(`Listener started (PID ${process.pid}): https://localhost:${port}`)
       })
     } else {
       app.listen(port, () => {
-        logger.info(`Listener started (PID ${process.pid}): http://localhost:${port}/legal`)
+        logger.info(`Listener started (PID ${process.pid}): http://localhost:${port}`)
       })
     }
   }

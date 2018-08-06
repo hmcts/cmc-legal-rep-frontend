@@ -23,7 +23,7 @@ describe('Logout receiver', () => {
     it('should redirect to claimant home page', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       await request(app)
-        .get('/legal/logout')
+        .get('/logout')
         .set('Cookie', `${cookieName}=ABC`)
         .expect(res => expect(res).to.be.redirect.toLocation(AppPaths.homePage.uri))
     })
@@ -31,7 +31,7 @@ describe('Logout receiver', () => {
     it('should remove session cookie', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       await request(app)
-        .get('/legal/logout')
+        .get('/logout')
         .set('Cookie', `${cookieName}=ABC`)
         .expect(res => expect(res).to.have.cookie(cookieName, ''))
     })

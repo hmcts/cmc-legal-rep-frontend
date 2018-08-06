@@ -136,13 +136,13 @@ export function saveClaimForUserFailed (reason: string) {
 
 export function rejectRetrieveSealedClaimCopy (reason: string) {
   mock(`${serviceBaseURL}/documents`)
-    .get(new RegExp('/legalSealedClaim/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}'))
+    .get(new RegExp('SealedClaim/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}'))
     .reply(HttpStatus.INTERNAL_SERVER_ERROR, reason)
 }
 
 export function resolveRetrieveSealedClaimCopy () {
   mock(`${serviceBaseURL}/documents`)
-    .get(new RegExp('/legalSealedClaim/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}'))
+    .get(new RegExp('SealedClaim/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}'))
     .reply(HttpStatus.OK, [])
 }
 

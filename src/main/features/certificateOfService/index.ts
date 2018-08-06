@@ -20,8 +20,8 @@ function certificateOfServiceRequestHandler (): express.RequestHandler {
 
 export class Feature {
   enableFor (app: express.Express) {
-    app.all('/legal/certificateOfService/*', certificateOfServiceRequestHandler())
-    app.all('/legal/certificateOfService/*',
+    app.all('/certificateOfService/*', certificateOfServiceRequestHandler())
+    app.all('/certificateOfService/*',
       DraftMiddleware.requestHandler<DraftCertificateOfService>(new DraftService(), 'legalCertificateOfService',
         100, (value: any): DraftCertificateOfService => {
           return new DraftCertificateOfService().deserialize(value)

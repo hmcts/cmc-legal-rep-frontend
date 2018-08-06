@@ -40,8 +40,8 @@
         {% set changeClaimantLink = paths.claimantTypePage.uri %}
         {% set changeClaimantAddressPageLink = paths.claimantAddressPage.uri %}
       {% else %}
-        {% set changeClaimantLink = '/legal/claim/claimant-change?index='+ loop.index %}
-        {% set changeClaimantAddressPageLink = '/legal/claim/claimant-change?index='+ loop.index + '&page=address' %}
+        {% set changeClaimantLink = '/claim/claimant-change?index='+ loop.index %}
+        {% set changeClaimantAddressPageLink = '/claim/claimant-change?index='+ loop.index + '&page=address' %}
         {{ tableStart('claimantDetails'+loop.index, 'Claimant ' + loop.index + ' details') }}
       {% endif %}
 
@@ -73,11 +73,11 @@
         {% set changeRepresentativeAddressLink = paths.defendantRepAddressPage.uri %}
         {% set changeServiceAddressLink = paths.defendantServiceAddressPage.uri %}
       {% else %}
-        {% set changeDefendantLink = '/legal/claim/defendant-change?index='+ loop.index %}
-        {% set changeDefendantAddressPageLink = '/legal/claim/defendant-change?index='+ loop.index + '&page=address' %}
-        {% set changeRepresentativeLink = '/legal/claim/defendant-change?index='+ loop.index  + '&page=represented' %}
-        {% set changeRepresentativeAddressLink = '/legal/claim/defendant-change?index='+ loop.index  + '&page=reps-address' %}
-        {% set changeServiceAddressLink = '/legal/claim/defendant-change?index='+ loop.index  + '&page=service-address' %}
+        {% set changeDefendantLink = '/claim/defendant-change?index='+ loop.index %}
+        {% set changeDefendantAddressPageLink = '/claim/defendant-change?index='+ loop.index + '&page=address' %}
+        {% set changeRepresentativeLink = '/claim/defendant-change?index='+ loop.index  + '&page=represented' %}
+        {% set changeRepresentativeAddressLink = '/claim/defendant-change?index='+ loop.index  + '&page=reps-address' %}
+        {% set changeServiceAddressLink = '/claim/defendant-change?index='+ loop.index  + '&page=service-address' %}
         {{ tableStart('defendantDetails'+loop.index, 'Defendant ' + loop.index + ' details') }}
       {% endif %}
 
