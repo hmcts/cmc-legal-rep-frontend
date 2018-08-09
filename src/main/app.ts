@@ -17,8 +17,8 @@ import { Feature as CertificateOfServiceFeature } from 'certificateOfService/ind
 import { CsrfProtection } from 'modules/csrf'
 import { DashboardFeature } from 'dashboard/index'
 import CookieProperties from 'shared/cookieProperties'
-import healthEndpoint from 'routes/health'
 import { FeatureToggles } from 'utils/featureToggles'
+import { removeLegalPrefixMiddleware } from 'common/removeLegalPrefixMiddleware'
 
 export const app: express.Express = express()
 
@@ -44,7 +44,7 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser(config.get('session.encryptionKey')))
 app.use(cookieEncrypter(config.get('session.encryptionKey'), CookieProperties.getCookieConfig()))
 
-app.use('/legal', express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')))
 app.use('/robots.txt', express.static(path.join(__dirname, 'public/robots.txt')))
 
 if (env !== 'mocha') {
@@ -59,8 +59,9 @@ if (FeatureToggles.isEnabled('dashboard')) {
   new DashboardFeature().enableFor(app)
 }
 
-app.use('/', healthEndpoint)
-app.use('/legal', RouterFinder.findAll(path.join(__dirname, 'routes')))
+app.use(removeLegalPrefixMiddleware)
+
+app.use(RouterFinder.findAll(path.join(__dirname, 'routes')))
 
 // Below will match all routes not covered by the router, which effectively translates to a 404 response
 app.use((req, res, next) => {

@@ -12,7 +12,7 @@ describe('Analytics', () => {
   describe('on GET', () => {
     it('should send analytics config', () =>
       request(app)
-        .get('/legal' + Paths.analyticsReceiver.uri)
+        .get(Paths.analyticsReceiver.uri)
         .expect(res => expect(res).to.be.successful.withText(JSON.stringify(site)))
     )
   })

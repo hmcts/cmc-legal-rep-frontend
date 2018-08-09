@@ -10,8 +10,8 @@ const fields = {
   companyHouseNumber: 'input[id=companyHouseNumber]',
   individualType: 'input[id=individualType]',
   individualFullName: 'input[id=fullName]',
-  changeFirstClaimant: '//*[@href="/legal/claim/claimant-change?index=1"]',
-  removeSecondClaimant: '//*[@href="/legal/claim/claimant-remove?index=2"]'
+  changeFirstClaimant: '//*[@href="/claim/claimant-change?index=1"]',
+  removeSecondClaimant: '//*[@href="/claim/claimant-remove?index=2"]'
 }
 
 const buttons = {

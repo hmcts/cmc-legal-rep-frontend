@@ -17,11 +17,11 @@ import { DefendantDetails } from 'forms/models/defendantDetails'
 const packageDotJson = require('../../../../package.json')
 
 const appAssetPaths = {
-  js: '/legal/js',
-  js_vendor: '/legal/js/lib',
-  style: '/legal/stylesheets',
-  style_vendor: '/legal/stylesheets/lib',
-  images_vendor: '/legal/img/lib'
+  js: '/js',
+  js_vendor: '/js/lib',
+  style: '/stylesheets',
+  style_vendor: '/stylesheets/lib',
+  images_vendor: '/img/lib'
 }
 
 export default class Nunjucks {

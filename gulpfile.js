@@ -76,7 +76,7 @@ gulp.task('copy-files', () => {
   gulp.src([
     './node_modules/govuk_template_jinja/assets/stylesheets/**/*'
   ])
-  .pipe(replace('images/', '/legal/stylesheets/lib/images/', { skipBinary: true }))
+  .pipe(replace('images/', '/stylesheets/lib/images/', { skipBinary: true }))
   .pipe(gulp.dest(`${assetsDirectory}/stylesheets/lib/`))
 
   gulp.src('./node_modules/nodelist-foreach-polyfill/index.js')

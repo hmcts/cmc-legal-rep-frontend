@@ -31,6 +31,17 @@ describe('Claim issue: start page', () => {
         .expect(res => expect(res).to.be.successful.withText('Issue civil court proceedings'))
     })
 
+    context('with old legal prefix', () => {
+      it('should redirect without legal prefix', async () => {
+        idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+        idamServiceMock.resolveRetrieveServiceToken()
+        await request(app)
+          .get('/legal/claim/start')
+          .set('Cookie', `${cookieName}=ABC`)
+          .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.startPage.uri))
+      })
+    })
+
   })
 
   describe('on POST', () => {
