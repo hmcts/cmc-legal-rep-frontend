@@ -6,7 +6,7 @@ const defaultPassword = 'Password12'
 
 const oauth2 = {
   client_id: 'cmc_legal',
-  redirect_uri: `${process.env.LEGAL_APP_URL}/receiver`,
+  redirect_uri: `${process.env.LEGAL_APP_URL}/legal/receiver`,
   client_secret: process.env.OAUTH2_CLIENT_SECRET
 }
 
