@@ -65,8 +65,7 @@ describe('Claim issue: Enter claim range page', () => {
           .expect(res => expect(res).to.be.successful
             .withText('Enter claim value',
               'div class="error-summary"',
-              ValidationErrors.CANNOT_STATE_VALID_SELECTION_REQUIRED,
-              ValidationErrors.VALID_SELECTION_REQUIRED))
+              ValidationErrors.CANNOT_STATE_VALID_SELECTION_REQUIRED))
       })
 
       it('lower value and check box both have values', async () => {
@@ -81,8 +80,7 @@ describe('Claim issue: Enter claim range page', () => {
           .expect(res => expect(res).to.be.successful
             .withText('Enter claim value',
               'div class="error-summary"',
-              ValidationErrors.CANNOT_STATE_VALID_SELECTION_REQUIRED,
-              ValidationErrors.VALID_SELECTION_REQUIRED))
+              ValidationErrors.CANNOT_STATE_VALID_SELECTION_REQUIRED))
       })
 
       it('invalid higher value and lower value text', async () => {
