@@ -39,7 +39,7 @@ async function getOAuthAccessToken (req: express.Request, receiver: RoutablePath
 }
 
 async function getAuthToken (req: express.Request,
-                             receiver: RoutablePath = AppPaths.receiver,
+                             receiver: RoutablePath = AppPaths.oldReceiver,
                              checkCookie = true): Promise<string> {
   let authenticationToken
   if (req.query.code) {
@@ -81,7 +81,7 @@ function loginErrorHandler (
 }
 
 export default express.Router()
-  .get('/receiver', ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+  .get(AppPaths.receiver.uri, ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
     const cookies = new Cookies(req, res)
 
     let user
