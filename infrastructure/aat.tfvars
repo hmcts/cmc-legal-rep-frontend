@@ -1,6 +1,6 @@
 feature_certificateOfService = "false"
 feature_return_error_to_user = "true"
-external_host_name = "moneyclaim-legal.aat.platform.hmcts.net"
+external_host_name = "moneyclaims-legal.aat.platform.hmcts.net"
 
 idam_api_url = "https://preprod-idamapi.reform.hmcts.net:3511"
 authentication_web_url = "https://idam.preprod.ccidam.reform.hmcts.net"
