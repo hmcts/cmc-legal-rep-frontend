@@ -97,11 +97,11 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@hmcts/cmc-supported-browsers/-/cmc-supported-browsers-1.0.1.tgz#201d415b7efdf858c77ddccb66bbe9af258c03bc"
 
-"@hmcts/cmc-validators@^0.1.9":
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/@hmcts/cmc-validators/-/cmc-validators-0.1.9.tgz#b265205d91c5ba4157f5dbd00e2c6250fb579c07"
+"@hmcts/cmc-validators@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@hmcts/cmc-validators/-/cmc-validators-0.2.0.tgz#74bc1c46724e96334767ee6668741bb03331363f"
   dependencies:
-    class-validator "^0.8.1"
+    class-validator "^0.9.1"
 
 "@hmcts/draft-store-client@^1.2.1":
   version "1.2.1"
@@ -1134,6 +1134,13 @@ class-validator@^0.8.1:
   resolved "https://registry.yarnpkg.com/class-validator/-/class-validator-0.8.1.tgz#f5efd5c613927e3c2f68692e8f14d53a2644fb2f"
   dependencies:
     validator "9.2.0"
+
+class-validator@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/class-validator/-/class-validator-0.9.1.tgz#d60e58c5d14abca0a41bce38cf792ad4c46d1531"
+  dependencies:
+    google-libphonenumber "^3.1.6"
+    validator "10.4.0"
 
 cli-boxes@^1.0.0:
   version "1.0.0"
@@ -2852,6 +2859,10 @@ gonzales-pe-sl@^4.2.3:
   resolved "https://registry.yarnpkg.com/gonzales-pe-sl/-/gonzales-pe-sl-4.2.3.tgz#6a868bc380645f141feeb042c6f97fcc71b59fe6"
   dependencies:
     minimist "1.1.x"
+
+google-libphonenumber@^3.1.6:
+  version "3.1.14"
+  resolved "https://registry.yarnpkg.com/google-libphonenumber/-/google-libphonenumber-3.1.14.tgz#be67b52c33590deb568e5c3faa6f811aa5d7a8eb"
 
 got@^5.0.0:
   version "5.7.1"
@@ -7087,6 +7098,10 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "~1.0.0"
     spdx-expression-parse "~1.0.0"
+
+validator@10.4.0:
+  version "10.4.0"
+  resolved "https://registry.yarnpkg.com/validator/-/validator-10.4.0.tgz#ee99a44afb3bb5ed350a159f056ca72a204cfc3c"
 
 validator@9.2.0, validator@^9.1.2:
   version "9.2.0"
