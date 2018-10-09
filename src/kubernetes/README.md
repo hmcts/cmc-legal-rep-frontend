@@ -24,7 +24,3 @@ https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 kubectl config view                         # Show Merged kubeconfig settings.
 kubectl config current-context              # Display the current-context
 ```
-
-## Known Issues
-
-- Emails will include wrong domain - AAT claim-store is used as backend.
