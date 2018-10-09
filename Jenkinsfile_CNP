@@ -3,7 +3,7 @@
 @Library("Infrastructure")
 
 String product = "cmc"
-String component = "ed"
+String component = "legal-frontend"
 
 List<LinkedHashMap<String, Object>> secrets = [
   secret('smoke-test-solicitor-username', 'SMOKE_TEST_SOLICITOR_USERNAME'),
