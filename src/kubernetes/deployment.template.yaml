@@ -39,7 +39,7 @@ spec:
             - name: REFORM_TEAM
               value: 'cmc'
             - name: REFORM_SERVICE_NAME
-              value: 'citizen-frontend'
+              value: 'legal-frontend'
             - name: NODE_ENV
               value: 'production'
             - name: UV_THREADPOOL_SIZE
