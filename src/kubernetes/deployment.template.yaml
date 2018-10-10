@@ -45,13 +45,19 @@ spec:
             - name: UV_THREADPOOL_SIZE
               value: '64'
             - name: GA_TRACKING_ID
-              value: 'UA-97111056-1'
+              value: 'UA-97111056-3'
+            - name: FEEDBACK_SURVEY_URL
+              value: 'http://www.smartsurvey.co.uk/s/not-a-real-legal-service-survey/'
+            - name: FEEDBACK_REPORT_PROBLEM_URL
+              value: 'http://www.smartsurvey.co.uk/s/not-a-real-legal-service-survey/'
+            - name: FEEDBACK_URL
+              value: 'http://www.smartsurvey.co.uk/s/not-a-real-legal-service-survey/'
             - name: FEATURE_TESTING_SUPPORT
               value: 'true'
             - name: FEATURE_DASHBOARD
               value: 'true'
             - name: FEATURE_CERTIFICATE_OF_SERVICE
-              value: 'true'
+              value: 'false'
             - name: FEATURE_RETURN_ERROR_TO_USER
               value: 'true'
             - name: POSTCODE_LOOKUP_API_KEY
