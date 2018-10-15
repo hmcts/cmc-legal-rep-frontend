@@ -12,7 +12,13 @@ properties([
 List<LinkedHashMap<String, Object>> secrets = [
   secret('smoke-test-solicitor-username', 'SMOKE_TEST_SOLICITOR_USERNAME'),
   secret('smoke-test-user-password', 'SMOKE_TEST_USER_PASSWORD'),
-  secret('legal-oauth-client-secret', 'OAUTH2_CLIENT_SECRET')
+  secret('postcode-lookup-api-key', 'POSTCODE_LOOKUP_API_KEY'),
+  secret('AppInsightsInstrumentationKey', 'APPINSIGHTS_INSTRUMENTATIONKEY'),
+  secret('legal-oauth-client-secret', 'OAUTH_CLIENT_SECRET'),
+  secret('cmc-s2s-secret', 'IDAM_S2S_TOTP_SECRET'),
+  secret('legal-draft-store-primary', 'DRAFT_STORE_SECRET_PRIMARY'),
+  secret('legal-draft-store-secondary', 'DRAFT_STORE_SECRET_SECONDARY'),
+  secret('legal-cookie-encryption-key', 'COOKIE_ENCRYPTION_KEY'),
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {

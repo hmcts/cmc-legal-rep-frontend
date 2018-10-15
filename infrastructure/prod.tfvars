@@ -1,5 +1,5 @@
-idam_api_url = "https://prod-idamapi.reform.hmcts.net"
-authentication_web_url = "https://www.idam.reform.hmcts.net"
+idam_api_url = "https://idam-api.platform.hmcts.net"
+authentication_web_url = "https://www.idam.platform.hmcts.net"
 fees_api_url = "https://fees-register-api.platform.hmcts.net"
 payments_api_url = "https://payment.platform.hmcts.net"
 feature_certificateOfService = "false"
