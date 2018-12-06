@@ -162,5 +162,11 @@
     ],
     "report-dir": "coverage",
     "all": true
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint",
+      "pre-push": "yarn test && yarn test:routes"
+    }
   }
 }
