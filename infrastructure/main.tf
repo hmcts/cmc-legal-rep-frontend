@@ -41,6 +41,9 @@ locals {
   s2sUrl = "http://rpe-service-auth-provider-${local.local_env}.service.${local.local_ase}.internal"
   claimStoreUrl = "http://cmc-claim-store-${local.local_env}.service.${local.local_ase}.internal"
   draftStoreUrl = "http://draft-store-service-${local.local_env}.service.${local.local_ase}.internal"
+
+  sku_size = "${var.env == "prod" || var.env == "sprod" || var.env == "aat" ? "I2" : "I1"}"
+  asp_name = "${var.env == "prod" ? "cmc-legal-frontend-prod" : "${var.product}-${var.env}"}"
 }
 
 module "legal-frontend" {
@@ -55,6 +58,9 @@ module "legal-frontend" {
   additional_host_name = "${var.external_host_name}"
   capacity = "${var.capacity}"
   common_tags = "${var.common_tags}"
+  asp_name = "${local.asp_name}"
+  asp_rg = "${local.asp_name}"
+  instance_size = "${local.sku_size}"
 
   app_settings = {
     // Node specific vars

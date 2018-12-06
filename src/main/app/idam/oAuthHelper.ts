@@ -8,7 +8,7 @@ import { Paths as AppPaths } from 'paths'
 export class OAuthHelper {
   static getRedirectUri (req: express.Request, res: express.Response): string {
     const clientId = config.get<string>('oauth.clientId')
-    const redirectUri = buildURL(req, AppPaths.receiver.uri)
+    const redirectUri = buildURL(req, AppPaths.oldReceiver.uri)
     const state = uuid()
     this.storeStateCookie(req, res, state)
 
