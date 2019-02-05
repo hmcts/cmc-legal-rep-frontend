@@ -1,8 +1,6 @@
 # ---- Base image ----
-FROM node:8.12.0-slim as base
+FROM hmcts.azurecr.io/hmcts/base/node/stretch-slim-lts-8:latest as base
 RUN yarn config set proxy "$http_proxy" && yarn config set https-proxy "$https_proxy"
-ENV WORKDIR /usr/src/app
-WORKDIR ${WORKDIR}
 COPY package.json yarn.lock ./
 RUN yarn install --production \
   && yarn cache clean
