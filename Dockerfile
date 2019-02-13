@@ -19,5 +19,4 @@ COPY --from=build $WORKDIR/src/main ./src/main
 COPY --from=build $WORKDIR/tsconfig.json $WORKDIR/tsconfig.prod.json ./
 COPY config ./config
 EXPOSE 4000
-USER hmcts
 CMD [ "yarn", "start-prod" ]
