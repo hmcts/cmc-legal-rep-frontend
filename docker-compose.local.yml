@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-  legal-rep-frontend:
+  legal-frontend:
     build:
       context: .
       args:
