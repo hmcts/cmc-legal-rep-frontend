@@ -11,7 +11,6 @@ properties([
 
 def product = "cmc"
 def component = "legal-frontend"
-def channel = '#cmc-tech-notification'
 
 withNightlyPipeline("nodejs", product, component) {
   env.TEST_URL = params.URL_TO_TEST
