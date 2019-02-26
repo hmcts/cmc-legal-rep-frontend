@@ -3,6 +3,8 @@
 infrastructure
 kubernetes
 node_modules
+!acb.yaml
+!Dockerfile
 
 Jenkinsfile*
 README.md
