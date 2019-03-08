@@ -9,7 +9,7 @@ RUN yarn install --production \
 FROM base as build
 RUN yarn install
 COPY tsconfig.json tsconfig.prod.json gulpfile.js ./
-COPY src/main ./src/main
+COPY --chown=hmcts:hmcts src/main ./src/main
 RUN yarn compile \
   && yarn setup
 
