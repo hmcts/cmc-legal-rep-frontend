@@ -41,8 +41,8 @@ app.use(bodyParser.urlencoded({
   extended: true
 }))
 
-app.use(cookieParser(config.get('session.encryptionKey')))
-app.use(cookieEncrypter(config.get('session.encryptionKey'), CookieProperties.getCookieConfig()))
+app.use(cookieParser(config.get('secrets.cmc.encryptionKey')))
+app.use(cookieEncrypter(config.get('secrets.cmc.encryptionKey'), CookieProperties.getCookieConfig()))
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('/robots.txt', express.static(path.join(__dirname, 'public/robots.txt')))

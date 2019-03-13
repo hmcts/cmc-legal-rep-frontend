@@ -1,0 +1,43 @@
+
+nodejs:
+  image: ${IMAGE_NAME}
+  ingressHost: ${SERVICE_FQDN}
+  applicationPort: 4000
+  memoryRequests: 256Mi
+  cpuRequests: 0.2
+  memoryLimits: 512Mi
+  cpuLimits: 1
+  environment:
+    IDAM_API_URL: https://preprod-idamapi.reform.hmcts.net:3511
+    IDAM_URL: https://preprod-idamapi.reform.hmcts.net:3511
+    IDAM_AUTHENTICATION_WEB_URL: https://idam.preprod.ccidam.reform.hmcts.net
+    IDAM_S2S_AUTH: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
+    S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
+    IDAM_S2S_AUTH_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
+    PAY_URL: http://payment-api-aat.service.core-compute-aat.internal
+    FEES_URL: http://fees-register-api-aat.service.core-compute-aat.internal
+    CLAIM_STORE_URL: http://cmc-claim-store-aat.service.core-compute-aat.internal
+    DRAFT_STORE_URL: http://draft-store-service-aat.service.core-compute-aat.internal
+    REFORM_TEAM: cmc
+    REFORM_SERVICE_NAME: legal-frontend
+    REFORM_ENVIRONMENT: preview
+    NODE_ENV: production
+    UV_THREADPOOL_SIZE: 64
+    GA_TRACKING_ID: UA-97111056-3
+    SERVICE_SURVEY_URL: http://www.smartsurvey.co.uk/s/not-a-real-legal-service-survey/
+    FEEDBACK_SURVEY_URL: http://www.smartsurvey.co.uk/s/not-a-real-legal-service-survey/
+    REPORT_PROBLEM_SURVEY_URL: http://www.smartsurvey.co.uk/s/not-a-real-legal-service-survey/
+    FEATURE_TESTING_SUPPORT: true
+    FEATURE_RETURN_ERROR_TO_USER: true
+    FEATURE_CERTIFICATE_OF_SERVICE: false
+    FEATURE_DASHBOARD: true
+  keyVaults:
+    cmc:
+      resourceGroup: cmc
+      secrets:
+      - AppInsightsInstrumentationKey
+      - legal-oauth-client-secret
+      - cmc-s2s-secret
+      - legal-draft-store-primary
+      - legal-draft-store-secondary
+      - legal-cookie-encryption-key

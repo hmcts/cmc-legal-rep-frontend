@@ -138,6 +138,16 @@
     on-finished "^2.3.0"
     winston "^2.4.1"
 
+"@hmcts/properties-volume@0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@hmcts/properties-volume/-/properties-volume-0.0.8.tgz#baf98be4aa9b11115fc23e20e7e14b2589922788"
+  integrity sha512-2mnFxMxo6kh3rgq8lVXda1iTF408GUmW1qCbksj9llG9l4BCnqM3U6enNzPuT9gYcHFflQ50j7KjG2yZixKOKQ==
+  dependencies:
+    "@hmcts/nodejs-logging" "^3.0.0"
+    "@types/lodash.merge" "^4.6.5"
+    lodash.merge "^4.6.1"
+    path "^0.12.7"
+
 "@hmcts/requestretry@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@hmcts/requestretry/-/requestretry-1.1.0.tgz#5d9a1734571e435ed025ee21ec432beee5f0c41e"
@@ -230,6 +240,18 @@
   resolved "https://registry.yarnpkg.com/@types/left-pad/-/left-pad-1.2.0.tgz#a79764ac1bac2d467d68d2faac39ab0aff60ccf7"
   dependencies:
     left-pad "*"
+
+"@types/lodash.merge@^4.6.5":
+  version "4.6.6"
+  resolved "https://registry.yarnpkg.com/@types/lodash.merge/-/lodash.merge-4.6.6.tgz#b84b403c1d31bc42d51772d1cd5557fa008cd3d6"
+  integrity sha512-IB90krzMf7YpfgP3u/EvZEdXVvm4e3gJbUvh5ieuI+o+XqiNEt6fCzqNRaiLlPVScLI59RxIGZMQ3+Ko/DJ8vQ==
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash@*":
+  version "4.14.123"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.123.tgz#39be5d211478c8dd3bdae98ee75bb7efe4abfe4d"
+  integrity sha512-pQvPkc4Nltyx7G1Ww45OjVqUsJP4UsZm+GWJpigXgkikZqJgRm4c48g027o6tdgubWHwFRF15iFd+Y4Pmqv6+Q==
 
 "@types/lodash@^4.14.52":
   version "4.14.92"
@@ -4246,6 +4268,11 @@ lodash.mapvalues@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.mapvalues/-/lodash.mapvalues-4.6.0.tgz#1bafa5005de9dd6f4f26668c30ca37230cc9689c"
 
+lodash.merge@^4.6.1:
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.1.tgz#adc25d9cb99b9391c59624f379fbba60d7111d54"
+  integrity sha512-AOYza4+Hf5z1/0Hztxpm2/xiPZgi/cjMqdnKTUWTBSKchJlxXXuUSxCCl8rJlf4g6yww/j6mA8nC8Hw/EZWxKQ==
+
 lodash.mergewith@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.mergewith/-/lodash.mergewith-4.6.0.tgz#150cf0a16791f5903b8891eab154609274bdea55"
@@ -5373,6 +5400,14 @@ path-type@^2.0.0:
   dependencies:
     pify "^2.0.0"
 
+path@^0.12.7:
+  version "0.12.7"
+  resolved "https://registry.yarnpkg.com/path/-/path-0.12.7.tgz#d4dc2a506c4ce2197eb481ebfcd5b36c0140b10f"
+  integrity sha1-1NwqUGxM4hl+tIHr/NWzbAFAsQ8=
+  dependencies:
+    process "^0.11.1"
+    util "^0.10.3"
+
 pathval@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/pathval/-/pathval-1.1.0.tgz#b942e6d4bde653005ef6b71361def8727d0645e0"
@@ -5493,6 +5528,11 @@ process-nextick-args@^2.0.0, process-nextick-args@~2.0.0:
 process-nextick-args@~1.0.6:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-1.0.7.tgz#150e20b756590ad3f91093f25a4f2ad8bff30ba3"
+
+process@^0.11.1:
+  version "0.11.10"
+  resolved "https://registry.yarnpkg.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
+  integrity sha1-czIwDoQBYb2j5podHZGn1LwW8YI=
 
 progress@^1.1.8:
   version "1.1.8"
