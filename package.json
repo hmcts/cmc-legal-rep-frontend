@@ -39,7 +39,7 @@
     "@hmcts/cmc-draft-store-middleware": "^2.0.0",
     "@hmcts/draft-store-client": "^1.2.1",
     "@hmcts/info-provider": "^1.0.0",
-    "@hmcts/nodejs-healthcheck": "^1.4.3",
+    "@hmcts/nodejs-healthcheck": "^1.4.6",
     "@hmcts/nodejs-logging": "^3.0.0",
     "@hmcts/requestretry": "^1.1.0",
     "@hmcts/cmc-validators": "^0.1.9",
