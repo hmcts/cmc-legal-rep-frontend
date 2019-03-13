@@ -5,10 +5,13 @@
 String product = "cmc"
 String component = "legal-frontend"
 
-List<LinkedHashMap<String, Object>> secrets = [
-  secret('smoke-test-solicitor-username', 'SMOKE_TEST_SOLICITOR_USERNAME'),
-  secret('smoke-test-user-password', 'SMOKE_TEST_USER_PASSWORD'),
-  secret('legal-oauth-client-secret', 'OAUTH_CLIENT_SECRET')
+def secrets = [
+  'cmc-${env}':
+    [
+      secret('legal-oauth-client-secret', 'OAUTH_CLIENT_SECRET'),
+      secret('smoke-test-solicitor-username', 'SMOKE_TEST_SOLICITOR_USERNAME'),
+      secret('smoke-test-user-password', 'SMOKE_TEST_USER_PASSWORD')
+    ]
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
@@ -49,5 +52,4 @@ withPipeline("nodejs", product, component) {
   enableSlackNotifications(notificationsChannel)
   enableDockerBuild()
   installCharts()
-  setVaultName('cmc')
 }
