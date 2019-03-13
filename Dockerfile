@@ -1,21 +1,22 @@
-FROM node:8.12.0-slim
-
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-
-COPY package.json yarn.lock tsconfig.json tsconfig.prod.json gulpfile.js /usr/src/app/
-COPY src/main /usr/src/app/src/main
-
+# ---- Base image ----
+FROM hmcts.azurecr.io/hmcts/base/node/stretch-slim-lts-8:latest as base
 RUN yarn config set proxy "$http_proxy" && yarn config set https-proxy "$https_proxy"
+COPY package.json yarn.lock ./
+RUN yarn install --production \
+  && yarn cache clean
 
-RUN yarn install \
-    && yarn compile \
-    && yarn setup \
-    && rm -rf node_modules \
-    && yarn install --production \
-    && yarn cache clean
+# ---- Build image ----
+FROM base as build
+RUN yarn install
+COPY tsconfig.json tsconfig.prod.json gulpfile.js ./
+COPY --chown=hmcts:hmcts src/main ./src/main
+RUN yarn compile \
+  && yarn setup
 
-COPY config /usr/src/app/config
-
+# ---- Runtime image ----
+FROM base as runtime
+COPY --from=build $WORKDIR/src/main ./src/main
+COPY --from=build $WORKDIR/tsconfig.json $WORKDIR/tsconfig.prod.json ./
+COPY config ./config
 EXPOSE 4000
 CMD [ "yarn", "start-prod" ]
