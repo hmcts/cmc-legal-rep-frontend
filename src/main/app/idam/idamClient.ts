@@ -5,11 +5,13 @@ import { request } from 'client/request'
 import { User } from 'idam/user'
 import { AuthToken } from 'idam/authToken'
 import { ServiceAuthToken } from 'idam/serviceAuthToken'
+import { Logger } from '@hmcts/nodejs-logging'
 
 const idamApiUrl = config.get<string>('idam.api.url')
 const s2sUrl = config.get<string>('idam.service-2-service-auth.url')
 const totpSecret = config.get<string>('secrets.cmc.cmc-s2s-secret')
 const microserviceName = config.get<string>('idam.service-2-service-auth.microservice')
+const logger = Logger.getLogger('idamClient')
 
 class ServiceAuthRequest {
   constructor (public microservice: string, public oneTimePassword: string) {
@@ -53,7 +55,8 @@ export default class IdamClient {
     const clientId = config.get<string>('oauth.clientId')
     const clientSecret = config.get<string>('secrets.cmc.legal-oauth-client-secret')
     const url = `${config.get('idam.api.url')}/oauth2/token`
-
+    logger.debug(`clientId: ${clientId}`)
+    logger.debug(`clientSecret: ${clientSecret}`)
     return request.post({
       uri: url,
       auth: {
@@ -63,6 +66,7 @@ export default class IdamClient {
       form: { grant_type: 'authorization_code', code: code, redirect_uri: redirectUri }
     })
       .then((response: any) => {
+        logger.debug(`response: ${response}`)
         return new AuthToken(
           response.access_token,
           response.token_type,
