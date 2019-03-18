@@ -30,7 +30,6 @@ async function getOAuthAccessToken (req: express.Request, receiver: RoutablePath
       }
     })
   }
-
   const authToken: AuthToken = await IdamClient.exchangeCode(
     req.query.code,
     buildURL(req, receiver.uri)
