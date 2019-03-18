@@ -30,7 +30,6 @@ async function getOAuthAccessToken (req: express.Request, receiver: RoutablePath
       }
     })
   }
-  logger.debug(`req.query.state: ${req.query.state}`)
   const authToken: AuthToken = await IdamClient.exchangeCode(
     req.query.code,
     buildURL(req, receiver.uri)
@@ -42,7 +41,6 @@ async function getAuthToken (req: express.Request,
                              receiver: RoutablePath = AppPaths.oldReceiver,
                              checkCookie = true): Promise<string> {
   let authenticationToken
-  logger.debug(`req.query.code ${req.query.code}`)
   if (req.query.code) {
     authenticationToken = await getOAuthAccessToken(req, receiver)
   } else if (checkCookie) {
@@ -88,11 +86,8 @@ export default express.Router()
     let user
     try {
       const authenticationToken: string = await getAuthToken(req)
-      logger.debug(`Token: ${authenticationToken}`)
       if (authenticationToken) {
-        logger.debug(`Going to retrieve user`)
         user = await IdamClient.retrieveUserFor(authenticationToken)
-        logger.debug(`User ${user}`)
         res.locals.isLoggedIn = true
         res.locals.user = user
         setAuthCookie(cookies, authenticationToken)
