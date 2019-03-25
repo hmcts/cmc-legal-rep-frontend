@@ -24,7 +24,7 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 }
 
 // Vars needed for AKS testing
-env.IDAM_URL = 'https://preprod-idamapi.reform.hmcts.net:3511'
+env.IDAM_URL = 'https://idam-api.aat.platform.hmcts.net'
 
 String notificationsChannel = '#cmc-tech-notification'
 
