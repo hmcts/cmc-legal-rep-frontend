@@ -11,7 +11,6 @@ const checks = {
   'fees': basicHealthCheck('fees'),
   'pay': basicHealthCheck('pay'),
   'idam-api': basicHealthCheck('idam.api'),
-  'idam-authentication-web': basicHealthCheck('idam.authentication-web'),
   'idam-service-2-service-auth': basicHealthCheck('idam.service-2-service-auth')
 }
 
