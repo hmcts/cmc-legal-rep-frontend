@@ -63,9 +63,6 @@ module "legal-frontend" {
   instance_size = "${local.sku_size}"
 
   app_settings = {
-    // Added to force new app settings (failed apply stage in jenkins)
-    DELETE_ME_SOON = "true"
-
     // Node specific vars
     NODE_ENV = "${var.env == "prod" ? "production" : "dev"}"
     UV_THREADPOOL_SIZE = "64"
