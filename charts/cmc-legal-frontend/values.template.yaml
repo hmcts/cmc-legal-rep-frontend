@@ -1,3 +1,5 @@
+tags:
+  - idam-pr
 
 nodejs:
   image: ${IMAGE_NAME}
@@ -42,3 +44,8 @@ nodejs:
       - legal-draft-store-primary
       - legal-draft-store-secondary
       - legal-cookie-encryption-key
+      -
+idam-pr:
+  service:
+    name: Money Claims - Citizen
+    redirect_uri: https://${SERVICE_FQDN}/legal/receiver
