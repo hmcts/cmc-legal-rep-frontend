@@ -4,7 +4,6 @@ import * as healthcheck from '@hmcts/nodejs-healthcheck'
 import * as fs from 'fs'
 import * as path from 'path'
 import * as toBoolean from 'to-boolean'
-import { FeatureToggles } from 'utils/featureToggles'
 
 /* tslint:disable:no-default-export */
 
@@ -36,9 +35,6 @@ function basicHealthCheck (serviceName) {
   if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'dockertests' || !process.env.NODE_ENV) {
     const sslDirectory = path.join(__dirname, '..', 'resources', 'localhost-ssl')
     options['ca'] = fs.readFileSync(path.join(sslDirectory, 'localhost-ca.crt'))
-  }
-  if (serviceName === 'pay' && FeatureToggles.isEnabled('mockPay')) {
-    return healthcheck.raw(() => { return healthcheck.up() })
   }
   return healthcheck.web(url(serviceName), options)
 }
