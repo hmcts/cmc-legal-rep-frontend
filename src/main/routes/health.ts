@@ -3,6 +3,7 @@ import * as config from 'config'
 import * as healthcheck from '@hmcts/nodejs-healthcheck'
 import * as fs from 'fs'
 import * as path from 'path'
+import * as toBoolean from 'to-boolean'
 import { FeatureToggles } from 'utils/featureToggles'
 
 /* tslint:disable:no-default-export */
@@ -18,6 +19,10 @@ let healthCheckConfig = {
     'idam-service-2-service-auth': basicHealthCheck('idam.service-2-service-auth'),
     'idam-api': basicHealthCheck('idam.api')
   }
+}
+
+if (toBoolean(config.get('featureToggles.certificateOfService'))) {
+  healthCheckConfig.checks['document-management-web'] = basicHealthCheck('documentManagement')
 }
 
 export default express.Router().use(healthCheckRouter)
