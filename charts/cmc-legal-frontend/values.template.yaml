@@ -44,7 +44,7 @@ nodejs:
       - legal-draft-store-primary
       - legal-draft-store-secondary
       - legal-cookie-encryption-key
-      -
+
 idam-pr:
   service:
     name: Money Claims - Legal
