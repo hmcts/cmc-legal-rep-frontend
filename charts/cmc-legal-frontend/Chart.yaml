@@ -1,7 +1,7 @@
 description: Helm chart for the HMCTS CMC Legal Frontend service
 name: cmc-legal-frontend
 home: https://github.com/hmcts/cmc-legal-rep-frontend
-version: 0.1.0
+version: 1.0.0
 maintainers:
   - name: HMCTS CMC Dev Team
     email: cmc-developers@HMCTS.NET

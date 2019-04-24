@@ -1,3 +1,6 @@
+tags:
+  - idam-pr
+
 nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
@@ -10,3 +13,8 @@ nodejs:
     FEES_URL: http://fees-register-api-aat.service.core-compute-aat.internal
     CLAIM_STORE_URL: http://cmc-claim-store-aat.service.core-compute-aat.internal
     DRAFT_STORE_URL: http://draft-store-service-aat.service.core-compute-aat.internal
+
+idam-pr:
+  service:
+    name: Money Claims - Legal
+    redirect_uri: https://${SERVICE_FQDN}/legal/receiver

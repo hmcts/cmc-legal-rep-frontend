@@ -33,6 +33,7 @@ export class Amount implements Serializable<Amount> {
   @IsLessThanOrEqualTo('higherValue', { message: ValidationErrors.LOWER_VALUE_LESS_THAN_UPPER_NOT_VALID })
   lowerValue?: number
 
+  @ValidateIf(o => o.cannotState == null)
   @IsAmountRangeDefined('cannotState', { message: ValidationErrors.VALID_SELECTION_REQUIRED })
   @IsAmountRangeNumber('cannotState', { message: ValidationErrors.HIGHER_VALUE_AMOUNT_NOT_VALID })
   @Fractions(0, 2, { message: ValidationErrors.AMOUNT_INVALID_DECIMALS })
