@@ -2,7 +2,6 @@ nodejs:
   image: hmcts.azurecr.io/hmcts/cmc-legal-frontend:latest
   applicationPort: 4000
   memoryRequests: 256Mi
-  cpuRequests: 0.2
   memoryLimits: 512Mi
   cpuLimits: 1
   environment:
