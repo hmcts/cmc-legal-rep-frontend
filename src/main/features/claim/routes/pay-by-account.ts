@@ -48,7 +48,8 @@ async function deleteDraftAndRedirect (res, next, externalId: string) {
 async function updatePayment (res, next, externalId: string, claim) {
   const ccdCaseNumber = claim.ccdCaseId === undefined ? externalId : String(claim.ccdCaseId)
   const payClient: PayClient = await getPayClient()
-  await payClient.update(res.locals.user, claim.claimData.payment.reference, externalId, ccdCaseNumber)
+  const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+  await payClient.update(res.locals.user, draft.document.paymentResponse.reference, externalId, ccdCaseNumber)
 }
 
 async function saveClaimHandler (res, next) {
