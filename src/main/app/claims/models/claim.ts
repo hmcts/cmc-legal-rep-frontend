@@ -17,6 +17,7 @@ export default class Claim implements Serializable<Claim> {
   submitterEmail: string
   files: UploadedDocument[]
   sealedClaimDocumentSelfPath: string = undefined
+  ccdCaseId: number
 
   deserialize (input: any): Claim {
     if (input) {
@@ -32,6 +33,9 @@ export default class Claim implements Serializable<Claim> {
       this.sealedClaimDocumentSelfPath = input.sealedClaimDocumentSelfPath
       if (input.files) {
         this.files = this.deserializeDocuments(input.files)
+      }
+      if (input.ccdCaseId) {
+        this.ccdCaseId = input.ccdCaseId
       }
     }
     return this

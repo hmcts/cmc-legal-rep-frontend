@@ -45,6 +45,12 @@ async function deleteDraftAndRedirect (res, next, externalId: string) {
   res.redirect(Paths.claimSubmittedPage.evaluateUri({ externalId: externalId }))
 }
 
+async function updatePayment (res, next, externalId: string, claim) {
+  const ccdCaseNumber = claim.ccdCaseId === undefined ? externalId : String(claim.ccdCaseId)
+  const payClient: PayClient = await getPayClient()
+  await payClient.update(res.locals.user, claim.claimData.payment.reference, externalId, ccdCaseNumber)
+}
+
 async function saveClaimHandler (res, next) {
   const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
   const externalId = draft.document.externalId
@@ -68,6 +74,7 @@ async function saveClaimHandler (res, next) {
   } else {
     ClaimStoreClient.saveClaimForUser(res.locals.user, res.locals.legalClaimDraft)
       .then(claim => {
+        updatePayment(res, next, externalId, claim)
         deleteDraftAndRedirect(res, next, externalId)
       })
       .catch(err => {
@@ -130,7 +137,7 @@ export default express.Router()
             draft.document.yourReference.reference,
             draft.document.representative.organisationName.name,
             feeResponse,
-            await ClaimStoreClient.retrievePaymentReference(draft.document.externalId, user)
+            draft.document.externalId
           )
 
           if (paymentResponse.isSuccess) {
