@@ -10,6 +10,7 @@ import { plainToClass } from 'class-transformer'
 
 const payUrl = config.get<string>('pay.url')
 const payPath = config.get<string>('pay.path')
+const paymentURL = `${config.get('pay.url')}/payments`
 const serviceName = config.get<string>('pay.service-name')
 const currency = config.get<string>('pay.currency')
 const siteId = config.get<string>('pay.site-id')
@@ -38,6 +39,33 @@ export class PayClient {
     const response: object = await request.post({
       uri: `${payUrl}/${payPath}`,
       body: paymentReq,
+      headers: {
+        Authorization: `Bearer ${user.bearerToken}`,
+        ServiceAuthorization: `Bearer ${this.serviceAuthToken.bearerToken}`
+      }
+    })
+    return plainToClass(PaymentResponse, response)
+  }
+
+  async update (user: User,
+                paymentReference: string,
+                caseReference: string,
+                caseNumber: string): Promise<PaymentResponse> {
+    if (!user) {
+      throw new Error('User is required')
+    }
+    if (StringUtils.isBlank(paymentReference)) {
+      throw new Error('Payment reference is required')
+    }
+    if (StringUtils.isBlank(caseReference)) {
+      throw new Error('Case Reference is required')
+    }
+    if (StringUtils.isBlank(caseNumber)) {
+      throw new Error('Case Number is required')
+    }
+    const response: object = await request.patch({
+      uri: `${paymentURL}/${paymentReference}`,
+      body: this.preparePaymentUpdateRequest(caseReference, caseNumber),
       headers: {
         Authorization: `Bearer ${user.bearerToken}`,
         ServiceAuthorization: `Bearer ${this.serviceAuthToken.bearerToken}`
@@ -85,6 +113,13 @@ export class PayClient {
           version: fee.version
         }
       ]
+    }
+  }
+
+  private preparePaymentUpdateRequest (caseReference: string, caseNumber: string): object {
+    return {
+      case_reference: caseReference,
+      ccd_case_number: caseNumber
     }
   }
 }
