@@ -31,4 +31,4 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
-    image: hmcts/cmc-legal-integration-tests
+    image: hmctspublic.azurecr.io/cmc/legal-integration-tests
