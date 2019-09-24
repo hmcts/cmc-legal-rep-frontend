@@ -15,6 +15,6 @@ nodejs:
     DRAFT_STORE_URL: http://draft-store-service-aat.service.core-compute-aat.internal
 
 idam-pr:
-  service:
-    name: Money Claims - Legal
-    redirect_uri: https://${SERVICE_FQDN}/legal/receiver
+  redirect_uris:
+    name: Money Claims - Citizen
+    redirect_uri: https://${SERVICE_FQDN}/receiver
