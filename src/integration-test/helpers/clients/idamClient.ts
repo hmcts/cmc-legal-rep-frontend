@@ -12,14 +12,14 @@ const oauth2 = {
 
 export class IdamClient {
 
-  /**
+/*  /!**
    * Creates user with default password
    *
    * @param {string} email
    * @param {string} userGroupCode
    * @param {string} password
    * @returns {Promise<void>}
-   */
+   *!/
   static createUser (email: string, userGroupCode: string, password: string = undefined): Promise<void> {
     return request.post({
       uri: `${baseURL}/testing-support/accounts`,
@@ -36,15 +36,45 @@ export class IdamClient {
         password: password ? password : defaultPassword
       }
     })
-  }
+  }*/
 
   /**
+   * Creates user with default password
+   *
+   * @param {string} email
+   * @param {string} userGroupCode
+   * @param password the user's password, will use a default if undefined
+   * @returns {Promise<void>}
+   */
+  static createUser (email: string, userGroupCode: string, password: string = undefined): Promise<void> {
+    const options = {
+      method: 'POST',
+      uri: `${baseURL}/testing-support/accounts`,
+      body: {
+        email: email,
+        forename: 'John',
+        surname: 'Smith',
+        levelOfAccess: 1,
+        userGroup: {
+          code: userGroupCode
+        },
+        activationDate: '',
+        lastAccess: '',
+        password: password ? password : defaultPassword
+      }
+    }
+    return request(options).then(function () {
+      return Promise.resolve()
+    })
+  }
+
+/*  /!**
    * Authenticate user
    *
    * @param {string} username the username to authenticate
    * @param password the users password (optional, default will be used if none provided)
    * @returns {Promise<string>}
-   */
+   *!/
   static async authenticateUser (username: string, password: string = undefined): Promise<string> {
 
     const base64Authorisation: string = IdamClient.toBase64(`${username}:${password || defaultPassword}`)
@@ -58,9 +88,37 @@ export class IdamClient {
     })
 
     return IdamClient.exchangeCode(authResponse['code'])
+  }*/
+
+  /**
+   * Authenticate user
+   *
+   * @param {string} username the username to authenticate
+   * @param password the users password (optional, default will be used if none provided)
+   * @returns {Promise<string>} the users access token
+   */
+  static async authenticateUser (username: string, password: string = undefined): Promise<string> {
+    const base64Authorisation: string = IdamClient.toBase64(`${username}:${password || defaultPassword}`)
+    const oauth2Params: string = IdamClient.toUrlParams(oauth2)
+
+    const options = {
+      method: 'POST',
+      uri: `${baseURL}/oauth2/authorize?response_type=code&${oauth2Params}`,
+      headers: {
+        Authorization: `Basic ${base64Authorisation}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    }
+    return request(options).then(function (response) {
+      return response.code
+    }).then(function (response) {
+      return IdamClient.exchangeCode(response).then(function (response) {
+        return response
+      })
+    })
   }
 
-  static exchangeCode (code: string): Promise<string> {
+/*  static exchangeCode (code: string): Promise<string> {
 
     return request.post({
       uri: `${baseURL}/oauth2/token`,
@@ -73,6 +131,23 @@ export class IdamClient {
       .then((response: any) => {
         return response['access_token']
       })
+  }*/
+
+  static exchangeCode (code: string): Promise<string> {
+
+    const options = {
+      method: 'POST',
+      uri: `${baseURL}/oauth2/token`,
+      auth: {
+        username: oauth2.client_id,
+        password: oauth2.client_secret
+      },
+      form: { grant_type: 'authorization_code', code: code, redirect_uri: oauth2.redirect_uri }
+    }
+
+    return request(options).then(function (response) {
+      return response['access_token']
+    })
   }
 
   /**
