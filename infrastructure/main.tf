@@ -108,6 +108,7 @@ module "legal-frontend" {
     FEATURE_TESTING_SUPPORT = "${var.env == "prod" ? "false" : "true"}" // Enabled everywhere except prod
     FEATURE_DASHBOARD = "${var.feature_dashboard}"
     FEATURE_CERTIFICATE_OF_SERVICE = "${var.feature_certificateOfService}"
+    FEATURE_INVERSION_OF_CONTROL = "${var.feature_inversionOfControl}"
     FEATURE_RETURN_ERROR_TO_USER = "${var.feature_return_error_to_user}"
   }
 }

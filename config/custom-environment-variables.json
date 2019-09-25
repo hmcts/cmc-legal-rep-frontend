@@ -42,9 +42,10 @@
   "featureToggles": {
     "dashboard": "FEATURE_DASHBOARD",
     "certificateOfService": "FEATURE_CERTIFICATE_OF_SERVICE",
-    "returnErrorToUser": "FEATURE_RETURN_ERROR_TO_USER"
+    "returnErrorToUser": "FEATURE_RETURN_ERROR_TO_USER",
+    "inversionOfControl": "FEATURE_INVERSION_OF_CONTROL"
   },
-  "documentManagement" : {
+  "documentManagement": {
     "url": "DOCUMENT_MANAGEMENT_API_GATEWAY_URL"
   },
   "feedback_legal_service_survey": "FEEDBACK_SURVEY_URL",
@@ -56,14 +57,14 @@
   "requestRetry": {
     "maxAttempts": "REQUEST_RETRY_MAX_ATTEMPTS"
   },
-  "secrets":{
-    "cmc":{
+  "secrets": {
+    "cmc": {
       "cmc-s2s-secret": "IDAM_S2S_TOTP_SECRET",
       "legal-draft-store-primary": "DRAFT_STORE_SECRET_PRIMARY",
       "legal-draft-store-secondary": "DRAFT_STORE_SECRET_SECONDARY",
       "legal-oauth-client-secret": "OAUTH_CLIENT_SECRET",
       "legal-cookie-encryption-key": "COOKIE_ENCRYPTION_KEY",
-      "AppInsightsInstrumentationKey":"APPINSIGHTS_INSTRUMENTATIONKEY"
+      "AppInsightsInstrumentationKey": "APPINSIGHTS_INSTRUMENTATIONKEY"
     }
   }
 }
