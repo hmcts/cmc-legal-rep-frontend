@@ -15,7 +15,7 @@ export default class ClaimStoreClient {
   static saveClaimForUser (user: User, draft: Draft<DraftLegalClaim>): Promise<Claim> {
     const convertedDraftClaim: object = ClaimModelConverter.convert(draft.document)
 
-    return request.post(this.getUri(user), {
+    return request.post(this.getUri(user.id), {
       body: convertedDraftClaim,
       headers: {
         Authorization: `Bearer ${user.bearerToken}`
@@ -23,11 +23,11 @@ export default class ClaimStoreClient {
     })
   }
 
-  static getUri (user: User) {
+  static getUri (userId: string) {
     if (toBoolean(config.get('featureToggles.inversionOfControl'))) {
-      return `${claimStoreApiUrl}/${user.id}/create-legal-rep-claim`
+      return `${claimStoreApiUrl}/${userId}/create-legal-rep-claim`
     } else {
-      return `${claimStoreApiUrl}/${user.id}`
+      return `${claimStoreApiUrl}/${userId}`
     }
   }
 
