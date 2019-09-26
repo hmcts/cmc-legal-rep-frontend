@@ -16,5 +16,5 @@ nodejs:
 
 idam-pr:
   redirect_uris:
-    name: Money Claims - Citizen
+    name: Money Claims - Legal:
     redirect_uri: https://${SERVICE_FQDN}/receiver
