@@ -30,7 +30,9 @@
     "test:crossbrowser": "TS_NODE_TRANSPILE_ONLY=true ts-node --require tsconfig-paths/register ./node_modules/.bin/codeceptjs run --verbose --config saucelabs.conf.js --reporter mocha-multi",
     "list-supported-browsers": "node -e 'Object.keys(require(\"@hmcts/cmc-supported-browsers\").supportedBrowsers).forEach(key => console.log(key))'",
     "precommit": "yarn lint",
-    "prepush": "yarn test && yarn test:routes"
+    "prepush": "yarn test && yarn test:routes",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "@hmcts/cmc-common-frontend": "^1.34.0",
@@ -71,7 +73,7 @@
     "fs": "0.0.2",
     "govuk-elements-sass": "^3.1.2",
     "govuk_template_jinja": "^0.24.0",
-    "helmet": "^3.6.1",
+    "helmet": "^3.21.1",
     "http-status-codes": "^1.1.6",
     "i18next": "^12.1.0",
     "i18next-conv": "^8.0.1",
@@ -99,7 +101,8 @@
     "ts-node": "^7.0.0",
     "tsconfig-paths": "^3.1.1",
     "typescript": "^2.4.2",
-    "url-parse": "^1.2.0"
+    "url-parse": "^1.2.0",
+    "snyk": "^1.230.0"
   },
   "devDependencies": {
     "@hmcts/cmc-supported-browsers": "^1.0.1",
@@ -163,5 +166,6 @@
     ],
     "report-dir": "coverage",
     "all": true
-  }
+  },
+  "snyk": true
 }
