@@ -2,7 +2,8 @@
   "featureToggles": {
     "dashboard": true,
     "certificateOfService": false,
-    "returnErrorToUser": true
+    "returnErrorToUser": true,
+    "inversionOfControl": false
   },
   "appInsights": {
     "instrumentationKey": "dummy-app-insights-instrumentation-key"
