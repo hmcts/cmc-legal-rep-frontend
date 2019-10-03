@@ -6,5 +6,6 @@ export class Paths {
   static readonly oldReceiver = new RoutablePath('/legal/receiver', false)
   static readonly receiver = new RoutablePath('/receiver', false)
   static readonly analyticsReceiver = new RoutablePath('/analytics', false)
+  static readonly accessibilityPage = new RoutablePath('/accessibility-statement', false)
 
 }
