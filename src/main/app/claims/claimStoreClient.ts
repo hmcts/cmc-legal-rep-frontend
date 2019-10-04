@@ -6,6 +6,7 @@ import { ClaimModelConverter } from 'claims/claimModelConverter'
 import { ForbiddenError } from '../../errors'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
+import * as toBoolean from 'to-boolean'
 
 const claimApiBaseUrl = `${config.get<string>('claim-store.url')}`
 const claimStoreApiUrl = `${claimApiBaseUrl}/claims`
@@ -13,12 +14,21 @@ const claimStoreApiUrl = `${claimApiBaseUrl}/claims`
 export default class ClaimStoreClient {
   static saveClaimForUser (user: User, draft: Draft<DraftLegalClaim>): Promise<Claim> {
     const convertedDraftClaim: object = ClaimModelConverter.convert(draft.document)
-    return request.post(`${claimStoreApiUrl}/${user.id}`, {
+
+    return request.post(this.getUri(user.id), {
       body: convertedDraftClaim,
       headers: {
         Authorization: `Bearer ${user.bearerToken}`
       }
     })
+  }
+
+  static getUri (userId: string) {
+    if (toBoolean(config.get('featureToggles.inversionOfControl'))) {
+      return `${claimStoreApiUrl}/${userId}/create-legal-rep-claim`
+    } else {
+      return `${claimStoreApiUrl}/${userId}`
+    }
   }
 
   static retrieveByExternalId (externalId: string, user: User): Promise<Claim> {
@@ -60,7 +70,7 @@ export default class ClaimStoreClient {
         if (claims.length === 0) {
           return Promise.reject(new Error('No claim found for external reference ' + externalReference)) as Promise<Claim>
         } else if (claims.length > 1) {
-          return Promise.reject(new Error('More than one claims found for external reference ' + externalReference))as Promise<Claim>
+          return Promise.reject(new Error('More than one claims found for external reference ' + externalReference)) as Promise<Claim>
         } else {
           return new Claim().deserialize(claims[0])
         }

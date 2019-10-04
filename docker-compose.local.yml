@@ -8,4 +8,4 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
-    image: hmcts.azurecr.io/hmcts/cmc-legal-frontend
+    image: hmctspublic.azurecr.io/cmc/legal-frontend
