@@ -1,0 +1,113 @@
+{% extends "layout.njk" %}
+{% from "support.njk" import supportWidget %}
+{% set heading = 'Accessibility statement for the Online Civil Money Claims service' %}
+
+{% set abilityNet = 'https://mcmw.abilitynet.org.uk/'  %}
+{% set eass = 'https://www.equalityadvisoryservice.com/' %}
+{% set wcaStandards = 'https://www.w3.org/TR/WCAG21/' %}
+{% set wcaGuidline = 'https://www.w3.org/TR/WCAG21/' %}
+
+{% macro externalLink(text, href, analyticsEventLabel) %}
+  <a href="{{ href }}" target="_blank" {% if analyticsEventLabel %}class="analytics-click-event-trigger" data-event-label="{{ analyticsEventLabel }}"{% endif %}>{{ text }}</a>
+  <span class="font-xsmall">{{ t('(opens in a new window)') }}</span>{% endmacro %}
+
+{% block content %}
+  <div class="grid-row">
+    <div class="column-two-thirds">
+      <p>
+        {{ t('This service allows legal representatives to submit a money claim against an individual or organisation for an unspecified amount ') }}
+      </p>
+      <p>{{ t('This website is run by HM Courts and Tribunals Services (HMCTS). We want as many people as possible to be able to use it, so we’ve designed it to be accessible. That means you should be able to:') }}</p>
+
+      <ul class="list list-bullet">
+        <li>{{ t('change colours, contrast levels and fonts') }}</li>
+        <li>{{ t('zoom in up to 300% without the text spilling off the screen') }}</li>
+        <li>{{ t('navigate most of the website using just a keyboard') }}</li>
+        <li>{{ t('navigate most of the website using speech recognition software') }}</li>
+        <li>{{ t('listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)') }}</li>
+      </ul>
+      <p>{{ t('We’ve also made the website text as simple as possible to understand.') }}</p>
+      <p>{{ t(externalLink('AbilityNet', abilityNet) +' has advice on making your device easier to use if you have a disability.') | safe }}</p>
+
+      <h2 class="heading-medium">{{ t('How accessible is this website?') }}</h2>
+      <p>
+        {{ t('The website has not been tested by the Digital Accessibility Centre (DAC) and it meets the required level of accessibility.') }}
+      </p>
+      <p>
+        {{ t('Some PDFs, documents and email attachments may not be fully accessible. For example, the forms and guidance documents which can be downloaded. These will be tested and made accessible by September 2020.') }}
+      </p>
+
+      <h2 class="heading-medium">{{ t('Get accessible formats') }}</h2>
+      <p>
+        {{ t('If you need information on this website in a different format like accessible PDF, large print, Easy Read or braille then email HMCTSforms@justice.gov.uk or phone us using the contact information on this page.') }}
+      </p>
+
+      <h2 class="heading-medium">{{ t('Tell us about accessibility problems') }}</h2>
+      <p>
+        {{ t('We want to keep improving accessibility.  Contact us using the contact details on this page if you find any problems or think we’re not meeting your accessibility needs.') }}
+      </p>
+
+      {{ supportWidget('Contact Money Claims') }}
+
+      <h2 class="heading-medium">{{ t('Enforcement procedure') }}</h2>
+      <p>
+        {{ t('The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint, '
+          +  externalLink('contact the Equality Advisory and Support Service (EASS)', eass)) | safe}}
+      </p>
+
+      <h2 class="heading-medium">{{ t('If the claim goes to a hearing') }}</h2>
+
+      <p>
+        {{ t('We’ll tell you the hearing centre you need to go to and give you information about its accessibility.') }}
+      </p>
+
+      <h2 class="heading-medium">{{ t('Technical information about this website’s accessibility') }}</h2>
+      <p>
+        {{ t('HMCTS is committed to making its website accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.') }}
+      </p>
+      <p> {{ t('The website is fully compliant with the' + externalLink('Web Content Accessibility Guidelines version 2.0 AA standard', wcaStandards)) | safe }}</p>
+      <p> {{ t('We are in the process of testing the full service against the new' + externalLink('Web Content Accessibility Guidelines version 2.1 AA standard', wcaGuidline) + '. We commit to being fully compliant against this standard by 2020.') | safe }}</p>
+
+      <h2 class="heading-medium">{{ t('Non-accessible content') }}</h2>
+
+      <p>
+        {{ t('Some PDFs, documents, and attachments to email notifications may not meet accessibility standards or work with a screen reader.') }}
+      </p>
+
+      <p> {{ t('This is because they were created before current accessibility legislation was introduced. We plan to make them accessible by September 2020.') }}
+      </p>
+
+      <h2 class="heading-medium">{{ t('Non-compliance with the accessibility regulations') }}</h2>
+      <p>
+        {{ t('The Private Beta has no issues.') }}
+      </p>
+
+      <h2 class="heading-medium">{{ t('Disproportionate burden') }}</h2>
+
+      <p>
+        {{ t('The Private Beta has no issues.') }}
+      </p>
+
+      <h2 class="heading-medium">{{ t('Content that’s not within the scope of the accessibility regulations') }}</h2>
+      <h2 class="heading-small">
+        {{ t('PDFs and other documents') }}
+      </h2>
+
+      <p>{{ t('PDFs, documents, and attachments to email notifications published before 23 September 2018 may not meet accessibility standards. For example, they may not be structured so they’re accessible to a screen reader. ') }}</p>
+
+      <h2 class="heading-medium">{{ t('How we tested this website') }}</h2>
+
+      <p>{{ t('We’ve carried out manual accessibility testing using multiple in-browser accessibility tools. Axe and Wave (tools) comply with WCAG 2 and Section 508 accessibility (which covers WCAG 2.1)') }}</p>
+      <p>{{ t('The Online Civil Money Claim website for legal representatives has not been tested with the Digital Accessibility Centre (DAC).') }}</p>
+      <p>{{ t('We continually run automated accessibility testing as part of our development practices. This helps us to resolve issues before we launch new pages or features. We use Pa11y and Axe with our quality assurance processes.') }}</p>
+
+      <h2 class="heading-medium">{{ t('What we’re doing to improve accessibility') }}</h2>
+
+      <p>{{ t('This website is continually tested using accessibility software. Any new features which are introduced are also tested.') }}</p>
+      <p>{{ t('We will be making the PDFs, documents and attachments that are essential to using our service accessible.') }}</p>
+      <p>{{ t('We aim to carry out an accessibility audit with DAC in the near future.') }}</p>
+      <p>{{ t('This statement was prepared and published on 23 September 2019.') }}</p>
+
+    </div>
+  </div>
+{% endblock %}
