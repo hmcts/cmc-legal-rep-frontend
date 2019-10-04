@@ -1,11 +1,11 @@
 version: '2'
 
 services:
-  legal-rep-frontend:
+  legal-frontend:
     build:
       context: .
       args:
         - http_proxy
         - https_proxy
         - no_proxy
-    image: hmcts/cmc-legal-rep-frontend
+    image: hmctspublic.azurecr.io/cmc/legal-frontend

@@ -98,6 +98,7 @@ describe('Claim : Pay by Fee Account page', () => {
       draftStoreServiceMock.resolveDelete()
       idamServiceMock.resolveRetrieveServiceToken()
       payClientMock.resolveCreate()
+      payClientMock.resolveUpdate()
 
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
