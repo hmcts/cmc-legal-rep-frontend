@@ -59,7 +59,7 @@
     "cfb": "^1.0.1",
     "class-transformer": "^0.2.0",
     "class-validator": "^0.8.1",
-    "config": "^2.0.0",
+    "config": "^3.0.0",
     "continuation-local-storage": "^3.2.1",
     "cookie-encrypter": "^1.0.1",
     "cookie-parser": "^1.4.3",
@@ -163,5 +163,11 @@
     ],
     "report-dir": "coverage",
     "all": true
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint",
+      "pre-push": "yarn test && yarn test:routes"
+    }
   }
 }
