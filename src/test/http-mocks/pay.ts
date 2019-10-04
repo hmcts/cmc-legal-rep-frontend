@@ -4,6 +4,7 @@ import * as config from 'config'
 
 const payUrl = config.get<string>('pay.url')
 const payPath = '/' + config.get<string>('pay.path')
+const paymentsUrl = '/payments'
 
 const paymentSuccessResponse: object = {
   reference: 'RC-1520-4276-0065-8715',
@@ -15,6 +16,12 @@ export function resolveCreate () {
   mock(payUrl)
     .post(payPath)
     .reply(HttpStatus.CREATED, { ...paymentSuccessResponse })
+}
+
+export function resolveUpdate () {
+  mock(payUrl)
+    .patch(paymentsUrl)
+    .reply(HttpStatus.OK, { ...paymentSuccessResponse })
 }
 
 export function rejectCreate () {

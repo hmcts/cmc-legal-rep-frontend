@@ -4,14 +4,13 @@
   },
   "idam": {
     "authentication-web": {
-      "url": "https://localhost:8000"
+      "url": "http://localhost:9002"
     },
     "api": {
-      "url": "http://localhost:8080"
+      "url": "http://localhost:5000"
     },
     "service-2-service-auth": {
       "url": "http://localhost:4552",
-      "totpSecret": "AAAAAAAAAAAAAAAA",
       "microservice": "cmc"
     }
   },
@@ -19,16 +18,11 @@
     "url": "http://localhost:4400"
   },
   "draft-store": {
-    "url": "http://localhost:8800",
     "apiVersion": "v2",
-    "secrets": {
-      "primary": "not-a-real-primary-secret",
-      "secondary": "not-a-real-secondary-secret"
-    }
+    "url": "http://localhost:8800"
   },
   "session": {
-    "cookieName": "T2_SESSION_ID",
-    "encryptionKey": "not-a-real-32-bit-encryption-key"
+    "cookieName": "T2_SESSION_ID"
   },
   "legal_frontend_analytics": {
     "gaTrackingId": ""
@@ -63,18 +57,28 @@
     "maxAttempts": 3
   },
   "oauth": {
-    "clientId": "cmc_legal",
-    "clientSecret": "123456"
+    "clientId": "cmc_legal"
   },
   "featureToggles": {
     "dashboard": false,
     "certificateOfService": false,
-    "returnErrorToUser": false
+    "returnErrorToUser": false,
+    "inversionOfControl": false
   },
   "documentManagement" : {
     "url": "http://localhost:8085"
   },
   "appInsights": {
     "roleName": "legal-frontend"
+  },
+  "secrets":{
+    "cmc":{
+      "cmc-s2s-secret": "AAAAAAAAAAAAAAAA",
+      "legal-draft-store-primary": "not-a-real-primary-secret",
+      "legal-draft-store-secondary": "not-a-real-secondary-secret",
+      "legal-oauth-client-secret": "12345678",
+      "legal-cookie-encryption-key": "not-a-real-32-bit-encryption-key",
+      "AppInsightsInstrumentationKey":"APPINSIGHTS_INSTRUMENTATIONKEY"
+    }
   }
 }
