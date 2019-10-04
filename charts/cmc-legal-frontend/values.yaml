@@ -18,6 +18,7 @@ nodejs:
     FEATURE_RETURN_ERROR_TO_USER: true
     FEATURE_CERTIFICATE_OF_SERVICE: false
     FEATURE_DASHBOARD: true
+    FEATURE_INVERSION_OF_CONTROL: false
   keyVaults:
     cmc:
       resourceGroup: cmc

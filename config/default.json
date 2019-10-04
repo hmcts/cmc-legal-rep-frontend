@@ -62,7 +62,8 @@
   "featureToggles": {
     "dashboard": false,
     "certificateOfService": false,
-    "returnErrorToUser": false
+    "returnErrorToUser": false,
+    "inversionOfControl": false
   },
   "documentManagement" : {
     "url": "http://localhost:8085"
