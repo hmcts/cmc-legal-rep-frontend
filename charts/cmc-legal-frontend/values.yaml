@@ -1,0 +1,31 @@
+nodejs:
+  image: hmctspublic.azurecr.io/cmc/legal-frontend:latest
+  applicationPort: 4000
+  memoryRequests: 256Mi
+  memoryLimits: 512Mi
+  cpuLimits: 1
+  environment:
+    NODE_ENV: production
+    REFORM_TEAM: cmc
+    REFORM_SERVICE_NAME: legal-frontend
+    REFORM_ENVIRONMENT: preview
+    UV_THREADPOOL_SIZE: 64
+    GA_TRACKING_ID: UA-00000000-0
+    SERVICE_SURVEY_URL: http://www.smartsurvey.co.uk/s/not-a-real-legal-service-survey/
+    FEEDBACK_SURVEY_URL: http://www.smartsurvey.co.uk/s/not-a-real-legal-service-survey/
+    REPORT_PROBLEM_SURVEY_URL: http://www.smartsurvey.co.uk/s/not-a-real-legal-service-survey/
+    FEATURE_TESTING_SUPPORT: true
+    FEATURE_RETURN_ERROR_TO_USER: true
+    FEATURE_CERTIFICATE_OF_SERVICE: false
+    FEATURE_DASHBOARD: true
+    FEATURE_INVERSION_OF_CONTROL: false
+  keyVaults:
+    cmc:
+      resourceGroup: cmc
+      secrets:
+      - AppInsightsInstrumentationKey
+      - legal-oauth-client-secret
+      - cmc-s2s-secret
+      - legal-draft-store-primary
+      - legal-draft-store-secondary
+      - legal-cookie-encryption-key
