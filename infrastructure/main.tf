@@ -29,7 +29,7 @@ data "azurerm_key_vault_secret" "oauth_client_secret" {
 }
 
 locals {
-  aseName = "${data.terraform_remote_state.core_apps_compute.ase_name[0]}"
+  aseName = "core-compute-${var.env}"
 
   local_env = "${(var.env == "preview" || var.env == "spreview") ? (var.env == "preview" ) ? "aat" : "saat" : var.env}"
   local_ase = "${(var.env == "preview" || var.env == "spreview") ? (var.env == "preview" ) ? "core-compute-aat" : "core-compute-saat" : local.aseName}"
@@ -47,7 +47,7 @@ locals {
 }
 
 module "legal-frontend" {
-  source = "git@github.com:hmcts/moj-module-webapp.git?ref=master"
+  source = "git@github.com:hmcts/cnp-module-webapp?ref=master"
   product = "${var.product}-${var.microservice}"
   location = "${var.location}"
   env = "${var.env}"
@@ -108,6 +108,7 @@ module "legal-frontend" {
     FEATURE_TESTING_SUPPORT = "${var.env == "prod" ? "false" : "true"}" // Enabled everywhere except prod
     FEATURE_DASHBOARD = "${var.feature_dashboard}"
     FEATURE_CERTIFICATE_OF_SERVICE = "${var.feature_certificateOfService}"
+    FEATURE_INVERSION_OF_CONTROL = "${var.feature_inversionOfControl}"
     FEATURE_RETURN_ERROR_TO_USER = "${var.feature_return_error_to_user}"
   }
 }
