@@ -57,7 +57,7 @@
     "applicationinsights": "^1.0.2",
     "body-parser": "^1.17.2",
     "cfb": "^1.0.1",
-    "class-transformer": "^0.1.7",
+    "class-transformer": "^0.2.0",
     "class-validator": "^0.8.1",
     "config": "^2.0.0",
     "continuation-local-storage": "^3.2.1",
