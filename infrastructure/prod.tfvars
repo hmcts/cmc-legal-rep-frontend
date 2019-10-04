@@ -1,5 +1,5 @@
 idam_api_url = "https://idam-api.platform.hmcts.net"
-authentication_web_url = "https://www.idam.platform.hmcts.net"
+authentication_web_url = "https://hmcts-access.service.gov.uk"
 fees_api_url = "https://fees-register-api.platform.hmcts.net"
 payments_api_url = "https://payment.platform.hmcts.net"
 feature_certificateOfService = "false"
