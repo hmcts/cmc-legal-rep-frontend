@@ -10,7 +10,7 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
-    image: hmcts.azurecr.io/hmcts/cmc-legal-frontend
+    image: hmctspublic.azurecr.io/cmc/legal-frontend
     environment:
         - PORT=3401
         - IDAM_AUTHENTICATION_WEB_URL=https://idam-test.dev.ccidam.reform.hmcts.net
@@ -31,4 +31,4 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
-    image: hmcts/cmc-legal-integration-tests
+    image: hmctspublic.azurecr.io/cmc/legal-integration-tests

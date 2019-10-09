@@ -44,6 +44,10 @@ variable "feature_certificateOfService" {
   default = "false"
 }
 
+variable "feature_inversionOfControl" {
+  default = "false"
+}
+
 variable "feature_return_error_to_user" {
   default = "false"
 }
