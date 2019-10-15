@@ -1,5 +1,6 @@
 feature_certificateOfService = "false"
 feature_return_error_to_user = "true"
+feature_inversionOfControl = "true"
 external_host_name = "moneyclaims-legal.aat.platform.hmcts.net"
 
 idam_api_url = "https://idam-api.aat.platform.hmcts.net"
