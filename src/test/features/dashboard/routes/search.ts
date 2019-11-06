@@ -44,8 +44,8 @@ describe('Dashboard: search page', () => {
       await request(app)
         .post(DashboardPaths.searchPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .send({ reference: '' })
-        .expect(res => expect(res).to.be.successful.withText(pageText, 'div class="error-summary"', 'Enter your claim number'))
+        .send({ reference: 'notavalidreference' })
+        .expect(res => expect(res).to.be.successful.withText(pageText, 'div class="error-summary"', 'Search by claim number'))
     })
 
     it('should return 500 and render error page when form is valid and cannot save draft', async () => {
