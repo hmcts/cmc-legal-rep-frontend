@@ -1,5 +1,4 @@
 import { request } from 'integration-test/helpers/clients/base/request'
-import { ErrorLogger } from 'logging/errorLogger'
 
 const baseURL: string = process.env.IDAM_URL
 
@@ -61,21 +60,10 @@ export class IdamClient {
       }
     }
 
-    try {
-      return request(options)
-        .then(function (response) {
-          return response.code
-        })
-        .then(function (response) {
-          return IdamClient.exchangeCode(response)
-            .then(function (response) {
-              return response
-            })
-        })
-    } catch (err) {
-      const errorLogger = new ErrorLogger()
-      errorLogger.log(err)
-    }
+    return request(options)
+      .then(function (response) {
+        return response.code
+      })
   }
 
   static exchangeCode (code: string): Promise<string> {
