@@ -16,25 +16,27 @@ export class IdamClient {
    * Creates user with default password
    *
    * @param {string} email
-   * @param {string} userGroupCode
-   * @param {string} password
+   * @param {string} userRoleCode
+   * @param password the user's password, will use a default if undefined
    * @returns {Promise<void>}
    */
-  static createUser (email: string, userGroupCode: string, password: string = undefined): Promise<void> {
-    return request.post({
+  static createUser (email: string, userRoleCode: string, password: string = undefined): Promise<void> {
+    const options = {
+      method: 'POST',
       uri: `${baseURL}/testing-support/accounts`,
       body: {
         email: email,
         forename: 'John',
         surname: 'Smith',
-        levelOfAccess: 1,
-        userGroup: {
-          code: userGroupCode
-        },
+        levelOfAccess: 0,
+        roles: [{ code: userRoleCode }],
         activationDate: '',
         lastAccess: '',
         password: password ? password : defaultPassword
       }
+    }
+    return request(options).then(function () {
+      return Promise.resolve()
     })
   }
 
@@ -90,11 +92,14 @@ export class IdamClient {
    * @returns {Promise<User>}
    */
   static retrieveUser (jwt: string): Promise<User> {
-    return request.get({
+    const options = {
       uri: `${baseURL}/details`,
       headers: {
         Authorization: `Bearer ${jwt}`
       }
+    }
+    return request(options).then(function (response) {
+      return response
     })
   }
 
