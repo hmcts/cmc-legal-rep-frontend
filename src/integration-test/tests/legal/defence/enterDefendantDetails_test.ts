@@ -12,7 +12,7 @@ Feature('Defendants Enter details of claim')
 
 Scenario('I can fill in Claimant organization, more Defendant details and update their details @legal', function* (I: I) {
   const userEmail = yield I.createSolicitorUser()
-  userSteps.loginAndStartClaim(userEmail)
+  userSteps.loginAndStartClaim(userEmail, process.env.SMOKE_TEST_USER_PASSWORD)
   userSteps.enterClaimantServiceDetails()
   userSteps.enterClaimantTypeOrganisation()
   I.see('Claimant: ' + verifyPageData.claimantOrganization)
@@ -42,7 +42,7 @@ Scenario('I can fill in Claimant organization, more Defendant details and update
 
 Scenario('I can fill in Claimant individual and Defendant individual details @legal', function* (I: I) {
   const userEmail = yield I.createSolicitorUser()
-  userSteps.loginAndStartClaim(userEmail)
+  userSteps.loginAndStartClaim(userEmail, process.env.SMOKE_TEST_USER_PASSWORD)
   userSteps.enterClaimantServiceDetails()
   userSteps.enterClaimantTypeIndividual()
   I.see('Claimant: Mr Benugo')

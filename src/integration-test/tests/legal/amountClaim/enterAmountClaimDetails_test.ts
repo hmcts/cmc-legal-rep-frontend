@@ -18,7 +18,7 @@ Feature('Enter claim amount and submit claim')
 
 Scenario('I can fill in Organisation details for Claimant, Defendant, Claim amount and Submit the claim @legal @quick', function* (I: I) {
   const userEmail = yield I.createSolicitorUser()
-  userSteps.loginAndStartClaim(userEmail, '')
+  userSteps.loginAndStartClaim(userEmail, process.env.SMOKE_TEST_USER_PASSWORD)
   userSteps.enterClaimantServiceDetails()
   userSteps.enterClaimantTypeOrganisation()
   I.see('Claimant: ' + verifyPageData.claimantOrganization)
@@ -40,7 +40,7 @@ Scenario('I can fill in Organisation details for Claimant, Defendant, Claim amou
 
 Scenario('I can fill only mandatory fields and submit the claim @legal', function* (I: I) {
   const userEmail = yield I.createSolicitorUser()
-  userSteps.loginAndStartClaim(userEmail, '')
+  userSteps.loginAndStartClaim(userEmail, process.env.SMOKE_TEST_USER_PASSWORD)
   userSteps.enterMandatoryClaimantServiceDetails()
   userSteps.enterMandatoryClaimantAddressDetails()
   userSteps.noAdditionalClaimant()
@@ -55,7 +55,7 @@ Scenario('I can fill only mandatory fields and submit the claim @legal', functio
 
 Scenario('I can fill in individual details for Claimant, Defendant, Claim amount and Submit the claim @legal @quick', function* (I: I) {
   const userEmail = yield I.createSolicitorUser()
-  userSteps.loginAndStartClaim(userEmail, '')
+  userSteps.loginAndStartClaim(userEmail, process.env.SMOKE_TEST_USER_PASSWORD)
   userSteps.enterClaimantServiceDetails()
   userSteps.enterClaimantTypeIndividual()
   I.see('Claimant: Mr Benugo')
@@ -77,7 +77,7 @@ Scenario('I can fill in individual details for Claimant, Defendant, Claim amount
 
 Scenario('I can fill in Organisation details for Claimant, Defendant and no Claim amount details @legal', function* (I: I) {
   const userEmail = yield I.createSolicitorUser()
-  userSteps.loginAndStartClaim(userEmail, '')
+  userSteps.loginAndStartClaim(userEmail, process.env.SMOKE_TEST_USER_PASSWORD)
   userSteps.enterClaimantServiceDetails()
   userSteps.enterClaimantTypeOrganisation()
   I.see('Claimant: ' + verifyPageData.claimantOrganization)
@@ -95,28 +95,28 @@ Scenario('I can fill in Organisation details for Claimant, Defendant and no Clai
 
 Scenario('Check personal injury more than 1000 @legal', function* (I: I) {
   const userEmail = yield I.createSolicitorUser()
-  userSteps.loginAndStartClaim(userEmail, '')
+  userSteps.loginAndStartClaim(userEmail, process.env.SMOKE_TEST_USER_PASSWORD)
   amountClaimSteps.personalInjuryMoreThan1000()
   I.seeInCurrentUrl('housing-disrepair')
 })
 
 Scenario('Check housing disrepair more than 1000 @legal', function* (I: I) {
   const userEmail = yield I.createSolicitorUser()
-  userSteps.loginAndStartClaim(userEmail, '')
+  userSteps.loginAndStartClaim(userEmail, process.env.SMOKE_TEST_USER_PASSWORD)
   amountClaimSteps.housingDisrepairMoreThan1000()
   I.seeInCurrentUrl('summarise-the-claim')
 })
 
 Scenario('Check housing disrepair less than 1000 and no other damages @legal', function* (I: I) {
   const userEmail = yield I.createSolicitorUser()
-  userSteps.loginAndStartClaim(userEmail, '')
+  userSteps.loginAndStartClaim(userEmail, process.env.SMOKE_TEST_USER_PASSWORD)
   amountClaimSteps.housingDisrepairLessThan1000AndNoOtherDamages()
   I.seeInCurrentUrl('summarise-the-claim')
 })
 
 Scenario('Check higher value in amount claim Page @legal', function* (I: I) {
   const userEmail = yield I.createSolicitorUser()
-  userSteps.loginAndStartClaim(userEmail, '')
+  userSteps.loginAndStartClaim(userEmail, process.env.SMOKE_TEST_USER_PASSWORD)
   amountClaimSteps.enterOnlyHigherValueAmount()
   I.seeInCurrentUrl('total')
 })
