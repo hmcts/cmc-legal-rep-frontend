@@ -59,11 +59,13 @@ export class IdamClient {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
     }
-
-    return request(options)
-      .then(function (response) {
-        return response.code
+    return request(options).then(function (response) {
+      return response.code
+    }).then(function (response) {
+      return IdamClient.exchangeCode(response).then(function (response) {
+        return response
       })
+    })
   }
 
   static exchangeCode (code: string): Promise<string> {
