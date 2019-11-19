@@ -2,12 +2,12 @@ import { IdamClient } from 'integration-test/helpers/clients/idamClient'
 
 class IdamHelper extends codecept_helper {
   createSolicitorUser (): Promise<string> {
-    return this.createRandomUser('cmc-solicitor')
+    return this.createRandomUser()
   }
 
-  private async createRandomUser (userGroupCode: string): Promise<string> {
+  private async createRandomUser (): Promise<string> {
     const email: string = this.generateRandomEmailAddress()
-    await IdamClient.createUser(email, userGroupCode)
+    await IdamClient.createUser(email, process.env.SMOKE_TEST_USER_PASSWORD)
     return email
   }
 
