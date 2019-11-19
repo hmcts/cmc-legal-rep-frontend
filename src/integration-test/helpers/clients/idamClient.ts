@@ -20,7 +20,7 @@ export class IdamClient {
    * @param password the user's password, will use a default if undefined
    * @returns {Promise<void>}
    */
-  static createUser (email: string, userRoleCode: string, password: string = undefined): Promise<void> {
+  static createUser (email: string, password: string = undefined): Promise<void> {
     const options = {
       method: 'POST',
       uri: `${baseURL}/testing-support/accounts`,
@@ -29,7 +29,7 @@ export class IdamClient {
         forename: 'John',
         surname: 'Smith',
         levelOfAccess: 0,
-        roles: [{ code: userRoleCode }],
+        roles: [{ code: 'solicitor' }, { code: 'caseworker-cmc-solicitor' }, { code: 'caseworker-cmc' }],
         activationDate: '',
         lastAccess: '',
         password: password ? password : defaultPassword
