@@ -83,10 +83,7 @@ async function createSmokeTestsUserIfDoesntExist (username: string, password: st
   try {
     console.log('Attempting to authenticate user: ', username)
 
-    const response = await IdamClient.authenticateUser(username, password)
-    console.log(response)
-    console.log(await IdamClient.exchangeCode(response))
-    return await IdamClient.exchangeCode(response)
+    return await IdamClient.authenticateUser(username, password)
   } catch (err) {
     console.log('Failed to authenticate user because of: ', `${err.response.statusCode} - ${err.response.body}`)
     await IdamClient.createUser(username, password)
