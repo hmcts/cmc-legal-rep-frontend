@@ -7,7 +7,7 @@ class IdamHelper extends codecept_helper {
 
   private async createRandomUser (): Promise<string> {
     const email: string = this.generateRandomEmailAddress()
-    await IdamClient.createUser(email, process.env.SMOKE_TEST_USER_PASSWORD)
+    await IdamClient.createUser(email)
     return email
   }
 
