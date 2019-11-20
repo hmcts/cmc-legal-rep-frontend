@@ -80,7 +80,7 @@ async function createSmokeTestsUserIfDoesntExist (username: string, password: st
     return undefined
   }
 
-  console.log(process.env.SMOKE_TEST_SOLICITOR_USERNAME.substr(0, process.env.SMOKE_TEST_SOLICITOR_USERNAME.indexOf(',')))
+  console.log(process.env.SMOKE_TEST_SOLICITOR_USERNAME.substr(0, process.env.SMOKE_TEST_SOLICITOR_USERNAME.indexOf('@')))
 
   try {
     console.log('Attempting to authenticate user: ', username)
