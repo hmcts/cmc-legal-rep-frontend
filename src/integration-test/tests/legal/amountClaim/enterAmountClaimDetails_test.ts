@@ -121,7 +121,7 @@ Scenario('Check higher value in amount claim Page @legal', function* (I: I) {
   I.seeInCurrentUrl('total')
 })
 
-Scenario('I can fill both Claimant, Defendant details move up to submit claim @legal-smoke-test', function* (I: I) {
+Scenario('I can fill both Claimant, Defendant details move up to submit claim @smoke-test', function* (I: I) {
   userSteps.loginAndStartClaim(SMOKE_TEST_SOLICITOR_USERNAME, SMOKE_TEST_USER_PASSWORD)
   userSteps.enterClaimantServiceDetails()
   userSteps.enterClaimantTypeOrganisation()
