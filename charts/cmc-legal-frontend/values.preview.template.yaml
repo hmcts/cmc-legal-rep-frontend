@@ -17,4 +17,4 @@ nodejs:
 idam-pr:
   redirect_uris:
     Money Claims - Legal:
-      - https://${SERVICE_FQDN}/receiver
+      - https://${SERVICE_FQDN}/legal/receiver
