@@ -16,6 +16,6 @@ if [[ "${1}" != "--no-build" ]]; then
   docker-compose -f ${ADDITIONAL_COMPOSE_FILE} build legal-integration-tests
 fi
 docker-compose -f ${ADDITIONAL_COMPOSE_FILE} up --no-color -d remote-webdriver
-docker-compose -f ${ADDITIONAL_COMPOSE_FILE} run legal-integration-tests
+docker-compose -f ${ADDITIONAL_COMPOSE_FILE} run -u `id -u $USER` legal-integration-tests
 docker-compose -f ${ADDITIONAL_COMPOSE_FILE} down
 

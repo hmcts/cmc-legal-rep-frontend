@@ -3,7 +3,7 @@ version: '2.1'
 services:
     legal-integration-tests:
       image: hmctspublic.azurecr.io/cmc/legal-integration-tests:${LEGAL_INTEGRATION_TESTS_VERSION:-latest}
-      command: test:integration --grep '@legal($$| )'
+      command: test:integration --grep @legal
       environment:
         - WEB_DRIVER_HOST=remote-webdriver
         - LEGAL_APP_URL=${TEST_URL}
