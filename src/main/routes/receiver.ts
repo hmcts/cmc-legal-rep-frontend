@@ -38,7 +38,7 @@ async function getOAuthAccessToken (req: express.Request, receiver: RoutablePath
 }
 
 async function getAuthToken (req: express.Request,
-                             receiver: RoutablePath = AppPaths.oldReceiver,
+                             receiver: RoutablePath = AppPaths.receiver,
                              checkCookie = true): Promise<string> {
   let authenticationToken
   if (req.query.code) {

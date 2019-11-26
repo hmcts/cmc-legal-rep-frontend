@@ -1,3 +1,6 @@
+require('ts-node/register')
+require('tsconfig-paths/register')
+
 const ProxySettings = require('./src/integration-test/config/proxy-settings').ProxySettings
 
 exports.config = {

@@ -7,7 +7,7 @@ Feature('Claimant Enter details of claim')
 
 Scenario('I can fill in two claimants and update their details @legal', function* (I: I) {
   const userEmail = yield I.createSolicitorUser()
-  userSteps.loginAndStartClaim(userEmail, '')
+  userSteps.loginAndStartClaim(userEmail)
   userSteps.enterClaimantServiceDetails()
   userSteps.enterClaimantTypeIndividual()
   I.see('Claimant: Mr Benugo')
@@ -21,7 +21,7 @@ Scenario('I can fill in two claimants and update their details @legal', function
 
 Scenario('I can save organisation details and populate them in a subsequent claim via cookie info @legal', function* (I: I) {
   const userEmail = yield I.createSolicitorUser()
-  userSteps.loginAndStartClaim(userEmail, '')
+  userSteps.loginAndStartClaim(userEmail)
   userSteps.enterClaimantServiceDetails()
   userSteps.startClaim()
   userSteps.verifyOrganizationDetails()
