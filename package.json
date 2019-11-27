@@ -99,7 +99,7 @@
     "ts-node": "^8.0.3",
     "tsconfig-paths": "^3.1.1",
     "typescript": "^2.4.2",
-    "url-parse": "^1.2.0"
+    "url-parse": "^1.4.3"
   },
   "devDependencies": {
     "@hmcts/cmc-supported-browsers": "^1.0.1",
