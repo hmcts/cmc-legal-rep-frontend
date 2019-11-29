@@ -74,7 +74,7 @@ async function waitTillHealthy (appURL: string) {
   return Promise.reject(error)
 }
 
-async function createSmokeTestsUserIfDoesntExist (username: string, userGroup: string, password: string): Promise<void | string> {
+async function createSmokeTestsUserIfDoesntExist (username: string, password: string): Promise<void | string> {
   if (!(username || password)) {
     console.log('Username or password not set, skipping create')
     return undefined
@@ -86,11 +86,7 @@ async function createSmokeTestsUserIfDoesntExist (username: string, userGroup: s
     return await IdamClient.authenticateUser(username, password)
   } catch (err) {
     console.log('Failed to authenticate user because of: ', `${err.response.statusCode} - ${err.response.body}`)
-    return IdamClient.createUser(
-      username,
-      userGroup,
-      password
-    )
+    await IdamClient.createUser(username, password)
   }
 }
 
@@ -99,7 +95,7 @@ module.exports = async function (done: () => void) {
     await waitTillHealthy(legalAppURL)
     if (process.env.IDAM_URL) {
       if (process.env.SMOKE_TEST_SOLICITOR_USERNAME) {
-        await createSmokeTestsUserIfDoesntExist(process.env.SMOKE_TEST_SOLICITOR_USERNAME, 'cmc-solicitor', process.env.SMOKE_TEST_USER_PASSWORD)
+        await createSmokeTestsUserIfDoesntExist(process.env.SMOKE_TEST_SOLICITOR_USERNAME, process.env.SMOKE_TEST_USER_PASSWORD)
       }
     }
   } catch (error) {
