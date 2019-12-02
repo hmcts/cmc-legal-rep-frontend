@@ -84,7 +84,7 @@
     "moment": "^2.24.0",
     "nock": "^10.0.0",
     "numeral": "^2.0.6",
-    "nunjucks": "^3.0.1",
+    "nunjucks": "^3.2.0",
     "nunjucks-numeral-filter": "^0.0.2",
     "nodelist-foreach-polyfill": "^1.2.0",
     "otp": "^0.1.3",
