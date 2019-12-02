@@ -62,7 +62,7 @@
     "config": "^3.0.0",
     "continuation-local-storage": "^3.2.1",
     "cookie-encrypter": "^1.0.1",
-    "cookie-parser": "^1.4.3",
+    "cookie-parser": "^1.4.4",
     "cross-env": "^5.0.5",
     "csurf": "^1.9.0",
     "express": "^4.15.3",
