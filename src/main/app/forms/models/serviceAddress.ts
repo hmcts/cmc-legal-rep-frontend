@@ -2,7 +2,6 @@ import { IsDefined, IsIn, MaxLength, ValidateIf } from 'class-validator'
 import { Serializable } from 'models/serializable'
 import { YesNo } from 'forms/models/yesNo'
 import { IsNotBlank, IsValidPostcode } from '@hmcts/cmc-validators'
-import { isUndefined } from 'util'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 
 export class ValidationErrors {
@@ -55,10 +54,10 @@ export class ServiceAddress implements Serializable<ServiceAddress> {
           .pop()
       }
 
-      const line1 = isUndefined(value.line1) ? undefined : value.line1.toUpperCase()
-      const line2 = isUndefined(value.line2) ? undefined : value.line2.toUpperCase()
-      const city = isUndefined(value.city) ? undefined : value.city.toUpperCase()
-      const postcode = isUndefined(value.postcode) ? undefined : value.postcode.toUpperCase()
+      const line1 = value.line1 === undefined ? undefined : value.line1.toUpperCase()
+      const line2 = value.line2 === undefined ? undefined : value.line2.toUpperCase()
+      const city = value.city === undefined ? undefined : value.city.toUpperCase()
+      const postcode = value.postcode === undefined ? undefined : value.postcode.toUpperCase()
       return new ServiceAddress(defendantsAddress, line1, line2, city, postcode)
     }
 
