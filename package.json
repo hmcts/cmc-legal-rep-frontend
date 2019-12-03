@@ -55,7 +55,7 @@
     "@types/shortid": "^0.0.29",
     "HTML_CodeSniffer": "https://github.com/squizlabs/HTML_CodeSniffer/archive/2.0.7.tar.gz",
     "applicationinsights": "^1.6.0",
-    "body-parser": "^1.17.2",
+    "body-parser": "^1.19.0",
     "cfb": "^1.1.3",
     "class-transformer": "^0.2.0",
     "class-validator": "^0.8.1",
