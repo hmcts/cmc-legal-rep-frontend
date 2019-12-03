@@ -3,7 +3,6 @@ import { IsDefined, MaxLength } from 'class-validator'
 import { IsNotBlank, IsValidPostcode } from '@hmcts/cmc-validators'
 
 import { Serializable } from 'models/serializable'
-import { isUndefined } from 'util'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 
 export class Address implements Serializable<Address> {
@@ -35,10 +34,10 @@ export class Address implements Serializable<Address> {
 
   static fromObject (value?: any): Address {
     if (value != null) {
-      const line1 = isUndefined(value.line1) ? undefined : value.line1.toUpperCase()
-      const line2 = isUndefined(value.line2) ? undefined : value.line2.toUpperCase()
-      const city = isUndefined(value.city) ? undefined : value.city.toUpperCase()
-      const postcode = isUndefined(value.postcode) ? undefined : value.postcode.toUpperCase()
+      const line1 = value.line1 === undefined ? undefined : value.line1.toUpperCase()
+      const line2 = value.line2 === undefined ? undefined : value.line2.toUpperCase()
+      const city = value.city === undefined ? undefined : value.city.toUpperCase()
+      const postcode = value.postcode === undefined ? undefined : value.postcode.toUpperCase()
       return new Address(line1, line2, city, postcode)
     }
 
