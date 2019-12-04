@@ -19,5 +19,5 @@ services:
       volumes:
         - ./smoke-output:/usr/src/app/output
     remote-webdriver:
-      image: selenium/standalone-chrome:3.8.1
+      image: selenium/standalone-chrome:3.141.59
 
