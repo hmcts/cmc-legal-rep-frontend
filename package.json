@@ -92,7 +92,7 @@
     "read-chunk": "^3.2.0",
     "reflect-metadata": "^0.1.10",
     "request": "^2.83.0",
-    "request-promise-native": "^1.0.4",
+    "request-promise-native": "^1.0.8",
     "require-directory": "^2.1.1",
     "serve-favicon": "^2.4.3",
     "to-boolean": "^1.0.0",
