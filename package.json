@@ -96,7 +96,7 @@
     "serve-favicon": "^2.4.3",
     "to-boolean": "^1.0.0",
     "ts-node": "^8.0.3",
-    "tsconfig-paths": "^3.1.1",
+    "tsconfig-paths": "^3.9.0",
     "typescript": "^2.4.2",
     "url-parse": "^1.4.3"
   },
