@@ -1,4 +1,4 @@
-import { MaxLength, ValidateIf, IsDefined } from 'class-validator'
+import { MaxLength, ValidateIf, IsDefined } from '@hmcts/class-validator'
 import { IsNotBlank } from '@hmcts/cmc-validators'
 import { Serializable } from 'models/serializable'
 import { DocumentType } from 'forms/models/documentType'

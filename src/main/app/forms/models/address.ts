@@ -1,4 +1,4 @@
-import { IsDefined, MaxLength } from 'class-validator'
+import { IsDefined, MaxLength } from '@hmcts/class-validator'
 
 import { IsNotBlank, IsValidPostcode } from '@hmcts/cmc-validators'
 

@@ -4,7 +4,7 @@ import {
   ValidationOptions,
   ValidatorConstraint,
   ValidatorConstraintInterface
-} from 'class-validator'
+} from '@hmcts/class-validator'
 
 @ValidatorConstraint({ name: 'isSelectedAlong' })
 export class IsSelectedAlongConstraint implements ValidatorConstraintInterface {

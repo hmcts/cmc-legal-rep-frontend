@@ -6,7 +6,7 @@ import { FormValidator } from 'forms/validation/formValidator'
 import ErrorHandling from 'shared/errorHandling'
 import { YesNo } from 'forms/models/yesNo'
 
-import { ValidationError } from 'class-validator'
+import { ValidationError } from '@hmcts/class-validator'
 import { ClaimantAddition } from 'forms/models/claimantAddition'
 import { Claimants } from 'shared/router/claimants'
 import { DraftService } from 'services/draftService'

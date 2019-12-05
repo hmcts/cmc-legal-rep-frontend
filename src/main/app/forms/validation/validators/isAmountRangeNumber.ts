@@ -4,7 +4,7 @@ import {
   ValidationOptions,
   ValidatorConstraint,
   ValidatorConstraintInterface
-} from 'class-validator'
+} from '@hmcts/class-validator'
 
 @ValidatorConstraint({ name: 'isAmountRangeNumber' })
 export class IsAmountRangeNumberConstraint implements ValidatorConstraintInterface {

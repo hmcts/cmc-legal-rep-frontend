@@ -1,4 +1,4 @@
-import { IsDefined, IsIn, MaxLength, ValidateIf } from 'class-validator'
+import { IsDefined, IsIn, MaxLength, ValidateIf } from '@hmcts/class-validator'
 import { Serializable } from 'models/serializable'
 import { YesNo } from 'forms/models/yesNo'
 import { IsNotBlank, IsValidPostcode } from '@hmcts/cmc-validators'
