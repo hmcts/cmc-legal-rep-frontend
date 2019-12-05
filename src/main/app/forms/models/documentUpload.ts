@@ -1,5 +1,5 @@
 import { Serializable } from 'models/serializable'
-import { IsDefined } from 'class-validator'
+import { IsDefined } from '@hmcts/class-validator'
 
 export class ValidationErrors {
   static readonly FILE_REQUIRED: string = 'Please upload a file'

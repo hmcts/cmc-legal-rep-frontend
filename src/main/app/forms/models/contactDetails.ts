@@ -1,5 +1,5 @@
 import { Serializable } from 'models/serializable'
-import { IsOptional, MaxLength } from 'class-validator'
+import { IsOptional, MaxLength } from '@hmcts/class-validator'
 import { IsEmail, IsPhoneNumber } from '@hmcts/cmc-validators'
 
 export class ValidationErrors {

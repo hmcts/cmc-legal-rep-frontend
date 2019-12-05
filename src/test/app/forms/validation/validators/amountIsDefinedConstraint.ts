@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { ValidationArguments } from 'class-validator'
+import { ValidationArguments } from '@hmcts/class-validator'
 import { IsAmountRangeDefinedConstraint } from 'forms/validation/validators/isAmountRangeDefined'
 import { Amount } from 'forms/models/amount'
 

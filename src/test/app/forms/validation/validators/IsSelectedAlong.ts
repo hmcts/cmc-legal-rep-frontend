@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { ValidationArguments } from 'class-validator'
+import { ValidationArguments } from '@hmcts/class-validator'
 import { IsSelectedAlongConstraint } from 'forms/validation/validators/isSelectedAlong'
 
 /**
