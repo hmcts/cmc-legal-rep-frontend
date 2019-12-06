@@ -9,7 +9,7 @@ import { DefendantAddition } from 'forms/models/defendantAddition'
 import { YesNo } from 'forms/models/yesNo'
 
 import { DraftService } from 'services/draftService'
-import { ValidationError } from 'class-validator'
+import { ValidationError } from '@hmcts/class-validator'
 import { Draft } from '@hmcts/draft-store-client'
 import { DraftLegalClaim } from 'drafts/models/draftLegalClaim'
 

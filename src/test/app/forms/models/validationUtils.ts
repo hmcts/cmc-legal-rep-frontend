@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import * as _ from 'lodash'
 
-import { ValidationError } from 'class-validator'
+import { ValidationError } from '@hmcts/class-validator'
 
 class Violation {
   constructor (public property: string, public message: string) {

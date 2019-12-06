@@ -1,4 +1,4 @@
-import { IsOptional, MaxLength } from 'class-validator'
+import { IsOptional, MaxLength } from '@hmcts/class-validator'
 import { Serializable } from 'models/serializable'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
 

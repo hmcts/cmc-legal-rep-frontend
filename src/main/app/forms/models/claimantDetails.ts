@@ -1,5 +1,5 @@
 import { Serializable } from 'models/serializable'
-import { IsDefined, IsIn, IsOptional, MaxLength, ValidateIf } from 'class-validator'
+import { IsDefined, IsIn, IsOptional, MaxLength, ValidateIf } from '@hmcts/class-validator'
 import { PartyType as ClaimantType } from 'common/partyType'
 import { IsNotBlank } from '@hmcts/cmc-validators'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'

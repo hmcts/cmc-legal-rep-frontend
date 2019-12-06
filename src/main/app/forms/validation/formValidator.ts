@@ -1,5 +1,5 @@
 import * as express from 'express'
-import { Validator, ValidationError } from 'class-validator'
+import { Validator, ValidationError } from '@hmcts/class-validator'
 
 import { Form } from 'forms/form'
 
