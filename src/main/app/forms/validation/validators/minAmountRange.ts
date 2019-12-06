@@ -4,7 +4,7 @@ import {
   ValidationOptions,
   ValidatorConstraint,
   ValidatorConstraintInterface
-} from 'class-validator'
+} from '@hmcts/class-validator'
 
 @ValidatorConstraint({ name: 'minAmountRange' })
 export class MinAmountRangeConstraint implements ValidatorConstraintInterface {

@@ -1,4 +1,4 @@
-import { MaxLength, IsDefined } from 'class-validator'
+import { MaxLength, IsDefined } from '@hmcts/class-validator'
 import { Serializable } from 'models/serializable'
 import { IsNotBlank } from '@hmcts/cmc-validators'
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'

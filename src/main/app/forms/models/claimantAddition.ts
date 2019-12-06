@@ -1,4 +1,4 @@
-import { IsDefined, IsEnum } from 'class-validator'
+import { IsDefined, IsEnum } from '@hmcts/class-validator'
 import { Serializable } from 'models/serializable'
 import { YesNo } from 'forms/models/yesNo'
 

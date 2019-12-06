@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { ValidationArguments } from 'class-validator'
+import { ValidationArguments } from '@hmcts/class-validator'
 import { MinAmountRangeConstraint } from 'forms/validation/validators/minAmountRange'
 import { Amount } from 'forms/models/amount'
 

@@ -1,5 +1,5 @@
 import { Serializable } from 'models/serializable'
-import { IsDefined } from 'class-validator'
+import { IsDefined } from '@hmcts/class-validator'
 import { IsNotBlank, IsFeeAccount } from '@hmcts/cmc-validators'
 
 export class ValidationErrors {
