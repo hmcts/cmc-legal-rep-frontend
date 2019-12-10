@@ -15,8 +15,9 @@ const govUkElementRoot = path.join(repoRoot, 'node_modules/govuk-elements-sass/p
 const assetsDirectory = './src/main/public'
 const stylesheetsDirectory = `${assetsDirectory}/stylesheets`
 
-gulp.task('sass', () => {
+gulp.task('sass', (done) => {
   gulp.src(stylesheetsDirectory + '/*.scss')
+    .pipe(plumber())
     .pipe(sass({
       includePaths: [
         govUkFrontendToolkitRoot,
@@ -27,9 +28,10 @@ gulp.task('sass', () => {
     .pipe(sass())
     .pipe(gulp.dest(stylesheetsDirectory))
     .pipe(livereload())
+    done()
 })
 
-gulp.task('copy-files', () => {
+gulp.task('copy-files', (done) => {
   gulp.src([
     './node_modules/jquery/dist/jquery.min.js',
     './node_modules/govuk_frontend_toolkit/javascripts/**/*.js',
@@ -82,13 +84,16 @@ gulp.task('copy-files', () => {
   gulp.src('./node_modules/nodelist-foreach-polyfill/index.js')
     .pipe(rename('nodelist-foreach-polyfill.js'))
     .pipe(gulp.dest(`${assetsDirectory}/js/lib/`))
+
+  done()
 })
 
-gulp.task('watch', () => {
-  gulp.watch(stylesheetsDirectory + '/**/*.scss', [ 'sass' ])
+gulp.task('watch', (done) => {
+  gulp.watch(stylesheetsDirectory + '/**/*.scss', gulp.series('sass'))
+  done()
 })
 
-gulp.task('develop', () => {
+gulp.task('develop', (done) => {
   setTimeout(() => {
   livereload.listen({
         key: fs.readFileSync(path.join(__dirname, 'src', 'main', 'resources', 'localhost-ssl', 'localhost.key'), 'utf-8'),
@@ -107,11 +112,18 @@ gulp.task('develop', () => {
       this.stderr.pipe(process.stderr)
     })
   }, 500)
+  done()
 })
 
-gulp.task('default', [
-  'sass',
-  'copy-files',
-  'develop',
-  'watch'
-])
+gulp.task('default',
+  gulp.series(
+    gulp.parallel(
+      'sass',
+      'copy-files',
+    ),
+    gulp.parallel(
+      'develop',
+      'watch'
+    )
+  )
+)
