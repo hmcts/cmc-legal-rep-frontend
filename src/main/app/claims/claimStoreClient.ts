@@ -68,9 +68,9 @@ export default class ClaimStoreClient {
       })
       .then((claims: object[]) => {
         if (claims.length === 0) {
-          return Promise.reject(new Error('No claim found for external reference ' + externalReference)) as Promise<Claim>
+          return Promise.reject(new Error('No claim found for external reference ' + externalReference))
         } else if (claims.length > 1) {
-          return Promise.reject(new Error('More than one claims found for external reference ' + externalReference)) as Promise<Claim>
+          return Promise.reject(new Error('More than one claims found for external reference ' + externalReference))
         } else {
           return new Claim().deserialize(claims[0])
         }
