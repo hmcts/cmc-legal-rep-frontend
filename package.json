@@ -108,7 +108,7 @@
     "@types/mocha": "*",
     "@types/sinon-chai": "^3.2.0",
     "@types/supertest": "*",
-    "chai": "^4.1.1",
+    "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-spies": "^1.0.0",
     "codeceptjs": "^1.1.6",
