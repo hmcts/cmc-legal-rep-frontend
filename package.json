@@ -49,7 +49,7 @@
     "@types/left-pad": "^1.1.1",
     "@types/lodash": "^4.14.149",
     "@types/nock": "^10.0.0",
-    "@types/node": "^11.9.0",
+    "@types/node": "^12.12.17",
     "@types/nunjucks": "^3.1.3",
     "@types/request-promise-native": "^1.0.16",
     "@types/shortid": "^0.0.29",
