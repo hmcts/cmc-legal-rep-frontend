@@ -39,7 +39,7 @@
     "@hmcts/info-provider": "^1.0.0",
     "@hmcts/nodejs-healthcheck": "^1.5.1",
     "@hmcts/nodejs-logging": "^3.0.0",
-    "@hmcts/requestretry": "^1.1.0",
+    "@hmcts/requestretry": "^1.1.2",
     "@hmcts/cmc-validators": "^0.2.3",
     "@hmcts/properties-volume": "0.0.9",
     "@types/config": "^0.0.36",
