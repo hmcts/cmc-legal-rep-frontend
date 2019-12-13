@@ -167,9 +167,10 @@
     lodash "^4.17.11"
     path "^0.12.7"
 
-"@hmcts/requestretry@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@hmcts/requestretry/-/requestretry-1.1.0.tgz#5d9a1734571e435ed025ee21ec432beee5f0c41e"
+"@hmcts/requestretry@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@hmcts/requestretry/-/requestretry-1.1.2.tgz#e0bca727abce98702a48b17a83984febd8ae3198"
+  integrity sha512-VcYcPzgoDPWCTiz+gEry3Wxw1Z1+YnkEg13TO95TAbmAYF9RhZ8UM5lo/bR/KEudJ1GEcyjstR/c9jTkyZc3Sw==
   dependencies:
     extend "^3.0.0"
     lodash "^4.15.0"
@@ -4650,23 +4651,10 @@ lodash@^3.10.1, lodash@^3.3.1:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-lodash@^4.0.0, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.3.0, lodash@~4.17.4:
-  version "4.17.4"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
-
-lodash@^4.17.11:
-  version "4.17.11"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
-  integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
-
-lodash@^4.17.13, lodash@^4.17.15:
+lodash@^4.0.0, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.15, lodash@^4.3.0, lodash@^4.8.0, lodash@~4.17.4:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
-
-lodash@^4.8.0:
-  version "4.17.5"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
 
 log-symbols@2.2.0:
   version "2.2.0"
