@@ -167,7 +167,7 @@
     lodash "^4.17.11"
     path "^0.12.7"
 
-"@hmcts/requestretry@^1.1.2":
+"@hmcts/requestretry@^1.1.0":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@hmcts/requestretry/-/requestretry-1.1.2.tgz#e0bca727abce98702a48b17a83984febd8ae3198"
   integrity sha512-VcYcPzgoDPWCTiz+gEry3Wxw1Z1+YnkEg13TO95TAbmAYF9RhZ8UM5lo/bR/KEudJ1GEcyjstR/c9jTkyZc3Sw==
@@ -2481,7 +2481,7 @@ expect-ct@0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/expect-ct/-/expect-ct-0.1.0.tgz#52735678de18530890d8d7b95f0ac63640958094"
 
-express@^4.16.2, express@^4.17.1:
+express@^4.15.3, express@^4.16.2:
   version "4.17.1"
   resolved "https://registry.yarnpkg.com/express/-/express-4.17.1.tgz#4491fc38605cf51f8629d39c2b5d026f98a4c134"
   integrity sha512-mHJ9O79RqluphRrcw2X/GTh3k9tVv8YcoyY4Kkh4WDMUYKRZUq0h1o0w2rrrxBqM7VoeUVqgb27xlEMXTnYt4g==
