@@ -113,7 +113,7 @@
     "chai-spies": "^1.0.0",
     "codeceptjs": "^1.1.6",
     "gulp": "^4.0.2",
-    "gulp-livereload": "^4.0.0",
+    "gulp-livereload": "^4.0.2",
     "gulp-nodemon": "^2.4.2",
     "gulp-plumber": "^1.2.1",
     "gulp-rename": "^2.0.0",
