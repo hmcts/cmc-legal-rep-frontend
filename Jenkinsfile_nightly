@@ -18,11 +18,10 @@ env.SAUCELABS_BROWSER = 'chrome_win_latest'
 env.SAUCELABS_TUNNEL_IDENTIFIER = 'reformtunnel'
 env.SAUCELABS_USERNAME = 'username'
 env.SAUCELABS_ACCESS_KEY = 'privatekey'
+env.TEST_URL = params.URL_TO_TEST
+env.LEGAL_APP_URL = params.URL_TO_TEST
 
 withNightlyPipeline("nodejs", product, component) {
-  env.TEST_URL = params.URL_TO_TEST
-  env.LEGAL_APP_URL = params.URL_TO_TEST
-
   enableCrossBrowserTest()
   enableSecurityScan()
 
