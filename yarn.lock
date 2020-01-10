@@ -5199,11 +5199,12 @@ mocha-junit-reporter@^1.23.1:
     strip-ansi "^4.0.0"
     xml "^1.0.0"
 
-mocha-multi@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/mocha-multi/-/mocha-multi-1.0.1.tgz#328d62bb947113526a70ba477abc33213c110975"
+mocha-multi@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/mocha-multi/-/mocha-multi-1.1.3.tgz#1cec7a286a26952fa4d1ad25eaaf758d183afde9"
+  integrity sha512-bgjcxvfsMhNaRuXWiudidT8EREN6DRvHdzXqFLOdsLU9+oFTi4qiychVEQ3+TtwL9PwIqaiIastIF/tnVM7NYg==
   dependencies:
-    debug "^3.1.0"
+    debug "^4.1.1"
     is-string "^1.0.4"
     lodash.once "^4.1.1"
     mkdirp "^0.5.1"
