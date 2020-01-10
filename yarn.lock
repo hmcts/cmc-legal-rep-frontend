@@ -194,9 +194,10 @@
     js-yaml "^3.8.4"
     superagent "^3.5.1"
 
-"@hmcts/nodejs-logging@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@hmcts/nodejs-logging/-/nodejs-logging-3.0.0.tgz#81d84cea5528fa57b4162641b427233fca771715"
+"@hmcts/nodejs-logging@^3.0.0", "@hmcts/nodejs-logging@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@hmcts/nodejs-logging/-/nodejs-logging-3.0.1.tgz#370bfee6c1d502ea7fec13001632bb03f15d072d"
+  integrity sha512-BpOBBFvUfy3d/pGi/s0s2CxtNwnLEm1hJcsEH7av9NpXaGL1rO0zfAcEk4eKNKYZVBEoiyXlpajFtAutSAFWfg==
   dependencies:
     moment "^2.19.3"
     on-finished "^2.3.0"
