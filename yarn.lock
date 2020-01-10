@@ -499,6 +499,10 @@
     "@wdio/logger" "5.16.10"
     deepmerge "^4.0.0"
 
+"HTML_CodeSniffer@https://github.com/squizlabs/HTML_CodeSniffer/archive/2.0.7.tar.gz":
+  version "2.0.7"
+  resolved "https://github.com/squizlabs/HTML_CodeSniffer/archive/2.0.7.tar.gz#c3ba952981e1dddad2631a3d6b0a4a63c34690fa"
+
 a-sync-waterfall@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/a-sync-waterfall/-/a-sync-waterfall-1.0.0.tgz#38e8319d79379e24628845b53b96722b29e0e47c"
@@ -3766,7 +3770,7 @@ helmet-csp@2.9.4:
     content-security-policy-builder "2.1.0"
     dasherize "2.0.0"
 
-helmet@^3.21.2:
+helmet@^3.6.1:
   version "3.21.2"
   resolved "https://registry.yarnpkg.com/helmet/-/helmet-3.21.2.tgz#7e2a19d5f6d898a77b5d2858e8e4bb2cda59f19f"
   integrity sha512-okUo+MeWgg00cKB8Csblu8EXgcIoDyb5ZS/3u0W4spCimeVuCUvVZ6Vj3O2VJ1Sxpyb8jCDvzu0L1KKT11pkIg==
@@ -3829,11 +3833,6 @@ html-escaper@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/html-escaper/-/html-escaper-2.0.0.tgz#71e87f931de3fe09e56661ab9a29aadec707b491"
   integrity sha512-a4u9BeERWGu/S8JiWEAQcdrg9v4QArtP9keViQjGMdff20fBdd8waotXaNmODqBe6uZ3Nafi7K/ho4gCQHV3Ig==
-
-html_codesniffer@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/html_codesniffer/-/html_codesniffer-2.4.0.tgz#cfb283347955aafe4ffe7dd28aac8a81e364cdbd"
-  integrity sha512-4LU3IaTLS7hMhueYE6a6G+QuwFkIA9S+V9KCXttnJ9YnJ/Kpl+L7R7aH+nohw1jaf0KjaHqQ7Y2uXgsWNIIxQA==
 
 http-cache-semantics@3.8.1:
   version "3.8.1"
@@ -7217,7 +7216,7 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
 
-sinon-chai@^3.4.0:
+sinon-chai@^3.3.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/sinon-chai/-/sinon-chai-3.4.0.tgz#06fb88dee80decc565106a3061d380007f21e18d"
   integrity sha512-BpVxsjEkGi6XPbDXrgWUe7Cb1ZzIfxKUbu/MmH5RoUnS7AXpKo3aIYIyQUg0FMvlUL05aPt7VZuAdaeQhEnWxg==
@@ -8065,7 +8064,7 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@^3.7.4:
+typescript@^3.0.0:
   version "3.7.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.4.tgz#1743a5ec5fef6a1fa9f3e4708e33c81c73876c19"
   integrity sha512-A25xv5XCtarLwXpcDNZzCGvW2D1S3/bACratYBx2sax8PefsFhlYmkQicKHvpYflFS8if4zne5zT5kpJ7pzuvw==
