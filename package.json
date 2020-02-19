@@ -169,5 +169,8 @@
     "fsevents": "2.1.2",
     "node-gyp": "6.1.0",
     "node-sass": "4.13.1"
+  },
+  "optionalDependencies": {
+    "fsevents": "*"
   }
 }
