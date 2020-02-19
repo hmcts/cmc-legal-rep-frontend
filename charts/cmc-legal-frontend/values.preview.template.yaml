@@ -6,13 +6,9 @@ nodejs:
   ingressHost: ${SERVICE_FQDN}
   environment:
     LOG_LEVEL: DEBUG
-    IDAM_API_URL: https://idam-api.aat.platform.hmcts.net
-    IDAM_AUTHENTICATION_WEB_URL: https://idam-web-public.aat.platform.hmcts.net
-    IDAM_S2S_AUTH: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
-    PAY_URL: http://payment-api-aat.service.core-compute-aat.internal
-    FEES_URL: http://fees-register-api-aat.service.core-compute-aat.internal
-    CLAIM_STORE_URL: http://cmc-claim-store-aat.service.core-compute-aat.internal
-    DRAFT_STORE_URL: http://draft-store-service-aat.service.core-compute-aat.internal
+
+    FEATURE_TESTING_SUPPORT: true
+    FEATURE_RETURN_ERROR_TO_USER: true
 
 idam-pr:
   redirect_uris:
