@@ -11,6 +11,7 @@ nodejs:
     FEATURE_RETURN_ERROR_TO_USER: true
 
 idam-pr:
+  enabled: true
   redirect_uris:
     Money Claims - Legal:
       - https://${SERVICE_FQDN}/receiver
