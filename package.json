@@ -117,7 +117,7 @@
     "husky": "^3.1.0",
     "mocha": "^7.0.0",
     "mocha-junit-reporter": "^1.23.1",
-    "mocha-multi": "^1.0.1",
+    "mocha-multi": "^1.1.3",
     "mochawesome": "^4.0.0",
     "mock-require": "^3.0.3",
     "nock": "11.7.2",
