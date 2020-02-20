@@ -5,5 +5,4 @@ dependencies:
   - name: idam-pr
     version: ~2.1.0
     repository: '@hmctspublic'
-    tags:
-      - idam-pr
+    condition: idam-pr.enabled
