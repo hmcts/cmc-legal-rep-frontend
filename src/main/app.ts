@@ -4,7 +4,6 @@ import * as path from 'path'
 import * as favicon from 'serve-favicon'
 import * as cookieParser from 'cookie-parser'
 import * as cookieEncrypter from 'cookie-encrypter'
-import * as bodyParser from 'body-parser'
 import { ForbiddenError, NotFoundError } from './errors'
 import { ErrorLogger } from 'logging/errorLogger'
 import { RouterFinder } from 'shared/router/routerFinder'
@@ -36,10 +35,8 @@ new Helmet(config.get<HelmetConfig>('security'), developmentMode)
 
 app.enable('trust proxy')
 app.use(favicon(path.join(__dirname, '/public/img/lib/favicon.ico')))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({
-  extended: true
-}))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 app.use(cookieParser(config.get('secrets.cmc.legal-cookie-encryption-key')))
 app.use(cookieEncrypter(config.get('secrets.cmc.legal-cookie-encryption-key'), CookieProperties.getCookieConfig()))
