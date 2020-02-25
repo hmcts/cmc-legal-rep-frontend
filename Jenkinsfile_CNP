@@ -1,6 +1,6 @@
 #!groovy
 
-@Library("Infrastructure@optional-deps")
+@Library("Infrastructure')
 
 String product = "cmc"
 String component = "legal-frontend"

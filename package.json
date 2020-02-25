@@ -109,7 +109,6 @@
     "codeceptjs": "2.5.0",
     "gulp": "^4.0.2",
     "gulp-livereload": "^4.0.2",
-    "gulp-nodemon": "^2.4.2",
     "gulp-plumber": "^1.2.1",
     "gulp-rename": "^2.0.0",
     "gulp-replace": "^1.0.0",
@@ -121,6 +120,7 @@
     "mochawesome": "^4.0.0",
     "mock-require": "^3.0.3",
     "nock": "11.7.2",
+    "nodemon": "^2.0.2",
     "nyc": "^15.0.0",
     "pa11y": "^5.3.0",
     "sass-lint": "^1.13.1",
@@ -166,13 +166,6 @@
     }
   },
   "resolutions": {
-    "fsevents": "2.1.2",
-    "node-gyp": "6.1.0",
-    "node-sass": "4.13.1",
-    "nodemon": "2.0.2",
-    "chokidar": "3.3.1"
-  },
-  "optionalDependencies": {
-    "fsevents": "*"
+    "node-sass": "4.13.1"
   }
 }

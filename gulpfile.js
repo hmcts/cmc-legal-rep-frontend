@@ -1,5 +1,4 @@
 const gulp = require('gulp')
-const nodemon = require('gulp-nodemon')
 const plumber = require('gulp-plumber')
 const livereload = require('gulp-livereload')
 const sass = require('gulp-sass')
@@ -93,28 +92,6 @@ gulp.task('watch', (done) => {
   done()
 })
 
-gulp.task('develop', (done) => {
-  setTimeout(() => {
-  livereload.listen({
-        key: fs.readFileSync(path.join(__dirname, 'src', 'main', 'resources', 'localhost-ssl', 'localhost.key'), 'utf-8'),
-        cert: fs.readFileSync(path.join(__dirname, 'src', 'main', 'resources', 'localhost-ssl', 'localhost.crt'), 'utf-8'),
-      })
-    nodemon({
-      ext: 'ts js po',
-      stdout: true
-    }).on('readable', () => {
-      this.stdout.on('data', function (chunk) {
-        if (/^Application started on port/.test(chunk)) {
-          livereload.changed(__dirname)
-        }
-      })
-      this.stdout.pipe(process.stdout)
-      this.stderr.pipe(process.stderr)
-    })
-  }, 500)
-  done()
-})
-
 gulp.task('default',
   gulp.series(
     gulp.parallel(
@@ -122,7 +99,6 @@ gulp.task('default',
       'copy-files',
     ),
     gulp.parallel(
-      'develop',
       'watch'
     )
   )
