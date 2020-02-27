@@ -1,14 +1,15 @@
 # ---- Base image ----
 FROM hmctspublic.azurecr.io/base/node:12-alpine as base
-RUN yarn config set proxy "$http_proxy" && yarn config set https-proxy "$https_proxy"
 COPY package.json yarn.lock ./
-RUN yarn install --ignore-optional --production \
+COPY tsconfig.json tsconfig.prod.json ./
+COPY config ./config
+RUN yarn install --production \
   && yarn cache clean
 
 # ---- Build image ----
 FROM base as build
-RUN yarn install --ignore-optional
-COPY tsconfig.json tsconfig.prod.json gulpfile.js ./
+RUN yarn install
+COPY gulpfile.js ./
 COPY --chown=hmcts:hmcts src/main ./src/main
 RUN yarn compile \
   && yarn setup
@@ -16,7 +17,5 @@ RUN yarn compile \
 # ---- Runtime image ----
 FROM base as runtime
 COPY --from=build $WORKDIR/src/main ./src/main
-COPY --from=build $WORKDIR/tsconfig.json $WORKDIR/tsconfig.prod.json ./
-COPY config ./config
 EXPOSE 4000
 CMD [ "yarn", "start-prod" ]

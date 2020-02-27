@@ -120,7 +120,7 @@
     "mocha-multi": "^1.1.3",
     "mochawesome": "^4.0.0",
     "mock-require": "^3.0.3",
-    "nock": "11.7.2",
+    "nock": "12.0.1",
     "nyc": "^15.0.0",
     "pa11y": "^5.3.0",
     "sass-lint": "^1.13.1",
@@ -128,7 +128,7 @@
     "sinon-chai": "^3.5.0",
     "sinon-express-mock": "^2.2.1",
     "sonarqube-scanner": "^2.5.0",
-    "supertest": "^3.0.0",
+    "supertest": "4.0.1",
     "tslint": "^5.20.1",
     "tslint-config-standard": "^9.0.0",
     "webdriverio": "^4.11.0"
@@ -166,13 +166,6 @@
     }
   },
   "resolutions": {
-    "fsevents": "2.1.2",
-    "node-gyp": "6.1.0",
-    "node-sass": "4.13.1",
-    "nodemon": "2.0.2",
-    "chokidar": "3.3.1"
-  },
-  "optionalDependencies": {
-    "fsevents": "*"
+    "node-sass": "4.13.1"
   }
 }
