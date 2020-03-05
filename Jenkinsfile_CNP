@@ -52,5 +52,5 @@ withPipeline("nodejs", product, component) {
   enableSlackNotifications(notificationsChannel)
   installCharts()
   enableAksStagingDeployment()
-  disableLegacyDeploymentOnAAT()
+  disableLegacyDeployment()
 }
