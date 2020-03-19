@@ -6,3 +6,4 @@ feature_certificateOfService = "false"
 feature_inversionOfControl = "true"
 external_host_name = "www.moneyclaims-legal.demo.platform.hmcts.net"
 capacity = "2"
+enable_ase = true

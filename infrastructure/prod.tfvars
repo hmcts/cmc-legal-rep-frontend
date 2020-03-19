@@ -10,4 +10,3 @@ feedback_legal_service_survey = "http://www.smartsurvey.co.uk/s/CMCEST2/"
 feedback_legal_report_problem_survey = "http://www.smartsurvey.co.uk/s/CMCPPT2/"
 feedback_legal_survey = "http://www.smartsurvey.co.uk/s/CMCFBT2/"
 capacity = "2"
-enable_ase = true
