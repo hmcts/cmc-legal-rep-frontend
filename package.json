@@ -30,7 +30,7 @@
     "list-supported-browsers": "node -e 'Object.keys(require(\"@hmcts/cmc-supported-browsers\").supportedBrowsers).forEach(key => console.log(key))'"
   },
   "dependencies": {
-    "@hmcts/cmc-common-frontend": "1.34.0",
+    "@hmcts/cmc-common-frontend": "1.55.1",
     "@hmcts/cmc-draft-store-middleware": "^2.0.1",
     "@hmcts/cmc-validators": "0.2.6",
     "@hmcts/cookie-encrypter": "^1.0.1",
