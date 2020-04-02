@@ -129,7 +129,7 @@
     "sinon-express-mock": "^2.2.1",
     "sonarqube-scanner": "^2.5.0",
     "supertest": "4.0.1",
-    "tslint": "^5.20.1",
+    "tslint": "^6.1.1",
     "tslint-config-standard": "^9.0.0",
     "webdriverio": "^4.11.0"
   },
