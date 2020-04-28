@@ -11,18 +11,6 @@ services:
         - https_proxy
         - no_proxy
     image: hmctspublic.azurecr.io/cmc/legal-frontend
-    environment:
-        - PORT=3401
-        - IDAM_AUTHENTICATION_WEB_URL=https://idam-test.dev.ccidam.reform.hmcts.net
-        - IDAM_API_URL=http://betaDevBccidamAppLB.reform.hmcts.net:4551
-        - FEES_URL=https://dev.fees-register.reform.hmcts.net:4411
-        - DRAFT_STORE_URL=https://devdraftstorelb.moneyclaim.reform.hmcts.net:4301
-        - http_proxy=
-        - https_proxy=
-        - no_proxy=
-        - NODE_ENV=dev
-    ports:
-        - 3401:3401
   legal-integration-tests:
     build:
       context: .
