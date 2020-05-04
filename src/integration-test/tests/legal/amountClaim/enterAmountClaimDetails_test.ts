@@ -16,8 +16,8 @@ const dashboardSteps: DashboardSteps = new DashboardSteps()
 
 Feature('Enter claim amount and submit claim')
 
-Scenario('I can fill in Organisation details for Claimant, Defendant, Claim amount and Submit the claim @legal @quick', function* (I: I) {
-  const userEmail = yield I.createSolicitorUser()
+Scenario('I can fill in Organisation details for Claimant, Defendant, Claim amount and Submit the claim @legal @quick', async (I: I) => {
+  const userEmail = I.createSolicitorUser()
   userSteps.loginAndStartClaim(userEmail)
   userSteps.enterClaimantServiceDetails()
   userSteps.enterClaimantTypeOrganisation()
@@ -32,14 +32,14 @@ Scenario('I can fill in Organisation details for Claimant, Defendant, Claim amou
   defendantSteps.enterDefendantRepsAddress()
   defendantSteps.noAnotherDefendant()
   amountClaimSteps.addRangeDetailsAndVerifyOrganisationDetails()
-  let dateCheck = yield I.grabTextFrom('div.confirmation-detail')
+  let dateCheck = I.grabTextFrom('div.confirmation-detail')
   amountClaimSteps.verifySubmittedPage(userEmail, dateCheck)
-  let legalClaimNumberText = yield I.grabTextFrom('h2.bold-medium.reference-number')
+  let legalClaimNumberText = I.grabTextFrom('h2.bold-medium.reference-number')
   dashboardSteps.searchAndVerifyClaimDetails(legalClaimNumberText)
 })
 
-Scenario('I can fill only mandatory fields and submit the claim @legal', function* (I: I) {
-  const userEmail = yield I.createSolicitorUser()
+Scenario('I can fill only mandatory fields and submit the claim @legal', async (I: I) => {
+  const userEmail = I.createSolicitorUser()
   userSteps.loginAndStartClaim(userEmail)
   userSteps.enterMandatoryClaimantServiceDetails()
   userSteps.enterMandatoryClaimantAddressDetails()
@@ -49,12 +49,12 @@ Scenario('I can fill only mandatory fields and submit the claim @legal', functio
   defendantSteps.enterDefendantRepsAddress()
   defendantSteps.noAnotherDefendant()
   amountClaimSteps.addMandatoryClaimDataAndSubmitClaim()
-  let dateCheck = yield I.grabTextFrom('div.confirmation-detail')
+  let dateCheck = I.grabTextFrom('div.confirmation-detail')
   amountClaimSteps.verifySubmittedPage(userEmail, dateCheck)
 })
 
-Scenario('I can fill in individual details for Claimant, Defendant, Claim amount and Submit the claim @legal @quick', function* (I: I) {
-  const userEmail = yield I.createSolicitorUser()
+Scenario('I can fill in individual details for Claimant, Defendant, Claim amount and Submit the claim @legal @quick', async (I: I) => {
+  const userEmail = I.createSolicitorUser()
   userSteps.loginAndStartClaim(userEmail)
   userSteps.enterClaimantServiceDetails()
   userSteps.enterClaimantTypeIndividual()
@@ -68,15 +68,15 @@ Scenario('I can fill in individual details for Claimant, Defendant, Claim amount
   defendantSteps.defendantAddressAsServiceAddress()
   defendantSteps.noAnotherDefendant()
   amountClaimSteps.addRangeDetailsAndVerifyIndividualDetails()
-  let dateCheck = yield I.grabTextFrom('div.confirmation-detail')
+  let dateCheck = I.grabTextFrom('div.confirmation-detail')
   amountClaimSteps.verifySubmittedPage(userEmail, dateCheck)
-  const pdfUrl = yield I.grabAttributeFrom('ol li a', 'href')
-  const sessionCookie = yield I.grabCookie('T2_SESSION_ID')
-  yield I.downloadPDF(pdfUrl, sessionCookie.value)
+  const pdfUrl: string = I.grabAttributeFrom('ol li a', 'href') as unknown as string
+  const sessionCookie = I.grabCookie('T2_SESSION_ID')
+  I.downloadPDF(pdfUrl, sessionCookie.value)
 })
 
-Scenario('I can fill in Organisation details for Claimant, Defendant and no Claim amount details @legal', function* (I: I) {
-  const userEmail = yield I.createSolicitorUser()
+Scenario('I can fill in Organisation details for Claimant, Defendant and no Claim amount details @legal', async (I: I) => {
+  const userEmail = I.createSolicitorUser()
   userSteps.loginAndStartClaim(userEmail)
   userSteps.enterClaimantServiceDetails()
   userSteps.enterClaimantTypeOrganisation()
@@ -93,35 +93,35 @@ Scenario('I can fill in Organisation details for Claimant, Defendant and no Clai
   amountClaimSteps.addNoClaimDataAndVerifyData()
 })
 
-Scenario('Check personal injury more than 1000 @legal', function* (I: I) {
-  const userEmail = yield I.createSolicitorUser()
+Scenario('Check personal injury more than 1000 @legal', async (I: I) => {
+  const userEmail = I.createSolicitorUser()
   userSteps.loginAndStartClaim(userEmail)
   amountClaimSteps.personalInjuryMoreThan1000()
   I.seeInCurrentUrl('housing-disrepair')
 })
 
-Scenario('Check housing disrepair more than 1000 @legal', function* (I: I) {
-  const userEmail = yield I.createSolicitorUser()
+Scenario('Check housing disrepair more than 1000 @legal', async (I: I) => {
+  const userEmail = I.createSolicitorUser()
   userSteps.loginAndStartClaim(userEmail)
   amountClaimSteps.housingDisrepairMoreThan1000()
   I.seeInCurrentUrl('summarise-the-claim')
 })
 
-Scenario('Check housing disrepair less than 1000 and no other damages @legal', function* (I: I) {
-  const userEmail = yield I.createSolicitorUser()
+Scenario('Check housing disrepair less than 1000 and no other damages @legal', async (I: I) => {
+  const userEmail = I.createSolicitorUser()
   userSteps.loginAndStartClaim(userEmail)
   amountClaimSteps.housingDisrepairLessThan1000AndNoOtherDamages()
   I.seeInCurrentUrl('summarise-the-claim')
 })
 
-Scenario('Check higher value in amount claim Page @legal', function* (I: I) {
-  const userEmail = yield I.createSolicitorUser()
+Scenario('Check higher value in amount claim Page @legal', async (I: I) => {
+  const userEmail = I.createSolicitorUser()
   userSteps.loginAndStartClaim(userEmail)
   amountClaimSteps.enterOnlyHigherValueAmount()
   I.seeInCurrentUrl('total')
 })
 
-Scenario('I can fill both Claimant, Defendant details move up to submit claim @smoke-test', function* (I: I) {
+Scenario('I can fill both Claimant, Defendant details move up to submit claim @smoke-test', async (I: I) => {
   userSteps.loginAndStartClaim(SMOKE_TEST_SOLICITOR_USERNAME, SMOKE_TEST_USER_PASSWORD)
   userSteps.enterClaimantServiceDetails()
   userSteps.enterClaimantTypeOrganisation()
