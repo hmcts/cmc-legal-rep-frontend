@@ -11,7 +11,12 @@
         {{ csrfProtection(csrf) }}
         <div class="form-group-compound">
 
-          <p>{{ t("The claimant believes that the facts in this claim form are true. I'm duly authorised by the claimant to sign this statement.") }}</p>
+          <p>{{ t("The claimant believes that the facts in this claim form are true.")}} <br>
+            {{ t("I'm duly authorised by the claimant to sign this statement.")}}</p>
+
+          <p>{{ t("I understand that proceedings for contempt of court may be brought against anyone who makes,
+          or causes to be made, a false statement in a document verified
+          by a statement of truth without an honest belief in its truth.") }}</p>
           {{ textInput(t('Name'), 'signerName', form) }}
 
           <div class="form-group">

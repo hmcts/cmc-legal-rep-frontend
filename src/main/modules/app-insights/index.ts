@@ -16,6 +16,8 @@ export class AppInsights {
   static enable () {
 
     appInsights.setup(config.get<string>('secrets.cmc.AppInsightsInstrumentationKey'))
+      .setDistributedTracingMode(appInsights.DistributedTracingModes.AI_AND_W3C)
+      .setSendLiveMetrics(true)
       .setAutoCollectConsole(true, true)
     appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = config.get<string>('appInsights.roleName')
 
