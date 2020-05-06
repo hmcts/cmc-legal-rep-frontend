@@ -1,15 +1,15 @@
 declare namespace CodeceptJS {
   export interface I {
     createCitizenUser: () => string
-    createSolicitorUser: () => string
+    createSolicitorUser: () => Promise<string>
     createClaim: (claimData: ClaimData, submitterEmail: string) => string
     linkDefendantToClaim: (referenceNumber: string, ownerEmail: string, defendantEmail: string) => void
     respondToClaim: (referenceNumber: string, ownerEmail: string, responseData: ResponseData, defendantEmail: string) => void
 
     amOnLegalAppPage: (path: string) => void
-    downloadPDF: (pdfUrl: string, sessionCookie: string) => void
+    downloadPDF: (pdfUrl: string, sessionCookie: string) => Promise<void>
     attachFile: (locator: string, path: string) => any
-    grabAttributeFrom: (locator: string, attr: string) => void
+    grabAttributeFrom: (locator: string, attr: string) => any
 
     fillField: (locator: string, value: string) => any
     selectOption: (select: string, option: string) => any
