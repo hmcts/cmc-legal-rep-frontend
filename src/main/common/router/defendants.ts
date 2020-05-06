@@ -37,7 +37,7 @@ export class Defendants {
   }
 
   static getChangeIndex (req: express.Request, res: express.Response): number {
-    const index = req.query.index ? (req.query.index - 1) : -1
+    const index = req.query.index ? (+req.query.index - 1) : -1
     if (index < 0 || index > Defendants.getCurrentIndex(res)) {
       throw Error('Invalid index for defendant')
     }

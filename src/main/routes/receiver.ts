@@ -21,17 +21,17 @@ const sessionCookie = config.get<string>('session.cookieName')
 const logger = Logger.getLogger('receiver')
 
 async function getOAuthAccessToken (req: express.Request, receiver: RoutablePath): Promise<string> {
-  if (req.query.state !== OAuthHelper.getStateCookie(req)) {
+  if (req.query.state !== OAuthHelper.getStateCookie(req) && appInsights.defaultClient) {
     appInsights.defaultClient.trackEvent({
       name: 'State cookie mismatch (citizen)',
       properties: {
-        requestValue: req.query.state,
+        requestValue: req.query.state as string,
         cookieValue: OAuthHelper.getStateCookie(req)
       }
     })
   }
   const authToken: AuthToken = await IdamClient.exchangeCode(
-    req.query.code,
+    req.query.code as string,
     buildURL(req, receiver.uri)
   )
   return authToken.accessToken

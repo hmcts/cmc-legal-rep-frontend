@@ -54,7 +54,7 @@ describe('Defendants', () => {
 
     it('should give defendants index from query parameter', async () => {
       const req: express.Request = mockReq()
-      req.query = { index: 1 }
+      req.query = { index: '1' }
       const res: express.Response = mockRes()
       createDefendants(res)
       res.locals.legalClaimDraft.document.defendants.push(new Defendant())
@@ -64,7 +64,7 @@ describe('Defendants', () => {
 
     it('should throw error if index is negative number from query parameter', async () => {
       const req: express.Request = mockReq()
-      req.query = { index: -1 }
+      req.query = { index: '-1' }
       const res: express.Response = mockRes()
 
       expect(() => Defendants.getChangeIndex(req, res)).to.throw(Error, 'Invalid index for defendant')
@@ -72,7 +72,7 @@ describe('Defendants', () => {
 
     it('should throw error if index is out of range for the defendants array', async () => {
       const req: express.Request = mockReq()
-      req.query = { index: 100 }
+      req.query = { index: '100' }
       const res: express.Response = mockRes()
       createDefendants(res)
       res.locals.legalClaimDraft.document.defendants.push(new Defendant())

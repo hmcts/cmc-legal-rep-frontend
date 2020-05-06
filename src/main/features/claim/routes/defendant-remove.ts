@@ -11,7 +11,7 @@ export default express.Router()
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
 
-      Defendants.removeDefendant(res, req.query.index)
+      Defendants.removeDefendant(res, req.query.index as string)
       draft.document.isDefendantDeleted = true
 
       await new DraftService().save(draft, res.locals.user.bearerToken)
