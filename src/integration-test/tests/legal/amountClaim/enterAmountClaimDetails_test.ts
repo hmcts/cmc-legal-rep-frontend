@@ -2,8 +2,6 @@ import I = CodeceptJS.I
 
 import { verifyPageData } from 'integration-test/data/legal-test-data'
 
-import { SMOKE_TEST_SOLICITOR_USERNAME, SMOKE_TEST_USER_PASSWORD } from 'integration-test/data/test-data'
-
 import { AmountClaimSteps } from 'integration-test/tests/legal/amountClaim/steps/amountClaims'
 import { UserSteps } from 'integration-test/tests/legal/home/steps/user'
 import { DefendantSteps } from 'integration-test/tests/legal/defence/steps/defendant'
@@ -16,9 +14,14 @@ const dashboardSteps: DashboardSteps = new DashboardSteps()
 
 Feature('Enter claim amount and submit claim')
 
-Scenario('I can fill in Organisation details for Claimant, Defendant, Claim amount and Submit the claim @legal @quick', async (I: I) => {
-  const userEmail = await I.createSolicitorUser()
+let userEmail: string
+
+Before(async (I: I) => {
+  userEmail = await I.createSolicitorUser()
   userSteps.loginAndStartClaim(userEmail)
+})
+
+Scenario('I can fill in Organisation details for Claimant, Defendant, Claim amount and Submit the claim @legal @quick', async (I: I) => {
   userSteps.enterClaimantServiceDetails()
   userSteps.enterClaimantTypeOrganisation()
   I.see('Claimant: ' + verifyPageData.claimantOrganization)
@@ -39,8 +42,6 @@ Scenario('I can fill in Organisation details for Claimant, Defendant, Claim amou
 })
 
 Scenario('I can fill only mandatory fields and submit the claim @legal', async (I: I) => {
-  const userEmail = await I.createSolicitorUser()
-  userSteps.loginAndStartClaim(userEmail)
   userSteps.enterMandatoryClaimantServiceDetails()
   userSteps.enterMandatoryClaimantAddressDetails()
   userSteps.noAdditionalClaimant()
@@ -54,8 +55,6 @@ Scenario('I can fill only mandatory fields and submit the claim @legal', async (
 })
 
 Scenario('I can fill in individual details for Claimant, Defendant, Claim amount and Submit the claim @legal @quick', async (I: I) => {
-  const userEmail = await I.createSolicitorUser()
-  userSteps.loginAndStartClaim(userEmail)
   userSteps.enterClaimantServiceDetails()
   userSteps.enterClaimantTypeIndividual()
   I.see('Claimant: Mr Benugo')
@@ -76,8 +75,6 @@ Scenario('I can fill in individual details for Claimant, Defendant, Claim amount
 })
 
 Scenario('I can fill in Organisation details for Claimant, Defendant and no Claim amount details @legal', async (I: I) => {
-  const userEmail = await I.createSolicitorUser()
-  userSteps.loginAndStartClaim(userEmail)
   userSteps.enterClaimantServiceDetails()
   userSteps.enterClaimantTypeOrganisation()
   I.see('Claimant: ' + verifyPageData.claimantOrganization)
@@ -94,47 +91,21 @@ Scenario('I can fill in Organisation details for Claimant, Defendant and no Clai
 })
 
 Scenario('Check personal injury more than 1000 @legal', async (I: I) => {
-  const userEmail = await I.createSolicitorUser()
-  userSteps.loginAndStartClaim(userEmail)
   amountClaimSteps.personalInjuryMoreThan1000()
   I.seeInCurrentUrl('housing-disrepair')
 })
 
 Scenario('Check housing disrepair more than 1000 @legal', async (I: I) => {
-  const userEmail = await I.createSolicitorUser()
-  userSteps.loginAndStartClaim(userEmail)
   amountClaimSteps.housingDisrepairMoreThan1000()
   I.seeInCurrentUrl('summarise-the-claim')
 })
 
 Scenario('Check housing disrepair less than 1000 and no other damages @legal', async (I: I) => {
-  const userEmail = await I.createSolicitorUser()
-  userSteps.loginAndStartClaim(userEmail)
   amountClaimSteps.housingDisrepairLessThan1000AndNoOtherDamages()
   I.seeInCurrentUrl('summarise-the-claim')
 })
 
 Scenario('Check higher value in amount claim Page @legal', async (I: I) => {
-  const userEmail = await I.createSolicitorUser()
-  userSteps.loginAndStartClaim(userEmail)
   amountClaimSteps.enterOnlyHigherValueAmount()
   I.seeInCurrentUrl('total')
-})
-
-Scenario('I can fill both Claimant, Defendant details move up to submit claim @smoke-test', async (I: I) => {
-  userSteps.loginAndStartClaim(SMOKE_TEST_SOLICITOR_USERNAME, SMOKE_TEST_USER_PASSWORD)
-  userSteps.enterClaimantServiceDetails()
-  userSteps.enterClaimantTypeOrganisation()
-  I.see('Claimant: ' + verifyPageData.claimantOrganization)
-  userSteps.enterClaimantAddress()
-  userSteps.noAdditionalClaimant()
-  defendantSteps.enterDefendantTypeOrganisation()
-  I.see('Defendant: ' + verifyPageData.defendantOrganization)
-  defendantSteps.enterDefendantAddress()
-  defendantSteps.enterDefendantRepsCompanyName()
-  I.see("Defendant's legal representative: Defendant Rep Ltd")
-  defendantSteps.enterDefendantRepsAddress()
-  defendantSteps.noAnotherDefendant()
-  amountClaimSteps.addAmountAndVerifyDetails()
-  I.see('Pay by Fee Account')
 })

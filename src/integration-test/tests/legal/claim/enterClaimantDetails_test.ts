@@ -5,10 +5,13 @@ const userSteps: UserSteps = new UserSteps()
 
 Feature('Claimant Enter details of claim')
 
-Scenario('I can fill in two claimants and update their details @legal', async (I: I) => {
+Before(async (I: I) => {
   const userEmail = await I.createSolicitorUser()
   userSteps.loginAndStartClaim(userEmail)
   userSteps.enterClaimantServiceDetails()
+})
+
+Scenario('I can fill in two claimants and update their details @legal', async (I: I) => {
   userSteps.enterClaimantTypeIndividual()
   I.see('Claimant: Mr Benugo')
   userSteps.enterClaimantAddress()
@@ -19,10 +22,7 @@ Scenario('I can fill in two claimants and update their details @legal', async (I
   userSteps.verifyAndChangeClaimantDetails()
 })
 
-Scenario('I can save organisation details and populate them in a subsequent claim via cookie info @legal', async (I: I) => {
-  const userEmail = await I.createSolicitorUser()
-  userSteps.loginAndStartClaim(userEmail)
-  userSteps.enterClaimantServiceDetails()
+Scenario('I can save organisation details and populate them in a subsequent claim via cookie info @legal', async () => {
   userSteps.startClaim()
   userSteps.verifyOrganizationDetails()
 })

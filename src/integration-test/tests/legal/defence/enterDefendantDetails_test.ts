@@ -10,10 +10,13 @@ const defendantSteps: DefendantSteps = new DefendantSteps()
 
 Feature('Defendants Enter details of claim')
 
-Scenario('I can fill in Claimant organization, more Defendant details and update their details @legal', async (I: I) => {
+Before(async (I: I) => {
   const userEmail = await I.createSolicitorUser()
   userSteps.loginAndStartClaim(userEmail)
   userSteps.enterClaimantServiceDetails()
+})
+
+Scenario('I can fill in Claimant organization, more Defendant details and update their details @legal', async (I: I) => {
   userSteps.enterClaimantTypeOrganisation()
   I.see('Claimant: ' + verifyPageData.claimantOrganization)
   userSteps.enterClaimantAddress()
@@ -41,9 +44,6 @@ Scenario('I can fill in Claimant organization, more Defendant details and update
 })
 
 Scenario('I can fill in Claimant individual and Defendant individual details @legal', async (I: I) => {
-  const userEmail = await I.createSolicitorUser()
-  userSteps.loginAndStartClaim(userEmail)
-  userSteps.enterClaimantServiceDetails()
   userSteps.enterClaimantTypeIndividual()
   I.see('Claimant: Mr Benugo')
   userSteps.enterClaimantAddress()
