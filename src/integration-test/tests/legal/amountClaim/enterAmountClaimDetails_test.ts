@@ -39,7 +39,7 @@ Scenario('I can fill in Organisation details for Claimant, Defendant, Claim amou
   })
 })
 
-Scenario('I can fill only mandatory fields and submit the claim @legal',  async (I: I) => {
+Scenario('I can fill only mandatory fields and submit the claim @legal', async (I: I) => {
   await session('Filling only mandatory fields', async () => {
     const userEmail = await I.createSolicitorUser()
     userSteps.loginAndStartClaim(userEmail)
@@ -55,6 +55,7 @@ Scenario('I can fill only mandatory fields and submit the claim @legal',  async 
     amountClaimSteps.verifySubmittedPage(dateCheck)
   })
 })
+
 Scenario('Check personal injury more than 1000 @legal', async (I: I) => {
   await session('Personal injury more', async () => {
     const userEmail = await I.createSolicitorUser()
