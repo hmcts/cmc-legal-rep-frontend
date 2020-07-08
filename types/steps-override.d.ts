@@ -22,3 +22,6 @@ type CodeceptJSHelper = {
 }
 
 declare const codecept_helper: { new(): CodeceptJSHelper }
+
+declare function session(selector: string, callback: Function): Promise<any>;
+declare function session(selector: string, config: any, callback: Function): Promise<any>;
