@@ -7,7 +7,7 @@ properties([
   ])
 ])
 
-@Library("Infrastructure@optional-deps")
+@Library('Infrastructure')
 
 def product = "cmc"
 def component = "legal-frontend"
