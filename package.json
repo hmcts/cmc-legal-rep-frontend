@@ -166,6 +166,8 @@
     }
   },
   "resolutions": {
-    "node-sass": "4.14.1"
+    "node-sass": "4.14.1",
+    "**/download": "8.0.0",
+    "sass-lint/eslint": "5.0.0"
   }
 }
