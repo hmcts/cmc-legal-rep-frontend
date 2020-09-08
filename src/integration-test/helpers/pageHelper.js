@@ -17,7 +17,7 @@ let Helper = codecept_helper
 // eslint-disable-next-line no-unused-vars
 class PageHelper extends Helper {
   amOnLegalAppPage (path) {
-    return this.helpers['WebDriverIO'].amOnPage(`${legalAppBaseURL}${path}`)
+    return this.helpers['WebDriver'].amOnPage(`${legalAppBaseURL}${path}`)
   }
 }
 

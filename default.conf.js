@@ -5,14 +5,19 @@ const ProxySettings = require('./src/integration-test/config/proxy-settings').Pr
 
 exports.config = {
   name: 'integration-tests',
-  bootstrap: './src/integration-test/bootstrap/bootstrap.ts',
+  bootstrapAll: './src/integration-test/bootstrap/bootstrap.ts',
   tests: './src/integration-test/tests/**/*_test.*',
   output: './output',
   timeout: 10000,
+  multiple: {
+    parallel: {
+      chunks: parseInt(process.env.CHUNKS || '3')
+    }
+  },
   helpers: {
-    WebDriverIO: {
+    WebDriver: {
       host: process.env.WEB_DRIVER_HOST || 'localhost',
-      port: process.env.WEB_DRIVER_PORT || '4444',
+      port: process.env.WEB_DRIVER_PORT || 4444,
       browser: process.env.BROWSER || 'chrome',
       url: process.env.LEGAL_APP_URL || 'https://localhost:3000',
       waitForTimeout: 15000,
