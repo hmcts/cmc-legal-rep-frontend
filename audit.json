@@ -116,6 +116,7 @@
   "90027_Cookie Slack Detector_https://moneyclaims-legal.aat.platform.hmcts.net/img/lib/gov.uk_logotype_crown_invert_trans.png?%5E0.26.0_GET": "ignore",
   "90027_Cookie Slack Detector_https://moneyclaims-legal.aat.platform.hmcts.net/img/lib_GET": "ignore",
   "90027_Cookie Slack Detector_https://moneyclaims-legal.aat.platform.hmcts.net/js/analytics.js_GET": "ignore",
+  "90027_Cookie Slack Detector_https://moneyclaims-legal.aat.platform.hmcts.net/js/detectJavascript.js_GET": "ignore",
   "90027_Cookie Slack Detector_https://moneyclaims-legal.aat.platform.hmcts.net/js/double-click-preventer.js_GET": "ignore",
   "90027_Cookie Slack Detector_https://moneyclaims-legal.aat.platform.hmcts.net/js/lib/govuk-template.js?%5E0.26.0_GET": "ignore",
   "90027_Cookie Slack Detector_https://moneyclaims-legal.aat.platform.hmcts.net/js/lib/ie.js?%5E0.26.0_GET": "ignore",
