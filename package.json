@@ -133,7 +133,7 @@
     "ts-mockito": "^2.3.1",
     "tslint": "^5.20.1",
     "tslint-config-standard": "^9.0.0",
-    "webdriverio": "^4.11.0"
+    "webdriver": "^6.1.8"
   },
   "nyc": {
     "include": [
