@@ -27,7 +27,7 @@ exports.config = {
   output: './output',
   timeout: 10000,
   helpers: {
-    WebDriverIO: {
+    WebDriver: {
       url: process.env.LEGAL_APP_URL || 'https://localhost:4000',
       browser: supportedBrowsers[browser].browserName,
       waitForTimeout: 60000,
