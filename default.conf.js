@@ -19,11 +19,11 @@ exports.config = {
       host: process.env.WEB_DRIVER_HOST || 'localhost',
       port: process.env.WEB_DRIVER_PORT || 4444,
       browser: process.env.BROWSER || 'chrome',
-      url: process.env.LEGAL_APP_URL || 'https://localhost:3000',
+      url: process.env.LEGAL_APP_URL || 'https://localhost:4000',
       waitForTimeout: 15000,
+      restart: false,
       desiredCapabilities: {
-        proxy: new ProxySettings(),
-        "acceptInsecureCerts": true
+        proxy: new ProxySettings()
       }
     },
     IdamHelper: {
@@ -45,16 +45,16 @@ exports.config = {
         }
       },
       'mocha-junit-reporter': {
-        stdout: './output/mocha-stdout.log',
+        stdout: './output/legal-rep-mocha-stdout.log',
         options: {
-          mochaFile: process.env.MOCHA_JUNIT_FILE_LOCATION || './output/integration-result.xml'
+          mochaFile: process.env.MOCHA_JUNIT_FILE_LOCATION || './output/legal-rep-integration-result.xml'
         }
       },
       'mochawesome': {
-        stdout: `./output/mochawesome-stdout.log`,
+        stdout: `./output/legal-rep-mochawesome-stdout.log`,
         options: {
           reportDir: 'output',
-          reportFilename: 'e2e-result',
+          reportFilename: 'legal-rep-e2e-result',
           inlineAssets: true,
           reportTitle: `Legal E2E tests result`
         }
