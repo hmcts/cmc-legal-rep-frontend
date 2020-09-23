@@ -1,7 +1,7 @@
 version: '2.1'
 
 services:
-    citizen-integration-tests:
+    legal-nightly-integration-tests:
       image: hmctspublic.azurecr.io/cmc/legal-integration-tests:${LEGAL_INTEGRATION_TESTS_VERSION:-latest}
       command: test:integration
       environment:
