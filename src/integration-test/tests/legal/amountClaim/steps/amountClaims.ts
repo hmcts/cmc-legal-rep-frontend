@@ -170,8 +170,8 @@ export class AmountClaimSteps {
     payByAccountPage.enterFeeAccountNumber()
   }
 
-  verifySubmittedPage (userEmail: string, dateCheck: string): void {
-    submittedPage.verifyTextInSubmittedPage(userEmail, dateCheck)
+  verifySubmittedPage (dateCheck: string[]): void {
+    submittedPage.verifyTextInSubmittedPage(dateCheck)
   }
 
 }

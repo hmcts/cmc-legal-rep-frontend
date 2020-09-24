@@ -8,7 +8,7 @@
 {% set wcaGuidline = 'https://www.w3.org/TR/WCAG21/' %}
 
 {% macro externalLink(text, href, analyticsEventLabel) %}
-  <a href="{{ href }}" target="_blank" {% if analyticsEventLabel %}class="analytics-click-event-trigger" data-event-label="{{ analyticsEventLabel }}"{% endif %}>{{ text }}</a>
+  <a href="{{ href }}" target="_blank" rel="noopener noreferrer" {% if analyticsEventLabel %}class="analytics-click-event-trigger" data-event-label="{{ analyticsEventLabel }}"{% endif %}>{{ text }}</a>
   <span class="font-xsmall">{{ t('(opens in a new window)') }}</span>{% endmacro %}
 
 {% block content %}

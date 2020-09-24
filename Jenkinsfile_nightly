@@ -24,7 +24,7 @@ withNightlyPipeline("nodejs", product, component) {
   env.LEGAL_APP_URL = params.URL_TO_TEST
 
   enableSecurityScan()
-  enableFullFunctionalTest(200)
+  enableFullFunctionalTest()
   enableCrossBrowserTest()
 
   after('crossBrowserTest') {
