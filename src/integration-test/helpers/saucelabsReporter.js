@@ -6,7 +6,7 @@ const SUCCESS = true
 const FAILURE = false
 
 function reportBuildResultToSaucelabs (result) {
-  const sessionId = container.helpers('WebDriverIO').browser.requestHandler.sessionID
+  const sessionId = container.helpers('WebDriver').browser.requestHandler.sessionID
 
   request.put({
     uri: `https://saucelabs.com/rest/v1/${process.env.SAUCELABS_USERNAME}/jobs/${sessionId}`,

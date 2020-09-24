@@ -19,9 +19,9 @@ export class ClaimSubmittedPage {
     I.amOnLegalAppPage('/claim/submitted')
   }
 
-  verifyTextInSubmittedPage (userEmail: string, dateCheck: string): void {
+  verifyTextInSubmittedPage (dateCheck: string[]): void {
     I.see(verifyPageData.feesPaid)
-    I.see(verifyPageData.emailConfirmation + userEmail)
+    I.see(verifyPageData.emailConfirmation)
     // verify submit date text present or not
     expect(dateCheck[0].length).to.be.greaterThan(20)
     // verify issue date text present or not
