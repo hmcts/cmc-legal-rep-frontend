@@ -28,6 +28,7 @@
     "test:smoke": "./bin/run-smoke-tests.sh",
     "test:integration": "TS_NODE_TRANSPILE_ONLY=true ts-node --require tsconfig-paths/register ./node_modules/.bin/codeceptjs run --verbose --config default.conf.js --reporter mocha-multi",
     "test:crossbrowser": "TS_NODE_TRANSPILE_ONLY=true ts-node --require tsconfig-paths/register ./node_modules/.bin/codeceptjs run --verbose --config saucelabs.conf.js --reporter mocha-multi",
+    "test:fullfunctional": "yarn test:functional",
     "list-supported-browsers": "node -e 'Object.keys(require(\"@hmcts/cmc-supported-browsers\").supportedBrowsers).forEach(key => console.log(key))'"
   },
   "dependencies": {
