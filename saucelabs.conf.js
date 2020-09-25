@@ -16,6 +16,7 @@ function requiredValue (envVariableValue, variableName) {
 function setupDesiredCapabilitiesFor (browser, saucelabsTunnelName) {
   let desiredCapability = supportedBrowsers[browser]
   desiredCapability.tunnelIdentifier = saucelabsTunnelName
+  desiredCapability.acceptSslCerts = true
   desiredCapability.tags = ['cmc']
   return desiredCapability
 }
@@ -38,8 +39,9 @@ exports.config = {
         pageLoad: 60000,
         'page load': 60000
       },
-      host: 'ondemand.saucelabs.com',
-      port: 80,
+      host: 'ondemand.eu-central-1.saucelabs.com',
+      // port: 80,
+      region: 'eu',
       user: saucelabsUsername,
       key: saucelabsAccessKey,
       desiredCapabilities: setupDesiredCapabilitiesFor(browser, saucelabsTunnelIdentifier)
@@ -49,6 +51,9 @@ exports.config = {
     },
     PageHelper: {
       require: './src/integration-test/helpers/pageHelper'
+    },
+    RetryHelper: {
+      require: './src/integration-test/helpers/retryHelper'
     },
     DownloadPdfHelper: {
       require: './src/integration-test/helpers/downloadPdfHelper'

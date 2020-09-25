@@ -11,7 +11,8 @@ const defendantSteps: DefendantSteps = new DefendantSteps()
 Feature('Defendants Enter details of claim')
 
 Before(async (I: I) => {
-  const userEmail = await I.createSolicitorUser()
+  const usernameEnvVar = process.env.SMOKE_TEST_SOLICITOR_USERNAME
+  const userEmail = usernameEnvVar ? usernameEnvVar : await I.createSolicitorUser()
   userSteps.loginAndStartClaim(userEmail)
   userSteps.enterClaimantServiceDetails()
 })
