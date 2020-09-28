@@ -11,16 +11,13 @@ const amountClaimSteps: AmountClaimSteps = new AmountClaimSteps()
 const userSteps: UserSteps = new UserSteps()
 const defendantSteps: DefendantSteps = new DefendantSteps()
 const dashboardSteps: DashboardSteps = new DashboardSteps()
+const usernameEnvVar: string = process.env.SMOKE_TEST_SOLICITOR_USERNAME
 
 Feature('Enter claim amount and submit claim')
 
-Before(async (I: I) => {
-  const usernameEnvVar = process.env.SMOKE_TEST_SOLICITOR_USERNAME
+Scenario('I can fill in Organisation details for Claimant, Defendant, Claim amount and Submit the claim @legal @quick', async (I: I) => {
   const userEmail = usernameEnvVar ? usernameEnvVar : await I.createSolicitorUser()
   userSteps.loginAndStartClaim(userEmail)
-})
-
-Scenario('I can fill in Organisation details for Claimant, Defendant, Claim amount and Submit the claim @legal @quick', async (I: I) => {
   userSteps.enterClaimantServiceDetails()
   userSteps.enterClaimantTypeOrganisation()
   I.see(`Claimant: ${verifyPageData.claimantOrganization}`)
@@ -42,6 +39,8 @@ Scenario('I can fill in Organisation details for Claimant, Defendant, Claim amou
 })
 
 Scenario('I can fill only mandatory fields and submit the claim @legal', async (I: I) => {
+  const userEmail = usernameEnvVar ? usernameEnvVar : await I.createSolicitorUser()
+  userSteps.loginAndStartClaim(userEmail)
   userSteps.enterMandatoryClaimantServiceDetails()
   userSteps.enterMandatoryClaimantAddressDetails()
   userSteps.noAdditionalClaimant()
@@ -55,11 +54,15 @@ Scenario('I can fill only mandatory fields and submit the claim @legal', async (
 })
 
 Scenario('Check personal injury more than 1000 @legal', async (I: I) => {
+  const userEmail = usernameEnvVar ? usernameEnvVar : await I.createSolicitorUser()
+  userSteps.loginAndStartClaim(userEmail)
   amountClaimSteps.personalInjuryMoreThan1000()
   I.seeInCurrentUrl('housing-disrepair')
 })
 
 Scenario('I can fill in Organisation details for Claimant, Defendant and no Claim amount details @legal', async (I: I) => {
+  const userEmail = usernameEnvVar ? usernameEnvVar : await I.createSolicitorUser()
+  userSteps.loginAndStartClaim(userEmail)
   userSteps.enterClaimantServiceDetails()
   userSteps.enterClaimantTypeOrganisation()
   I.see(`Claimant: ${verifyPageData.claimantOrganization}`)
@@ -76,21 +79,29 @@ Scenario('I can fill in Organisation details for Claimant, Defendant and no Clai
 })
 
 Scenario('Check housing disrepair more than 1000 @legal', async (I: I) => {
+  const userEmail = usernameEnvVar ? usernameEnvVar : await I.createSolicitorUser()
+  userSteps.loginAndStartClaim(userEmail)
   amountClaimSteps.housingDisrepairMoreThan1000()
   I.seeInCurrentUrl('summarise-the-claim')
 })
 
 Scenario('Check housing disrepair less than 1000 and no other damages @legal', async (I: I) => {
+  const userEmail = usernameEnvVar ? usernameEnvVar : await I.createSolicitorUser()
+  userSteps.loginAndStartClaim(userEmail)
   amountClaimSteps.housingDisrepairLessThan1000AndNoOtherDamages()
   I.seeInCurrentUrl('summarise-the-claim')
 })
 
 Scenario('Check higher value in amount claim Page @legal', async (I: I) => {
+  const userEmail = usernameEnvVar ? usernameEnvVar : await I.createSolicitorUser()
+  userSteps.loginAndStartClaim(userEmail)
   amountClaimSteps.enterOnlyHigherValueAmount()
   I.seeInCurrentUrl('total')
 })
 
 Scenario('I can fill in individual details for Claimant, Defendant, Claim amount and Submit the claim @legal @quick', async (I: I) => {
+  const userEmail = usernameEnvVar ? usernameEnvVar : await I.createSolicitorUser()
+  userSteps.loginAndStartClaim(userEmail)
   userSteps.enterClaimantServiceDetails()
   userSteps.enterClaimantTypeIndividual()
   I.see(`Claimant: ${verifyPageData.claimantName}`)

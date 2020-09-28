@@ -4,8 +4,11 @@
 // eslint-disable-next-line no-unused-vars
 class RetryHelper extends Helper {
   _test(test) {
-    // test.retries(2)
-    test.retries(1)
+    const MAX_RETRIES = parseInt(process.env.MAX_RETRIES || 0)
+    if (MAX_RETRIES > 0) {
+      console.log('Maximum Retries:', MAX_RETRIES)
+      test.retries(MAX_RETRIES)
+    }
   }
 }
 

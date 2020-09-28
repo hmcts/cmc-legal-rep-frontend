@@ -7,17 +7,14 @@ import { DefendantSteps } from 'integration-test/tests/legal/defence/steps/defen
 
 const userSteps: UserSteps = new UserSteps()
 const defendantSteps: DefendantSteps = new DefendantSteps()
+const usernameEnvVar: string = process.env.SMOKE_TEST_SOLICITOR_USERNAME
 
 Feature('Defendants Enter details of claim')
 
-Before(async (I: I) => {
-  const usernameEnvVar = process.env.SMOKE_TEST_SOLICITOR_USERNAME
+Scenario('I can fill in Claimant organization, more Defendant details and update their details @legal', async (I: I) => {
   const userEmail = usernameEnvVar ? usernameEnvVar : await I.createSolicitorUser()
   userSteps.loginAndStartClaim(userEmail)
   userSteps.enterClaimantServiceDetails()
-})
-
-Scenario('I can fill in Claimant organization, more Defendant details and update their details @legal', async (I: I) => {
   userSteps.enterClaimantTypeOrganisation()
   I.see('Claimant: ' + verifyPageData.claimantOrganization)
   userSteps.enterClaimantAddress()
@@ -45,6 +42,9 @@ Scenario('I can fill in Claimant organization, more Defendant details and update
 })
 
 Scenario('I can fill in Claimant individual and Defendant individual details @legal', async (I: I) => {
+  const userEmail = usernameEnvVar ? usernameEnvVar : await I.createSolicitorUser()
+  userSteps.loginAndStartClaim(userEmail)
+  userSteps.enterClaimantServiceDetails()
   userSteps.enterClaimantTypeIndividual()
   I.see('Claimant: Mr Benugo')
   userSteps.enterClaimantAddress()

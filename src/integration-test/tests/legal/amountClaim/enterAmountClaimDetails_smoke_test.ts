@@ -9,20 +9,14 @@ import { DefendantSteps } from 'integration-test/tests/legal/defence/steps/defen
 const amountClaimSteps: AmountClaimSteps = new AmountClaimSteps()
 const userSteps: UserSteps = new UserSteps()
 const defendantSteps: DefendantSteps = new DefendantSteps()
+const usernameEnvVar: string = process.env.SMOKE_TEST_SOLICITOR_USERNAME
 
 Feature('Enter claim amount and submit claim (smoke)')
 
-Before(async (I: I) => {
-  const usernameEnvVar = process.env.SMOKE_TEST_SOLICITOR_USERNAME
+Scenario('I can fill both Claimant, Defendant details move up to submit claim @smoke-test', async (I: I) => {
   const userEmail = usernameEnvVar ? usernameEnvVar : await I.createSolicitorUser()
   userSteps.loginAndStartClaim(userEmail)
   userSteps.enterClaimantServiceDetails()
-})
-
-Scenario('I can fill both Claimant, Defendant details move up to submit claim @smoke-test', async (I: I) => {
-  // commenting below as there are not variables set yet. Creating a random solicitor for now in "Before"
-  // userSteps.loginAndStartClaim(SMOKE_TEST_SOLICITOR_USERNAME, SMOKE_TEST_USER_PASSWORD)
-  // userSteps.enterClaimantServiceDetails()
   userSteps.enterClaimantTypeOrganisation()
   I.see('Claimant: ' + verifyPageData.claimantOrganization)
   userSteps.enterClaimantAddress()
