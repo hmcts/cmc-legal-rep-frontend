@@ -42,6 +42,9 @@ exports.config = {
       host: 'ondemand.eu-central-1.saucelabs.com',
       // port: 80,
       region: 'eu',
+      sauceConnect: true,
+      services: ['sauce'],
+      acceptSslCerts : true,
       user: saucelabsUsername,
       key: saucelabsAccessKey,
       desiredCapabilities: setupDesiredCapabilitiesFor(browser, saucelabsTunnelIdentifier)
