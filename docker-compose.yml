@@ -20,3 +20,12 @@ services:
         - https_proxy
         - no_proxy
     image: hmctspublic.azurecr.io/cmc/legal-integration-tests
+  legal-nightly-crossbrowser-integration-tests:
+    build:
+      context: .
+      dockerfile: integration-tests.Dockerfile
+      args:
+        - http_proxy
+        - https_proxy
+        - no_proxy
+    image: hmctspublic.azurecr.io/cmc/legal-integration-tests
