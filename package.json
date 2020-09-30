@@ -172,7 +172,7 @@
     "**/download": "8.0.0",
     "sass-lint/eslint": "5.0.0",
     "minimist": "1.2.3",
-    "lodash": "4.17.19",
+    "lodash": "4.17.20",
     "dot-prop": "5.1.1",
     "yargs-parser": "18.1.2"
   }
