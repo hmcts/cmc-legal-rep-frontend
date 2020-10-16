@@ -33,3 +33,9 @@ export class FeeAccount implements Serializable<FeeAccount> {
     return this
   }
 }
+
+export interface PaymentAccountDto {
+  pbaNumber:	string
+  userId?:	string
+  organisationId:	string
+}
