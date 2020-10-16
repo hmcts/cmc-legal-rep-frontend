@@ -1,7 +1,7 @@
 {% extends "layout.njk" %}
 
 {% set title = t('Money claim') %}
-{% set heading = t('Pay by Fee Account') %}
+{% set heading = t('Fee Account') %}
 
 {% from "form.njk" import csrfProtection, submitButton, errorSummary, textInput %}
 
@@ -19,7 +19,7 @@
           {{ csrfProtection(csrf) }}
 
           {{ textInput(t('Fee Account number'), 'reference', form) }}
-          {{ submitButton('Pay and issue') }}
+          {{ submitButton('Verify Fee Acount') }}
         </form>
       </div>
     </div>

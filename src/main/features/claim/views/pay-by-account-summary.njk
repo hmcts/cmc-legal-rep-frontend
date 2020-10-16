@@ -1,0 +1,31 @@
+{% extends "layout.njk" %}
+
+{% set title = t('Money claim') %}
+{% set heading = t('Pay by Fee Account') %}
+
+{% from "form.njk" import csrfProtection, submitButton, errorSummary, textInput %}
+
+{% block content %}
+
+  <div class="grid-row">
+    <div class="column-two-thirds">
+        <div class="form-group">
+            <div class="task">
+                <div class="column-half bold">{{ t('Fees Account number') }}</div>
+                <div class="column-half bold">{{ pbaNumber | string }}</div>
+            </div>
+            <div class="task">
+                <div class="column-half bold">{{ t('Total cost') }}</div>
+                <div class="column-half bold">{{ feeAmount | numeral }}</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <form novalidate method="post">
+                {{ csrfProtection(csrf) }}
+                {{ submitButton('Pay and issue') }}
+            </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

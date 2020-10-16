@@ -21,10 +21,8 @@ import { PayClient } from 'pay/payClient'
 import { PaymentResponse } from 'pay/model/paymentResponse'
 import { ServiceAuthTokenFactoryImpl } from 'shared/security/serviceTokenFactoryImpl'
 import { User } from 'idam/user'
-import RefDataClient from 'main/app/refData/refData'
-import { OrganisationEntityResponse } from 'forms/models/OrganisationEntityResponse'
 
-const logger = Logger.getLogger('router/pay-by-account')
+const logger = Logger.getLogger('router/pay-by-account-summary')
 
 function logError (id: number, message: string) {
   logger.error(`${message} (User Id : ${id})`)
@@ -34,12 +32,6 @@ const getPayClient = async (): Promise<PayClient> => {
   const authToken = await new ServiceAuthTokenFactoryImpl().get()
 
   return new PayClient(authToken)
-}
-
-const getRefDataClient = async (): Promise<RefDataClient> => {
-  const authToken = await new ServiceAuthTokenFactoryImpl().get()
-
-  return new RefDataClient(authToken)
 }
 
 function logPaymentError (id: string, payment: PaymentResponse) {
@@ -96,26 +88,28 @@ async function saveClaimHandler (res, next) {
   }
 }
 
+
 function renderView (form: Form<FeeAccount>, res: express.Response, next: express.NextFunction): void {
   const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
   FeesClient.getFeeAmount(draft.document.amount)
     .then((feeResponse: FeeResponse) => {
-      res.render(Paths.payByAccountPage.associatedView,
+      res.render(Paths.payByAccountSummaryPage.associatedView,
         {
           form: form,
-          feeAmount: feeResponse.amount
+          feeAmount: feeResponse.amount,
+          pbaNumber: draft.document.feeAccount.reference
         })
     })
     .catch(next)
 }
 
 export default express.Router()
-  .get(Paths.payByAccountPage.uri,
+  .get(Paths.payByAccountSummaryPage.uri,
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       renderView(new Form(Cookie.getCookie(req.signedCookies.legalRepresentativeDetails, res.locals.user.id).feeAccount), res, next)
     }))
 
-  .post(Paths.payByAccountPage.uri, FormValidator.requestHandler(FeeAccount, FeeAccount.fromObject),
+  .post(Paths.payByAccountSummaryPage.uri, FormValidator.requestHandler(FeeAccount, FeeAccount.fromObject),
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
       const form: Form<FeeAccount> = req.body
@@ -124,31 +118,16 @@ export default express.Router()
         renderView(form, res, next)
       } else {
         draft.document.feeAccount = form.model
-        // Hard coding started ---- need to remove this Prathap
-        draft.document.feeAccount.reference = form.model.reference
-        await new DraftService().save(draft, res.locals.user.bearerToken)
-        res.redirect(Paths.payByAccountSummaryPage.uri)
-        // Hard coding ends 
-        await new DraftService().save(draft, res.locals.user.bearerToken)
-        const user: User = res.locals.user
-        const refDataClient: RefDataClient = await getRefDataClient()
-        const organisationEntityResponse: OrganisationEntityResponse = await refDataClient.getAccountsForOrganisation(draft.document.representative.organisationName.name, user.email)
-        organisationEntityResponse.paymentAccount.forEach(paymentaccount => {
-          if (draft.document.feeAccount.reference === paymentaccount) {
-             // redirect to next screen if pba number matches reference data
-            const legalRepDetails: RepresentativeDetails = Cookie.getCookie(req.signedCookies.legalRepresentativeDetails, user.id)
-            legalRepDetails.feeAccount = form.model
-            res.cookie(legalRepDetails.cookieName,
-            Cookie.saveCookie(req.signedCookies.legalRepresentativeDetails, user.id, legalRepDetails),
-            CookieProperties.getCookieParameters())
-            process.env.PBA_ERROR = ''
-            res.redirect(Paths.payByAccountSummaryPage.uri)
-          }
-        })
-        process.env.PBA_ERROR = 'Fee Account is invalid or not linked to the User. Try another Fee Account'
-        renderView(form, res, next)
-        // remove below code once migrated to new screen
+
         const feeResponse: FeeResponse = await FeesClient.getFeeAmount(draft.document.amount)
+
+        const user: User = res.locals.user
+        const legalRepDetails: RepresentativeDetails = Cookie.getCookie(req.signedCookies.legalRepresentativeDetails, user.id)
+        legalRepDetails.feeAccount = form.model
+        res.cookie(legalRepDetails.cookieName,
+          Cookie.saveCookie(req.signedCookies.legalRepresentativeDetails, user.id, legalRepDetails),
+          CookieProperties.getCookieParameters())
+
         const paymentReference: string = draft.document.paymentResponse ? draft.document.paymentResponse.reference : undefined
         if (paymentReference) {
           await saveClaimHandler(res, next)
@@ -172,7 +151,7 @@ export default express.Router()
             await saveClaimHandler(res, next)
           } else {
             logPaymentError(user.id, paymentResponse)
-            res.redirect(Paths.payByAccountPage.uri)
+            res.redirect(Paths.payByAccountSummaryPage.uri)
           }
         }
       }
