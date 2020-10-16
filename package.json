@@ -6,7 +6,6 @@
   "engines": {
     "node": ">10.0.0"
   },
-  "moduleResolution": "node",
   "repository": "git@github.com:hmcts/cmc-legal-rep-frontend.git",
   "author": "HMCTS",
   "license": "MIT",
