@@ -151,5 +151,9 @@
   "10095_Backup File Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/Copy%20(3)%20of%20ruxitagentjs_ICA2QSVfjqru_10201200909073022.js_GET": "ignore",
   "10095_Backup File Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/Copy%20of%20ruxitagentjs_ICA2QSVfjqru_10201200909073022.js_GET": "ignore",
   "10109_Modern Web Application_https://moneyclaims-legal.aat.platform.hmcts.net/ruxitagentjs_ICA2QSVfjqru_10201200909073022.js_GET": "ignore",
-  "10021_X-Content-Type-Options Header Missing_https://moneyclaims-legal.aat.platform.hmcts.net/ruxitagentjs_ICA2QSVfjqru_10201200909073022.js_GET": "ignore"
+  "10021_X-Content-Type-Options Header Missing_https://moneyclaims-legal.aat.platform.hmcts.net/ruxitagentjs_ICA2QSVfjqru_10201200909073022.js_GET": "ignore",
+  "10104_User Agent Fuzzer_https://moneyclaims-legal.aat.platform.hmcts.net/_GET":"ignore",
+  "10104_User Agent Fuzzer_https://moneyclaims-legal.aat.platform.hmcts.net/_GET":"ignore",
+  "40025_Proxy Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/_GET":"ignore",
+  "40021_SQL Injection - Oracle - Time Based_https://moneyclaims-legal.aat.platform.hmcts.net/stylesheets/lib/govuk-template-print.css?^0.26.0_GET": "ignore"
 }
