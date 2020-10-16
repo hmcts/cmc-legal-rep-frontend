@@ -88,59 +88,6 @@ describe('Claim : Pay by Fee Account page', () => {
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
 
-    it('should redirect to claim submitted page when form is valid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      draftStoreServiceMock.resolveUpdate()
-      feesServiceMock.resolveCalculateIssueFee()
-      claimStoreServiceMock.resolveRetrieveClaimByExternalId()
-      claimStoreServiceMock.resolveRetrievePaymentReference()
-      claimStoreServiceMock.saveClaimForUser()
-      draftStoreServiceMock.resolveDelete()
-      idamServiceMock.resolveRetrieveServiceToken()
-      payClientMock.resolveCreate()
-      payClientMock.resolveUpdate()
-
-      await request(app)
-        .post(ClaimPaths.payByAccountPage.uri)
-        .set('Cookie', `${cookieName}=ABC`)
-        .send({ reference: 'PBA1234567' })
-        .expect(res => expect(res).to.be.redirect
-          .toLocation(ClaimPaths.claimSubmittedPage.uri.replace(':externalId', claimStoreServiceMock.sampleClaimObj.externalId)))
-    })
-
-    it('should return 500 and render error page when form is valid and cannot retrieve case reference', async () => {
-      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      feesServiceMock.resolveCalculateIssueFee()
-      claimStoreServiceMock.rejectRetrievePaymentReference()
-      idamServiceMock.resolveRetrieveServiceToken()
-
-      await request(app)
-        .post(ClaimPaths.payByAccountPage.uri)
-        .set('Cookie', `${cookieName}=ABC`)
-        .send({ reference: 'PBA1234567' })
-        .expect(res => expect(res).to.be.serverError
-          .withText('Error'))
-    })
-
-    it('should redirect to claim submitted page when claim is duplicate', async () => {
-      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      draftStoreServiceMock.resolveUpdate()
-      feesServiceMock.resolveCalculateIssueFee()
-      claimStoreServiceMock.rejectRetrieveClaimByExternalIdWithNotFound('missing claim as submitted claim transaction is not complete')
-      claimStoreServiceMock.resolveRetrievePaymentReference()
-      claimStoreServiceMock.saveClaimForUserFailedWithUniqueConstraint('Duplicate Claim')
-      draftStoreServiceMock.resolveDelete()
-      idamServiceMock.resolveRetrieveServiceToken()
-      payClientMock.resolveCreate()
-
-      await request(app)
-        .post(ClaimPaths.payByAccountPage.uri)
-        .set('Cookie', `${cookieName}=ABC`)
-        .send({ reference: 'PBA1234567' })
-        .expect(res => expect(res).to.be.redirect
-          .toLocation(ClaimPaths.claimSubmittedPage.uri.replace(':externalId', claimStoreServiceMock.sampleClaimObj.externalId)))
-    })
-
     it('should not issue claim if pay by account is failed', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.resolveUpdate()
