@@ -88,7 +88,6 @@ async function saveClaimHandler (res, next) {
   }
 }
 
-
 function renderView (form: Form<FeeAccount>, res: express.Response, next: express.NextFunction): void {
   const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
   FeesClient.getFeeAmount(draft.document.amount)

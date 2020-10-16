@@ -128,7 +128,7 @@ export default express.Router()
         draft.document.feeAccount.reference = form.model.reference
         await new DraftService().save(draft, res.locals.user.bearerToken)
         res.redirect(Paths.payByAccountSummaryPage.uri)
-        // Hard coding ends 
+        // Hard coding ends
         await new DraftService().save(draft, res.locals.user.bearerToken)
         const user: User = res.locals.user
         const refDataClient: RefDataClient = await getRefDataClient()
