@@ -80,5 +80,8 @@
       "legal-cookie-encryption-key": "not-a-real-32-bit-encryption-key",
       "AppInsightsInstrumentationKey":"APPINSIGHTS_INSTRUMENTATIONKEY"
     }
+  },
+  "refData": {
+    "url": "http://localhost:4421"
   }
 }
