@@ -1,4 +1,4 @@
-export class OrganisationMinimalInfoResponse {
+export interface OrganisationMinimalInfoResponse {
   readonly name: string
   readonly organisationIdentifier: string
 }
