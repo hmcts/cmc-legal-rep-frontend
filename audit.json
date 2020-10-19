@@ -155,5 +155,19 @@
   "10104_User Agent Fuzzer_https://moneyclaims-legal.aat.platform.hmcts.net/_GET":"ignore",
   "10104_User Agent Fuzzer_https://moneyclaims-legal.aat.platform.hmcts.net/_GET":"ignore",
   "40025_Proxy Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/_GET":"ignore",
-  "40021_SQL Injection - Oracle - Time Based_https://moneyclaims-legal.aat.platform.hmcts.net/stylesheets/lib/govuk-template-print.css?^0.26.0_GET": "ignore"
+  "40021_SQL Injection - Oracle - Time Based_https://moneyclaims-legal.aat.platform.hmcts.net/stylesheets/lib/govuk-template-print.css?^0.26.0_GET": "ignore",
+  "40025_Proxy Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/js/application.js_GET": "ignore",
+  "40025_Proxy Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/sitemap.xml_GET": "ignore",
+  "40025_Proxy Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/claim/cookie_GET": "ignore",
+  "40025_Proxy Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/claim_GET": "ignore",
+  "40025_Proxy Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/stylesheets/lib/govuk-template-print.css?%5E0.26.0_GET": "ignore",
+  "40025_Proxy Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/stylesheets/lib/govuk-template-ie8.css?%5E0.26.0_GET": "ignore",
+  "40025_Proxy Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/stylesheets/lib/govuk-template-ie7.css?%5E0.26.0_GET": "ignore",
+  "40025_Proxy Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/stylesheets_GET": "ignore",
+  "40025_Proxy Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/img/lib/apple-touch-icon-180x180.png?%5E0.26.0_GET": "ignore",
+  "40025_Proxy Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/img/lib/gov.uk_logotype_crown.svg?%5E0.26.0_GET": "ignore",
+  "40025_Proxy Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/js/lib/govuk/shim-links-with-button-role.js_GET": "ignore",
+  "40025_Proxy Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/robots.txt_GET": "ignore",
+  "40025_Proxy Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/img_GET": "ignore",
+  "90027_Cookie Slack Detector_https://moneyclaims-legal.aat.platform.hmcts.net_GET": "ignore"
 }
