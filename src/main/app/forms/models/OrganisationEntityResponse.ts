@@ -1,4 +1,4 @@
-import { OrganisationMinimalInfoResponse } from 'forms/models/organisationMinimalInfoResponse'
+import { OrganisationMinimalInfoResponse } from './organisationMinimalInfoResponse'
 
 export class OrganisationEntityResponse {
   readonly sraId: string
