@@ -169,5 +169,7 @@
   "40025_Proxy Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/js/lib/govuk/shim-links-with-button-role.js_GET": "ignore",
   "40025_Proxy Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/robots.txt_GET": "ignore",
   "40025_Proxy Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/img_GET": "ignore",
-  "90027_Cookie Slack Detector_https://moneyclaims-legal.aat.platform.hmcts.net_GET": "ignore"
+  "90027_Cookie Slack Detector_https://moneyclaims-legal.aat.platform.hmcts.net_GET": "ignore",
+  "40025_Proxy Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/js/analytics.js_GET": "ignore",
+  "40025_Proxy Disclosure_https://moneyclaims-legal.aat.platform.hmcts.net/js/double-click-preventer.js_GET": "ignore"
 }
