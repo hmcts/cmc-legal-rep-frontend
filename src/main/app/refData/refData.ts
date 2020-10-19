@@ -1,7 +1,7 @@
 import { ServiceAuthTokenFactoryImpl } from 'shared/security/serviceTokenFactoryImpl'
 import { ServiceAuthToken } from 'idam/serviceAuthToken'
 import * as config from 'config'
-import { OrganisationEntityResponse } from 'forms/models/OrganisationEntityResponse'
+import { OrganisationEntityResponse } from 'forms/models/organisationEntityResponse'
 import { plainToClass } from 'class-transformer'
 
 const refDataURL = config.get<string>('refData.url')
