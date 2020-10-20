@@ -22,7 +22,7 @@ import { PaymentResponse } from 'pay/model/paymentResponse'
 import { ServiceAuthTokenFactoryImpl } from 'shared/security/serviceTokenFactoryImpl'
 import { User } from 'idam/user'
 import RefDataClient from 'main/app/refData/refData'
-import { OrganisationEntityResponse } from 'forms/models/OrganisationEntityResponse'
+import { OrganisationEntityResponse } from 'main/app/refData/models/organisationEntityResponse'
 
 const logger = Logger.getLogger('router/pay-by-account')
 
