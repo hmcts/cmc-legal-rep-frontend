@@ -96,7 +96,7 @@ function renderView (form: Form<FeeAccount>, res: express.Response, next: expres
         {
           form: form,
           feeAmount: feeResponse.amount,
-          pbaNumber: draft.document.feeAccount.reference
+          reference: form.model.reference
         })
     })
     .catch(next)

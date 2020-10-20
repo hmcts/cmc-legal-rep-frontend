@@ -3,7 +3,7 @@
 {% set title = t('Money claim') %}
 {% set heading = t('Pay by Fee Account') %}
 
-{% from "form.njk" import csrfProtection, submitButton, errorSummary, textInput %}
+{% from "form.njk" import csrfProtection, submitButton, errorSummary %}
 
 {% block content %}
 
@@ -12,7 +12,7 @@
         <div class="form-group">
             <div class="task">
                 <div class="column-half bold">{{ t('Fees Account number') }}</div>
-                <div class="column-half bold">{{ pbaNumber }}</div>
+                <div class="column-half bold">{{ reference }}</div>
             </div>
             <div class="task">
                 <div class="column-half bold">{{ t('Total cost') }}</div>
@@ -22,6 +22,7 @@
         <div class="form-group">
             <form novalidate method="post">
                 {{ csrfProtection(csrf) }}
+                <input id="reference" name="reference" type="hidden" autocomplete="on" class="form-control visually-hidden" value="{{ reference }}">
                 {{ submitButton('Pay and issue') }}
             </form>
       </div>
