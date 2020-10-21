@@ -2,6 +2,7 @@ $literal: #d4351c;
 $white: #fff;
 
 .govuk-warning-text {
+  color: $literal;
   position: relative;
 }
 
@@ -12,6 +13,10 @@ $white: #fff;
   font-size: 2rem;
   font-weight: 700;
   line-height: 1.25;
+}
+
+.warrning-div {
+  padding-left: 45px;
 }
 
 .hmcts-banner__icon {

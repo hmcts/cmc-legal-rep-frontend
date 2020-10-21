@@ -3,8 +3,8 @@ export interface BaseParameters {
   dateCreated?: string,
   status?: string,
   errorCode?: string,
-  errorMessage?: string
-  status_histories?: []
+  errorMessage?: string,
+  errorCodeMessage?: string
 }
 
 export interface StatusHistories {

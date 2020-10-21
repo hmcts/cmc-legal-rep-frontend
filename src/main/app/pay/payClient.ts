@@ -41,22 +41,27 @@ export class PayClient {
       uri: `${payUrl}/${payPath}`,
       body: paymentReq,
       headers: {
-        Authorization: 'eyJ0eXAiOiJKV1QiLCJ6aXAiOiJOT05FIiwia2lkIjoiWjRCY2pWZ2Z2dTVaZXhLekJFRWxNU200M0xzPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJyYWNoaXQuc2F4ZW5hQGhtY3RzLm5ldCIsImN0cyI6Ik9BVVRIMl9TVEFURUxFU1NfR1JBTlQiLCJhdXRoX2xldmVsIjowLCJhdWRpdFRyYWNraW5nSWQiOiJjMGEyMmU3Mi1hYWM5LTQxMGMtYWQ2NS04MTg3NjQ4YWQ1ZWYtMjQ1MDMwOCIsImlzcyI6Imh0dHBzOi8vZm9yZ2Vyb2NrLWFtLnNlcnZpY2UuY29yZS1jb21wdXRlLWlkYW0tZGVtby5pbnRlcm5hbDo4NDQzL29wZW5hbS9vYXV0aDIvcmVhbG1zL3Jvb3QvcmVhbG1zL2htY3RzIiwidG9rZW5OYW1lIjoiYWNjZXNzX3Rva2VuIiwidG9rZW5fdHlwZSI6IkJlYXJlciIsImF1dGhHcmFudElkIjoiamdFdUdXWTRuYnBmTVd1MHpWT3VSZUtXQnFvIiwiYXVkIjoiY21jX2xlZ2FsIiwibmJmIjoxNjAzMjI0NzY4LCJncmFudF90eXBlIjoiYXV0aG9yaXphdGlvbl9jb2RlIiwic2NvcGUiOlsib3BlbmlkIiwicHJvZmlsZSIsInJvbGVzIl0sImF1dGhfdGltZSI6MTYwMzIyNDc2MiwicmVhbG0iOiIvaG1jdHMiLCJleHAiOjE2MDMyNTM1NjgsImlhdCI6MTYwMzIyNDc2OCwiZXhwaXJlc19pbiI6Mjg4MDAsImp0aSI6InZfZEpIYklac251MDV3bzdlZXdhRG5iTnRLdyJ9.TD16a_nTjHPMGooYU6AtgEtLGnemj93n0viAVFL7uERdVbal1f9JkcNZiz6gBQX5h_4z-cmpwBGdpp5bxa58VQmXrAy-xYR_YEfZx_qn-rc4ujutHQmfUO3mnyy8RmGjAOjNIjavcV8jSQqc0BGY3lVtlsRgme-IYbZpLPs-UZ21J-vvvk26ASTglHnvut6WHbHzpfq7eV6HxlUZpqHlhu2cS3u8O04hqmsZe2QuxOArxZ9ntj77pAGkWnOVRcTAtTwE5GLUzWSonA-N8TgY7Gos639Z5zNR8qvRLD-m9cihefiobbf0kwu8jrw3ffhdEeV8Nd29Tin0YigIqDUubA',
-        ServiceAuthorization: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjbWMiLCJleHAiOjE2MDMyMzc3NTh9.Mnu4pc4iR-paxe0fs56Qd4OHCUZsmuJTDmzvw2hHJ2J0wb4r42AdIV71Qf7gUd51KPE4Zrzqd2HzY9mRUj-kIA'
+        Authorization: 'eyJ0eXAiOiJKV1QiLCJ6aXAiOiJOT05FIiwia2lkIjoiWjRCY2pWZ2Z2dTVaZXhLekJFRWxNU200M0xzPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJyYWNoaXQuc2F4ZW5hQGhtY3RzLm5ldCIsImN0cyI6Ik9BVVRIMl9TVEFURUxFU1NfR1JBTlQiLCJhdXRoX2xldmVsIjowLCJhdWRpdFRyYWNraW5nSWQiOiJjMGEyMmU3Mi1hYWM5LTQxMGMtYWQ2NS04MTg3NjQ4YWQ1ZWYtMjUxNDQzOSIsImlzcyI6Imh0dHBzOi8vZm9yZ2Vyb2NrLWFtLnNlcnZpY2UuY29yZS1jb21wdXRlLWlkYW0tZGVtby5pbnRlcm5hbDo4NDQzL29wZW5hbS9vYXV0aDIvcmVhbG1zL3Jvb3QvcmVhbG1zL2htY3RzIiwidG9rZW5OYW1lIjoiYWNjZXNzX3Rva2VuIiwidG9rZW5fdHlwZSI6IkJlYXJlciIsImF1dGhHcmFudElkIjoidFRadk9NZnZNa2dkaEJjZ04xeUZnS1k0M09nIiwiYXVkIjoiY21jX2xlZ2FsIiwibmJmIjoxNjAzMjg0NjU0LCJncmFudF90eXBlIjoiYXV0aG9yaXphdGlvbl9jb2RlIiwic2NvcGUiOlsib3BlbmlkIiwicHJvZmlsZSIsInJvbGVzIl0sImF1dGhfdGltZSI6MTYwMzI4NDY1NCwicmVhbG0iOiIvaG1jdHMiLCJleHAiOjE2MDMzMTM0NTQsImlhdCI6MTYwMzI4NDY1NCwiZXhwaXJlc19pbiI6Mjg4MDAsImp0aSI6IjJIN2lNQVFjX1FYbnhMZVVIYW14cDZRRkVTYyJ9.MaS1Xpt0EVzb_kiXhC8WbtiaAdXrgS8rEy_qfK5f5Pc0j_UTGWpFirCtnSE1epgDLWa_rP_US_C_wuwSJEVzQTvFnV9xteBLWl79quUfPKELoXKDcNcrgBIkyFjlD5uxwRqJd400o9U14KrXp2e7ywEd8rNwkNoit8JIo6UbuIyBOicvNcuvCGTsNRk3CBNoygxl4gG1-kivOvONZcV6zVw36lkc-tgza7oOjoKlvEIoGSR7e5-5YXWAK3Vckfs_f7iHx9rC6CxUyyG_OISuQ0KCtVJgf1dOWAuk5W9z2_eBiiMoxfe7iRsCUwaL0B28B_vRYgYuMvs66dDlV8GKHA',
+        ServiceAuthorization: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjbWMiLCJleHAiOjE2MDMzMTQ2NzN9.JvXa8grTeHtad-nqZRYdkaUN7ZD6kqtiSTa7Sysaz37fCsM4AJyGzUKLNlZ1-lmA4mWaxUDKASoKUBRunI34aA'
       }
     })
     .catch(err => {
       let errorMessage
+      let errorStatusMessage
       if (err.error.error !== undefined) {
         errorMessage = err.error.error
       } else {
         errorMessage = err.error
+        if (err.error.status_histories !== undefined) {
+          errorStatusMessage = err.error.status_histories[0].error_code
+        }
       }
       const errorResponse: BaseParameters = {
         reference: err.message,
         status: 'Failed',
         errorCode: err.statusCode,
-        errorMessage: errorMessage
+        errorMessage: errorMessage,
+        errorCodeMessage: errorStatusMessage
       }
       return plainToClass(PaymentResponse, errorResponse)
     })

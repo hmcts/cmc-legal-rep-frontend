@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { Expose } from 'class-transformer'
-import { StatusHistories } from 'pay/model/paymentErrorResponse'
+import { ErrorData } from 'pay/model/paymentErrorData'
 
 export class PaymentResponse {
 
@@ -13,10 +13,9 @@ export class PaymentResponse {
 
   readonly errorCode: string
 
-  readonly errorMessage: string
+  readonly errorMessage: ErrorData
 
-  @Expose({ name: 'status_histories' })
-  readonly statusHistories: Array<StatusHistories>
+  readonly errorCodeMessage: string
 
   get isSuccess (): boolean {
     return this.status === 'Success'
