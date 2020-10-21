@@ -48,18 +48,24 @@ export class PayClient {
     .catch(err => {
       let errorMessage
       let errorStatusMessage
-      if (err.error.error !== undefined) {
-        errorMessage = err.error.error
-      } else {
-        errorMessage = err.error
-        if (err.error.status_histories !== undefined) {
-          errorStatusMessage = err.error.status_histories[0].error_code
+      let statusCode
+      if (err.message !=="socket hang up") {
+        if (err.error.error !== undefined) {
+          errorMessage = err.error.error
+          } else {
+            errorMessage = err.error
+            if (err.error.status_histories !== undefined) {
+              errorStatusMessage = err.error.status_histories[0].error_code
+            }
+          }
+          statusCode = err.statusCode
+        } else {
+          statusCode = 'Error'
         }
-      }
       const errorResponse: BaseParameters = {
         reference: err.message,
         status: 'Failed',
-        errorCode: err.statusCode,
+        errorCode: statusCode,
         errorMessage: errorMessage,
         errorCodeMessage: errorStatusMessage
       }
