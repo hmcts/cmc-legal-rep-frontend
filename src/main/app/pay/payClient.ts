@@ -49,19 +49,19 @@ export class PayClient {
       let errorMessage
       let errorStatusMessage
       let statusCode
-      if (err.message !=="socket hang up") {
+      if (err.message !== 'socket hang up') {
         if (err.error.error !== undefined) {
           errorMessage = err.error.error
-          } else {
-            errorMessage = err.error
-            if (err.error.status_histories !== undefined) {
-              errorStatusMessage = err.error.status_histories[0].error_code
-            }
-          }
-          statusCode = err.statusCode
         } else {
-          statusCode = 'Error'
+          errorMessage = err.error
+          if (err.error.status_histories !== undefined) {
+            errorStatusMessage = err.error.status_histories[0].error_code
+          }
         }
+        statusCode = err.statusCode
+      } else {
+        statusCode = 'Error'
+      }
       const errorResponse: BaseParameters = {
         reference: err.message,
         status: 'Failed',
