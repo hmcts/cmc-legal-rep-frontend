@@ -6,17 +6,85 @@
 {% from "form.njk" import csrfProtection, submitButton, errorSummary %}
 
 {% block content %}
+{% if PBA_ERROR_CODE === '422' %}   
+<div class="error-summary">
+  <div class="govuk-warning-text">
+    <span class="govuk-warning-text-icon" aria-hidden="true">!</span>
+    <strong class="govuk-warning-text-text error-summary-list">
+      Try again later or use another Fee Account number.
+    </strong>
+</div>
+</div>
+{% endif %}
+
+{% if PBA_ERROR_CODE === '403' %}   
+<div class="error-summary">
+  <div class="govuk-warning-text">
+    <span class="govuk-warning-text-icon" aria-hidden="true">!</span>
+    <strong class="govuk-warning-text-text error-summary-list">
+    <ul class="error-summary-list">
+      {% if PBA_ERROR_CODE === 'CA-E0001' %}
+        <li>Payment failed due to Insufficient funds.</li>
+        <li>Try another Fee Account number.</li>
+      {% endif %}
+          
+      {% if PBA_ERROR_CODE === 'CA-E0004' %}
+        <li>Account is 'On hold' or 'Deleted'.</li>
+        <li>Try another Fee Account number.</li>
+      {% endif %}      
+    </ul>
+  </strong>
+</div>
+</div>
+{% endif %}
+
+{% if PBA_ERROR_CODE === '400' %}   
+<div class="error-summary">
+  <div class="govuk-warning-text">
+    <span class="govuk-warning-text-icon" aria-hidden="true">!</span>
+    <strong class="govuk-warning-text-text error-summary-list">
+      Try again later or use another Fee Account number.
+    </strong>
+</div>
+</div>
+{% endif %}
+
+{% if PBA_ERROR_CODE === '504' %}   
+<div class="error-summary">
+  <div class="govuk-warning-text">
+    <span class="govuk-warning-text-icon" aria-hidden="true">!</span>
+    <strong class="govuk-warning-text-text error-summary-list">
+      Unable to retrieve account information, please try again later.
+    </strong>
+</div>
+</div>
+{% endif %}
+
+{% if PBA_ERROR_CODE === '404' %}        
+<div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
+      <h1 class="heading-medium error-summary-heading" id="error-summary-heading">
+        There was a problem
+      </h1>
+      <ul class="error-summary-list">
+        
+          <li>Account details could not be recognised.</li>
+          <li>Try another Fee Account number.</li>
+        
+      </ul>
+    </div>
+{% endif %}
 
   <div class="grid-row">
     <div class="column-two-thirds">
         <div class="form-group">
             <div class="task">
                 <div class="column-half bold">{{ t('Fees Account number') }}</div>
-                <div class="column-half bold">{{ reference }}</div>
+                <div class="column-one-quarter bold">{{ reference }}</div>
+                <div class="column-one-quarter"><a class="link" aria-description="Change fees account number" href="/claim/pay-by-account">{{ t('Change') }}</a></div>
             </div>
             <div class="task">
                 <div class="column-half bold">{{ t('Total cost') }}</div>
-                <div class="column-half bold">{{ feeAmount | numeral }}</div>
+                <div class="column-half bold">{{ feeAmount | numeral }}</div>                
             </div>
         </div>
         <div class="form-group">

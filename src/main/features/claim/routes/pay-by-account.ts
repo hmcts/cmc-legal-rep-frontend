@@ -141,11 +141,11 @@ export default express.Router()
             res.cookie(legalRepDetails.cookieName,
             Cookie.saveCookie(req.signedCookies.legalRepresentativeDetails, user.id, legalRepDetails),
             CookieProperties.getCookieParameters())
-            process.env.PBA_ERROR = ''
+            process.env.RefData_ERROR = ''
             res.redirect(Paths.payByAccountSummaryPage.uri)
           }
         })
-        process.env.PBA_ERROR = 'Fee Account is invalid or not linked to the User. Try another Fee Account'
+        process.env.RefData_ERROR = 'Fee Account is invalid or not linked to the User. Try another Fee Account'
         renderView(form, res, next)
         // remove below code once migrated to new screen
         const feeResponse: FeeResponse = await FeesClient.getFeeAmount(draft.document.amount)

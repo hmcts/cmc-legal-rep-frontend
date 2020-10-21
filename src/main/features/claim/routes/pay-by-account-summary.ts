@@ -96,7 +96,7 @@ function renderView (form: Form<FeeAccount>, res: express.Response, next: expres
         {
           form: form,
           feeAmount: feeResponse.amount,
-          reference: form.model.reference
+          reference: draft.document.feeAccount.reference
         })
     })
     .catch(next)
@@ -105,6 +105,8 @@ function renderView (form: Form<FeeAccount>, res: express.Response, next: expres
 export default express.Router()
   .get(Paths.payByAccountSummaryPage.uri,
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+      process.env.PBA_ERROR_CODE = ''
+      process.env.PBA_ERROR_MESSAGE = ''
       renderView(new Form(Cookie.getCookie(req.signedCookies.legalRepresentativeDetails, res.locals.user.id).feeAccount), res, next)
     }))
 
@@ -112,6 +114,8 @@ export default express.Router()
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
       const form: Form<FeeAccount> = req.body
+      process.env.PBA_ERROR_CODE = ''
+      process.env.PBA_ERROR_MESSAGE = ''
 
       if (form.hasErrors()) {
         renderView(form, res, next)
@@ -150,6 +154,12 @@ export default express.Router()
             await saveClaimHandler(res, next)
           } else {
             logPaymentError(user.id, paymentResponse)
+            process.env.PBA_ERROR_CODE = paymentResponse.errorCode
+            process.env.PBA_ERROR_MESSAGE = 'Failed'
+            if (paymentResponse.errorCode === '403') {
+              process.env.PBA_ERROR_MESSAGE = paymentResponse.statusHistories[0].error_code
+            }
+            renderView(form, res, next)
             res.redirect(Paths.payByAccountSummaryPage.uri)
           }
         }
