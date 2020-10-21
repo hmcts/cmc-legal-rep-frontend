@@ -20,7 +20,7 @@ const pageHeading = 'Fee Account'
 const draftType: string = 'legalClaim'
 const roles: string[] = ['solicitor']
 
-describe('Claim : Fee Account page', () => {
+describe('Claim : Pay by Fee Account page (PBA Config 02)', () => {
   beforeEach(() => {
     mock.cleanAll()
     draftStoreServiceMock.resolveFind('legalClaim')
@@ -40,7 +40,7 @@ describe('Claim : Fee Account page', () => {
         feesServiceMock.rejectCalculateIssueFee('HTTP error')
 
         await request(app)
-          .get(ClaimPaths.payByAccountPage.uri)
+          .get(ClaimPaths.payByAccountSummaryPage.uri)
           .set('Cookie', `${cookieName}=ABC`)
           .expect(res => expect(res).to.be.serverError.withText('Error'))
       })
@@ -50,7 +50,7 @@ describe('Claim : Fee Account page', () => {
         feesServiceMock.resolveCalculateIssueFee()
 
         await request(app)
-          .get(ClaimPaths.payByAccountPage.uri)
+          .get(ClaimPaths.payByAccountSummaryPage.uri)
           .set('Cookie', `${cookieName}=ABC`)
           .expect(res => expect(res).to.be.successful.withText(pageHeading))
       })
@@ -61,34 +61,19 @@ describe('Claim : Fee Account page', () => {
   describe('on POST', () => {
     checkAuthorizationGuards(app, 'post', ClaimPaths.payByAccountPage.uri)
 
-    /* it('should render page when form is invalid and everything is fine', async () => {
+    it('should render page when form is invalid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       feesServiceMock.resolveCalculateIssueFee()
       idamServiceMock.resolveRetrieveServiceToken()
 
       await request(app)
-        .post(ClaimPaths.payByAccountPage.uri)
+        .post(ClaimPaths.payByAccountSummaryPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({ reference: '' })
         .expect(res => expect(res).to.be.successful.withText(pageHeading, 'div class="error-summary"', 'Enter your Fee Account number'))
     })
- */
-    it('should return 500 and render error page when form is valid and cannot save draft', async () => {
-      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      idamServiceMock.resolveRetrieveServiceToken()
-      draftStoreServiceMock.rejectSave(100, 'HTTP error')
-      feesServiceMock.resolveCalculateIssueFee()
-      claimStoreServiceMock.resolveRetrievePaymentReference()
-      payClientMock.resolveCreate()
 
-      await request(app)
-        .post(ClaimPaths.payByAccountPage.uri)
-        .set('Cookie', `${cookieName}=ABC`)
-        .send({ reference: 'PBA1234567' })
-        .expect(res => expect(res).to.be.serverError.withText('Error'))
-    })
-
-    /* it('should not issue claim if pay by account is failed', async () => {
+    it('should not issue claim if pay by account is failed', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.resolveUpdate()
       feesServiceMock.resolveCalculateIssueFee()
@@ -98,11 +83,11 @@ describe('Claim : Fee Account page', () => {
       payClientMock.rejectCreate()
 
       await request(app)
-        .post(ClaimPaths.payByAccountPage.uri)
+        .post(ClaimPaths.payByAccountSummaryPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({ reference: 'PBA1234567' })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
 
-    }) */
+    })
   })
 })

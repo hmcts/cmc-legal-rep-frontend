@@ -157,7 +157,12 @@ export default express.Router()
             process.env.PBA_ERROR_CODE = paymentResponse.errorCode
             process.env.PBA_ERROR_MESSAGE = 'Failed'
             if (paymentResponse.errorCode === '403') {
-              process.env.PBA_ERROR_MESSAGE = paymentResponse.statusHistories[0].error_code
+              if (paymentResponse.statusHistories !== undefined) {
+                process.env.PBA_ERROR_MESSAGE = paymentResponse.statusHistories[0].error_code
+              }
+              else {
+                process.env.PBA_ERROR_MESSAGE = 'Failed'
+              }
             }
             renderView(form, res, next)
             res.redirect(Paths.payByAccountSummaryPage.uri)
