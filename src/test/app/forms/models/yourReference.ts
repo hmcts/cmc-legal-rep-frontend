@@ -44,7 +44,7 @@ describe('YourReference', () => {
       expect(errors.length).to.equal(0)
     })
 
-    it.only('should throw error if empty string is provided for reference', () => {
+    it('should throw error if empty string is provided for reference', () => {
       const errors = validator.validateSync(new YourReference(''))
 
       expect(errors.length).to.equal(1)
