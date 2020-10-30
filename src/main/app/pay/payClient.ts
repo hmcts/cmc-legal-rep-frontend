@@ -7,6 +7,7 @@ import { FeeResponse } from 'fees/model/feeResponse'
 import StringUtils from 'utils/stringUtils'
 import { PaymentResponse } from 'pay/model/paymentResponse'
 import { plainToClass } from 'class-transformer'
+import { BaseParameters } from 'pay/model/paymentErrorResponse'
 
 const payUrl = config.get<string>('pay.url')
 const payPath = config.get<string>('pay.path')
@@ -43,6 +44,32 @@ export class PayClient {
         Authorization: `Bearer ${user.bearerToken}`,
         ServiceAuthorization: `Bearer ${this.serviceAuthToken.bearerToken}`
       }
+    })
+    .catch(err => {
+      let errorMessage
+      let errorStatusMessage
+      let statusCode
+      if (err.message !== 'socket hang up') {
+        if (err.error.error !== undefined) {
+          errorMessage = err.error.error
+        } else {
+          errorMessage = err.error
+          if (err.error.status_histories !== undefined) {
+            errorStatusMessage = err.error.status_histories[0].error_code
+          }
+        }
+        statusCode = err.statusCode
+      } else {
+        statusCode = 'Error'
+      }
+      const errorResponse: BaseParameters = {
+        reference: err.message,
+        status: 'Failed',
+        errorCode: statusCode,
+        errorMessage: errorMessage,
+        errorCodeMessage: errorStatusMessage
+      }
+      return plainToClass(PaymentResponse, errorResponse)
     })
     return plainToClass(PaymentResponse, response)
   }

@@ -7,6 +7,90 @@
 
 {% block content %}
 
+{% if PBA_ERROR_CODE === '422' %}   
+<div class="error-summary">
+  <div class="govuk-warning-text">
+    <span class="govuk-warning-text-icon" aria-hidden="true">!</span>
+    <strong class="govuk-warning-text-text error-summary-list">
+      Try again later or use another Fee Account number.
+    </strong>
+</div>
+</div>
+{% endif %}
+
+{% if PBA_ERROR_CODE === '403' %}   
+<div class="error-summary">
+  <div class="govuk-warning-text">
+    <svg class="hmcts-banner-icon" fill="currentColor" role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
+    <path d="M13.6,15.4h-2.3v-4.5h2.3V15.4z M13.6,19.8h-2.3v-2.2h2.3V19.8z M0,23.2h25L12.5,2L0,23.2z"></path></svg>
+    <strong class="govuk-warning-text-text error-summary-list">
+    <p class="hmcts-banner-warrning-div govuk-warning-text-text">
+      {% if PBA_ERROR_MESSAGE === 'CA-E0001' %}
+          Payment failed due to Insufficient funds.<br/>
+          Try another Fee Account number.
+      {% endif %}
+          
+      {% if PBA_ERROR_MESSAGE === 'CA-E0004' %}
+          Account is On hold or Deleted.<br/>
+          Try another Fee Account number.
+      {% endif %}  
+      {% if PBA_ERROR_MESSAGE === 'Failed' %}
+        Unable to retrieve account information, Please try again later.
+      {% endif %}       
+    </p>
+  </strong>
+</div>
+</div>
+{% endif %}
+
+{% if PBA_ERROR_CODE === '400' %}   
+<div class="error-summary">
+  <div class="govuk-warning-text">
+    <svg class="hmcts-banner-icon" fill="currentColor" role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
+    <path d="M13.6,15.4h-2.3v-4.5h2.3V15.4z M13.6,19.8h-2.3v-2.2h2.3V19.8z M0,23.2h25L12.5,2L0,23.2z"></path></svg>
+    <strong class="govuk-warning-text-text error-summary-list">
+      Try again later or use another Fee Account number.
+    </strong>
+</div>
+</div>
+{% endif %}
+
+{% if PBA_ERROR_CODE === 'Error' %}   
+<div class="error-summary">
+  <div class="govuk-warning-text">
+    <svg class="hmcts-banner-icon" fill="currentColor" role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
+    <path d="M13.6,15.4h-2.3v-4.5h2.3V15.4z M13.6,19.8h-2.3v-2.2h2.3V19.8z M0,23.2h25L12.5,2L0,23.2z"></path></svg>
+    <strong class="govuk-warning-text-text error-summary-list">
+      Payment connection issue, Try again later.
+    </strong>
+</div>
+</div>
+{% endif %}
+
+{% if PBA_ERROR_CODE === '504' %}   
+<div class="error-summary">
+  <div class="govuk-warning-text">
+    <svg class="hmcts-banner-icon" fill="currentColor" role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
+    <path d="M13.6,15.4h-2.3v-4.5h2.3V15.4z M13.6,19.8h-2.3v-2.2h2.3V19.8z M0,23.2h25L12.5,2L0,23.2z"></path></svg>
+    <strong class="govuk-warning-text-text error-summary-list">
+      Unable to retrieve account information, Please try again later.
+    </strong>
+</div>
+</div>
+{% endif %}
+
+{% if PBA_ERROR_CODE === '404' %}        
+<div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
+      <h1 class="heading-medium error-summary-heading" id="error-summary-heading">
+        There was a problem
+      </h1>
+      <ul class="error-summary-list">
+          <li>Account details could not be recognised.</li>
+          <li>Try another Fee Account number.</li>
+      </ul>
+    </div>
+{% endif %}
+
   <div class="grid-row">
     <div class="column-two-thirds">
       <div class="task form-group">
