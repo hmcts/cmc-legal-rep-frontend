@@ -155,9 +155,11 @@ export default express.Router()
             logPaymentError(user.id, paymentResponse)
             process.env.PBA_ERROR_CODE = paymentResponse.errorCode
             process.env.PBA_ERROR_MESSAGE = 'Failed'
-            if (paymentResponse.errorCode.toString() === '403') {
-              if (paymentResponse.errorMessage !== undefined && paymentResponse.errorCodeMessage !== undefined) {
-                process.env.PBA_ERROR_MESSAGE = paymentResponse.errorCodeMessage
+            if (paymentResponse.errorCode !== undefined) {
+              if (paymentResponse.errorCode.toString() === '403') {
+                if (paymentResponse.errorMessage !== undefined && paymentResponse.errorCodeMessage !== undefined) {
+                  process.env.PBA_ERROR_MESSAGE = paymentResponse.errorCodeMessage
+                }
               }
             }
             renderView(form, res, next)
