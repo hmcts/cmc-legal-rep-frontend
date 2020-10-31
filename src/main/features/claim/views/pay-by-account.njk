@@ -43,20 +43,6 @@
 </div>
 {% endif %}
 
-{% if PBA_ERROR_MESSAGE === 'Failed' %}   
-<div class="error-summary">
-  <div class="govuk-warning-text">
-    <svg class="hmcts-banner-icon" fill="currentColor" role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
-    <path d="M13.6,15.4h-2.3v-4.5h2.3V15.4z M13.6,19.8h-2.3v-2.2h2.3V19.8z M0,23.2h25L12.5,2L0,23.2z"></path></svg>
-    <strong class="govuk-warning-text-text error-summary-list">
-    <p class="hmcts-banner-warrning-div govuk-warning-text-text">
-        Unable to retrieve account information, Please try again later.
-    </p>
-  </strong>
-</div>
-</div>
-{% endif %}
-
 {% if PBA_ERROR_CODE === '400' %}   
 <div class="error-summary">
   <div class="govuk-warning-text">
