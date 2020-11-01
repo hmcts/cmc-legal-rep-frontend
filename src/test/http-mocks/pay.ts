@@ -12,6 +12,13 @@ const paymentSuccessResponse: object = {
   date_created: '18-02-2018 17:24:46.477Z'
 }
 
+const paymentFailedResponse: object = {
+  reference: 'RC-1520-4276-0065-8715',
+  status: 'Failed',
+  errorCode: '403',
+  date_created: '18-02-2018 17:24:46.477Z'
+}
+
 export function resolveCreate () {
   mock(payUrl)
     .post(payPath)
@@ -33,5 +40,5 @@ export function rejectCreate () {
 export function failedCreate () {
   mock(payUrl)
     .post(payPath)
-    .reply(HttpStatus.BAD_REQUEST)
+    .reply(HttpStatus.OK, { ...paymentFailedResponse })
 }

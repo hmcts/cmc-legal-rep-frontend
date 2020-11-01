@@ -162,7 +162,6 @@ export default express.Router()
                 }
               }
             }
-            renderView(form, res, next)
             res.redirect(Paths.payByAccountPage.uri)
           }
         }
