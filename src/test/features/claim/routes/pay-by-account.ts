@@ -152,7 +152,6 @@ describe('Claim : Pay by Fee Account page', () => {
       idamServiceMock.resolveRetrieveServiceToken()
       payClientMock.failedCreate()
 
-
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
