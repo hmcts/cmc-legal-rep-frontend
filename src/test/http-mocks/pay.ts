@@ -29,3 +29,9 @@ export function rejectCreate () {
     .post(payPath)
     .reply(HttpStatus.INTERNAL_SERVER_ERROR)
 }
+
+export function failedCreate () {
+  mock(payUrl)
+    .post(payPath)
+    .reply(HttpStatus.BAD_REQUEST)
+}
