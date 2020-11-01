@@ -16,6 +16,7 @@ const paymentFailedResponse: object = {
   reference: 'RC-1520-4276-0065-8715',
   status: 'Failed',
   errorCode: '403',
+  errorCodeMessage: 'CA-E0001',
   date_created: '18-02-2018 17:24:46.477Z'
 }
 
