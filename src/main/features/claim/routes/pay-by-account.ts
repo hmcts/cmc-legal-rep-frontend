@@ -104,8 +104,6 @@ function renderView (form: Form<FeeAccount>, res: express.Response, next: expres
 export default express.Router()
   .get(Paths.payByAccountPage.uri,
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
-      process.env.PBA_ERROR_CODE = ''
-      process.env.PBA_ERROR_MESSAGE = ''
       renderView(new Form(Cookie.getCookie(req.signedCookies.legalRepresentativeDetails, res.locals.user.id).feeAccount), res, next)
     }))
 
@@ -117,6 +115,8 @@ export default express.Router()
       process.env.PBA_ERROR_MESSAGE = ''
 
       if (form.hasErrors()) {
+        process.env.PBA_ERROR_CODE = ''
+        process.env.PBA_ERROR_MESSAGE = ''
         renderView(form, res, next)
       } else {
         draft.document.feeAccount = form.model
@@ -151,6 +151,8 @@ export default express.Router()
             draft.document.paymentResponse = paymentResponse
             await new DraftService().save(draft, user.bearerToken)
             await saveClaimHandler(res, next)
+            process.env.PBA_ERROR_CODE = ''
+            process.env.PBA_ERROR_MESSAGE = ''
           } else {
             logPaymentError(user.id, paymentResponse)
             process.env.PBA_ERROR_CODE = paymentResponse.errorCode
