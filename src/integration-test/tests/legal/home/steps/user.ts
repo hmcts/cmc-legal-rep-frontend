@@ -70,7 +70,7 @@ export class UserSteps {
     yourOrganisationNamePage.enterYourOrganisationName()
     yourOrganisationAddressPage.enterOnlyMandatoryOrganisationAddress()
     yourContactDetailsPage.submitOnlyMandatoryData()
-    yourReferencePage.submitOnlyMandatoryData()
+    yourReferencePage.enterYourReferenceForClaim()
     yourCountyCourtPage.submitOnlyMandatoryData()
     claimantTypePage.enterOnlyMandatoryClaimantTypeData()
   }
