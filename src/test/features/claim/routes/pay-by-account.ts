@@ -108,7 +108,7 @@ describe('Claim : Pay by Fee Account page', () => {
           .toLocation(ClaimPaths.claimSubmittedPage.uri.replace(':externalId', claimStoreServiceMock.sampleClaimObj.externalId)))
     })
 
-    it('should return 500 and render error page when form is valid and cannot retrieve case reference', async () => {
+    it('should return error and render page with error message when form is valid and cannot retrieve case reference', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       feesServiceMock.resolveCalculateIssueFee()
       claimStoreServiceMock.rejectRetrievePaymentReference()
@@ -118,8 +118,7 @@ describe('Claim : Pay by Fee Account page', () => {
         .post(ClaimPaths.payByAccountPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({ reference: 'PBA0082848' })
-        .expect(res => expect(res).to.be.serverError
-          .withText('Error'))
+        .expect(res => expect(res).to.redirect.toLocation(ClaimPaths.payByAccountPage.uri))
     })
 
     it('should redirect to claim submitted page when claim is duplicate', async () => {
