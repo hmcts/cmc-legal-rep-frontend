@@ -84,7 +84,7 @@ describe('Claim : Pay by Fee Account page', () => {
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .send({ reference: 'PBA1234567' })
+        .send({ reference: 'PBA0082848' })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
 
@@ -103,7 +103,7 @@ describe('Claim : Pay by Fee Account page', () => {
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .send({ reference: 'PBA1234567' })
+        .send({ reference: 'PBA0082848' })
         .expect(res => expect(res).to.be.redirect
           .toLocation(ClaimPaths.claimSubmittedPage.uri.replace(':externalId', claimStoreServiceMock.sampleClaimObj.externalId)))
     })
@@ -117,7 +117,7 @@ describe('Claim : Pay by Fee Account page', () => {
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .send({ reference: 'PBA1234567' })
+        .send({ reference: 'PBA0082848' })
         .expect(res => expect(res).to.be.serverError
           .withText('Error'))
     })
@@ -136,7 +136,7 @@ describe('Claim : Pay by Fee Account page', () => {
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .send({ reference: 'PBA1234567' })
+        .send({ reference: 'PBA0082848' })
         .expect(res => expect(res).to.be.redirect
           .toLocation(ClaimPaths.claimSubmittedPage.uri.replace(':externalId', claimStoreServiceMock.sampleClaimObj.externalId)))
     })
@@ -153,7 +153,7 @@ describe('Claim : Pay by Fee Account page', () => {
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
-        .send({ reference: 'PBA1234567' })
+        .send({ reference: 'PBA0082848' })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
 
     })
