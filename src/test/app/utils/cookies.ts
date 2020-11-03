@@ -10,22 +10,22 @@ const firstCompany: RepresentativeDetails = new RepresentativeDetails('1',
   new OrganisationName('First Company'),
   new Address('123 FAKE ROAD', '', 'LONDON', 'SW21AN'),
   new ContactDetails('07777777777', 'me@server.net', 'DX1234567'),
-  new FeeAccount('PBA0082848'))
+  new FeeAccount('PBA0081334'))
 const firstCompanyUpdated: RepresentativeDetails = new RepresentativeDetails('1',
   new OrganisationName('First Company'),
   new Address('123 FAKE ROAD', '', 'LONDON', 'SW21AN'),
   new ContactDetails('07777777777', 'me@server.net', 'DX1234567'),
-  new FeeAccount('PBA0082848'))
+  new FeeAccount('PBA0081334'))
 const secondCompany: RepresentativeDetails = new RepresentativeDetails('2',
   new OrganisationName('Second Company'),
   new Address('123 FAKE STREET', '', 'LONDON', 'SW21AN'),
   new ContactDetails('07777777777', 'me@server.net', 'DX1234567'),
-  new FeeAccount('PBA0082848'))
+  new FeeAccount('PBA0081334'))
 const thirdCompany: RepresentativeDetails = new RepresentativeDetails('3',
   new OrganisationName('Third Company'),
   new Address('123 FAKE STREET', '', 'LONDON', 'SW21AN'),
   new ContactDetails('07777777777', 'me@server.net', 'DX1234567'),
-  new FeeAccount('PBA0082848'))
+  new FeeAccount('PBA0081334'))
 const representativeDetails: RepresentativeDetails[] = [firstCompany, secondCompany]
 const representativeDetailsUpdated: RepresentativeDetails[] = [secondCompany, firstCompanyUpdated]
 const representativeDetailsThreeCompanies: RepresentativeDetails[] = [firstCompanyUpdated, secondCompany, thirdCompany]
