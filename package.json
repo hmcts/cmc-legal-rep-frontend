@@ -171,7 +171,7 @@
     "node-sass": "4.14.1",
     "**/download": "8.0.0",
     "sass-lint/eslint": "5.0.0",
-    "minimist": "1.2.3",
+    "minimist": "1.2.5",
     "lodash": "4.17.19",
     "dot-prop": "5.1.1",
     "yargs-parser": "20.2.1"
