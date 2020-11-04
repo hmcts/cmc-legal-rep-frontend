@@ -18,6 +18,6 @@ export class PaymentResponse {
   readonly errorCodeMessage: string
 
   get isSuccess (): boolean {
-    return this.status === 'Pending'
+    return this.status === 'Success'
   }
 }
