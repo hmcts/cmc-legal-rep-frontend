@@ -49,7 +49,7 @@ export class PayClient {
       let errorMessage
       let errorStatusMessage
       let statusCode
-      if ((err.message !== 'socket hang up') && (err.code !== 'ECONNREFUSED')) {
+      if ((err.message !== 'socket hang up') && (err.code !== 'ECONNREFUSED') && (err.code !== 'ERR_INVALID_CHAR')) {
         if (err.error.error !== undefined) {
           errorMessage = err.error.error
         } else {
