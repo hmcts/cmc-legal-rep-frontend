@@ -111,8 +111,12 @@ export default express.Router()
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
       const form: Form<FeeAccount> = req.body
+      process.env.PBA_ERROR_CODE = ''
+      process.env.PBA_ERROR_MESSAGE = ''
 
       if (form.hasErrors()) {
+        process.env.PBA_ERROR_CODE = ''
+        process.env.PBA_ERROR_MESSAGE = ''
         renderView(form, res, next)
       } else {
         draft.document.feeAccount = form.model
@@ -147,8 +151,19 @@ export default express.Router()
             draft.document.paymentResponse = paymentResponse
             await new DraftService().save(draft, user.bearerToken)
             await saveClaimHandler(res, next)
+            process.env.PBA_ERROR_CODE = ''
+            process.env.PBA_ERROR_MESSAGE = ''
           } else {
             logPaymentError(user.id, paymentResponse)
+            process.env.PBA_ERROR_CODE = paymentResponse.errorCode
+            process.env.PBA_ERROR_MESSAGE = 'Failed'
+            if (paymentResponse.errorCode !== undefined) {
+              if (paymentResponse.errorCode.toString() === '403') {
+                if (paymentResponse.errorMessage !== undefined && paymentResponse.errorCodeMessage !== undefined) {
+                  process.env.PBA_ERROR_MESSAGE = paymentResponse.errorCodeMessage
+                }
+              }
+            }
             res.redirect(Paths.payByAccountPage.uri)
           }
         }
