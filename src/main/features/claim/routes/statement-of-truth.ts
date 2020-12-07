@@ -33,6 +33,8 @@ export default express.Router()
       } else {
         draft.document.statementOfTruth = form.model
         await new DraftService().save(draft, res.locals.user.bearerToken)
+        process.env.PBA_ERROR_CODE = ''
+        process.env.PBA_ERROR_MESSAGE = ''
         res.redirect(Paths.payByAccountPage.uri)
       }
     })
