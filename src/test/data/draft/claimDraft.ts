@@ -46,7 +46,7 @@ export const claimDraft = {
     signerRole: 'qa'
   },
   feeAccount: {
-    reference: 'PBA0081334'
+    reference: 'PBA0000000'
   },
   feeCode: 'X0001',
   feeAmountInPennies: 3500,
