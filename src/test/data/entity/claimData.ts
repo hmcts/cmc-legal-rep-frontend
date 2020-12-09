@@ -14,7 +14,7 @@ export const claimData = {
     signerRole: 'qa'
   },
   feeCode: 'X0001',
-  feeAccountNumber: 'PBA0081334',
+  feeAccountNumber: 'PBA0000000',
   feeAmountInPennies: 3500,
   lastUpdateTimestamp: 1507631932,
   reason: 'bb',
