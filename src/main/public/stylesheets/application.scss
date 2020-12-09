@@ -18,7 +18,6 @@ $path: '/img/lib/';
 @import 'components/document-upload';
 @import 'components/document-download';
 @import 'components/mobile';
-@import 'components/warning_text';
 
 .notice {
   margin-bottom: 1.5rem;
@@ -38,8 +37,4 @@ $path: '/img/lib/';
 
 .no-margin-top {
   margin-top: 0;
-}
-
-.pull-right {
-  float: right;
 }
