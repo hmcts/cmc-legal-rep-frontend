@@ -44,11 +44,10 @@ describe('YourReference', () => {
       expect(errors.length).to.equal(0)
     })
 
-    it('should throw error if empty string is provided for reference', () => {
+    it('should accept empty string for reference', () => {
       const errors = validator.validateSync(new YourReference(''))
 
-      expect(errors.length).to.equal(1)
-      expectValidationError(errors, 'Enter your reference for this claim')
+      expect(errors.length).to.equal(0)
     })
 
     it('should reject reference with too many characters', () => {

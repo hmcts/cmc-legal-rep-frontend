@@ -12,7 +12,7 @@
       <form novalidate method="post">
         {{ csrfProtection(csrf) }}
 
-        {{ textInput('', 'reference', form) }}
+        {{ textInput('', 'reference', form, t('Optional')) }}
         <div class="form-group">
           {{ saveAndContinueButton() }}
         </div>
