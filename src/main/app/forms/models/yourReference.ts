@@ -1,16 +1,9 @@
 import { ValidationErrors as CommonValidationErrors } from 'forms/validation/validationErrors'
-import { IsOptional, MaxLength, IsDefined } from '@hmcts/class-validator'
-import { IsNotBlank } from '@hmcts/cmc-validators'
+import { IsOptional, MaxLength } from '@hmcts/class-validator'
 import { Serializable } from 'models/serializable'
-
-export class ValidationErrors {
-  static readonly REFERENCE_NAME_REQUIRED: string = 'Enter your reference for this claim'
-}
 
 export class YourReference implements Serializable<YourReference> {
 
-  @IsDefined({ message: ValidationErrors.REFERENCE_NAME_REQUIRED })
-  @IsNotBlank({ message: ValidationErrors.REFERENCE_NAME_REQUIRED })
   @MaxLength(25, { message: CommonValidationErrors.CONTENT_TOO_LONG })
   @IsOptional()
   reference?: string
