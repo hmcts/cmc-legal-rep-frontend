@@ -5,12 +5,12 @@ import { verifyPageData } from 'integration-test/data/legal-test-data'
 import { AmountClaimSteps } from 'integration-test/tests/legal/amountClaim/steps/amountClaims'
 import { UserSteps } from 'integration-test/tests/legal/home/steps/user'
 import { DefendantSteps } from 'integration-test/tests/legal/defence/steps/defendant'
-// import { DashboardSteps } from 'integration-test/tests/legal/dashboard/steps/dashboard'
+import { DashboardSteps } from 'integration-test/tests/legal/dashboard/steps/dashboard'
 
 const amountClaimSteps: AmountClaimSteps = new AmountClaimSteps()
 const userSteps: UserSteps = new UserSteps()
 const defendantSteps: DefendantSteps = new DefendantSteps()
-// const dashboardSteps: DashboardSteps = new DashboardSteps()
+const dashboardSteps: DashboardSteps = new DashboardSteps()
 
 Feature('Enter claim amount and submit claim')
 
@@ -31,11 +31,11 @@ Scenario('I can fill in Organisation details for Claimant, Defendant, Claim amou
     defendantSteps.enterDefendantRepsAddress()
     defendantSteps.noAnotherDefendant()
     amountClaimSteps.addRangeDetailsAndVerifyOrganisationDetails()
-    // const information = await I.grabTextFrom('h2.bold-medium.reference-number, div.confirmation-detail').catch((e) => {
-    //   throw e
-    // })
-    // amountClaimSteps.verifySubmittedPage([information[1], information[2]])
-    // dashboardSteps.searchAndVerifyClaimDetails(information[0])
+    const information = await I.grabTextFrom('h2.bold-medium.reference-number, div.confirmation-detail').catch((e) => {
+      throw e
+    })
+    amountClaimSteps.verifySubmittedPage([information[1], information[2]])
+    dashboardSteps.searchAndVerifyClaimDetails(information[0])
   })
 })
 
@@ -51,8 +51,8 @@ Scenario('I can fill only mandatory fields and submit the claim @legal', async (
     defendantSteps.enterDefendantRepsAddress()
     defendantSteps.noAnotherDefendant()
     amountClaimSteps.addMandatoryClaimDataAndSubmitClaim()
-    // let dateCheck = await I.grabTextFrom('div.confirmation-detail')
-    // amountClaimSteps.verifySubmittedPage(dateCheck)
+    let dateCheck = await I.grabTextFrom('div.confirmation-detail')
+    amountClaimSteps.verifySubmittedPage(dateCheck)
   })
 })
 
@@ -128,10 +128,9 @@ Scenario('I can fill in individual details for Claimant, Defendant, Claim amount
     defendantSteps.defendantAddressAsServiceAddress()
     defendantSteps.noAnotherDefendant()
     amountClaimSteps.addRangeDetailsAndVerifyIndividualDetails()
-    // let dateCheck = await I.grabTextFrom('div.confirmation-detail')
-    // amountClaimSteps.verifySubmittedPage(dateCheck)
-    // I.click('Download the sealed claim form')
-
+    let dateCheck = await I.grabTextFrom('div.confirmation-detail')
+    amountClaimSteps.verifySubmittedPage(dateCheck)
+    I.click('Download the sealed claim form')
     // for some reason the below code is always returning as done. Need to be looked into
     // const pdfUrl = await I.grabAttributeFrom('ol li a', 'href')
     // const sessionCookie = await I.grabCookie('T2_SESSION_ID')
