@@ -16,7 +16,7 @@ export default express.Router()
     if (document === undefined) {
       throw new ForbiddenError()
     }
-    DocumentsClient.getBinaryUrl(res.locals.user.bearerToken, req.query.id)
+    DocumentsClient.getBinaryUrl(res.locals.user.bearerToken, req.query.id as string)
       .then(binaryPath => {
 
         DocumentsClient.getDocument(res.locals.user.bearerToken, binaryPath)

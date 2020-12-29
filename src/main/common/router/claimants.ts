@@ -50,7 +50,7 @@ export class Claimants {
   }
 
   static getChangeIndex (req: express.Request, res: express.Response): number {
-    const index = req.query.index !== undefined ? (req.query.index - 1) : -1
+    const index = req.query.index !== undefined ? (req.query.index as any - 1) : -1
     if (index < 0 || index > Claimants.getCurrentIndex(res)) {
       throw Error('Invalid index for claimant')
     }
