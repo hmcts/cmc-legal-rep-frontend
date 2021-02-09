@@ -25,7 +25,7 @@ describe('FeeAccount', () => {
     })
 
     it('should return an instance from given object', () => {
-      const reference = 'PBA1234567'
+      const reference = 'PBA0082848'
       const result = new FeeAccount().deserialize({
         reference: reference
       })
@@ -71,7 +71,7 @@ describe('FeeAccount', () => {
     })
 
     it('should accept valid fee account', () => {
-      const errors = validator.validateSync(new FeeAccount('PBA1234567'))
+      const errors = validator.validateSync(new FeeAccount('PBA0082848'))
 
       expect(errors.length).to.equal(0)
     })
@@ -88,9 +88,9 @@ describe('FeeAccount', () => {
 
     it('should have valid fee account', () => {
       const feeAccount = FeeAccount.fromObject({
-        reference: 'PBA1234567'
+        reference: 'PBA0082848'
       })
-      expect(feeAccount.reference).to.equal('PBA1234567')
+      expect(feeAccount.reference).to.equal('PBA0082848')
     })
   })
 
