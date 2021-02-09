@@ -4,10 +4,9 @@ tags:
 nodejs:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
-  readinessDelay: 250  # claim-store will start much slower
-  livenessDelay: 250  # claim-store will start much slower
   environment:
     LOG_LEVEL: DEBUG
+
     FEATURE_TESTING_SUPPORT: true
     FEATURE_RETURN_ERROR_TO_USER: true
 
