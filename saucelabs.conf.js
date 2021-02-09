@@ -1,48 +1,59 @@
-const supportedBrowsers = require('@hmcts/cmc-supported-browsers').supportedBrowsers
+require("ts-node/register");
+require("tsconfig-paths/register");
 
-const browser = requiredValue(process.env.SAUCELABS_BROWSER, 'SAUCELABS_BROWSER')
-const saucelabsTunnelIdentifier = requiredValue(process.env.SAUCELABS_TUNNEL_IDENTIFIER, 'SAUCELABS_TUNNEL_IDENTIFIER')
-const saucelabsUsername = requiredValue(process.env.SAUCELABS_USERNAME, 'SAUCELABS_USERNAME')
-const saucelabsAccessKey = requiredValue(process.env.SAUCELABS_ACCESS_KEY, 'SAUCELABS_ACCESS_KEY')
+const supportedBrowsers = require('./src/integration-test/crossbrowser/supportedBrowsers.js');
+const waitForTimeout = parseInt(process.env.WAIT_FOR_TIMEOUT) || 45000;
+const smartWait = parseInt(process.env.SMART_WAIT) || 30000;
+const browser = process.env.BROWSER_GROUP || 'chrome';
+const outputDir = './functional-output'
+const defaultSauceOptions = {
+  username: process.env.SAUCE_USERNAME,
+  accessKey: process.env.SAUCE_ACCESS_KEY,
+  tunnelIdentifier: process.env.TUNNEL_IDENTIFIER || 'reformtunnel',
+  acceptSslCerts: true,
+  windowSize: '1600x900',
+  tags: ['cmc']
+};
 
-function requiredValue (envVariableValue, variableName) {
-  if (envVariableValue && envVariableValue.trim().length > 0) {
-    return envVariableValue.trim()
-  } else {
-    throw new Error(`${variableName} is a required environment variable, but wasn't set`)
+function merge (intoObject, fromObject) {
+  return Object.assign({}, intoObject, fromObject);
+}
+
+function getBrowserConfig(browserGroup) {
+  const browserConfig = [];
+  for (const candidateBrowser in supportedBrowsers[browserGroup]) {
+    if (candidateBrowser) {
+      const candidateCapabilities = supportedBrowsers[browserGroup][candidateBrowser];
+      candidateCapabilities['sauce:options'] = merge(
+        defaultSauceOptions, candidateCapabilities['sauce:options']
+      );
+      browserConfig.push({
+        browser: candidateCapabilities.browserName,
+        capabilities: candidateCapabilities
+      });
+    } else {
+      console.error('ERROR: supportedBrowsers is empty or incorrectly defined');
+    }
   }
+  return browserConfig;
 }
 
-function setupDesiredCapabilitiesFor (browser, saucelabsTunnelName) {
-  let desiredCapability = supportedBrowsers[browser]
-  desiredCapability.tunnelIdentifier = saucelabsTunnelName
-  desiredCapability.tags = ['cmc']
-  return desiredCapability
-}
-
-exports.config = {
+const setupConfig = {
   name: 'integration-tests',
   bootstrap: './src/integration-test/bootstrap/bootstrap.ts',
   tests: './src/integration-test/tests/**/*_test.*',
-  output: './output',
-  timeout: 10000,
+  output: `${process.cwd()}/${outputDir}`,
   helpers: {
     WebDriver: {
-      url: process.env.LEGAL_APP_URL || 'https://localhost:4000',
-      browser: supportedBrowsers[browser].browserName,
-      waitForTimeout: 60000,
-      windowSize: '1600x900',
-      uniqueScreenshotNames: true,
-      timeouts: {
-        script: 60000,
-        pageLoad: 60000,
-        'page load': 60000
-      },
-      host: 'ondemand.saucelabs.com',
+      url: process.env.CITIZEN_APP_URL || 'https://localhost:3000',
+      browser,
+      smartWait,
+      waitForTimeout,
+      cssSelectorsEnabled: 'true',
+      host: 'ondemand.eu-central-1.saucelabs.com',
       port: 80,
-      user: saucelabsUsername,
-      key: saucelabsAccessKey,
-      desiredCapabilities: setupDesiredCapabilitiesFor(browser, saucelabsTunnelIdentifier)
+      region: 'eu',
+      capabilities: {}
     },
     IdamHelper: {
       require: './src/integration-test/helpers/idamHelper'
@@ -55,6 +66,19 @@ exports.config = {
     },
     SaucelabsReporter: {
       require: './src/integration-test/helpers/saucelabsReporter'
+    },
+    Mochawesome: {
+      uniqueScreenshotNames: 'true'
+    }
+  },
+  plugins: {
+    retryFailedStep: {
+      enabled: true,
+      retries: 2
+    },
+    autoDelay: {
+      enabled: true,
+      delayAfter: 2000
     }
   },
   mocha: {
@@ -66,22 +90,38 @@ exports.config = {
         }
       },
       'mocha-junit-reporter': {
-        stdout: `./output/${browser}-legal-mocha-junit-reporter-stdout.log`,
+        stdout: `${outputDir}/${browser}-legal-mocha-junit-reporter-stdout.log`,
         options: {
-          mochaFile: `./output/${browser}-legal-e2e-result.xml`,
+          mochaFile: `${outputDir}/${browser}-legal-e2e-result.xml`,
           reportTitle: `Legal cross browser E2E results for: ${browser}`,
           inlineAssets: true
         }
       },
-      'mochawesome': {
-        stdout: `./output/${browser}-legal-mochawesome-stdout.log`,
+      mochawesome: {
+        stdout: `${outputDir}/${browser}-legal-mochawesome-stdout.log`,
         options: {
-          reportDir: 'output',
+          reportDir: outputDir,
           reportFilename: `${browser}-legal-e2e-result`,
           inlineAssets: true,
           reportTitle: `${browser} legal E2E tests result`
         }
       }
     }
+  },
+  multiple: {
+    microsoft: {
+      browsers: getBrowserConfig('microsoft')
+    },
+    chrome: {
+      browsers: getBrowserConfig('chrome')
+    },
+    firefox: {
+      browsers: getBrowserConfig('firefox')
+    },
+    safari: {
+      browsers: getBrowserConfig('safari')
+    }
   }
-}
+};
+
+exports.config = setupConfig;

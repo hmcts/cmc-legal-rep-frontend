@@ -14,10 +14,6 @@ def component = "legal-frontend"
 
 // SAUCELABS config - configured on Jenkins (also IDAM_URL above used)
 env.IDAM_URL = 'https://idam-api.aat.platform.hmcts.net'
-env.SAUCELABS_BROWSER = 'chrome_win_latest'
-env.SAUCELABS_TUNNEL_IDENTIFIER = 'reformtunnel'
-env.SAUCELABS_USERNAME = 'username'
-env.SAUCELABS_ACCESS_KEY = 'privatekey'
 
 withNightlyPipeline("nodejs", product, component) {
   env.TEST_URL = params.URL_TO_TEST
@@ -25,7 +21,7 @@ withNightlyPipeline("nodejs", product, component) {
 
   enableSecurityScan()
   enableFullFunctionalTest()
-  enableCrossBrowserTest()
+  enableCrossBrowserTest(['chrome'])
 
   after('crossBrowserTest') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'

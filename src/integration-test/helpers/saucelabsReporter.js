@@ -6,7 +6,7 @@ const SUCCESS = true
 const FAILURE = false
 
 function reportBuildResultToSaucelabs (result) {
-  const sessionId = container.helpers('WebDriver').browser.requestHandler.sessionID
+  const sessionId = container.helpers('WebDriver').browser.sessionId
 
   request.put({
     uri: `https://saucelabs.com/rest/v1/${process.env.SAUCELABS_USERNAME}/jobs/${sessionId}`,
@@ -23,6 +23,7 @@ function reportBuildResultToSaucelabs (result) {
   ).catch(
     err => console.log(err)
   )
+  console.log('SauceOnDemandSessionID=' + sessionId + ' job-name=cmc-legal-rep-frontend')
 }
 
 module.exports = function () {
