@@ -11,7 +11,7 @@ export class Defendants {
     const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
     let defendants: Defendant[] = []
 
-    draft.document.defendants.map((defendant) => defendants.push(new Defendant().deserialize(defendant)))
+    draft.document.defendants.forEach((defendant) => defendants.push(new Defendant().deserialize(defendant)))
     defendants.push(new Defendant())
 
     draft.document.defendants = defendants
