@@ -7,8 +7,8 @@ export class Cookie {
     if (legalRepresentativeDetails === undefined || legalRepresentativeDetails.length === undefined) {
       return new RepresentativeDetails()
     } else {
-      const representativeDetail: RepresentativeDetails = legalRepresentativeDetails.find(function (representativeDetail: RepresentativeDetails) {
-        return representativeDetail.id === id
+      const representativeDetail: RepresentativeDetails = legalRepresentativeDetails.find(function (representativeDetails: RepresentativeDetails) {
+        return representativeDetails.id === id
       })
 
       if (representativeDetail === undefined) {
