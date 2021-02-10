@@ -107,7 +107,7 @@
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "chai-spies": "^1.0.0",
-    "codeceptjs": "3.0.2",
+    "codeceptjs": "3.0.5",
     "gulp": "^4.0.2",
     "gulp-livereload": "^4.0.2",
     "gulp-nodemon": "^2.5.0",
