@@ -93,7 +93,7 @@
     "to-boolean": "^1.0.0",
     "ts-node": "^9.0.0",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "^4.0.0",
+    "typescript": "^4.1.2",
     "url-parse": "^1.4.7"
   },
   "devDependencies": {
@@ -133,7 +133,7 @@
     "ts-mockito": "^2.3.1",
     "tslint": "^5.20.1",
     "tslint-config-standard": "^9.0.0",
-    "webdriver": "^6.1.8"
+    "webdriver": "^6.10.4"
   },
   "nyc": {
     "include": [
