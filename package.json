@@ -94,7 +94,8 @@
     "ts-node": "^9.0.0",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^4.0.0",
-    "url-parse": "^1.4.7"
+    "url-parse": "^1.4.7",
+    "webdriver": "^7.0.0"
   },
   "devDependencies": {
     "@hmcts/class-validator": "^0.9.1-e",
