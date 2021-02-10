@@ -10,6 +10,7 @@ function reportBuildResultToSaucelabs (result) {
   const sauceUsername = process.env.SAUCE_USERNAME
   const sauceAccessKey = process.env.SAUCE_ACCESS_KEY
 
+  console.log('SauceOnDemandSessionID=' + sessionId + ' job-name=cmc-legal-rep-frontend')
   request.put({
     uri: `https://eu-central-1.saucelabs.com/rest/v1/${sauceUsername}/jobs/${sessionId}`,
     auth: {
@@ -25,7 +26,6 @@ function reportBuildResultToSaucelabs (result) {
   ).catch(
     err => console.log(err)
   )
-  console.log('SauceOnDemandSessionID=' + sessionId + ' job-name=cmc-legal-rep-frontend')
 }
 
 module.exports = function () {
