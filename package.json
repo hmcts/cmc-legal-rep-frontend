@@ -95,7 +95,7 @@
     "tsconfig-paths": "^3.9.0",
     "typescript": "^4.0.0",
     "url-parse": "^1.4.7",
-    "webdriver": "^7.0.0"
+    "webdriverio": "^6.12.1"
   },
   "devDependencies": {
     "@hmcts/class-validator": "^0.9.1-e",
@@ -134,7 +134,7 @@
     "ts-mockito": "^2.3.1",
     "tslint": "^5.20.1",
     "tslint-config-standard": "^9.0.0",
-    "webdriver": "^7.0.0"
+    "webdriver": "^6.1.8"
   },
   "nyc": {
     "include": [
