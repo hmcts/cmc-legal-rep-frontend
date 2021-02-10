@@ -1,8 +1,0 @@
-dependencies:
-  - name: nodejs
-    version: ~1.10.0
-    repository: '@hmctspublic'
-  - name: idam-pr
-    version: ~2.1.0
-    repository: '@hmctspublic'
-    condition: idam-pr.enabled
