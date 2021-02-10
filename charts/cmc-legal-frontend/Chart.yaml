@@ -1,7 +1,7 @@
 apiVersion: v2
 name: cmc-legal-frontend
 home: https://github.com/hmcts/cmc-legal-rep-frontend
-version: 1.2.2
+version: 1.2.3
 description: Helm chart for the HMCTS CMC Legal Frontend service
 # be aware when bumping version that it is used elsewhere, e.g.:
 # chart-cmc - demo: https://github.com/hmcts/chart-cmc/tree/master/cmc
@@ -10,3 +10,11 @@ description: Helm chart for the HMCTS CMC Legal Frontend service
 maintainers:
   - name: HMCTS CMC Dev Team
     email: cmc-developers@HMCTS.NET
+dependencies:
+  - name: nodejs
+    version: ~1.10.0
+    repository: '@hmctspublic'
+  - name: idam-pr
+    version: ~2.1.0
+    repository: '@hmctspublic'
+    condition: idam-pr.enabled
