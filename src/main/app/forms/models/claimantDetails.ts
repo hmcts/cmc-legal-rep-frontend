@@ -45,8 +45,8 @@ export class ClaimantDetails implements Serializable<ClaimantDetails> {
 
       if (value.type) {
         type = ClaimantType.all()
-          .filter(type => {
-            return type.value === value.type
+          .filter(newType => {
+            return newType.value === value.type
           })
           .pop()
       }
