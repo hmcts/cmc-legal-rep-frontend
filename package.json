@@ -4,7 +4,7 @@
   "description": "Front end for legal representation journey within CMC",
   "private": true,
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=12.5.0"
   },
   "repository": "git@github.com:hmcts/cmc-legal-rep-frontend.git",
   "author": "HMCTS",
@@ -37,7 +37,7 @@
     "@hmcts/cookie-encrypter": "^1.0.1",
     "@hmcts/draft-store-client": "1.2.1",
     "@hmcts/info-provider": "1.0.0",
-    "@hmcts/nodejs-healthcheck": "1.5.1",
+    "@hmcts/nodejs-healthcheck": "1.7.0",
     "@hmcts/nodejs-logging": "3.0.1",
     "@hmcts/properties-volume": "0.0.9",
     "@hmcts/requestretry": "1.1.2",
