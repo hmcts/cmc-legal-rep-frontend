@@ -7,12 +7,14 @@ const FAILURE = false
 
 function reportBuildResultToSaucelabs (result) {
   const sessionId = container.helpers('WebDriver').browser.sessionId
+  const sauceUsername = process.env.SAUCE_USERNAME
+  const sauceAccessKey = process.env.SAUCE_ACCESS_KEY
 
   request.put({
-    uri: `https://saucelabs.com/rest/v1/${process.env.SAUCELABS_USERNAME}/jobs/${sessionId}`,
+    uri: `https://eu-central-1.saucelabs.com/rest/v1/${sauceUsername}/jobs/${sessionId}`,
     auth: {
-      username: process.env.SAUCELABS_USERNAME,
-      password: process.env.SAUCELABS_ACCESS_KEY
+      username: sauceUsername,
+      password: sauceAccessKey
     },
     body: {
       passed: result
