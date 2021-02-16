@@ -40,7 +40,7 @@ function getBrowserConfig(browserGroup) {
 
 const setupConfig = {
   name: 'integration-tests',
-  bootstrap: './src/integration-test/bootstrap/bootstrap.ts',
+  bootstrapAll: './src/integration-test/bootstrap/bootstrap.ts',
   tests: './src/integration-test/tests/**/*_test.*',
   output: `${process.cwd()}/${outputDir}`,
   helpers: {
