@@ -12,20 +12,36 @@ properties([
 def product = "cmc"
 def component = "legal-frontend"
 
+def secrets = [
+  'cmc-${env}':
+    [
+      secret('legal-oauth-client-secret', 'OAUTH_CLIENT_SECRET'),
+      secret('smoke-test-solicitor-username', 'SMOKE_TEST_SOLICITOR_USERNAME'),
+      secret('smoke-test-user-password', 'SMOKE_TEST_USER_PASSWORD')
+    ]
+]
+
+static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
+  [ $class: 'AzureKeyVaultSecret',
+    secretType: 'Secret',
+    name: secretName,
+    version: '',
+    envVariable: envVar
+  ]
+}
+
 // SAUCELABS config - configured on Jenkins (also IDAM_URL above used)
 env.IDAM_URL = 'https://idam-api.aat.platform.hmcts.net'
-env.SAUCELABS_BROWSER = 'chrome_win_latest'
-env.SAUCELABS_TUNNEL_IDENTIFIER = 'reformtunnel'
-env.SAUCELABS_USERNAME = 'username'
-env.SAUCELABS_ACCESS_KEY = 'privatekey'
+env.CLAIM_STORE_URL = 'http://cmc-claim-store-aat.service.core-compute-aat.internal'
 
 withNightlyPipeline("nodejs", product, component) {
   env.TEST_URL = params.URL_TO_TEST
   env.LEGAL_APP_URL = params.URL_TO_TEST
 
+  loadVaultSecrets(secrets)
   enableSecurityScan()
   enableFullFunctionalTest()
-  enableCrossBrowserTest()
+  enableCrossBrowserTest(['chrome'])
 
   after('crossBrowserTest') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
