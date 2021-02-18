@@ -11,7 +11,7 @@ declare namespace CodeceptJS {
     attachFile: (locator: string, path: string) => any
     grabAttributeFrom: (locator: string, attr: string) => any
 
-    fillField: (locator: string, value: string) => any
+    fillField: (locator: string | object, value: string) => any
     selectOption: (select: string, option: string) => any
   }
 }

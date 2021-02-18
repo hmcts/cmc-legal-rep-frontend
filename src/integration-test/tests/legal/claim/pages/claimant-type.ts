@@ -5,11 +5,11 @@ import I = CodeceptJS.I
 const I: I = actor()
 
 const fields = {
-  organisationType: 'input[id=organisationType]',
-  organisationName: 'input[id=organisation]',
-  companyHouseNumber: 'input[id=companyHouseNumber]',
-  individualType: 'input[id=individualType]',
-  individualFullName: 'input[id=fullName]',
+  organisationType:   { css: 'input[id=organisationType]' },
+  organisationName:   { css: 'input[id=organisation]' },
+  companyHouseNumber: { css: 'input[id=companyHouseNumber]' },
+  individualType:     { css: 'input[id=individualType]' },
+  individualFullName: { css: 'input[id=fullName]' },
   changeFirstClaimant: '//*[@href="/claim/claimant-change?index=1"]',
   removeSecondClaimant: '//*[@href="/claim/claimant-remove?index=2"]'
 }
