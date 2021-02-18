@@ -24,6 +24,7 @@ export class ClaimantRepresentativeContactsPage {
   }
 
   enterYourOrganisationContactDetails (): void {
+    I.waitForElement(fields.phoneNumber)
     I.fillField(fields.phoneNumber, data.phoneNumberText)
     I.fillField(fields.email, data.emailText)
     I.fillField(fields.dxAddress, data.dxAddressText)
@@ -31,12 +32,14 @@ export class ClaimantRepresentativeContactsPage {
   }
 
   verifyContactDetails (): void {
+    I.waitForElement(fields.phoneNumber)
     I.seeInField(fields.phoneNumber, data.phoneNumberText)
     I.seeInField(fields.email, data.emailText)
     I.seeInField(fields.dxAddress, data.dxAddressText)
   }
 
   submitOnlyMandatoryData (): void {
+    I.waitForElement(fields.phoneNumber)
     I.click(buttons.saveAndContinue)
   }
 }

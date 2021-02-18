@@ -31,12 +31,14 @@ export class ClaimantTypePage {
   }
 
   enterClaimantTypeIndividual (): void {
+    I.waitForElement(fields.individualType)
     I.checkOption(fields.individualType)
     I.fillField(fields.individualFullName, data.individualFullNameText)
     I.click(buttons.saveAndContinue)
   }
 
   verifyClaimantIndividualDetails (): void {
+    I.waitForElement(data.individualFullNameText)
     I.see('Claimant')
     I.see(data.individualFullNameText)
     I.see(data.removeButtonText)
@@ -44,6 +46,7 @@ export class ClaimantTypePage {
   }
 
   changeRemoveIndividualClaimantDetails (): void {
+    I.waitForElement(fields.removeSecondClaimant)
     I.click(fields.removeSecondClaimant)
     I.click(fields.changeFirstClaimant)
     I.checkOption(fields.organisationType)
@@ -54,6 +57,7 @@ export class ClaimantTypePage {
   }
 
   enterClaimantTypeOrganisation (): void {
+    I.waitForElement(fields.organisationType)
     I.checkOption(fields.organisationType)
     I.fillField(fields.organisationName, verifyPageData.claimantOrganization)
     I.fillField(fields.companyHouseNumber, '12345')
@@ -61,6 +65,7 @@ export class ClaimantTypePage {
   }
 
   enterOnlyMandatoryClaimantTypeData (): void {
+    I.waitForElement(fields.organisationType)
     I.checkOption(fields.organisationType)
     I.fillField(fields.organisationName, verifyPageData.claimantOrganization)
     I.click(buttons.saveAndContinue)

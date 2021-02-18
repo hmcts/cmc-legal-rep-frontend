@@ -29,6 +29,7 @@ export class ClaimantRepresentativeAddressPage {
   }
 
   enterYourOrganisationAddress (): void {
+    I.waitForElement(fields.addressLine1)
     I.fillField(fields.addressLine1, data.addressLine1Text)
     I.fillField(fields.addressLine2, data.addressLine2Text)
     I.fillField(fields.cityName, data.cityNameText)
@@ -37,6 +38,7 @@ export class ClaimantRepresentativeAddressPage {
   }
 
   verifyOrganizationAddress (): void {
+    I.waitForElement(fields.addressLine1)
     I.seeInField(fields.addressLine1, data.verifyAddressLine1Text)
     I.seeInField(fields.addressLine2, data.verifyAddressLine2Text)
     I.seeInField(fields.cityName, data.verifyCityNameText)
@@ -45,6 +47,7 @@ export class ClaimantRepresentativeAddressPage {
   }
 
   enterOnlyMandatoryOrganisationAddress (): void {
+    I.waitForElement(fields.addressLine1)
     I.fillField(fields.addressLine1, data.addressLine1Text)
     I.fillField(fields.cityName, data.cityNameText)
     I.fillField(fields.postcode, data.postcodeText)
