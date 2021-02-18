@@ -34,4 +34,4 @@ Scenario('I can fill both Claimant, Defendant details move up to submit claim @s
   defendantSteps.noAnotherDefendant()
   amountClaimSteps.addAmountAndVerifyDetails()
   I.see('Pay by Fee Account')
-})
+}).retry(2)
