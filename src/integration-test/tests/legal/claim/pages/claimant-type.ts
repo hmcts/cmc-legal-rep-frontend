@@ -38,8 +38,7 @@ export class ClaimantTypePage {
   }
 
   verifyClaimantIndividualDetails (): void {
-    I.waitForElement(data.individualFullNameText)
-    I.see('Claimant')
+    I.waitForText('Claimant')
     I.see(data.individualFullNameText)
     I.see(data.removeButtonText)
     I.see(data.changeButtonText)
