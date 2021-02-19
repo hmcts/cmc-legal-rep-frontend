@@ -33,6 +33,7 @@ export class ClaimantTypePage {
   enterClaimantTypeIndividual (): void {
     I.waitForElement(fields.individualType)
     I.checkOption(fields.individualType)
+    I.waitForElement(fields.individualFullName)
     I.fillField(fields.individualFullName, data.individualFullNameText)
     I.click(buttons.saveAndContinue)
   }
@@ -49,6 +50,7 @@ export class ClaimantTypePage {
     I.click(fields.removeSecondClaimant)
     I.click(fields.changeFirstClaimant)
     I.checkOption(fields.organisationType)
+    I.waitForElement(fields.organisationName)
     I.fillField(fields.organisationName, data.updatedNameText)
     I.click(buttons.saveAndContinue)
     I.click(buttons.saveAndContinue)
@@ -58,6 +60,7 @@ export class ClaimantTypePage {
   enterClaimantTypeOrganisation (): void {
     I.waitForElement(fields.organisationType)
     I.checkOption(fields.organisationType)
+    I.waitForElement(fields.organisationName)
     I.fillField(fields.organisationName, verifyPageData.claimantOrganization)
     I.fillField(fields.companyHouseNumber, '12345')
     I.click(buttons.saveAndContinue)
@@ -66,6 +69,7 @@ export class ClaimantTypePage {
   enterOnlyMandatoryClaimantTypeData (): void {
     I.waitForElement(fields.organisationType)
     I.checkOption(fields.organisationType)
+    I.waitForElement(fields.organisationName)
     I.fillField(fields.organisationName, verifyPageData.claimantOrganization)
     I.click(buttons.saveAndContinue)
   }
