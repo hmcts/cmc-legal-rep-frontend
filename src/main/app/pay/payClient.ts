@@ -13,8 +13,8 @@ const payPath = config.get<string>('pay.path')
 const paymentURL = `${config.get('pay.url')}/payments`
 const serviceName = config.get<string>('pay.service-name')
 const currency = config.get<string>('pay.currency')
-const siteId = config.get<string>('pay.site-id')
 const description = config.get<string>('pay.description')
+const caseType = config.get<string>('pay.case_type')
 
 export class PayClient {
   constructor (public serviceAuthToken: ServiceAuthToken) {
@@ -105,7 +105,7 @@ export class PayClient {
       customer_reference: customerReference,
       organisation_name: organisationName,
       account_number: pbaAccount,
-      site_id: siteId,
+      case_type: caseType,
       fees: [
         {
           calculated_amount: fee.amount,
