@@ -7,6 +7,7 @@ declare namespace CodeceptJS {
     respondToClaim: (referenceNumber: string, ownerEmail: string, responseData: ResponseData, defendantEmail: string) => void
 
     amOnLegalAppPage: (path: string) => void
+    waitForLegalAppPage: (path?: string) => void
     downloadPDF: (pdfUrl: string, sessionCookie: string) => Promise<void>
     attachFile: (locator: string, path: string) => any
     grabAttributeFrom: (locator: string, attr: string) => any
