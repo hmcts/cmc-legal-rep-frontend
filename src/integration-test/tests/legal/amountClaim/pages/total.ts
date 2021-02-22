@@ -4,7 +4,7 @@ import I = CodeceptJS.I
 const I: I = actor()
 
 const buttons = {
-  saveAndContinue: 'input.button'
+  saveAndContinue: { css: 'input.button' }
 }
 
 export class ClaimTotalPage {
@@ -14,13 +14,13 @@ export class ClaimTotalPage {
   }
 
   checkFeeTotalForRange (): void {
-    I.see('Issue fee (based on £6,000 higher value)')
+    I.waitForText('Issue fee (based on £6,000 higher value)')
     I.see(verifyPageData.feesPaid)
     I.click(buttons.saveAndContinue)
   }
 
   checkFeeTotalForCanNotStateValue (): void {
-    I.see('Issue fee (no higher value given)')
+    I.waitForText('Issue fee (no higher value given)')
     I.see(verifyPageData.maxFeePaid)
     I.click(buttons.saveAndContinue)
   }

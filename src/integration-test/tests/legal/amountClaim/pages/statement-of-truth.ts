@@ -8,7 +8,7 @@ const fields = {
 }
 
 const buttons = {
-  saveAndContinue: 'input.button'
+  saveAndContinue: { css: 'input.button' }
 }
 
 export class ClaimStatementOfTruthPage {
@@ -18,6 +18,7 @@ export class ClaimStatementOfTruthPage {
   }
 
   enterStatementOfTruthSignerNameAndRole (): void {
+    I.waitForElement(fields.signerName)
     I.fillField(fields.signerName, 'vivred')
     I.fillField(fields.signerRole, 'QA')
     I.see('Abc Organisation')

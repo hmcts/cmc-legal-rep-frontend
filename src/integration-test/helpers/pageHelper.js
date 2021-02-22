@@ -19,6 +19,10 @@ class PageHelper extends Helper {
   amOnLegalAppPage (path) {
     return this.helpers['WebDriver'].amOnPage(`${legalAppBaseURL}${path}`)
   }
+
+  waitForLegalAppPage (path = '') {
+    return this.helpers['WebDriver'].waitInUrl(`${legalAppBaseURL}${path}`)
+  }
 }
 
 module.exports = PageHelper

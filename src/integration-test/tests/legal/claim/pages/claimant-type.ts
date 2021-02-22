@@ -5,11 +5,11 @@ import I = CodeceptJS.I
 const I: I = actor()
 
 const fields = {
-  organisationType: 'input[id=organisationType]',
-  organisationName: 'input[id=organisation]',
-  companyHouseNumber: 'input[id=companyHouseNumber]',
-  individualType: 'input[id=individualType]',
-  individualFullName: 'input[id=fullName]',
+  organisationType:   { css: 'input[id=organisationType]' },
+  organisationName:   { css: 'input[id=organisation]' },
+  companyHouseNumber: { css: 'input[id=companyHouseNumber]' },
+  individualType:     { css: 'input[id=individualType]' },
+  individualFullName: { css: 'input[id=fullName]' },
   changeFirstClaimant: '//*[@href="/claim/claimant-change?index=1"]',
   removeSecondClaimant: '//*[@href="/claim/claimant-remove?index=2"]'
 }
@@ -31,22 +31,26 @@ export class ClaimantTypePage {
   }
 
   enterClaimantTypeIndividual (): void {
+    I.waitForElement(fields.individualType)
     I.checkOption(fields.individualType)
+    I.waitForElement(fields.individualFullName)
     I.fillField(fields.individualFullName, data.individualFullNameText)
     I.click(buttons.saveAndContinue)
   }
 
   verifyClaimantIndividualDetails (): void {
-    I.see('Claimant')
+    I.waitForText('Claimant')
     I.see(data.individualFullNameText)
     I.see(data.removeButtonText)
     I.see(data.changeButtonText)
   }
 
   changeRemoveIndividualClaimantDetails (): void {
+    I.waitForElement(fields.removeSecondClaimant)
     I.click(fields.removeSecondClaimant)
     I.click(fields.changeFirstClaimant)
     I.checkOption(fields.organisationType)
+    I.waitForElement(fields.organisationName)
     I.fillField(fields.organisationName, data.updatedNameText)
     I.click(buttons.saveAndContinue)
     I.click(buttons.saveAndContinue)
@@ -54,14 +58,18 @@ export class ClaimantTypePage {
   }
 
   enterClaimantTypeOrganisation (): void {
+    I.waitForElement(fields.organisationType)
     I.checkOption(fields.organisationType)
+    I.waitForElement(fields.organisationName)
     I.fillField(fields.organisationName, verifyPageData.claimantOrganization)
     I.fillField(fields.companyHouseNumber, '12345')
     I.click(buttons.saveAndContinue)
   }
 
   enterOnlyMandatoryClaimantTypeData (): void {
+    I.waitForElement(fields.organisationType)
     I.checkOption(fields.organisationType)
+    I.waitForElement(fields.organisationName)
     I.fillField(fields.organisationName, verifyPageData.claimantOrganization)
     I.click(buttons.saveAndContinue)
   }
