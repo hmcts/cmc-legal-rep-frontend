@@ -20,8 +20,25 @@ class PageHelper extends Helper {
     return this.helpers['WebDriver'].amOnPage(`${legalAppBaseURL}${path}`)
   }
 
-  waitForLegalAppPage (path = '') {
-    return this.helpers['WebDriver'].waitInUrl(`${legalAppBaseURL}${path}`)
+  async waitForLegalAppPage (path = '', sec) {
+    const helper = this.helpers['WebDriver']
+    const timeout = sec || helper.options.waitForTimeout
+    const baseUrl = `${legalAppBaseURL}${path}`
+    let currUrl = ''
+
+    return helper
+      .waitUntil(async () => {
+        currUrl = await helper.grabCurrentUrl()
+        return currUrl.startsWith(baseUrl)
+      }, timeout)
+      .catch((e) => {
+        if (e.message.indexOf('timed out')) {
+          const timeoutMessage =`expected url to start with ${baseUrl}, but found ${currUrl}`
+          console.error(`ERROR: ${timeoutMessage}`)   // needed to see the error if called from a Before() block
+          throw new Error(timeoutMessage);
+        }
+        throw e;
+      })
   }
 }
 

@@ -20,7 +20,7 @@ export class DefendantRepresentedPage {
   enterDefendantCompanyName (): void {
     I.waitForElement(fields.defendantRepresentedYes)
     I.checkOption(fields.defendantRepresentedYes)
-    I.waitForElement(fields.companyName)
+    I.waitForVisible(fields.companyName)
     I.fillField(fields.companyName, 'Defendant Rep Ltd')
     I.click(buttons.saveAndContinue)
   }

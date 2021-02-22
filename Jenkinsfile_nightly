@@ -41,7 +41,7 @@ withNightlyPipeline("nodejs", product, component) {
   loadVaultSecrets(secrets)
   enableSecurityScan()
   enableFullFunctionalTest()
-  enableCrossBrowserTest(['chrome', 'microsoft'])
+  enableCrossBrowserTest(['chrome', 'firefox', 'microsoft'])
 
   after('crossBrowserTest') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
