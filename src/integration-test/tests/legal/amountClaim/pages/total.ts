@@ -14,7 +14,8 @@ export class ClaimTotalPage {
   }
 
   checkFeeTotalForRange (): void {
-    I.waitForText('Issue fee (based on £6,000 higher value)')
+    I.waitForText('Issue fee')
+    I.see('(based on £6,000 higher value)')
     I.see(verifyPageData.feesPaid)
     I.click(buttons.saveAndContinue)
   }
