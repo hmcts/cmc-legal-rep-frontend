@@ -26,6 +26,7 @@ export class UserSteps {
   loginUser (userEmail: string, password?: string): void {
     loginPage.open()
     loginPage.login(userEmail, password || DEFAULT_PASSWORD)
+    loginPage.waitForLoginToComplete()
   }
 
   startClaim (): void {

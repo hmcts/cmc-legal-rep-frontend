@@ -3,10 +3,10 @@ import I = CodeceptJS.I
 const I: I = actor()
 
 const fields = {
-  addressLine1: 'input[id=line1]',
-  addressLine2: 'input[id=line2]',
-  cityName: 'input[id=city]',
-  postcode: 'input[id=postcode]'
+  addressLine1: { css: 'input[id=line1]' },
+  addressLine2: { css: 'input[id=line2]' },
+  cityName: { css: 'input[id=city]' },
+  postcode: { css: 'input[id=postcode]' }
 }
 
 const buttons = {
@@ -19,6 +19,7 @@ export class DefendantAddressPage {
   }
 
   enterYourOrganisationAddress (): void {
+    I.waitForElement(fields.addressLine1)
     I.fillField(fields.addressLine1, 'CMC T2 Defendant')
     I.fillField(fields.addressLine2, 'Westminster')
     I.fillField(fields.cityName, 'London')
@@ -27,6 +28,7 @@ export class DefendantAddressPage {
   }
 
   enterOnlyMandatoryDefendantOrganisationAddress (): void {
+    I.waitForElement(fields.addressLine1)
     I.fillField(fields.addressLine1, 'CMC T2 Defendant')
     I.fillField(fields.cityName, 'London')
     I.fillField(fields.postcode, 'SW1H 9BJ')
