@@ -41,6 +41,14 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser(config.get('secrets.cmc.legal-cookie-encryption-key')))
 app.use(cookieEncrypter(config.get('secrets.cmc.legal-cookie-encryption-key'), CookieProperties.getCookieConfig()))
 
+const allowedMethods = ['GET','PUT','POST', 'PATCH', 'DELETE']
+app.use((req, res, next) => {
+  if (!allowedMethods.includes(req.method)) {
+    res.status(405).send('Method Not Allowed')
+  }
+  next()
+})
+
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('/robots.txt', express.static(path.join(__dirname, 'public/robots.txt')))
 
