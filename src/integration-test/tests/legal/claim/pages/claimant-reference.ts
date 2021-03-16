@@ -18,11 +18,13 @@ export class ClaimantReferencePage {
   }
 
   enterYourReferenceForClaim (): void {
+    I.waitForElement(fields.referenceNumber)
     I.fillField(fields.referenceNumber, verifyPageData.organizationRefNumber)
     I.click(buttons.saveAndContinue)
   }
 
   submitOnlyMandatoryData (): void {
+    I.waitForElement(fields.referenceNumber)
     I.click(buttons.saveAndContinue)
   }
 }

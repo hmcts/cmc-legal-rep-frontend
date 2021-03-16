@@ -5,11 +5,11 @@ import I = CodeceptJS.I
 const I: I = actor()
 
 const fields = {
-  organisationType: 'input[id=organisationType]',
-  organisationName: 'input[id=organisation]',
-  companyHouseNumber: 'input[id=companyHouseNumber]',
-  individualType: 'input[id=individualType]',
-  individualFullName: 'input[id=fullName]',
+  organisationType:   { css: 'input[id=organisationType]' },
+  organisationName:   { css: 'input[id=organisation]' },
+  companyHouseNumber: { css: 'input[id=companyHouseNumber]' },
+  individualType:     { css: 'input[id=individualType]' },
+  individualFullName: { css: 'input[id=fullName]' },
   changeFirstDefendant: '//*[@href="/claim/defendant-change?index=1"]',
   removeSecondDefendant: '//*[@href="/claim/defendant-remove?index=2"]'
 }
@@ -33,12 +33,14 @@ export class DefendantTypePage {
   }
 
   enterDefendantTypeIndividual (): void {
+    I.waitForElement(fields.individualType)
     I.checkOption(fields.individualType)
     I.fillField(fields.individualFullName, data.individualFullNameText)
     I.click(buttons.saveAndContinue)
   }
 
   enterDefendantTypeOrganisation (): void {
+    I.waitForElement(fields.organisationType)
     I.checkOption(fields.organisationType)
     I.fillField(fields.organisationName, verifyPageData.defendantOrganization)
     I.fillField(fields.companyHouseNumber, '678910')
@@ -46,18 +48,21 @@ export class DefendantTypePage {
   }
 
   enterOnlyMandatoryDefendantTypeDetails (): void {
+    I.waitForElement(fields.organisationType)
     I.checkOption(fields.organisationType)
     I.fillField(fields.organisationName, verifyPageData.defendantOrganization)
     I.click(buttons.saveAndContinue)
   }
 
   enterAnotherDefendantTypeIndividual (): void {
+    I.waitForElement(fields.individualType)
     I.checkOption(fields.individualType)
     I.fillField(fields.individualFullName, 'Mrs Orange')
     I.click(buttons.saveAndContinue)
   }
 
   enterAnotherDefendantTypeOrganisation (): void {
+    I.waitForElement(fields.organisationType)
     I.checkOption(fields.organisationType)
     I.fillField(fields.organisationName, data.defendantTwoOrganisationNameText)
     I.fillField(fields.companyHouseNumber, '111213')
@@ -74,6 +79,7 @@ export class DefendantTypePage {
   }
 
   changeRemoveIndividualDefendantDetails (): void {
+    I.waitForElement(fields.removeSecondDefendant)
     I.click(fields.removeSecondDefendant)
     I.click(fields.changeFirstDefendant)
     I.checkOption(fields.individualType)
