@@ -11,7 +11,7 @@ export class ContentSecurityPolicy {
   enableFor (app: express.Express) {
     const inlineJsEnabledBodyClassName = '\'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU=\''
     const inlineJsWindowGOVUKClassName = '\'sha256-G29/qSW/JHHANtFhlrZVDZW1HOkCDRc78ggbqwwIJ2g=\''
-    const scriptSrc = [inlineJsEnabledBodyClassName, inlineJsWindowGOVUKClassName, self, '*.google-analytics.com']
+    const scriptSrc = [inlineJsEnabledBodyClassName, inlineJsWindowGOVUKClassName, self, 'www.google-analytics.com']
     const connectSrc = [self]
 
     if (this.developmentMode) {
@@ -21,9 +21,9 @@ export class ContentSecurityPolicy {
 
     app.use(helmet.contentSecurityPolicy({
       directives: {
-        defaultSrc: [none],
+        defaultSrc: [self],
         fontSrc: [self, 'data:'],
-        imgSrc: [self, '*.google-analytics.com', 'hmctspiwik.useconnect.co.uk'],
+        imgSrc: [self, 'www.google-analytics.com', 'hmctspiwik.useconnect.co.uk'],
         styleSrc: [self],
         scriptSrc: scriptSrc,
         connectSrc: connectSrc,
