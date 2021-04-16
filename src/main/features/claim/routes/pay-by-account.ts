@@ -24,7 +24,6 @@ import { User } from 'idam/user'
 import { YourReference } from 'forms/models/yourReference'
 import Representative from 'drafts/models/representative'
 import { OrganisationName } from 'forms/models/organisationName'
-import { ClaimModelConverter } from 'claims/claimModelConverter'
 
 const logger = Logger.getLogger('router/pay-by-account')
 
@@ -50,8 +49,8 @@ async function deleteDraftAndRedirect (res, next, externalId: string) {
 }
 
 async function updateHandler (res, next, externalId: string) {
-  const convertedDraftClaim: object = ClaimModelConverter.convert(res.locals.legalClaimDraft.document)
-  ClaimStoreClient.updateClaimForUser(res.locals.user, convertedDraftClaim)
+  const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+  ClaimStoreClient.updateClaimForUser(res.locals.user, draft)
   .then(claim => {
     deleteDraftAndRedirect(res, next, externalId)
   })
