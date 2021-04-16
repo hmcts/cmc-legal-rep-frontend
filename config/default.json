@@ -63,7 +63,7 @@
     "dashboard": false,
     "certificateOfService": false,
     "returnErrorToUser": false,
-    "inversionOfControl": false
+    "inversionOfControl": true
   },
   "documentManagement" : {
     "url": "http://localhost:8085"

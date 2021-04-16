@@ -3,7 +3,7 @@
     "dashboard": true,
     "certificateOfService": false,
     "returnErrorToUser": true,
-    "inversionOfControl": false
+    "inversionOfControl": true
   },
   "appInsights": {
     "instrumentationKey": "dummy-app-insights-instrumentation-key"
