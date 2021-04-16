@@ -24,7 +24,6 @@ import { User } from 'idam/user'
 import { YourReference } from 'forms/models/yourReference'
 import Representative from 'drafts/models/representative'
 import { OrganisationName } from 'forms/models/organisationName'
-import Claim from 'claims/models/claim'
 import { ClaimModelConverter } from 'claims/claimModelConverter'
 
 const logger = Logger.getLogger('router/pay-by-account')
@@ -51,7 +50,7 @@ async function deleteDraftAndRedirect (res, next, externalId: string) {
 }
 
 async function updateHandler (res, next, externalId: string) {
-  const convertedDraftClaim:  object = ClaimModelConverter.convert(res.locals.legalClaimDraft.document)
+  const convertedDraftClaim: object = ClaimModelConverter.convert(res.locals.legalClaimDraft.document)
   ClaimStoreClient.updateClaimForUser(res.locals.user, convertedDraftClaim)
   .then(claim => {
     deleteDraftAndRedirect(res, next, externalId)
@@ -89,7 +88,7 @@ export default express.Router()
       const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
       const form: Form<FeeAccount> = req.body
 
-      let pbaNumber : any
+      let pbaNumber: any
       let externalId = draft.document.externalId
       let yourReference = draft.document.yourReference.reference
       let orgName = draft.document.representative.organisationName.name
@@ -108,7 +107,6 @@ export default express.Router()
           await ClaimStoreClient.saveClaimForUser(res.locals.user, res.locals.legalClaimDraft)
             .then(async claim => {
               ccdCaseNumber = claim.ccdCaseId
-              console.log(claim.ccdCaseId)
             })
             .catch(err => {
               if (err.statusCode === HttpStatus.CONFLICT) {
@@ -118,7 +116,7 @@ export default express.Router()
               }
             })
         }
-        
+
         draft.document.feeAccount = form.model
         draft.document.ccdCaseId = draft.document.ccdCaseId === undefined ? ccdCaseNumber : draft.document.ccdCaseId
         if (draft.document.yourReference === undefined) {
@@ -143,8 +141,8 @@ export default express.Router()
           CookieProperties.getCookieParameters())
         const paymentReference: string = undefined
         if (paymentReference) {
-          //await saveClaimHandler(res, next)
-          //await updateHandler(res, next,'')
+          // await saveClaimHandler(res, next)
+          // await updateHandler(res, next,'')
         } else {
           const payClient: PayClient = await getPayClient()
           const paymentResponse: PaymentResponse = await payClient.create(
