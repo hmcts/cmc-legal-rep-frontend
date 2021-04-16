@@ -21,6 +21,11 @@ import { PayClient } from 'pay/payClient'
 import { PaymentResponse } from 'pay/model/paymentResponse'
 import { ServiceAuthTokenFactoryImpl } from 'shared/security/serviceTokenFactoryImpl'
 import { User } from 'idam/user'
+import { YourReference } from 'forms/models/yourReference'
+import Representative from 'drafts/models/representative'
+import { OrganisationName } from 'forms/models/organisationName'
+import Claim from 'claims/models/claim'
+import { ClaimModelConverter } from 'claims/claimModelConverter'
 
 const logger = Logger.getLogger('router/pay-by-account')
 
@@ -45,47 +50,19 @@ async function deleteDraftAndRedirect (res, next, externalId: string) {
   res.redirect(Paths.claimSubmittedPage.evaluateUri({ externalId: externalId }))
 }
 
-async function updatePayment (res, next, externalId: string, claim) {
-  const ccdCaseNumber = claim.ccdCaseId === undefined ? externalId : String(claim.ccdCaseId)
-  const payClient: PayClient = await getPayClient()
-  const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
-  await payClient.update(res.locals.user, draft.document.paymentResponse.reference, externalId, ccdCaseNumber)
-}
-
-async function saveClaimHandler (res, next) {
-  const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
-  const externalId = draft.document.externalId
-
-  let claimStatus: boolean
-  try {
-    claimStatus = await ClaimStoreClient.retrieveByExternalId(externalId, res.locals.user)
-      .then(() => true)
-  } catch (err) {
-    if (err.statusCode === HttpStatus.NOT_FOUND) {
-      claimStatus = false
-    } else {
-      logError(res.locals.user.id, `There is a problem retrieving claim from claim store externalId: ${externalId},`)
-      next(err)
-      return
-    }
-  }
-
-  if (claimStatus) {
+async function updateHandler (res, next, externalId: string) {
+  const convertedDraftClaim:  object = ClaimModelConverter.convert(res.locals.legalClaimDraft.document)
+  ClaimStoreClient.updateClaimForUser(res.locals.user, convertedDraftClaim)
+  .then(claim => {
     deleteDraftAndRedirect(res, next, externalId)
-  } else {
-    ClaimStoreClient.saveClaimForUser(res.locals.user, res.locals.legalClaimDraft)
-      .then(claim => {
-        updatePayment(res, next, externalId, claim)
-        deleteDraftAndRedirect(res, next, externalId)
-      })
-      .catch(err => {
-        if (err.statusCode === HttpStatus.CONFLICT) {
-          deleteDraftAndRedirect(res, next, externalId)
-        } else {
-          next(err)
-        }
-      })
-  }
+  })
+  .catch(err => {
+    if (err.statusCode === HttpStatus.CONFLICT) {
+      deleteDraftAndRedirect(res, next, externalId)
+    } else {
+      next(err)
+    }
+  })
 }
 
 function renderView (form: Form<FeeAccount>, res: express.Response, next: express.NextFunction): void {
@@ -111,6 +88,13 @@ export default express.Router()
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
       const form: Form<FeeAccount> = req.body
+
+      let pbaNumber : any
+      let externalId = draft.document.externalId
+      let yourReference = draft.document.yourReference.reference
+      let orgName = draft.document.representative.organisationName.name
+      let ccdCaseNumber = draft.document.ccdCaseId ? draft.document.ccdCaseId : undefined
+
       process.env.PBA_ERROR_CODE = ''
       process.env.PBA_ERROR_MESSAGE = ''
 
@@ -119,30 +103,58 @@ export default express.Router()
         process.env.PBA_ERROR_MESSAGE = ''
         renderView(form, res, next)
       } else {
+        // Saving the claim before invoking the F&P
+        if (!draft.document.ccdCaseId) {
+          await ClaimStoreClient.saveClaimForUser(res.locals.user, res.locals.legalClaimDraft)
+            .then(async claim => {
+              ccdCaseNumber = claim.ccdCaseId
+              console.log(claim.ccdCaseId)
+            })
+            .catch(err => {
+              if (err.statusCode === HttpStatus.CONFLICT) {
+                logError(res.locals.user.id, err.statusCode)
+              } else {
+                next(err)
+              }
+            })
+        }
+        
         draft.document.feeAccount = form.model
+        draft.document.ccdCaseId = draft.document.ccdCaseId === undefined ? ccdCaseNumber : draft.document.ccdCaseId
+        if (draft.document.yourReference === undefined) {
+          draft.document.yourReference = new YourReference()
+        }
+        draft.document.yourReference.reference = draft.document.yourReference.reference === undefined ? yourReference : draft.document.yourReference.reference
+        if (draft.document.representative === undefined) {
+          draft.document.representative = new Representative()
+          draft.document.representative.organisationName = new OrganisationName()
+        }
+        draft.document.representative.organisationName.name = orgName
+        pbaNumber = form.model.reference
 
         const feeResponse: FeeResponse = await FeesClient.getFeeAmount(draft.document.amount)
 
         const user: User = res.locals.user
+        await new DraftService().save(draft, user.bearerToken)
         const legalRepDetails: RepresentativeDetails = Cookie.getCookie(req.signedCookies.legalRepresentativeDetails, user.id)
         legalRepDetails.feeAccount = form.model
         res.cookie(legalRepDetails.cookieName,
           Cookie.saveCookie(req.signedCookies.legalRepresentativeDetails, user.id, legalRepDetails),
           CookieProperties.getCookieParameters())
-
-        const paymentReference: string = draft.document.paymentResponse ? draft.document.paymentResponse.reference : undefined
+        const paymentReference: string = undefined
         if (paymentReference) {
-          await saveClaimHandler(res, next)
+          //await saveClaimHandler(res, next)
+          //await updateHandler(res, next,'')
         } else {
           const payClient: PayClient = await getPayClient()
           const paymentResponse: PaymentResponse = await payClient.create(
             user,
-            draft.document.feeAccount.reference,
-            draft.document.externalId,
-            draft.document.yourReference.reference,
-            draft.document.representative.organisationName.name,
+            pbaNumber,
+            externalId,
+            yourReference,
+            orgName,
             feeResponse,
-            draft.document.externalId
+            ccdCaseNumber ? ccdCaseNumber.toString() : undefined
           )
 
           if (paymentResponse.isSuccess) {
@@ -150,10 +162,15 @@ export default express.Router()
             draft.document.feeCode = feeResponse.code
             draft.document.paymentResponse = paymentResponse
             await new DraftService().save(draft, user.bearerToken)
-            await saveClaimHandler(res, next)
+            await updateHandler(res, next, externalId)
             process.env.PBA_ERROR_CODE = ''
             process.env.PBA_ERROR_MESSAGE = ''
           } else {
+            draft.document.feeAmountInPennies = MoneyConverter.convertPoundsToPennies(feeResponse.amount)
+            draft.document.feeCode = feeResponse.code
+            draft.document.paymentResponse = paymentResponse
+            await new DraftService().save(draft, res.locals.user.bearerToken)
+            await updateHandler(res, next, externalId)
             logPaymentError(user.id, paymentResponse)
             process.env.PBA_ERROR_CODE = paymentResponse.errorCode
             process.env.PBA_ERROR_MESSAGE = 'Failed'

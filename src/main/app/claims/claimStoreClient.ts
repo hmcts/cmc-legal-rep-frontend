@@ -23,9 +23,28 @@ export default class ClaimStoreClient {
     })
   }
 
-  static getUri (userId: string) {
+  static updateClaimForUser (user: User, draft: object): Promise<Claim> {
+    // const convertedDraftClaim:  object = ClaimModelConverter.convert(draft.document)
+
+    return request.post(this.getUpdateUri(user.id), {
+      body: draft,
+      headers: {
+        Authorization: `Bearer ${user.bearerToken}`
+      }
+    })
+  }
+
+  static getUpdateUri (userId: string) {
     if (toBoolean(config.get('featureToggles.inversionOfControl'))) {
       return `${claimStoreApiUrl}/${userId}/create-legal-rep-claim`
+    } else {
+      return `${claimStoreApiUrl}/${userId}`
+    }
+  }
+
+  static getUri (userId: string) {
+    if (toBoolean(config.get('featureToggles.inversionOfControl'))) {
+      return `${claimStoreApiUrl}/${userId}/update-legal-rep-claim`
     } else {
       return `${claimStoreApiUrl}/${userId}`
     }

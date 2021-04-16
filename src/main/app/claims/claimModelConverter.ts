@@ -73,7 +73,7 @@ export class ClaimModelConverter {
   private static convertClaimantDetails (draftClaim: DraftLegalClaim): void {
     const representative: Representative = draftClaim.representative
 
-    draftClaim.claimants.map((claimant: Claimant) => {
+    draftClaim.claimants.forEach((claimant: Claimant) => {
 
       claimant['type'] = claimant.claimantDetails.type.dataStoreValue
 
@@ -106,7 +106,7 @@ export class ClaimModelConverter {
   }
 
   private static convertDefendantDetails (draftClaim: DraftLegalClaim): void {
-    draftClaim.defendants.map((defendant: Defendant) => {
+    draftClaim.defendants.forEach((defendant: Defendant) => {
       defendant['type'] = defendant.defendantDetails.type.dataStoreValue
 
       switch (defendant.defendantDetails.type.value) {
