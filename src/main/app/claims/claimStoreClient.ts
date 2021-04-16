@@ -23,11 +23,18 @@ export default class ClaimStoreClient {
     })
   }
 
-  static updateClaimForUser (user: User, draft: object): Promise<Claim> {
+  static updateClaimForUser (user: User, draft: Draft<DraftLegalClaim>): Promise<Claim> {
     // const convertedDraftClaim:  object = ClaimModelConverter.convert(draft.document)
 
     return request.post(this.getUpdateUri(user.id), {
-      body: draft,
+      body: {
+        externalId : draft.document.externalId,
+        ccdCaseId : draft.document.ccdCaseId,
+        feeAmountInPennies : draft.document.feeAmountInPennies,
+        feeCode : draft.document.feeCode,
+        paymentReference : draft.document.paymentResponse,
+        feeAccount : draft.document.feeAccount.reference
+      },
       headers: {
         Authorization: `Bearer ${user.bearerToken}`
       }

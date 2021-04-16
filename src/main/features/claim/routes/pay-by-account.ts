@@ -50,7 +50,7 @@ async function deleteDraftAndRedirect (res, next, externalId: string) {
 
 async function updateHandler (res, next, externalId: string) {
   const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
-  ClaimStoreClient.updateClaimForUser(res.locals.user, draft.document)
+  ClaimStoreClient.updateClaimForUser(res.locals.user, draft)
   .then(claim => {
     deleteDraftAndRedirect(res, next, externalId)
   })
