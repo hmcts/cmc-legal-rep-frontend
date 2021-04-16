@@ -36,7 +36,7 @@ export default class ClaimStoreClient {
 
   static getUpdateUri (userId: string) {
     if (toBoolean(config.get('featureToggles.inversionOfControl'))) {
-      return `${claimStoreApiUrl}/${userId}/create-legal-rep-claim`
+      return `${claimStoreApiUrl}/${userId}/update-legal-rep-claim`
     } else {
       return `${claimStoreApiUrl}/${userId}`
     }
@@ -44,7 +44,7 @@ export default class ClaimStoreClient {
 
   static getUri (userId: string) {
     if (toBoolean(config.get('featureToggles.inversionOfControl'))) {
-      return `${claimStoreApiUrl}/${userId}/update-legal-rep-claim`
+      return `${claimStoreApiUrl}/${userId}/create-legal-rep-claim`
     } else {
       return `${claimStoreApiUrl}/${userId}`
     }
