@@ -40,7 +40,7 @@
     }
   },
   "pay": {
-    "url": "http://payment-api-demo.service.core-compute-demo.internal",
+    "url": "http://localhost:4182",
     "path": "credit-account-payments",
     "service-name": "CMC",
     "currency": "GBP",
