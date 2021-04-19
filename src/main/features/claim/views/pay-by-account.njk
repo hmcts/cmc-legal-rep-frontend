@@ -39,14 +39,14 @@
     <strong class="govuk-warning-text-text error-summary-list">
     <p class="hmcts-banner-warrning-div govuk-warning-text-text">
       {% if PBA_ERROR_MESSAGE === 'CA-E0001' %}
-        There is a problem with this transaction, try again later or user another fee account numbe
+        There is a problem with this transaction, try again later or user another fee account number.
       {% endif %}
           
       {% if PBA_ERROR_MESSAGE === 'CA-E0004' %}
         Try again later or use another Fee Account number.
       {% endif %}  
       {% if PBA_ERROR_MESSAGE === 'Failed' %}
-        Unable to retrieve account information, Please try again later.
+        There is a problem with this transaction, try again later or user another fee account number.
       {% endif %}       
     </p>
   </strong>

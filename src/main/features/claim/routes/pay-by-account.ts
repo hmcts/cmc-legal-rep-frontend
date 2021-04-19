@@ -168,7 +168,6 @@ export default express.Router()
           await new DraftService().save(draft, res.locals.user.bearerToken)
           await updateHandler(res, next, externalId)
           logPaymentError(user.id, paymentResponse)
-          logger.error(`Payment Response: ${JSON.stringify(paymentResponse)})`)
           process.env.PBA_ERROR_CODE = paymentResponse.errorCode
           process.env.PBA_ERROR_MESSAGE = 'Failed'
           if (paymentResponse.errorCode !== undefined) {
