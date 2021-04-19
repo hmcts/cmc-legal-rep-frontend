@@ -24,7 +24,6 @@ export default class ClaimStoreClient {
   }
 
   static updateClaimForUser (user: User, draft: Draft<DraftLegalClaim>): Promise<Claim> {
-    // const convertedDraftClaim:  object = ClaimModelConverter.convert(draft.document)
 
     return request.post(this.getUpdateUri(user.id), {
       body: {

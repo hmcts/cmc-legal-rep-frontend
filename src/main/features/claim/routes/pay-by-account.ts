@@ -158,6 +158,7 @@ export default express.Router()
             draft.document.feeAmountInPennies = MoneyConverter.convertPoundsToPennies(feeResponse.amount)
             draft.document.feeCode = feeResponse.code
             draft.document.paymentResponse = paymentResponse
+            logger.error(`Payment Response: ${JSON.stringify(paymentResponse)})`)
             await new DraftService().save(draft, user.bearerToken)
             await updateHandler(res, next, externalId)
             process.env.PBA_ERROR_CODE = ''

@@ -26,7 +26,7 @@ export default class Claim implements Serializable<Claim> {
       this.externalId = input.externalId
       this.claimNumber = input.referenceNumber
       this.createdAt = MomentFactory.parse(input.createdAt)
-      this.responseDeadline = MomentFactory.parse(input.responseDeadline)
+      this.responseDeadline = input.responseDeadline !== undefined ? MomentFactory.parse(input.responseDeadline) : undefined
       this.issuedOn = MomentFactory.parse(input.issuedOn)
       this.claimData = new ClaimData().deserialize(input.claim)
       this.submitterEmail = input.submitterEmail
