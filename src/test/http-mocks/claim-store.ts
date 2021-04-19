@@ -80,6 +80,86 @@ export const sampleClaimObj = {
   responseDeadline: '2017-08-08'
 }
 
+export const sampleUpdateClaimObj = {
+  id: 1,
+  submitterId: '1',
+  externalId: '400f4c57-9684-49c0-adb4-4cf46579d6dc',
+  referenceNumber: '000LR001',
+  createdAt: '2017-07-25T22:45:51.785',
+  issuedOn: '2017-07-25',
+  caseReference: '123',
+  claim: {
+    claimants: [{
+      address: {
+        line1: 'Address Line 1',
+        line2: '',
+        city: 'London',
+        postcode: 'NE8 3BA'
+      },
+      claimantDetails: {
+        type: {
+          value: PartyType.INDIVIDUAL.dataStoreValue,
+          dataStoreValue: 'individual'
+        },
+        fullName: 'no name',
+        organisation: null,
+        companyHouseNumber: null
+      },
+      type: PartyType.INDIVIDUAL.dataStoreValue,
+      title: 'Mr',
+      name: 'Full Name',
+      representative: {
+        organisationName: 'test',
+        organisationAddress: {
+          line1: 'Address Line 1',
+          line2: '',
+          city: 'City',
+          postcode: 'Postcode'
+        },
+        organisationContactDetails: {}
+      }
+    }],
+    defendants: [{
+      address: {
+        line1: 'Address Line 1',
+        line2: '',
+        city: 'London',
+        postcode: 'SW1H 9AJ'
+      },
+      representative: {
+        organisationName: 'legal rep',
+        organisationAddress: {
+          line1: 'LEGAL REP ADD1',
+          line2: '',
+          city: 'LEGAL REP TOWN',
+          postcode: 'SW1H 9DJ'
+        },
+        organisationContactDetails: {}
+      },
+      defendantDetails: {
+        type: {
+          value: PartyType.ORGANISATION.dataStoreValue,
+          displayValue: 'An organisation',
+          dataStoreValue: 'organisation'
+        },
+        title: null,
+        fullName: null,
+        organisation: 'defendant org',
+        companyHouseNumber: ''
+      },
+      name: 'defendant org',
+      type: PartyType.ORGANISATION.dataStoreValue
+    }],
+    paymentReference: {
+      reference: 'RS-1234567',
+      status: 'Sucess'
+    },
+    reason: 'Because I can',
+    feeAmountInPennies: 7000
+  },
+  responseDeadline: '2017-08-08'
+}
+
 export function resolveRetrieveClaimByExternalId (claimOverride?: object): mock.Scope {
   return mock(`${serviceBaseURL}/claims`)
     .get(new RegExp('/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$'))
@@ -108,6 +188,12 @@ export function saveClaimForUser () {
   mock(`${serviceBaseURL}/claims`)
     .post(new RegExp('/[0-9]+'))
     .reply(HttpStatus.OK, { ...sampleClaimObj })
+}
+
+export function updateClaimForUser () {
+  mock(`${serviceBaseURL}/claims`)
+    .post(new RegExp('/[0-9]+'))
+    .reply(HttpStatus.OK, { ...sampleUpdateClaimObj })
 }
 
 export function resolveRetrievePaymentReference () {
