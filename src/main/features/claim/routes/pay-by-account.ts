@@ -1,6 +1,5 @@
 import * as express from 'express'
 import { Paths } from 'claim/paths'
-import * as HttpStatus from 'http-status-codes'
 
 import { Form } from 'forms/form'
 import { FormValidator } from 'forms/validation/formValidator'
@@ -21,9 +20,6 @@ import { PayClient } from 'pay/payClient'
 import { PaymentResponse } from 'pay/model/paymentResponse'
 import { ServiceAuthTokenFactoryImpl } from 'shared/security/serviceTokenFactoryImpl'
 import { User } from 'idam/user'
-// import { YourReference } from 'forms/models/yourReference'
-// import Representative from 'drafts/models/representative'
-// import { OrganisationName } from 'forms/models/organisationName'
 
 const logger = Logger.getLogger('router/pay-by-account')
 
@@ -106,25 +102,14 @@ export default express.Router()
               ccdCaseNumber = claim.ccdCaseId
             })
             .catch(err => {
-              if (err.statusCode === HttpStatus.CONFLICT) {
-                logError(res.locals.user.id, err.statusCode)
-              } else {
-                next(err)
-              }
+              logError(res.locals.user.id, err.statusCode)
+              next(err)
             })
         }
 
         draft.document.feeAccount = form.model
         draft.document.ccdCaseId = draft.document.ccdCaseId === undefined ? ccdCaseNumber : draft.document.ccdCaseId
-        // if (draft.document.yourReference === undefined) {
-        //   draft.document.yourReference = new YourReference()
-        // }
         draft.document.yourReference.reference = draft.document.yourReference.reference === undefined ? yourReference : draft.document.yourReference.reference
-        // if (draft.document.representative === undefined) {
-        //   draft.document.representative = new Representative()
-        //   draft.document.representative.organisationName = new OrganisationName()
-        // }
-        // draft.document.representative.organisationName.name = orgName
         pbaNumber = form.model.reference
 
         const feeResponse: FeeResponse = await FeesClient.getFeeAmount(draft.document.amount)
