@@ -12,6 +12,7 @@ export const sampleClaimObj = {
   referenceNumber: '000LR001',
   createdAt: '2017-07-25T22:45:51.785',
   issuedOn: '2017-07-25',
+  ccdCaseId: '1',
   claim: {
     claimants: [{
       address: {

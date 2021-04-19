@@ -121,7 +121,7 @@ const sampleClaimDraftObj = {
   yourReference: {
     reference: 'Our Ref'
   },
-  ccdCaseId: '1234567890123456',
+  ccdCaseId: '1',
   viewFlowOption: true,
   defendantChangeIndex: undefined,
   claimantChangeIndex: undefined
