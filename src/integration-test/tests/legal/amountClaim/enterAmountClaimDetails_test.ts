@@ -37,7 +37,7 @@ Scenario('I can fill in Organisation details for Claimant, Defendant, Claim amou
     amountClaimSteps.verifySubmittedPage([information[1], information[2]])
     dashboardSteps.searchAndVerifyClaimDetails(information[0])
   })
-})
+}).retry(2)
 
 Scenario('I can fill only mandatory fields and submit the claim @legal', async (I: I) => {
   await session('Filling only mandatory fields', async () => {
@@ -137,4 +137,4 @@ Scenario('I can fill in individual details for Claimant, Defendant, Claim amount
     // const sessionCookie = await I.grabCookie('T2_SESSION_ID')
     // await I.downloadPDF(pdfUrl, sessionCookie.value)
   })
-})
+}).retry(2)

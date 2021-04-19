@@ -20,11 +20,13 @@ export class ClaimantRepresentativeNamePage {
   }
 
   enterYourOrganisationName (): void {
+    I.waitForElement(fields.organisationName)
     I.fillField(fields.organisationName, data.organisationNameText)
     I.click(buttons.saveAndContinue)
   }
 
   verifyOrganizationName (): void {
+    I.waitForElement(fields.organisationName)
     I.seeInField(fields.organisationName, data.organisationNameText)
     I.click(buttons.saveAndContinue)
   }

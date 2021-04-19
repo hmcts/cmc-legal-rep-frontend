@@ -2,12 +2,13 @@ require('ts-node/register')
 require('tsconfig-paths/register')
 
 const ProxySettings = require('./src/integration-test/config/proxy-settings').ProxySettings
+const outputDir = './output'
 
 exports.config = {
   name: 'integration-tests',
   bootstrapAll: './src/integration-test/bootstrap/bootstrap.ts',
   tests: './src/integration-test/tests/**/*_test.*',
-  output: './output',
+  output: `${process.cwd()}/${outputDir}`,
   timeout: 10000,
   multiple: {
     parallel: {
@@ -34,6 +35,9 @@ exports.config = {
     },
     DownloadPdfHelper: {
       require: './src/integration-test/helpers/downloadPdfHelper'
+    },
+    Mochawesome: {
+      uniqueScreenshotNames: 'true'
     }
   },
   mocha: {
@@ -45,15 +49,15 @@ exports.config = {
         }
       },
       'mocha-junit-reporter': {
-        stdout: './output/legal-rep-mocha-stdout.log',
+        stdout: `${outputDir}/legal-rep-mocha-stdout.log`,
         options: {
-          mochaFile: process.env.MOCHA_JUNIT_FILE_LOCATION || './output/legal-rep-integration-result.xml'
+          mochaFile: process.env.MOCHA_JUNIT_FILE_LOCATION || `${outputDir}/legal-rep-integration-result.xml`
         }
       },
       'mochawesome': {
-        stdout: `./output/legal-rep-mochawesome-stdout.log`,
+        stdout: `${outputDir}/legal-rep-mochawesome-stdout.log`,
         options: {
-          reportDir: 'output',
+          reportDir: outputDir,
           reportFilename: 'legal-rep-e2e-result',
           inlineAssets: true,
           reportTitle: `Legal E2E tests result`

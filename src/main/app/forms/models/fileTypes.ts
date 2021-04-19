@@ -35,16 +35,16 @@ export class FileTypes {
 
   static acceptedFiles (): string {
     let acceptedFileTypes = ''
-    this.all().forEach(function (fileType) {
-      acceptedFileTypes += fileType.extension + ',' + fileType.mimeType + ','
+    this.all().forEach(function (fileCategory) {
+      acceptedFileTypes += fileCategory.extension + ',' + fileCategory.mimeType + ','
     })
     return acceptedFileTypes.slice(0, -1)
   }
 
   static acceptedMimeTypes (): string[] {
     let acceptedFileExtensions = []
-    this.all().forEach(function (fileType) {
-      acceptedFileExtensions.push(fileType.mimeType)
+    this.all().forEach(function (fileSet) {
+      acceptedFileExtensions.push(fileSet.mimeType)
     })
     return acceptedFileExtensions
   }

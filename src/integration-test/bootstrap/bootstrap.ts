@@ -96,6 +96,7 @@ module.exports = async function (done: () => void) {
     if (process.env.IDAM_URL) {
       if (process.env.SMOKE_TEST_SOLICITOR_USERNAME) {
         await createSmokeTestsUserIfDoesntExist(process.env.SMOKE_TEST_SOLICITOR_USERNAME, process.env.SMOKE_TEST_USER_PASSWORD)
+        console.log('Functional test bootstrap complete.')
       }
     }
   } catch (error) {

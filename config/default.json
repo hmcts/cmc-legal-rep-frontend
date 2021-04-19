@@ -78,7 +78,7 @@
       "legal-draft-store-secondary": "not-a-real-secondary-secret",
       "legal-oauth-client-secret": "12345678",
       "legal-cookie-encryption-key": "not-a-real-32-bit-encryption-key",
-      "AppInsightsInstrumentationKey":"APPINSIGHTS_INSTRUMENTATIONKEY"
+      "AppInsightsInstrumentationKey":"app_insights_instrumental_key"
     }
   }
 }

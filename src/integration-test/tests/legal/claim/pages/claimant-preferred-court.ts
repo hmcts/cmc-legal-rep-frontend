@@ -16,11 +16,13 @@ export class ClaimantPreferredCourtPage {
   }
 
   enterYourPreferredCountyCourt (): void {
+    I.waitForElement(fields.courtName)
     I.fillField(fields.courtName, 'Dartford County Court')
     I.click(buttons.saveAndContinue)
   }
 
   submitOnlyMandatoryData (): void {
+    I.waitForElement(fields.courtName)
     I.click(buttons.saveAndContinue)
   }
 }
