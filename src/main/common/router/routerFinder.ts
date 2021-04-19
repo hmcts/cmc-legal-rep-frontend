@@ -14,8 +14,8 @@ const options: object = {
 
 export class RouterFinder {
 
-  static findAll (path: string): Router[] {
-    return Object.values(requireDirectory(module, path, options))
+  static findAll (url: string): Router[] {
+    return Object.values(requireDirectory(module, url, options))
   }
 
 }

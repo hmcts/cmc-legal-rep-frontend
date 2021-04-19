@@ -58,8 +58,8 @@ export class DefendantDetails implements Serializable<DefendantDetails> {
 
       if (value.type) {
         type = DefendantType.all()
-          .filter(type => {
-            return type.value === value.type
+          .filter(newType => {
+            return newType.value === value.type
           })
           .pop()
       }

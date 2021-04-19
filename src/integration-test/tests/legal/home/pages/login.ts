@@ -21,4 +21,8 @@ export class LoginPage {
     I.fillField(fields.password, password)
     I.click(buttons.submit)
   }
+
+  waitForLoginToComplete (): void {
+    I.waitForLegalAppPage()
+  }
 }

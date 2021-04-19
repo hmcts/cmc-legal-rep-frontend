@@ -19,6 +19,12 @@ class PageHelper extends Helper {
   amOnLegalAppPage (path) {
     return this.helpers['WebDriver'].amOnPage(`${legalAppBaseURL}${path}`)
   }
+
+  async waitForLegalAppPage (path = '', sec) {
+    const helper = this.helpers['WebDriver']
+    const timeout = sec || helper.options.waitForTimeout
+    return helper.waitForText('Issue civil court proceedings', timeout, 'h1')
+  }
 }
 
 module.exports = PageHelper

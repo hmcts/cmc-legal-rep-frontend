@@ -4,7 +4,7 @@ import { verifyPageData } from 'integration-test/data/legal-test-data'
 const I: I = actor()
 
 const buttons = {
-  saveAndContinue: 'input.button'
+  saveAndContinue: { css: 'input.button' }
 }
 
 export class ClaimDetailsSummaryPage {
@@ -14,7 +14,7 @@ export class ClaimDetailsSummaryPage {
   }
 
   verifyOrganizationDetails (): void {
-    I.see('Your organisation details')
+    I.waitForText('Your organisation details')
     I.see('Organisation name')
     I.see('Abc Organisation')
     I.see('Address')
@@ -35,7 +35,7 @@ export class ClaimDetailsSummaryPage {
   }
 
   claimantDetails (): void {
-    I.see('Claimant details')
+    I.waitForText('Claimant details')
     I.see('Organisation name')
     I.see(verifyPageData.claimantOrganization)
     I.see('Address')
@@ -46,7 +46,7 @@ export class ClaimDetailsSummaryPage {
   }
 
   multipleClaimantsDetails (): void {
-    I.see('Claimant 1 details')
+    I.waitForText('Claimant 1 details')
     I.see('Organisation name')
     I.see(verifyPageData.claimantOrganization)
     I.see('Address')
@@ -65,7 +65,7 @@ export class ClaimDetailsSummaryPage {
   }
 
   defendantDetails (): void {
-    I.see('Defendant details')
+    I.waitForText('Defendant details')
     I.see('Organisation name')
     I.see(verifyPageData.defendantOrganization)
     I.see('Companies House number')
@@ -78,7 +78,7 @@ export class ClaimDetailsSummaryPage {
   }
 
   aboutThisClaim (): void {
-    I.see('About this claim')
+    I.waitForText('About this claim')
     I.see('Brief details of claim')
     I.see('I would like to test this with codeceptjs')
     I.see('Claim amount')
@@ -92,7 +92,7 @@ export class ClaimDetailsSummaryPage {
   }
 
   individualClaimDetails (): void {
-    I.see('Claimant details')
+    I.waitForText('Claimant details')
     I.see('Name')
     I.see('Mr Benugo')
     I.see('Address')
@@ -103,7 +103,7 @@ export class ClaimDetailsSummaryPage {
   }
 
   individualDefendantDetails (): void {
-    I.see('Defendant details')
+    I.waitForText('Defendant details')
     I.see('Mr Pret')
     I.see('Address')
     I.see('CMC T2 DEFENDANT')
@@ -114,7 +114,7 @@ export class ClaimDetailsSummaryPage {
   }
 
   aboutThisClaimWithNoClaimValue (): void {
-    I.see('About this claim')
+    I.waitForText('About this claim')
     I.see('Brief details of claim')
     I.see('I would like to test this with codeceptjs')
     I.see('Claim amount')

@@ -2,5 +2,14 @@
   "extends": [
     "config:base",
     ":preserveSemverRanges"
-  ]
+  ],
+  "labels": ["dependencies"],
+  "helm-requirements": 
+    {
+      "enabled": true,
+      "fileMatch": ["\\Chart.yaml$"],
+      "aliases": {
+        "hmctspublic": "https://hmctspublic.azurecr.io/helm/v1/repo/"
+      }
+    }
 }
