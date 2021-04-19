@@ -140,50 +140,45 @@ export default express.Router()
         res.cookie(legalRepDetails.cookieName,
           Cookie.saveCookie(req.signedCookies.legalRepresentativeDetails, user.id, legalRepDetails),
           CookieProperties.getCookieParameters())
-        const paymentReference: string = undefined
-        if (paymentReference) {
-          // await saveClaimHandler(res, next)
-          // await updateHandler(res, next,'')
-        } else {
-          const payClient: PayClient = await getPayClient()
-          const paymentResponse: PaymentResponse = await payClient.create(
-            user,
-            pbaNumber,
-            externalId,
-            yourReference,
-            orgName,
-            feeResponse,
-            ccdCaseNumber ? ccdCaseNumber.toString() : undefined
-          )
 
-          if (paymentResponse.isSuccess) {
-            draft.document.feeAmountInPennies = MoneyConverter.convertPoundsToPennies(feeResponse.amount)
-            draft.document.feeCode = feeResponse.code
-            draft.document.paymentResponse = paymentResponse
-            logger.error(`Payment Response: ${JSON.stringify(paymentResponse)})`)
-            await new DraftService().save(draft, user.bearerToken)
-            await updateHandler(res, next, externalId)
-            process.env.PBA_ERROR_CODE = ''
-            process.env.PBA_ERROR_MESSAGE = ''
-          } else {
-            draft.document.feeAmountInPennies = MoneyConverter.convertPoundsToPennies(feeResponse.amount)
-            draft.document.feeCode = feeResponse.code
-            draft.document.paymentResponse = paymentResponse
-            await new DraftService().save(draft, res.locals.user.bearerToken)
-            await updateHandler(res, next, externalId)
-            logPaymentError(user.id, paymentResponse)
-            logger.error(`Payment Response: ${JSON.stringify(paymentResponse)})`)
-            process.env.PBA_ERROR_CODE = paymentResponse.errorCode
-            process.env.PBA_ERROR_MESSAGE = 'Failed'
-            if (paymentResponse.errorCode !== undefined) {
-              if (paymentResponse.errorCode.toString() === '403') {
-                if (paymentResponse.errorMessage !== undefined && paymentResponse.errorCodeMessage !== undefined) {
-                  process.env.PBA_ERROR_MESSAGE = paymentResponse.errorCodeMessage
-                }
+        const payClient: PayClient = await getPayClient()
+        const paymentResponse: PaymentResponse = await payClient.create(
+          user,
+          pbaNumber,
+          externalId,
+          yourReference,
+          orgName,
+          feeResponse,
+          ccdCaseNumber ? ccdCaseNumber.toString() : undefined
+        )
+
+        if (paymentResponse.isSuccess) {
+          draft.document.feeAmountInPennies = MoneyConverter.convertPoundsToPennies(feeResponse.amount)
+          draft.document.feeCode = feeResponse.code
+          draft.document.paymentResponse = paymentResponse
+          logger.error(`Payment Response: ${JSON.stringify(paymentResponse)})`)
+          await new DraftService().save(draft, user.bearerToken)
+          await updateHandler(res, next, externalId)
+          process.env.PBA_ERROR_CODE = ''
+          process.env.PBA_ERROR_MESSAGE = ''
+        } else {
+          draft.document.feeAmountInPennies = MoneyConverter.convertPoundsToPennies(feeResponse.amount)
+          draft.document.feeCode = feeResponse.code
+          draft.document.paymentResponse = paymentResponse
+          await new DraftService().save(draft, res.locals.user.bearerToken)
+          await updateHandler(res, next, externalId)
+          logPaymentError(user.id, paymentResponse)
+          logger.error(`Payment Response: ${JSON.stringify(paymentResponse)})`)
+          process.env.PBA_ERROR_CODE = paymentResponse.errorCode
+          process.env.PBA_ERROR_MESSAGE = 'Failed'
+          if (paymentResponse.errorCode !== undefined) {
+            if (paymentResponse.errorCode.toString() === '403') {
+              if (paymentResponse.errorMessage !== undefined && paymentResponse.errorCodeMessage !== undefined) {
+                process.env.PBA_ERROR_MESSAGE = paymentResponse.errorCodeMessage
               }
             }
-            res.redirect(Paths.payByAccountPage.uri)
           }
+          res.redirect(Paths.payByAccountPage.uri)
         }
       }
     }))
