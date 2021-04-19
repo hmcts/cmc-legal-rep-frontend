@@ -52,7 +52,9 @@ async function updateHandler (res, next, externalId: string) {
   const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
   ClaimStoreClient.updateClaimForUser(res.locals.user, draft)
   .then(claim => {
-    deleteDraftAndRedirect(res, next, externalId)
+    if (draft.document.paymentResponse.status === 'Success') {
+      deleteDraftAndRedirect(res, next, externalId)
+    }
   })
   .catch(err => {
     if (err.statusCode === HttpStatus.CONFLICT) {
@@ -170,6 +172,7 @@ export default express.Router()
             await new DraftService().save(draft, res.locals.user.bearerToken)
             await updateHandler(res, next, externalId)
             logPaymentError(user.id, paymentResponse)
+            logger.error(`Payment Response: ${JSON.stringify(paymentResponse)})`)
             process.env.PBA_ERROR_CODE = paymentResponse.errorCode
             process.env.PBA_ERROR_MESSAGE = 'Failed'
             if (paymentResponse.errorCode !== undefined) {
