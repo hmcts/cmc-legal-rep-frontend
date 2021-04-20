@@ -103,7 +103,6 @@ export default express.Router()
             })
             .catch(err => {
               logError(res.locals.user.id, err.statusCode)
-              next(err)
             })
         }
 

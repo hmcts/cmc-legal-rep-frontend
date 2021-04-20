@@ -73,20 +73,25 @@ describe('Claim : Pay by Fee Account page', () => {
         .expect(res => expect(res).to.be.successful.withText(pageHeading, 'div class="error-summary"', 'Enter your Fee Account number'))
     })
 
-    // it('should return 500 and render error page when form is valid and cannot save draft', async () => {
-    //   idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-    //   idamServiceMock.resolveRetrieveServiceToken()
-    //   draftStoreServiceMock.rejectSave(100, 'HTTP error')
-    //   feesServiceMock.resolveCalculateIssueFee()
-    //   claimStoreServiceMock.resolveRetrievePaymentReference()
-    //   payClientMock.resolveCreate()
+    it('should return 500 and render error page when form is valid and cannot update the claim', async () => {
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      draftStoreServiceMock.resolveUpdate()
+      feesServiceMock.resolveCalculateIssueFee()
+      claimStoreServiceMock.resolveRetrievePaymentReference()
+      claimStoreServiceMock.saveClaimForUserFailed('Internal error')
+      draftStoreServiceMock.resolveUpdate()
+      claimStoreServiceMock.saveClaimForUserFailed('Internal error')
+      draftStoreServiceMock.resolveDelete()
+      idamServiceMock.resolveRetrieveServiceToken()
+      payClientMock.resolveCreate()
+      payClientMock.resolveUpdate()
 
-    //   await request(app)
-    //     .post(ClaimPaths.payByAccountPage.uri)
-    //     .set('Cookie', `${cookieName}=ABC`)
-    //     .send({ reference: 'PBA0082848' })
-    //     .expect(res => expect(res).to.be.serverError.withText('Error'))
-    // })
+      await request(app)
+        .post(ClaimPaths.payByAccountPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .send({ reference: 'PBA0082848' })
+        .expect(res => expect(res).to.be.serverError.withText('Error'))
+    })
 
     it('should redirect to claim submitted page when form is valid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
