@@ -148,6 +148,7 @@ export default express.Router()
           draft.document.paymentResponse = paymentResponse
           await new DraftService().save(draft, res.locals.user.bearerToken)
           await updateHandler(res, next, externalId)
+          logger.error(`${'Payment error'} (User Id : ${res.locals.user.id})`)
           logPaymentError(user.id, paymentResponse)
           process.env.PBA_ERROR_CODE = paymentResponse.errorCode
           process.env.PBA_ERROR_MESSAGE = 'Failed'
