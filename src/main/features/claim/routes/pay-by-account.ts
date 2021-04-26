@@ -142,16 +142,15 @@ export default express.Router()
           feeResponse,
           ccdCaseNumber ? ccdCaseNumber.toString() : undefined
         )
-
         if (paymentResponse.isSuccess) {
           draft.document.feeAmountInPennies = MoneyConverter.convertPoundsToPennies(feeResponse.amount)
           draft.document.feeCode = feeResponse.code
           draft.document.paymentResponse = paymentResponse
           logger.error(`Payment Response: ${JSON.stringify(paymentResponse)})`)
-          await new DraftService().save(draft, user.bearerToken)
-          await updateHandler(res, next, externalId)
           process.env.PBA_ERROR_CODE = ''
           process.env.PBA_ERROR_MESSAGE = ''
+          await new DraftService().save(draft, user.bearerToken)
+          await updateHandler(res, next, externalId)
         } else {
           draft.document.feeAmountInPennies = MoneyConverter.convertPoundsToPennies(feeResponse.amount)
           draft.document.feeCode = feeResponse.code
@@ -160,7 +159,7 @@ export default express.Router()
           await updateHandler(res, next, externalId)
           logError(res.locals.user.id, 'Payment' + paymentResponse.status)
           logPaymentError(user.id, paymentResponse)
-          process.env.PBA_ERROR_CODE = paymentResponse.errorCode
+          process.env.PBA_ERROR_CODE = paymentResponse.errorCode.toString()
           process.env.PBA_ERROR_MESSAGE = 'Failed'
           if (paymentResponse.errorCode !== undefined) {
             if (paymentResponse.errorCode.toString() === '403') {

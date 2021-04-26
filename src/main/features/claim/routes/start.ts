@@ -22,7 +22,8 @@ export default express.Router()
       if (legalCertificateOfServiceDraft && legalCertificateOfServiceDraft.id) {
         await new DraftService().delete(legalCertificateOfServiceDraft.id, res.locals.user.bearerToken)
       }
-
+      process.env.PBA_ERROR_CODE = ''
+      process.env.PBA_ERROR_MESSAGE = ''
       res.redirect(Paths.representativeNamePage.uri)
     } catch (err) {
       next(err)
