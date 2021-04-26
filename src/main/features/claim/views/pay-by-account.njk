@@ -6,7 +6,6 @@
 {% from "form.njk" import csrfProtection, submitButton, errorSummary, textInput %}
 
 {% block content %}
-{% if form.hasErrors() === false %}
 {% if PBA_ERROR_CODE === '422' %}   
 <div class="error-summary">
   <div class="govuk-warning-text">
@@ -104,7 +103,6 @@
     </div>
 </div>
       
-{% endif %}
 {% endif %}
 
   <div class="grid-row">

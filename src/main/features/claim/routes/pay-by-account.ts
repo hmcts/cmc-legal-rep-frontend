@@ -84,7 +84,7 @@ export default express.Router()
     ErrorHandling.apply(async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
       const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
       const form: Form<FeeAccount> = req.body
-
+      const user: User = res.locals.user
       let pbaNumber: any
       let externalId = draft.document.externalId
       let yourReference = draft.document.yourReference.reference
@@ -92,6 +92,8 @@ export default express.Router()
       let ccdCaseNumber = draft.document.ccdCaseId ? draft.document.ccdCaseId : undefined
 
       if (form.hasErrors()) {
+        draft.document.paymentResponse = new PaymentResponse()
+        await new DraftService().save(draft, user.bearerToken)
         renderView(form, res, next)
       } else {
         // Saving the claim before invoking the F&P
@@ -120,7 +122,6 @@ export default express.Router()
 
         const feeResponse: FeeResponse = await FeesClient.getFeeAmount(draft.document.amount)
 
-        const user: User = res.locals.user
         await new DraftService().save(draft, user.bearerToken)
         const legalRepDetails: RepresentativeDetails = Cookie.getCookie(req.signedCookies.legalRepresentativeDetails, user.id)
         legalRepDetails.feeAccount = form.model
