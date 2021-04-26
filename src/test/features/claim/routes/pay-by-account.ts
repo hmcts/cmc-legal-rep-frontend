@@ -63,6 +63,7 @@ describe('Claim : Pay by Fee Account page', () => {
 
     it('should render page when form is invalid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      draftStoreServiceMock.resolveUpdate()
       feesServiceMock.resolveCalculateIssueFee()
       idamServiceMock.resolveRetrieveServiceToken()
 
