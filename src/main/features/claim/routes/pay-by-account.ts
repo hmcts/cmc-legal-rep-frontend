@@ -155,10 +155,6 @@ export default express.Router()
           draft.document.feeAmountInPennies = MoneyConverter.convertPoundsToPennies(feeResponse.amount)
           draft.document.feeCode = feeResponse.code
           draft.document.paymentResponse = paymentResponse
-          await new DraftService().save(draft, res.locals.user.bearerToken)
-          await updateHandler(res, next, externalId)
-          logError(res.locals.user.id, 'Payment' + paymentResponse.status)
-          logPaymentError(user.id, paymentResponse)
           process.env.PBA_ERROR_CODE = paymentResponse.errorCode.toString()
           process.env.PBA_ERROR_MESSAGE = 'Failed'
           if (paymentResponse.errorCode !== undefined) {
@@ -168,6 +164,10 @@ export default express.Router()
               }
             }
           }
+          await new DraftService().save(draft, res.locals.user.bearerToken)
+          await updateHandler(res, next, externalId)
+          logError(res.locals.user.id, 'Payment' + paymentResponse.status)
+          logPaymentError(user.id, paymentResponse)
           res.redirect(Paths.payByAccountPage.uri)
         }
       }
