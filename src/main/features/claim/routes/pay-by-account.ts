@@ -67,7 +67,8 @@ function renderView (form: Form<FeeAccount>, res: express.Response, next: expres
       res.render(Paths.payByAccountPage.associatedView,
         {
           form: form,
-          feeAmount: feeResponse.amount
+          feeAmount: feeResponse.amount,
+          PBA_ERROR_CODE: draft.document.paymentResponse !== undefined ? draft.document.paymentResponse.errorCode : ''
         })
     })
     .catch(next)
@@ -90,12 +91,7 @@ export default express.Router()
       let orgName = draft.document.representative.organisationName.name
       let ccdCaseNumber = draft.document.ccdCaseId ? draft.document.ccdCaseId : undefined
 
-      process.env.PBA_ERROR_CODE = ''
-      process.env.PBA_ERROR_MESSAGE = ''
-
       if (form.hasErrors()) {
-        process.env.PBA_ERROR_CODE = ''
-        process.env.PBA_ERROR_MESSAGE = ''
         renderView(form, res, next)
       } else {
         // Saving the claim before invoking the F&P
@@ -147,23 +143,12 @@ export default express.Router()
           draft.document.feeCode = feeResponse.code
           draft.document.paymentResponse = paymentResponse
           logger.error(`Payment Response: ${JSON.stringify(paymentResponse)})`)
-          process.env.PBA_ERROR_CODE = ''
-          process.env.PBA_ERROR_MESSAGE = ''
           await new DraftService().save(draft, user.bearerToken)
           await updateHandler(res, next, externalId)
         } else {
           draft.document.feeAmountInPennies = MoneyConverter.convertPoundsToPennies(feeResponse.amount)
           draft.document.feeCode = feeResponse.code
           draft.document.paymentResponse = paymentResponse
-          process.env.PBA_ERROR_CODE = paymentResponse.errorCode.toString()
-          process.env.PBA_ERROR_MESSAGE = 'Failed'
-          if (paymentResponse.errorCode !== undefined) {
-            if (paymentResponse.errorCode.toString() === '403') {
-              if (paymentResponse.errorMessage !== undefined && paymentResponse.errorCodeMessage !== undefined) {
-                process.env.PBA_ERROR_MESSAGE = paymentResponse.errorCodeMessage
-              }
-            }
-          }
           await new DraftService().save(draft, res.locals.user.bearerToken)
           await updateHandler(res, next, externalId)
           logError(res.locals.user.id, 'Payment' + paymentResponse.status)

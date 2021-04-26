@@ -34,8 +34,6 @@ new Helmet(config.get<HelmetConfig>('security'), developmentMode)
   .enableFor(app)
 
 app.use(/^\/(?!js|img|pdf|stylesheets).*$/, async (req, res, next) => {
-  app.settings.nunjucksEnv.globals.PBA_ERROR_CODE = process.env.PBA_ERROR_CODE
-  app.settings.nunjucksEnv.globals.PBA_ERROR_MESSAGE = process.env.PBA_ERROR_MESSAGE
   next()
 })
 
