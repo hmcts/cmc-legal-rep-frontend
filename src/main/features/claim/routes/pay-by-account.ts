@@ -68,7 +68,7 @@ function renderView (form: Form<FeeAccount>, res: express.Response, next: expres
         {
           form: form,
           feeAmount: feeResponse.amount,
-          PBA_ERROR_CODE: draft.document.paymentResponse !== undefined ? draft.document.paymentResponse.errorCode : ''
+          PBA_ERROR_CODE: draft.document.paymentResponse !== undefined && draft.document.paymentResponse.errorCode !== undefined ? draft.document.paymentResponse.errorCode.toString() : ''
         })
     })
     .catch(next)
