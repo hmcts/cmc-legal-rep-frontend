@@ -1,0 +1,58 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: helmet
+    versions:
+    - 4.4.1
+  - dependency-name: y18n
+    versions:
+    - 3.2.2
+  - dependency-name: nock
+    versions:
+    - 13.0.10
+    - 13.0.7
+    - 13.0.8
+  - dependency-name: chai
+    versions:
+    - 4.3.0
+    - 4.3.1
+  - dependency-name: "@types/node"
+    versions:
+    - 14.14.11
+    - 14.14.31
+  - dependency-name: "@types/lodash"
+    versions:
+    - 4.14.168
+  - dependency-name: webdriverio
+    versions:
+    - 7.0.7
+    - 7.0.8
+  - dependency-name: applicationinsights
+    versions:
+    - 1.8.9
+  - dependency-name: webdriver
+    versions:
+    - 6.10.4
+  - dependency-name: "@types/config"
+    versions:
+    - 0.0.37
+  - dependency-name: typescript
+    versions:
+    - 4.1.2
+  - dependency-name: config
+    versions:
+    - 3.3.3
+  - dependency-name: codeceptjs
+    versions:
+    - 3.0.2
+  - dependency-name: husky
+    versions:
+    - 4.3.5
+  - dependency-name: "@types/mocha"
+    versions:
+    - 8.2.0
