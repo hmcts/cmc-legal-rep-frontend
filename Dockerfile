@@ -1,5 +1,5 @@
 # ---- Base image ----
-FROM hmctspublic.azurecr.io/base/node:12-alpine as base
+FROM hmctspublic.azurecr.io/base/node:14-alpine as base
 COPY package.json yarn.lock ./
 COPY tsconfig.json tsconfig.prod.json ./
 COPY config ./config
