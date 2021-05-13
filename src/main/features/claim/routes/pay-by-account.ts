@@ -96,7 +96,6 @@ export default express.Router()
         await new DraftService().save(draft, user.bearerToken)
         renderView(form, res, next)
       } else {
-        logger.error(`Amount detils Response: ${JSON.stringify(draft.document.amount)})`)
         const feeResponse: FeeResponse = await FeesClient.getFeeAmount(draft.document.amount)
         // Saving the claim before invoking the F&P
         if (!draft.document.ccdCaseId) {
