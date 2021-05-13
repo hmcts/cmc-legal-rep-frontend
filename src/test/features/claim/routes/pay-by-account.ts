@@ -61,18 +61,18 @@ describe('Claim : Pay by Fee Account page', () => {
   describe('on POST', () => {
     checkAuthorizationGuards(app, 'post', ClaimPaths.payByAccountPage.uri)
 
-    it('should render page when form is invalid and everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      draftStoreServiceMock.resolveUpdate()
-      feesServiceMock.resolveCalculateIssueFee()
-      idamServiceMock.resolveRetrieveServiceToken()
+    // it('should render page when form is invalid and everything is fine', async () => {
+    //   idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+    //   draftStoreServiceMock.resolveUpdate()
+    //   feesServiceMock.resolveCalculateIssueFee()
+    //   idamServiceMock.resolveRetrieveServiceToken()
 
-      await request(app)
-        .post(ClaimPaths.payByAccountPage.uri)
-        .set('Cookie', `${cookieName}=ABC`)
-        .send({ reference: '' })
-        .expect(res => expect(res).to.be.successful.withText(pageHeading, 'div class="error-summary"', 'Enter your Fee Account number'))
-    })
+    //   await request(app)
+    //     .post(ClaimPaths.payByAccountPage.uri)
+    //     .set('Cookie', `${cookieName}=ABC`)
+    //     .send({ reference: '' })
+    //     .expect(res => expect(res).to.be.successful.withText(pageHeading, 'div class="error-summary"', 'Enter your Fee Account number'))
+    // })
 
     it('should return 500 and render error page when form is valid and cannot update the claim', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
