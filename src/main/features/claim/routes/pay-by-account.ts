@@ -90,14 +90,14 @@ export default express.Router()
       let yourReference = draft.document.yourReference.reference
       let orgName = draft.document.representative.organisationName.name
       let ccdCaseNumber = draft.document.ccdCaseId ? draft.document.ccdCaseId : undefined
-      logger.error(`Amount detils Response: ${JSON.stringify(draft.document.amount)})`)
-      const feeResponse: FeeResponse = await FeesClient.getFeeAmount(draft.document.amount)
 
       if (form.hasErrors()) {
         draft.document.paymentResponse = new PaymentResponse()
         await new DraftService().save(draft, user.bearerToken)
         renderView(form, res, next)
       } else {
+        logger.error(`Amount detils Response: ${JSON.stringify(draft.document.amount)})`)
+        const feeResponse: FeeResponse = await FeesClient.getFeeAmount(draft.document.amount)
         // Saving the claim before invoking the F&P
         if (!draft.document.ccdCaseId) {
           await ClaimStoreClient.saveClaimForUser(res.locals.user, res.locals.legalClaimDraft)
