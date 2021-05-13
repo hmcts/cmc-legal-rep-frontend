@@ -90,6 +90,8 @@ export default express.Router()
       let yourReference = draft.document.yourReference.reference
       let orgName = draft.document.representative.organisationName.name
       let ccdCaseNumber = draft.document.ccdCaseId ? draft.document.ccdCaseId : undefined
+      logger.error(`Amount detils Response: ${JSON.stringify(draft.document.amount)})`)
+      const feeResponse: FeeResponse = await FeesClient.getFeeAmount(draft.document.amount)
 
       if (form.hasErrors()) {
         draft.document.paymentResponse = new PaymentResponse()
@@ -119,8 +121,6 @@ export default express.Router()
         }
         draft.document.representative.organisationName.name = orgName
         pbaNumber = form.model.reference
-
-        const feeResponse: FeeResponse = await FeesClient.getFeeAmount(draft.document.amount)
 
         await new DraftService().save(draft, user.bearerToken)
         const legalRepDetails: RepresentativeDetails = Cookie.getCookie(req.signedCookies.legalRepresentativeDetails, user.id)
