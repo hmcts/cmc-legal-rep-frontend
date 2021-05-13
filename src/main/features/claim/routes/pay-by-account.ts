@@ -120,7 +120,15 @@ export default express.Router()
         draft.document.representative.organisationName.name = orgName
         pbaNumber = form.model.reference
 
-        const feeResponse: FeeResponse = await FeesClient.getFeeAmount(draft.document.amount)
+        let feeResponse = undefined
+
+        FeesClient.getFeeAmount(draft.document.amount)
+          .then((fR: FeeResponse) => {
+            feeResponse = fR
+          })
+          .catch(err => {
+            logger.error(`Fee Response:`, err)
+          })
 
         await new DraftService().save(draft, user.bearerToken)
         const legalRepDetails: RepresentativeDetails = Cookie.getCookie(req.signedCookies.legalRepresentativeDetails, user.id)
