@@ -66,8 +66,6 @@ function renderView (form: Form<FeeAccount>, res: express.Response, next: expres
   if (draft.document.amount.cannotState === undefined && draft.document.amount.higherValue === undefined && draft.document.amount.lowerValue === undefined) {
     draft.document.amount = new Amount()
     draft.document.amount.cannotState = Amount.CANNOT_STATE_VALUE
-    draft.document.amount.higherValue = undefined
-    draft.document.amount.lowerValue = undefined
   }
   FeesClient.getFeeAmount(draft.document.amount)
     .then((feeResponse: FeeResponse) => {
@@ -101,8 +99,6 @@ export default express.Router()
       if (amount.cannotState === undefined && amount.higherValue === undefined && amount.lowerValue === undefined) {
         amount = new Amount()
         amount.cannotState = Amount.CANNOT_STATE_VALUE
-        amount.higherValue = undefined
-        amount.lowerValue = undefined
       }
 
       if (form.hasErrors()) {
