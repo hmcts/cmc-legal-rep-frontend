@@ -64,7 +64,6 @@ async function updateHandler (res, next, externalId: string) {
 function renderView (form: Form<FeeAccount>, res: express.Response, next: express.NextFunction): void {
   const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
   if (draft.document.amount.cannotState === undefined && draft.document.amount.higherValue === undefined && draft.document.amount.lowerValue === undefined) {
-    draft.document.amount = new Amount()
     draft.document.amount.cannotState = Amount.CANNOT_STATE_VALUE
   }
   FeesClient.getFeeAmount(draft.document.amount)
@@ -97,7 +96,6 @@ export default express.Router()
       let ccdCaseNumber = draft.document.ccdCaseId ? draft.document.ccdCaseId : undefined
       let amount = draft.document.amount
       if (amount.cannotState === undefined && amount.higherValue === undefined && amount.lowerValue === undefined) {
-        amount = new Amount()
         amount.cannotState = Amount.CANNOT_STATE_VALUE
       }
 
