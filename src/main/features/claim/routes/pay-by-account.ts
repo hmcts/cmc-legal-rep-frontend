@@ -23,7 +23,7 @@ import { User } from 'idam/user'
 import { YourReference } from 'forms/models/yourReference'
 import Representative from 'drafts/models/representative'
 import { OrganisationName } from 'forms/models/organisationName'
-import { Amount } from 'forms/models/amount'
+// import { Amount } from 'forms/models/amount'
 
 const logger = Logger.getLogger('router/pay-by-account')
 
@@ -63,12 +63,6 @@ async function updateHandler (res, next, externalId: string) {
 
 function renderView (form: Form<FeeAccount>, res: express.Response, next: express.NextFunction): void {
   const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
-  if (draft.document.amount === undefined) {
-    draft.document.amount = new Amount()
-    draft.document.amount.cannotState = Amount.CANNOT_STATE_VALUE
-    draft.document.amount.higherValue = undefined
-    draft.document.amount.lowerValue = undefined
-  }
   FeesClient.getFeeAmount(draft.document.amount)
     .then((feeResponse: FeeResponse) => {
       res.render(Paths.payByAccountPage.associatedView,
@@ -97,13 +91,14 @@ export default express.Router()
       let yourReference = draft.document.yourReference.reference
       let orgName = draft.document.representative.organisationName.name
       let ccdCaseNumber = draft.document.ccdCaseId ? draft.document.ccdCaseId : undefined
+      let amount = draft.document.amount
 
       if (form.hasErrors()) {
         draft.document.paymentResponse = new PaymentResponse()
         await new DraftService().save(draft, user.bearerToken)
         renderView(form, res, next)
       } else {
-        const feeResponse: FeeResponse = await FeesClient.getFeeAmount(draft.document.amount)
+        const feeResponse: FeeResponse = await FeesClient.getFeeAmount(amount)
         // Saving the claim before invoking the F&P
         if (!draft.document.ccdCaseId) {
           await ClaimStoreClient.saveClaimForUser(res.locals.user, res.locals.legalClaimDraft)
@@ -156,6 +151,7 @@ export default express.Router()
           draft.document.feeAmountInPennies = (feeResponse !== undefined && feeResponse.amount !== undefined) ? MoneyConverter.convertPoundsToPennies(feeResponse.amount) : undefined
           draft.document.feeCode = feeResponse.code
           draft.document.paymentResponse = paymentResponse
+          draft.document.amount = amount
           await new DraftService().save(draft, res.locals.user.bearerToken)
           await updateHandler(res, next, externalId)
           logError(res.locals.user.id, 'Payment' + paymentResponse.status)
