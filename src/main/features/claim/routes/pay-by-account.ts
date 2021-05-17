@@ -63,14 +63,12 @@ async function updateHandler (res, next, externalId: string) {
 
 function renderView (form: Form<FeeAccount>, res: express.Response, next: express.NextFunction): void {
   const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
-  logger.error(`${'amount object GET before:'} (User Id : ${res.locals.user.id}, Prathap: ${JSON.stringify(draft.document.amount)})`)
-  if (draft.document.amount === undefined) {
+  if (draft.document.amount.cannotState === undefined && draft.document.amount.higherValue === undefined && draft.document.amount.lowerValue === undefined) {
     draft.document.amount = new Amount()
     draft.document.amount.cannotState = Amount.CANNOT_STATE_VALUE
     draft.document.amount.higherValue = undefined
     draft.document.amount.lowerValue = undefined
   }
-  logger.error(`${'amount object GET after:'} (User Id : ${res.locals.user.id}, Prathap: ${JSON.stringify(draft.document.amount)})`)
   FeesClient.getFeeAmount(draft.document.amount)
     .then((feeResponse: FeeResponse) => {
       res.render(Paths.payByAccountPage.associatedView,
@@ -100,13 +98,18 @@ export default express.Router()
       let orgName = draft.document.representative.organisationName.name
       let ccdCaseNumber = draft.document.ccdCaseId ? draft.document.ccdCaseId : undefined
       let amount = draft.document.amount
+      if (amount.cannotState === undefined && amount.higherValue === undefined && amount.lowerValue === undefined) {
+        amount = new Amount()
+        amount.cannotState = Amount.CANNOT_STATE_VALUE
+        amount.higherValue = undefined
+        amount.lowerValue = undefined
+      }
 
       if (form.hasErrors()) {
         draft.document.paymentResponse = new PaymentResponse()
         await new DraftService().save(draft, user.bearerToken)
         renderView(form, res, next)
       } else {
-        logger.error(`${'amount object POST before:'} (User Id : ${res.locals.user.id}, Prathap: ${JSON.stringify(amount)})`)
         const feeResponse: FeeResponse = await FeesClient.getFeeAmount(amount)
         // Saving the claim before invoking the F&P
         if (!draft.document.ccdCaseId) {
@@ -161,7 +164,6 @@ export default express.Router()
           draft.document.feeCode = feeResponse.code
           draft.document.paymentResponse = paymentResponse
           draft.document.amount = amount
-          logger.error(`${'amount object POST before:'} (User Id : ${res.locals.user.id}, Prathap: ${JSON.stringify(amount)})`)
           await new DraftService().save(draft, res.locals.user.bearerToken)
           await updateHandler(res, next, externalId)
           logError(res.locals.user.id, 'Payment' + paymentResponse.status)
