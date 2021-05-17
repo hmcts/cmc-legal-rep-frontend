@@ -63,9 +63,11 @@ async function updateHandler (res, next, externalId: string) {
 
 function renderView (form: Form<FeeAccount>, res: express.Response, next: express.NextFunction): void {
   const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
-  if (draft.document === undefined) {
+  if (draft.document.amount === undefined) {
     draft.document.amount = new Amount()
     draft.document.amount.cannotState = Amount.CANNOT_STATE_VALUE
+    draft.document.amount.higherValue = undefined
+    draft.document.amount.lowerValue = undefined
   }
   FeesClient.getFeeAmount(draft.document.amount)
     .then((feeResponse: FeeResponse) => {
