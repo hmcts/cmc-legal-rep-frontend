@@ -96,6 +96,9 @@ export default express.Router()
         await new DraftService().save(draft, user.bearerToken)
         renderView(form, res, next)
       } else {
+        const message: string = 'Payment draft object: '
+        logger.error(`${message} (User Id : ${123}, Payment: ${JSON.stringify(draft.document.amount)})`)
+
         const feeResponse: FeeResponse = await FeesClient.getFeeAmount(draft.document.amount)
         // Saving the claim before invoking the F&P
         if (!draft.document.ccdCaseId) {
