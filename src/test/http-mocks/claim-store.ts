@@ -197,6 +197,12 @@ export function updateClaimForUser () {
     .reply(HttpStatus.OK, { ...sampleUpdateClaimObj })
 }
 
+export function rejectUpdateClaimForUser () {
+  mock(`${serviceBaseURL}/claims`)
+    .post(new RegExp('/[0-9]+'))
+    .reply(HttpStatus.INTERNAL_SERVER_ERROR, 'Error')
+}
+
 export function resolveRetrievePaymentReference () {
   mock(`${serviceBaseURL}/claims`)
     .post(new RegExp('/.+/pre-payment'))

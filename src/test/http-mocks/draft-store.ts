@@ -127,94 +127,12 @@ const sampleClaimDraftObj = {
   claimantChangeIndex: undefined
 }
 
-const sampleClaimDraftObjWithOutAmount = {
-  externalId: '400f4c57-9684-49c0-adb4-4cf46579d6dc',
-  readResolveDispute: true,
-  readCompletingClaim: true,
-  representative: {
-    organisationName: { name: 'My Organisation Name' } as OrganisationName,
-    address: {
-      line1: 'Apt 99',
-      line2: 'Building A',
-      city: 'London',
-      postcode: 'SW1A 1AA'
-    } as Address
-  } as Representative,
-  claimants: [{
-    claimantDetails: {
-      type: { value: 'INDIVIDUAL' },
-      fullName: 'fullName'
-    } as ClaimantDetails,
-    address: {
-      line1: 'Apt 99',
-      city: 'London',
-      postcode: 'SW1A 1AA'
-    }as Address
-  } as Claimant],
-  defendants: [{
-    address: {
-      line1: 'Apt 99',
-      city: 'London',
-      postcode: 'SW1A 1AA'
-    } as Address,
-    representative: {
-      organisationName: 'Defendant Company Name',
-      address: {
-        line1: 'Apt 99',
-        line2: 'Building A',
-        city: 'London',
-        postcode: 'SW1A 1AA'
-      }as Address
-    },
-    defendantRepresented: {
-      isDefendantRepresented: { value: 'YES' },
-      companyName: 'Defendant rep'
-    },
-    defendantDetails: {
-      type: { value: 'INDIVIDUAL' },
-      fullName: 'fullName'
-    } as DefendantDetails
-  }],
-  amount: {
-    cannotState: undefined,
-    lowerValue: undefined,
-    higherValue: undefined
-  } as Amount,
-  housingDisrepair: {
-    housingDisrepair: { value: YesNo.YES.value, displayValue: YesNo.YES.displayValue },
-    generalDamages: {
-      value: GeneralDamages.LESS.value,
-      displayValue: GeneralDamages.LESS.displayValue,
-      dataStoreValue: GeneralDamages.LESS.dataStoreValue
-    },
-    otherDamages: {
-      value: OtherDamages.NONE.value,
-      displayValue: OtherDamages.NONE.displayValue,
-      dataStoreValue: OtherDamages.NONE.dataStoreValue
-    }
-  } as HousingDisrepair,
-  personalInjury: {
-    personalInjury: { value: YesNo.NO.value, displayValue: YesNo.NO.value },
-    generalDamages: undefined
-  } as PersonalInjury,
-  yourReference: {
-    reference: 'Our Ref'
-  },
-  ccdCaseId: undefined,
-  viewFlowOption: true,
-  defendantChangeIndex: undefined,
-  claimantChangeIndex: undefined
-}
-
 export function resolveFind (draftType: string, draftOverride?: object): mock.Scope {
   let documentDocument: object
 
   switch (draftType) {
     case 'legalClaim':
       documentDocument = { ...sampleClaimDraftObj, ...draftOverride }
-      break
-    case 'legalClaimDraft':
-      documentDocument = { ...sampleClaimDraftObjWithOutAmount, ...draftOverride }
       break
     case 'dashboard':
       documentDocument = { ...sampleDashboardDraftObj, ...draftOverride }

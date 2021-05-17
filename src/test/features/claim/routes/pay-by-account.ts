@@ -54,17 +54,6 @@ describe('Claim : Pay by Fee Account page', () => {
           .set('Cookie', `${cookieName}=ABC`)
           .expect(res => expect(res).to.be.successful.withText(pageHeading))
       })
-
-      it('should render page when everything is fine', async () => {
-        draftStoreServiceMock.resolveFind('legalClaimDraft')
-        feesServiceMock.resolveCalculateIssueFee()
-
-        await request(app)
-          .get(ClaimPaths.payByAccountPage.uri)
-          .set('Cookie', `${cookieName}=ABC`)
-          .expect(res => expect(res).to.be.successful.withText(pageHeading))
-      })
-
     })
   })
 
@@ -123,6 +112,26 @@ describe('Claim : Pay by Fee Account page', () => {
         .send({ reference: 'PBA0082848' })
         .expect(res => expect(res).to.be.redirect
           .toLocation(ClaimPaths.claimSubmittedPage.uri.replace(':externalId', claimStoreServiceMock.sampleClaimObj.externalId)))
+    })
+
+    it('should redirect to claim submitted page when form is valid and everything is fine', async () => {
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      draftStoreServiceMock.resolveUpdate()
+      feesServiceMock.resolveCalculateIssueFee()
+      claimStoreServiceMock.resolveRetrievePaymentReference()
+      claimStoreServiceMock.saveClaimForUser()
+      draftStoreServiceMock.resolveUpdate()
+      claimStoreServiceMock.rejectUpdateClaimForUser()
+      draftStoreServiceMock.resolveDelete()
+      idamServiceMock.resolveRetrieveServiceToken()
+      payClientMock.resolveCreate()
+      payClientMock.resolveUpdate()
+
+      await request(app)
+        .post(ClaimPaths.payByAccountPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .send({ reference: 'PBA0082848' })
+        .expect(res => expect(res).to.be.serverError.withText('Error'))
     })
 
     it('should not redirect to claim submitted page when the payment is failed', async () => {
