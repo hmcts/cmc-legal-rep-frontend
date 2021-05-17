@@ -139,7 +139,7 @@ export default express.Router()
           ccdCaseNumber ? ccdCaseNumber.toString() : undefined
         )
         if (paymentResponse.isSuccess) {
-          draft.document.feeAmountInPennies = feeResponse.amount ? MoneyConverter.convertPoundsToPennies(feeResponse.amount) : undefined
+          draft.document.feeAmountInPennies = (feeResponse !== undefined && feeResponse.amount !== undefined) ? MoneyConverter.convertPoundsToPennies(feeResponse.amount) : undefined
           draft.document.feeCode = feeResponse.code
           draft.document.paymentResponse = paymentResponse
           logger.error(`Payment Response: ${JSON.stringify(paymentResponse)})`)
