@@ -55,6 +55,16 @@ describe('Claim : Pay by Fee Account page', () => {
           .expect(res => expect(res).to.be.successful.withText(pageHeading))
       })
 
+      it('should render page when everything is fine', async () => {
+        draftStoreServiceMock.resolveFind('legalClaimDraft')
+        feesServiceMock.resolveCalculateIssueFee()
+
+        await request(app)
+          .get(ClaimPaths.payByAccountPage.uri)
+          .set('Cookie', `${cookieName}=ABC`)
+          .expect(res => expect(res).to.be.successful.withText(pageHeading))
+      })
+
     })
   })
 
