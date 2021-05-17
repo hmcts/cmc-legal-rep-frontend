@@ -146,7 +146,7 @@ export default express.Router()
           await new DraftService().save(draft, user.bearerToken)
           await updateHandler(res, next, externalId)
         } else {
-          draft.document.feeAmountInPennies = feeResponse.amount ? MoneyConverter.convertPoundsToPennies(feeResponse.amount) : undefined
+          draft.document.feeAmountInPennies = (feeResponse !== undefined && feeResponse.amount !== undefined) ? MoneyConverter.convertPoundsToPennies(feeResponse.amount) : undefined
           draft.document.feeCode = feeResponse.code
           draft.document.paymentResponse = paymentResponse
           await new DraftService().save(draft, res.locals.user.bearerToken)
