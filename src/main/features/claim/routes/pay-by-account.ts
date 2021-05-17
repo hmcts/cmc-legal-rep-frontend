@@ -23,6 +23,7 @@ import { User } from 'idam/user'
 import { YourReference } from 'forms/models/yourReference'
 import Representative from 'drafts/models/representative'
 import { OrganisationName } from 'forms/models/organisationName'
+import { Amount } from 'forms/models/amount'
 
 const logger = Logger.getLogger('router/pay-by-account')
 
@@ -62,6 +63,10 @@ async function updateHandler (res, next, externalId: string) {
 
 function renderView (form: Form<FeeAccount>, res: express.Response, next: express.NextFunction): void {
   const draft: Draft<DraftLegalClaim> = res.locals.legalClaimDraft
+  if (draft.document === undefined) {
+    draft.document.amount = new Amount()
+    draft.document.amount.cannotState = Amount.CANNOT_STATE_VALUE
+  }
   FeesClient.getFeeAmount(draft.document.amount)
     .then((feeResponse: FeeResponse) => {
       res.render(Paths.payByAccountPage.associatedView,
