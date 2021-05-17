@@ -162,6 +162,12 @@
     "report-dir": "coverage",
     "all": true
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint",
+      "pre-push": "yarn test && yarn test:routes"
+    }
+  },
   "resolutions": {
     "node-sass": "^4.14.1",
     "**/download": "^8.0.0",
