@@ -7,7 +7,7 @@ This is the front end for legal representation journey within CMC
 
 ## Getting Started
 
-### Prerequisites
+### Prerequisites 
 
 * [Node.js](https://nodejs.org/) >= v10.0.0
 * [yarn](https://yarnpkg.com/)
