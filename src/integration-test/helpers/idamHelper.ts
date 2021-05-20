@@ -1,16 +1,13 @@
-/* tslint:disable:no-console */
-
 import { IdamClient } from 'integration-test/helpers/clients/idamClient'
 
 class IdamHelper extends codecept_helper {
-  async createSolicitorUser (): Promise<string> {
-    let email: string
-    try {
-      email = this.generateRandomEmailAddress()
-      await IdamClient.createUser(email)
-    } catch (e) {
-      console.log(`Error creating user: ${e.message}`)
-    }
+  createSolicitorUser (): Promise<string> {
+    return this.createRandomUser('cmc-solicitor')
+  }
+
+  private async createRandomUser (userGroupCode: string): Promise<string> {
+    const email: string = this.generateRandomEmailAddress()
+    await IdamClient.createUser(email, userGroupCode)
     return email
   }
 
