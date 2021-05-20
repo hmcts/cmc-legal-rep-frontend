@@ -21,8 +21,6 @@ export class IdamClient {
    * @returns {Promise<void>}
    */
   static createUser (email: string, password: string = undefined): Promise<void> {
-    console.log('Base URL : '+ baseURL)
-    console.log(`${baseURL}/testing-support/accounts`)
     const options = {
       method: 'POST',
       uri: `${baseURL}/testing-support/accounts`,
