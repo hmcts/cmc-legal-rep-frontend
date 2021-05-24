@@ -1,7 +1,6 @@
 require('ts-node/register')
 require('tsconfig-paths/register')
 
-const ProxySettings = require('./src/integration-test/config/proxy-settings').ProxySettings
 const outputDir = './output'
 
 exports.config = {
@@ -24,7 +23,6 @@ exports.config = {
       waitForTimeout: 15000,
       restart: false,
       desiredCapabilities: {
-        proxy: new ProxySettings()
       }
     },
     IdamHelper: {
