@@ -52,7 +52,7 @@
     "@types/request-promise-native": "^1.0.16",
     "@types/shortid": "^0.0.29",
     "HTML_CodeSniffer": "https://github.com/squizlabs/HTML_CodeSniffer/archive/2.0.7.tar.gz",
-    "applicationinsights": "^1.8.9",
+    "applicationinsights": "^2.0.0",
     "body-parser": "^1.19.0",
     "cfb": "^1.2.0",
     "class-transformer": "^0.2.0",
