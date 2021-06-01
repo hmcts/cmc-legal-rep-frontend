@@ -118,6 +118,10 @@ const sampleClaimDraftObj = {
     personalInjury: { value: YesNo.NO.value, displayValue: YesNo.NO.value },
     generalDamages: undefined
   } as PersonalInjury,
+  yourReference: {
+    reference: 'Our Ref'
+  },
+  ccdCaseId: undefined,
   viewFlowOption: true,
   defendantChangeIndex: undefined,
   claimantChangeIndex: undefined

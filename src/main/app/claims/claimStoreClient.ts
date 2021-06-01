@@ -23,6 +23,31 @@ export default class ClaimStoreClient {
     })
   }
 
+  static updateClaimForUser (user: User, draft: Draft<DraftLegalClaim>): Promise<Claim> {
+
+    return request.post(this.getUpdateUri(user.id), {
+      body: {
+        externalId : draft.document.externalId,
+        ccdCaseId : draft.document.ccdCaseId,
+        feeAmountInPennies : draft.document.feeAmountInPennies,
+        feeCode : draft.document.feeCode,
+        paymentReference : draft.document.paymentResponse,
+        feeAccount : draft.document.feeAccount.reference
+      },
+      headers: {
+        Authorization: `Bearer ${user.bearerToken}`
+      }
+    })
+  }
+
+  static getUpdateUri (userId: string) {
+    if (toBoolean(config.get('featureToggles.inversionOfControl'))) {
+      return `${claimStoreApiUrl}/${userId}/update-legal-rep-claim`
+    } else {
+      return `${claimStoreApiUrl}/${userId}`
+    }
+  }
+
   static getUri (userId: string) {
     if (toBoolean(config.get('featureToggles.inversionOfControl'))) {
       return `${claimStoreApiUrl}/${userId}/create-legal-rep-claim`

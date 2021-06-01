@@ -6,6 +6,104 @@
 {% from "form.njk" import csrfProtection, submitButton, errorSummary, textInput %}
 
 {% block content %}
+{% if PBA_ERROR_CODE === '422' %}   
+<div class="error-summary">
+  <div class="govuk-warning-text">
+    <svg class="hmcts-banner-icon" fill="currentColor" role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
+    <path d="M13.6,15.4h-2.3v-4.5h2.3V15.4z M13.6,19.8h-2.3v-2.2h2.3V19.8z M0,23.2h25L12.5,2L0,23.2z"></path></svg>
+    <strong class="govuk-warning-text-text error-summary-list">
+      Payment failed, please try again later.
+    </strong>
+</div>
+</div>
+{% endif %}
+
+{% if PBA_ERROR_CODE === 'ECONNREFUSED' %}   
+<div class="error-summary">
+  <div class="govuk-warning-text">
+    <svg class="hmcts-banner-icon" fill="currentColor" role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
+    <path d="M13.6,15.4h-2.3v-4.5h2.3V15.4z M13.6,19.8h-2.3v-2.2h2.3V19.8z M0,23.2h25L12.5,2L0,23.2z"></path></svg>
+    <strong class="govuk-warning-text-text error-summary-list">
+      Sorry, the service is unavailable. Please try again later.
+    </strong>
+</div>
+</div>
+{% endif %}
+
+{% if PBA_ERROR_CODE === '502' %}   
+<div class="error-summary">
+  <div class="govuk-warning-text">
+    <svg class="hmcts-banner-icon" fill="currentColor" role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
+    <path d="M13.6,15.4h-2.3v-4.5h2.3V15.4z M13.6,19.8h-2.3v-2.2h2.3V19.8z M0,23.2h25L12.5,2L0,23.2z"></path></svg>
+    <strong class="govuk-warning-text-text error-summary-list">
+      Sorry, the service is unavailable. Please try again later.
+    </strong>
+</div>
+</div>
+{% endif %}
+
+{% if PBA_ERROR_CODE === '403' %}   
+<div class="error-summary">
+  <div class="govuk-warning-text">
+    <svg class="hmcts-banner-icon" fill="currentColor" role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
+    <path d="M13.6,15.4h-2.3v-4.5h2.3V15.4z M13.6,19.8h-2.3v-2.2h2.3V19.8z M0,23.2h25L12.5,2L0,23.2z"></path></svg>
+    <p class="hmcts-banner-warrning-div govuk-warning-text-text">
+      There is a problem with this transaction, please contact middle office supplier. Call 01633 652125 (Option 3) or email <a href="mailto:'MiddleOffice.DDServices@liberata.com'">MiddleOffice.DDServices@liberata.com</a> to try to resolve the payment issue. <a href="https://www.gov.uk/call-charges" rel="noreferrer noopener" target="_blank">{{ 'Find out about call charges (opens in a new window)' }}</a>.
+    </p>
+</div>
+</div>
+{% endif %}
+
+{% if PBA_ERROR_CODE === '400' %}   
+<div class="error-summary">
+  <div class="govuk-warning-text">
+    <svg class="hmcts-banner-icon" fill="currentColor" role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
+    <path d="M13.6,15.4h-2.3v-4.5h2.3V15.4z M13.6,19.8h-2.3v-2.2h2.3V19.8z M0,23.2h25L12.5,2L0,23.2z"></path></svg>
+    <strong class="govuk-warning-text-text error-summary-list">
+      Payment failed, please try again later.
+    </strong>
+</div>
+</div>
+{% endif %}
+
+{% if PBA_ERROR_CODE === 'Error' %}   
+<div class="error-summary">
+  <div class="govuk-warning-text">
+    <svg class="hmcts-banner-icon" fill="currentColor" role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
+    <path d="M13.6,15.4h-2.3v-4.5h2.3V15.4z M13.6,19.8h-2.3v-2.2h2.3V19.8z M0,23.2h25L12.5,2L0,23.2z"></path></svg>
+    <strong class="govuk-warning-text-text error-summary-list">
+      Payment connection issue, Try again later.
+    </strong>
+</div>
+</div>
+{% endif %}
+
+{% if PBA_ERROR_CODE === '504' %}   
+<div class="error-summary">
+  <div class="govuk-warning-text">
+    <svg class="hmcts-banner-icon" fill="currentColor" role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
+    <path d="M13.6,15.4h-2.3v-4.5h2.3V15.4z M13.6,19.8h-2.3v-2.2h2.3V19.8z M0,23.2h25L12.5,2L0,23.2z"></path></svg>
+    <strong class="govuk-warning-text-text error-summary-list">
+      TPayment failed, please try again later.
+    </strong>
+</div>
+</div>
+{% endif %}
+
+{% if PBA_ERROR_CODE === '404' %}        
+<div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
+<div class="govuk-warning-text">
+    <svg class="hmcts-banner-icon" fill="currentColor" role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
+    <path d="M13.6,15.4h-2.3v-4.5h2.3V15.4z M13.6,19.8h-2.3v-2.2h2.3V19.8z M0,23.2h25L12.5,2L0,23.2z"></path></svg>
+    <div class="hmcts-banner-warrning-div govuk-warning-text-text">
+      <p class="bold">
+        Account information could not be found.
+      </p>
+      </div>
+    </div>
+</div>
+      
+{% endif %}
 
   <div class="grid-row">
     <div class="column-two-thirds">
@@ -13,16 +111,13 @@
         <div class="column-half bold">{{ t('Total cost') }}</div>
         <div class="column-half bold">{{ feeAmount | numeral }}</div>
       </div>
-
       <div class="form-group">
         <form novalidate method="post">
           {{ csrfProtection(csrf) }}
-
           {{ textInput(t('Fee Account number'), 'reference', form) }}
           {{ submitButton('Pay and issue') }}
         </form>
       </div>
     </div>
   </div>
-
 {% endblock %}

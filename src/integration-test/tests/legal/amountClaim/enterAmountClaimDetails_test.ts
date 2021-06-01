@@ -131,6 +131,7 @@ Scenario('I can fill in individual details for Claimant, Defendant, Claim amount
     let dateCheck = await I.grabTextFrom('div.confirmation-detail')
     amountClaimSteps.verifySubmittedPage(dateCheck)
     I.click('Download the sealed claim form')
+
     // for some reason the below code is always returning as done. Need to be looked into
     // const pdfUrl = await I.grabAttributeFrom('ol li a', 'href')
     // const sessionCookie = await I.grabCookie('T2_SESSION_ID')
