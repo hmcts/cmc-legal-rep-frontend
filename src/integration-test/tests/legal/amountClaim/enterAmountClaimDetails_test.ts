@@ -5,12 +5,12 @@ import { verifyPageData } from 'integration-test/data/legal-test-data'
 import { AmountClaimSteps } from 'integration-test/tests/legal/amountClaim/steps/amountClaims'
 import { UserSteps } from 'integration-test/tests/legal/home/steps/user'
 import { DefendantSteps } from 'integration-test/tests/legal/defence/steps/defendant'
-import { DashboardSteps } from 'integration-test/tests/legal/dashboard/steps/dashboard'
+// import { DashboardSteps } from 'integration-test/tests/legal/dashboard/steps/dashboard'
 
 const amountClaimSteps: AmountClaimSteps = new AmountClaimSteps()
 const userSteps: UserSteps = new UserSteps()
 const defendantSteps: DefendantSteps = new DefendantSteps()
-const dashboardSteps: DashboardSteps = new DashboardSteps()
+// const dashboardSteps: DashboardSteps = new DashboardSteps()
 
 Feature('Enter claim amount and submit claim')
 
