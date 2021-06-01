@@ -54,7 +54,6 @@ describe('Claim : Pay by Fee Account page', () => {
           .set('Cookie', `${cookieName}=ABC`)
           .expect(res => expect(res).to.be.successful.withText(pageHeading))
       })
-
     })
   })
 
@@ -63,6 +62,7 @@ describe('Claim : Pay by Fee Account page', () => {
 
     it('should render page when form is invalid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      draftStoreServiceMock.resolveUpdate()
       feesServiceMock.resolveCalculateIssueFee()
       idamServiceMock.resolveRetrieveServiceToken()
 
@@ -73,13 +73,18 @@ describe('Claim : Pay by Fee Account page', () => {
         .expect(res => expect(res).to.be.successful.withText(pageHeading, 'div class="error-summary"', 'Enter your Fee Account number'))
     })
 
-    it('should return 500 and render error page when form is valid and cannot save draft', async () => {
+    it('should return 500 and render error page when form is valid and cannot update the claim', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      idamServiceMock.resolveRetrieveServiceToken()
-      draftStoreServiceMock.rejectSave(100, 'HTTP error')
+      draftStoreServiceMock.resolveUpdate()
       feesServiceMock.resolveCalculateIssueFee()
       claimStoreServiceMock.resolveRetrievePaymentReference()
+      claimStoreServiceMock.saveClaimForUserFailed('Internal error')
+      draftStoreServiceMock.resolveUpdate()
+      claimStoreServiceMock.saveClaimForUserFailed('Internal error')
+      draftStoreServiceMock.resolveDelete()
+      idamServiceMock.resolveRetrieveServiceToken()
       payClientMock.resolveCreate()
+      payClientMock.resolveUpdate()
 
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
@@ -92,9 +97,10 @@ describe('Claim : Pay by Fee Account page', () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.resolveUpdate()
       feesServiceMock.resolveCalculateIssueFee()
-      claimStoreServiceMock.resolveRetrieveClaimByExternalId()
       claimStoreServiceMock.resolveRetrievePaymentReference()
       claimStoreServiceMock.saveClaimForUser()
+      draftStoreServiceMock.resolveUpdate()
+      claimStoreServiceMock.updateClaimForUser()
       draftStoreServiceMock.resolveDelete()
       idamServiceMock.resolveRetrieveServiceToken()
       payClientMock.resolveCreate()
@@ -108,45 +114,55 @@ describe('Claim : Pay by Fee Account page', () => {
           .toLocation(ClaimPaths.claimSubmittedPage.uri.replace(':externalId', claimStoreServiceMock.sampleClaimObj.externalId)))
     })
 
-    it('should return 500 and render error page when form is valid and cannot retrieve case reference', async () => {
-      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      feesServiceMock.resolveCalculateIssueFee()
-      claimStoreServiceMock.rejectRetrievePaymentReference()
-      idamServiceMock.resolveRetrieveServiceToken()
-
-      await request(app)
-        .post(ClaimPaths.payByAccountPage.uri)
-        .set('Cookie', `${cookieName}=ABC`)
-        .send({ reference: 'PBA0082848' })
-        .expect(res => expect(res).to.be.serverError
-          .withText('Error'))
-    })
-
-    it('should redirect to claim submitted page when claim is duplicate', async () => {
+    it('should redirect to claim submitted page when form is valid and everything is fine', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.resolveUpdate()
       feesServiceMock.resolveCalculateIssueFee()
-      claimStoreServiceMock.rejectRetrieveClaimByExternalIdWithNotFound('missing claim as submitted claim transaction is not complete')
       claimStoreServiceMock.resolveRetrievePaymentReference()
-      claimStoreServiceMock.saveClaimForUserFailedWithUniqueConstraint('Duplicate Claim')
+      claimStoreServiceMock.saveClaimForUser()
+      draftStoreServiceMock.resolveUpdate()
+      claimStoreServiceMock.rejectUpdateClaimForUser()
       draftStoreServiceMock.resolveDelete()
       idamServiceMock.resolveRetrieveServiceToken()
       payClientMock.resolveCreate()
+      payClientMock.resolveUpdate()
 
       await request(app)
         .post(ClaimPaths.payByAccountPage.uri)
         .set('Cookie', `${cookieName}=ABC`)
         .send({ reference: 'PBA0082848' })
+        .expect(res => expect(res).to.be.serverError.withText('Error'))
+    })
+
+    it('should not redirect to claim submitted page when the payment is failed', async () => {
+      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
+      draftStoreServiceMock.resolveUpdate()
+      feesServiceMock.resolveCalculateIssueFee()
+      claimStoreServiceMock.resolveRetrievePaymentReference()
+      claimStoreServiceMock.saveClaimForUser()
+      draftStoreServiceMock.resolveUpdate()
+      claimStoreServiceMock.updateClaimForUser()
+      draftStoreServiceMock.resolveDelete()
+      idamServiceMock.resolveRetrieveServiceToken()
+      payClientMock.failedCreate()
+
+      await request(app)
+        .post(ClaimPaths.payByAccountPage.uri)
+        .set('Cookie', `${cookieName}=ABC`)
+        .send({ reference: 'PBA0081334' })
         .expect(res => expect(res).to.be.redirect
-          .toLocation(ClaimPaths.claimSubmittedPage.uri.replace(':externalId', claimStoreServiceMock.sampleClaimObj.externalId)))
+        .toLocation(ClaimPaths.payByAccountPage.uri))
     })
 
     it('should not issue claim if pay by account is failed', async () => {
       idamServiceMock.resolveRetrieveUserFor('1', ...roles)
       draftStoreServiceMock.resolveUpdate()
       feesServiceMock.resolveCalculateIssueFee()
-      claimStoreServiceMock.rejectRetrieveClaimByExternalIdWithNotFound('missing claim as submitted claim transaction is not complete')
       claimStoreServiceMock.resolveRetrievePaymentReference()
+      claimStoreServiceMock.saveClaimForUser()
+      draftStoreServiceMock.resolveUpdate()
+      claimStoreServiceMock.updateClaimForUser()
+      draftStoreServiceMock.resolveDelete()
       idamServiceMock.resolveRetrieveServiceToken()
       payClientMock.rejectCreate()
 
@@ -155,7 +171,6 @@ describe('Claim : Pay by Fee Account page', () => {
         .set('Cookie', `${cookieName}=ABC`)
         .send({ reference: 'PBA0082848' })
         .expect(res => expect(res).to.be.serverError.withText('Error'))
-
     })
   })
 })

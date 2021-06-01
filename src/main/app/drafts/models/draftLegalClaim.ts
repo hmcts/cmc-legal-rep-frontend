@@ -35,6 +35,7 @@ export class DraftLegalClaim extends DraftDocument implements Serializable<Draft
   isClaimantDeleted: boolean = false
   defendantChangeIndex?: number
   claimantChangeIndex?: number
+  ccdCaseId?: number
 
   deserialize (input: any): DraftLegalClaim {
     if (input) {
@@ -74,6 +75,10 @@ export class DraftLegalClaim extends DraftDocument implements Serializable<Draft
       this.defendantChangeIndex = input.defendantChangeIndex
       this.claimantChangeIndex = input.claimantChangeIndex
       this.paymentResponse = input.paymentResponse
+
+      if (input.ccdCaseId) {
+        this.ccdCaseId = input.ccdCaseId
+      }
     }
 
     return this

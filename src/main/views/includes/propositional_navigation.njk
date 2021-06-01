@@ -3,7 +3,7 @@
     <a href="#proposition-links" class="js-header-toggle menu">Menu</a>
     <nav id="proposition-menu">
       <a href="/receiver" id="proposition-name">{% if serviceName %}{{ t(serviceName) }}{% endif %}</a>
-      <ul id="proposition-links">
+      <ul class="pull-right" id="proposition-links">
         {% if isLoggedIn %}
         <li><a href="/logout">{{ t('Sign out') }}</a></li>
         {% endif %}
