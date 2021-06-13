@@ -8,7 +8,7 @@ const fields = {
 }
 
 const buttons = {
-  saveAndContinue: { css: 'input.button' }
+  saveAndContinue: 'input[type=submit]'
 }
 
 export class ClaimStatementOfTruthPage {
