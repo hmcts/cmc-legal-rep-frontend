@@ -22,6 +22,8 @@ export class ClaimStatementOfTruthPage {
     I.fillField(fields.signerName, 'vivred')
     I.fillField(fields.signerRole, 'QA')
     I.see('Abc Organisation')
+    I.scrollTo(buttons.saveAndContinue)
+    I.wait(1)
     I.waitForEnabled(buttons.saveAndContinue)
     I.click(buttons.saveAndContinue)
   }
