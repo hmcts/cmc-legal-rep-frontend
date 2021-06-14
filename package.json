@@ -26,7 +26,7 @@
     "test:codecov-upload": "codecov -f ./coverage/lcov.info",
     "sonar-scan": "sonar-scanner -Dsonar.projectKey='CMCLFE' -Dsonar.projectName='CMC :: Legal Frontend' -Dsonar.sources=src/main -Dsonar.tests=src/test -Dsonar.exclusions=src/main/app/drafts/models/draftLegalClaim.ts,src/main/features/claim/routes/pay-by-account.ts,src/main/app/claims/claimStoreClient.ts,src/main/app/drafts/models/draftLegalClaim.t,src/main/public/**,src/main/features/certificateOfService/**,src/main/routes/info.ts,src/main/routes/health.ts,src/main/*.ts,src/main/modules/helmet/**,src/main/modules/nunjucks/**,src/main/modules/app-insights/**,src/main/app/pay/payClient.ts,src/main/app/claims/models/claim.ts -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info",
     "test:smoke": "./bin/run-smoke-tests.sh",
-    "test:integration": "TS_NODE_TRANSPILE_ONLY=true ts-node --require tsconfig-paths/register ./node_modules/.bin/codeceptjs run --verbose --config default.conf.js --reporter mocha-multi",
+    "test:integration": "TS_NODE_TRANSPILE_ONLY=true ts-node --require tsconfig-paths/register ./node_modules/.bin/codeceptjs run --verbose --config default.conf.js",
     "test:crossbrowser": "TS_NODE_TRANSPILE_ONLY=true TS_NODE_PROJECT=tsconfig.e2e.json ./node_modules/.bin/codeceptjs run-multiple ${BROWSER_GROUP:-'--all'} --verbose --config saucelabs.conf.js --grep @smoke-test --reporter mocha-multi",
     "list-supported-browsers": "node -e 'Object.keys(require(\"@hmcts/cmc-supported-browsers\").supportedBrowsers).forEach(key => console.log(key))'"
   },
