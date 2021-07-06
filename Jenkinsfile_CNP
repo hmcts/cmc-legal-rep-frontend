@@ -14,6 +14,8 @@ def secrets = [
     ]
 ]
 
+def branchesToSync = ['demo', 'perftest', 'ithc']
+
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
   [ $class: 'AzureKeyVaultSecret',
     secretType: 'Secret',
@@ -39,4 +41,5 @@ withPipeline("nodejs", product, component) {
   enableSlackNotifications(notificationsChannel)
   enableAksStagingDeployment()
   disableLegacyDeployment()
+  syncBranchesWithMaster(branchesToSync)
 }
