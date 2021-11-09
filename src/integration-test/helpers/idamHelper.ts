@@ -17,6 +17,22 @@ class IdamHelper extends codecept_helper {
   private generateRandomEmailAddress (): string {
     return `civilmoneyclaims+${require('randomstring').generate(7).toLowerCase()}@gmail.com`
   }
+
+  async deleteUser (email: string): Promise<void> {
+    try {
+      await IdamClient.deleteUser(email)
+    } catch (e) {
+      console.log(`Error deleting user: ${e.message}`)
+    }
+  }
+
+  async deleteUsers (emails: string[]): Promise<void> {
+    try {
+      await IdamClient.deleteUsers(emails)
+    } catch (e) {
+      console.log(`Error deleting user: ${e.message}`)
+    }
+  }
 }
 
 // Node.js style export is required by CodeceptJS framework

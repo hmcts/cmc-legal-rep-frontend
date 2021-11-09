@@ -9,11 +9,11 @@ import { DefendantSteps } from 'integration-test/tests/legal/defence/steps/defen
 const amountClaimSteps: AmountClaimSteps = new AmountClaimSteps()
 const userSteps: UserSteps = new UserSteps()
 const defendantSteps: DefendantSteps = new DefendantSteps()
-
+let userEmail: string
 Feature('Enter claim amount and submit claim (smoke)')
 
 Before(async (I: I) => {
-  const userEmail = await I.createSolicitorUser()
+  userEmail = await I.createSolicitorUser()
   userSteps.loginAndStartClaim(userEmail)
   userSteps.enterClaimantServiceDetails()
 })
@@ -35,3 +35,7 @@ Scenario('I can fill both Claimant, Defendant details move up to submit claim @s
   amountClaimSteps.addAmountAndVerifyDetails()
   I.waitForText('Pay by Fee Account')
 }).retry(2)
+
+After(async (I: I) => {
+  await I.deleteUser(userEmail)
+})

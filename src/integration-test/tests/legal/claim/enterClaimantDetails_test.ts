@@ -2,11 +2,12 @@ import { UserSteps } from 'integration-test/tests/legal/home/steps/user'
 import I = CodeceptJS.I
 
 const userSteps: UserSteps = new UserSteps()
+let userEmail: string
 
 Feature('Claimant Enter details of claim')
 
 Before(async (I: I) => {
-  const userEmail = await I.createSolicitorUser()
+  userEmail = await I.createSolicitorUser()
   userSteps.loginAndStartClaim(userEmail)
   userSteps.enterClaimantServiceDetails()
 })
@@ -25,4 +26,8 @@ Scenario('I can fill in two claimants and update their details @legal', async (I
 Scenario('I can save organisation details and populate them in a subsequent claim via cookie info @legal', async () => {
   userSteps.startClaim()
   userSteps.verifyOrganizationDetails()
+})
+
+After(async (I: I) => {
+  await I.deleteUser(userEmail)
 })
