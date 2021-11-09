@@ -7,11 +7,12 @@ import { DefendantSteps } from 'integration-test/tests/legal/defence/steps/defen
 
 const userSteps: UserSteps = new UserSteps()
 const defendantSteps: DefendantSteps = new DefendantSteps()
+let userEmail: string
 
 Feature('Defendants Enter details of claim')
 
 Before(async (I: I) => {
-  const userEmail = await I.createSolicitorUser()
+  userEmail = await I.createSolicitorUser()
   userSteps.loginAndStartClaim(userEmail)
   userSteps.enterClaimantServiceDetails()
 })
@@ -54,4 +55,8 @@ Scenario('I can fill in Claimant individual and Defendant individual details @le
   defendantSteps.noDefendantCompanyName()
   defendantSteps.defendantAddressAsServiceAddress()
   defendantSteps.noAnotherDefendant()
+})
+
+After(async (I: I) => {
+  await I.deleteUser(userEmail)
 })
