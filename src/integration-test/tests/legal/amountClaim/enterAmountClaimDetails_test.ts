@@ -11,7 +11,7 @@ const amountClaimSteps: AmountClaimSteps = new AmountClaimSteps()
 const userSteps: UserSteps = new UserSteps()
 const defendantSteps: DefendantSteps = new DefendantSteps()
 const dashboardSteps: DashboardSteps = new DashboardSteps()
-let userEmails: string[]
+let userEmails: string[] = []
 
 Feature('Enter claim amount and submit claim')
 
