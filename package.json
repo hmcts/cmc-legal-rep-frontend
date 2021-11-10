@@ -41,7 +41,7 @@
     "@hmcts/info-provider": "1.0.0",
     "@hmcts/nodejs-healthcheck": "1.7.0",
     "@hmcts/nodejs-logging": "3.0.1",
-    "@hmcts/properties-volume": "0.0.9",
+    "@hmcts/properties-volume": "0.0.13",
     "@hmcts/requestretry": "1.1.2",
     "@types/config": "^0.0.38",
     "@types/cookies": "^0.7.5",
