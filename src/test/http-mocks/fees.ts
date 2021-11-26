@@ -25,6 +25,7 @@ export function resolveCalculateIssueFee (): mock.Scope {
       jurisdiction2: `${jurisdiction2}`,
       channel: `${defaultChannel}`,
       event: `${issueEvent}`,
+      keyword: 'MoneyClaim HearingSmallClaims counter-claim',
       amount_or_volume: new RegExp(`[\\d]+`)
     })
     .reply(HttpStatus.OK, feeResponse)
@@ -39,6 +40,7 @@ export function rejectCalculateIssueFee (reason: string = 'HTTP error') {
       jurisdiction2: `${jurisdiction2}`,
       channel: `${defaultChannel}`,
       event: `${issueEvent}`,
+      keyword: 'MoneyClaim HearingSmallClaims counter-claim',
       amount_or_volume: new RegExp(`[\\d]+`)
     })
     .reply(HttpStatus.INTERNAL_SERVER_ERROR, reason)
