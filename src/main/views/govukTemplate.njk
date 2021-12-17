@@ -1,122 +1,140 @@
 {% block top_of_page %}{% endblock %}
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="lte-ie8" lang="{{ html_lang|default('en') }}"><![endif]-->
-<!--[if gt IE 8]><!--><html lang="{{ html_lang|default('en') }}"><!--<![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="{{ html_lang|default('en') }}"><!--<![endif]-->
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8"/>
   <title>{{ title }}</title>
 
-  <!--[if gt IE 8]><!--><link rel="stylesheet" media="screen" href="{{ asset_paths['style_vendor'] }}/govuk-template.css?{{ govuk_template_version }}" /><!--<![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" media="screen"
+        href="{{ asset_paths['style_vendor'] }}/govuk-template.css?{{ govuk_template_version }}"/><!--<![endif]-->
   <!--[if IE 6]><link rel="stylesheet" media="screen" href="{{ asset_paths['style_vendor'] }}/govuk-template-ie6.css?{{ govuk_template_version }}" /><![endif]-->
   <!--[if IE 7]><link rel="stylesheet" media="screen" href="{{ asset_paths['style_vendor'] }}/govuk-template-ie7.css?{{ govuk_template_version }}" /><![endif]-->
   <!--[if IE 8]><link rel="stylesheet" media="screen" href="{{ asset_paths['style_vendor'] }}/govuk-template-ie8.css?{{ govuk_template_version }}" /><![endif]-->
-  <link rel="stylesheet" media="print" href="{{ asset_paths['style_vendor'] }}/govuk-template-print.css?{{ govuk_template_version }}" />
+  <link rel="stylesheet" media="print"
+        href="{{ asset_paths['style_vendor'] }}/govuk-template-print.css?{{ govuk_template_version }}"/>
 
-  <link rel="stylesheet" media="all" href="{{ asset_paths['style_vendor'] }}/fonts.css?{{ govuk_template_version }}" />
+  <link rel="stylesheet" media="all" href="{{ asset_paths['style_vendor'] }}/fonts.css?{{ govuk_template_version }}"/>
   <!--[if lt IE 9]><script src="{{ asset_paths['js_vendor'] }}/ie.js?{{ govuk_template_version }}"></script><![endif]-->
 
-  <link rel="shortcut icon" href="{{ asset_paths['images_vendor'] }}/favicon.ico?{{ govuk_template_version }}" type="image/x-icon" />
+  <link rel="shortcut icon" href="{{ asset_paths['images_vendor'] }}/favicon.ico?{{ govuk_template_version }}"
+        type="image/x-icon"/>
 
-  <link rel="mask-icon" href="{{ asset_paths['images_vendor'] }}/gov.uk_logotype_crown.svg?{{ govuk_template_version }}" color="#0b0c0c">
-  <link rel="apple-touch-icon" sizes="180x180" href="{{ asset_paths['images_vendor'] }}/apple-touch-icon-180x180.png?{{ govuk_template_version }}">
-  <link rel="apple-touch-icon" sizes="167x167" href="{{ asset_paths['images_vendor'] }}/apple-touch-icon-167x167.png?{{ govuk_template_version }}">
-  <link rel="apple-touch-icon" sizes="152x152" href="{{ asset_paths['images_vendor'] }}/apple-touch-icon-152x152.png?{{ govuk_template_version }}">
-  <link rel="apple-touch-icon" href="{{ asset_paths['images_vendor'] }}/apple-touch-icon.png?{{ govuk_template_version }}">
+  <link rel="mask-icon" href="{{ asset_paths['images_vendor'] }}/gov.uk_logotype_crown.svg?{{ govuk_template_version }}"
+        color="#0b0c0c">
+  <link rel="apple-touch-icon" sizes="180x180"
+        href="{{ asset_paths['images_vendor'] }}/apple-touch-icon-180x180.png?{{ govuk_template_version }}">
+  <link rel="apple-touch-icon" sizes="167x167"
+        href="{{ asset_paths['images_vendor'] }}/apple-touch-icon-167x167.png?{{ govuk_template_version }}">
+  <link rel="apple-touch-icon" sizes="152x152"
+        href="{{ asset_paths['images_vendor'] }}/apple-touch-icon-152x152.png?{{ govuk_template_version }}">
+  <link rel="apple-touch-icon"
+        href="{{ asset_paths['images_vendor'] }}/apple-touch-icon.png?{{ govuk_template_version }}">
 
   {% if development %}
-    <link href="{{ asset_paths['style_vendor'] }}/HTMLCSAuditor.css" rel="stylesheet" />
+    <link href="{{ asset_paths['style_vendor'] }}/HTMLCSAuditor.css" rel="stylesheet"/>
   {% endif %}
 
-  <meta name="theme-color" content="#0b0c0c" />
+  <meta name="theme-color" content="#0b0c0c"/>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   {% block head %}{% endblock %}
 
-  <meta property="og:image" content="{{ asset_paths['images_vendor'] }}images/opengraph-image.png{{ govuk_template_version }}">
+  <meta property="og:image"
+        content="{{ asset_paths['images_vendor'] }}images/opengraph-image.png{{ govuk_template_version }}">
 </head>
 
 <body class="{% block body_classes %}{% endblock %}">
-  <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+<script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
 
-  {% block body_start %}{% endblock %}
+{% block body_start %}{% endblock %}
 
-  <div id="skiplink-container">
-    <div>
-      <a href="#content" class="skiplink">{{ skip_link_message|default('Skip to main content') }}</a>
-    </div>
+<div id="skiplink-container">
+  <div>
+    <a href="#content" class="skiplink">{{ skip_link_message|default('Skip to main content') }}</a>
   </div>
+</div>
 
-  <div id="global-cookie-message">
-    {% block cookie_message %}{% endblock %}
-  </div>
+<div id="global-cookie-message">
+  {% block cookie_message %}{% endblock %}
+</div>
 
-  <header role="banner" id="global-header" class="{% block header_class %}{% endblock %}">
-    <div class="header-wrapper">
-      <div class="header-global">
-        <div class="header-logo">
-          <a href="{{ homepage_url|default('https://www.gov.uk') }}" title="{{ logo_link_title|default('Go to the GOV.UK homepage') }}" id="logo" class="content">
-            <img src="{{ asset_paths['images_vendor'] }}/gov.uk_logotype_crown_invert_trans.png?{{ govuk_template_version }}" width="36" height="32" alt=""> {{ global_header_text|default('GOV.UK') }}
-          </a>
-        </div>
-        {% block inside_header %}{% endblock %}
+<header role="banner" id="global-header" class="{% block header_class %}{% endblock %}">
+  <div class="header-wrapper">
+    <div class="header-global">
+      <div class="header-logo">
+        <a href="{{ homepage_url|default('https://www.gov.uk') }}"
+           title="{{ logo_link_title|default('Go to the GOV.UK homepage') }}" id="logo" class="content">
+          <img
+            src="{{ asset_paths['images_vendor'] }}/gov.uk_logotype_crown_invert_trans.png?{{ govuk_template_version }}"
+            width="36" height="32" alt=""> {{ global_header_text|default('GOV.UK') }}
+        </a>
       </div>
-      {% block proposition_header %}{% endblock %}
+      {% block inside_header %}{% endblock %}
     </div>
-  </header>
+    {% block proposition_header %}{% endblock %}
+  </div>
+</header>
 
-  {% block after_header %}{% endblock %}
+{% block after_header %}{% endblock %}
 
-  <div id="global-header-bar"></div>
-  <main id="content" role="main">
-    {% include "includes/phase_banner_beta.njk" %}
-    {% include "includes/service_closure_banner.njk" %}
+<div id="global-header-bar"></div>
+<main id="content" role="main">
+  <br/>
+  {% include "includes/service_closure_banner.njk" %}
 
-    {% if form %}
-      {{ errorSummary(form) }}
-    {% endif %}
+  {% if form %}
+    {{ errorSummary(form) }}
+  {% endif %}
 
-    {% if heading %}
-      <h1 class="heading-large">{% if partyStripeTitle %} <span class="form-hint">{{ partyStripeTitle }}: {{ partyStripeValue }} </span>{% endif %}
-        {{ heading }}
+  {% if heading %}
+    <h1 class="heading-large">{% if partyStripeTitle %} <span class="form-hint">{{ partyStripeTitle }}
+        : {{ partyStripeValue }} </span>{% endif %}
+      {{ heading }}
       {% if headingSecondary %}
         <span class="heading-secondary">{{ headingSecondary }}</span>
       {% endif %}
-      </h1>
-    {% endif %}
+    </h1>
+  {% endif %}
 
-    {% block content %}{% endblock %}
-  </main>
+  {% block content %}{% endblock %}
+</main>
 
-  <footer class="group js-footer" id="footer" role="contentinfo">
-    <div class="footer-wrapper">
-      {% block footer_top %}{% endblock %}
+<footer class="group js-footer" id="footer" role="contentinfo">
+  <div class="footer-wrapper">
+    {% block footer_top %}{% endblock %}
 
-      <div class="footer-meta">
-        <div class="footer-meta-inner">
-          {% block footer_support_links %}{% endblock %}
+    <div class="footer-meta">
+      <div class="footer-meta-inner">
+        {% block footer_support_links %}{% endblock %}
 
-          <div class="open-government-licence">
-            <p class="logo"><a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence</a></p>
+        <div class="open-government-licence">
+          <p class="logo"><a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+                             rel="license">Open Government Licence</a></p>
 
-            {% block licence_message %}<p>{{ t('All content is available under the <a href="%s" rel="license">Open Government Licence v3.0</a>, except where otherwise stated', { postProcess: 'sprintf', sprintf: ['https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/'] }) | safe }}</p>{% endblock %}
+          {% block licence_message %}
+            <p>{{ t('All content is available under the <a href="%s" rel="license">Open Government Licence v3.0</a>, except where otherwise stated', { postProcess: 'sprintf', sprintf: ['https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/'] }) | safe }}</p>{% endblock %}
 
-          </div>
-        </div>
-
-        <div class="copyright">
-          <a href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/copyright-and-re-use/crown-copyright/">{{ crown_copyright_message|default('&copy; ' + t('Crown copyright'))|safe }}</a>
         </div>
       </div>
+
+      <div class="copyright">
+        <a
+          href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/copyright-and-re-use/crown-copyright/">{{ crown_copyright_message|default('&copy; ' + t('Crown copyright'))|safe }}</a>
+      </div>
     </div>
-  </footer>
+  </div>
+</footer>
 
-  <div id="global-app-error" class="app-error hidden"></div>
+<div id="global-app-error" class="app-error hidden"></div>
 
-  <script src="{{ asset_paths['js_vendor'] }}/govuk-template.js?{{ govuk_template_version }}"></script>
+<script src="{{ asset_paths['js_vendor'] }}/govuk-template.js?{{ govuk_template_version }}"></script>
 
-  {% block body_end %}{% endblock %}
+{% block body_end %}{% endblock %}
 
-  <script>if (typeof window.GOVUK === 'undefined') document.body.className = document.body.className.replace('js-enabled', '');</script>
+<script>if (typeof window.GOVUK === 'undefined') document.body.className = document.body.className.replace('js-enabled', '');</script>
 </body>
 </html>
