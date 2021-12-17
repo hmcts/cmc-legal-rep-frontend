@@ -12,6 +12,7 @@ const jurisdiction1 = config.get<string>('fees.jurisdiction1')
 const jurisdiction2 = config.get<string>('fees.jurisdiction2')
 const paperChannel = config.get<string>('fees.channel.paper')
 const issueFeeEvent = config.get<string>('fees.issueFee.event')
+const issueFeeKeyword = config.get<string>('fees.issueFee.keyword')
 
 export default class FeesClient {
 
@@ -35,11 +36,14 @@ export default class FeesClient {
     if (StringUtils.isBlank(issueFeeEvent)) {
       throw new Error('Fee eventType is required')
     }
+    if (StringUtils.isBlank(issueFeeKeyword)) {
+      throw new Error('Fee keyword is required')
+    }
     if (StringUtils.isBlank(paperChannel)) {
       throw new Error('Fee channel is required')
     }
     ClaimValidator.claimAmount(claimValue)
-    const feeUri: string = `${feesUrl}/fees-register/fees/lookup?service=${service}&jurisdiction1=${jurisdiction1}&jurisdiction2=${jurisdiction2}&channel=${paperChannel}&event=${issueFeeEvent}&amount_or_volume=${claimValue}`
+    const feeUri: string = `${feesUrl}/fees-register/fees/lookup?service=${service}&jurisdiction1=${jurisdiction1}&jurisdiction2=${jurisdiction2}&channel=${paperChannel}&event=${issueFeeEvent}&keyword=${issueFeeKeyword}&amount_or_volume=${claimValue}`
     const fee: object = await request.get(feeUri)
     return plainToClass(FeeResponse, fee)
   }

@@ -36,7 +36,8 @@
       "paper" : "default"
     },
     "issueFee": {
-      "event": "issue"
+      "event": "issue",
+      "keyword": "MoneyClaim"
     }
   },
   "pay": {
