@@ -5,6 +5,8 @@
 String product = "cmc"
 String component = "legal-frontend"
 
+def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
+
 def secrets = [
   'cmc-${env}':
     [
@@ -34,7 +36,7 @@ String notificationsChannel = '#cmc-tech-notification'
 withPipeline("nodejs", product, component) {
 
   after('build') {
-    sh 'yarn setup'
+     yarnBuilder.yarn('setup')
   }
 
   loadVaultSecrets(secrets)
