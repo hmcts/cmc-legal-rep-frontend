@@ -9,7 +9,7 @@ declare const within: (selector: string, callback: Function) => void;
 
 declare namespace CodeceptJS {
   export interface I {
-    defineTimeout: (timeouts) => any;
+    defineTimeout: (timeouts) => 20000;
     amOnPage: (amOnPage) => any;
     click: (click) => any;
     doubleClick: (doubleClick) => any;
