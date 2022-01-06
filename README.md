@@ -32,7 +32,7 @@ It will be available at https://localhost:4000
 
 ### Running the application on docker (integrated environment)
 
-See the README.md in hmcts/cmc-integration-tests
+See the README.md in hmcts/cmc-integration-tests 
 
 ## Developing
 
