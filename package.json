@@ -121,7 +121,7 @@
     "gulp-sass": "^4.1.0",
     "husky": "^4.3.5",
     "mocha": "6",
-    "mocha-junit-reporter": "2.0.0",
+    "mocha-junit-reporter": "2.0.2",
     "mocha-multi": "^1.1.3",
     "mochawesome": "^6.2.1",
     "mock-require": "^3.0.3",
