@@ -178,7 +178,7 @@
     "minimist": "^1.2.3",
     "lodash": "^4.17.21",
     "dot-prop": "^7.0.0",
-    "yargs-parser": "^20.2.7",
+    "yargs-parser": "^21.0.0",
     "axios": "^0.21.1",
     "bl": "^1.2.3",
     "node-fetch": "^2.6.1",
