@@ -2,6 +2,8 @@ declare namespace CodeceptJS {
   export interface I {
     createCitizenUser: () => string
     createSolicitorUser: () => Promise<string>
+    deleteUser: (email) => Promise<void>
+    deleteUsers: (emails) => Promise<void>
     createClaim: (claimData: ClaimData, submitterEmail: string) => string
     linkDefendantToClaim: (referenceNumber: string, ownerEmail: string, defendantEmail: string) => void
     respondToClaim: (referenceNumber: string, ownerEmail: string, responseData: ResponseData, defendantEmail: string) => void
