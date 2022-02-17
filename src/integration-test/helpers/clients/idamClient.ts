@@ -103,6 +103,50 @@ export class IdamClient {
     })
   }
 
+  /**
+   * Deletes user with the supplied username
+   *
+   * @returns {Promise<void>}
+   */
+  static deleteUser (username: string): Promise<void> {
+    const options = {
+      method: 'DELETE',
+      uri: `${baseURL}/testing-support/accounts/${username}`
+    }
+
+    return request(options).then(function (resp) {
+      return Promise.resolve()
+    }).catch(function (err) {
+      // tslint:disable-next-line:no-console
+      console.log('error deleting user: ' + err)
+    })
+  }
+
+  /**
+   * Deletes users with the supplied usernames
+   *
+   * @returns {Promise<void>}
+   */
+  static deleteUsers (usernames: string[]): Promise<void> {
+    let params = usernames.map(function (s) {
+      return `userNames=${encodeURIComponent(s)}`
+    }).join('&')
+
+    const options = {
+      method: 'DELETE',
+      uri: `${baseURL}/testing-support/test-data?${params}`
+    }
+
+    return request(options).then(function (resp) {
+      // tslint:disable-next-line:no-console
+      console.log(resp)
+      return Promise.resolve()
+    }).catch(function (err) {
+      // tslint:disable-next-line:no-console
+      console.log('error deleting user: ' + err)
+    })
+  }
+
   private static toBase64 (value: string): string {
     return Buffer.from(value).toString('base64')
   }
