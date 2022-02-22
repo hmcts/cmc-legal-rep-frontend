@@ -19,31 +19,6 @@ describe('Claim issue: start page', () => {
     DraftStoreServiceMock.resolveFind('legalCertificateOfService')
   })
 
-  describe('on GET', () => {
-    checkAuthorizationGuards(app, 'get', ClaimPaths.startPage.uri)
-
-    it('should render page when everything is fine', async () => {
-      idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-      idamServiceMock.resolveRetrieveServiceToken()
-      await request(app)
-        .get(ClaimPaths.startPage.uri)
-        .set('Cookie', `${cookieName}=ABC`)
-        .expect(res => expect(res).to.be.successful.withText('Issue civil court proceedings'))
-    })
-
-    context('with old legal prefix', () => {
-      it('should redirect without legal prefix', async () => {
-        idamServiceMock.resolveRetrieveUserFor('1', ...roles)
-        idamServiceMock.resolveRetrieveServiceToken()
-        await request(app)
-          .get('/legal/claim/start')
-          .set('Cookie', `${cookieName}=ABC`)
-          .expect(res => expect(res).to.be.redirect.toLocation(ClaimPaths.startPage.uri))
-      })
-    })
-
-  })
-
   describe('on POST', () => {
     checkAuthorizationGuards(app, 'post', ClaimPaths.startPage.uri)
 

@@ -65,7 +65,8 @@ const excludedPaths: ClaimIssuePaths[] = [
   ClaimIssuePaths.claimantRemovePage,
   ClaimIssuePaths.defendantChangePage,
   ClaimIssuePaths.claimantChangePage,
-  ClaimIssuePaths.receiptReceiver
+  ClaimIssuePaths.receiptReceiver,
+  ClaimIssuePaths.startPage
 ]
 
 describe('Accessibility', () => {
