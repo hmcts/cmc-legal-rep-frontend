@@ -39,7 +39,7 @@ withNightlyPipeline("nodejs", product, component) {
   env.LEGAL_APP_URL = params.URL_TO_TEST
 
   loadVaultSecrets(secrets)
-  enableFortifyScan()
+  //enableFortifyScan()
   //enableSecurityScan()
   enableFullFunctionalTest()
   enableCrossBrowserTest(['chrome', 'firefox', 'microsoft', 'safari'])
