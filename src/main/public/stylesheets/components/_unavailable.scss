@@ -1,0 +1,228 @@
+// sass-lint:disable no-color-literals, property-sort-order, quotes, no-vendor-prefixes, class-name-format, empty-line-between-blocks, no-misspelled-properties, no-duplicate-properties, variable-name-format, pseudo-element, no-mergeable-selectors, force-attribute-nesting, no-qualifying-elements
+
+
+$color_1: #0b0c0c;
+$color_2: #000;
+$color_3: #1d70b8;
+$color_4: #0b0c0c;
+$color_5: #1d70b8;
+$color_6: #4c2c92;
+$color_7: #003078;
+$background-color_1: #fd0;
+
+.govuk-main-wrapper--auto-spacing {
+  &:first-child {
+    padding-top: 30px;
+  }
+}
+
+.govuk-main-wrapper--l {
+  padding-top: 30px;
+}
+
+.govuk-grid-row {
+  margin-right: -15px;
+  margin-left: -15px;
+
+  &:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+}
+
+.govuk-grid-column-two-thirds {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 15px;
+}
+
+.govuk-heading-l {
+  color: $color_1;
+  font-weight: 600;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 1.5rem;
+  line-height: 1.04167;
+  display: block;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.app-prose-scope {
+  h2 {
+    color: $color_1;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 1.5rem;
+    line-height: 1.04167;
+    display: block;
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+
+  p {
+    color: $color_1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.25;
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
+}
+
+.govuk-body {
+  color: $color_1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.25;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+@media (min-width: 40.0625em) {
+  .govuk-main-wrapper--auto-spacing {
+    &:first-child {
+      padding-top: 50px;
+    }
+  }
+  .govuk-main-wrapper--l {
+    padding-top: 50px;
+  }
+  .govuk-grid-column-two-thirds {
+    width: 66.6666%;
+    float: left;
+  }
+  .govuk-heading-l {
+    font-size: 36px;
+    line-height: 1.11111;
+    margin-bottom: 30px;
+  }
+  .app-prose-scope {
+    h2 {
+      font-size: 36px;
+      line-height: 1.11111;
+      margin-bottom: 30px;
+    }
+  }
+}
+
+.govuk-link {
+  &:hover {
+    text-decoration-thickness: max(3px);
+    -webkit-text-decoration-skip-ink: none;
+    text-decoration-skip-ink: none;
+    -webkit-text-decoration-skip: none;
+    text-decoration-skip: none;
+    color: $color_7;
+  }
+
+  &:focus {
+    outline: 3px solid transparent;
+    color: $color_4;
+    background-color: $background-color_1;
+    -webkit-box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
+    box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
+    text-decoration: none;
+    color: $color_4;
+  }
+
+  &:link {
+    color: $color_5;
+  }
+
+  &:visited {
+    color: $color_6;
+  }
+
+  &:active {
+    color: $color_4;
+  }
+}
+
+.app-prose-scope {
+  a {
+    &:hover {
+      text-decoration-thickness: max(3px);
+      -webkit-text-decoration-skip-ink: none;
+      text-decoration-skip-ink: none;
+      -webkit-text-decoration-skip: none;
+      text-decoration-skip: none;
+      color: $color_7;
+    }
+
+    &:focus {
+      outline: 3px solid transparent;
+      color: $color_1;
+      background-color: $background-color_1;
+      -webkit-box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
+      box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
+      text-decoration: none;
+      color: $color_4;
+    }
+
+    &:link {
+      color: $color_5;
+    }
+
+    &:visited {
+      color: $color_6;
+    }
+
+    &:active {
+      color: $color_4;
+    }
+  }
+}
+
+@media print {
+  .govuk-link[href^="/"] {
+    &:after {
+      content: " (" attr(href) ")";
+      font-size: 90%;
+      word-wrap: break-word;
+    }
+  }
+  .app-prose-scope {
+    a[href^="/"] {
+      &:after {
+        content: " (" attr(href) ")";
+        font-size: 90%;
+        word-wrap: break-word;
+      }
+    }
+
+    a[href^="http://"] {
+      &:after {
+        content: " (" attr(href) ")";
+        font-size: 90%;
+        word-wrap: break-word;
+      }
+    }
+
+    a[href^="https://"] {
+      &:after {
+        content: " (" attr(href) ")";
+        font-size: 90%;
+        word-wrap: break-word;
+      }
+    }
+  }
+  .govuk-link[href^="http://"] {
+    &:after {
+      content: " (" attr(href) ")";
+      font-size: 90%;
+      word-wrap: break-word;
+    }
+  }
+  .govuk-link[href^="https://"] {
+    &:after {
+      content: " (" attr(href) ")";
+      font-size: 90%;
+      word-wrap: break-word;
+    }
+  }
+}
