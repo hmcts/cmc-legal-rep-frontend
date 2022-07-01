@@ -42,7 +42,7 @@ withNightlyPipeline("nodejs", product, component) {
   //enableFortifyScan()
   //enableSecurityScan()
   enableFullFunctionalTest()
-  enableCrossBrowserTest(['chrome', 'firefox', 'microsoft', 'safari'])
+  enableCrossBrowserTest()
 
   after('crossBrowserTest') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
