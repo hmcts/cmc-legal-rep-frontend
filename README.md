@@ -1,10 +1,20 @@
 # CMC legal-rep-frontend
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/hmcts/cmc-legal-rep-frontend.svg)](https://greenkeeper.io/)
-This is the front end for legal representation journey within CMC
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=CMCLFE&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=CMCLFE) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=CMCLFE&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=CMCLFE) [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=CMCLFE&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=CMCLFE) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=CMCLFE&metric=coverage)](https://sonarcloud.io/summary/new_code?id=CMCLFE)
 
-[![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+This is the frontend application for CMC legal reps.
 
+## Overview
+
+<p align="center">
+<a href="https://github.com/hmcts/cmc-citizen-frontend">cmc-citizen-frontend</a> • <b><a href="https://github.com/hmcts/cmc-legal-rep-frontend">cmc-legal-rep-frontend</a></b> • <a href="https://github.com/hmcts/cmc-claim-store">cmc-claim-store</a>
+</p>
+
+<br>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/c4/cmc/images/structurizr-cmc-overview.png" width="550"/>
+</p>
 ## Getting Started
 
 ### Prerequisites
